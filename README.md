@@ -2,8 +2,8 @@
 
 <a href="https://pkg.go.dev/github.com/hanzoai/go-sdk"><img src="https://pkg.go.dev/badge/github.com/hanzoai/go-sdk.svg" alt="Go Reference"></a>
 
-The Hanzo Go library provides convenient access to [the Hanzo REST
-API](https://docs.hanzo.ai) from applications written in Go. The full API of this library can be found in [api.md](api.md).
+The Hanzo Go library provides convenient access to the [Hanzo REST API](https://docs.hanzo.ai)
+from applications written in Go.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -24,7 +24,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/hanzoai/go-sdk@v0.1.0-alpha.2'
+go get -u 'github.com/hanzoai/go-sdk@v0.1.0-alpha.3'
 ```
 
 <!-- x-release-please-end -->
