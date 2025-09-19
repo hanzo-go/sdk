@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -62,6 +63,40 @@ func (r *ModelUpdateService) Partial(ctx context.Context, modelID string, body M
 	path := fmt.Sprintf("model/%s/update", modelID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
+}
+
+// ModelInfoParam represents model information parameters
+type ModelInfoParam struct {
+	ID                  param.Field[string]        `json:"id,required"`
+	BaseModel           param.Field[string]        `json:"base_model"`
+	CreatedAt           param.Field[time.Time]     `json:"created_at" format:"date-time"`
+	CreatedBy           param.Field[string]        `json:"created_by"`
+	DBModel             param.Field[bool]          `json:"db_model"`
+	TeamID              param.Field[string]        `json:"team_id"`
+	TeamPublicModelName param.Field[string]        `json:"team_public_model_name"`
+	Tier                param.Field[ModelInfoTier] `json:"tier"`
+	UpdatedAt           param.Field[time.Time]     `json:"updated_at" format:"date-time"`
+	UpdatedBy           param.Field[string]        `json:"updated_by"`
+	ExtraFields         map[string]interface{}     `json:"-,extras"`
+}
+
+func (r ModelInfoParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type ModelInfoTier string
+
+const (
+	ModelInfoTierFree ModelInfoTier = "free"
+	ModelInfoTierPaid ModelInfoTier = "paid"
+)
+
+func (r ModelInfoTier) IsKnown() bool {
+	switch r {
+	case ModelInfoTierFree, ModelInfoTierPaid:
+		return true
+	}
+	return false
 }
 
 type UpdateDeploymentParam struct {

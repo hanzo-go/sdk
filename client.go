@@ -61,7 +61,7 @@ type Client struct {
 	Cache        *CacheService
 	Guardrails   *GuardrailService
 	Add          *AddService
-	Delete       *DeleteService
+	Deletes      *DeleteService
 	Files        *FileService
 	Budget       *BudgetService
 }
@@ -133,7 +133,7 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 	r.Cache = NewCacheService(opts...)
 	r.Guardrails = NewGuardrailService(opts...)
 	r.Add = NewAddService(opts...)
-	r.Delete = NewDeleteService(opts...)
+	r.Deletes = NewDeleteService(opts...)
 	r.Files = NewFileService(opts...)
 	r.Budget = NewBudgetService(opts...)
 
