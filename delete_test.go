@@ -26,7 +26,7 @@ func TestDeleteNewAllowedIP(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Delete.NewAllowedIP(context.TODO(), hanzoai.DeleteNewAllowedIPParams{
+	_, err := client.Deletes.NewAllowedIP(context.TODO(), hanzoai.DeleteNewAllowedIPParams{
 		IPAddress: hanzoai.IPAddressParam{
 			IP: hanzoai.F("ip"),
 		},
