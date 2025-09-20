@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
@@ -113,7 +114,7 @@ func (r *TeamService) New(ctx context.Context, params TeamNewParams, opts ...opt
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -178,7 +179,7 @@ func (r *TeamService) Update(ctx context.Context, params TeamUpdateParams, opts 
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -196,7 +197,7 @@ func (r *TeamService) Update(ctx context.Context, params TeamUpdateParams, opts 
 //     to the organization_id. Pass 'default_organization' to get all teams without
 //     organization_id.
 func (r *TeamService) List(ctx context.Context, query TeamListParams, opts ...option.RequestOption) (res *TeamListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -220,7 +221,7 @@ func (r *TeamService) Delete(ctx context.Context, params TeamDeleteParams, opts 
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -240,7 +241,7 @@ func (r *TeamService) Delete(ctx context.Context, params TeamDeleteParams, opts 
 //
 // ```
 func (r *TeamService) AddMember(ctx context.Context, body TeamAddMemberParams, opts ...option.RequestOption) (res *TeamAddMemberResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/member_add"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -266,7 +267,7 @@ func (r *TeamService) AddMember(ctx context.Context, body TeamAddMemberParams, o
 //
 // - The updated team record with blocked=True
 func (r *TeamService) Block(ctx context.Context, body TeamBlockParams, opts ...option.RequestOption) (res *TeamBlockResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/block"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -284,7 +285,7 @@ func (r *TeamService) Block(ctx context.Context, body TeamBlockParams, opts ...o
 // curl -X POST 'http://localhost:4000/team/dbe2f686-a686-4896-864a-4c3924458709/disable_logging'         -H 'Authorization: Bearer sk-1234'
 // ```
 func (r *TeamService) DisableLogging(ctx context.Context, teamID string, opts ...option.RequestOption) (res *TeamDisableLoggingResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
 		return
@@ -296,7 +297,7 @@ func (r *TeamService) DisableLogging(ctx context.Context, teamID string, opts ..
 
 // List Available Teams
 func (r *TeamService) ListAvailable(ctx context.Context, query TeamListAvailableParams, opts ...option.RequestOption) (res *TeamListAvailableResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/available"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -320,7 +321,7 @@ func (r *TeamService) ListAvailable(ctx context.Context, query TeamListAvailable
 //
 // ```
 func (r *TeamService) RemoveMember(ctx context.Context, body TeamRemoveMemberParams, opts ...option.RequestOption) (res *TeamRemoveMemberResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/member_delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -336,7 +337,7 @@ func (r *TeamService) RemoveMember(ctx context.Context, body TeamRemoveMemberPar
 // curl --location 'http://localhost:4000/team/info?team_id=your_team_id_here'     --header 'Authorization: Bearer your_api_key_here'
 // ```
 func (r *TeamService) GetInfo(ctx context.Context, query TeamGetInfoParams, opts ...option.RequestOption) (res *TeamGetInfoResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -358,7 +359,7 @@ func (r *TeamService) GetInfo(ctx context.Context, query TeamGetInfoParams, opts
 //
 // ```
 func (r *TeamService) Unblock(ctx context.Context, body TeamUnblockParams, opts ...option.RequestOption) (res *TeamUnblockResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/unblock"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -368,7 +369,7 @@ func (r *TeamService) Unblock(ctx context.Context, body TeamUnblockParams, opts 
 //
 // Update team member budgets and team member role
 func (r *TeamService) UpdateMember(ctx context.Context, body TeamUpdateMemberParams, opts ...option.RequestOption) (res *TeamUpdateMemberResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/member_update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

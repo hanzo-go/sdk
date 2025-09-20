@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -58,7 +59,7 @@ func NewFineTuningJobService(opts ...option.RequestOption) (r *FineTuningJobServ
 //
 // ```
 func (r *FineTuningJobService) New(ctx context.Context, body FineTuningJobNewParams, opts ...option.RequestOption) (res *FineTuningJobNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/fine_tuning/jobs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -72,7 +73,7 @@ func (r *FineTuningJobService) New(ctx context.Context, body FineTuningJobNewPar
 // - `custom_llm_provider`: Name of the LLM provider
 // - `fine_tuning_job_id`: The ID of the fine-tuning job to retrieve.
 func (r *FineTuningJobService) Get(ctx context.Context, fineTuningJobID string, query FineTuningJobGetParams, opts ...option.RequestOption) (res *FineTuningJobGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if fineTuningJobID == "" {
 		err = errors.New("missing required fine_tuning_job_id parameter")
 		return
@@ -91,7 +92,7 @@ func (r *FineTuningJobService) Get(ctx context.Context, fineTuningJobID string, 
 // - `after`: Identifier for the last job from the previous pagination request.
 // - `limit`: Number of fine-tuning jobs to retrieve (default is 20).
 func (r *FineTuningJobService) List(ctx context.Context, query FineTuningJobListParams, opts ...option.RequestOption) (res *FineTuningJobListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/fine_tuning/jobs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

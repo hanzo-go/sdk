@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -35,7 +36,7 @@ func NewAzureService(opts ...option.RequestOption) (r *AzureService) {
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
 func (r *AzureService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -49,7 +50,7 @@ func (r *AzureService) New(ctx context.Context, endpoint string, opts ...option.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
 func (r *AzureService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -63,7 +64,7 @@ func (r *AzureService) Update(ctx context.Context, endpoint string, opts ...opti
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
 func (r *AzureService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -77,7 +78,7 @@ func (r *AzureService) Delete(ctx context.Context, endpoint string, opts ...opti
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
 func (r *AzureService) Call(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureCallResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -91,7 +92,7 @@ func (r *AzureService) Call(ctx context.Context, endpoint string, opts ...option
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
 func (r *AzureService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzurePatchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return

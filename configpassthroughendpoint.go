@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -37,7 +38,7 @@ func NewConfigPassThroughEndpointService(opts ...option.RequestOption) (r *Confi
 
 // Create new pass-through endpoint
 func (r *ConfigPassThroughEndpointService) New(ctx context.Context, body ConfigPassThroughEndpointNewParams, opts ...option.RequestOption) (res *ConfigPassThroughEndpointNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "config/pass_through_endpoint"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -45,7 +46,7 @@ func (r *ConfigPassThroughEndpointService) New(ctx context.Context, body ConfigP
 
 // Update a pass-through endpoint
 func (r *ConfigPassThroughEndpointService) Update(ctx context.Context, endpointID string, opts ...option.RequestOption) (res *ConfigPassThroughEndpointUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpointID == "" {
 		err = errors.New("missing required endpoint_id parameter")
 		return
@@ -59,7 +60,7 @@ func (r *ConfigPassThroughEndpointService) Update(ctx context.Context, endpointI
 //
 // If no endpoint_id given, return all configured endpoints.
 func (r *ConfigPassThroughEndpointService) List(ctx context.Context, query ConfigPassThroughEndpointListParams, opts ...option.RequestOption) (res *PassThroughEndpointResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "config/pass_through_endpoint"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -69,7 +70,7 @@ func (r *ConfigPassThroughEndpointService) List(ctx context.Context, query Confi
 //
 // Returns - the deleted endpoint
 func (r *ConfigPassThroughEndpointService) Delete(ctx context.Context, body ConfigPassThroughEndpointDeleteParams, opts ...option.RequestOption) (res *PassThroughEndpointResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "config/pass_through_endpoint"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return

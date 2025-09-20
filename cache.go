@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
@@ -44,7 +45,7 @@ func NewCacheService(opts ...option.RequestOption) (r *CacheService) {
 // curl -X POST "http://0.0.0.0:4000/cache/delete"     -H "Authorization: Bearer sk-1234"     -d '{"keys": ["key1", "key2"]}'
 // ```
 func (r *CacheService) Delete(ctx context.Context, opts ...option.RequestOption) (res *CacheDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cache/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -61,7 +62,7 @@ func (r *CacheService) Delete(ctx context.Context, opts ...option.RequestOption)
 // curl -X POST http://0.0.0.0:4000/cache/flushall -H "Authorization: Bearer sk-1234"
 // ```
 func (r *CacheService) FlushAll(ctx context.Context, opts ...option.RequestOption) (res *CacheFlushAllResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cache/flushall"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -69,7 +70,7 @@ func (r *CacheService) FlushAll(ctx context.Context, opts ...option.RequestOptio
 
 // Endpoint for checking if cache can be pinged
 func (r *CacheService) Ping(ctx context.Context, opts ...option.RequestOption) (res *CachePingResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cache/ping"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

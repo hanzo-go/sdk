@@ -11,6 +11,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apiform"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -53,7 +54,7 @@ func NewFileService(opts ...option.RequestOption) (r *FileService) {
 //
 // ```
 func (r *FileService) New(ctx context.Context, provider string, body FileNewParams, opts ...option.RequestOption) (res *FileNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return
@@ -77,7 +78,7 @@ func (r *FileService) New(ctx context.Context, provider string, body FileNewPara
 //
 // ```
 func (r *FileService) Get(ctx context.Context, provider string, fileID string, opts ...option.RequestOption) (res *FileGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return
@@ -104,7 +105,7 @@ func (r *FileService) Get(ctx context.Context, provider string, fileID string, o
 //
 // ```
 func (r *FileService) List(ctx context.Context, provider string, query FileListParams, opts ...option.RequestOption) (res *FileListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return
@@ -127,7 +128,7 @@ func (r *FileService) List(ctx context.Context, provider string, query FileListP
 //
 // ```
 func (r *FileService) Delete(ctx context.Context, provider string, fileID string, opts ...option.RequestOption) (res *FileDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return

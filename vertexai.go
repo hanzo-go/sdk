@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -35,7 +36,7 @@ func NewVertexAIService(opts ...option.RequestOption) (r *VertexAIService) {
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAINewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -49,7 +50,7 @@ func (r *VertexAIService) New(ctx context.Context, endpoint string, opts ...opti
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAIGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -63,7 +64,7 @@ func (r *VertexAIService) Get(ctx context.Context, endpoint string, opts ...opti
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAIUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -77,7 +78,7 @@ func (r *VertexAIService) Update(ctx context.Context, endpoint string, opts ...o
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAIDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -91,7 +92,7 @@ func (r *VertexAIService) Delete(ctx context.Context, endpoint string, opts ...o
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAIPatchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return

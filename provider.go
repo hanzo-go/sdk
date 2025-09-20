@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
@@ -77,7 +78,7 @@ func NewProviderService(opts ...option.RequestOption) (r *ProviderService) {
 //
 // ```
 func (r *ProviderService) ListBudgets(ctx context.Context, opts ...option.RequestOption) (res *ProviderListBudgetsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "provider/budgets"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

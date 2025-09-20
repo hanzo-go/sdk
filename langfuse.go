@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -35,7 +36,7 @@ func NewLangfuseService(opts ...option.RequestOption) (r *LangfuseService) {
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfuseNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -49,7 +50,7 @@ func (r *LangfuseService) New(ctx context.Context, endpoint string, opts ...opti
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfuseGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -63,7 +64,7 @@ func (r *LangfuseService) Get(ctx context.Context, endpoint string, opts ...opti
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfuseUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -77,7 +78,7 @@ func (r *LangfuseService) Update(ctx context.Context, endpoint string, opts ...o
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfuseDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -91,7 +92,7 @@ func (r *LangfuseService) Delete(ctx context.Context, endpoint string, opts ...o
 //
 // [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfusePatchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return

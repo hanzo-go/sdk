@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -36,7 +37,7 @@ func NewAssistantService(opts ...option.RequestOption) (r *AssistantService) {
 // API Reference docs -
 // https://platform.openai.com/docs/api-reference/assistants/createAssistant
 func (r *AssistantService) New(ctx context.Context, opts ...option.RequestOption) (res *AssistantNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/assistants"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -47,7 +48,7 @@ func (r *AssistantService) New(ctx context.Context, opts ...option.RequestOption
 // API Reference docs -
 // https://platform.openai.com/docs/api-reference/assistants/listAssistants
 func (r *AssistantService) List(ctx context.Context, opts ...option.RequestOption) (res *AssistantListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/assistants"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -58,7 +59,7 @@ func (r *AssistantService) List(ctx context.Context, opts ...option.RequestOptio
 // API Reference docs -
 // https://platform.openai.com/docs/api-reference/assistants/createAssistant
 func (r *AssistantService) Delete(ctx context.Context, assistantID string, opts ...option.RequestOption) (res *AssistantDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if assistantID == "" {
 		err = errors.New("missing required assistant_id parameter")
 		return

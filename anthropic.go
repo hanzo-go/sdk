@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -33,7 +34,7 @@ func NewAnthropicService(opts ...option.RequestOption) (r *AnthropicService) {
 
 // [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -45,7 +46,7 @@ func (r *AnthropicService) New(ctx context.Context, endpoint string, opts ...opt
 
 // [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -57,7 +58,7 @@ func (r *AnthropicService) Get(ctx context.Context, endpoint string, opts ...opt
 
 // [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -69,7 +70,7 @@ func (r *AnthropicService) Update(ctx context.Context, endpoint string, opts ...
 
 // [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -81,7 +82,7 @@ func (r *AnthropicService) Delete(ctx context.Context, endpoint string, opts ...
 
 // [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Modify(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicModifyResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return

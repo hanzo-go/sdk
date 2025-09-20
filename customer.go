@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -87,7 +88,7 @@ func NewCustomerService(opts ...option.RequestOption) (r *CustomerService) {
 // NOTE: This used to be called `/end_user/new`, we will still be maintaining
 // compatibility for /end_user/XXX for these endpoints
 func (r *CustomerService) New(ctx context.Context, body CustomerNewParams, opts ...option.RequestOption) (res *CustomerNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "customer/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -119,7 +120,7 @@ func (r *CustomerService) New(ctx context.Context, body CustomerNewParams, opts 
 // See below for all params
 // ```
 func (r *CustomerService) Update(ctx context.Context, body CustomerUpdateParams, opts ...option.RequestOption) (res *CustomerUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "customer/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -133,7 +134,7 @@ func (r *CustomerService) Update(ctx context.Context, body CustomerUpdateParams,
 // curl --location --request GET 'http://0.0.0.0:4000/customer/list'         --header 'Authorization: Bearer sk-1234'
 // ```
 func (r *CustomerService) List(ctx context.Context, opts ...option.RequestOption) (res *[]CustomerListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "customer/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -156,7 +157,7 @@ func (r *CustomerService) List(ctx context.Context, opts ...option.RequestOption
 // See below for all params
 // ```
 func (r *CustomerService) Delete(ctx context.Context, body CustomerDeleteParams, opts ...option.RequestOption) (res *CustomerDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "customer/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -179,7 +180,7 @@ func (r *CustomerService) Delete(ctx context.Context, body CustomerDeleteParams,
 //	}'
 //	```
 func (r *CustomerService) Block(ctx context.Context, body CustomerBlockParams, opts ...option.RequestOption) (res *CustomerBlockResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "customer/block"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -198,7 +199,7 @@ func (r *CustomerService) Block(ctx context.Context, body CustomerBlockParams, o
 // curl -X GET 'http://localhost:4000/customer/info?end_user_id=test-llm-user-4'         -H 'Authorization: Bearer sk-1234'
 // ```
 func (r *CustomerService) GetInfo(ctx context.Context, query CustomerGetInfoParams, opts ...option.RequestOption) (res *CustomerGetInfoResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "customer/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -216,7 +217,7 @@ func (r *CustomerService) GetInfo(ctx context.Context, query CustomerGetInfoPara
 // }'
 // ```
 func (r *CustomerService) Unblock(ctx context.Context, body CustomerUnblockParams, opts ...option.RequestOption) (res *CustomerUnblockResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "customer/unblock"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -36,7 +37,7 @@ func NewOpenAIService(opts ...option.RequestOption) (r *OpenAIService) {
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
 // to OpenAI.
 func (r *OpenAIService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *OpenAINewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -49,7 +50,7 @@ func (r *OpenAIService) New(ctx context.Context, endpoint string, opts ...option
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
 // to OpenAI.
 func (r *OpenAIService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *OpenAIGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -62,7 +63,7 @@ func (r *OpenAIService) Get(ctx context.Context, endpoint string, opts ...option
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
 // to OpenAI.
 func (r *OpenAIService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *OpenAIUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -75,7 +76,7 @@ func (r *OpenAIService) Update(ctx context.Context, endpoint string, opts ...opt
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
 // to OpenAI.
 func (r *OpenAIService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *OpenAIDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -88,7 +89,7 @@ func (r *OpenAIService) Delete(ctx context.Context, endpoint string, opts ...opt
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
 // to OpenAI.
 func (r *OpenAIService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *OpenAIPatchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return

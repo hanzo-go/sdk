@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -50,7 +51,7 @@ func NewTeamModelService(opts ...option.RequestOption) (r *TeamModelService) {
 //
 // ```
 func (r *TeamModelService) Add(ctx context.Context, body TeamModelAddParams, opts ...option.RequestOption) (res *TeamModelAddResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/model/add"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -75,7 +76,7 @@ func (r *TeamModelService) Add(ctx context.Context, body TeamModelAddParams, opt
 //
 // ```
 func (r *TeamModelService) Remove(ctx context.Context, body TeamModelRemoveParams, opts ...option.RequestOption) (res *TeamModelRemoveResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "team/model/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

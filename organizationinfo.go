@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
@@ -36,7 +37,7 @@ func NewOrganizationInfoService(opts ...option.RequestOption) (r *OrganizationIn
 
 // Get the org specific information
 func (r *OrganizationInfoService) Get(ctx context.Context, query OrganizationInfoGetParams, opts ...option.RequestOption) (res *OrganizationInfoGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *OrganizationInfoService) Get(ctx context.Context, query OrganizationInf
 
 // DEPRECATED: Use GET /organization/info instead
 func (r *OrganizationInfoService) Deprecated(ctx context.Context, body OrganizationInfoDeprecatedParams, opts ...option.RequestOption) (res *OrganizationInfoDeprecatedResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

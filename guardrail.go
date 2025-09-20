@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"reflect"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
@@ -70,7 +71,7 @@ func NewGuardrailService(opts ...option.RequestOption) (r *GuardrailService) {
 //
 // ```
 func (r *GuardrailService) List(ctx context.Context, opts ...option.RequestOption) (res *GuardrailListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "guardrails/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

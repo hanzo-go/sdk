@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -55,7 +56,7 @@ func NewActiveService(opts ...option.RequestOption) (r *ActiveService) {
 //
 // ```
 func (r *ActiveService) ListCallbacks(ctx context.Context, opts ...option.RequestOption) (res *ActiveListCallbacksResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "active/callbacks"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

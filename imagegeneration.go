@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -31,7 +32,7 @@ func NewImageGenerationService(opts ...option.RequestOption) (r *ImageGeneration
 
 // Image Generation
 func (r *ImageGenerationService) New(ctx context.Context, opts ...option.RequestOption) (res *ImageGenerationNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/images/generations"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return

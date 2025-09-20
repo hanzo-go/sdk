@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -50,7 +51,7 @@ func NewGlobalSpendService(opts ...option.RequestOption) (r *GlobalSpendService)
 // curl -X GET "http://0.0.0.0:4000/spend/tags?start_date=2022-01-01&end_date=2022-02-01" -H "Authorization: Bearer sk-1234"
 // ```
 func (r *GlobalSpendService) ListTags(ctx context.Context, query GlobalSpendListTagsParams, opts ...option.RequestOption) (res *[]GlobalSpendListTagsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *GlobalSpendService) ListTags(ctx context.Context, query GlobalSpendList
 //  2. LLM_VerificationTokens spend will be set = 0
 //  3. LLM_TeamTable spend will be set = 0
 func (r *GlobalSpendService) Reset(ctx context.Context, opts ...option.RequestOption) (res *GlobalSpendResetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/reset"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -78,7 +79,7 @@ func (r *GlobalSpendService) Reset(ctx context.Context, opts ...option.RequestOp
 // "requests": 100 }, "audio-modelname1": { "cost": 25.50, "seconds": 25,
 // "requests": 50 }, } } ] ] }
 func (r *GlobalSpendService) GetReport(ctx context.Context, query GlobalSpendGetReportParams, opts ...option.RequestOption) (res *[]GlobalSpendGetReportResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/report"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

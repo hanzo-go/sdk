@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
@@ -101,7 +102,7 @@ func NewOrganizationService(opts ...option.RequestOption) (r *OrganizationServic
 //
 // ```
 func (r *OrganizationService) New(ctx context.Context, body OrganizationNewParams, opts ...option.RequestOption) (res *OrganizationNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -109,7 +110,7 @@ func (r *OrganizationService) New(ctx context.Context, body OrganizationNewParam
 
 // Update an organization
 func (r *OrganizationService) Update(ctx context.Context, body OrganizationUpdateParams, opts ...option.RequestOption) (res *OrganizationUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
@@ -119,7 +120,7 @@ func (r *OrganizationService) Update(ctx context.Context, body OrganizationUpdat
 // curl --location --request GET 'http://0.0.0.0:4000/organization/list'         --header 'Authorization: Bearer sk-1234'
 // ```
 func (r *OrganizationService) List(ctx context.Context, opts ...option.RequestOption) (res *[]OrganizationListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -131,7 +132,7 @@ func (r *OrganizationService) List(ctx context.Context, opts ...option.RequestOp
 //
 // - organization_ids: List[str] - The organization ids to delete.
 func (r *OrganizationService) Delete(ctx context.Context, body OrganizationDeleteParams, opts ...option.RequestOption) (res *[]OrganizationDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return
@@ -177,7 +178,7 @@ func (r *OrganizationService) Delete(ctx context.Context, body OrganizationDelet
 //     LLM_UserTable
 //  3. Add Internal User to the `LLM_OrganizationMembership` table
 func (r *OrganizationService) AddMember(ctx context.Context, body OrganizationAddMemberParams, opts ...option.RequestOption) (res *OrganizationAddMemberResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/member_add"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -185,7 +186,7 @@ func (r *OrganizationService) AddMember(ctx context.Context, body OrganizationAd
 
 // Delete a member from an organization
 func (r *OrganizationService) DeleteMember(ctx context.Context, body OrganizationDeleteMemberParams, opts ...option.RequestOption) (res *OrganizationDeleteMemberResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/member_delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return
@@ -193,7 +194,7 @@ func (r *OrganizationService) DeleteMember(ctx context.Context, body Organizatio
 
 // Update a member's role in an organization
 func (r *OrganizationService) UpdateMember(ctx context.Context, body OrganizationUpdateMemberParams, opts ...option.RequestOption) (res *OrganizationUpdateMemberResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "organization/member_update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return

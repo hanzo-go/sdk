@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -35,7 +36,7 @@ func NewThreadRunService(opts ...option.RequestOption) (r *ThreadRunService) {
 //
 // API Reference: https://platform.openai.com/docs/api-reference/runs/createRun
 func (r *ThreadRunService) New(ctx context.Context, threadID string, opts ...option.RequestOption) (res *ThreadRunNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if threadID == "" {
 		err = errors.New("missing required thread_id parameter")
 		return

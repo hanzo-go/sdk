@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apiquery"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -47,7 +48,7 @@ func NewBatchCancelService(opts ...option.RequestOption) (r *BatchCancelService)
 //
 // ```
 func (r *BatchCancelService) Cancel(ctx context.Context, batchID string, body BatchCancelCancelParams, opts ...option.RequestOption) (res *BatchCancelCancelResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if batchID == "" {
 		err = errors.New("missing required batch_id parameter")
 		return

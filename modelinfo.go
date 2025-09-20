@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apiquery"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -65,7 +66,7 @@ func NewModelInfoService(opts ...option.RequestOption) (r *ModelInfoService) {
 //
 // ```
 func (r *ModelInfoService) List(ctx context.Context, query ModelInfoListParams, opts ...option.RequestOption) (res *ModelInfoListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "model/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

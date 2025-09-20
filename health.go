@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apiquery"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -50,7 +51,7 @@ func NewHealthService(opts ...option.RequestOption) (r *HealthService) {
 //
 // else, the health checks will be run on models when /health is called.
 func (r *HealthService) CheckAll(ctx context.Context, query HealthCheckAllParams, opts ...option.RequestOption) (res *HealthCheckAllResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "health"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -58,7 +59,7 @@ func (r *HealthService) CheckAll(ctx context.Context, query HealthCheckAllParams
 
 // Unprotected endpoint for checking if worker is alive
 func (r *HealthService) CheckLiveliness(ctx context.Context, opts ...option.RequestOption) (res *HealthCheckLivelinessResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "health/liveliness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -66,7 +67,7 @@ func (r *HealthService) CheckLiveliness(ctx context.Context, opts ...option.Requ
 
 // Unprotected endpoint for checking if worker is alive
 func (r *HealthService) CheckLiveness(ctx context.Context, opts ...option.RequestOption) (res *HealthCheckLivenessResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "health/liveness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -74,7 +75,7 @@ func (r *HealthService) CheckLiveness(ctx context.Context, opts ...option.Reques
 
 // Unprotected endpoint for checking if worker can receive requests
 func (r *HealthService) CheckReadiness(ctx context.Context, opts ...option.RequestOption) (res *HealthCheckReadinessResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "health/readiness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -88,7 +89,7 @@ func (r *HealthService) CheckReadiness(ctx context.Context, opts ...option.Reque
 // curl -L -X GET 'http://0.0.0.0:4000/health/services?service=datadog'     -H 'Authorization: Bearer sk-1234'
 // ```
 func (r *HealthService) CheckServices(ctx context.Context, query HealthCheckServicesParams, opts ...option.RequestOption) (res *HealthCheckServicesResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "health/services"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

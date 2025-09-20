@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -41,7 +42,7 @@ func NewFineTuningJobCancelService(opts ...option.RequestOption) (r *FineTuningJ
 // - `custom_llm_provider`: Name of the LLM provider
 // - `fine_tuning_job_id`: The ID of the fine-tuning job to cancel.
 func (r *FineTuningJobCancelService) New(ctx context.Context, fineTuningJobID string, opts ...option.RequestOption) (res *FineTuningJobCancelNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if fineTuningJobID == "" {
 		err = errors.New("missing required fine_tuning_job_id parameter")
 		return

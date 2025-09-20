@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apiquery"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -52,7 +53,7 @@ func NewBatchService(opts ...option.RequestOption) (r *BatchService) {
 //
 // ```
 func (r *BatchService) New(ctx context.Context, body BatchNewParams, opts ...option.RequestOption) (res *BatchNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/batches"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -68,7 +69,7 @@ func (r *BatchService) New(ctx context.Context, body BatchNewParams, opts ...opt
 // curl http://localhost:4000/v1/batches/batch_abc123     -H "Authorization: Bearer sk-1234"     -H "Content-Type: application/json"
 // ```
 func (r *BatchService) Get(ctx context.Context, batchID string, query BatchGetParams, opts ...option.RequestOption) (res *BatchGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if batchID == "" {
 		err = errors.New("missing required batch_id parameter")
 		return
@@ -87,7 +88,7 @@ func (r *BatchService) Get(ctx context.Context, batchID string, query BatchGetPa
 // curl http://localhost:4000/v1/batches?limit=2     -H "Authorization: Bearer sk-1234"     -H "Content-Type: application/json"
 // ```
 func (r *BatchService) List(ctx context.Context, query BatchListParams, opts ...option.RequestOption) (res *BatchListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/batches"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -106,7 +107,7 @@ func (r *BatchService) List(ctx context.Context, query BatchListParams, opts ...
 //
 // ```
 func (r *BatchService) CancelWithProvider(ctx context.Context, provider string, batchID string, opts ...option.RequestOption) (res *BatchCancelWithProviderResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return
@@ -136,7 +137,7 @@ func (r *BatchService) CancelWithProvider(ctx context.Context, provider string, 
 //
 // ```
 func (r *BatchService) NewWithProvider(ctx context.Context, provider string, opts ...option.RequestOption) (res *BatchNewWithProviderResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return
@@ -155,7 +156,7 @@ func (r *BatchService) NewWithProvider(ctx context.Context, provider string, opt
 // curl http://localhost:4000/v1/batches?limit=2     -H "Authorization: Bearer sk-1234"     -H "Content-Type: application/json"
 // ```
 func (r *BatchService) ListWithProvider(ctx context.Context, provider string, query BatchListWithProviderParams, opts ...option.RequestOption) (res *BatchListWithProviderResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return
@@ -175,7 +176,7 @@ func (r *BatchService) ListWithProvider(ctx context.Context, provider string, qu
 // curl http://localhost:4000/v1/batches/batch_abc123     -H "Authorization: Bearer sk-1234"     -H "Content-Type: application/json"
 // ```
 func (r *BatchService) GetWithProvider(ctx context.Context, provider string, batchID string, opts ...option.RequestOption) (res *BatchGetWithProviderResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return

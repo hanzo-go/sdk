@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -40,7 +41,7 @@ func NewResponseInputItemService(opts ...option.RequestOption) (r *ResponseInput
 // curl -X GET http://localhost:4000/v1/responses/resp_abc123/input_items     -H "Authorization: Bearer sk-1234"
 // ```
 func (r *ResponseInputItemService) List(ctx context.Context, responseID string, opts ...option.RequestOption) (res *ResponseInputItemListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if responseID == "" {
 		err = errors.New("missing required response_id parameter")
 		return

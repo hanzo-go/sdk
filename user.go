@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
@@ -120,7 +121,7 @@ func NewUserService(opts ...option.RequestOption) (r *UserService) {
 //
 // ```
 func (r *UserService) New(ctx context.Context, body UserNewParams, opts ...option.RequestOption) (res *UserNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "user/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -185,7 +186,7 @@ func (r *UserService) New(ctx context.Context, body UserNewParams, opts ...optio
 // Optional[str] - [NOT IMPLEMENTED]. - key_alias: Optional[str] - [NOT
 // IMPLEMENTED].
 func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ...option.RequestOption) (res *UserUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "user/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -209,7 +210,7 @@ func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ..
 // http://0.0.0.0:4000/user/list?user_ids=default_user_id,693c1a4a-1cc0-4c7c-afe8-b5d2c8d52e17
 // ```
 func (r *UserService) List(ctx context.Context, query UserListParams, opts ...option.RequestOption) (res *UserListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "user/get_users"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -235,7 +236,7 @@ func (r *UserService) Delete(ctx context.Context, params UserDeleteParams, opts 
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "user/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -251,7 +252,7 @@ func (r *UserService) Delete(ctx context.Context, params UserDeleteParams, opts 
 // curl -X GET 'http://localhost:4000/user/info?user_id=dev7%40hanzo.ai'     --header 'Authorization: Bearer sk-1234'
 // ```
 func (r *UserService) GetInfo(ctx context.Context, query UserGetInfoParams, opts ...option.RequestOption) (res *UserGetInfoResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "user/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -88,7 +89,7 @@ func NewSpendService(opts ...option.RequestOption) (r *SpendService) {
 //
 // ```
 func (r *SpendService) CalculateSpend(ctx context.Context, body SpendCalculateSpendParams, opts ...option.RequestOption) (res *SpendCalculateSpendResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "spend/calculate"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -121,7 +122,7 @@ func (r *SpendService) CalculateSpend(ctx context.Context, body SpendCalculateSp
 // curl -X GET "http://0.0.0.0:8000/spend/logs?user_id=z@hanzo.ai" -H "Authorization: Bearer sk-1234"
 // ```
 func (r *SpendService) ListLogs(ctx context.Context, query SpendListLogsParams, opts ...option.RequestOption) (res *[]SpendListLogsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "spend/logs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -141,7 +142,7 @@ func (r *SpendService) ListLogs(ctx context.Context, query SpendListLogsParams, 
 // curl -X GET "http://0.0.0.0:8000/spend/tags?start_date=2022-01-01&end_date=2022-02-01" -H "Authorization: Bearer sk-1234"
 // ```
 func (r *SpendService) ListTags(ctx context.Context, query SpendListTagsParams, opts ...option.RequestOption) (res *[]SpendListTagsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "spend/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

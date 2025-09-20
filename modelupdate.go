@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -36,7 +37,7 @@ func NewModelUpdateService(opts ...option.RequestOption) (r *ModelUpdateService)
 
 // Edit existing model params
 func (r *ModelUpdateService) Full(ctx context.Context, body ModelUpdateFullParams, opts ...option.RequestOption) (res *ModelUpdateFullResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "model/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -55,7 +56,7 @@ func (r *ModelUpdateService) Full(ctx context.Context, body ModelUpdateFullParam
 // Raises: ProxyException: For various error conditions including authentication
 // and database errors
 func (r *ModelUpdateService) Partial(ctx context.Context, modelID string, body ModelUpdatePartialParams, opts ...option.RequestOption) (res *ModelUpdatePartialResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if modelID == "" {
 		err = errors.New("missing required model_id parameter")
 		return

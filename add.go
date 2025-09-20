@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -33,7 +34,7 @@ func NewAddService(opts ...option.RequestOption) (r *AddService) {
 
 // Add Allowed Ip
 func (r *AddService) AddAllowedIP(ctx context.Context, body AddAddAllowedIPParams, opts ...option.RequestOption) (res *AddAddAllowedIPResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "add/allowed_ip"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

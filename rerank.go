@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -31,7 +32,7 @@ func NewRerankService(opts ...option.RequestOption) (r *RerankService) {
 
 // Rerank
 func (r *RerankService) New(ctx context.Context, opts ...option.RequestOption) (res *RerankNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "rerank"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -39,7 +40,7 @@ func (r *RerankService) New(ctx context.Context, opts ...option.RequestOption) (
 
 // Rerank
 func (r *RerankService) NewV1(ctx context.Context, opts ...option.RequestOption) (res *RerankNewV1Response, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/rerank"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -47,7 +48,7 @@ func (r *RerankService) NewV1(ctx context.Context, opts ...option.RequestOption)
 
 // Rerank
 func (r *RerankService) NewV2(ctx context.Context, opts ...option.RequestOption) (res *RerankNewV2Response, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v2/rerank"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return

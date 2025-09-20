@@ -8,6 +8,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apiform"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -38,7 +39,7 @@ func NewAudioTranscriptionService(opts ...option.RequestOption) (r *AudioTranscr
 //
 // https://platform.openai.com/docs/api-reference/audio/createTranscription?lang=curl
 func (r *AudioTranscriptionService) New(ctx context.Context, body AudioTranscriptionNewParams, opts ...option.RequestOption) (res *AudioTranscriptionNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/audio/transcriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

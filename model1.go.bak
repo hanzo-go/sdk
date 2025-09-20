@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
@@ -38,7 +39,7 @@ func NewModelService(opts ...option.RequestOption) (r *ModelService) {
 
 // Allows adding new models to the model list in the config.yaml
 func (r *ModelService) New(ctx context.Context, body ModelNewParams, opts ...option.RequestOption) (res *ModelNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "model/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -46,7 +47,7 @@ func (r *ModelService) New(ctx context.Context, body ModelNewParams, opts ...opt
 
 // Allows deleting models in the model list in the config.yaml
 func (r *ModelService) Delete(ctx context.Context, body ModelDeleteParams, opts ...option.RequestOption) (res *ModelDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "model/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

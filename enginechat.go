@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -51,7 +52,7 @@ func NewEngineChatService(opts ...option.RequestOption) (r *EngineChatService) {
 //
 // ```
 func (r *EngineChatService) Complete(ctx context.Context, model string, opts ...option.RequestOption) (res *EngineChatCompleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
 		return

@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"slices"
 	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
@@ -104,7 +105,7 @@ func (r *KeyService) Update(ctx context.Context, params KeyUpdateParams, opts ..
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "key/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -115,7 +116,7 @@ func (r *KeyService) Update(ctx context.Context, params KeyUpdateParams, opts ..
 // Returns: { "keys": List[str] or List[UserAPIKeyAuth], "total_count": int,
 // "current_page": int, "total_pages": int, }
 func (r *KeyService) List(ctx context.Context, query KeyListParams, opts ...option.RequestOption) (res *KeyListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "key/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -152,7 +153,7 @@ func (r *KeyService) Delete(ctx context.Context, params KeyDeleteParams, opts ..
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "key/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -180,7 +181,7 @@ func (r *KeyService) Block(ctx context.Context, params KeyBlockParams, opts ...o
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "key/block"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -230,7 +231,7 @@ func (r *KeyService) Block(ctx context.Context, params KeyBlockParams, opts ...o
 //
 // ```
 func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOption) (res *KeyCheckHealthResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "key/health"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -325,7 +326,7 @@ func (r *KeyService) Generate(ctx context.Context, params KeyGenerateParams, opt
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "key/generate"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return
@@ -387,7 +388,7 @@ func (r *KeyService) RegenerateByKey(ctx context.Context, key string, params Key
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if key == "" {
 		err = errors.New("missing required key parameter")
 		return
@@ -415,7 +416,7 @@ func (r *KeyService) RegenerateByKey(ctx context.Context, key string, params Key
 // curl -X GET "http://0.0.0.0:4000/key/info" -H "Authorization: Bearer sk-02Wr4IAlN3NvPXvL5JVvDA"
 // ```
 func (r *KeyService) GetInfo(ctx context.Context, query KeyGetInfoParams, opts ...option.RequestOption) (res *KeyGetInfoResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "key/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -443,7 +444,7 @@ func (r *KeyService) Unblock(ctx context.Context, params KeyUnblockParams, opts 
 	if params.LlmChangedBy.Present {
 		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "key/unblock"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
 	return

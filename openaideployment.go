@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -50,7 +51,7 @@ func NewOpenAIDeploymentService(opts ...option.RequestOption) (r *OpenAIDeployme
 //
 // ```
 func (r *OpenAIDeploymentService) Complete(ctx context.Context, model string, opts ...option.RequestOption) (res *OpenAIDeploymentCompleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
 		return
@@ -75,7 +76,7 @@ func (r *OpenAIDeploymentService) Complete(ctx context.Context, model string, op
 //
 // ```
 func (r *OpenAIDeploymentService) Embed(ctx context.Context, model string, opts ...option.RequestOption) (res *OpenAIDeploymentEmbedResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
 		return

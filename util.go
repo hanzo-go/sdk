@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -43,7 +44,7 @@ func NewUtilService(opts ...option.RequestOption) (r *UtilService) {
 // curl -X GET --location 'http://localhost:4000/utils/supported_openai_params?model=gpt-3.5-turbo-16k'         --header 'Authorization: Bearer sk-1234'
 // ```
 func (r *UtilService) GetSupportedOpenAIParams(ctx context.Context, query UtilGetSupportedOpenAIParamsParams, opts ...option.RequestOption) (res *UtilGetSupportedOpenAIParamsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "utils/supported_openai_params"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -51,7 +52,7 @@ func (r *UtilService) GetSupportedOpenAIParams(ctx context.Context, query UtilGe
 
 // Token Counter
 func (r *UtilService) TokenCounter(ctx context.Context, body UtilTokenCounterParams, opts ...option.RequestOption) (res *UtilTokenCounterResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "utils/token_counter"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -59,7 +60,7 @@ func (r *UtilService) TokenCounter(ctx context.Context, body UtilTokenCounterPar
 
 // Transform Request
 func (r *UtilService) TransformRequest(ctx context.Context, body UtilTransformRequestParams, opts ...option.RequestOption) (res *UtilTransformRequestResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "utils/transform_request"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

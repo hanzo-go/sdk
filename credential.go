@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -36,7 +37,7 @@ func NewCredentialService(opts ...option.RequestOption) (r *CredentialService) {
 // [BETA] endpoint. This might change unexpectedly. Stores credential in DB.
 // Reloads credentials in memory.
 func (r *CredentialService) New(ctx context.Context, body CredentialNewParams, opts ...option.RequestOption) (res *CredentialNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "credentials"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *CredentialService) New(ctx context.Context, body CredentialNewParams, o
 
 // [BETA] endpoint. This might change unexpectedly.
 func (r *CredentialService) List(ctx context.Context, opts ...option.RequestOption) (res *CredentialListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "credentials"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -52,7 +53,7 @@ func (r *CredentialService) List(ctx context.Context, opts ...option.RequestOpti
 
 // [BETA] endpoint. This might change unexpectedly.
 func (r *CredentialService) Delete(ctx context.Context, credentialName string, opts ...option.RequestOption) (res *CredentialDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if credentialName == "" {
 		err = errors.New("missing required credential_name parameter")
 		return

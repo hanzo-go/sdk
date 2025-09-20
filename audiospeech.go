@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -33,7 +34,7 @@ func NewAudioSpeechService(opts ...option.RequestOption) (r *AudioSpeechService)
 //
 // https://platform.openai.com/docs/api-reference/audio/createSpeech
 func (r *AudioSpeechService) New(ctx context.Context, opts ...option.RequestOption) (res *AudioSpeechNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/audio/speech"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
