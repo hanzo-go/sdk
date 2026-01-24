@@ -52,6 +52,8 @@ func NewFileService(opts ...option.RequestOption) (r *FileService) {
 // ```
 // curl http://localhost:4000/v1/files         -H "Authorization: Bearer sk-1234"         -F purpose="batch"         -F file="@mydata.jsonl"
 //
+//	-F expires_after[anchor]="created_at"         -F expires_after[seconds]=2592000
+//
 // ```
 func (r *FileService) New(ctx context.Context, provider string, body FileNewParams, opts ...option.RequestOption) (res *FileNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
@@ -154,6 +156,9 @@ type FileNewParams struct {
 	File              param.Field[io.Reader] `json:"file,required" format:"binary"`
 	Purpose           param.Field[string]    `json:"purpose,required"`
 	CustomLlmProvider param.Field[string]    `json:"custom_llm_provider"`
+	LitellmMetadata   param.Field[string]    `json:"litellm_metadata"`
+	TargetModelNames  param.Field[string]    `json:"target_model_names"`
+	TargetStorage     param.Field[string]    `json:"target_storage"`
 }
 
 func (r FileNewParams) MarshalMultipart() (data []byte, contentType string, err error) {
@@ -172,7 +177,8 @@ func (r FileNewParams) MarshalMultipart() (data []byte, contentType string, err 
 }
 
 type FileListParams struct {
-	Purpose param.Field[string] `query:"purpose"`
+	Purpose          param.Field[string] `query:"purpose"`
+	TargetModelNames param.Field[string] `query:"target_model_names"`
 }
 
 // URLQuery serializes [FileListParams]'s query parameters as `url.Values`.

@@ -35,7 +35,7 @@ func NewHealthService(opts ...option.RequestOption) (r *HealthService) {
 
 // 🚨 USE `/health/liveliness` to health check the proxy 🚨
 //
-// See more 👉 https://docs.hanzo.ai/docs/proxy/health
+// See more 👉 https://docs.litellm.ai/docs/proxy/health
 //
 // # Check the health of all the endpoints in config.yaml
 //
@@ -108,6 +108,8 @@ type HealthCheckServicesResponse = interface{}
 type HealthCheckAllParams struct {
 	// Specify the model name (optional)
 	Model param.Field[string] `query:"model"`
+	// Specify the model ID (optional)
+	ModelID param.Field[string] `query:"model_id"`
 }
 
 // URLQuery serializes [HealthCheckAllParams]'s query parameters as `url.Values`.
@@ -138,17 +140,21 @@ type HealthCheckServicesParamsService string
 const (
 	HealthCheckServicesParamsServiceSlackBudgetAlerts HealthCheckServicesParamsService = "slack_budget_alerts"
 	HealthCheckServicesParamsServiceLangfuse          HealthCheckServicesParamsService = "langfuse"
+	HealthCheckServicesParamsServiceLangfuseOtel      HealthCheckServicesParamsService = "langfuse_otel"
 	HealthCheckServicesParamsServiceSlack             HealthCheckServicesParamsService = "slack"
 	HealthCheckServicesParamsServiceOpenmeter         HealthCheckServicesParamsService = "openmeter"
 	HealthCheckServicesParamsServiceWebhook           HealthCheckServicesParamsService = "webhook"
 	HealthCheckServicesParamsServiceEmail             HealthCheckServicesParamsService = "email"
 	HealthCheckServicesParamsServiceBraintrust        HealthCheckServicesParamsService = "braintrust"
 	HealthCheckServicesParamsServiceDatadog           HealthCheckServicesParamsService = "datadog"
+	HealthCheckServicesParamsServiceGenericAPI        HealthCheckServicesParamsService = "generic_api"
+	HealthCheckServicesParamsServiceArize             HealthCheckServicesParamsService = "arize"
+	HealthCheckServicesParamsServiceSqs               HealthCheckServicesParamsService = "sqs"
 )
 
 func (r HealthCheckServicesParamsService) IsKnown() bool {
 	switch r {
-	case HealthCheckServicesParamsServiceSlackBudgetAlerts, HealthCheckServicesParamsServiceLangfuse, HealthCheckServicesParamsServiceSlack, HealthCheckServicesParamsServiceOpenmeter, HealthCheckServicesParamsServiceWebhook, HealthCheckServicesParamsServiceEmail, HealthCheckServicesParamsServiceBraintrust, HealthCheckServicesParamsServiceDatadog:
+	case HealthCheckServicesParamsServiceSlackBudgetAlerts, HealthCheckServicesParamsServiceLangfuse, HealthCheckServicesParamsServiceLangfuseOtel, HealthCheckServicesParamsServiceSlack, HealthCheckServicesParamsServiceOpenmeter, HealthCheckServicesParamsServiceWebhook, HealthCheckServicesParamsServiceEmail, HealthCheckServicesParamsServiceBraintrust, HealthCheckServicesParamsServiceDatadog, HealthCheckServicesParamsServiceGenericAPI, HealthCheckServicesParamsServiceArize, HealthCheckServicesParamsServiceSqs:
 		return true
 	}
 	return false

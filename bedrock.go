@@ -32,7 +32,8 @@ func NewBedrockService(opts ...option.RequestOption) (r *BedrockService) {
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
+// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
+// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
 func (r *BedrockService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -44,7 +45,8 @@ func (r *BedrockService) New(ctx context.Context, endpoint string, opts ...optio
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
+// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
+// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
 func (r *BedrockService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -56,7 +58,8 @@ func (r *BedrockService) Get(ctx context.Context, endpoint string, opts ...optio
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
+// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
+// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
 func (r *BedrockService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -68,7 +71,8 @@ func (r *BedrockService) Update(ctx context.Context, endpoint string, opts ...op
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
+// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
+// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
 func (r *BedrockService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -80,7 +84,8 @@ func (r *BedrockService) Delete(ctx context.Context, endpoint string, opts ...op
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
+// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
+// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
 func (r *BedrockService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockPatchResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {

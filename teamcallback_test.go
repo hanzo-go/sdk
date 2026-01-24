@@ -57,8 +57,8 @@ func TestTeamCallbackAddWithOptionalParams(t *testing.T) {
 			CallbackVars: hanzoai.F(map[string]string{
 				"foo": "string",
 			}),
-			CallbackType: hanzoai.F(hanzoai.TeamCallbackAddParamsCallbackTypeSuccess),
-			LlmChangedBy: hanzoai.F("llm-changed-by"),
+			CallbackType:     hanzoai.F(hanzoai.TeamCallbackAddParamsCallbackTypeSuccess),
+			LitellmChangedBy: hanzoai.F("litellm-changed-by"),
 		},
 	)
 	if err != nil {

@@ -229,9 +229,10 @@ func (r BatchGetParams) URLQuery() (v url.Values) {
 }
 
 type BatchListParams struct {
-	After    param.Field[string] `query:"after"`
-	Limit    param.Field[int64]  `query:"limit"`
-	Provider param.Field[string] `query:"provider"`
+	After            param.Field[string] `query:"after"`
+	Limit            param.Field[int64]  `query:"limit"`
+	Provider         param.Field[string] `query:"provider"`
+	TargetModelNames param.Field[string] `query:"target_model_names"`
 }
 
 // URLQuery serializes [BatchListParams]'s query parameters as `url.Values`.
@@ -243,8 +244,9 @@ func (r BatchListParams) URLQuery() (v url.Values) {
 }
 
 type BatchListWithProviderParams struct {
-	After param.Field[string] `query:"after"`
-	Limit param.Field[int64]  `query:"limit"`
+	After            param.Field[string] `query:"after"`
+	Limit            param.Field[int64]  `query:"limit"`
+	TargetModelNames param.Field[string] `query:"target_model_names"`
 }
 
 // URLQuery serializes [BatchListWithProviderParams]'s query parameters as

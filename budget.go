@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"slices"
+	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -50,6 +51,8 @@ func NewBudgetService(opts ...option.RequestOption) (r *BudgetService) {
 //   - model_max_budget: Optional[dict] - Specify max budget for a given model.
 //     Example: {"openai/gpt-4o-mini": {"max_budget": 100.0, "budget_duration": "1d",
 //     "tpm_limit": 100000, "rpm_limit": 100000}}
+//   - budget_reset_at: Optional[datetime] - Datetime when the initial budget is
+//     reset. Default is now.
 func (r *BudgetService) New(ctx context.Context, body BudgetNewParams, opts ...option.RequestOption) (res *BudgetNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "budget/new"
@@ -73,6 +76,8 @@ func (r *BudgetService) New(ctx context.Context, body BudgetNewParams, opts ...o
 //   - model_max_budget: Optional[dict] - Specify max budget for a given model.
 //     Example: {"openai/gpt-4o-mini": {"max_budget": 100.0, "budget_duration": "1d",
 //     "tpm_limit": 100000, "rpm_limit": 100000}}
+//   - budget_reset_at: Optional[datetime] - Update the Datetime when the budget was
+//     last reset.
 func (r *BudgetService) Update(ctx context.Context, body BudgetUpdateParams, opts ...option.RequestOption) (res *BudgetUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "budget/update"
@@ -132,6 +137,8 @@ type BudgetNewParam struct {
 	BudgetDuration param.Field[string] `json:"budget_duration"`
 	// The unique budget id.
 	BudgetID param.Field[string] `json:"budget_id"`
+	// Datetime when the budget is reset
+	BudgetResetAt param.Field[time.Time] `json:"budget_reset_at" format:"date-time"`
 	// Requests will fail if this budget (in USD) is exceeded.
 	MaxBudget param.Field[float64] `json:"max_budget"`
 	// Max concurrent requests allowed for this budget id.

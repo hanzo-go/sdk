@@ -44,15 +44,15 @@ func (r *ConfigPassThroughEndpointService) New(ctx context.Context, body ConfigP
 	return
 }
 
-// Update a pass-through endpoint
-func (r *ConfigPassThroughEndpointService) Update(ctx context.Context, endpointID string, opts ...option.RequestOption) (res *ConfigPassThroughEndpointUpdateResponse, err error) {
+// Update a pass-through endpoint by ID.
+func (r *ConfigPassThroughEndpointService) Update(ctx context.Context, endpointID string, body ConfigPassThroughEndpointUpdateParams, opts ...option.RequestOption) (res *ConfigPassThroughEndpointUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpointID == "" {
 		err = errors.New("missing required endpoint_id parameter")
 		return
 	}
 	path := fmt.Sprintf("config/pass_through_endpoint/%s", endpointID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
@@ -66,7 +66,7 @@ func (r *ConfigPassThroughEndpointService) List(ctx context.Context, query Confi
 	return
 }
 
-// Delete a pass-through endpoint
+// Delete a pass-through endpoint by ID.
 //
 // Returns - the deleted endpoint
 func (r *ConfigPassThroughEndpointService) Delete(ctx context.Context, body ConfigPassThroughEndpointDeleteParams, opts ...option.RequestOption) (res *PassThroughEndpointResponse, err error) {
@@ -98,24 +98,48 @@ func (r passThroughEndpointResponseJSON) RawJSON() string {
 }
 
 type PassThroughGenericEndpoint struct {
-	// Key-value pairs of headers to be forwarded with the request. You can set any key
-	// value pair here and it will be forwarded to your target endpoint
-	Headers interface{} `json:"headers,required"`
-	// The route to be added to the LLM Proxy Server.
+	// The route to be added to the LiteLLM Proxy Server.
 	Path string `json:"path,required"`
 	// The URL to which requests for this path should be forwarded.
-	Target string                         `json:"target,required"`
-	JSON   passThroughGenericEndpointJSON `json:"-"`
+	Target string `json:"target,required"`
+	// Optional unique identifier for the pass-through endpoint. If not provided,
+	// endpoints will be identified by path for backwards compatibility.
+	ID string `json:"id,nullable"`
+	// Whether authentication is required for the pass-through endpoint. If True,
+	// requests to the endpoint will require a valid LiteLLM API key.
+	Auth bool `json:"auth"`
+	// The USD cost per request to the target endpoint. This is used to calculate the
+	// cost of the request to the target endpoint.
+	CostPerRequest float64 `json:"cost_per_request"`
+	// Guardrails configuration for this passthrough endpoint. Dict keys are guardrail
+	// names, values are optional settings for field targeting. When set, all
+	// org/team/key level guardrails will also execute. Defaults to None (no guardrails
+	// execute).
+	Guardrails map[string]PassThroughGenericEndpointGuardrail `json:"guardrails,nullable"`
+	// Key-value pairs of headers to be forwarded with the request. You can set any key
+	// value pair here and it will be forwarded to your target endpoint
+	Headers map[string]interface{} `json:"headers"`
+	// If True, requests to subpaths of the path will be forwarded to the target
+	// endpoint. For example, if the path is /bria and include_subpath is True,
+	// requests to /bria/v1/text-to-image/base/2.3 will be forwarded to the target
+	// endpoint.
+	IncludeSubpath bool                           `json:"include_subpath"`
+	JSON           passThroughGenericEndpointJSON `json:"-"`
 }
 
 // passThroughGenericEndpointJSON contains the JSON metadata for the struct
 // [PassThroughGenericEndpoint]
 type passThroughGenericEndpointJSON struct {
-	Headers     apijson.Field
-	Path        apijson.Field
-	Target      apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	Path           apijson.Field
+	Target         apijson.Field
+	ID             apijson.Field
+	Auth           apijson.Field
+	CostPerRequest apijson.Field
+	Guardrails     apijson.Field
+	Headers        apijson.Field
+	IncludeSubpath apijson.Field
+	raw            string
+	ExtraFields    map[string]apijson.Field
 }
 
 func (r *PassThroughGenericEndpoint) UnmarshalJSON(data []byte) (err error) {
@@ -126,17 +150,86 @@ func (r passThroughGenericEndpointJSON) RawJSON() string {
 	return r.raw
 }
 
+// Settings for a specific guardrail on a passthrough endpoint.
+//
+// Allows field-level targeting for guardrail execution.
+type PassThroughGenericEndpointGuardrail struct {
+	// JSONPath expressions for input field targeting (pre_call). Examples: 'query',
+	// 'documents[*].text', 'messages[*].content'. If not specified, guardrail runs on
+	// entire request payload.
+	RequestFields []string `json:"request_fields,nullable"`
+	// JSONPath expressions for output field targeting (post_call). Examples:
+	// 'results[*].text', 'output'. If not specified, guardrail runs on entire response
+	// payload.
+	ResponseFields []string                                `json:"response_fields,nullable"`
+	JSON           passThroughGenericEndpointGuardrailJSON `json:"-"`
+}
+
+// passThroughGenericEndpointGuardrailJSON contains the JSON metadata for the
+// struct [PassThroughGenericEndpointGuardrail]
+type passThroughGenericEndpointGuardrailJSON struct {
+	RequestFields  apijson.Field
+	ResponseFields apijson.Field
+	raw            string
+	ExtraFields    map[string]apijson.Field
+}
+
+func (r *PassThroughGenericEndpointGuardrail) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r passThroughGenericEndpointGuardrailJSON) RawJSON() string {
+	return r.raw
+}
+
 type PassThroughGenericEndpointParam struct {
-	// Key-value pairs of headers to be forwarded with the request. You can set any key
-	// value pair here and it will be forwarded to your target endpoint
-	Headers param.Field[interface{}] `json:"headers,required"`
-	// The route to be added to the LLM Proxy Server.
+	// The route to be added to the LiteLLM Proxy Server.
 	Path param.Field[string] `json:"path,required"`
 	// The URL to which requests for this path should be forwarded.
 	Target param.Field[string] `json:"target,required"`
+	// Optional unique identifier for the pass-through endpoint. If not provided,
+	// endpoints will be identified by path for backwards compatibility.
+	ID param.Field[string] `json:"id"`
+	// Whether authentication is required for the pass-through endpoint. If True,
+	// requests to the endpoint will require a valid LiteLLM API key.
+	Auth param.Field[bool] `json:"auth"`
+	// The USD cost per request to the target endpoint. This is used to calculate the
+	// cost of the request to the target endpoint.
+	CostPerRequest param.Field[float64] `json:"cost_per_request"`
+	// Guardrails configuration for this passthrough endpoint. Dict keys are guardrail
+	// names, values are optional settings for field targeting. When set, all
+	// org/team/key level guardrails will also execute. Defaults to None (no guardrails
+	// execute).
+	Guardrails param.Field[map[string]PassThroughGenericEndpointGuardrailParam] `json:"guardrails"`
+	// Key-value pairs of headers to be forwarded with the request. You can set any key
+	// value pair here and it will be forwarded to your target endpoint
+	Headers param.Field[map[string]interface{}] `json:"headers"`
+	// If True, requests to subpaths of the path will be forwarded to the target
+	// endpoint. For example, if the path is /bria and include_subpath is True,
+	// requests to /bria/v1/text-to-image/base/2.3 will be forwarded to the target
+	// endpoint.
+	IncludeSubpath param.Field[bool] `json:"include_subpath"`
 }
 
 func (r PassThroughGenericEndpointParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// Settings for a specific guardrail on a passthrough endpoint.
+//
+// Allows field-level targeting for guardrail execution.
+type PassThroughGenericEndpointGuardrailParam struct {
+	// JSONPath expressions for input field targeting (pre_call). Examples: 'query',
+	// 'documents[*].text', 'messages[*].content'. If not specified, guardrail runs on
+	// entire request payload.
+	RequestFields param.Field[[]string] `json:"request_fields"`
+	// JSONPath expressions for output field targeting (post_call). Examples:
+	// 'results[*].text', 'output'. If not specified, guardrail runs on entire response
+	// payload.
+	ResponseFields param.Field[[]string] `json:"response_fields"`
+}
+
+func (r PassThroughGenericEndpointGuardrailParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
@@ -152,8 +245,17 @@ func (r ConfigPassThroughEndpointNewParams) MarshalJSON() (data []byte, err erro
 	return apijson.MarshalRoot(r.PassThroughGenericEndpoint)
 }
 
+type ConfigPassThroughEndpointUpdateParams struct {
+	PassThroughGenericEndpoint PassThroughGenericEndpointParam `json:"pass_through_generic_endpoint,required"`
+}
+
+func (r ConfigPassThroughEndpointUpdateParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r.PassThroughGenericEndpoint)
+}
+
 type ConfigPassThroughEndpointListParams struct {
 	EndpointID param.Field[string] `query:"endpoint_id"`
+	TeamID     param.Field[string] `query:"team_id"`
 }
 
 // URLQuery serializes [ConfigPassThroughEndpointListParams]'s query parameters as

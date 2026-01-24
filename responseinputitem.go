@@ -32,14 +32,7 @@ func NewResponseInputItemService(opts ...option.RequestOption) (r *ResponseInput
 	return
 }
 
-// Get input items for a response.
-//
-// Follows the OpenAI Responses API spec:
-// https://platform.openai.com/docs/api-reference/responses/input-items
-//
-// ```bash
-// curl -X GET http://localhost:4000/v1/responses/resp_abc123/input_items     -H "Authorization: Bearer sk-1234"
-// ```
+// List input items for a response.
 func (r *ResponseInputItemService) List(ctx context.Context, responseID string, opts ...option.RequestOption) (res *ResponseInputItemListResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if responseID == "" {

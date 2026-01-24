@@ -27,8 +27,12 @@ func TestModelListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Models.List(context.TODO(), hanzoai.ModelListParams{
-		ReturnWildcardRoutes: hanzoai.F(true),
-		TeamID:               hanzoai.F("team_id"),
+		FallbackType:             hanzoai.F("fallback_type"),
+		IncludeMetadata:          hanzoai.F(true),
+		IncludeModelAccessGroups: hanzoai.F(true),
+		OnlyModelAccessGroups:    hanzoai.F(true),
+		ReturnWildcardRoutes:     hanzoai.F(true),
+		TeamID:                   hanzoai.F("team_id"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error

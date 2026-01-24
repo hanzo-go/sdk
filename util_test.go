@@ -52,9 +52,15 @@ func TestUtilTokenCounterWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Utils.TokenCounter(context.TODO(), hanzoai.UtilTokenCounterParams{
-		Model:    hanzoai.F("model"),
-		Messages: hanzoai.F([]interface{}{map[string]interface{}{}}),
-		Prompt:   hanzoai.F("prompt"),
+		Model:        hanzoai.F("model"),
+		CallEndpoint: hanzoai.F(true),
+		Contents: hanzoai.F([]map[string]interface{}{{
+			"foo": "bar",
+		}}),
+		Messages: hanzoai.F([]map[string]interface{}{{
+			"foo": "bar",
+		}}),
+		Prompt: hanzoai.F("prompt"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -79,8 +85,10 @@ func TestUtilTransformRequest(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Utils.TransformRequest(context.TODO(), hanzoai.UtilTransformRequestParams{
-		CallType:    hanzoai.F(hanzoai.UtilTransformRequestParamsCallTypeEmbedding),
-		RequestBody: hanzoai.F[any](map[string]interface{}{}),
+		CallType: hanzoai.F(hanzoai.UtilTransformRequestParamsCallTypeEmbedding),
+		RequestBody: hanzoai.F(map[string]interface{}{
+			"foo": "bar",
+		}),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error

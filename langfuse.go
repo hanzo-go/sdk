@@ -32,9 +32,9 @@ func NewLangfuseService(opts ...option.RequestOption) (r *LangfuseService) {
 	return
 }
 
-// Call Langfuse via LLM proxy. Works with Langfuse SDK.
+// Call Langfuse via LiteLLM proxy. Works with Langfuse SDK.
 //
-// [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
+// [Docs](https://docs.litellm.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfuseNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -46,9 +46,9 @@ func (r *LangfuseService) New(ctx context.Context, endpoint string, opts ...opti
 	return
 }
 
-// Call Langfuse via LLM proxy. Works with Langfuse SDK.
+// Call Langfuse via LiteLLM proxy. Works with Langfuse SDK.
 //
-// [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
+// [Docs](https://docs.litellm.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfuseGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -60,9 +60,9 @@ func (r *LangfuseService) Get(ctx context.Context, endpoint string, opts ...opti
 	return
 }
 
-// Call Langfuse via LLM proxy. Works with Langfuse SDK.
+// Call Langfuse via LiteLLM proxy. Works with Langfuse SDK.
 //
-// [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
+// [Docs](https://docs.litellm.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfuseUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -74,9 +74,9 @@ func (r *LangfuseService) Update(ctx context.Context, endpoint string, opts ...o
 	return
 }
 
-// Call Langfuse via LLM proxy. Works with Langfuse SDK.
+// Call Langfuse via LiteLLM proxy. Works with Langfuse SDK.
 //
-// [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
+// [Docs](https://docs.litellm.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfuseDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -88,9 +88,9 @@ func (r *LangfuseService) Delete(ctx context.Context, endpoint string, opts ...o
 	return
 }
 
-// Call Langfuse via LLM proxy. Works with Langfuse SDK.
+// Call Langfuse via LiteLLM proxy. Works with Langfuse SDK.
 //
-// [Docs](https://docs.hanzo.ai/docs/pass_through/langfuse)
+// [Docs](https://docs.litellm.ai/docs/pass_through/langfuse)
 func (r *LangfuseService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *LangfusePatchResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {

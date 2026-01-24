@@ -32,7 +32,7 @@ func NewCohereService(opts ...option.RequestOption) (r *CohereService) {
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
+// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
 func (r *CohereService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -44,7 +44,7 @@ func (r *CohereService) New(ctx context.Context, endpoint string, opts ...option
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
+// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
 func (r *CohereService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -56,7 +56,7 @@ func (r *CohereService) Get(ctx context.Context, endpoint string, opts ...option
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
+// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
 func (r *CohereService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -68,7 +68,7 @@ func (r *CohereService) Update(ctx context.Context, endpoint string, opts ...opt
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
+// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
 func (r *CohereService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -80,7 +80,7 @@ func (r *CohereService) Delete(ctx context.Context, endpoint string, opts ...opt
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
+// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
 func (r *CohereService) Modify(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereModifyResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {

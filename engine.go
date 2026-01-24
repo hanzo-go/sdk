@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"slices"
 
+	"github.com/hanzoai/go-sdk/internal/apijson"
+	"github.com/hanzoai/go-sdk/internal/param"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
 )
@@ -75,17 +77,46 @@ func (r *EngineService) Complete(ctx context.Context, model string, opts ...opti
 //	}'
 //
 // ```
-func (r *EngineService) Embed(ctx context.Context, model string, opts ...option.RequestOption) (res *EngineEmbedResponse, err error) {
+func (r *EngineService) Embed(ctx context.Context, model string, body EngineEmbedParams, opts ...option.RequestOption) (res *EngineEmbedResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
 		return
 	}
 	path := fmt.Sprintf("engines/%s/embeddings", model)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
 type EngineCompleteResponse = interface{}
 
 type EngineEmbedResponse = interface{}
+
+type EngineEmbedParams struct {
+	Model             param.Field[string]                                  `json:"model,required"`
+	APIBase           param.Field[string]                                  `json:"api_base"`
+	APIKey            param.Field[string]                                  `json:"api_key"`
+	APIType           param.Field[string]                                  `json:"api_type"`
+	APIVersion        param.Field[string]                                  `json:"api_version"`
+	Caching           param.Field[bool]                                    `json:"caching"`
+	CustomLlmProvider param.Field[EngineEmbedParamsCustomLlmProviderUnion] `json:"custom_llm_provider"`
+	Input             param.Field[[]string]                                `json:"input"`
+	LitellmCallID     param.Field[string]                                  `json:"litellm_call_id"`
+	LitellmLoggingObj param.Field[map[string]interface{}]                  `json:"litellm_logging_obj"`
+	LoggerFn          param.Field[string]                                  `json:"logger_fn"`
+	Timeout           param.Field[int64]                                   `json:"timeout"`
+	User              param.Field[string]                                  `json:"user"`
+}
+
+func (r EngineEmbedParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// Satisfied by [shared.UnionString], [EngineEmbedParamsCustomLlmProviderMap].
+type EngineEmbedParamsCustomLlmProviderUnion interface {
+	ImplementsEngineEmbedParamsCustomLlmProviderUnion()
+}
+
+type EngineEmbedParamsCustomLlmProviderMap map[string]interface{}
+
+func (r EngineEmbedParamsCustomLlmProviderMap) ImplementsEngineEmbedParamsCustomLlmProviderUnion() {}

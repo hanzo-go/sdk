@@ -70,10 +70,10 @@ type CredentialListResponse = interface{}
 type CredentialDeleteResponse = interface{}
 
 type CredentialNewParams struct {
-	CredentialInfo   param.Field[interface{}] `json:"credential_info,required"`
-	CredentialName   param.Field[string]      `json:"credential_name,required"`
-	CredentialValues param.Field[interface{}] `json:"credential_values"`
-	ModelID          param.Field[string]      `json:"model_id"`
+	CredentialInfo   param.Field[map[string]interface{}] `json:"credential_info,required"`
+	CredentialName   param.Field[string]                 `json:"credential_name,required"`
+	CredentialValues param.Field[map[string]interface{}] `json:"credential_values"`
+	ModelID          param.Field[string]                 `json:"model_id"`
 }
 
 func (r CredentialNewParams) MarshalJSON() (data []byte, err error) {
