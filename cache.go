@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
@@ -32,8 +33,8 @@ func NewCacheService(opts ...option.RequestOption) (r *CacheService) {
 	return
 }
 
-// Endpoint for deleting a key from the cache. All responses from llm proxy have
-// `x-llm-cache-key` in the headers
+// Endpoint for deleting a key from the cache. All responses from litellm proxy
+// have `x-litellm-cache-key` in the headers
 //
 // Parameters:
 //
@@ -44,7 +45,7 @@ func NewCacheService(opts ...option.RequestOption) (r *CacheService) {
 // curl -X POST "http://0.0.0.0:4000/cache/delete"     -H "Authorization: Bearer sk-1234"     -d '{"keys": ["key1", "key2"]}'
 // ```
 func (r *CacheService) Delete(ctx context.Context, opts ...option.RequestOption) (res *CacheDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cache/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -61,7 +62,7 @@ func (r *CacheService) Delete(ctx context.Context, opts ...option.RequestOption)
 // curl -X POST http://0.0.0.0:4000/cache/flushall -H "Authorization: Bearer sk-1234"
 // ```
 func (r *CacheService) FlushAll(ctx context.Context, opts ...option.RequestOption) (res *CacheFlushAllResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cache/flushall"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -69,7 +70,7 @@ func (r *CacheService) FlushAll(ctx context.Context, opts ...option.RequestOptio
 
 // Endpoint for checking if cache can be pinged
 func (r *CacheService) Ping(ctx context.Context, opts ...option.RequestOption) (res *CachePingResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cache/ping"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -80,13 +81,13 @@ type CacheDeleteResponse = interface{}
 type CacheFlushAllResponse = interface{}
 
 type CachePingResponse struct {
-	CacheType              string                `json:"cache_type,required"`
-	Status                 string                `json:"status,required"`
-	HealthCheckCacheParams interface{}           `json:"health_check_cache_params,nullable"`
-	LlmCacheParams         string                `json:"llm_cache_params,nullable"`
-	PingResponse           bool                  `json:"ping_response,nullable"`
-	SetCacheResponse       string                `json:"set_cache_response,nullable"`
-	JSON                   cachePingResponseJSON `json:"-"`
+	CacheType              string                 `json:"cache_type,required"`
+	Status                 string                 `json:"status,required"`
+	HealthCheckCacheParams map[string]interface{} `json:"health_check_cache_params,nullable"`
+	LitellmCacheParams     string                 `json:"litellm_cache_params,nullable"`
+	PingResponse           bool                   `json:"ping_response,nullable"`
+	SetCacheResponse       string                 `json:"set_cache_response,nullable"`
+	JSON                   cachePingResponseJSON  `json:"-"`
 }
 
 // cachePingResponseJSON contains the JSON metadata for the struct
@@ -95,7 +96,7 @@ type cachePingResponseJSON struct {
 	CacheType              apijson.Field
 	Status                 apijson.Field
 	HealthCheckCacheParams apijson.Field
-	LlmCacheParams         apijson.Field
+	LitellmCacheParams     apijson.Field
 	PingResponse           apijson.Field
 	SetCacheResponse       apijson.Field
 	raw                    string

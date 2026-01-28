@@ -27,7 +27,8 @@ func TestHealthCheckAllWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Health.CheckAll(context.TODO(), hanzoai.HealthCheckAllParams{
-		Model: hanzoai.F("model"),
+		Model:   hanzoai.F("model"),
+		ModelID: hanzoai.F("model_id"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error

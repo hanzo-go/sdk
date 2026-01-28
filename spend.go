@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -41,7 +42,7 @@ func NewSpendService(opts ...option.RequestOption) (r *SpendService) {
 // Calculate spend **before** making call:
 //
 // Note: If you see a spend of $0.0 you need to set custom_pricing for your model:
-// https://docs.hanzo.ai/docs/proxy/custom_pricing
+// https://docs.litellm.ai/docs/proxy/custom_pricing
 //
 // ```
 // curl --location 'http://localhost:4000/spend/calculate'
@@ -88,14 +89,23 @@ func NewSpendService(opts ...option.RequestOption) (r *SpendService) {
 //
 // ```
 func (r *SpendService) CalculateSpend(ctx context.Context, body SpendCalculateSpendParams, opts ...option.RequestOption) (res *SpendCalculateSpendResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "spend/calculate"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
+// [DEPRECATED] This endpoint is not paginated and can cause performance issues.
+// Please use `/spend/logs/v2` instead for paginated access to spend logs.
+//
 // View all spend logs, if request_id is provided, only logs for that request_id
 // will be returned
+//
+// When start_date and end_date are provided:
+//
+//   - summarize=true (default): Returns aggregated spend data grouped by date
+//     (maintains backward compatibility)
+//   - summarize=false: Returns filtered individual log entries within the date range
 //
 // # Example Request for all logs
 //
@@ -112,22 +122,28 @@ func (r *SpendService) CalculateSpend(ctx context.Context, body SpendCalculateSp
 // Example Request for specific api_key
 //
 // ```
-// curl -X GET "http://0.0.0.0:8000/spend/logs?api_key=sk-Fn8Ej39NkBQmUagFEoUWPQ" -H "Authorization: Bearer sk-1234"
+// curl -X GET "http://0.0.0.0:8000/spend/logs?api_key=sk-test-example-key-123" -H "Authorization: Bearer sk-1234"
 // ```
 //
 // Example Request for specific user_id
 //
 // ```
-// curl -X GET "http://0.0.0.0:8000/spend/logs?user_id=z@hanzo.ai" -H "Authorization: Bearer sk-1234"
+// curl -X GET "http://0.0.0.0:8000/spend/logs?user_id=ishaan@berri.ai" -H "Authorization: Bearer sk-1234"
+// ```
+//
+// Example Request for date range with individual logs (unsummarized)
+//
+// ```
+// curl -X GET "http://0.0.0.0:8000/spend/logs?start_date=2024-01-01&end_date=2024-01-02&summarize=false" -H "Authorization: Bearer sk-1234"
 // ```
 func (r *SpendService) ListLogs(ctx context.Context, query SpendListLogsParams, opts ...option.RequestOption) (res *[]SpendListLogsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "spend/logs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
-// LLM Enterprise - View Spend Per Request Tag
+// LiteLLM Enterprise - View Spend Per Request Tag
 //
 // Example Request:
 //
@@ -141,7 +157,7 @@ func (r *SpendService) ListLogs(ctx context.Context, query SpendListLogsParams, 
 // curl -X GET "http://0.0.0.0:8000/spend/tags?start_date=2022-01-01&end_date=2022-02-01" -H "Authorization: Bearer sk-1234"
 // ```
 func (r *SpendService) ListTags(ctx context.Context, query SpendListTagsParams, opts ...option.RequestOption) (res *[]SpendListTagsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "spend/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -226,7 +242,8 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString] or [SpendListLogsResponseMessagesArray].
+// Union satisfied by [shared.UnionString], [SpendListLogsResponseMessagesArray] or
+// [SpendListLogsResponseMessagesMap].
 type SpendListLogsResponseMessagesUnion interface {
 	ImplementsSpendListLogsResponseMessagesUnion()
 }
@@ -243,6 +260,10 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(SpendListLogsResponseMessagesArray{}),
 		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(SpendListLogsResponseMessagesMap{}),
+		},
 	)
 }
 
@@ -250,7 +271,12 @@ type SpendListLogsResponseMessagesArray []interface{}
 
 func (r SpendListLogsResponseMessagesArray) ImplementsSpendListLogsResponseMessagesUnion() {}
 
-// Union satisfied by [shared.UnionString] or [SpendListLogsResponseResponseArray].
+type SpendListLogsResponseMessagesMap map[string]interface{}
+
+func (r SpendListLogsResponseMessagesMap) ImplementsSpendListLogsResponseMessagesUnion() {}
+
+// Union satisfied by [shared.UnionString], [SpendListLogsResponseResponseArray] or
+// [SpendListLogsResponseResponseMap].
 type SpendListLogsResponseResponseUnion interface {
 	ImplementsSpendListLogsResponseResponseUnion()
 }
@@ -267,12 +293,20 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(SpendListLogsResponseResponseArray{}),
 		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(SpendListLogsResponseResponseMap{}),
+		},
 	)
 }
 
 type SpendListLogsResponseResponseArray []interface{}
 
 func (r SpendListLogsResponseResponseArray) ImplementsSpendListLogsResponseResponseUnion() {}
+
+type SpendListLogsResponseResponseMap map[string]interface{}
+
+func (r SpendListLogsResponseResponseMap) ImplementsSpendListLogsResponseResponseUnion() {}
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].
 type SpendListLogsResponseStartTimeUnion interface {
@@ -371,7 +405,8 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString] or [SpendListTagsResponseMessagesArray].
+// Union satisfied by [shared.UnionString], [SpendListTagsResponseMessagesArray] or
+// [SpendListTagsResponseMessagesMap].
 type SpendListTagsResponseMessagesUnion interface {
 	ImplementsSpendListTagsResponseMessagesUnion()
 }
@@ -388,6 +423,10 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(SpendListTagsResponseMessagesArray{}),
 		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(SpendListTagsResponseMessagesMap{}),
+		},
 	)
 }
 
@@ -395,7 +434,12 @@ type SpendListTagsResponseMessagesArray []interface{}
 
 func (r SpendListTagsResponseMessagesArray) ImplementsSpendListTagsResponseMessagesUnion() {}
 
-// Union satisfied by [shared.UnionString] or [SpendListTagsResponseResponseArray].
+type SpendListTagsResponseMessagesMap map[string]interface{}
+
+func (r SpendListTagsResponseMessagesMap) ImplementsSpendListTagsResponseMessagesUnion() {}
+
+// Union satisfied by [shared.UnionString], [SpendListTagsResponseResponseArray] or
+// [SpendListTagsResponseResponseMap].
 type SpendListTagsResponseResponseUnion interface {
 	ImplementsSpendListTagsResponseResponseUnion()
 }
@@ -412,12 +456,20 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(SpendListTagsResponseResponseArray{}),
 		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(SpendListTagsResponseResponseMap{}),
+		},
 	)
 }
 
 type SpendListTagsResponseResponseArray []interface{}
 
 func (r SpendListTagsResponseResponseArray) ImplementsSpendListTagsResponseResponseUnion() {}
+
+type SpendListTagsResponseResponseMap map[string]interface{}
+
+func (r SpendListTagsResponseResponseMap) ImplementsSpendListTagsResponseResponseUnion() {}
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].
 type SpendListTagsResponseStartTimeUnion interface {
@@ -440,9 +492,9 @@ func init() {
 }
 
 type SpendCalculateSpendParams struct {
-	CompletionResponse param.Field[interface{}]   `json:"completion_response"`
-	Messages           param.Field[[]interface{}] `json:"messages"`
-	Model              param.Field[string]        `json:"model"`
+	CompletionResponse param.Field[map[string]interface{}] `json:"completion_response"`
+	Messages           param.Field[[]interface{}]          `json:"messages"`
+	Model              param.Field[string]                 `json:"model"`
 }
 
 func (r SpendCalculateSpendParams) MarshalJSON() (data []byte, err error) {
@@ -459,6 +511,9 @@ type SpendListLogsParams struct {
 	RequestID param.Field[string] `query:"request_id"`
 	// Time from which to start viewing key spend
 	StartDate param.Field[string] `query:"start_date"`
+	// When start_date and end_date are provided, summarize=true returns aggregated
+	// data by date (legacy behavior), summarize=false returns filtered individual logs
+	Summarize param.Field[bool] `query:"summarize"`
 	// Get spend logs based on user_id
 	UserID param.Field[string] `query:"user_id"`
 }

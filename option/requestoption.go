@@ -277,6 +277,6 @@ func WithEnvironmentSandbox() RequestOption {
 func WithAPIKey(value string) RequestOption {
 	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
 		r.APIKey = value
-		return r.Apply(WithHeader("Ocp-Apim-Subscription-Key", r.APIKey))
+		return r.Apply(WithHeader("x-litellm-api-key", r.APIKey))
 	})
 }

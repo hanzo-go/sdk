@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -45,7 +46,7 @@ func NewFileContentService(opts ...option.RequestOption) (r *FileContentService)
 //
 // ```
 func (r *FileContentService) Get(ctx context.Context, provider string, fileID string, opts ...option.RequestOption) (res *FileContentGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
 		return

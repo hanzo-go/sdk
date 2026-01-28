@@ -27,7 +27,7 @@ func TestModelInfoListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Model.Info.List(context.TODO(), hanzoai.ModelInfoListParams{
-		LlmModelID: hanzoai.F("llm_model_id"),
+		LitellmModelID: hanzoai.F("litellm_model_id"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error

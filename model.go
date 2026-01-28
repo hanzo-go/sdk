@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apiquery"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -40,8 +41,15 @@ func NewModelService(opts ...option.RequestOption) (r *ModelService) {
 // etc.
 //
 // This is just for compatibility with openai projects like aider.
+//
+// Query Parameters:
+//
+//   - include_metadata: Include additional metadata in the response with fallback
+//     information
+//   - fallback_type: Type of fallbacks to include ("general", "context_window",
+//     "content_policy") Defaults to "general" when include_metadata=true
 func (r *ModelService) List(ctx context.Context, query ModelListParams, opts ...option.RequestOption) (res *ModelListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/models"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -50,8 +58,12 @@ func (r *ModelService) List(ctx context.Context, query ModelListParams, opts ...
 type ModelListResponse = interface{}
 
 type ModelListParams struct {
-	ReturnWildcardRoutes param.Field[bool]   `query:"return_wildcard_routes"`
-	TeamID               param.Field[string] `query:"team_id"`
+	FallbackType             param.Field[string] `query:"fallback_type"`
+	IncludeMetadata          param.Field[bool]   `query:"include_metadata"`
+	IncludeModelAccessGroups param.Field[bool]   `query:"include_model_access_groups"`
+	OnlyModelAccessGroups    param.Field[bool]   `query:"only_model_access_groups"`
+	ReturnWildcardRoutes     param.Field[bool]   `query:"return_wildcard_routes"`
+	TeamID                   param.Field[string] `query:"team_id"`
 }
 
 // URLQuery serializes [ModelListParams]'s query parameters as `url.Values`.

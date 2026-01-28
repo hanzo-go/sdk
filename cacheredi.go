@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -31,7 +32,7 @@ func NewCacheRediService(opts ...option.RequestOption) (r *CacheRediService) {
 
 // Endpoint for getting /redis/info
 func (r *CacheRediService) GetInfo(ctx context.Context, opts ...option.RequestOption) (res *CacheRediGetInfoResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cache/redis/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

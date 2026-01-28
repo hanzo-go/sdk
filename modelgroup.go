@@ -6,6 +6,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apiquery"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -32,8 +33,8 @@ func NewModelGroupService(opts ...option.RequestOption) (r *ModelGroupService) {
 	return
 }
 
-// Get information about all the deployments on llm proxy, including config.yaml
-// descriptions (except api key and api base)
+// Get information about all the deployments on litellm proxy, including
+// config.yaml descriptions (except api key and api base)
 //
 //   - /model_group/info returns all model groups. End users of proxy should use
 //     /model_group/info since those models will be used for /chat/completions,
@@ -62,7 +63,7 @@ func NewModelGroupService(opts ...option.RequestOption) (r *ModelGroupService) {
 // ```
 //
 // Learn how to use and set wildcard models
-// [here](https://docs.hanzo.ai/docs/wildcard_routing)
+// [here](https://docs.litellm.ai/docs/wildcard_routing)
 //
 // Example Response:
 //
@@ -177,7 +178,7 @@ func NewModelGroupService(opts ...option.RequestOption) (r *ModelGroupService) {
 //
 // ```
 func (r *ModelGroupService) GetInfo(ctx context.Context, query ModelGroupGetInfoParams, opts ...option.RequestOption) (res *ModelGroupGetInfoResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "model_group/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -37,7 +38,7 @@ func NewTestService(opts ...option.RequestOption) (r *TestService) {
 //
 // Returns: dict: A dictionary containing the route of the request URL.
 func (r *TestService) Ping(ctx context.Context, opts ...option.RequestOption) (res *TestPingResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "test"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

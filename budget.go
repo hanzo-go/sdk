@@ -6,6 +6,8 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"slices"
+	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -49,8 +51,10 @@ func NewBudgetService(opts ...option.RequestOption) (r *BudgetService) {
 //   - model_max_budget: Optional[dict] - Specify max budget for a given model.
 //     Example: {"openai/gpt-4o-mini": {"max_budget": 100.0, "budget_duration": "1d",
 //     "tpm_limit": 100000, "rpm_limit": 100000}}
+//   - budget_reset_at: Optional[datetime] - Datetime when the initial budget is
+//     reset. Default is now.
 func (r *BudgetService) New(ctx context.Context, body BudgetNewParams, opts ...option.RequestOption) (res *BudgetNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "budget/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -72,8 +76,10 @@ func (r *BudgetService) New(ctx context.Context, body BudgetNewParams, opts ...o
 //   - model_max_budget: Optional[dict] - Specify max budget for a given model.
 //     Example: {"openai/gpt-4o-mini": {"max_budget": 100.0, "budget_duration": "1d",
 //     "tpm_limit": 100000, "rpm_limit": 100000}}
+//   - budget_reset_at: Optional[datetime] - Update the Datetime when the budget was
+//     last reset.
 func (r *BudgetService) Update(ctx context.Context, body BudgetUpdateParams, opts ...option.RequestOption) (res *BudgetUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "budget/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -81,7 +87,7 @@ func (r *BudgetService) Update(ctx context.Context, body BudgetUpdateParams, opt
 
 // List all the created budgets in proxy db. Used on Admin UI.
 func (r *BudgetService) List(ctx context.Context, opts ...option.RequestOption) (res *BudgetListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "budget/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -93,7 +99,7 @@ func (r *BudgetService) List(ctx context.Context, opts ...option.RequestOption) 
 //
 // - id: str - The budget id to delete
 func (r *BudgetService) Delete(ctx context.Context, body BudgetDeleteParams, opts ...option.RequestOption) (res *BudgetDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "budget/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -105,7 +111,7 @@ func (r *BudgetService) Delete(ctx context.Context, body BudgetDeleteParams, opt
 //
 // - budgets: List[str] - The list of budget ids to get information for
 func (r *BudgetService) Info(ctx context.Context, body BudgetInfoParams, opts ...option.RequestOption) (res *BudgetInfoResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "budget/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -120,7 +126,7 @@ func (r *BudgetService) Info(ctx context.Context, body BudgetInfoParams, opts ..
 //
 // - budget_id: str - The budget id to get information for
 func (r *BudgetService) Settings(ctx context.Context, query BudgetSettingsParams, opts ...option.RequestOption) (res *BudgetSettingsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "budget/settings"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -131,6 +137,8 @@ type BudgetNewParam struct {
 	BudgetDuration param.Field[string] `json:"budget_duration"`
 	// The unique budget id.
 	BudgetID param.Field[string] `json:"budget_id"`
+	// Datetime when the budget is reset
+	BudgetResetAt param.Field[time.Time] `json:"budget_reset_at" format:"date-time"`
 	// Requests will fail if this budget (in USD) is exceeded.
 	MaxBudget param.Field[float64] `json:"max_budget"`
 	// Max concurrent requests allowed for this budget id.

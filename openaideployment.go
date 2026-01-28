@@ -7,7 +7,10 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
+	"github.com/hanzoai/go-sdk/internal/apijson"
+	"github.com/hanzoai/go-sdk/internal/param"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
 )
@@ -50,7 +53,7 @@ func NewOpenAIDeploymentService(opts ...option.RequestOption) (r *OpenAIDeployme
 //
 // ```
 func (r *OpenAIDeploymentService) Complete(ctx context.Context, model string, opts ...option.RequestOption) (res *OpenAIDeploymentCompleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
 		return
@@ -74,17 +77,48 @@ func (r *OpenAIDeploymentService) Complete(ctx context.Context, model string, op
 //	}'
 //
 // ```
-func (r *OpenAIDeploymentService) Embed(ctx context.Context, model string, opts ...option.RequestOption) (res *OpenAIDeploymentEmbedResponse, err error) {
-	opts = append(r.Options[:], opts...)
+func (r *OpenAIDeploymentService) Embed(ctx context.Context, model string, body OpenAIDeploymentEmbedParams, opts ...option.RequestOption) (res *OpenAIDeploymentEmbedResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
 		return
 	}
 	path := fmt.Sprintf("openai/deployments/%s/embeddings", model)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
 type OpenAIDeploymentCompleteResponse = interface{}
 
 type OpenAIDeploymentEmbedResponse = interface{}
+
+type OpenAIDeploymentEmbedParams struct {
+	Model             param.Field[string]                                            `json:"model,required"`
+	APIBase           param.Field[string]                                            `json:"api_base"`
+	APIKey            param.Field[string]                                            `json:"api_key"`
+	APIType           param.Field[string]                                            `json:"api_type"`
+	APIVersion        param.Field[string]                                            `json:"api_version"`
+	Caching           param.Field[bool]                                              `json:"caching"`
+	CustomLlmProvider param.Field[OpenAIDeploymentEmbedParamsCustomLlmProviderUnion] `json:"custom_llm_provider"`
+	Input             param.Field[[]string]                                          `json:"input"`
+	LitellmCallID     param.Field[string]                                            `json:"litellm_call_id"`
+	LitellmLoggingObj param.Field[map[string]interface{}]                            `json:"litellm_logging_obj"`
+	LoggerFn          param.Field[string]                                            `json:"logger_fn"`
+	Timeout           param.Field[int64]                                             `json:"timeout"`
+	User              param.Field[string]                                            `json:"user"`
+}
+
+func (r OpenAIDeploymentEmbedParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// Satisfied by [shared.UnionString],
+// [OpenAIDeploymentEmbedParamsCustomLlmProviderMap].
+type OpenAIDeploymentEmbedParamsCustomLlmProviderUnion interface {
+	ImplementsOpenAIDeploymentEmbedParamsCustomLlmProviderUnion()
+}
+
+type OpenAIDeploymentEmbedParamsCustomLlmProviderMap map[string]interface{}
+
+func (r OpenAIDeploymentEmbedParamsCustomLlmProviderMap) ImplementsOpenAIDeploymentEmbedParamsCustomLlmProviderUnion() {
+}

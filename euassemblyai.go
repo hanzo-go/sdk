@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -33,7 +34,7 @@ func NewEuAssemblyaiService(opts ...option.RequestOption) (r *EuAssemblyaiServic
 
 // Assemblyai Proxy Route
 func (r *EuAssemblyaiService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *EuAssemblyaiNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -45,7 +46,7 @@ func (r *EuAssemblyaiService) New(ctx context.Context, endpoint string, opts ...
 
 // Assemblyai Proxy Route
 func (r *EuAssemblyaiService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *EuAssemblyaiGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -57,7 +58,7 @@ func (r *EuAssemblyaiService) Get(ctx context.Context, endpoint string, opts ...
 
 // Assemblyai Proxy Route
 func (r *EuAssemblyaiService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *EuAssemblyaiUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -69,7 +70,7 @@ func (r *EuAssemblyaiService) Update(ctx context.Context, endpoint string, opts 
 
 // Assemblyai Proxy Route
 func (r *EuAssemblyaiService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *EuAssemblyaiDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -81,7 +82,7 @@ func (r *EuAssemblyaiService) Delete(ctx context.Context, endpoint string, opts 
 
 // Assemblyai Proxy Route
 func (r *EuAssemblyaiService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *EuAssemblyaiPatchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return

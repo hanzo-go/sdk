@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
@@ -32,7 +33,7 @@ func NewDeleteService(opts ...option.RequestOption) (r *DeleteService) {
 
 // Delete Allowed Ip
 func (r *DeleteService) NewAllowedIP(ctx context.Context, body DeleteNewAllowedIPParams, opts ...option.RequestOption) (res *DeleteNewAllowedIPResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "delete/allowed_ip"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

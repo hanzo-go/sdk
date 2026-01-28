@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -36,7 +37,7 @@ func NewGlobalSpendService(opts ...option.RequestOption) (r *GlobalSpendService)
 	return
 }
 
-// LLM Enterprise - View Spend Per Request Tag. Used by LLM UI
+// LiteLLM Enterprise - View Spend Per Request Tag. Used by LiteLLM UI
 //
 // Example Request:
 //
@@ -50,7 +51,7 @@ func NewGlobalSpendService(opts ...option.RequestOption) (r *GlobalSpendService)
 // curl -X GET "http://0.0.0.0:4000/spend/tags?start_date=2022-01-01&end_date=2022-02-01" -H "Authorization: Bearer sk-1234"
 // ```
 func (r *GlobalSpendService) ListTags(ctx context.Context, query GlobalSpendListTagsParams, opts ...option.RequestOption) (res *[]GlobalSpendListTagsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -58,14 +59,14 @@ func (r *GlobalSpendService) ListTags(ctx context.Context, query GlobalSpendList
 
 // ADMIN ONLY / MASTER KEY Only Endpoint
 //
-// Globally reset spend for All API Keys and Teams, maintain LLM_SpendLogs
+// Globally reset spend for All API Keys and Teams, maintain LiteLLM_SpendLogs
 //
-//  1. LLM_SpendLogs will maintain the logs on spend, no data gets deleted from
+//  1. LiteLLM_SpendLogs will maintain the logs on spend, no data gets deleted from
 //     there
-//  2. LLM_VerificationTokens spend will be set = 0
-//  3. LLM_TeamTable spend will be set = 0
+//  2. LiteLLM_VerificationTokens spend will be set = 0
+//  3. LiteLLM_TeamTable spend will be set = 0
 func (r *GlobalSpendService) Reset(ctx context.Context, opts ...option.RequestOption) (res *GlobalSpendResetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/reset"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -78,7 +79,7 @@ func (r *GlobalSpendService) Reset(ctx context.Context, opts ...option.RequestOp
 // "requests": 100 }, "audio-modelname1": { "cost": 25.50, "seconds": 25,
 // "requests": 50 }, } } ] ] }
 func (r *GlobalSpendService) GetReport(ctx context.Context, query GlobalSpendGetReportParams, opts ...option.RequestOption) (res *[]GlobalSpendGetReportResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/report"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -161,8 +162,9 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString] or
-// [GlobalSpendListTagsResponseMessagesArray].
+// Union satisfied by [shared.UnionString],
+// [GlobalSpendListTagsResponseMessagesArray] or
+// [GlobalSpendListTagsResponseMessagesMap].
 type GlobalSpendListTagsResponseMessagesUnion interface {
 	ImplementsGlobalSpendListTagsResponseMessagesUnion()
 }
@@ -179,6 +181,10 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendListTagsResponseMessagesArray{}),
 		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(GlobalSpendListTagsResponseMessagesMap{}),
+		},
 	)
 }
 
@@ -187,8 +193,14 @@ type GlobalSpendListTagsResponseMessagesArray []interface{}
 func (r GlobalSpendListTagsResponseMessagesArray) ImplementsGlobalSpendListTagsResponseMessagesUnion() {
 }
 
-// Union satisfied by [shared.UnionString] or
-// [GlobalSpendListTagsResponseResponseArray].
+type GlobalSpendListTagsResponseMessagesMap map[string]interface{}
+
+func (r GlobalSpendListTagsResponseMessagesMap) ImplementsGlobalSpendListTagsResponseMessagesUnion() {
+}
+
+// Union satisfied by [shared.UnionString],
+// [GlobalSpendListTagsResponseResponseArray] or
+// [GlobalSpendListTagsResponseResponseMap].
 type GlobalSpendListTagsResponseResponseUnion interface {
 	ImplementsGlobalSpendListTagsResponseResponseUnion()
 }
@@ -205,12 +217,21 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendListTagsResponseResponseArray{}),
 		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(GlobalSpendListTagsResponseResponseMap{}),
+		},
 	)
 }
 
 type GlobalSpendListTagsResponseResponseArray []interface{}
 
 func (r GlobalSpendListTagsResponseResponseArray) ImplementsGlobalSpendListTagsResponseResponseUnion() {
+}
+
+type GlobalSpendListTagsResponseResponseMap map[string]interface{}
+
+func (r GlobalSpendListTagsResponseResponseMap) ImplementsGlobalSpendListTagsResponseResponseUnion() {
 }
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].
@@ -312,8 +333,9 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString] or
-// [GlobalSpendGetReportResponseMessagesArray].
+// Union satisfied by [shared.UnionString],
+// [GlobalSpendGetReportResponseMessagesArray] or
+// [GlobalSpendGetReportResponseMessagesMap].
 type GlobalSpendGetReportResponseMessagesUnion interface {
 	ImplementsGlobalSpendGetReportResponseMessagesUnion()
 }
@@ -330,6 +352,10 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendGetReportResponseMessagesArray{}),
 		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(GlobalSpendGetReportResponseMessagesMap{}),
+		},
 	)
 }
 
@@ -338,8 +364,14 @@ type GlobalSpendGetReportResponseMessagesArray []interface{}
 func (r GlobalSpendGetReportResponseMessagesArray) ImplementsGlobalSpendGetReportResponseMessagesUnion() {
 }
 
-// Union satisfied by [shared.UnionString] or
-// [GlobalSpendGetReportResponseResponseArray].
+type GlobalSpendGetReportResponseMessagesMap map[string]interface{}
+
+func (r GlobalSpendGetReportResponseMessagesMap) ImplementsGlobalSpendGetReportResponseMessagesUnion() {
+}
+
+// Union satisfied by [shared.UnionString],
+// [GlobalSpendGetReportResponseResponseArray] or
+// [GlobalSpendGetReportResponseResponseMap].
 type GlobalSpendGetReportResponseResponseUnion interface {
 	ImplementsGlobalSpendGetReportResponseResponseUnion()
 }
@@ -356,12 +388,21 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendGetReportResponseResponseArray{}),
 		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(GlobalSpendGetReportResponseResponseMap{}),
+		},
 	)
 }
 
 type GlobalSpendGetReportResponseResponseArray []interface{}
 
 func (r GlobalSpendGetReportResponseResponseArray) ImplementsGlobalSpendGetReportResponseResponseUnion() {
+}
+
+type GlobalSpendGetReportResponseResponseMap map[string]interface{}
+
+func (r GlobalSpendGetReportResponseResponseMap) ImplementsGlobalSpendGetReportResponseResponseUnion() {
 }
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].

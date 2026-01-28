@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -31,9 +32,9 @@ func NewGeminiService(opts ...option.RequestOption) (r *GeminiService) {
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
+// [Docs](https://docs.litellm.ai/docs/pass_through/google_ai_studio)
 func (r *GeminiService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *GeminiNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -43,9 +44,9 @@ func (r *GeminiService) New(ctx context.Context, endpoint string, opts ...option
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
+// [Docs](https://docs.litellm.ai/docs/pass_through/google_ai_studio)
 func (r *GeminiService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *GeminiGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -55,9 +56,9 @@ func (r *GeminiService) Get(ctx context.Context, endpoint string, opts ...option
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
+// [Docs](https://docs.litellm.ai/docs/pass_through/google_ai_studio)
 func (r *GeminiService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *GeminiUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -67,9 +68,9 @@ func (r *GeminiService) Update(ctx context.Context, endpoint string, opts ...opt
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
+// [Docs](https://docs.litellm.ai/docs/pass_through/google_ai_studio)
 func (r *GeminiService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *GeminiDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return
@@ -79,9 +80,9 @@ func (r *GeminiService) Delete(ctx context.Context, endpoint string, opts ...opt
 	return
 }
 
-// [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
+// [Docs](https://docs.litellm.ai/docs/pass_through/google_ai_studio)
 func (r *GeminiService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *GeminiPatchResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
 		return

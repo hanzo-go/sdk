@@ -7,6 +7,7 @@ import (
 	"errors"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/hanzoai/go-sdk"
 	"github.com/hanzoai/go-sdk/internal/testutil"
@@ -30,6 +31,7 @@ func TestBudgetNewWithOptionalParams(t *testing.T) {
 		BudgetNew: hanzoai.BudgetNewParam{
 			BudgetDuration:      hanzoai.F("budget_duration"),
 			BudgetID:            hanzoai.F("budget_id"),
+			BudgetResetAt:       hanzoai.F(time.Now()),
 			MaxBudget:           hanzoai.F(0.000000),
 			MaxParallelRequests: hanzoai.F(int64(0)),
 			ModelMaxBudget: hanzoai.F(map[string]hanzoai.BudgetNewModelMaxBudgetParam{
@@ -71,6 +73,7 @@ func TestBudgetUpdateWithOptionalParams(t *testing.T) {
 		BudgetNew: hanzoai.BudgetNewParam{
 			BudgetDuration:      hanzoai.F("budget_duration"),
 			BudgetID:            hanzoai.F("budget_id"),
+			BudgetResetAt:       hanzoai.F(time.Now()),
 			MaxBudget:           hanzoai.F(0.000000),
 			MaxParallelRequests: hanzoai.F(int64(0)),
 			ModelMaxBudget: hanzoai.F(map[string]hanzoai.BudgetNewModelMaxBudgetParam{

@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -31,7 +32,7 @@ func NewRouteService(opts ...option.RequestOption) (r *RouteService) {
 
 // Get a list of available routes in the FastAPI application.
 func (r *RouteService) List(ctx context.Context, opts ...option.RequestOption) (res *RouteListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "routes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

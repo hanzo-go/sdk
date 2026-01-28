@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/param"
@@ -53,7 +54,7 @@ func NewTeamCallbackService(opts ...option.RequestOption) (r *TeamCallbackServic
 // "failure_callbacks": team_callback_settings_obj.failure_callback,
 // "callback_vars": team_callback_settings_obj.callback_vars, }, }
 func (r *TeamCallbackService) Get(ctx context.Context, teamID string, opts ...option.RequestOption) (res *TeamCallbackGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
 		return
@@ -105,10 +106,10 @@ func (r *TeamCallbackService) Get(ctx context.Context, teamID string, opts ...op
 // all LLM calls will be logged to langfuse using the public key pk-lf-xxxx1 and
 // the secret key sk-xxxxx
 func (r *TeamCallbackService) Add(ctx context.Context, teamID string, params TeamCallbackAddParams, opts ...option.RequestOption) (res *TeamCallbackAddResponse, err error) {
-	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+	if params.LitellmChangedBy.Present {
+		opts = append(opts, option.WithHeader("litellm-changed-by", fmt.Sprintf("%s", params.LitellmChangedBy)))
 	}
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
 		return
@@ -126,9 +127,10 @@ type TeamCallbackAddParams struct {
 	CallbackName param.Field[string]                            `json:"callback_name,required"`
 	CallbackVars param.Field[map[string]string]                 `json:"callback_vars,required"`
 	CallbackType param.Field[TeamCallbackAddParamsCallbackType] `json:"callback_type"`
-	// The llm-changed-by header enables tracking of actions performed by authorized
-	// users on behalf of other users, providing an audit trail for accountability
-	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
+	// The litellm-changed-by header enables tracking of actions performed by
+	// authorized users on behalf of other users, providing an audit trail for
+	// accountability
+	LitellmChangedBy param.Field[string] `header:"litellm-changed-by"`
 }
 
 func (r TeamCallbackAddParams) MarshalJSON() (data []byte, err error) {

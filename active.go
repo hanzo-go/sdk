@@ -5,6 +5,7 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -29,7 +30,7 @@ func NewActiveService(opts ...option.RequestOption) (r *ActiveService) {
 	return
 }
 
-// Returns a list of llm level settings
+// Returns a list of litellm level settings
 //
 // This is useful for debugging and ensuring the proxy server is configured
 // correctly.
@@ -40,22 +41,22 @@ func NewActiveService(opts ...option.RequestOption) (r *ActiveService) {
 //
 //	{
 //	    "alerting": _alerting,
-//	    "llm.callbacks": llm_callbacks,
-//	    "llm.input_callback": llm_input_callbacks,
-//	    "llm.failure_callback": llm_failure_callbacks,
-//	    "llm.success_callback": llm_success_callbacks,
-//	    "llm._async_success_callback": llm_async_success_callbacks,
-//	    "llm._async_failure_callback": llm_async_failure_callbacks,
-//	    "llm._async_input_callback": llm_async_input_callbacks,
-//	    "all_llm_callbacks": all_llm_callbacks,
-//	    "num_callbacks": len(all_llm_callbacks),
+//	    "litellm.callbacks": litellm_callbacks,
+//	    "litellm.input_callback": litellm_input_callbacks,
+//	    "litellm.failure_callback": litellm_failure_callbacks,
+//	    "litellm.success_callback": litellm_success_callbacks,
+//	    "litellm._async_success_callback": litellm_async_success_callbacks,
+//	    "litellm._async_failure_callback": litellm_async_failure_callbacks,
+//	    "litellm._async_input_callback": litellm_async_input_callbacks,
+//	    "all_litellm_callbacks": all_litellm_callbacks,
+//	    "num_callbacks": len(all_litellm_callbacks),
 //	    "num_alerting": _num_alerting,
-//	    "llm.request_timeout": llm.request_timeout,
+//	    "litellm.request_timeout": litellm.request_timeout,
 //	}
 //
 // ```
 func (r *ActiveService) ListCallbacks(ctx context.Context, opts ...option.RequestOption) (res *ActiveListCallbacksResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "active/callbacks"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
