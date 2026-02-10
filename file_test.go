@@ -35,9 +35,6 @@ func TestFileNewWithOptionalParams(t *testing.T) {
 			File:              hanzoai.F(io.Reader(bytes.NewBuffer([]byte("some file contents")))),
 			Purpose:           hanzoai.F("purpose"),
 			CustomLlmProvider: hanzoai.F("custom_llm_provider"),
-			LitellmMetadata:   hanzoai.F("litellm_metadata"),
-			TargetModelNames:  hanzoai.F("target_model_names"),
-			TargetStorage:     hanzoai.F("target_storage"),
 		},
 	)
 	if err != nil {
@@ -93,8 +90,7 @@ func TestFileListWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"provider",
 		hanzoai.FileListParams{
-			Purpose:          hanzoai.F("purpose"),
-			TargetModelNames: hanzoai.F("target_model_names"),
+			Purpose: hanzoai.F("purpose"),
 		},
 	)
 	if err != nil {

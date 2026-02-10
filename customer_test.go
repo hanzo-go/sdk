@@ -7,7 +7,6 @@ import (
 	"errors"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/hanzoai/go-sdk"
 	"github.com/hanzoai/go-sdk/internal/testutil"
@@ -34,7 +33,6 @@ func TestCustomerNewWithOptionalParams(t *testing.T) {
 		Blocked:             hanzoai.F(true),
 		BudgetDuration:      hanzoai.F("budget_duration"),
 		BudgetID:            hanzoai.F("budget_id"),
-		BudgetResetAt:       hanzoai.F(time.Now()),
 		DefaultModel:        hanzoai.F("default_model"),
 		MaxBudget:           hanzoai.F(0.000000),
 		MaxParallelRequests: hanzoai.F(int64(0)),
@@ -48,7 +46,6 @@ func TestCustomerNewWithOptionalParams(t *testing.T) {
 		}),
 		RpmLimit:   hanzoai.F(int64(0)),
 		SoftBudget: hanzoai.F(0.000000),
-		Spend:      hanzoai.F(0.000000),
 		TpmLimit:   hanzoai.F(int64(0)),
 	})
 	if err != nil {

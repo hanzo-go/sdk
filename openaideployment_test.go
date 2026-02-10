@@ -11,7 +11,6 @@ import (
 	"github.com/hanzoai/go-sdk"
 	"github.com/hanzoai/go-sdk/internal/testutil"
 	"github.com/hanzoai/go-sdk/option"
-	"github.com/hanzoai/go-sdk/shared"
 )
 
 func TestOpenAIDeploymentComplete(t *testing.T) {
@@ -37,7 +36,7 @@ func TestOpenAIDeploymentComplete(t *testing.T) {
 	}
 }
 
-func TestOpenAIDeploymentEmbedWithOptionalParams(t *testing.T) {
+func TestOpenAIDeploymentEmbed(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -50,27 +49,7 @@ func TestOpenAIDeploymentEmbedWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.OpenAI.Deployments.Embed(
-		context.TODO(),
-		"model",
-		hanzoai.OpenAIDeploymentEmbedParams{
-			Model:             hanzoai.F("model"),
-			APIBase:           hanzoai.F("api_base"),
-			APIKey:            hanzoai.F("api_key"),
-			APIType:           hanzoai.F("api_type"),
-			APIVersion:        hanzoai.F("api_version"),
-			Caching:           hanzoai.F(true),
-			CustomLlmProvider: hanzoai.F[hanzoai.OpenAIDeploymentEmbedParamsCustomLlmProviderUnion](shared.UnionString("string")),
-			Input:             hanzoai.F([]string{"string"}),
-			LitellmCallID:     hanzoai.F("litellm_call_id"),
-			LitellmLoggingObj: hanzoai.F(map[string]interface{}{
-				"foo": "bar",
-			}),
-			LoggerFn: hanzoai.F("logger_fn"),
-			Timeout:  hanzoai.F(int64(0)),
-			User:     hanzoai.F("user"),
-		},
-	)
+	_, err := client.OpenAI.Deployments.Embed(context.TODO(), "model")
 	if err != nil {
 		var apierr *hanzoai.Error
 		if errors.As(err, &apierr) {

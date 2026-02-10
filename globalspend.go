@@ -37,7 +37,7 @@ func NewGlobalSpendService(opts ...option.RequestOption) (r *GlobalSpendService)
 	return
 }
 
-// LiteLLM Enterprise - View Spend Per Request Tag. Used by LiteLLM UI
+// LLM Enterprise - View Spend Per Request Tag. Used by LLM UI
 //
 // Example Request:
 //
@@ -59,12 +59,12 @@ func (r *GlobalSpendService) ListTags(ctx context.Context, query GlobalSpendList
 
 // ADMIN ONLY / MASTER KEY Only Endpoint
 //
-// Globally reset spend for All API Keys and Teams, maintain LiteLLM_SpendLogs
+// Globally reset spend for All API Keys and Teams, maintain LLM_SpendLogs
 //
-//  1. LiteLLM_SpendLogs will maintain the logs on spend, no data gets deleted from
+//  1. LLM_SpendLogs will maintain the logs on spend, no data gets deleted from
 //     there
-//  2. LiteLLM_VerificationTokens spend will be set = 0
-//  3. LiteLLM_TeamTable spend will be set = 0
+//  2. LLM_VerificationTokens spend will be set = 0
+//  3. LLM_TeamTable spend will be set = 0
 func (r *GlobalSpendService) Reset(ctx context.Context, opts ...option.RequestOption) (res *GlobalSpendResetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/reset"
@@ -162,9 +162,8 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString],
-// [GlobalSpendListTagsResponseMessagesArray] or
-// [GlobalSpendListTagsResponseMessagesMap].
+// Union satisfied by [shared.UnionString] or
+// [GlobalSpendListTagsResponseMessagesArray].
 type GlobalSpendListTagsResponseMessagesUnion interface {
 	ImplementsGlobalSpendListTagsResponseMessagesUnion()
 }
@@ -181,10 +180,6 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendListTagsResponseMessagesArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GlobalSpendListTagsResponseMessagesMap{}),
-		},
 	)
 }
 
@@ -193,14 +188,8 @@ type GlobalSpendListTagsResponseMessagesArray []interface{}
 func (r GlobalSpendListTagsResponseMessagesArray) ImplementsGlobalSpendListTagsResponseMessagesUnion() {
 }
 
-type GlobalSpendListTagsResponseMessagesMap map[string]interface{}
-
-func (r GlobalSpendListTagsResponseMessagesMap) ImplementsGlobalSpendListTagsResponseMessagesUnion() {
-}
-
-// Union satisfied by [shared.UnionString],
-// [GlobalSpendListTagsResponseResponseArray] or
-// [GlobalSpendListTagsResponseResponseMap].
+// Union satisfied by [shared.UnionString] or
+// [GlobalSpendListTagsResponseResponseArray].
 type GlobalSpendListTagsResponseResponseUnion interface {
 	ImplementsGlobalSpendListTagsResponseResponseUnion()
 }
@@ -217,21 +206,12 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendListTagsResponseResponseArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GlobalSpendListTagsResponseResponseMap{}),
-		},
 	)
 }
 
 type GlobalSpendListTagsResponseResponseArray []interface{}
 
 func (r GlobalSpendListTagsResponseResponseArray) ImplementsGlobalSpendListTagsResponseResponseUnion() {
-}
-
-type GlobalSpendListTagsResponseResponseMap map[string]interface{}
-
-func (r GlobalSpendListTagsResponseResponseMap) ImplementsGlobalSpendListTagsResponseResponseUnion() {
 }
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].
@@ -333,9 +313,8 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString],
-// [GlobalSpendGetReportResponseMessagesArray] or
-// [GlobalSpendGetReportResponseMessagesMap].
+// Union satisfied by [shared.UnionString] or
+// [GlobalSpendGetReportResponseMessagesArray].
 type GlobalSpendGetReportResponseMessagesUnion interface {
 	ImplementsGlobalSpendGetReportResponseMessagesUnion()
 }
@@ -352,10 +331,6 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendGetReportResponseMessagesArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GlobalSpendGetReportResponseMessagesMap{}),
-		},
 	)
 }
 
@@ -364,14 +339,8 @@ type GlobalSpendGetReportResponseMessagesArray []interface{}
 func (r GlobalSpendGetReportResponseMessagesArray) ImplementsGlobalSpendGetReportResponseMessagesUnion() {
 }
 
-type GlobalSpendGetReportResponseMessagesMap map[string]interface{}
-
-func (r GlobalSpendGetReportResponseMessagesMap) ImplementsGlobalSpendGetReportResponseMessagesUnion() {
-}
-
-// Union satisfied by [shared.UnionString],
-// [GlobalSpendGetReportResponseResponseArray] or
-// [GlobalSpendGetReportResponseResponseMap].
+// Union satisfied by [shared.UnionString] or
+// [GlobalSpendGetReportResponseResponseArray].
 type GlobalSpendGetReportResponseResponseUnion interface {
 	ImplementsGlobalSpendGetReportResponseResponseUnion()
 }
@@ -388,21 +357,12 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendGetReportResponseResponseArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GlobalSpendGetReportResponseResponseMap{}),
-		},
 	)
 }
 
 type GlobalSpendGetReportResponseResponseArray []interface{}
 
 func (r GlobalSpendGetReportResponseResponseArray) ImplementsGlobalSpendGetReportResponseResponseUnion() {
-}
-
-type GlobalSpendGetReportResponseResponseMap map[string]interface{}
-
-func (r GlobalSpendGetReportResponseResponseMap) ImplementsGlobalSpendGetReportResponseResponseUnion() {
 }
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].

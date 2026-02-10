@@ -32,7 +32,7 @@ func NewAnthropicService(opts ...option.RequestOption) (r *AnthropicService) {
 	return
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -44,7 +44,7 @@ func (r *AnthropicService) New(ctx context.Context, endpoint string, opts ...opt
 	return
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -56,7 +56,7 @@ func (r *AnthropicService) Get(ctx context.Context, endpoint string, opts ...opt
 	return
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -68,7 +68,7 @@ func (r *AnthropicService) Update(ctx context.Context, endpoint string, opts ...
 	return
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -80,7 +80,7 @@ func (r *AnthropicService) Delete(ctx context.Context, endpoint string, opts ...
 	return
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Modify(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicModifyResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {

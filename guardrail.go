@@ -5,12 +5,14 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"reflect"
 	"slices"
-	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
+	"github.com/hanzoai/go-sdk/shared"
+	"github.com/tidwall/gjson"
 )
 
 // GuardrailService contains methods and other services that help with interacting
@@ -34,7 +36,7 @@ func NewGuardrailService(opts ...option.RequestOption) (r *GuardrailService) {
 
 // List the guardrails that are available on the proxy server
 //
-// 👉 [Guardrail docs](https://docs.litellm.ai/docs/proxy/guardrails/quick_start)
+// 👉 [Guardrail docs](https://docs.hanzo.ai/docs/proxy/guardrails/quick_start)
 //
 // Example Request:
 //
@@ -97,28 +99,21 @@ func (r guardrailListResponseJSON) RawJSON() string {
 }
 
 type GuardrailListResponseGuardrail struct {
-	GuardrailName               string                                                     `json:"guardrail_name,required"`
-	CreatedAt                   time.Time                                                  `json:"created_at,nullable" format:"date-time"`
-	GuardrailDefinitionLocation GuardrailListResponseGuardrailsGuardrailDefinitionLocation `json:"guardrail_definition_location"`
-	GuardrailID                 string                                                     `json:"guardrail_id,nullable"`
-	GuardrailInfo               map[string]interface{}                                     `json:"guardrail_info,nullable"`
-	LitellmParams               GuardrailListResponseGuardrailsLitellmParams               `json:"litellm_params,nullable"`
-	UpdatedAt                   time.Time                                                  `json:"updated_at,nullable" format:"date-time"`
-	JSON                        guardrailListResponseGuardrailJSON                         `json:"-"`
+	GuardrailInfo interface{} `json:"guardrail_info,required,nullable"`
+	GuardrailName string      `json:"guardrail_name,required"`
+	// The returned LLM Params object for /guardrails/list
+	LlmParams GuardrailListResponseGuardrailsLlmParams `json:"llm_params,required"`
+	JSON      guardrailListResponseGuardrailJSON       `json:"-"`
 }
 
 // guardrailListResponseGuardrailJSON contains the JSON metadata for the struct
 // [GuardrailListResponseGuardrail]
 type guardrailListResponseGuardrailJSON struct {
-	GuardrailName               apijson.Field
-	CreatedAt                   apijson.Field
-	GuardrailDefinitionLocation apijson.Field
-	GuardrailID                 apijson.Field
-	GuardrailInfo               apijson.Field
-	LitellmParams               apijson.Field
-	UpdatedAt                   apijson.Field
-	raw                         string
-	ExtraFields                 map[string]apijson.Field
+	GuardrailInfo apijson.Field
+	GuardrailName apijson.Field
+	LlmParams     apijson.Field
+	raw           string
+	ExtraFields   map[string]apijson.Field
 }
 
 func (r *GuardrailListResponseGuardrail) UnmarshalJSON(data []byte) (err error) {
@@ -129,122 +124,54 @@ func (r guardrailListResponseGuardrailJSON) RawJSON() string {
 	return r.raw
 }
 
-type GuardrailListResponseGuardrailsGuardrailDefinitionLocation string
-
-const (
-	GuardrailListResponseGuardrailsGuardrailDefinitionLocationDB     GuardrailListResponseGuardrailsGuardrailDefinitionLocation = "db"
-	GuardrailListResponseGuardrailsGuardrailDefinitionLocationConfig GuardrailListResponseGuardrailsGuardrailDefinitionLocation = "config"
-)
-
-func (r GuardrailListResponseGuardrailsGuardrailDefinitionLocation) IsKnown() bool {
-	switch r {
-	case GuardrailListResponseGuardrailsGuardrailDefinitionLocationDB, GuardrailListResponseGuardrailsGuardrailDefinitionLocationConfig:
-		return true
-	}
-	return false
+// The returned LLM Params object for /guardrails/list
+type GuardrailListResponseGuardrailsLlmParams struct {
+	Guardrail string                                            `json:"guardrail,required"`
+	Mode      GuardrailListResponseGuardrailsLlmParamsModeUnion `json:"mode,required"`
+	DefaultOn bool                                              `json:"default_on"`
+	JSON      guardrailListResponseGuardrailsLlmParamsJSON      `json:"-"`
 }
 
-type GuardrailListResponseGuardrailsLitellmParams struct {
-	// Additional provider-specific parameters for generic guardrail APIs
-	AdditionalProviderSpecificParams map[string]interface{} `json:"additional_provider_specific_params,nullable"`
-	// Base URL for the guardrail service API
-	APIBase string `json:"api_base,nullable"`
-	// Optional custom API endpoint for Model Armor
-	APIEndpoint string `json:"api_endpoint,nullable"`
-	// API key for the guardrail service
-	APIKey string `json:"api_key,nullable"`
-	// Threshold configuration for Lakera guardrail categories
-	CategoryThresholds GuardrailListResponseGuardrailsLitellmParamsCategoryThresholds `json:"category_thresholds,nullable"`
-	// Path to Google Cloud credentials JSON file or JSON string
-	Credentials string `json:"credentials,nullable"`
-	// Whether the guardrail is enabled by default
-	DefaultOn bool `json:"default_on,nullable"`
-	// Configuration for detect-secrets guardrail
-	DetectSecretsConfig map[string]interface{} `json:"detect_secrets_config,nullable"`
-	// When True, guardrails only receive the latest message for the relevant role
-	// (e.g., newest user input pre-call, newest assistant output post-call)
-	ExperimentalUseLatestRoleMessageOnly bool `json:"experimental_use_latest_role_message_only,nullable"`
-	// Whether to fail the request if Model Armor encounters an error
-	FailOnError bool `json:"fail_on_error,nullable"`
-	// Name of the guardrail in guardrails.ai
-	GuardName string `json:"guard_name,nullable"`
-	// Google Cloud location/region (e.g., us-central1)
-	Location string `json:"location,nullable"`
-	// Will mask request content if guardrail makes any changes
-	MaskRequestContent bool `json:"mask_request_content,nullable"`
-	// Will mask response content if guardrail makes any changes
-	MaskResponseContent bool `json:"mask_response_content,nullable"`
-	// Optional field if guardrail requires a 'model' parameter
-	Model string `json:"model,nullable"`
-	// Recipe for input (LLM request)
-	PangeaInputRecipe string `json:"pangea_input_recipe,nullable"`
-	// Recipe for output (LLM response)
-	PangeaOutputRecipe string `json:"pangea_output_recipe,nullable"`
-	// The ID of your Model Armor template
-	TemplateID string `json:"template_id,nullable"`
-	// Custom message when a guardrail blocks an action. Supports placeholders like
-	// {tool_name}, {rule_id}, and {default_message}.
-	ViolationMessageTemplate string                                           `json:"violation_message_template,nullable"`
-	ExtraFields              map[string]interface{}                           `json:"-,extras"`
-	JSON                     guardrailListResponseGuardrailsLitellmParamsJSON `json:"-"`
+// guardrailListResponseGuardrailsLlmParamsJSON contains the JSON metadata for the
+// struct [GuardrailListResponseGuardrailsLlmParams]
+type guardrailListResponseGuardrailsLlmParamsJSON struct {
+	Guardrail   apijson.Field
+	Mode        apijson.Field
+	DefaultOn   apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
 }
 
-// guardrailListResponseGuardrailsLitellmParamsJSON contains the JSON metadata for
-// the struct [GuardrailListResponseGuardrailsLitellmParams]
-type guardrailListResponseGuardrailsLitellmParamsJSON struct {
-	AdditionalProviderSpecificParams     apijson.Field
-	APIBase                              apijson.Field
-	APIEndpoint                          apijson.Field
-	APIKey                               apijson.Field
-	CategoryThresholds                   apijson.Field
-	Credentials                          apijson.Field
-	DefaultOn                            apijson.Field
-	DetectSecretsConfig                  apijson.Field
-	ExperimentalUseLatestRoleMessageOnly apijson.Field
-	FailOnError                          apijson.Field
-	GuardName                            apijson.Field
-	Location                             apijson.Field
-	MaskRequestContent                   apijson.Field
-	MaskResponseContent                  apijson.Field
-	Model                                apijson.Field
-	PangeaInputRecipe                    apijson.Field
-	PangeaOutputRecipe                   apijson.Field
-	TemplateID                           apijson.Field
-	ViolationMessageTemplate             apijson.Field
-	raw                                  string
-	ExtraFields                          map[string]apijson.Field
-}
-
-func (r *GuardrailListResponseGuardrailsLitellmParams) UnmarshalJSON(data []byte) (err error) {
+func (r *GuardrailListResponseGuardrailsLlmParams) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r guardrailListResponseGuardrailsLitellmParamsJSON) RawJSON() string {
+func (r guardrailListResponseGuardrailsLlmParamsJSON) RawJSON() string {
 	return r.raw
 }
 
-// Threshold configuration for Lakera guardrail categories
-type GuardrailListResponseGuardrailsLitellmParamsCategoryThresholds struct {
-	Jailbreak       float64                                                            `json:"jailbreak"`
-	PromptInjection float64                                                            `json:"prompt_injection"`
-	ExtraFields     map[string]interface{}                                             `json:"-,extras"`
-	JSON            guardrailListResponseGuardrailsLitellmParamsCategoryThresholdsJSON `json:"-"`
+// Union satisfied by [shared.UnionString] or
+// [GuardrailListResponseGuardrailsLlmParamsModeArray].
+type GuardrailListResponseGuardrailsLlmParamsModeUnion interface {
+	ImplementsGuardrailListResponseGuardrailsLlmParamsModeUnion()
 }
 
-// guardrailListResponseGuardrailsLitellmParamsCategoryThresholdsJSON contains the
-// JSON metadata for the struct
-// [GuardrailListResponseGuardrailsLitellmParamsCategoryThresholds]
-type guardrailListResponseGuardrailsLitellmParamsCategoryThresholdsJSON struct {
-	Jailbreak       apijson.Field
-	PromptInjection apijson.Field
-	raw             string
-	ExtraFields     map[string]apijson.Field
+func init() {
+	apijson.RegisterUnion(
+		reflect.TypeOf((*GuardrailListResponseGuardrailsLlmParamsModeUnion)(nil)).Elem(),
+		"",
+		apijson.UnionVariant{
+			TypeFilter: gjson.String,
+			Type:       reflect.TypeOf(shared.UnionString("")),
+		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(GuardrailListResponseGuardrailsLlmParamsModeArray{}),
+		},
+	)
 }
 
-func (r *GuardrailListResponseGuardrailsLitellmParamsCategoryThresholds) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
+type GuardrailListResponseGuardrailsLlmParamsModeArray []string
 
-func (r guardrailListResponseGuardrailsLitellmParamsCategoryThresholdsJSON) RawJSON() string {
-	return r.raw
+func (r GuardrailListResponseGuardrailsLlmParamsModeArray) ImplementsGuardrailListResponseGuardrailsLlmParamsModeUnion() {
 }

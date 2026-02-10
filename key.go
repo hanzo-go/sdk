@@ -54,10 +54,9 @@ func NewKeyService(opts ...option.RequestOption) (r *KeyService) {
 //     calling `/budget/new`.
 //   - models: Optional[list] - Model_name's a user is allowed to call
 //   - tags: Optional[List[str]] - Tags for organizing keys (Enterprise only)
-//   - prompts: Optional[List[str]] - List of prompts that the key is allowed to use.
 //   - enforced_params: Optional[List[str]] - List of enforced params for the key
 //     (Enterprise only).
-//     [Docs](https://docs.litellm.ai/docs/proxy/enterprise#enforce-required-params-for-llm-requests)
+//     [Docs](https://docs.hanzo.ai/docs/proxy/enterprise#enforce-required-params-for-llm-requests)
 //   - spend: Optional[float] - Amount spent by key
 //   - max_budget: Optional[float] - Max budget for key
 //   - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets
@@ -74,53 +73,19 @@ func NewKeyService(opts ...option.RequestOption) (r *KeyService) {
 //     "claude-v1": 200}
 //   - model_tpm_limit: Optional[dict] - Model-specific TPM limits {"gpt-4": 100000,
 //     "claude-v1": 200000}
-//   - tpm_limit_type: Optional[str] - TPM rate limit type -
-//     "best_effort_throughput", "guaranteed_throughput", or "dynamic"
-//   - rpm_limit_type: Optional[str] - RPM rate limit type -
-//     "best_effort_throughput", "guaranteed_throughput", or "dynamic"
 //   - allowed_cache_controls: Optional[list] - List of allowed cache control values
-//   - duration: Optional[str] - Key validity duration ("30d", "1h", etc.) or "-1" to
-//     never expire
+//   - duration: Optional[str] - Key validity duration ("30d", "1h", etc.)
 //   - permissions: Optional[dict] - Key-specific permissions
 //   - send_invite_email: Optional[bool] - Send invite email to user_id
 //   - guardrails: Optional[List[str]] - List of active guardrails for the key
-//   - disable_global_guardrails: Optional[bool] - Whether to disable global
-//     guardrails for the key.
-//   - prompts: Optional[List[str]] - List of prompts that the key is allowed to use.
 //   - blocked: Optional[bool] - Whether the key is blocked
 //   - aliases: Optional[dict] - Model aliases for the key -
-//     [Docs](https://litellm.vercel.app/docs/proxy/virtual_keys#model-aliases)
+//     [Docs](https://llm.vercel.app/docs/proxy/virtual_keys#model-aliases)
 //   - config: Optional[dict] - [DEPRECATED PARAM] Key-specific config.
 //   - temp_budget_increase: Optional[float] - Temporary budget increase for the key
 //     (Enterprise only).
 //   - temp_budget_expiry: Optional[str] - Expiry time for the temporary budget
 //     increase (Enterprise only).
-//   - allowed_routes: Optional[list] - List of allowed routes for the key. Store the
-//     actual route or store a wildcard pattern for a set of routes. Example -
-//     ["/chat/completions", "/embeddings", "/keys/*"]
-//   - allowed_passthrough_routes: Optional[list] - List of allowed pass through
-//     routes for the key. Store the actual route or store a wildcard pattern for a
-//     set of routes. Example - ["/my-custom-endpoint"]. Use this instead of
-//     allowed_routes, if you just want to specify which pass through routes the key
-//     can access, without specifying the routes. If allowed_routes is specified,
-//     allowed_passthrough_routes is ignored.
-//   - prompts: Optional[List[str]] - List of allowed prompts for the key. If
-//     specified, the key will only be able to use these specific prompts.
-//   - object_permission: Optional[LiteLLM_ObjectPermissionBase] - key-specific
-//     object permission. Example - {"vector_stores": ["vector_store_1",
-//     "vector_store_2"], "agents": ["agent_1", "agent_2"], "agent_access_groups":
-//     ["dev_group"]}. IF null or {} then no object permission.
-//   - auto_rotate: Optional[bool] - Whether this key should be automatically rotated
-//   - rotation_interval: Optional[str] - How often to rotate this key (e.g., '30d',
-//     '90d'). Required if auto_rotate=True
-//   - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector
-//     store indexes for the key. Example - [{"index_name": "my-index",
-//     "index_permissions": ["write", "read"]}]. If specified, the key will only be
-//     able to use these specific vector store indexes. Create index, using
-//     `/v1/indexes` endpoint.
-//   - router_settings: Optional[UpdateRouterConfig] - key-specific router settings.
-//     Example - {"model_group_retry_policy": {"max_retries": 5}}. IF null or {} then
-//     no router settings.
 //
 // Example:
 //
@@ -137,8 +102,8 @@ func NewKeyService(opts ...option.RequestOption) (r *KeyService) {
 //
 // ```
 func (r *KeyService) Update(ctx context.Context, params KeyUpdateParams, opts ...option.RequestOption) (res *KeyUpdateResponse, err error) {
-	if params.LitellmChangedBy.Present {
-		opts = append(opts, option.WithHeader("litellm-changed-by", fmt.Sprintf("%s", params.LitellmChangedBy)))
+	if params.LlmChangedBy.Present {
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/update"
@@ -148,16 +113,8 @@ func (r *KeyService) Update(ctx context.Context, params KeyUpdateParams, opts ..
 
 // List all keys for a given user / team / organization.
 //
-// Parameters: expand: Optional[List[str]] - Expand related objects (e.g. 'user' to
-// include user information) status: Optional[str] - Filter by status. Currently
-// supports "deleted" to query deleted keys.
-//
 // Returns: { "keys": List[str] or List[UserAPIKeyAuth], "total_count": int,
 // "current_page": int, "total_pages": int, }
-//
-// When expand includes "user", each key object will include a "user" field with
-// the associated user object. Note: When expand=user is specified, full key
-// objects are returned regardless of the return_full_object parameter.
 func (r *KeyService) List(ctx context.Context, query KeyListParams, opts ...option.RequestOption) (res *KeyListResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "key/list"
@@ -193,8 +150,8 @@ func (r *KeyService) List(ctx context.Context, query KeyListParams, opts ...opti
 //
 // Raises: HTTPException: If an error occurs during key deletion.
 func (r *KeyService) Delete(ctx context.Context, params KeyDeleteParams, opts ...option.RequestOption) (res *KeyDeleteResponse, err error) {
-	if params.LitellmChangedBy.Present {
-		opts = append(opts, option.WithHeader("litellm-changed-by", fmt.Sprintf("%s", params.LitellmChangedBy)))
+	if params.LlmChangedBy.Present {
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/delete"
@@ -221,8 +178,8 @@ func (r *KeyService) Delete(ctx context.Context, params KeyDeleteParams, opts ..
 //
 // Note: This is an admin-only endpoint. Only proxy admins can block keys.
 func (r *KeyService) Block(ctx context.Context, params KeyBlockParams, opts ...option.RequestOption) (res *KeyBlockResponse, err error) {
-	if params.LitellmChangedBy.Present {
-		opts = append(opts, option.WithHeader("litellm-changed-by", fmt.Sprintf("%s", params.LitellmChangedBy)))
+	if params.LlmChangedBy.Present {
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/block"
@@ -282,7 +239,7 @@ func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOpti
 
 // Generate an API key based on the provided data.
 //
-// Docs: https://docs.litellm.ai/docs/proxy/virtual_keys
+// Docs: https://docs.hanzo.ai/docs/proxy/virtual_keys
 //
 // Parameters:
 //
@@ -294,21 +251,18 @@ func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOpti
 //     sk-key is created for you.
 //   - team_id: Optional[str] - The team id of the key
 //   - user_id: Optional[str] - The user id of the key
-//   - organization_id: Optional[str] - The organization id of the key. If not set,
-//     and team_id is set, the organization id will be the same as the team id. If
-//     conflict, an error will be raised.
 //   - budget_id: Optional[str] - The budget id associated with the key. Created by
 //     calling `/budget/new`.
 //   - models: Optional[list] - Model_name's a user is allowed to call. (if empty,
 //     key is allowed to call all models)
 //   - aliases: Optional[dict] - Any alias mappings, on top of anything in the
 //     config.yaml model list. -
-//     https://docs.litellm.ai/docs/proxy/virtual_keys#managing-auth---upgradedowngrade-models
+//     https://docs.hanzo.ai/docs/proxy/virtual_keys#managing-auth---upgradedowngrade-models
 //   - config: Optional[dict] - any key-specific configs, overrides config in
 //     config.yaml
 //   - spend: Optional[int] - Amount spent by key. Default is 0. Will be updated by
 //     proxy whenever key is used.
-//     https://docs.litellm.ai/docs/proxy/virtual_keys#managing-auth---tracking-spend
+//     https://docs.hanzo.ai/docs/proxy/virtual_keys#managing-auth---tracking-spend
 //   - send_invite_email: Optional[bool] - Whether to send an invite email to the
 //     user_id, with the generate key
 //   - max_budget: Optional[float] - Specify max budget for a given key.
@@ -318,11 +272,9 @@ func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOpti
 //   - max_parallel_requests: Optional[int] - Rate limit a user based on the number
 //     of parallel requests. Raises 429 error, if user's parallel requests > x.
 //   - metadata: Optional[dict] - Metadata for key, store information for key.
-//     Example metadata = {"team": "core-infra", "app": "app2", "email":
-//     "ishaan@berri.ai" }
+//     Example metadata = {"team": "core-infra", "app": "app2", "email": "z@hanzo.ai"
+//     }
 //   - guardrails: Optional[List[str]] - List of active guardrails for the key
-//   - disable_global_guardrails: Optional[bool] - Whether to disable global
-//     guardrails for the key.
 //   - permissions: Optional[dict] - key-specific permissions. Currently just used
 //     for turning off pii masking (if connected). Example - {"pii": false}
 //   - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets
@@ -334,19 +286,9 @@ func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOpti
 //   - model_tpm_limit: Optional[dict] - key-specific model tpm limit. Example -
 //     {"text-davinci-002": 1000, "gpt-3.5-turbo": 1000}. IF null or {} then no model
 //     specific tpm limit.
-//   - tpm_limit_type: Optional[str] - Type of tpm limit. Options:
-//     "best_effort_throughput" (no error if we're overallocating tpm),
-//     "guaranteed_throughput" (raise an error if we're overallocating tpm),
-//     "dynamic" (dynamically exceed limit when no 429 errors). Defaults to
-//     "best_effort_throughput".
-//   - rpm_limit_type: Optional[str] - Type of rpm limit. Options:
-//     "best_effort_throughput" (no error if we're overallocating rpm),
-//     "guaranteed_throughput" (raise an error if we're overallocating rpm),
-//     "dynamic" (dynamically exceed limit when no 429 errors). Defaults to
-//     "best_effort_throughput".
 //   - allowed_cache_controls: Optional[list] - List of allowed cache control values.
 //     Example - ["no-cache", "no-store"]. See all values -
-//     https://docs.litellm.ai/docs/proxy/caching#turn-on--off-caching-per-request
+//     https://docs.hanzo.ai/docs/proxy/caching#turn-on--off-caching-per-request
 //   - blocked: Optional[bool] - Whether the key is blocked.
 //   - rpm_limit: Optional[int] - Specify rpm limit for a given key (Requests per
 //     minute)
@@ -355,45 +297,12 @@ func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOpti
 //   - soft_budget: Optional[float] - Specify soft budget for a given key. Will
 //     trigger a slack alert when this soft budget is reached.
 //   - tags: Optional[List[str]] - Tags for
-//     [tracking spend](https://litellm.vercel.app/docs/proxy/enterprise#tracking-spend-for-custom-tags)
+//     [tracking spend](https://llm.vercel.app/docs/proxy/enterprise#tracking-spend-for-custom-tags)
 //     and/or doing
-//     [tag-based routing](https://litellm.vercel.app/docs/proxy/tag_routing).
-//   - prompts: Optional[List[str]] - List of prompts that the key is allowed to use.
+//     [tag-based routing](https://llm.vercel.app/docs/proxy/tag_routing).
 //   - enforced_params: Optional[List[str]] - List of enforced params for the key
 //     (Enterprise only).
-//     [Docs](https://docs.litellm.ai/docs/proxy/enterprise#enforce-required-params-for-llm-requests)
-//   - prompts: Optional[List[str]] - List of prompts that the key is allowed to use.
-//   - allowed_routes: Optional[list] - List of allowed routes for the key. Store the
-//     actual route or store a wildcard pattern for a set of routes. Example -
-//     ["/chat/completions", "/embeddings", "/keys/*"]
-//   - allowed_passthrough_routes: Optional[list] - List of allowed pass through
-//     endpoints for the key. Store the actual endpoint or store a wildcard pattern
-//     for a set of endpoints. Example - ["/my-custom-endpoint"]. Use this instead of
-//     allowed_routes, if you just want to specify which pass through endpoints the
-//     key can access, without specifying the routes. If allowed_routes is specified,
-//     allowed_pass_through_endpoints is ignored.
-//   - object_permission: Optional[LiteLLM_ObjectPermissionBase] - key-specific
-//     object permission. Example - {"vector_stores": ["vector_store_1",
-//     "vector_store_2"], "agents": ["agent_1", "agent_2"], "agent_access_groups":
-//     ["dev_group"]}. IF null or {} then no object permission.
-//   - key_type: Optional[str] - Type of key that determines default allowed routes.
-//     Options: "llm_api" (can call LLM API routes), "management" (can call
-//     management routes), "read_only" (can only call info/read routes), "default"
-//     (uses default allowed routes). Defaults to "default".
-//   - prompts: Optional[List[str]] - List of allowed prompts for the key. If
-//     specified, the key will only be able to use these specific prompts.
-//   - auto_rotate: Optional[bool] - Whether this key should be automatically rotated
-//     (regenerated)
-//   - rotation_interval: Optional[str] - How often to auto-rotate this key (e.g.,
-//     '30s', '30m', '30h', '30d'). Required if auto_rotate=True.
-//   - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector
-//     store indexes for the key. Example - [{"index_name": "my-index",
-//     "index_permissions": ["write", "read"]}]. If specified, the key will only be
-//     able to use these specific vector store indexes. Create index, using
-//     `/v1/indexes` endpoint.
-//   - router_settings: Optional[UpdateRouterConfig] - key-specific router settings.
-//     Example - {"model_group_retry_policy": {"max_retries": 5}}. IF null or {} then
-//     no router settings.
+//     [Docs](https://docs.hanzo.ai/docs/proxy/enterprise#enforce-required-params-for-llm-requests)
 //
 // Examples:
 //
@@ -414,8 +323,8 @@ func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOpti
 //   - user_id: (str) Unique user id - used for tracking spend across multiple keys
 //     for same user id.
 func (r *KeyService) Generate(ctx context.Context, params KeyGenerateParams, opts ...option.RequestOption) (res *GenerateKeyResponse, err error) {
-	if params.LitellmChangedBy.Present {
-		opts = append(opts, option.WithHeader("litellm-changed-by", fmt.Sprintf("%s", params.LitellmChangedBy)))
+	if params.LlmChangedBy.Present {
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/generate"
@@ -430,11 +339,6 @@ func (r *KeyService) Generate(ctx context.Context, params KeyGenerateParams, opt
 //   - key: str (path parameter) - The key to regenerate
 //   - data: Optional[RegenerateKeyRequest] - Request body containing optional
 //     parameters to update
-//   - key: Optional[str] - The key to regenerate.
-//   - new_master_key: Optional[str] - The new master key to use, if key is the
-//     master key.
-//   - new_key: Optional[str] - The new key to use, if key is not the master key.
-//     If both set, new_master_key will be used.
 //   - key_alias: Optional[str] - User-friendly key alias
 //   - user_id: Optional[str] - User ID associated with key
 //   - team_id: Optional[str] - Team ID associated with key
@@ -481,8 +385,8 @@ func (r *KeyService) Generate(ctx context.Context, params KeyGenerateParams, opt
 //
 // Note: This is an Enterprise feature. It requires a premium license to use.
 func (r *KeyService) RegenerateByKey(ctx context.Context, key string, params KeyRegenerateByKeyParams, opts ...option.RequestOption) (res *GenerateKeyResponse, err error) {
-	if params.LitellmChangedBy.Present {
-		opts = append(opts, option.WithHeader("litellm-changed-by", fmt.Sprintf("%s", params.LitellmChangedBy)))
+	if params.LlmChangedBy.Present {
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if key == "" {
@@ -502,14 +406,14 @@ func (r *KeyService) RegenerateByKey(ctx context.Context, key string, params Key
 // Example Curl:
 //
 // ```
-// curl -X GET "http://0.0.0.0:4000/key/info?key=sk-test-example-key-123" -H "Authorization: Bearer sk-1234"
+// curl -X GET "http://0.0.0.0:4000/key/info?key=sk-02Wr4IAlN3NvPXvL5JVvDA" -H "Authorization: Bearer sk-1234"
 // ```
 //
 // Example Curl - if no key is passed, it will use the Key Passed in Authorization
 // Header
 //
 // ```
-// curl -X GET "http://0.0.0.0:4000/key/info" -H "Authorization: Bearer sk-test-example-key-123"
+// curl -X GET "http://0.0.0.0:4000/key/info" -H "Authorization: Bearer sk-02Wr4IAlN3NvPXvL5JVvDA"
 // ```
 func (r *KeyService) GetInfo(ctx context.Context, query KeyGetInfoParams, opts ...option.RequestOption) (res *KeyGetInfoResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
@@ -537,8 +441,8 @@ func (r *KeyService) GetInfo(ctx context.Context, query KeyGetInfoParams, opts .
 //
 // Note: This is an admin-only endpoint. Only proxy admins can unblock keys.
 func (r *KeyService) Unblock(ctx context.Context, params KeyUnblockParams, opts ...option.RequestOption) (res *KeyUnblockResponse, err error) {
-	if params.LitellmChangedBy.Present {
-		opts = append(opts, option.WithHeader("litellm-changed-by", fmt.Sprintf("%s", params.LitellmChangedBy)))
+	if params.LlmChangedBy.Present {
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/unblock"
@@ -555,101 +459,78 @@ func (r BlockKeyRequestParam) MarshalJSON() (data []byte, err error) {
 }
 
 type GenerateKeyResponse struct {
-	Key                       string                                       `json:"key,required"`
-	Token                     string                                       `json:"token,nullable"`
-	Aliases                   map[string]interface{}                       `json:"aliases,nullable"`
-	AllowedCacheControls      []interface{}                                `json:"allowed_cache_controls,nullable"`
-	AllowedPassthroughRoutes  []interface{}                                `json:"allowed_passthrough_routes,nullable"`
-	AllowedRoutes             []interface{}                                `json:"allowed_routes,nullable"`
-	AllowedVectorStoreIndexes []GenerateKeyResponseAllowedVectorStoreIndex `json:"allowed_vector_store_indexes,nullable"`
-	Blocked                   bool                                         `json:"blocked,nullable"`
-	BudgetDuration            string                                       `json:"budget_duration,nullable"`
-	BudgetID                  string                                       `json:"budget_id,nullable"`
-	Config                    map[string]interface{}                       `json:"config,nullable"`
-	CreatedAt                 time.Time                                    `json:"created_at,nullable" format:"date-time"`
-	CreatedBy                 string                                       `json:"created_by,nullable"`
-	Duration                  string                                       `json:"duration,nullable"`
-	EnforcedParams            []string                                     `json:"enforced_params,nullable"`
-	Expires                   time.Time                                    `json:"expires,nullable" format:"date-time"`
-	Guardrails                []string                                     `json:"guardrails,nullable"`
-	KeyAlias                  string                                       `json:"key_alias,nullable"`
-	KeyName                   string                                       `json:"key_name,nullable"`
-	LitellmBudgetTable        interface{}                                  `json:"litellm_budget_table"`
-	MaxBudget                 float64                                      `json:"max_budget,nullable"`
-	MaxParallelRequests       int64                                        `json:"max_parallel_requests,nullable"`
-	Metadata                  map[string]interface{}                       `json:"metadata,nullable"`
-	ModelMaxBudget            map[string]interface{}                       `json:"model_max_budget,nullable"`
-	ModelRpmLimit             map[string]interface{}                       `json:"model_rpm_limit,nullable"`
-	ModelTpmLimit             map[string]interface{}                       `json:"model_tpm_limit,nullable"`
-	Models                    []interface{}                                `json:"models,nullable"`
-	ObjectPermission          GenerateKeyResponseObjectPermission          `json:"object_permission,nullable"`
-	OrganizationID            string                                       `json:"organization_id,nullable"`
-	Permissions               map[string]interface{}                       `json:"permissions,nullable"`
-	Prompts                   []string                                     `json:"prompts,nullable"`
-	// Set of params that you can modify via `router.update_settings()`.
-	RouterSettings GenerateKeyResponseRouterSettings `json:"router_settings,nullable"`
-	RpmLimit       int64                             `json:"rpm_limit,nullable"`
-	RpmLimitType   GenerateKeyResponseRpmLimitType   `json:"rpm_limit_type,nullable"`
-	Spend          float64                           `json:"spend,nullable"`
-	Tags           []string                          `json:"tags,nullable"`
-	TeamID         string                            `json:"team_id,nullable"`
-	TokenID        string                            `json:"token_id,nullable"`
-	TpmLimit       int64                             `json:"tpm_limit,nullable"`
-	TpmLimitType   GenerateKeyResponseTpmLimitType   `json:"tpm_limit_type,nullable"`
-	UpdatedAt      time.Time                         `json:"updated_at,nullable" format:"date-time"`
-	UpdatedBy      string                            `json:"updated_by,nullable"`
-	UserID         string                            `json:"user_id,nullable"`
-	JSON           generateKeyResponseJSON           `json:"-"`
+	Expires              time.Time               `json:"expires,required,nullable" format:"date-time"`
+	Key                  string                  `json:"key,required"`
+	Token                string                  `json:"token,nullable"`
+	Aliases              interface{}             `json:"aliases,nullable"`
+	AllowedCacheControls []interface{}           `json:"allowed_cache_controls,nullable"`
+	Blocked              bool                    `json:"blocked,nullable"`
+	BudgetDuration       string                  `json:"budget_duration,nullable"`
+	BudgetID             string                  `json:"budget_id,nullable"`
+	Config               interface{}             `json:"config,nullable"`
+	CreatedBy            string                  `json:"created_by,nullable"`
+	Duration             string                  `json:"duration,nullable"`
+	EnforcedParams       []string                `json:"enforced_params,nullable"`
+	Guardrails           []string                `json:"guardrails,nullable"`
+	KeyAlias             string                  `json:"key_alias,nullable"`
+	KeyName              string                  `json:"key_name,nullable"`
+	LlmBudgetTable       interface{}             `json:"llm_budget_table"`
+	MaxBudget            float64                 `json:"max_budget,nullable"`
+	MaxParallelRequests  int64                   `json:"max_parallel_requests,nullable"`
+	Metadata             interface{}             `json:"metadata,nullable"`
+	ModelMaxBudget       interface{}             `json:"model_max_budget,nullable"`
+	ModelRpmLimit        interface{}             `json:"model_rpm_limit,nullable"`
+	ModelTpmLimit        interface{}             `json:"model_tpm_limit,nullable"`
+	Models               []interface{}           `json:"models,nullable"`
+	Permissions          interface{}             `json:"permissions,nullable"`
+	RpmLimit             int64                   `json:"rpm_limit,nullable"`
+	Spend                float64                 `json:"spend,nullable"`
+	Tags                 []string                `json:"tags,nullable"`
+	TeamID               string                  `json:"team_id,nullable"`
+	TokenID              string                  `json:"token_id,nullable"`
+	TpmLimit             int64                   `json:"tpm_limit,nullable"`
+	UpdatedBy            string                  `json:"updated_by,nullable"`
+	UserID               string                  `json:"user_id,nullable"`
+	JSON                 generateKeyResponseJSON `json:"-"`
 }
 
 // generateKeyResponseJSON contains the JSON metadata for the struct
 // [GenerateKeyResponse]
 type generateKeyResponseJSON struct {
-	Key                       apijson.Field
-	Token                     apijson.Field
-	Aliases                   apijson.Field
-	AllowedCacheControls      apijson.Field
-	AllowedPassthroughRoutes  apijson.Field
-	AllowedRoutes             apijson.Field
-	AllowedVectorStoreIndexes apijson.Field
-	Blocked                   apijson.Field
-	BudgetDuration            apijson.Field
-	BudgetID                  apijson.Field
-	Config                    apijson.Field
-	CreatedAt                 apijson.Field
-	CreatedBy                 apijson.Field
-	Duration                  apijson.Field
-	EnforcedParams            apijson.Field
-	Expires                   apijson.Field
-	Guardrails                apijson.Field
-	KeyAlias                  apijson.Field
-	KeyName                   apijson.Field
-	LitellmBudgetTable        apijson.Field
-	MaxBudget                 apijson.Field
-	MaxParallelRequests       apijson.Field
-	Metadata                  apijson.Field
-	ModelMaxBudget            apijson.Field
-	ModelRpmLimit             apijson.Field
-	ModelTpmLimit             apijson.Field
-	Models                    apijson.Field
-	ObjectPermission          apijson.Field
-	OrganizationID            apijson.Field
-	Permissions               apijson.Field
-	Prompts                   apijson.Field
-	RouterSettings            apijson.Field
-	RpmLimit                  apijson.Field
-	RpmLimitType              apijson.Field
-	Spend                     apijson.Field
-	Tags                      apijson.Field
-	TeamID                    apijson.Field
-	TokenID                   apijson.Field
-	TpmLimit                  apijson.Field
-	TpmLimitType              apijson.Field
-	UpdatedAt                 apijson.Field
-	UpdatedBy                 apijson.Field
-	UserID                    apijson.Field
-	raw                       string
-	ExtraFields               map[string]apijson.Field
+	Expires              apijson.Field
+	Key                  apijson.Field
+	Token                apijson.Field
+	Aliases              apijson.Field
+	AllowedCacheControls apijson.Field
+	Blocked              apijson.Field
+	BudgetDuration       apijson.Field
+	BudgetID             apijson.Field
+	Config               apijson.Field
+	CreatedBy            apijson.Field
+	Duration             apijson.Field
+	EnforcedParams       apijson.Field
+	Guardrails           apijson.Field
+	KeyAlias             apijson.Field
+	KeyName              apijson.Field
+	LlmBudgetTable       apijson.Field
+	MaxBudget            apijson.Field
+	MaxParallelRequests  apijson.Field
+	Metadata             apijson.Field
+	ModelMaxBudget       apijson.Field
+	ModelRpmLimit        apijson.Field
+	ModelTpmLimit        apijson.Field
+	Models               apijson.Field
+	Permissions          apijson.Field
+	RpmLimit             apijson.Field
+	Spend                apijson.Field
+	Tags                 apijson.Field
+	TeamID               apijson.Field
+	TokenID              apijson.Field
+	TpmLimit             apijson.Field
+	UpdatedBy            apijson.Field
+	UserID               apijson.Field
+	raw                  string
+	ExtraFields          map[string]apijson.Field
 }
 
 func (r *GenerateKeyResponse) UnmarshalJSON(data []byte) (err error) {
@@ -658,177 +539,6 @@ func (r *GenerateKeyResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r generateKeyResponseJSON) RawJSON() string {
 	return r.raw
-}
-
-type GenerateKeyResponseAllowedVectorStoreIndex struct {
-	IndexName        string                                                        `json:"index_name,required"`
-	IndexPermissions []GenerateKeyResponseAllowedVectorStoreIndexesIndexPermission `json:"index_permissions,required"`
-	JSON             generateKeyResponseAllowedVectorStoreIndexJSON                `json:"-"`
-}
-
-// generateKeyResponseAllowedVectorStoreIndexJSON contains the JSON metadata for
-// the struct [GenerateKeyResponseAllowedVectorStoreIndex]
-type generateKeyResponseAllowedVectorStoreIndexJSON struct {
-	IndexName        apijson.Field
-	IndexPermissions apijson.Field
-	raw              string
-	ExtraFields      map[string]apijson.Field
-}
-
-func (r *GenerateKeyResponseAllowedVectorStoreIndex) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r generateKeyResponseAllowedVectorStoreIndexJSON) RawJSON() string {
-	return r.raw
-}
-
-type GenerateKeyResponseAllowedVectorStoreIndexesIndexPermission string
-
-const (
-	GenerateKeyResponseAllowedVectorStoreIndexesIndexPermissionRead  GenerateKeyResponseAllowedVectorStoreIndexesIndexPermission = "read"
-	GenerateKeyResponseAllowedVectorStoreIndexesIndexPermissionWrite GenerateKeyResponseAllowedVectorStoreIndexesIndexPermission = "write"
-)
-
-func (r GenerateKeyResponseAllowedVectorStoreIndexesIndexPermission) IsKnown() bool {
-	switch r {
-	case GenerateKeyResponseAllowedVectorStoreIndexesIndexPermissionRead, GenerateKeyResponseAllowedVectorStoreIndexesIndexPermissionWrite:
-		return true
-	}
-	return false
-}
-
-type GenerateKeyResponseObjectPermission struct {
-	AgentAccessGroups  []string                                `json:"agent_access_groups,nullable"`
-	Agents             []string                                `json:"agents,nullable"`
-	McpAccessGroups    []string                                `json:"mcp_access_groups,nullable"`
-	McpServers         []string                                `json:"mcp_servers,nullable"`
-	McpToolPermissions map[string][]string                     `json:"mcp_tool_permissions,nullable"`
-	VectorStores       []string                                `json:"vector_stores,nullable"`
-	JSON               generateKeyResponseObjectPermissionJSON `json:"-"`
-}
-
-// generateKeyResponseObjectPermissionJSON contains the JSON metadata for the
-// struct [GenerateKeyResponseObjectPermission]
-type generateKeyResponseObjectPermissionJSON struct {
-	AgentAccessGroups  apijson.Field
-	Agents             apijson.Field
-	McpAccessGroups    apijson.Field
-	McpServers         apijson.Field
-	McpToolPermissions apijson.Field
-	VectorStores       apijson.Field
-	raw                string
-	ExtraFields        map[string]apijson.Field
-}
-
-func (r *GenerateKeyResponseObjectPermission) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r generateKeyResponseObjectPermissionJSON) RawJSON() string {
-	return r.raw
-}
-
-// Set of params that you can modify via `router.update_settings()`.
-type GenerateKeyResponseRouterSettings struct {
-	AllowedFails           int64                                                            `json:"allowed_fails,nullable"`
-	ContextWindowFallbacks []map[string]interface{}                                         `json:"context_window_fallbacks,nullable"`
-	CooldownTime           float64                                                          `json:"cooldown_time,nullable"`
-	Fallbacks              []map[string]interface{}                                         `json:"fallbacks,nullable"`
-	MaxRetries             int64                                                            `json:"max_retries,nullable"`
-	ModelGroupAlias        map[string]GenerateKeyResponseRouterSettingsModelGroupAliasUnion `json:"model_group_alias,nullable"`
-	ModelGroupRetryPolicy  map[string]interface{}                                           `json:"model_group_retry_policy,nullable"`
-	NumRetries             int64                                                            `json:"num_retries,nullable"`
-	RetryAfter             float64                                                          `json:"retry_after,nullable"`
-	RoutingStrategy        string                                                           `json:"routing_strategy,nullable"`
-	RoutingStrategyArgs    map[string]interface{}                                           `json:"routing_strategy_args,nullable"`
-	Timeout                float64                                                          `json:"timeout,nullable"`
-	JSON                   generateKeyResponseRouterSettingsJSON                            `json:"-"`
-}
-
-// generateKeyResponseRouterSettingsJSON contains the JSON metadata for the struct
-// [GenerateKeyResponseRouterSettings]
-type generateKeyResponseRouterSettingsJSON struct {
-	AllowedFails           apijson.Field
-	ContextWindowFallbacks apijson.Field
-	CooldownTime           apijson.Field
-	Fallbacks              apijson.Field
-	MaxRetries             apijson.Field
-	ModelGroupAlias        apijson.Field
-	ModelGroupRetryPolicy  apijson.Field
-	NumRetries             apijson.Field
-	RetryAfter             apijson.Field
-	RoutingStrategy        apijson.Field
-	RoutingStrategyArgs    apijson.Field
-	Timeout                apijson.Field
-	raw                    string
-	ExtraFields            map[string]apijson.Field
-}
-
-func (r *GenerateKeyResponseRouterSettings) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r generateKeyResponseRouterSettingsJSON) RawJSON() string {
-	return r.raw
-}
-
-// Union satisfied by [shared.UnionString] or
-// [GenerateKeyResponseRouterSettingsModelGroupAliasMap].
-type GenerateKeyResponseRouterSettingsModelGroupAliasUnion interface {
-	ImplementsGenerateKeyResponseRouterSettingsModelGroupAliasUnion()
-}
-
-func init() {
-	apijson.RegisterUnion(
-		reflect.TypeOf((*GenerateKeyResponseRouterSettingsModelGroupAliasUnion)(nil)).Elem(),
-		"",
-		apijson.UnionVariant{
-			TypeFilter: gjson.String,
-			Type:       reflect.TypeOf(shared.UnionString("")),
-		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GenerateKeyResponseRouterSettingsModelGroupAliasMap{}),
-		},
-	)
-}
-
-type GenerateKeyResponseRouterSettingsModelGroupAliasMap map[string]interface{}
-
-func (r GenerateKeyResponseRouterSettingsModelGroupAliasMap) ImplementsGenerateKeyResponseRouterSettingsModelGroupAliasUnion() {
-}
-
-type GenerateKeyResponseRpmLimitType string
-
-const (
-	GenerateKeyResponseRpmLimitTypeGuaranteedThroughput GenerateKeyResponseRpmLimitType = "guaranteed_throughput"
-	GenerateKeyResponseRpmLimitTypeBestEffortThroughput GenerateKeyResponseRpmLimitType = "best_effort_throughput"
-	GenerateKeyResponseRpmLimitTypeDynamic              GenerateKeyResponseRpmLimitType = "dynamic"
-)
-
-func (r GenerateKeyResponseRpmLimitType) IsKnown() bool {
-	switch r {
-	case GenerateKeyResponseRpmLimitTypeGuaranteedThroughput, GenerateKeyResponseRpmLimitTypeBestEffortThroughput, GenerateKeyResponseRpmLimitTypeDynamic:
-		return true
-	}
-	return false
-}
-
-type GenerateKeyResponseTpmLimitType string
-
-const (
-	GenerateKeyResponseTpmLimitTypeGuaranteedThroughput GenerateKeyResponseTpmLimitType = "guaranteed_throughput"
-	GenerateKeyResponseTpmLimitTypeBestEffortThroughput GenerateKeyResponseTpmLimitType = "best_effort_throughput"
-	GenerateKeyResponseTpmLimitTypeDynamic              GenerateKeyResponseTpmLimitType = "dynamic"
-)
-
-func (r GenerateKeyResponseTpmLimitType) IsKnown() bool {
-	switch r {
-	case GenerateKeyResponseTpmLimitTypeGuaranteedThroughput, GenerateKeyResponseTpmLimitTypeBestEffortThroughput, GenerateKeyResponseTpmLimitTypeDynamic:
-		return true
-	}
-	return false
 }
 
 type KeyUpdateResponse = interface{}
@@ -861,8 +571,7 @@ func (r keyListResponseJSON) RawJSON() string {
 
 // Return the row in the db
 //
-// Union satisfied by [shared.UnionString], [KeyListResponseKeysUserAPIKeyAuth] or
-// [KeyListResponseKeysLiteLlmDeletedVerificationToken].
+// Union satisfied by [shared.UnionString] or [KeyListResponseKeysUserAPIKeyAuth].
 type KeyListResponseKeysUnion interface {
 	ImplementsKeyListResponseKeysUnion()
 }
@@ -879,26 +588,20 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(KeyListResponseKeysUserAPIKeyAuth{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(KeyListResponseKeysLiteLlmDeletedVerificationToken{}),
-		},
 	)
 }
 
 // Return the row in the db
 type KeyListResponseKeysUserAPIKeyAuth struct {
 	Token                string                                              `json:"token,nullable"`
-	Aliases              map[string]interface{}                              `json:"aliases"`
+	Aliases              interface{}                                         `json:"aliases"`
 	AllowedCacheControls []interface{}                                       `json:"allowed_cache_controls,nullable"`
 	AllowedModelRegion   KeyListResponseKeysUserAPIKeyAuthAllowedModelRegion `json:"allowed_model_region,nullable"`
-	AllowedRoutes        []interface{}                                       `json:"allowed_routes,nullable"`
 	APIKey               string                                              `json:"api_key,nullable"`
-	AutoRotate           bool                                                `json:"auto_rotate,nullable"`
 	Blocked              bool                                                `json:"blocked,nullable"`
 	BudgetDuration       string                                              `json:"budget_duration,nullable"`
 	BudgetResetAt        time.Time                                           `json:"budget_reset_at,nullable" format:"date-time"`
-	Config               map[string]interface{}                              `json:"config"`
+	Config               interface{}                                         `json:"config"`
 	CreatedAt            time.Time                                           `json:"created_at,nullable" format:"date-time"`
 	CreatedBy            string                                              `json:"created_by,nullable"`
 	EndUserID            string                                              `json:"end_user_id,nullable"`
@@ -908,58 +611,40 @@ type KeyListResponseKeysUserAPIKeyAuth struct {
 	Expires              KeyListResponseKeysUserAPIKeyAuthExpiresUnion       `json:"expires,nullable" format:"date-time"`
 	KeyAlias             string                                              `json:"key_alias,nullable"`
 	KeyName              string                                              `json:"key_name,nullable"`
-	KeyRotationAt        time.Time                                           `json:"key_rotation_at,nullable" format:"date-time"`
 	LastRefreshedAt      float64                                             `json:"last_refreshed_at,nullable"`
-	LastRotationAt       time.Time                                           `json:"last_rotation_at,nullable" format:"date-time"`
-	LitellmBudgetTable   map[string]interface{}                              `json:"litellm_budget_table,nullable"`
+	LlmBudgetTable       interface{}                                         `json:"llm_budget_table,nullable"`
 	MaxBudget            float64                                             `json:"max_budget,nullable"`
 	MaxParallelRequests  int64                                               `json:"max_parallel_requests,nullable"`
-	Metadata             map[string]interface{}                              `json:"metadata"`
-	ModelMaxBudget       map[string]interface{}                              `json:"model_max_budget"`
-	ModelSpend           map[string]interface{}                              `json:"model_spend"`
+	Metadata             interface{}                                         `json:"metadata"`
+	ModelMaxBudget       interface{}                                         `json:"model_max_budget"`
+	ModelSpend           interface{}                                         `json:"model_spend"`
 	Models               []interface{}                                       `json:"models"`
-	// Represents a LiteLLM_ObjectPermissionTable record
-	ObjectPermission       KeyListResponseKeysUserAPIKeyAuthObjectPermission `json:"object_permission,nullable"`
-	ObjectPermissionID     string                                            `json:"object_permission_id,nullable"`
-	OrgID                  string                                            `json:"org_id,nullable"`
-	OrganizationMaxBudget  float64                                           `json:"organization_max_budget,nullable"`
-	OrganizationMetadata   map[string]interface{}                            `json:"organization_metadata,nullable"`
-	OrganizationRpmLimit   int64                                             `json:"organization_rpm_limit,nullable"`
-	OrganizationTpmLimit   int64                                             `json:"organization_tpm_limit,nullable"`
-	ParentOtelSpan         interface{}                                       `json:"parent_otel_span"`
-	Permissions            map[string]interface{}                            `json:"permissions"`
-	RequestRoute           string                                            `json:"request_route,nullable"`
-	RotationCount          int64                                             `json:"rotation_count,nullable"`
-	RotationInterval       string                                            `json:"rotation_interval,nullable"`
-	RouterSettings         map[string]interface{}                            `json:"router_settings,nullable"`
-	RpmLimit               int64                                             `json:"rpm_limit,nullable"`
-	RpmLimitPerModel       map[string]int64                                  `json:"rpm_limit_per_model,nullable"`
-	SoftBudget             float64                                           `json:"soft_budget,nullable"`
-	SoftBudgetCooldown     bool                                              `json:"soft_budget_cooldown"`
-	Spend                  float64                                           `json:"spend"`
-	TeamAlias              string                                            `json:"team_alias,nullable"`
-	TeamBlocked            bool                                              `json:"team_blocked"`
-	TeamID                 string                                            `json:"team_id,nullable"`
-	TeamMaxBudget          float64                                           `json:"team_max_budget,nullable"`
-	TeamMember             Member                                            `json:"team_member,nullable"`
-	TeamMemberRpmLimit     int64                                             `json:"team_member_rpm_limit,nullable"`
-	TeamMemberSpend        float64                                           `json:"team_member_spend,nullable"`
-	TeamMemberTpmLimit     int64                                             `json:"team_member_tpm_limit,nullable"`
-	TeamMetadata           map[string]interface{}                            `json:"team_metadata,nullable"`
-	TeamModelAliases       map[string]interface{}                            `json:"team_model_aliases,nullable"`
-	TeamModels             []interface{}                                     `json:"team_models"`
-	TeamObjectPermissionID string                                            `json:"team_object_permission_id,nullable"`
-	TeamRpmLimit           int64                                             `json:"team_rpm_limit,nullable"`
-	TeamSpend              float64                                           `json:"team_spend,nullable"`
-	TeamTpmLimit           int64                                             `json:"team_tpm_limit,nullable"`
-	TpmLimit               int64                                             `json:"tpm_limit,nullable"`
-	TpmLimitPerModel       map[string]int64                                  `json:"tpm_limit_per_model,nullable"`
-	UpdatedAt              time.Time                                         `json:"updated_at,nullable" format:"date-time"`
-	UpdatedBy              string                                            `json:"updated_by,nullable"`
-	User                   interface{}                                       `json:"user"`
-	UserEmail              string                                            `json:"user_email,nullable"`
-	UserID                 string                                            `json:"user_id,nullable"`
-	UserMaxBudget          float64                                           `json:"user_max_budget,nullable"`
+	OrgID                string                                              `json:"org_id,nullable"`
+	ParentOtelSpan       interface{}                                         `json:"parent_otel_span"`
+	Permissions          interface{}                                         `json:"permissions"`
+	RpmLimit             int64                                               `json:"rpm_limit,nullable"`
+	RpmLimitPerModel     map[string]int64                                    `json:"rpm_limit_per_model,nullable"`
+	SoftBudget           float64                                             `json:"soft_budget,nullable"`
+	SoftBudgetCooldown   bool                                                `json:"soft_budget_cooldown"`
+	Spend                float64                                             `json:"spend"`
+	TeamAlias            string                                              `json:"team_alias,nullable"`
+	TeamBlocked          bool                                                `json:"team_blocked"`
+	TeamID               string                                              `json:"team_id,nullable"`
+	TeamMaxBudget        float64                                             `json:"team_max_budget,nullable"`
+	TeamMember           Member                                              `json:"team_member,nullable"`
+	TeamMemberSpend      float64                                             `json:"team_member_spend,nullable"`
+	TeamMetadata         interface{}                                         `json:"team_metadata,nullable"`
+	TeamModelAliases     interface{}                                         `json:"team_model_aliases,nullable"`
+	TeamModels           []interface{}                                       `json:"team_models"`
+	TeamRpmLimit         int64                                               `json:"team_rpm_limit,nullable"`
+	TeamSpend            float64                                             `json:"team_spend,nullable"`
+	TeamTpmLimit         int64                                               `json:"team_tpm_limit,nullable"`
+	TpmLimit             int64                                               `json:"tpm_limit,nullable"`
+	TpmLimitPerModel     map[string]int64                                    `json:"tpm_limit_per_model,nullable"`
+	UpdatedAt            time.Time                                           `json:"updated_at,nullable" format:"date-time"`
+	UpdatedBy            string                                              `json:"updated_by,nullable"`
+	UserEmail            string                                              `json:"user_email,nullable"`
+	UserID               string                                              `json:"user_id,nullable"`
 	// Admin Roles: PROXY_ADMIN: admin over the platform PROXY_ADMIN_VIEW_ONLY: can
 	// login, view all own keys, view all spend ORG_ADMIN: admin over a specific
 	// organization, can create teams, users only within their organization
@@ -971,93 +656,72 @@ type KeyListResponseKeysUserAPIKeyAuth struct {
 	// Team Roles: TEAM: used for JWT auth
 	//
 	// Customer Roles: CUSTOMER: External users -> these are customers
-	UserRole     UserRoles                             `json:"user_role,nullable"`
-	UserRpmLimit int64                                 `json:"user_rpm_limit,nullable"`
-	UserSpend    float64                               `json:"user_spend,nullable"`
-	UserTpmLimit int64                                 `json:"user_tpm_limit,nullable"`
-	JSON         keyListResponseKeysUserAPIKeyAuthJSON `json:"-"`
+	UserRole     KeyListResponseKeysUserAPIKeyAuthUserRole `json:"user_role,nullable"`
+	UserRpmLimit int64                                     `json:"user_rpm_limit,nullable"`
+	UserTpmLimit int64                                     `json:"user_tpm_limit,nullable"`
+	JSON         keyListResponseKeysUserAPIKeyAuthJSON     `json:"-"`
 }
 
 // keyListResponseKeysUserAPIKeyAuthJSON contains the JSON metadata for the struct
 // [KeyListResponseKeysUserAPIKeyAuth]
 type keyListResponseKeysUserAPIKeyAuthJSON struct {
-	Token                  apijson.Field
-	Aliases                apijson.Field
-	AllowedCacheControls   apijson.Field
-	AllowedModelRegion     apijson.Field
-	AllowedRoutes          apijson.Field
-	APIKey                 apijson.Field
-	AutoRotate             apijson.Field
-	Blocked                apijson.Field
-	BudgetDuration         apijson.Field
-	BudgetResetAt          apijson.Field
-	Config                 apijson.Field
-	CreatedAt              apijson.Field
-	CreatedBy              apijson.Field
-	EndUserID              apijson.Field
-	EndUserMaxBudget       apijson.Field
-	EndUserRpmLimit        apijson.Field
-	EndUserTpmLimit        apijson.Field
-	Expires                apijson.Field
-	KeyAlias               apijson.Field
-	KeyName                apijson.Field
-	KeyRotationAt          apijson.Field
-	LastRefreshedAt        apijson.Field
-	LastRotationAt         apijson.Field
-	LitellmBudgetTable     apijson.Field
-	MaxBudget              apijson.Field
-	MaxParallelRequests    apijson.Field
-	Metadata               apijson.Field
-	ModelMaxBudget         apijson.Field
-	ModelSpend             apijson.Field
-	Models                 apijson.Field
-	ObjectPermission       apijson.Field
-	ObjectPermissionID     apijson.Field
-	OrgID                  apijson.Field
-	OrganizationMaxBudget  apijson.Field
-	OrganizationMetadata   apijson.Field
-	OrganizationRpmLimit   apijson.Field
-	OrganizationTpmLimit   apijson.Field
-	ParentOtelSpan         apijson.Field
-	Permissions            apijson.Field
-	RequestRoute           apijson.Field
-	RotationCount          apijson.Field
-	RotationInterval       apijson.Field
-	RouterSettings         apijson.Field
-	RpmLimit               apijson.Field
-	RpmLimitPerModel       apijson.Field
-	SoftBudget             apijson.Field
-	SoftBudgetCooldown     apijson.Field
-	Spend                  apijson.Field
-	TeamAlias              apijson.Field
-	TeamBlocked            apijson.Field
-	TeamID                 apijson.Field
-	TeamMaxBudget          apijson.Field
-	TeamMember             apijson.Field
-	TeamMemberRpmLimit     apijson.Field
-	TeamMemberSpend        apijson.Field
-	TeamMemberTpmLimit     apijson.Field
-	TeamMetadata           apijson.Field
-	TeamModelAliases       apijson.Field
-	TeamModels             apijson.Field
-	TeamObjectPermissionID apijson.Field
-	TeamRpmLimit           apijson.Field
-	TeamSpend              apijson.Field
-	TeamTpmLimit           apijson.Field
-	TpmLimit               apijson.Field
-	TpmLimitPerModel       apijson.Field
-	UpdatedAt              apijson.Field
-	UpdatedBy              apijson.Field
-	User                   apijson.Field
-	UserEmail              apijson.Field
-	UserID                 apijson.Field
-	UserMaxBudget          apijson.Field
-	UserRole               apijson.Field
-	UserRpmLimit           apijson.Field
-	UserSpend              apijson.Field
-	UserTpmLimit           apijson.Field
-	raw                    string
-	ExtraFields            map[string]apijson.Field
+	Token                apijson.Field
+	Aliases              apijson.Field
+	AllowedCacheControls apijson.Field
+	AllowedModelRegion   apijson.Field
+	APIKey               apijson.Field
+	Blocked              apijson.Field
+	BudgetDuration       apijson.Field
+	BudgetResetAt        apijson.Field
+	Config               apijson.Field
+	CreatedAt            apijson.Field
+	CreatedBy            apijson.Field
+	EndUserID            apijson.Field
+	EndUserMaxBudget     apijson.Field
+	EndUserRpmLimit      apijson.Field
+	EndUserTpmLimit      apijson.Field
+	Expires              apijson.Field
+	KeyAlias             apijson.Field
+	KeyName              apijson.Field
+	LastRefreshedAt      apijson.Field
+	LlmBudgetTable       apijson.Field
+	MaxBudget            apijson.Field
+	MaxParallelRequests  apijson.Field
+	Metadata             apijson.Field
+	ModelMaxBudget       apijson.Field
+	ModelSpend           apijson.Field
+	Models               apijson.Field
+	OrgID                apijson.Field
+	ParentOtelSpan       apijson.Field
+	Permissions          apijson.Field
+	RpmLimit             apijson.Field
+	RpmLimitPerModel     apijson.Field
+	SoftBudget           apijson.Field
+	SoftBudgetCooldown   apijson.Field
+	Spend                apijson.Field
+	TeamAlias            apijson.Field
+	TeamBlocked          apijson.Field
+	TeamID               apijson.Field
+	TeamMaxBudget        apijson.Field
+	TeamMember           apijson.Field
+	TeamMemberSpend      apijson.Field
+	TeamMetadata         apijson.Field
+	TeamModelAliases     apijson.Field
+	TeamModels           apijson.Field
+	TeamRpmLimit         apijson.Field
+	TeamSpend            apijson.Field
+	TeamTpmLimit         apijson.Field
+	TpmLimit             apijson.Field
+	TpmLimitPerModel     apijson.Field
+	UpdatedAt            apijson.Field
+	UpdatedBy            apijson.Field
+	UserEmail            apijson.Field
+	UserID               apijson.Field
+	UserRole             apijson.Field
+	UserRpmLimit         apijson.Field
+	UserTpmLimit         apijson.Field
+	raw                  string
+	ExtraFields          map[string]apijson.Field
 }
 
 func (r *KeyListResponseKeysUserAPIKeyAuth) UnmarshalJSON(data []byte) (err error) {
@@ -1105,248 +769,70 @@ func init() {
 	)
 }
 
-// Represents a LiteLLM_ObjectPermissionTable record
-type KeyListResponseKeysUserAPIKeyAuthObjectPermission struct {
-	ObjectPermissionID string                                                `json:"object_permission_id,required"`
-	AgentAccessGroups  []string                                              `json:"agent_access_groups,nullable"`
-	Agents             []string                                              `json:"agents,nullable"`
-	McpAccessGroups    []string                                              `json:"mcp_access_groups,nullable"`
-	McpServers         []string                                              `json:"mcp_servers,nullable"`
-	McpToolPermissions map[string][]string                                   `json:"mcp_tool_permissions,nullable"`
-	VectorStores       []string                                              `json:"vector_stores,nullable"`
-	JSON               keyListResponseKeysUserAPIKeyAuthObjectPermissionJSON `json:"-"`
-}
+// Admin Roles: PROXY_ADMIN: admin over the platform PROXY_ADMIN_VIEW_ONLY: can
+// login, view all own keys, view all spend ORG_ADMIN: admin over a specific
+// organization, can create teams, users only within their organization
+//
+// Internal User Roles: INTERNAL_USER: can login, view/create/delete their own
+// keys, view their spend INTERNAL_USER_VIEW_ONLY: can login, view their own keys,
+// view their own spend
+//
+// Team Roles: TEAM: used for JWT auth
+//
+// Customer Roles: CUSTOMER: External users -> these are customers
+type KeyListResponseKeysUserAPIKeyAuthUserRole string
 
-// keyListResponseKeysUserAPIKeyAuthObjectPermissionJSON contains the JSON metadata
-// for the struct [KeyListResponseKeysUserAPIKeyAuthObjectPermission]
-type keyListResponseKeysUserAPIKeyAuthObjectPermissionJSON struct {
-	ObjectPermissionID apijson.Field
-	AgentAccessGroups  apijson.Field
-	Agents             apijson.Field
-	McpAccessGroups    apijson.Field
-	McpServers         apijson.Field
-	McpToolPermissions apijson.Field
-	VectorStores       apijson.Field
-	raw                string
-	ExtraFields        map[string]apijson.Field
-}
+const (
+	KeyListResponseKeysUserAPIKeyAuthUserRoleProxyAdmin         KeyListResponseKeysUserAPIKeyAuthUserRole = "proxy_admin"
+	KeyListResponseKeysUserAPIKeyAuthUserRoleProxyAdminViewer   KeyListResponseKeysUserAPIKeyAuthUserRole = "proxy_admin_viewer"
+	KeyListResponseKeysUserAPIKeyAuthUserRoleOrgAdmin           KeyListResponseKeysUserAPIKeyAuthUserRole = "org_admin"
+	KeyListResponseKeysUserAPIKeyAuthUserRoleInternalUser       KeyListResponseKeysUserAPIKeyAuthUserRole = "internal_user"
+	KeyListResponseKeysUserAPIKeyAuthUserRoleInternalUserViewer KeyListResponseKeysUserAPIKeyAuthUserRole = "internal_user_viewer"
+	KeyListResponseKeysUserAPIKeyAuthUserRoleTeam               KeyListResponseKeysUserAPIKeyAuthUserRole = "team"
+	KeyListResponseKeysUserAPIKeyAuthUserRoleCustomer           KeyListResponseKeysUserAPIKeyAuthUserRole = "customer"
+)
 
-func (r *KeyListResponseKeysUserAPIKeyAuthObjectPermission) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r keyListResponseKeysUserAPIKeyAuthObjectPermissionJSON) RawJSON() string {
-	return r.raw
-}
-
-// Recording of deleted keys for audit purposes. Mirrors LiteLLM_VerificationToken
-// plus metadata captured at deletion time.
-type KeyListResponseKeysLiteLlmDeletedVerificationToken struct {
-	ID                   string                                                         `json:"id,nullable"`
-	Token                string                                                         `json:"token,nullable"`
-	Aliases              map[string]interface{}                                         `json:"aliases"`
-	AllowedCacheControls []interface{}                                                  `json:"allowed_cache_controls,nullable"`
-	AllowedRoutes        []interface{}                                                  `json:"allowed_routes,nullable"`
-	AutoRotate           bool                                                           `json:"auto_rotate,nullable"`
-	Blocked              bool                                                           `json:"blocked,nullable"`
-	BudgetDuration       string                                                         `json:"budget_duration,nullable"`
-	BudgetResetAt        time.Time                                                      `json:"budget_reset_at,nullable" format:"date-time"`
-	Config               map[string]interface{}                                         `json:"config"`
-	CreatedAt            time.Time                                                      `json:"created_at,nullable" format:"date-time"`
-	CreatedBy            string                                                         `json:"created_by,nullable"`
-	DeletedAt            time.Time                                                      `json:"deleted_at,nullable" format:"date-time"`
-	DeletedBy            string                                                         `json:"deleted_by,nullable"`
-	DeletedByAPIKey      string                                                         `json:"deleted_by_api_key,nullable"`
-	Expires              KeyListResponseKeysLiteLlmDeletedVerificationTokenExpiresUnion `json:"expires,nullable" format:"date-time"`
-	KeyAlias             string                                                         `json:"key_alias,nullable"`
-	KeyName              string                                                         `json:"key_name,nullable"`
-	KeyRotationAt        time.Time                                                      `json:"key_rotation_at,nullable" format:"date-time"`
-	LastRotationAt       time.Time                                                      `json:"last_rotation_at,nullable" format:"date-time"`
-	LitellmBudgetTable   map[string]interface{}                                         `json:"litellm_budget_table,nullable"`
-	LitellmChangedBy     string                                                         `json:"litellm_changed_by,nullable"`
-	MaxBudget            float64                                                        `json:"max_budget,nullable"`
-	MaxParallelRequests  int64                                                          `json:"max_parallel_requests,nullable"`
-	Metadata             map[string]interface{}                                         `json:"metadata"`
-	ModelMaxBudget       map[string]interface{}                                         `json:"model_max_budget"`
-	ModelSpend           map[string]interface{}                                         `json:"model_spend"`
-	Models               []interface{}                                                  `json:"models"`
-	// Represents a LiteLLM_ObjectPermissionTable record
-	ObjectPermission   KeyListResponseKeysLiteLlmDeletedVerificationTokenObjectPermission `json:"object_permission,nullable"`
-	ObjectPermissionID string                                                             `json:"object_permission_id,nullable"`
-	OrgID              string                                                             `json:"org_id,nullable"`
-	Permissions        map[string]interface{}                                             `json:"permissions"`
-	RotationCount      int64                                                              `json:"rotation_count,nullable"`
-	RotationInterval   string                                                             `json:"rotation_interval,nullable"`
-	RouterSettings     map[string]interface{}                                             `json:"router_settings,nullable"`
-	RpmLimit           int64                                                              `json:"rpm_limit,nullable"`
-	SoftBudgetCooldown bool                                                               `json:"soft_budget_cooldown"`
-	Spend              float64                                                            `json:"spend"`
-	TeamID             string                                                             `json:"team_id,nullable"`
-	TpmLimit           int64                                                              `json:"tpm_limit,nullable"`
-	UpdatedAt          time.Time                                                          `json:"updated_at,nullable" format:"date-time"`
-	UpdatedBy          string                                                             `json:"updated_by,nullable"`
-	UserID             string                                                             `json:"user_id,nullable"`
-	JSON               keyListResponseKeysLiteLlmDeletedVerificationTokenJSON             `json:"-"`
-}
-
-// keyListResponseKeysLiteLlmDeletedVerificationTokenJSON contains the JSON
-// metadata for the struct [KeyListResponseKeysLiteLlmDeletedVerificationToken]
-type keyListResponseKeysLiteLlmDeletedVerificationTokenJSON struct {
-	ID                   apijson.Field
-	Token                apijson.Field
-	Aliases              apijson.Field
-	AllowedCacheControls apijson.Field
-	AllowedRoutes        apijson.Field
-	AutoRotate           apijson.Field
-	Blocked              apijson.Field
-	BudgetDuration       apijson.Field
-	BudgetResetAt        apijson.Field
-	Config               apijson.Field
-	CreatedAt            apijson.Field
-	CreatedBy            apijson.Field
-	DeletedAt            apijson.Field
-	DeletedBy            apijson.Field
-	DeletedByAPIKey      apijson.Field
-	Expires              apijson.Field
-	KeyAlias             apijson.Field
-	KeyName              apijson.Field
-	KeyRotationAt        apijson.Field
-	LastRotationAt       apijson.Field
-	LitellmBudgetTable   apijson.Field
-	LitellmChangedBy     apijson.Field
-	MaxBudget            apijson.Field
-	MaxParallelRequests  apijson.Field
-	Metadata             apijson.Field
-	ModelMaxBudget       apijson.Field
-	ModelSpend           apijson.Field
-	Models               apijson.Field
-	ObjectPermission     apijson.Field
-	ObjectPermissionID   apijson.Field
-	OrgID                apijson.Field
-	Permissions          apijson.Field
-	RotationCount        apijson.Field
-	RotationInterval     apijson.Field
-	RouterSettings       apijson.Field
-	RpmLimit             apijson.Field
-	SoftBudgetCooldown   apijson.Field
-	Spend                apijson.Field
-	TeamID               apijson.Field
-	TpmLimit             apijson.Field
-	UpdatedAt            apijson.Field
-	UpdatedBy            apijson.Field
-	UserID               apijson.Field
-	raw                  string
-	ExtraFields          map[string]apijson.Field
-}
-
-func (r *KeyListResponseKeysLiteLlmDeletedVerificationToken) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r keyListResponseKeysLiteLlmDeletedVerificationTokenJSON) RawJSON() string {
-	return r.raw
-}
-
-func (r KeyListResponseKeysLiteLlmDeletedVerificationToken) ImplementsKeyListResponseKeysUnion() {}
-
-// Union satisfied by [shared.UnionString] or [shared.UnionTime].
-type KeyListResponseKeysLiteLlmDeletedVerificationTokenExpiresUnion interface {
-	ImplementsKeyListResponseKeysLiteLlmDeletedVerificationTokenExpiresUnion()
-}
-
-func init() {
-	apijson.RegisterUnion(
-		reflect.TypeOf((*KeyListResponseKeysLiteLlmDeletedVerificationTokenExpiresUnion)(nil)).Elem(),
-		"",
-		apijson.UnionVariant{
-			TypeFilter: gjson.String,
-			Type:       reflect.TypeOf(shared.UnionString("")),
-		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.String,
-			Type:       reflect.TypeOf(shared.UnionTime(shared.UnionTime{})),
-		},
-	)
-}
-
-// Represents a LiteLLM_ObjectPermissionTable record
-type KeyListResponseKeysLiteLlmDeletedVerificationTokenObjectPermission struct {
-	ObjectPermissionID string                                                                 `json:"object_permission_id,required"`
-	AgentAccessGroups  []string                                                               `json:"agent_access_groups,nullable"`
-	Agents             []string                                                               `json:"agents,nullable"`
-	McpAccessGroups    []string                                                               `json:"mcp_access_groups,nullable"`
-	McpServers         []string                                                               `json:"mcp_servers,nullable"`
-	McpToolPermissions map[string][]string                                                    `json:"mcp_tool_permissions,nullable"`
-	VectorStores       []string                                                               `json:"vector_stores,nullable"`
-	JSON               keyListResponseKeysLiteLlmDeletedVerificationTokenObjectPermissionJSON `json:"-"`
-}
-
-// keyListResponseKeysLiteLlmDeletedVerificationTokenObjectPermissionJSON contains
-// the JSON metadata for the struct
-// [KeyListResponseKeysLiteLlmDeletedVerificationTokenObjectPermission]
-type keyListResponseKeysLiteLlmDeletedVerificationTokenObjectPermissionJSON struct {
-	ObjectPermissionID apijson.Field
-	AgentAccessGroups  apijson.Field
-	Agents             apijson.Field
-	McpAccessGroups    apijson.Field
-	McpServers         apijson.Field
-	McpToolPermissions apijson.Field
-	VectorStores       apijson.Field
-	raw                string
-	ExtraFields        map[string]apijson.Field
-}
-
-func (r *KeyListResponseKeysLiteLlmDeletedVerificationTokenObjectPermission) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r keyListResponseKeysLiteLlmDeletedVerificationTokenObjectPermissionJSON) RawJSON() string {
-	return r.raw
+func (r KeyListResponseKeysUserAPIKeyAuthUserRole) IsKnown() bool {
+	switch r {
+	case KeyListResponseKeysUserAPIKeyAuthUserRoleProxyAdmin, KeyListResponseKeysUserAPIKeyAuthUserRoleProxyAdminViewer, KeyListResponseKeysUserAPIKeyAuthUserRoleOrgAdmin, KeyListResponseKeysUserAPIKeyAuthUserRoleInternalUser, KeyListResponseKeysUserAPIKeyAuthUserRoleInternalUserViewer, KeyListResponseKeysUserAPIKeyAuthUserRoleTeam, KeyListResponseKeysUserAPIKeyAuthUserRoleCustomer:
+		return true
+	}
+	return false
 }
 
 type KeyDeleteResponse = interface{}
 
 type KeyBlockResponse struct {
 	Token                string                       `json:"token,nullable"`
-	Aliases              map[string]interface{}       `json:"aliases"`
+	Aliases              interface{}                  `json:"aliases"`
 	AllowedCacheControls []interface{}                `json:"allowed_cache_controls,nullable"`
-	AllowedRoutes        []interface{}                `json:"allowed_routes,nullable"`
-	AutoRotate           bool                         `json:"auto_rotate,nullable"`
 	Blocked              bool                         `json:"blocked,nullable"`
 	BudgetDuration       string                       `json:"budget_duration,nullable"`
 	BudgetResetAt        time.Time                    `json:"budget_reset_at,nullable" format:"date-time"`
-	Config               map[string]interface{}       `json:"config"`
+	Config               interface{}                  `json:"config"`
 	CreatedAt            time.Time                    `json:"created_at,nullable" format:"date-time"`
 	CreatedBy            string                       `json:"created_by,nullable"`
 	Expires              KeyBlockResponseExpiresUnion `json:"expires,nullable" format:"date-time"`
 	KeyAlias             string                       `json:"key_alias,nullable"`
 	KeyName              string                       `json:"key_name,nullable"`
-	KeyRotationAt        time.Time                    `json:"key_rotation_at,nullable" format:"date-time"`
-	LastRotationAt       time.Time                    `json:"last_rotation_at,nullable" format:"date-time"`
-	LitellmBudgetTable   map[string]interface{}       `json:"litellm_budget_table,nullable"`
+	LlmBudgetTable       interface{}                  `json:"llm_budget_table,nullable"`
 	MaxBudget            float64                      `json:"max_budget,nullable"`
 	MaxParallelRequests  int64                        `json:"max_parallel_requests,nullable"`
-	Metadata             map[string]interface{}       `json:"metadata"`
-	ModelMaxBudget       map[string]interface{}       `json:"model_max_budget"`
-	ModelSpend           map[string]interface{}       `json:"model_spend"`
+	Metadata             interface{}                  `json:"metadata"`
+	ModelMaxBudget       interface{}                  `json:"model_max_budget"`
+	ModelSpend           interface{}                  `json:"model_spend"`
 	Models               []interface{}                `json:"models"`
-	// Represents a LiteLLM_ObjectPermissionTable record
-	ObjectPermission   KeyBlockResponseObjectPermission `json:"object_permission,nullable"`
-	ObjectPermissionID string                           `json:"object_permission_id,nullable"`
-	OrgID              string                           `json:"org_id,nullable"`
-	Permissions        map[string]interface{}           `json:"permissions"`
-	RotationCount      int64                            `json:"rotation_count,nullable"`
-	RotationInterval   string                           `json:"rotation_interval,nullable"`
-	RouterSettings     map[string]interface{}           `json:"router_settings,nullable"`
-	RpmLimit           int64                            `json:"rpm_limit,nullable"`
-	SoftBudgetCooldown bool                             `json:"soft_budget_cooldown"`
-	Spend              float64                          `json:"spend"`
-	TeamID             string                           `json:"team_id,nullable"`
-	TpmLimit           int64                            `json:"tpm_limit,nullable"`
-	UpdatedAt          time.Time                        `json:"updated_at,nullable" format:"date-time"`
-	UpdatedBy          string                           `json:"updated_by,nullable"`
-	UserID             string                           `json:"user_id,nullable"`
-	JSON               keyBlockResponseJSON             `json:"-"`
+	OrgID                string                       `json:"org_id,nullable"`
+	Permissions          interface{}                  `json:"permissions"`
+	RpmLimit             int64                        `json:"rpm_limit,nullable"`
+	SoftBudgetCooldown   bool                         `json:"soft_budget_cooldown"`
+	Spend                float64                      `json:"spend"`
+	TeamID               string                       `json:"team_id,nullable"`
+	TpmLimit             int64                        `json:"tpm_limit,nullable"`
+	UpdatedAt            time.Time                    `json:"updated_at,nullable" format:"date-time"`
+	UpdatedBy            string                       `json:"updated_by,nullable"`
+	UserID               string                       `json:"user_id,nullable"`
+	JSON                 keyBlockResponseJSON         `json:"-"`
 }
 
 // keyBlockResponseJSON contains the JSON metadata for the struct
@@ -1355,8 +841,6 @@ type keyBlockResponseJSON struct {
 	Token                apijson.Field
 	Aliases              apijson.Field
 	AllowedCacheControls apijson.Field
-	AllowedRoutes        apijson.Field
-	AutoRotate           apijson.Field
 	Blocked              apijson.Field
 	BudgetDuration       apijson.Field
 	BudgetResetAt        apijson.Field
@@ -1366,22 +850,15 @@ type keyBlockResponseJSON struct {
 	Expires              apijson.Field
 	KeyAlias             apijson.Field
 	KeyName              apijson.Field
-	KeyRotationAt        apijson.Field
-	LastRotationAt       apijson.Field
-	LitellmBudgetTable   apijson.Field
+	LlmBudgetTable       apijson.Field
 	MaxBudget            apijson.Field
 	MaxParallelRequests  apijson.Field
 	Metadata             apijson.Field
 	ModelMaxBudget       apijson.Field
 	ModelSpend           apijson.Field
 	Models               apijson.Field
-	ObjectPermission     apijson.Field
-	ObjectPermissionID   apijson.Field
 	OrgID                apijson.Field
 	Permissions          apijson.Field
-	RotationCount        apijson.Field
-	RotationInterval     apijson.Field
-	RouterSettings       apijson.Field
 	RpmLimit             apijson.Field
 	SoftBudgetCooldown   apijson.Field
 	Spend                apijson.Field
@@ -1420,40 +897,6 @@ func init() {
 			Type:       reflect.TypeOf(shared.UnionTime(shared.UnionTime{})),
 		},
 	)
-}
-
-// Represents a LiteLLM_ObjectPermissionTable record
-type KeyBlockResponseObjectPermission struct {
-	ObjectPermissionID string                               `json:"object_permission_id,required"`
-	AgentAccessGroups  []string                             `json:"agent_access_groups,nullable"`
-	Agents             []string                             `json:"agents,nullable"`
-	McpAccessGroups    []string                             `json:"mcp_access_groups,nullable"`
-	McpServers         []string                             `json:"mcp_servers,nullable"`
-	McpToolPermissions map[string][]string                  `json:"mcp_tool_permissions,nullable"`
-	VectorStores       []string                             `json:"vector_stores,nullable"`
-	JSON               keyBlockResponseObjectPermissionJSON `json:"-"`
-}
-
-// keyBlockResponseObjectPermissionJSON contains the JSON metadata for the struct
-// [KeyBlockResponseObjectPermission]
-type keyBlockResponseObjectPermissionJSON struct {
-	ObjectPermissionID apijson.Field
-	AgentAccessGroups  apijson.Field
-	Agents             apijson.Field
-	McpAccessGroups    apijson.Field
-	McpServers         apijson.Field
-	McpToolPermissions apijson.Field
-	VectorStores       apijson.Field
-	raw                string
-	ExtraFields        map[string]apijson.Field
-}
-
-func (r *KeyBlockResponseObjectPermission) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r keyBlockResponseObjectPermissionJSON) RawJSON() string {
-	return r.raw
 }
 
 type KeyCheckHealthResponse struct {
@@ -1539,165 +982,47 @@ type KeyGetInfoResponse = interface{}
 type KeyUnblockResponse = interface{}
 
 type KeyUpdateParams struct {
-	Key                       param.Field[string]                                   `json:"key,required"`
-	Aliases                   param.Field[map[string]interface{}]                   `json:"aliases"`
-	AllowedCacheControls      param.Field[[]interface{}]                            `json:"allowed_cache_controls"`
-	AllowedPassthroughRoutes  param.Field[[]interface{}]                            `json:"allowed_passthrough_routes"`
-	AllowedRoutes             param.Field[[]interface{}]                            `json:"allowed_routes"`
-	AllowedVectorStoreIndexes param.Field[[]KeyUpdateParamsAllowedVectorStoreIndex] `json:"allowed_vector_store_indexes"`
-	AutoRotate                param.Field[bool]                                     `json:"auto_rotate"`
-	Blocked                   param.Field[bool]                                     `json:"blocked"`
-	BudgetDuration            param.Field[string]                                   `json:"budget_duration"`
-	BudgetID                  param.Field[string]                                   `json:"budget_id"`
-	Config                    param.Field[map[string]interface{}]                   `json:"config"`
-	Duration                  param.Field[string]                                   `json:"duration"`
-	EnforcedParams            param.Field[[]string]                                 `json:"enforced_params"`
-	Guardrails                param.Field[[]string]                                 `json:"guardrails"`
-	KeyAlias                  param.Field[string]                                   `json:"key_alias"`
-	MaxBudget                 param.Field[float64]                                  `json:"max_budget"`
-	MaxParallelRequests       param.Field[int64]                                    `json:"max_parallel_requests"`
-	Metadata                  param.Field[map[string]interface{}]                   `json:"metadata"`
-	ModelMaxBudget            param.Field[map[string]interface{}]                   `json:"model_max_budget"`
-	ModelRpmLimit             param.Field[map[string]interface{}]                   `json:"model_rpm_limit"`
-	ModelTpmLimit             param.Field[map[string]interface{}]                   `json:"model_tpm_limit"`
-	Models                    param.Field[[]interface{}]                            `json:"models"`
-	ObjectPermission          param.Field[KeyUpdateParamsObjectPermission]          `json:"object_permission"`
-	Permissions               param.Field[map[string]interface{}]                   `json:"permissions"`
-	Prompts                   param.Field[[]string]                                 `json:"prompts"`
-	RotationInterval          param.Field[string]                                   `json:"rotation_interval"`
-	// Set of params that you can modify via `router.update_settings()`.
-	RouterSettings     param.Field[KeyUpdateParamsRouterSettings] `json:"router_settings"`
-	RpmLimit           param.Field[int64]                         `json:"rpm_limit"`
-	RpmLimitType       param.Field[KeyUpdateParamsRpmLimitType]   `json:"rpm_limit_type"`
-	Spend              param.Field[float64]                       `json:"spend"`
-	Tags               param.Field[[]string]                      `json:"tags"`
-	TeamID             param.Field[string]                        `json:"team_id"`
-	TempBudgetExpiry   param.Field[time.Time]                     `json:"temp_budget_expiry" format:"date-time"`
-	TempBudgetIncrease param.Field[float64]                       `json:"temp_budget_increase"`
-	TpmLimit           param.Field[int64]                         `json:"tpm_limit"`
-	TpmLimitType       param.Field[KeyUpdateParamsTpmLimitType]   `json:"tpm_limit_type"`
-	UserID             param.Field[string]                        `json:"user_id"`
-	// The litellm-changed-by header enables tracking of actions performed by
-	// authorized users on behalf of other users, providing an audit trail for
-	// accountability
-	LitellmChangedBy param.Field[string] `header:"litellm-changed-by"`
+	Key                  param.Field[string]        `json:"key,required"`
+	Aliases              param.Field[interface{}]   `json:"aliases"`
+	AllowedCacheControls param.Field[[]interface{}] `json:"allowed_cache_controls"`
+	Blocked              param.Field[bool]          `json:"blocked"`
+	BudgetDuration       param.Field[string]        `json:"budget_duration"`
+	BudgetID             param.Field[string]        `json:"budget_id"`
+	Config               param.Field[interface{}]   `json:"config"`
+	Duration             param.Field[string]        `json:"duration"`
+	EnforcedParams       param.Field[[]string]      `json:"enforced_params"`
+	Guardrails           param.Field[[]string]      `json:"guardrails"`
+	KeyAlias             param.Field[string]        `json:"key_alias"`
+	MaxBudget            param.Field[float64]       `json:"max_budget"`
+	MaxParallelRequests  param.Field[int64]         `json:"max_parallel_requests"`
+	Metadata             param.Field[interface{}]   `json:"metadata"`
+	ModelMaxBudget       param.Field[interface{}]   `json:"model_max_budget"`
+	ModelRpmLimit        param.Field[interface{}]   `json:"model_rpm_limit"`
+	ModelTpmLimit        param.Field[interface{}]   `json:"model_tpm_limit"`
+	Models               param.Field[[]interface{}] `json:"models"`
+	Permissions          param.Field[interface{}]   `json:"permissions"`
+	RpmLimit             param.Field[int64]         `json:"rpm_limit"`
+	Spend                param.Field[float64]       `json:"spend"`
+	Tags                 param.Field[[]string]      `json:"tags"`
+	TeamID               param.Field[string]        `json:"team_id"`
+	TempBudgetExpiry     param.Field[time.Time]     `json:"temp_budget_expiry" format:"date-time"`
+	TempBudgetIncrease   param.Field[float64]       `json:"temp_budget_increase"`
+	TpmLimit             param.Field[int64]         `json:"tpm_limit"`
+	UserID               param.Field[string]        `json:"user_id"`
+	// The llm-changed-by header enables tracking of actions performed by authorized
+	// users on behalf of other users, providing an audit trail for accountability
+	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
 }
 
 func (r KeyUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type KeyUpdateParamsAllowedVectorStoreIndex struct {
-	IndexName        param.Field[string]                                                    `json:"index_name,required"`
-	IndexPermissions param.Field[[]KeyUpdateParamsAllowedVectorStoreIndexesIndexPermission] `json:"index_permissions,required"`
-}
-
-func (r KeyUpdateParamsAllowedVectorStoreIndex) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-type KeyUpdateParamsAllowedVectorStoreIndexesIndexPermission string
-
-const (
-	KeyUpdateParamsAllowedVectorStoreIndexesIndexPermissionRead  KeyUpdateParamsAllowedVectorStoreIndexesIndexPermission = "read"
-	KeyUpdateParamsAllowedVectorStoreIndexesIndexPermissionWrite KeyUpdateParamsAllowedVectorStoreIndexesIndexPermission = "write"
-)
-
-func (r KeyUpdateParamsAllowedVectorStoreIndexesIndexPermission) IsKnown() bool {
-	switch r {
-	case KeyUpdateParamsAllowedVectorStoreIndexesIndexPermissionRead, KeyUpdateParamsAllowedVectorStoreIndexesIndexPermissionWrite:
-		return true
-	}
-	return false
-}
-
-type KeyUpdateParamsObjectPermission struct {
-	AgentAccessGroups  param.Field[[]string]            `json:"agent_access_groups"`
-	Agents             param.Field[[]string]            `json:"agents"`
-	McpAccessGroups    param.Field[[]string]            `json:"mcp_access_groups"`
-	McpServers         param.Field[[]string]            `json:"mcp_servers"`
-	McpToolPermissions param.Field[map[string][]string] `json:"mcp_tool_permissions"`
-	VectorStores       param.Field[[]string]            `json:"vector_stores"`
-}
-
-func (r KeyUpdateParamsObjectPermission) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Set of params that you can modify via `router.update_settings()`.
-type KeyUpdateParamsRouterSettings struct {
-	AllowedFails           param.Field[int64]                                                        `json:"allowed_fails"`
-	ContextWindowFallbacks param.Field[[]map[string]interface{}]                                     `json:"context_window_fallbacks"`
-	CooldownTime           param.Field[float64]                                                      `json:"cooldown_time"`
-	Fallbacks              param.Field[[]map[string]interface{}]                                     `json:"fallbacks"`
-	MaxRetries             param.Field[int64]                                                        `json:"max_retries"`
-	ModelGroupAlias        param.Field[map[string]KeyUpdateParamsRouterSettingsModelGroupAliasUnion] `json:"model_group_alias"`
-	ModelGroupRetryPolicy  param.Field[map[string]interface{}]                                       `json:"model_group_retry_policy"`
-	NumRetries             param.Field[int64]                                                        `json:"num_retries"`
-	RetryAfter             param.Field[float64]                                                      `json:"retry_after"`
-	RoutingStrategy        param.Field[string]                                                       `json:"routing_strategy"`
-	RoutingStrategyArgs    param.Field[map[string]interface{}]                                       `json:"routing_strategy_args"`
-	Timeout                param.Field[float64]                                                      `json:"timeout"`
-}
-
-func (r KeyUpdateParamsRouterSettings) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Satisfied by [shared.UnionString],
-// [KeyUpdateParamsRouterSettingsModelGroupAliasMap].
-type KeyUpdateParamsRouterSettingsModelGroupAliasUnion interface {
-	ImplementsKeyUpdateParamsRouterSettingsModelGroupAliasUnion()
-}
-
-type KeyUpdateParamsRouterSettingsModelGroupAliasMap map[string]interface{}
-
-func (r KeyUpdateParamsRouterSettingsModelGroupAliasMap) ImplementsKeyUpdateParamsRouterSettingsModelGroupAliasUnion() {
-}
-
-type KeyUpdateParamsRpmLimitType string
-
-const (
-	KeyUpdateParamsRpmLimitTypeGuaranteedThroughput KeyUpdateParamsRpmLimitType = "guaranteed_throughput"
-	KeyUpdateParamsRpmLimitTypeBestEffortThroughput KeyUpdateParamsRpmLimitType = "best_effort_throughput"
-	KeyUpdateParamsRpmLimitTypeDynamic              KeyUpdateParamsRpmLimitType = "dynamic"
-)
-
-func (r KeyUpdateParamsRpmLimitType) IsKnown() bool {
-	switch r {
-	case KeyUpdateParamsRpmLimitTypeGuaranteedThroughput, KeyUpdateParamsRpmLimitTypeBestEffortThroughput, KeyUpdateParamsRpmLimitTypeDynamic:
-		return true
-	}
-	return false
-}
-
-type KeyUpdateParamsTpmLimitType string
-
-const (
-	KeyUpdateParamsTpmLimitTypeGuaranteedThroughput KeyUpdateParamsTpmLimitType = "guaranteed_throughput"
-	KeyUpdateParamsTpmLimitTypeBestEffortThroughput KeyUpdateParamsTpmLimitType = "best_effort_throughput"
-	KeyUpdateParamsTpmLimitTypeDynamic              KeyUpdateParamsTpmLimitType = "dynamic"
-)
-
-func (r KeyUpdateParamsTpmLimitType) IsKnown() bool {
-	switch r {
-	case KeyUpdateParamsTpmLimitTypeGuaranteedThroughput, KeyUpdateParamsTpmLimitTypeBestEffortThroughput, KeyUpdateParamsTpmLimitTypeDynamic:
-		return true
-	}
-	return false
-}
-
 type KeyListParams struct {
-	// Expand related objects (e.g. 'user')
-	Expand param.Field[[]string] `query:"expand"`
-	// Include keys created by the user
-	IncludeCreatedByKeys param.Field[bool] `query:"include_created_by_keys"`
 	// Include all keys for teams that user is an admin of.
 	IncludeTeamKeys param.Field[bool] `query:"include_team_keys"`
 	// Filter keys by key alias
 	KeyAlias param.Field[string] `query:"key_alias"`
-	// Filter keys by key hash
-	KeyHash param.Field[string] `query:"key_hash"`
 	// Filter keys by organization ID
 	OrganizationID param.Field[string] `query:"organization_id"`
 	// Page number
@@ -1706,12 +1031,6 @@ type KeyListParams struct {
 	ReturnFullObject param.Field[bool] `query:"return_full_object"`
 	// Page size
 	Size param.Field[int64] `query:"size"`
-	// Column to sort by (e.g. 'user_id', 'created_at', 'spend')
-	SortBy param.Field[string] `query:"sort_by"`
-	// Sort order ('asc' or 'desc')
-	SortOrder param.Field[string] `query:"sort_order"`
-	// Filter by status (e.g. 'deleted')
-	Status param.Field[string] `query:"status"`
 	// Filter keys by team ID
 	TeamID param.Field[string] `query:"team_id"`
 	// Filter keys by user ID
@@ -1729,10 +1048,9 @@ func (r KeyListParams) URLQuery() (v url.Values) {
 type KeyDeleteParams struct {
 	KeyAliases param.Field[[]string] `json:"key_aliases"`
 	Keys       param.Field[[]string] `json:"keys"`
-	// The litellm-changed-by header enables tracking of actions performed by
-	// authorized users on behalf of other users, providing an audit trail for
-	// accountability
-	LitellmChangedBy param.Field[string] `header:"litellm-changed-by"`
+	// The llm-changed-by header enables tracking of actions performed by authorized
+	// users on behalf of other users, providing an audit trail for accountability
+	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
 }
 
 func (r KeyDeleteParams) MarshalJSON() (data []byte, err error) {
@@ -1741,10 +1059,9 @@ func (r KeyDeleteParams) MarshalJSON() (data []byte, err error) {
 
 type KeyBlockParams struct {
 	BlockKeyRequest BlockKeyRequestParam `json:"block_key_request,required"`
-	// The litellm-changed-by header enables tracking of actions performed by
-	// authorized users on behalf of other users, providing an audit trail for
-	// accountability
-	LitellmChangedBy param.Field[string] `header:"litellm-changed-by"`
+	// The llm-changed-by header enables tracking of actions performed by authorized
+	// users on behalf of other users, providing an audit trail for accountability
+	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
 }
 
 func (r KeyBlockParams) MarshalJSON() (data []byte, err error) {
@@ -1752,183 +1069,47 @@ func (r KeyBlockParams) MarshalJSON() (data []byte, err error) {
 }
 
 type KeyGenerateParams struct {
-	Aliases                   param.Field[map[string]interface{}]                     `json:"aliases"`
-	AllowedCacheControls      param.Field[[]interface{}]                              `json:"allowed_cache_controls"`
-	AllowedPassthroughRoutes  param.Field[[]interface{}]                              `json:"allowed_passthrough_routes"`
-	AllowedRoutes             param.Field[[]interface{}]                              `json:"allowed_routes"`
-	AllowedVectorStoreIndexes param.Field[[]KeyGenerateParamsAllowedVectorStoreIndex] `json:"allowed_vector_store_indexes"`
-	// Whether this key should be automatically rotated
-	AutoRotate     param.Field[bool]                   `json:"auto_rotate"`
-	Blocked        param.Field[bool]                   `json:"blocked"`
-	BudgetDuration param.Field[string]                 `json:"budget_duration"`
-	BudgetID       param.Field[string]                 `json:"budget_id"`
-	Config         param.Field[map[string]interface{}] `json:"config"`
-	Duration       param.Field[string]                 `json:"duration"`
-	EnforcedParams param.Field[[]string]               `json:"enforced_params"`
-	Guardrails     param.Field[[]string]               `json:"guardrails"`
-	Key            param.Field[string]                 `json:"key"`
-	KeyAlias       param.Field[string]                 `json:"key_alias"`
-	// Enum for key types that determine what routes a key can access
-	KeyType             param.Field[KeyGenerateParamsKeyType]          `json:"key_type"`
-	MaxBudget           param.Field[float64]                           `json:"max_budget"`
-	MaxParallelRequests param.Field[int64]                             `json:"max_parallel_requests"`
-	Metadata            param.Field[map[string]interface{}]            `json:"metadata"`
-	ModelMaxBudget      param.Field[map[string]interface{}]            `json:"model_max_budget"`
-	ModelRpmLimit       param.Field[map[string]interface{}]            `json:"model_rpm_limit"`
-	ModelTpmLimit       param.Field[map[string]interface{}]            `json:"model_tpm_limit"`
-	Models              param.Field[[]interface{}]                     `json:"models"`
-	ObjectPermission    param.Field[KeyGenerateParamsObjectPermission] `json:"object_permission"`
-	OrganizationID      param.Field[string]                            `json:"organization_id"`
-	Permissions         param.Field[map[string]interface{}]            `json:"permissions"`
-	Prompts             param.Field[[]string]                          `json:"prompts"`
-	// How often to rotate this key (e.g., '30d', '90d'). Required if auto_rotate=True
-	RotationInterval param.Field[string] `json:"rotation_interval"`
-	// Set of params that you can modify via `router.update_settings()`.
-	RouterSettings  param.Field[KeyGenerateParamsRouterSettings] `json:"router_settings"`
-	RpmLimit        param.Field[int64]                           `json:"rpm_limit"`
-	RpmLimitType    param.Field[KeyGenerateParamsRpmLimitType]   `json:"rpm_limit_type"`
-	SendInviteEmail param.Field[bool]                            `json:"send_invite_email"`
-	SoftBudget      param.Field[float64]                         `json:"soft_budget"`
-	Spend           param.Field[float64]                         `json:"spend"`
-	Tags            param.Field[[]string]                        `json:"tags"`
-	TeamID          param.Field[string]                          `json:"team_id"`
-	TpmLimit        param.Field[int64]                           `json:"tpm_limit"`
-	TpmLimitType    param.Field[KeyGenerateParamsTpmLimitType]   `json:"tpm_limit_type"`
-	UserID          param.Field[string]                          `json:"user_id"`
-	// The litellm-changed-by header enables tracking of actions performed by
-	// authorized users on behalf of other users, providing an audit trail for
-	// accountability
-	LitellmChangedBy param.Field[string] `header:"litellm-changed-by"`
+	Aliases              param.Field[interface{}]   `json:"aliases"`
+	AllowedCacheControls param.Field[[]interface{}] `json:"allowed_cache_controls"`
+	Blocked              param.Field[bool]          `json:"blocked"`
+	BudgetDuration       param.Field[string]        `json:"budget_duration"`
+	BudgetID             param.Field[string]        `json:"budget_id"`
+	Config               param.Field[interface{}]   `json:"config"`
+	Duration             param.Field[string]        `json:"duration"`
+	EnforcedParams       param.Field[[]string]      `json:"enforced_params"`
+	Guardrails           param.Field[[]string]      `json:"guardrails"`
+	Key                  param.Field[string]        `json:"key"`
+	KeyAlias             param.Field[string]        `json:"key_alias"`
+	MaxBudget            param.Field[float64]       `json:"max_budget"`
+	MaxParallelRequests  param.Field[int64]         `json:"max_parallel_requests"`
+	Metadata             param.Field[interface{}]   `json:"metadata"`
+	ModelMaxBudget       param.Field[interface{}]   `json:"model_max_budget"`
+	ModelRpmLimit        param.Field[interface{}]   `json:"model_rpm_limit"`
+	ModelTpmLimit        param.Field[interface{}]   `json:"model_tpm_limit"`
+	Models               param.Field[[]interface{}] `json:"models"`
+	Permissions          param.Field[interface{}]   `json:"permissions"`
+	RpmLimit             param.Field[int64]         `json:"rpm_limit"`
+	SendInviteEmail      param.Field[bool]          `json:"send_invite_email"`
+	SoftBudget           param.Field[float64]       `json:"soft_budget"`
+	Spend                param.Field[float64]       `json:"spend"`
+	Tags                 param.Field[[]string]      `json:"tags"`
+	TeamID               param.Field[string]        `json:"team_id"`
+	TpmLimit             param.Field[int64]         `json:"tpm_limit"`
+	UserID               param.Field[string]        `json:"user_id"`
+	// The llm-changed-by header enables tracking of actions performed by authorized
+	// users on behalf of other users, providing an audit trail for accountability
+	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
 }
 
 func (r KeyGenerateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type KeyGenerateParamsAllowedVectorStoreIndex struct {
-	IndexName        param.Field[string]                                                      `json:"index_name,required"`
-	IndexPermissions param.Field[[]KeyGenerateParamsAllowedVectorStoreIndexesIndexPermission] `json:"index_permissions,required"`
-}
-
-func (r KeyGenerateParamsAllowedVectorStoreIndex) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-type KeyGenerateParamsAllowedVectorStoreIndexesIndexPermission string
-
-const (
-	KeyGenerateParamsAllowedVectorStoreIndexesIndexPermissionRead  KeyGenerateParamsAllowedVectorStoreIndexesIndexPermission = "read"
-	KeyGenerateParamsAllowedVectorStoreIndexesIndexPermissionWrite KeyGenerateParamsAllowedVectorStoreIndexesIndexPermission = "write"
-)
-
-func (r KeyGenerateParamsAllowedVectorStoreIndexesIndexPermission) IsKnown() bool {
-	switch r {
-	case KeyGenerateParamsAllowedVectorStoreIndexesIndexPermissionRead, KeyGenerateParamsAllowedVectorStoreIndexesIndexPermissionWrite:
-		return true
-	}
-	return false
-}
-
-// Enum for key types that determine what routes a key can access
-type KeyGenerateParamsKeyType string
-
-const (
-	KeyGenerateParamsKeyTypeLlmAPI     KeyGenerateParamsKeyType = "llm_api"
-	KeyGenerateParamsKeyTypeManagement KeyGenerateParamsKeyType = "management"
-	KeyGenerateParamsKeyTypeReadOnly   KeyGenerateParamsKeyType = "read_only"
-	KeyGenerateParamsKeyTypeDefault    KeyGenerateParamsKeyType = "default"
-)
-
-func (r KeyGenerateParamsKeyType) IsKnown() bool {
-	switch r {
-	case KeyGenerateParamsKeyTypeLlmAPI, KeyGenerateParamsKeyTypeManagement, KeyGenerateParamsKeyTypeReadOnly, KeyGenerateParamsKeyTypeDefault:
-		return true
-	}
-	return false
-}
-
-type KeyGenerateParamsObjectPermission struct {
-	AgentAccessGroups  param.Field[[]string]            `json:"agent_access_groups"`
-	Agents             param.Field[[]string]            `json:"agents"`
-	McpAccessGroups    param.Field[[]string]            `json:"mcp_access_groups"`
-	McpServers         param.Field[[]string]            `json:"mcp_servers"`
-	McpToolPermissions param.Field[map[string][]string] `json:"mcp_tool_permissions"`
-	VectorStores       param.Field[[]string]            `json:"vector_stores"`
-}
-
-func (r KeyGenerateParamsObjectPermission) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Set of params that you can modify via `router.update_settings()`.
-type KeyGenerateParamsRouterSettings struct {
-	AllowedFails           param.Field[int64]                                                          `json:"allowed_fails"`
-	ContextWindowFallbacks param.Field[[]map[string]interface{}]                                       `json:"context_window_fallbacks"`
-	CooldownTime           param.Field[float64]                                                        `json:"cooldown_time"`
-	Fallbacks              param.Field[[]map[string]interface{}]                                       `json:"fallbacks"`
-	MaxRetries             param.Field[int64]                                                          `json:"max_retries"`
-	ModelGroupAlias        param.Field[map[string]KeyGenerateParamsRouterSettingsModelGroupAliasUnion] `json:"model_group_alias"`
-	ModelGroupRetryPolicy  param.Field[map[string]interface{}]                                         `json:"model_group_retry_policy"`
-	NumRetries             param.Field[int64]                                                          `json:"num_retries"`
-	RetryAfter             param.Field[float64]                                                        `json:"retry_after"`
-	RoutingStrategy        param.Field[string]                                                         `json:"routing_strategy"`
-	RoutingStrategyArgs    param.Field[map[string]interface{}]                                         `json:"routing_strategy_args"`
-	Timeout                param.Field[float64]                                                        `json:"timeout"`
-}
-
-func (r KeyGenerateParamsRouterSettings) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Satisfied by [shared.UnionString],
-// [KeyGenerateParamsRouterSettingsModelGroupAliasMap].
-type KeyGenerateParamsRouterSettingsModelGroupAliasUnion interface {
-	ImplementsKeyGenerateParamsRouterSettingsModelGroupAliasUnion()
-}
-
-type KeyGenerateParamsRouterSettingsModelGroupAliasMap map[string]interface{}
-
-func (r KeyGenerateParamsRouterSettingsModelGroupAliasMap) ImplementsKeyGenerateParamsRouterSettingsModelGroupAliasUnion() {
-}
-
-type KeyGenerateParamsRpmLimitType string
-
-const (
-	KeyGenerateParamsRpmLimitTypeGuaranteedThroughput KeyGenerateParamsRpmLimitType = "guaranteed_throughput"
-	KeyGenerateParamsRpmLimitTypeBestEffortThroughput KeyGenerateParamsRpmLimitType = "best_effort_throughput"
-	KeyGenerateParamsRpmLimitTypeDynamic              KeyGenerateParamsRpmLimitType = "dynamic"
-)
-
-func (r KeyGenerateParamsRpmLimitType) IsKnown() bool {
-	switch r {
-	case KeyGenerateParamsRpmLimitTypeGuaranteedThroughput, KeyGenerateParamsRpmLimitTypeBestEffortThroughput, KeyGenerateParamsRpmLimitTypeDynamic:
-		return true
-	}
-	return false
-}
-
-type KeyGenerateParamsTpmLimitType string
-
-const (
-	KeyGenerateParamsTpmLimitTypeGuaranteedThroughput KeyGenerateParamsTpmLimitType = "guaranteed_throughput"
-	KeyGenerateParamsTpmLimitTypeBestEffortThroughput KeyGenerateParamsTpmLimitType = "best_effort_throughput"
-	KeyGenerateParamsTpmLimitTypeDynamic              KeyGenerateParamsTpmLimitType = "dynamic"
-)
-
-func (r KeyGenerateParamsTpmLimitType) IsKnown() bool {
-	switch r {
-	case KeyGenerateParamsTpmLimitTypeGuaranteedThroughput, KeyGenerateParamsTpmLimitTypeBestEffortThroughput, KeyGenerateParamsTpmLimitTypeDynamic:
-		return true
-	}
-	return false
-}
-
 type KeyRegenerateByKeyParams struct {
 	RegenerateKeyRequest RegenerateKeyRequestParam `json:"regenerate_key_request"`
-	// The litellm-changed-by header enables tracking of actions performed by
-	// authorized users on behalf of other users, providing an audit trail for
-	// accountability
-	LitellmChangedBy param.Field[string] `header:"litellm-changed-by"`
+	// The llm-changed-by header enables tracking of actions performed by authorized
+	// users on behalf of other users, providing an audit trail for accountability
+	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
 }
 
 func (r KeyRegenerateByKeyParams) MarshalJSON() (data []byte, err error) {
@@ -1950,10 +1131,9 @@ func (r KeyGetInfoParams) URLQuery() (v url.Values) {
 
 type KeyUnblockParams struct {
 	BlockKeyRequest BlockKeyRequestParam `json:"block_key_request,required"`
-	// The litellm-changed-by header enables tracking of actions performed by
-	// authorized users on behalf of other users, providing an audit trail for
-	// accountability
-	LitellmChangedBy param.Field[string] `header:"litellm-changed-by"`
+	// The llm-changed-by header enables tracking of actions performed by authorized
+	// users on behalf of other users, providing an audit trail for accountability
+	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
 }
 
 func (r KeyUnblockParams) MarshalJSON() (data []byte, err error) {

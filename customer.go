@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/url"
 	"slices"
-	"time"
 
 	"github.com/hanzoai/go-sdk/internal/apijson"
 	"github.com/hanzoai/go-sdk/internal/apiquery"
@@ -67,9 +66,6 @@ func NewCustomerService(opts ...option.RequestOption) (r *CustomerService) {
 //     parallel requests for a given customer.
 //   - soft_budget: Optional[float] - [Not Implemented Yet] Get alerts when customer
 //     crosses given budget, doesn't block requests.
-//   - spend: Optional[float] - Specify initial spend for a given customer.
-//   - budget_reset_at: Optional[str] - Specify the date and time when the budget
-//     should be reset.
 //
 // - Allow specifying allowed regions
 // - Allow specifying default model
@@ -79,7 +75,7 @@ func NewCustomerService(opts ...option.RequestOption) (r *CustomerService) {
 // ```
 //
 //	curl --location 'http://0.0.0.0:4000/customer/new'         --header 'Authorization: Bearer sk-1234'         --header 'Content-Type: application/json'         --data '{
-//	        "user_id" : "ishaan-jaff-3",
+//	        "user_id" : "z-jaff-3",
 //	        "allowed_region": "eu",
 //	        "budget_id": "free_tier",
 //	        "default_model": "azure/gpt-3.5-turbo-eu" <- all calls from this user, use this model?
@@ -117,7 +113,7 @@ func (r *CustomerService) New(ctx context.Context, body CustomerNewParams, opts 
 // ```
 //
 //	curl --location 'http://0.0.0.0:4000/customer/update'     --header 'Authorization: Bearer sk-1234'     --header 'Content-Type: application/json'     --data '{
-//	    "user_id": "test-litellm-user-4",
+//	    "user_id": "test-llm-user-4",
 //	    "budget_id": "paid_tier"
 //	}'
 //
@@ -137,7 +133,7 @@ func (r *CustomerService) Update(ctx context.Context, body CustomerUpdateParams,
 // ```
 // curl --location --request GET 'http://0.0.0.0:4000/customer/list'         --header 'Authorization: Bearer sk-1234'
 // ```
-func (r *CustomerService) List(ctx context.Context, opts ...option.RequestOption) (res *[]LiteLlmEndUserTable, err error) {
+func (r *CustomerService) List(ctx context.Context, opts ...option.RequestOption) (res *[]CustomerListResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -155,7 +151,7 @@ func (r *CustomerService) List(ctx context.Context, opts ...option.RequestOption
 // ```
 //
 //	curl --location 'http://0.0.0.0:4000/customer/delete'         --header 'Authorization: Bearer sk-1234'         --header 'Content-Type: application/json'         --data '{
-//	        "user_ids" :["ishaan-jaff-5"]
+//	        "user_ids" :["z-jaff-5"]
 //	}'
 //
 // See below for all params
@@ -200,9 +196,9 @@ func (r *CustomerService) Block(ctx context.Context, body CustomerBlockParams, o
 // Example curl:
 //
 // ```
-// curl -X GET 'http://localhost:4000/customer/info?end_user_id=test-litellm-user-4'         -H 'Authorization: Bearer sk-1234'
+// curl -X GET 'http://localhost:4000/customer/info?end_user_id=test-llm-user-4'         -H 'Authorization: Bearer sk-1234'
 // ```
-func (r *CustomerService) GetInfo(ctx context.Context, query CustomerGetInfoParams, opts ...option.RequestOption) (res *LiteLlmEndUserTable, err error) {
+func (r *CustomerService) GetInfo(ctx context.Context, query CustomerGetInfoParams, opts ...option.RequestOption) (res *CustomerGetInfoResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -235,62 +231,179 @@ func (r BlockUsersParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type LiteLlmEndUserTable struct {
-	Blocked            bool                                  `json:"blocked,required"`
-	UserID             string                                `json:"user_id,required"`
-	Alias              string                                `json:"alias,nullable"`
-	AllowedModelRegion LiteLlmEndUserTableAllowedModelRegion `json:"allowed_model_region,nullable"`
-	DefaultModel       string                                `json:"default_model,nullable"`
-	// Represents user-controllable params for a LiteLLM_BudgetTable record
-	LitellmBudgetTable BudgetTable             `json:"litellm_budget_table,nullable"`
-	Spend              float64                 `json:"spend"`
-	JSON               liteLlmEndUserTableJSON `json:"-"`
+type CustomerNewResponse = interface{}
+
+type CustomerUpdateResponse = interface{}
+
+type CustomerListResponse struct {
+	Blocked            bool                                   `json:"blocked,required"`
+	UserID             string                                 `json:"user_id,required"`
+	Alias              string                                 `json:"alias,nullable"`
+	AllowedModelRegion CustomerListResponseAllowedModelRegion `json:"allowed_model_region,nullable"`
+	DefaultModel       string                                 `json:"default_model,nullable"`
+	// Represents user-controllable params for a LLM_BudgetTable record
+	LlmBudgetTable CustomerListResponseLlmBudgetTable `json:"llm_budget_table,nullable"`
+	Spend          float64                            `json:"spend"`
+	JSON           customerListResponseJSON           `json:"-"`
 }
 
-// liteLlmEndUserTableJSON contains the JSON metadata for the struct
-// [LiteLlmEndUserTable]
-type liteLlmEndUserTableJSON struct {
+// customerListResponseJSON contains the JSON metadata for the struct
+// [CustomerListResponse]
+type customerListResponseJSON struct {
 	Blocked            apijson.Field
 	UserID             apijson.Field
 	Alias              apijson.Field
 	AllowedModelRegion apijson.Field
 	DefaultModel       apijson.Field
-	LitellmBudgetTable apijson.Field
+	LlmBudgetTable     apijson.Field
 	Spend              apijson.Field
 	raw                string
 	ExtraFields        map[string]apijson.Field
 }
 
-func (r *LiteLlmEndUserTable) UnmarshalJSON(data []byte) (err error) {
+func (r *CustomerListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r liteLlmEndUserTableJSON) RawJSON() string {
+func (r customerListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type LiteLlmEndUserTableAllowedModelRegion string
+type CustomerListResponseAllowedModelRegion string
 
 const (
-	LiteLlmEndUserTableAllowedModelRegionEu LiteLlmEndUserTableAllowedModelRegion = "eu"
-	LiteLlmEndUserTableAllowedModelRegionUs LiteLlmEndUserTableAllowedModelRegion = "us"
+	CustomerListResponseAllowedModelRegionEu CustomerListResponseAllowedModelRegion = "eu"
+	CustomerListResponseAllowedModelRegionUs CustomerListResponseAllowedModelRegion = "us"
 )
 
-func (r LiteLlmEndUserTableAllowedModelRegion) IsKnown() bool {
+func (r CustomerListResponseAllowedModelRegion) IsKnown() bool {
 	switch r {
-	case LiteLlmEndUserTableAllowedModelRegionEu, LiteLlmEndUserTableAllowedModelRegionUs:
+	case CustomerListResponseAllowedModelRegionEu, CustomerListResponseAllowedModelRegionUs:
 		return true
 	}
 	return false
 }
 
-type CustomerNewResponse = interface{}
+// Represents user-controllable params for a LLM_BudgetTable record
+type CustomerListResponseLlmBudgetTable struct {
+	BudgetDuration      string                                 `json:"budget_duration,nullable"`
+	MaxBudget           float64                                `json:"max_budget,nullable"`
+	MaxParallelRequests int64                                  `json:"max_parallel_requests,nullable"`
+	ModelMaxBudget      interface{}                            `json:"model_max_budget,nullable"`
+	RpmLimit            int64                                  `json:"rpm_limit,nullable"`
+	SoftBudget          float64                                `json:"soft_budget,nullable"`
+	TpmLimit            int64                                  `json:"tpm_limit,nullable"`
+	JSON                customerListResponseLlmBudgetTableJSON `json:"-"`
+}
 
-type CustomerUpdateResponse = interface{}
+// customerListResponseLlmBudgetTableJSON contains the JSON metadata for the struct
+// [CustomerListResponseLlmBudgetTable]
+type customerListResponseLlmBudgetTableJSON struct {
+	BudgetDuration      apijson.Field
+	MaxBudget           apijson.Field
+	MaxParallelRequests apijson.Field
+	ModelMaxBudget      apijson.Field
+	RpmLimit            apijson.Field
+	SoftBudget          apijson.Field
+	TpmLimit            apijson.Field
+	raw                 string
+	ExtraFields         map[string]apijson.Field
+}
+
+func (r *CustomerListResponseLlmBudgetTable) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r customerListResponseLlmBudgetTableJSON) RawJSON() string {
+	return r.raw
+}
 
 type CustomerDeleteResponse = interface{}
 
 type CustomerBlockResponse = interface{}
+
+type CustomerGetInfoResponse struct {
+	Blocked            bool                                      `json:"blocked,required"`
+	UserID             string                                    `json:"user_id,required"`
+	Alias              string                                    `json:"alias,nullable"`
+	AllowedModelRegion CustomerGetInfoResponseAllowedModelRegion `json:"allowed_model_region,nullable"`
+	DefaultModel       string                                    `json:"default_model,nullable"`
+	// Represents user-controllable params for a LLM_BudgetTable record
+	LlmBudgetTable CustomerGetInfoResponseLlmBudgetTable `json:"llm_budget_table,nullable"`
+	Spend          float64                               `json:"spend"`
+	JSON           customerGetInfoResponseJSON           `json:"-"`
+}
+
+// customerGetInfoResponseJSON contains the JSON metadata for the struct
+// [CustomerGetInfoResponse]
+type customerGetInfoResponseJSON struct {
+	Blocked            apijson.Field
+	UserID             apijson.Field
+	Alias              apijson.Field
+	AllowedModelRegion apijson.Field
+	DefaultModel       apijson.Field
+	LlmBudgetTable     apijson.Field
+	Spend              apijson.Field
+	raw                string
+	ExtraFields        map[string]apijson.Field
+}
+
+func (r *CustomerGetInfoResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r customerGetInfoResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type CustomerGetInfoResponseAllowedModelRegion string
+
+const (
+	CustomerGetInfoResponseAllowedModelRegionEu CustomerGetInfoResponseAllowedModelRegion = "eu"
+	CustomerGetInfoResponseAllowedModelRegionUs CustomerGetInfoResponseAllowedModelRegion = "us"
+)
+
+func (r CustomerGetInfoResponseAllowedModelRegion) IsKnown() bool {
+	switch r {
+	case CustomerGetInfoResponseAllowedModelRegionEu, CustomerGetInfoResponseAllowedModelRegionUs:
+		return true
+	}
+	return false
+}
+
+// Represents user-controllable params for a LLM_BudgetTable record
+type CustomerGetInfoResponseLlmBudgetTable struct {
+	BudgetDuration      string                                    `json:"budget_duration,nullable"`
+	MaxBudget           float64                                   `json:"max_budget,nullable"`
+	MaxParallelRequests int64                                     `json:"max_parallel_requests,nullable"`
+	ModelMaxBudget      interface{}                               `json:"model_max_budget,nullable"`
+	RpmLimit            int64                                     `json:"rpm_limit,nullable"`
+	SoftBudget          float64                                   `json:"soft_budget,nullable"`
+	TpmLimit            int64                                     `json:"tpm_limit,nullable"`
+	JSON                customerGetInfoResponseLlmBudgetTableJSON `json:"-"`
+}
+
+// customerGetInfoResponseLlmBudgetTableJSON contains the JSON metadata for the
+// struct [CustomerGetInfoResponseLlmBudgetTable]
+type customerGetInfoResponseLlmBudgetTableJSON struct {
+	BudgetDuration      apijson.Field
+	MaxBudget           apijson.Field
+	MaxParallelRequests apijson.Field
+	ModelMaxBudget      apijson.Field
+	RpmLimit            apijson.Field
+	SoftBudget          apijson.Field
+	TpmLimit            apijson.Field
+	raw                 string
+	ExtraFields         map[string]apijson.Field
+}
+
+func (r *CustomerGetInfoResponseLlmBudgetTable) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r customerGetInfoResponseLlmBudgetTableJSON) RawJSON() string {
+	return r.raw
+}
 
 type CustomerUnblockResponse = interface{}
 
@@ -302,9 +415,7 @@ type CustomerNewParams struct {
 	// Max duration budget should be set for (e.g. '1hr', '1d', '28d')
 	BudgetDuration param.Field[string] `json:"budget_duration"`
 	BudgetID       param.Field[string] `json:"budget_id"`
-	// Datetime when the budget is reset
-	BudgetResetAt param.Field[time.Time] `json:"budget_reset_at" format:"date-time"`
-	DefaultModel  param.Field[string]    `json:"default_model"`
+	DefaultModel   param.Field[string] `json:"default_model"`
 	// Requests will fail if this budget (in USD) is exceeded.
 	MaxBudget param.Field[float64] `json:"max_budget"`
 	// Max concurrent requests allowed for this budget id.
@@ -316,7 +427,6 @@ type CustomerNewParams struct {
 	RpmLimit param.Field[int64] `json:"rpm_limit"`
 	// Requests will NOT fail if this is exceeded. Will fire alerting though.
 	SoftBudget param.Field[float64] `json:"soft_budget"`
-	Spend      param.Field[float64] `json:"spend"`
 	// Max tokens per minute, allowed for this budget id.
 	TpmLimit param.Field[int64] `json:"tpm_limit"`
 }

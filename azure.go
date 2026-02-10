@@ -35,9 +35,6 @@ func NewAzureService(opts ...option.RequestOption) (r *AzureService) {
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -52,9 +49,6 @@ func (r *AzureService) New(ctx context.Context, endpoint string, opts ...option.
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -69,9 +63,6 @@ func (r *AzureService) Update(ctx context.Context, endpoint string, opts ...opti
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -86,9 +77,6 @@ func (r *AzureService) Delete(ctx context.Context, endpoint string, opts ...opti
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) Call(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureCallResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
@@ -103,9 +91,6 @@ func (r *AzureService) Call(ctx context.Context, endpoint string, opts ...option
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzurePatchResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {

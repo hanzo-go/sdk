@@ -11,7 +11,6 @@ import (
 	"github.com/hanzoai/go-sdk"
 	"github.com/hanzoai/go-sdk/internal/testutil"
 	"github.com/hanzoai/go-sdk/option"
-	"github.com/hanzoai/go-sdk/shared"
 )
 
 func TestEmbeddingNewWithOptionalParams(t *testing.T) {
@@ -28,21 +27,7 @@ func TestEmbeddingNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Embeddings.New(context.TODO(), hanzoai.EmbeddingNewParams{
-		Model:             hanzoai.F("model"),
-		APIBase:           hanzoai.F("api_base"),
-		APIKey:            hanzoai.F("api_key"),
-		APIType:           hanzoai.F("api_type"),
-		APIVersion:        hanzoai.F("api_version"),
-		Caching:           hanzoai.F(true),
-		CustomLlmProvider: hanzoai.F[hanzoai.EmbeddingNewParamsCustomLlmProviderUnion](shared.UnionString("string")),
-		Input:             hanzoai.F([]string{"string"}),
-		LitellmCallID:     hanzoai.F("litellm_call_id"),
-		LitellmLoggingObj: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		LoggerFn: hanzoai.F("logger_fn"),
-		Timeout:  hanzoai.F(int64(0)),
-		User:     hanzoai.F("user"),
+		Model: hanzoai.F("model"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error

@@ -32,33 +32,13 @@ func TestOrganizationNewWithOptionalParams(t *testing.T) {
 		BudgetID:            hanzoai.F("budget_id"),
 		MaxBudget:           hanzoai.F(0.000000),
 		MaxParallelRequests: hanzoai.F(int64(0)),
-		Metadata: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		ModelMaxBudget: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		ModelRpmLimit: hanzoai.F(map[string]int64{
-			"foo": int64(0),
-		}),
-		ModelTpmLimit: hanzoai.F(map[string]int64{
-			"foo": int64(0),
-		}),
-		Models: hanzoai.F([]interface{}{map[string]interface{}{}}),
-		ObjectPermission: hanzoai.F(hanzoai.OrganizationNewParamsObjectPermission{
-			AgentAccessGroups: hanzoai.F([]string{"string"}),
-			Agents:            hanzoai.F([]string{"string"}),
-			McpAccessGroups:   hanzoai.F([]string{"string"}),
-			McpServers:        hanzoai.F([]string{"string"}),
-			McpToolPermissions: hanzoai.F(map[string][]string{
-				"foo": {"string"},
-			}),
-			VectorStores: hanzoai.F([]string{"string"}),
-		}),
-		OrganizationID: hanzoai.F("organization_id"),
-		RpmLimit:       hanzoai.F(int64(0)),
-		SoftBudget:     hanzoai.F(0.000000),
-		TpmLimit:       hanzoai.F(int64(0)),
+		Metadata:            hanzoai.F[any](map[string]interface{}{}),
+		ModelMaxBudget:      hanzoai.F[any](map[string]interface{}{}),
+		Models:              hanzoai.F([]interface{}{map[string]interface{}{}}),
+		OrganizationID:      hanzoai.F("organization_id"),
+		RpmLimit:            hanzoai.F(int64(0)),
+		SoftBudget:          hanzoai.F(0.000000),
+		TpmLimit:            hanzoai.F(int64(0)),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -69,7 +49,7 @@ func TestOrganizationNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestOrganizationUpdate(t *testing.T) {
+func TestOrganizationUpdateWithOptionalParams(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -82,7 +62,15 @@ func TestOrganizationUpdate(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Organization.Update(context.TODO())
+	_, err := client.Organization.Update(context.TODO(), hanzoai.OrganizationUpdateParams{
+		BudgetID:          hanzoai.F("budget_id"),
+		Metadata:          hanzoai.F[any](map[string]interface{}{}),
+		Models:            hanzoai.F([]string{"string"}),
+		OrganizationAlias: hanzoai.F("organization_alias"),
+		OrganizationID:    hanzoai.F("organization_id"),
+		Spend:             hanzoai.F(0.000000),
+		UpdatedBy:         hanzoai.F("updated_by"),
+	})
 	if err != nil {
 		var apierr *hanzoai.Error
 		if errors.As(err, &apierr) {
@@ -92,7 +80,7 @@ func TestOrganizationUpdate(t *testing.T) {
 	}
 }
 
-func TestOrganizationListWithOptionalParams(t *testing.T) {
+func TestOrganizationList(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -105,10 +93,7 @@ func TestOrganizationListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Organization.List(context.TODO(), hanzoai.OrganizationListParams{
-		OrgAlias: hanzoai.F("org_alias"),
-		OrgID:    hanzoai.F("org_id"),
-	})
+	_, err := client.Organization.List(context.TODO())
 	if err != nil {
 		var apierr *hanzoai.Error
 		if errors.As(err, &apierr) {
@@ -217,7 +202,7 @@ func TestOrganizationUpdateMemberWithOptionalParams(t *testing.T) {
 	_, err := client.Organization.UpdateMember(context.TODO(), hanzoai.OrganizationUpdateMemberParams{
 		OrganizationID:          hanzoai.F("organization_id"),
 		MaxBudgetInOrganization: hanzoai.F(0.000000),
-		Role:                    hanzoai.F(hanzoai.UserRolesProxyAdmin),
+		Role:                    hanzoai.F(hanzoai.OrganizationUpdateMemberParamsRoleProxyAdmin),
 		UserEmail:               hanzoai.F("user_email"),
 		UserID:                  hanzoai.F("user_id"),
 	})

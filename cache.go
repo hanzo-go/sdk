@@ -33,8 +33,8 @@ func NewCacheService(opts ...option.RequestOption) (r *CacheService) {
 	return
 }
 
-// Endpoint for deleting a key from the cache. All responses from litellm proxy
-// have `x-litellm-cache-key` in the headers
+// Endpoint for deleting a key from the cache. All responses from llm proxy have
+// `x-llm-cache-key` in the headers
 //
 // Parameters:
 //
@@ -81,13 +81,13 @@ type CacheDeleteResponse = interface{}
 type CacheFlushAllResponse = interface{}
 
 type CachePingResponse struct {
-	CacheType              string                 `json:"cache_type,required"`
-	Status                 string                 `json:"status,required"`
-	HealthCheckCacheParams map[string]interface{} `json:"health_check_cache_params,nullable"`
-	LitellmCacheParams     string                 `json:"litellm_cache_params,nullable"`
-	PingResponse           bool                   `json:"ping_response,nullable"`
-	SetCacheResponse       string                 `json:"set_cache_response,nullable"`
-	JSON                   cachePingResponseJSON  `json:"-"`
+	CacheType              string                `json:"cache_type,required"`
+	Status                 string                `json:"status,required"`
+	HealthCheckCacheParams interface{}           `json:"health_check_cache_params,nullable"`
+	LlmCacheParams         string                `json:"llm_cache_params,nullable"`
+	PingResponse           bool                  `json:"ping_response,nullable"`
+	SetCacheResponse       string                `json:"set_cache_response,nullable"`
+	JSON                   cachePingResponseJSON `json:"-"`
 }
 
 // cachePingResponseJSON contains the JSON metadata for the struct
@@ -96,7 +96,7 @@ type cachePingResponseJSON struct {
 	CacheType              apijson.Field
 	Status                 apijson.Field
 	HealthCheckCacheParams apijson.Field
-	LitellmCacheParams     apijson.Field
+	LlmCacheParams         apijson.Field
 	PingResponse           apijson.Field
 	SetCacheResponse       apijson.Field
 	raw                    string

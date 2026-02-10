@@ -81,10 +81,9 @@ func TestBatchListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Batches.List(context.TODO(), hanzoai.BatchListParams{
-		After:            hanzoai.F("after"),
-		Limit:            hanzoai.F(int64(0)),
-		Provider:         hanzoai.F("provider"),
-		TargetModelNames: hanzoai.F("target_model_names"),
+		After:    hanzoai.F("after"),
+		Limit:    hanzoai.F(int64(0)),
+		Provider: hanzoai.F("provider"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -162,9 +161,8 @@ func TestBatchListWithProviderWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"provider",
 		hanzoai.BatchListWithProviderParams{
-			After:            hanzoai.F("after"),
-			Limit:            hanzoai.F(int64(0)),
-			TargetModelNames: hanzoai.F("target_model_names"),
+			After: hanzoai.F("after"),
+			Limit: hanzoai.F(int64(0)),
 		},
 	)
 	if err != nil {
