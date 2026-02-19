@@ -103,7 +103,7 @@ func NewKeyService(opts ...option.RequestOption) (r *KeyService) {
 // ```
 func (r *KeyService) Update(ctx context.Context, params KeyUpdateParams, opts ...option.RequestOption) (res *KeyUpdateResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/update"
@@ -151,7 +151,7 @@ func (r *KeyService) List(ctx context.Context, query KeyListParams, opts ...opti
 // Raises: HTTPException: If an error occurs during key deletion.
 func (r *KeyService) Delete(ctx context.Context, params KeyDeleteParams, opts ...option.RequestOption) (res *KeyDeleteResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/delete"
@@ -179,7 +179,7 @@ func (r *KeyService) Delete(ctx context.Context, params KeyDeleteParams, opts ..
 // Note: This is an admin-only endpoint. Only proxy admins can block keys.
 func (r *KeyService) Block(ctx context.Context, params KeyBlockParams, opts ...option.RequestOption) (res *KeyBlockResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/block"
@@ -324,7 +324,7 @@ func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOpti
 //     for same user id.
 func (r *KeyService) Generate(ctx context.Context, params KeyGenerateParams, opts ...option.RequestOption) (res *GenerateKeyResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/generate"
@@ -386,7 +386,7 @@ func (r *KeyService) Generate(ctx context.Context, params KeyGenerateParams, opt
 // Note: This is an Enterprise feature. It requires a premium license to use.
 func (r *KeyService) RegenerateByKey(ctx context.Context, key string, params KeyRegenerateByKeyParams, opts ...option.RequestOption) (res *GenerateKeyResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if key == "" {
@@ -442,7 +442,7 @@ func (r *KeyService) GetInfo(ctx context.Context, query KeyGetInfoParams, opts .
 // Note: This is an admin-only endpoint. Only proxy admins can unblock keys.
 func (r *KeyService) Unblock(ctx context.Context, params KeyUnblockParams, opts ...option.RequestOption) (res *KeyUnblockResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "key/unblock"

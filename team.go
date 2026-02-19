@@ -112,7 +112,7 @@ func NewTeamService(opts ...option.RequestOption) (r *TeamService) {
 // ```
 func (r *TeamService) New(ctx context.Context, params TeamNewParams, opts ...option.RequestOption) (res *TeamNewResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "team/new"
@@ -177,7 +177,7 @@ func (r *TeamService) New(ctx context.Context, params TeamNewParams, opts ...opt
 // ```
 func (r *TeamService) Update(ctx context.Context, params TeamUpdateParams, opts ...option.RequestOption) (res *TeamUpdateResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "team/update"
@@ -219,7 +219,7 @@ func (r *TeamService) List(ctx context.Context, query TeamListParams, opts ...op
 // ```
 func (r *TeamService) Delete(ctx context.Context, params TeamDeleteParams, opts ...option.RequestOption) (res *TeamDeleteResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "team/delete"

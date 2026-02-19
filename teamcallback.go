@@ -107,7 +107,7 @@ func (r *TeamCallbackService) Get(ctx context.Context, teamID string, opts ...op
 // the secret key sk-xxxxx
 func (r *TeamCallbackService) Add(ctx context.Context, teamID string, params TeamCallbackAddParams, opts ...option.RequestOption) (res *TeamCallbackAddResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {

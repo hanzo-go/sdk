@@ -234,7 +234,7 @@ func (r *UserService) List(ctx context.Context, query UserListParams, opts ...op
 // - user_ids: List[str] - The list of user id's to be deleted.
 func (r *UserService) Delete(ctx context.Context, params UserDeleteParams, opts ...option.RequestOption) (res *UserDeleteResponse, err error) {
 	if params.LlmChangedBy.Present {
-		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%s", params.LlmChangedBy)))
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "user/delete"
