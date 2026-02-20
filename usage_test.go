@@ -24,7 +24,7 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	response, err := client.GetHome(context.TODO())
 	if err != nil {
 		t.Error(err)
