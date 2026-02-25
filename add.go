@@ -41,7 +41,7 @@ func (r *AddService) AddAllowedIP(ctx context.Context, body AddAddAllowedIPParam
 }
 
 type IPAddressParam struct {
-	IP param.Field[string] `json:"ip,required"`
+	IP param.Field[string] `json:"ip" api:"required"`
 }
 
 func (r IPAddressParam) MarshalJSON() (data []byte, err error) {
@@ -51,7 +51,7 @@ func (r IPAddressParam) MarshalJSON() (data []byte, err error) {
 type AddAddAllowedIPResponse = interface{}
 
 type AddAddAllowedIPParams struct {
-	IPAddress IPAddressParam `json:"ip_address,required"`
+	IPAddress IPAddressParam `json:"ip_address" api:"required"`
 }
 
 func (r AddAddAllowedIPParams) MarshalJSON() (data []byte, err error) {

@@ -120,7 +120,7 @@ func (r HealthCheckAllParams) URLQuery() (v url.Values) {
 
 type HealthCheckServicesParams struct {
 	// Specify the service being hit.
-	Service param.Field[HealthCheckServicesParamsService] `query:"service,required"`
+	Service param.Field[HealthCheckServicesParamsService] `query:"service" api:"required"`
 }
 
 // URLQuery serializes [HealthCheckServicesParams]'s query parameters as

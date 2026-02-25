@@ -54,7 +54,7 @@ func (r *ModelService) Delete(ctx context.Context, body ModelDeleteParams, opts 
 }
 
 type ConfigurableClientsideParamsCustomAuth struct {
-	APIBase param.Field[string] `json:"api_base,required"`
+	APIBase param.Field[string] `json:"api_base" api:"required"`
 }
 
 func (r ConfigurableClientsideParamsCustomAuth) MarshalJSON() (data []byte, err error) {
@@ -68,7 +68,7 @@ func (r ConfigurableClientsideParamsCustomAuth) ImplementsUpdateDeploymentLlmPar
 }
 
 type ModelInfoParam struct {
-	ID                  param.Field[string]        `json:"id,required"`
+	ID                  param.Field[string]        `json:"id" api:"required"`
 	BaseModel           param.Field[string]        `json:"base_model"`
 	CreatedAt           param.Field[time.Time]     `json:"created_at" format:"date-time"`
 	CreatedBy           param.Field[string]        `json:"created_by"`
@@ -106,9 +106,9 @@ type ModelDeleteResponse = interface{}
 
 type ModelNewParams struct {
 	// LLM Params with 'model' requirement - used for completions
-	LlmParams param.Field[ModelNewParamsLlmParams] `json:"llm_params,required"`
-	ModelInfo param.Field[ModelInfoParam]          `json:"model_info,required"`
-	ModelName param.Field[string]                  `json:"model_name,required"`
+	LlmParams param.Field[ModelNewParamsLlmParams] `json:"llm_params" api:"required"`
+	ModelInfo param.Field[ModelInfoParam]          `json:"model_info" api:"required"`
+	ModelName param.Field[string]                  `json:"model_name" api:"required"`
 }
 
 func (r ModelNewParams) MarshalJSON() (data []byte, err error) {
@@ -117,7 +117,7 @@ func (r ModelNewParams) MarshalJSON() (data []byte, err error) {
 
 // LLM Params with 'model' requirement - used for completions
 type ModelNewParamsLlmParams struct {
-	Model                            param.Field[string]                                                        `json:"model,required"`
+	Model                            param.Field[string]                                                        `json:"model" api:"required"`
 	APIBase                          param.Field[string]                                                        `json:"api_base"`
 	APIKey                           param.Field[string]                                                        `json:"api_key"`
 	APIVersion                       param.Field[string]                                                        `json:"api_version"`
@@ -171,7 +171,7 @@ type ModelNewParamsLlmParamsTimeoutUnion interface {
 }
 
 type ModelDeleteParams struct {
-	ID param.Field[string] `json:"id,required"`
+	ID param.Field[string] `json:"id" api:"required"`
 }
 
 func (r ModelDeleteParams) MarshalJSON() (data []byte, err error) {

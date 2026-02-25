@@ -175,7 +175,7 @@ type BudgetInfoResponse = interface{}
 type BudgetSettingsResponse = interface{}
 
 type BudgetNewParams struct {
-	BudgetNew BudgetNewParam `json:"budget_new,required"`
+	BudgetNew BudgetNewParam `json:"budget_new" api:"required"`
 }
 
 func (r BudgetNewParams) MarshalJSON() (data []byte, err error) {
@@ -183,7 +183,7 @@ func (r BudgetNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type BudgetUpdateParams struct {
-	BudgetNew BudgetNewParam `json:"budget_new,required"`
+	BudgetNew BudgetNewParam `json:"budget_new" api:"required"`
 }
 
 func (r BudgetUpdateParams) MarshalJSON() (data []byte, err error) {
@@ -191,7 +191,7 @@ func (r BudgetUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 
 type BudgetDeleteParams struct {
-	ID param.Field[string] `json:"id,required"`
+	ID param.Field[string] `json:"id" api:"required"`
 }
 
 func (r BudgetDeleteParams) MarshalJSON() (data []byte, err error) {
@@ -199,7 +199,7 @@ func (r BudgetDeleteParams) MarshalJSON() (data []byte, err error) {
 }
 
 type BudgetInfoParams struct {
-	Budgets param.Field[[]string] `json:"budgets,required"`
+	Budgets param.Field[[]string] `json:"budgets" api:"required"`
 }
 
 func (r BudgetInfoParams) MarshalJSON() (data []byte, err error) {
@@ -207,7 +207,7 @@ func (r BudgetInfoParams) MarshalJSON() (data []byte, err error) {
 }
 
 type BudgetSettingsParams struct {
-	BudgetID param.Field[string] `query:"budget_id,required"`
+	BudgetID param.Field[string] `query:"budget_id" api:"required"`
 }
 
 // URLQuery serializes [BudgetSettingsParams]'s query parameters as `url.Values`.

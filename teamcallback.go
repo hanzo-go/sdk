@@ -124,8 +124,8 @@ type TeamCallbackGetResponse = interface{}
 type TeamCallbackAddResponse = interface{}
 
 type TeamCallbackAddParams struct {
-	CallbackName param.Field[string]                            `json:"callback_name,required"`
-	CallbackVars param.Field[map[string]string]                 `json:"callback_vars,required"`
+	CallbackName param.Field[string]                            `json:"callback_name" api:"required"`
+	CallbackVars param.Field[map[string]string]                 `json:"callback_vars" api:"required"`
 	CallbackType param.Field[TeamCallbackAddParamsCallbackType] `json:"callback_type"`
 	// The llm-changed-by header enables tracking of actions performed by authorized
 	// users on behalf of other users, providing an audit trail for accountability

@@ -259,42 +259,42 @@ func (r *UserService) GetInfo(ctx context.Context, query UserGetInfoParams, opts
 }
 
 type UserNewResponse struct {
-	Expires              time.Time               `json:"expires,required,nullable" format:"date-time"`
-	Key                  string                  `json:"key,required"`
-	Token                string                  `json:"token,nullable"`
-	Aliases              interface{}             `json:"aliases,nullable"`
-	AllowedCacheControls []interface{}           `json:"allowed_cache_controls,nullable"`
-	Blocked              bool                    `json:"blocked,nullable"`
-	BudgetDuration       string                  `json:"budget_duration,nullable"`
-	BudgetID             string                  `json:"budget_id,nullable"`
-	Config               interface{}             `json:"config,nullable"`
-	CreatedBy            string                  `json:"created_by,nullable"`
-	Duration             string                  `json:"duration,nullable"`
-	EnforcedParams       []string                `json:"enforced_params,nullable"`
-	Guardrails           []string                `json:"guardrails,nullable"`
-	KeyAlias             string                  `json:"key_alias,nullable"`
-	KeyName              string                  `json:"key_name,nullable"`
+	Expires              time.Time               `json:"expires" api:"required,nullable" format:"date-time"`
+	Key                  string                  `json:"key" api:"required"`
+	Token                string                  `json:"token" api:"nullable"`
+	Aliases              interface{}             `json:"aliases" api:"nullable"`
+	AllowedCacheControls []interface{}           `json:"allowed_cache_controls" api:"nullable"`
+	Blocked              bool                    `json:"blocked" api:"nullable"`
+	BudgetDuration       string                  `json:"budget_duration" api:"nullable"`
+	BudgetID             string                  `json:"budget_id" api:"nullable"`
+	Config               interface{}             `json:"config" api:"nullable"`
+	CreatedBy            string                  `json:"created_by" api:"nullable"`
+	Duration             string                  `json:"duration" api:"nullable"`
+	EnforcedParams       []string                `json:"enforced_params" api:"nullable"`
+	Guardrails           []string                `json:"guardrails" api:"nullable"`
+	KeyAlias             string                  `json:"key_alias" api:"nullable"`
+	KeyName              string                  `json:"key_name" api:"nullable"`
 	LlmBudgetTable       interface{}             `json:"llm_budget_table"`
-	MaxBudget            float64                 `json:"max_budget,nullable"`
-	MaxParallelRequests  int64                   `json:"max_parallel_requests,nullable"`
-	Metadata             interface{}             `json:"metadata,nullable"`
-	ModelMaxBudget       interface{}             `json:"model_max_budget,nullable"`
-	ModelRpmLimit        interface{}             `json:"model_rpm_limit,nullable"`
-	ModelTpmLimit        interface{}             `json:"model_tpm_limit,nullable"`
-	Models               []interface{}           `json:"models,nullable"`
-	Permissions          interface{}             `json:"permissions,nullable"`
-	RpmLimit             int64                   `json:"rpm_limit,nullable"`
-	Spend                float64                 `json:"spend,nullable"`
-	Tags                 []string                `json:"tags,nullable"`
-	TeamID               string                  `json:"team_id,nullable"`
-	Teams                []interface{}           `json:"teams,nullable"`
-	TokenID              string                  `json:"token_id,nullable"`
-	TpmLimit             int64                   `json:"tpm_limit,nullable"`
-	UpdatedBy            string                  `json:"updated_by,nullable"`
-	UserAlias            string                  `json:"user_alias,nullable"`
-	UserEmail            string                  `json:"user_email,nullable"`
-	UserID               string                  `json:"user_id,nullable"`
-	UserRole             UserNewResponseUserRole `json:"user_role,nullable"`
+	MaxBudget            float64                 `json:"max_budget" api:"nullable"`
+	MaxParallelRequests  int64                   `json:"max_parallel_requests" api:"nullable"`
+	Metadata             interface{}             `json:"metadata" api:"nullable"`
+	ModelMaxBudget       interface{}             `json:"model_max_budget" api:"nullable"`
+	ModelRpmLimit        interface{}             `json:"model_rpm_limit" api:"nullable"`
+	ModelTpmLimit        interface{}             `json:"model_tpm_limit" api:"nullable"`
+	Models               []interface{}           `json:"models" api:"nullable"`
+	Permissions          interface{}             `json:"permissions" api:"nullable"`
+	RpmLimit             int64                   `json:"rpm_limit" api:"nullable"`
+	Spend                float64                 `json:"spend" api:"nullable"`
+	Tags                 []string                `json:"tags" api:"nullable"`
+	TeamID               string                  `json:"team_id" api:"nullable"`
+	Teams                []interface{}           `json:"teams" api:"nullable"`
+	TokenID              string                  `json:"token_id" api:"nullable"`
+	TpmLimit             int64                   `json:"tpm_limit" api:"nullable"`
+	UpdatedBy            string                  `json:"updated_by" api:"nullable"`
+	UserAlias            string                  `json:"user_alias" api:"nullable"`
+	UserEmail            string                  `json:"user_email" api:"nullable"`
+	UserID               string                  `json:"user_id" api:"nullable"`
+	UserRole             UserNewResponseUserRole `json:"user_role" api:"nullable"`
 	JSON                 userNewResponseJSON     `json:"-"`
 }
 
@@ -492,7 +492,7 @@ func (r UserListParams) URLQuery() (v url.Values) {
 }
 
 type UserDeleteParams struct {
-	UserIDs param.Field[[]string] `json:"user_ids,required"`
+	UserIDs param.Field[[]string] `json:"user_ids" api:"required"`
 	// The llm-changed-by header enables tracking of actions performed by authorized
 	// users on behalf of other users, providing an audit trail for accountability
 	LlmChangedBy param.Field[string] `header:"llm-changed-by"`

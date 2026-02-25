@@ -151,25 +151,25 @@ func (r *SpendService) ListTags(ctx context.Context, query SpendListTagsParams, 
 type SpendCalculateSpendResponse = interface{}
 
 type SpendListLogsResponse struct {
-	APIKey             string                              `json:"api_key,required"`
-	CallType           string                              `json:"call_type,required"`
-	EndTime            SpendListLogsResponseEndTimeUnion   `json:"endTime,required,nullable" format:"date-time"`
-	Messages           SpendListLogsResponseMessagesUnion  `json:"messages,required,nullable"`
-	RequestID          string                              `json:"request_id,required"`
-	Response           SpendListLogsResponseResponseUnion  `json:"response,required,nullable"`
-	StartTime          SpendListLogsResponseStartTimeUnion `json:"startTime,required,nullable" format:"date-time"`
-	APIBase            string                              `json:"api_base,nullable"`
-	CacheHit           string                              `json:"cache_hit,nullable"`
-	CacheKey           string                              `json:"cache_key,nullable"`
-	CompletionTokens   int64                               `json:"completion_tokens,nullable"`
+	APIKey             string                              `json:"api_key" api:"required"`
+	CallType           string                              `json:"call_type" api:"required"`
+	EndTime            SpendListLogsResponseEndTimeUnion   `json:"endTime" api:"required,nullable" format:"date-time"`
+	Messages           SpendListLogsResponseMessagesUnion  `json:"messages" api:"required,nullable"`
+	RequestID          string                              `json:"request_id" api:"required"`
+	Response           SpendListLogsResponseResponseUnion  `json:"response" api:"required,nullable"`
+	StartTime          SpendListLogsResponseStartTimeUnion `json:"startTime" api:"required,nullable" format:"date-time"`
+	APIBase            string                              `json:"api_base" api:"nullable"`
+	CacheHit           string                              `json:"cache_hit" api:"nullable"`
+	CacheKey           string                              `json:"cache_key" api:"nullable"`
+	CompletionTokens   int64                               `json:"completion_tokens" api:"nullable"`
 	Metadata           interface{}                         `json:"metadata"`
-	Model              string                              `json:"model,nullable"`
-	PromptTokens       int64                               `json:"prompt_tokens,nullable"`
+	Model              string                              `json:"model" api:"nullable"`
+	PromptTokens       int64                               `json:"prompt_tokens" api:"nullable"`
 	RequestTags        interface{}                         `json:"request_tags"`
-	RequesterIPAddress string                              `json:"requester_ip_address,nullable"`
-	Spend              float64                             `json:"spend,nullable"`
-	TotalTokens        int64                               `json:"total_tokens,nullable"`
-	User               string                              `json:"user,nullable"`
+	RequesterIPAddress string                              `json:"requester_ip_address" api:"nullable"`
+	Spend              float64                             `json:"spend" api:"nullable"`
+	TotalTokens        int64                               `json:"total_tokens" api:"nullable"`
+	User               string                              `json:"user" api:"nullable"`
 	JSON               spendListLogsResponseJSON           `json:"-"`
 }
 
@@ -296,25 +296,25 @@ func init() {
 }
 
 type SpendListTagsResponse struct {
-	APIKey             string                              `json:"api_key,required"`
-	CallType           string                              `json:"call_type,required"`
-	EndTime            SpendListTagsResponseEndTimeUnion   `json:"endTime,required,nullable" format:"date-time"`
-	Messages           SpendListTagsResponseMessagesUnion  `json:"messages,required,nullable"`
-	RequestID          string                              `json:"request_id,required"`
-	Response           SpendListTagsResponseResponseUnion  `json:"response,required,nullable"`
-	StartTime          SpendListTagsResponseStartTimeUnion `json:"startTime,required,nullable" format:"date-time"`
-	APIBase            string                              `json:"api_base,nullable"`
-	CacheHit           string                              `json:"cache_hit,nullable"`
-	CacheKey           string                              `json:"cache_key,nullable"`
-	CompletionTokens   int64                               `json:"completion_tokens,nullable"`
+	APIKey             string                              `json:"api_key" api:"required"`
+	CallType           string                              `json:"call_type" api:"required"`
+	EndTime            SpendListTagsResponseEndTimeUnion   `json:"endTime" api:"required,nullable" format:"date-time"`
+	Messages           SpendListTagsResponseMessagesUnion  `json:"messages" api:"required,nullable"`
+	RequestID          string                              `json:"request_id" api:"required"`
+	Response           SpendListTagsResponseResponseUnion  `json:"response" api:"required,nullable"`
+	StartTime          SpendListTagsResponseStartTimeUnion `json:"startTime" api:"required,nullable" format:"date-time"`
+	APIBase            string                              `json:"api_base" api:"nullable"`
+	CacheHit           string                              `json:"cache_hit" api:"nullable"`
+	CacheKey           string                              `json:"cache_key" api:"nullable"`
+	CompletionTokens   int64                               `json:"completion_tokens" api:"nullable"`
 	Metadata           interface{}                         `json:"metadata"`
-	Model              string                              `json:"model,nullable"`
-	PromptTokens       int64                               `json:"prompt_tokens,nullable"`
+	Model              string                              `json:"model" api:"nullable"`
+	PromptTokens       int64                               `json:"prompt_tokens" api:"nullable"`
 	RequestTags        interface{}                         `json:"request_tags"`
-	RequesterIPAddress string                              `json:"requester_ip_address,nullable"`
-	Spend              float64                             `json:"spend,nullable"`
-	TotalTokens        int64                               `json:"total_tokens,nullable"`
-	User               string                              `json:"user,nullable"`
+	RequesterIPAddress string                              `json:"requester_ip_address" api:"nullable"`
+	Spend              float64                             `json:"spend" api:"nullable"`
+	TotalTokens        int64                               `json:"total_tokens" api:"nullable"`
+	User               string                              `json:"user" api:"nullable"`
 	JSON               spendListTagsResponseJSON           `json:"-"`
 }
 

@@ -42,7 +42,7 @@ func (r *DeleteService) NewAllowedIP(ctx context.Context, body DeleteNewAllowedI
 type DeleteNewAllowedIPResponse = interface{}
 
 type DeleteNewAllowedIPParams struct {
-	IPAddress IPAddressParam `json:"ip_address,required"`
+	IPAddress IPAddressParam `json:"ip_address" api:"required"`
 }
 
 func (r DeleteNewAllowedIPParams) MarshalJSON() (data []byte, err error) {

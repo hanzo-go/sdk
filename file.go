@@ -151,8 +151,8 @@ type FileListResponse = interface{}
 type FileDeleteResponse = interface{}
 
 type FileNewParams struct {
-	File              param.Field[io.Reader] `json:"file,required" format:"binary"`
-	Purpose           param.Field[string]    `json:"purpose,required"`
+	File              param.Field[io.Reader] `json:"file" api:"required" format:"binary"`
+	Purpose           param.Field[string]    `json:"purpose" api:"required"`
 	CustomLlmProvider param.Field[string]    `json:"custom_llm_provider"`
 }
 

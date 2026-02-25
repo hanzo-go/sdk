@@ -48,7 +48,7 @@ func (r *AudioTranscriptionService) New(ctx context.Context, body AudioTranscrip
 type AudioTranscriptionNewResponse = interface{}
 
 type AudioTranscriptionNewParams struct {
-	File param.Field[io.Reader] `json:"file,required" format:"binary"`
+	File param.Field[io.Reader] `json:"file" api:"required" format:"binary"`
 }
 
 func (r AudioTranscriptionNewParams) MarshalMultipart() (data []byte, contentType string, err error) {

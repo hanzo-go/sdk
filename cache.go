@@ -81,12 +81,12 @@ type CacheDeleteResponse = interface{}
 type CacheFlushAllResponse = interface{}
 
 type CachePingResponse struct {
-	CacheType              string                `json:"cache_type,required"`
-	Status                 string                `json:"status,required"`
-	HealthCheckCacheParams interface{}           `json:"health_check_cache_params,nullable"`
-	LlmCacheParams         string                `json:"llm_cache_params,nullable"`
-	PingResponse           bool                  `json:"ping_response,nullable"`
-	SetCacheResponse       string                `json:"set_cache_response,nullable"`
+	CacheType              string                `json:"cache_type" api:"required"`
+	Status                 string                `json:"status" api:"required"`
+	HealthCheckCacheParams interface{}           `json:"health_check_cache_params" api:"nullable"`
+	LlmCacheParams         string                `json:"llm_cache_params" api:"nullable"`
+	PingResponse           bool                  `json:"ping_response" api:"nullable"`
+	SetCacheResponse       string                `json:"set_cache_response" api:"nullable"`
 	JSON                   cachePingResponseJSON `json:"-"`
 }
 

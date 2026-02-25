@@ -376,7 +376,7 @@ func (r *TeamService) UpdateMember(ctx context.Context, body TeamUpdateMemberPar
 }
 
 type BlockTeamRequestParam struct {
-	TeamID param.Field[string] `json:"team_id,required"`
+	TeamID param.Field[string] `json:"team_id" api:"required"`
 }
 
 func (r BlockTeamRequestParam) MarshalJSON() (data []byte, err error) {
@@ -384,9 +384,9 @@ func (r BlockTeamRequestParam) MarshalJSON() (data []byte, err error) {
 }
 
 type Member struct {
-	Role      MemberRole `json:"role,required"`
-	UserEmail string     `json:"user_email,nullable"`
-	UserID    string     `json:"user_id,nullable"`
+	Role      MemberRole `json:"role" api:"required"`
+	UserEmail string     `json:"user_email" api:"nullable"`
+	UserID    string     `json:"user_id" api:"nullable"`
 	JSON      memberJSON `json:"-"`
 }
 
@@ -423,7 +423,7 @@ func (r MemberRole) IsKnown() bool {
 }
 
 type MemberParam struct {
-	Role      param.Field[MemberRole] `json:"role,required"`
+	Role      param.Field[MemberRole] `json:"role" api:"required"`
 	UserEmail param.Field[string]     `json:"user_email"`
 	UserID    param.Field[string]     `json:"user_id"`
 }
@@ -435,25 +435,25 @@ func (r MemberParam) MarshalJSON() (data []byte, err error) {
 func (r MemberParam) implementsTeamAddMemberParamsMemberUnion() {}
 
 type TeamNewResponse struct {
-	TeamID              string                       `json:"team_id,required"`
+	TeamID              string                       `json:"team_id" api:"required"`
 	Admins              []interface{}                `json:"admins"`
 	Blocked             bool                         `json:"blocked"`
-	BudgetDuration      string                       `json:"budget_duration,nullable"`
-	BudgetResetAt       time.Time                    `json:"budget_reset_at,nullable" format:"date-time"`
-	CreatedAt           time.Time                    `json:"created_at,nullable" format:"date-time"`
-	LlmModelTable       TeamNewResponseLlmModelTable `json:"llm_model_table,nullable"`
-	MaxBudget           float64                      `json:"max_budget,nullable"`
-	MaxParallelRequests int64                        `json:"max_parallel_requests,nullable"`
+	BudgetDuration      string                       `json:"budget_duration" api:"nullable"`
+	BudgetResetAt       time.Time                    `json:"budget_reset_at" api:"nullable" format:"date-time"`
+	CreatedAt           time.Time                    `json:"created_at" api:"nullable" format:"date-time"`
+	LlmModelTable       TeamNewResponseLlmModelTable `json:"llm_model_table" api:"nullable"`
+	MaxBudget           float64                      `json:"max_budget" api:"nullable"`
+	MaxParallelRequests int64                        `json:"max_parallel_requests" api:"nullable"`
 	Members             []interface{}                `json:"members"`
 	MembersWithRoles    []Member                     `json:"members_with_roles"`
-	Metadata            interface{}                  `json:"metadata,nullable"`
-	ModelID             int64                        `json:"model_id,nullable"`
+	Metadata            interface{}                  `json:"metadata" api:"nullable"`
+	ModelID             int64                        `json:"model_id" api:"nullable"`
 	Models              []interface{}                `json:"models"`
-	OrganizationID      string                       `json:"organization_id,nullable"`
-	RpmLimit            int64                        `json:"rpm_limit,nullable"`
-	Spend               float64                      `json:"spend,nullable"`
-	TeamAlias           string                       `json:"team_alias,nullable"`
-	TpmLimit            int64                        `json:"tpm_limit,nullable"`
+	OrganizationID      string                       `json:"organization_id" api:"nullable"`
+	RpmLimit            int64                        `json:"rpm_limit" api:"nullable"`
+	Spend               float64                      `json:"spend" api:"nullable"`
+	TeamAlias           string                       `json:"team_alias" api:"nullable"`
+	TpmLimit            int64                        `json:"tpm_limit" api:"nullable"`
 	JSON                teamNewResponseJSON          `json:"-"`
 }
 
@@ -491,9 +491,9 @@ func (r teamNewResponseJSON) RawJSON() string {
 }
 
 type TeamNewResponseLlmModelTable struct {
-	CreatedBy    string                           `json:"created_by,required"`
-	UpdatedBy    string                           `json:"updated_by,required"`
-	ModelAliases interface{}                      `json:"model_aliases,nullable"`
+	CreatedBy    string                           `json:"created_by" api:"required"`
+	UpdatedBy    string                           `json:"updated_by" api:"required"`
+	ModelAliases interface{}                      `json:"model_aliases" api:"nullable"`
 	JSON         teamNewResponseLlmModelTableJSON `json:"-"`
 }
 
@@ -522,27 +522,27 @@ type TeamListResponse = interface{}
 type TeamDeleteResponse = interface{}
 
 type TeamAddMemberResponse struct {
-	TeamID                 string                                       `json:"team_id,required"`
-	UpdatedTeamMemberships []TeamAddMemberResponseUpdatedTeamMembership `json:"updated_team_memberships,required"`
-	UpdatedUsers           []TeamAddMemberResponseUpdatedUser           `json:"updated_users,required"`
+	TeamID                 string                                       `json:"team_id" api:"required"`
+	UpdatedTeamMemberships []TeamAddMemberResponseUpdatedTeamMembership `json:"updated_team_memberships" api:"required"`
+	UpdatedUsers           []TeamAddMemberResponseUpdatedUser           `json:"updated_users" api:"required"`
 	Admins                 []interface{}                                `json:"admins"`
 	Blocked                bool                                         `json:"blocked"`
-	BudgetDuration         string                                       `json:"budget_duration,nullable"`
-	BudgetResetAt          time.Time                                    `json:"budget_reset_at,nullable" format:"date-time"`
-	CreatedAt              time.Time                                    `json:"created_at,nullable" format:"date-time"`
-	LlmModelTable          TeamAddMemberResponseLlmModelTable           `json:"llm_model_table,nullable"`
-	MaxBudget              float64                                      `json:"max_budget,nullable"`
-	MaxParallelRequests    int64                                        `json:"max_parallel_requests,nullable"`
+	BudgetDuration         string                                       `json:"budget_duration" api:"nullable"`
+	BudgetResetAt          time.Time                                    `json:"budget_reset_at" api:"nullable" format:"date-time"`
+	CreatedAt              time.Time                                    `json:"created_at" api:"nullable" format:"date-time"`
+	LlmModelTable          TeamAddMemberResponseLlmModelTable           `json:"llm_model_table" api:"nullable"`
+	MaxBudget              float64                                      `json:"max_budget" api:"nullable"`
+	MaxParallelRequests    int64                                        `json:"max_parallel_requests" api:"nullable"`
 	Members                []interface{}                                `json:"members"`
 	MembersWithRoles       []Member                                     `json:"members_with_roles"`
-	Metadata               interface{}                                  `json:"metadata,nullable"`
-	ModelID                int64                                        `json:"model_id,nullable"`
+	Metadata               interface{}                                  `json:"metadata" api:"nullable"`
+	ModelID                int64                                        `json:"model_id" api:"nullable"`
 	Models                 []interface{}                                `json:"models"`
-	OrganizationID         string                                       `json:"organization_id,nullable"`
-	RpmLimit               int64                                        `json:"rpm_limit,nullable"`
-	Spend                  float64                                      `json:"spend,nullable"`
-	TeamAlias              string                                       `json:"team_alias,nullable"`
-	TpmLimit               int64                                        `json:"tpm_limit,nullable"`
+	OrganizationID         string                                       `json:"organization_id" api:"nullable"`
+	RpmLimit               int64                                        `json:"rpm_limit" api:"nullable"`
+	Spend                  float64                                      `json:"spend" api:"nullable"`
+	TeamAlias              string                                       `json:"team_alias" api:"nullable"`
+	TpmLimit               int64                                        `json:"tpm_limit" api:"nullable"`
 	JSON                   teamAddMemberResponseJSON                    `json:"-"`
 }
 
@@ -583,11 +583,11 @@ func (r teamAddMemberResponseJSON) RawJSON() string {
 }
 
 type TeamAddMemberResponseUpdatedTeamMembership struct {
-	BudgetID string `json:"budget_id,required"`
+	BudgetID string `json:"budget_id" api:"required"`
 	// Represents user-controllable params for a LLM_BudgetTable record
-	LlmBudgetTable TeamAddMemberResponseUpdatedTeamMembershipsLlmBudgetTable `json:"llm_budget_table,required,nullable"`
-	TeamID         string                                                    `json:"team_id,required"`
-	UserID         string                                                    `json:"user_id,required"`
+	LlmBudgetTable TeamAddMemberResponseUpdatedTeamMembershipsLlmBudgetTable `json:"llm_budget_table" api:"required,nullable"`
+	TeamID         string                                                    `json:"team_id" api:"required"`
+	UserID         string                                                    `json:"user_id" api:"required"`
 	JSON           teamAddMemberResponseUpdatedTeamMembershipJSON            `json:"-"`
 }
 
@@ -612,13 +612,13 @@ func (r teamAddMemberResponseUpdatedTeamMembershipJSON) RawJSON() string {
 
 // Represents user-controllable params for a LLM_BudgetTable record
 type TeamAddMemberResponseUpdatedTeamMembershipsLlmBudgetTable struct {
-	BudgetDuration      string                                                        `json:"budget_duration,nullable"`
-	MaxBudget           float64                                                       `json:"max_budget,nullable"`
-	MaxParallelRequests int64                                                         `json:"max_parallel_requests,nullable"`
-	ModelMaxBudget      interface{}                                                   `json:"model_max_budget,nullable"`
-	RpmLimit            int64                                                         `json:"rpm_limit,nullable"`
-	SoftBudget          float64                                                       `json:"soft_budget,nullable"`
-	TpmLimit            int64                                                         `json:"tpm_limit,nullable"`
+	BudgetDuration      string                                                        `json:"budget_duration" api:"nullable"`
+	MaxBudget           float64                                                       `json:"max_budget" api:"nullable"`
+	MaxParallelRequests int64                                                         `json:"max_parallel_requests" api:"nullable"`
+	ModelMaxBudget      interface{}                                                   `json:"model_max_budget" api:"nullable"`
+	RpmLimit            int64                                                         `json:"rpm_limit" api:"nullable"`
+	SoftBudget          float64                                                       `json:"soft_budget" api:"nullable"`
+	TpmLimit            int64                                                         `json:"tpm_limit" api:"nullable"`
 	JSON                teamAddMemberResponseUpdatedTeamMembershipsLlmBudgetTableJSON `json:"-"`
 }
 
@@ -646,22 +646,22 @@ func (r teamAddMemberResponseUpdatedTeamMembershipsLlmBudgetTableJSON) RawJSON()
 }
 
 type TeamAddMemberResponseUpdatedUser struct {
-	UserID                  string                                                    `json:"user_id,required"`
-	BudgetDuration          string                                                    `json:"budget_duration,nullable"`
-	BudgetResetAt           time.Time                                                 `json:"budget_reset_at,nullable" format:"date-time"`
-	MaxBudget               float64                                                   `json:"max_budget,nullable"`
-	Metadata                interface{}                                               `json:"metadata,nullable"`
-	ModelMaxBudget          interface{}                                               `json:"model_max_budget,nullable"`
-	ModelSpend              interface{}                                               `json:"model_spend,nullable"`
+	UserID                  string                                                    `json:"user_id" api:"required"`
+	BudgetDuration          string                                                    `json:"budget_duration" api:"nullable"`
+	BudgetResetAt           time.Time                                                 `json:"budget_reset_at" api:"nullable" format:"date-time"`
+	MaxBudget               float64                                                   `json:"max_budget" api:"nullable"`
+	Metadata                interface{}                                               `json:"metadata" api:"nullable"`
+	ModelMaxBudget          interface{}                                               `json:"model_max_budget" api:"nullable"`
+	ModelSpend              interface{}                                               `json:"model_spend" api:"nullable"`
 	Models                  []interface{}                                             `json:"models"`
-	OrganizationMemberships []TeamAddMemberResponseUpdatedUsersOrganizationMembership `json:"organization_memberships,nullable"`
-	RpmLimit                int64                                                     `json:"rpm_limit,nullable"`
+	OrganizationMemberships []TeamAddMemberResponseUpdatedUsersOrganizationMembership `json:"organization_memberships" api:"nullable"`
+	RpmLimit                int64                                                     `json:"rpm_limit" api:"nullable"`
 	Spend                   float64                                                   `json:"spend"`
-	SSOUserID               string                                                    `json:"sso_user_id,nullable"`
+	SSOUserID               string                                                    `json:"sso_user_id" api:"nullable"`
 	Teams                   []string                                                  `json:"teams"`
-	TpmLimit                int64                                                     `json:"tpm_limit,nullable"`
-	UserEmail               string                                                    `json:"user_email,nullable"`
-	UserRole                string                                                    `json:"user_role,nullable"`
+	TpmLimit                int64                                                     `json:"tpm_limit" api:"nullable"`
+	UserEmail               string                                                    `json:"user_email" api:"nullable"`
+	UserRole                string                                                    `json:"user_role" api:"nullable"`
 	JSON                    teamAddMemberResponseUpdatedUserJSON                      `json:"-"`
 }
 
@@ -699,16 +699,16 @@ func (r teamAddMemberResponseUpdatedUserJSON) RawJSON() string {
 // This is the table that track what organizations a user belongs to and users
 // spend within the organization
 type TeamAddMemberResponseUpdatedUsersOrganizationMembership struct {
-	CreatedAt      time.Time `json:"created_at,required" format:"date-time"`
-	OrganizationID string    `json:"organization_id,required"`
-	UpdatedAt      time.Time `json:"updated_at,required" format:"date-time"`
-	UserID         string    `json:"user_id,required"`
-	BudgetID       string    `json:"budget_id,nullable"`
+	CreatedAt      time.Time `json:"created_at" api:"required" format:"date-time"`
+	OrganizationID string    `json:"organization_id" api:"required"`
+	UpdatedAt      time.Time `json:"updated_at" api:"required" format:"date-time"`
+	UserID         string    `json:"user_id" api:"required"`
+	BudgetID       string    `json:"budget_id" api:"nullable"`
 	// Represents user-controllable params for a LLM_BudgetTable record
-	LlmBudgetTable TeamAddMemberResponseUpdatedUsersOrganizationMembershipsLlmBudgetTable `json:"llm_budget_table,nullable"`
+	LlmBudgetTable TeamAddMemberResponseUpdatedUsersOrganizationMembershipsLlmBudgetTable `json:"llm_budget_table" api:"nullable"`
 	Spend          float64                                                                `json:"spend"`
 	User           interface{}                                                            `json:"user"`
-	UserRole       string                                                                 `json:"user_role,nullable"`
+	UserRole       string                                                                 `json:"user_role" api:"nullable"`
 	JSON           teamAddMemberResponseUpdatedUsersOrganizationMembershipJSON            `json:"-"`
 }
 
@@ -739,13 +739,13 @@ func (r teamAddMemberResponseUpdatedUsersOrganizationMembershipJSON) RawJSON() s
 
 // Represents user-controllable params for a LLM_BudgetTable record
 type TeamAddMemberResponseUpdatedUsersOrganizationMembershipsLlmBudgetTable struct {
-	BudgetDuration      string                                                                     `json:"budget_duration,nullable"`
-	MaxBudget           float64                                                                    `json:"max_budget,nullable"`
-	MaxParallelRequests int64                                                                      `json:"max_parallel_requests,nullable"`
-	ModelMaxBudget      interface{}                                                                `json:"model_max_budget,nullable"`
-	RpmLimit            int64                                                                      `json:"rpm_limit,nullable"`
-	SoftBudget          float64                                                                    `json:"soft_budget,nullable"`
-	TpmLimit            int64                                                                      `json:"tpm_limit,nullable"`
+	BudgetDuration      string                                                                     `json:"budget_duration" api:"nullable"`
+	MaxBudget           float64                                                                    `json:"max_budget" api:"nullable"`
+	MaxParallelRequests int64                                                                      `json:"max_parallel_requests" api:"nullable"`
+	ModelMaxBudget      interface{}                                                                `json:"model_max_budget" api:"nullable"`
+	RpmLimit            int64                                                                      `json:"rpm_limit" api:"nullable"`
+	SoftBudget          float64                                                                    `json:"soft_budget" api:"nullable"`
+	TpmLimit            int64                                                                      `json:"tpm_limit" api:"nullable"`
 	JSON                teamAddMemberResponseUpdatedUsersOrganizationMembershipsLlmBudgetTableJSON `json:"-"`
 }
 
@@ -773,9 +773,9 @@ func (r teamAddMemberResponseUpdatedUsersOrganizationMembershipsLlmBudgetTableJS
 }
 
 type TeamAddMemberResponseLlmModelTable struct {
-	CreatedBy    string                                 `json:"created_by,required"`
-	UpdatedBy    string                                 `json:"updated_by,required"`
-	ModelAliases interface{}                            `json:"model_aliases,nullable"`
+	CreatedBy    string                                 `json:"created_by" api:"required"`
+	UpdatedBy    string                                 `json:"updated_by" api:"required"`
+	ModelAliases interface{}                            `json:"model_aliases" api:"nullable"`
 	JSON         teamAddMemberResponseLlmModelTableJSON `json:"-"`
 }
 
@@ -810,10 +810,10 @@ type TeamGetInfoResponse = interface{}
 type TeamUnblockResponse = interface{}
 
 type TeamUpdateMemberResponse struct {
-	TeamID          string                       `json:"team_id,required"`
-	UserID          string                       `json:"user_id,required"`
-	MaxBudgetInTeam float64                      `json:"max_budget_in_team,nullable"`
-	UserEmail       string                       `json:"user_email,nullable"`
+	TeamID          string                       `json:"team_id" api:"required"`
+	UserID          string                       `json:"user_id" api:"required"`
+	MaxBudgetInTeam float64                      `json:"max_budget_in_team" api:"nullable"`
+	UserEmail       string                       `json:"user_email" api:"nullable"`
 	JSON            teamUpdateMemberResponseJSON `json:"-"`
 }
 
@@ -863,7 +863,7 @@ func (r TeamNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type TeamUpdateParams struct {
-	TeamID         param.Field[string]        `json:"team_id,required"`
+	TeamID         param.Field[string]        `json:"team_id" api:"required"`
 	Blocked        param.Field[bool]          `json:"blocked"`
 	BudgetDuration param.Field[string]        `json:"budget_duration"`
 	Guardrails     param.Field[[]string]      `json:"guardrails"`
@@ -900,7 +900,7 @@ func (r TeamListParams) URLQuery() (v url.Values) {
 }
 
 type TeamDeleteParams struct {
-	TeamIDs param.Field[[]string] `json:"team_ids,required"`
+	TeamIDs param.Field[[]string] `json:"team_ids" api:"required"`
 	// The llm-changed-by header enables tracking of actions performed by authorized
 	// users on behalf of other users, providing an audit trail for accountability
 	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
@@ -911,8 +911,8 @@ func (r TeamDeleteParams) MarshalJSON() (data []byte, err error) {
 }
 
 type TeamAddMemberParams struct {
-	Member          param.Field[TeamAddMemberParamsMemberUnion] `json:"member,required"`
-	TeamID          param.Field[string]                         `json:"team_id,required"`
+	Member          param.Field[TeamAddMemberParamsMemberUnion] `json:"member" api:"required"`
+	TeamID          param.Field[string]                         `json:"team_id" api:"required"`
 	MaxBudgetInTeam param.Field[float64]                        `json:"max_budget_in_team"`
 }
 
@@ -930,7 +930,7 @@ type TeamAddMemberParamsMemberArray []MemberParam
 func (r TeamAddMemberParamsMemberArray) implementsTeamAddMemberParamsMemberUnion() {}
 
 type TeamBlockParams struct {
-	BlockTeamRequest BlockTeamRequestParam `json:"block_team_request,required"`
+	BlockTeamRequest BlockTeamRequestParam `json:"block_team_request" api:"required"`
 }
 
 func (r TeamBlockParams) MarshalJSON() (data []byte, err error) {
@@ -951,7 +951,7 @@ func (r TeamListAvailableParams) URLQuery() (v url.Values) {
 }
 
 type TeamRemoveMemberParams struct {
-	TeamID    param.Field[string] `json:"team_id,required"`
+	TeamID    param.Field[string] `json:"team_id" api:"required"`
 	UserEmail param.Field[string] `json:"user_email"`
 	UserID    param.Field[string] `json:"user_id"`
 }
@@ -974,7 +974,7 @@ func (r TeamGetInfoParams) URLQuery() (v url.Values) {
 }
 
 type TeamUnblockParams struct {
-	BlockTeamRequest BlockTeamRequestParam `json:"block_team_request,required"`
+	BlockTeamRequest BlockTeamRequestParam `json:"block_team_request" api:"required"`
 }
 
 func (r TeamUnblockParams) MarshalJSON() (data []byte, err error) {
@@ -982,7 +982,7 @@ func (r TeamUnblockParams) MarshalJSON() (data []byte, err error) {
 }
 
 type TeamUpdateMemberParams struct {
-	TeamID          param.Field[string]                     `json:"team_id,required"`
+	TeamID          param.Field[string]                     `json:"team_id" api:"required"`
 	MaxBudgetInTeam param.Field[float64]                    `json:"max_budget_in_team"`
 	Role            param.Field[TeamUpdateMemberParamsRole] `json:"role"`
 	UserEmail       param.Field[string]                     `json:"user_email"`

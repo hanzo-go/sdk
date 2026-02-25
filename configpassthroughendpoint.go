@@ -77,7 +77,7 @@ func (r *ConfigPassThroughEndpointService) Delete(ctx context.Context, body Conf
 }
 
 type PassThroughEndpointResponse struct {
-	Endpoints []PassThroughGenericEndpoint    `json:"endpoints,required"`
+	Endpoints []PassThroughGenericEndpoint    `json:"endpoints" api:"required"`
 	JSON      passThroughEndpointResponseJSON `json:"-"`
 }
 
@@ -100,11 +100,11 @@ func (r passThroughEndpointResponseJSON) RawJSON() string {
 type PassThroughGenericEndpoint struct {
 	// Key-value pairs of headers to be forwarded with the request. You can set any key
 	// value pair here and it will be forwarded to your target endpoint
-	Headers interface{} `json:"headers,required"`
+	Headers interface{} `json:"headers" api:"required"`
 	// The route to be added to the LLM Proxy Server.
-	Path string `json:"path,required"`
+	Path string `json:"path" api:"required"`
 	// The URL to which requests for this path should be forwarded.
-	Target string                         `json:"target,required"`
+	Target string                         `json:"target" api:"required"`
 	JSON   passThroughGenericEndpointJSON `json:"-"`
 }
 
@@ -129,11 +129,11 @@ func (r passThroughGenericEndpointJSON) RawJSON() string {
 type PassThroughGenericEndpointParam struct {
 	// Key-value pairs of headers to be forwarded with the request. You can set any key
 	// value pair here and it will be forwarded to your target endpoint
-	Headers param.Field[interface{}] `json:"headers,required"`
+	Headers param.Field[interface{}] `json:"headers" api:"required"`
 	// The route to be added to the LLM Proxy Server.
-	Path param.Field[string] `json:"path,required"`
+	Path param.Field[string] `json:"path" api:"required"`
 	// The URL to which requests for this path should be forwarded.
-	Target param.Field[string] `json:"target,required"`
+	Target param.Field[string] `json:"target" api:"required"`
 }
 
 func (r PassThroughGenericEndpointParam) MarshalJSON() (data []byte, err error) {
@@ -145,7 +145,7 @@ type ConfigPassThroughEndpointNewResponse = interface{}
 type ConfigPassThroughEndpointUpdateResponse = interface{}
 
 type ConfigPassThroughEndpointNewParams struct {
-	PassThroughGenericEndpoint PassThroughGenericEndpointParam `json:"pass_through_generic_endpoint,required"`
+	PassThroughGenericEndpoint PassThroughGenericEndpointParam `json:"pass_through_generic_endpoint" api:"required"`
 }
 
 func (r ConfigPassThroughEndpointNewParams) MarshalJSON() (data []byte, err error) {
@@ -166,7 +166,7 @@ func (r ConfigPassThroughEndpointListParams) URLQuery() (v url.Values) {
 }
 
 type ConfigPassThroughEndpointDeleteParams struct {
-	EndpointID param.Field[string] `query:"endpoint_id,required"`
+	EndpointID param.Field[string] `query:"endpoint_id" api:"required"`
 }
 
 // URLQuery serializes [ConfigPassThroughEndpointDeleteParams]'s query parameters

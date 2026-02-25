@@ -169,7 +169,7 @@ type ModelUpdateFullResponse = interface{}
 type ModelUpdatePartialResponse = interface{}
 
 type ModelUpdateFullParams struct {
-	UpdateDeployment UpdateDeploymentParam `json:"update_deployment,required"`
+	UpdateDeployment UpdateDeploymentParam `json:"update_deployment" api:"required"`
 }
 
 func (r ModelUpdateFullParams) MarshalJSON() (data []byte, err error) {
@@ -177,7 +177,7 @@ func (r ModelUpdateFullParams) MarshalJSON() (data []byte, err error) {
 }
 
 type ModelUpdatePartialParams struct {
-	UpdateDeployment UpdateDeploymentParam `json:"update_deployment,required"`
+	UpdateDeployment UpdateDeploymentParam `json:"update_deployment" api:"required"`
 }
 
 func (r ModelUpdatePartialParams) MarshalJSON() (data []byte, err error) {

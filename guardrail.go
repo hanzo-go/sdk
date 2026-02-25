@@ -78,7 +78,7 @@ func (r *GuardrailService) List(ctx context.Context, opts ...option.RequestOptio
 }
 
 type GuardrailListResponse struct {
-	Guardrails []GuardrailListResponseGuardrail `json:"guardrails,required"`
+	Guardrails []GuardrailListResponseGuardrail `json:"guardrails" api:"required"`
 	JSON       guardrailListResponseJSON        `json:"-"`
 }
 
@@ -99,10 +99,10 @@ func (r guardrailListResponseJSON) RawJSON() string {
 }
 
 type GuardrailListResponseGuardrail struct {
-	GuardrailInfo interface{} `json:"guardrail_info,required,nullable"`
-	GuardrailName string      `json:"guardrail_name,required"`
+	GuardrailInfo interface{} `json:"guardrail_info" api:"required,nullable"`
+	GuardrailName string      `json:"guardrail_name" api:"required"`
 	// The returned LLM Params object for /guardrails/list
-	LlmParams GuardrailListResponseGuardrailsLlmParams `json:"llm_params,required"`
+	LlmParams GuardrailListResponseGuardrailsLlmParams `json:"llm_params" api:"required"`
 	JSON      guardrailListResponseGuardrailJSON       `json:"-"`
 }
 
@@ -126,8 +126,8 @@ func (r guardrailListResponseGuardrailJSON) RawJSON() string {
 
 // The returned LLM Params object for /guardrails/list
 type GuardrailListResponseGuardrailsLlmParams struct {
-	Guardrail string                                            `json:"guardrail,required"`
-	Mode      GuardrailListResponseGuardrailsLlmParamsModeUnion `json:"mode,required"`
+	Guardrail string                                            `json:"guardrail" api:"required"`
+	Mode      GuardrailListResponseGuardrailsLlmParamsModeUnion `json:"mode" api:"required"`
 	DefaultOn bool                                              `json:"default_on"`
 	JSON      guardrailListResponseGuardrailsLlmParamsJSON      `json:"-"`
 }

@@ -69,10 +69,10 @@ func (r *UtilService) TransformRequest(ctx context.Context, body UtilTransformRe
 type UtilGetSupportedOpenAIParamsResponse = interface{}
 
 type UtilTokenCounterResponse struct {
-	ModelUsed     string                       `json:"model_used,required"`
-	RequestModel  string                       `json:"request_model,required"`
-	TokenizerType string                       `json:"tokenizer_type,required"`
-	TotalTokens   int64                        `json:"total_tokens,required"`
+	ModelUsed     string                       `json:"model_used" api:"required"`
+	RequestModel  string                       `json:"request_model" api:"required"`
+	TokenizerType string                       `json:"tokenizer_type" api:"required"`
+	TotalTokens   int64                        `json:"total_tokens" api:"required"`
 	JSON          utilTokenCounterResponseJSON `json:"-"`
 }
 
@@ -96,10 +96,10 @@ func (r utilTokenCounterResponseJSON) RawJSON() string {
 }
 
 type UtilTransformRequestResponse struct {
-	Error             string                           `json:"error,nullable"`
-	RawRequestAPIBase string                           `json:"raw_request_api_base,nullable"`
-	RawRequestBody    interface{}                      `json:"raw_request_body,nullable"`
-	RawRequestHeaders interface{}                      `json:"raw_request_headers,nullable"`
+	Error             string                           `json:"error" api:"nullable"`
+	RawRequestAPIBase string                           `json:"raw_request_api_base" api:"nullable"`
+	RawRequestBody    interface{}                      `json:"raw_request_body" api:"nullable"`
+	RawRequestHeaders interface{}                      `json:"raw_request_headers" api:"nullable"`
 	JSON              utilTransformRequestResponseJSON `json:"-"`
 }
 
@@ -123,7 +123,7 @@ func (r utilTransformRequestResponseJSON) RawJSON() string {
 }
 
 type UtilGetSupportedOpenAIParamsParams struct {
-	Model param.Field[string] `query:"model,required"`
+	Model param.Field[string] `query:"model" api:"required"`
 }
 
 // URLQuery serializes [UtilGetSupportedOpenAIParamsParams]'s query parameters as
@@ -136,7 +136,7 @@ func (r UtilGetSupportedOpenAIParamsParams) URLQuery() (v url.Values) {
 }
 
 type UtilTokenCounterParams struct {
-	Model    param.Field[string]        `json:"model,required"`
+	Model    param.Field[string]        `json:"model" api:"required"`
 	Messages param.Field[[]interface{}] `json:"messages"`
 	Prompt   param.Field[string]        `json:"prompt"`
 }
@@ -146,8 +146,8 @@ func (r UtilTokenCounterParams) MarshalJSON() (data []byte, err error) {
 }
 
 type UtilTransformRequestParams struct {
-	CallType    param.Field[UtilTransformRequestParamsCallType] `json:"call_type,required"`
-	RequestBody param.Field[interface{}]                        `json:"request_body,required"`
+	CallType    param.Field[UtilTransformRequestParamsCallType] `json:"call_type" api:"required"`
+	RequestBody param.Field[interface{}]                        `json:"request_body" api:"required"`
 }
 
 func (r UtilTransformRequestParams) MarshalJSON() (data []byte, err error) {

@@ -109,10 +109,10 @@ func (r providerListBudgetsResponseJSON) RawJSON() string {
 
 // Configuration for a single provider's budget settings
 type ProviderListBudgetsResponseProvider struct {
-	BudgetLimit   float64                                 `json:"budget_limit,required,nullable"`
-	TimePeriod    string                                  `json:"time_period,required,nullable"`
-	BudgetResetAt string                                  `json:"budget_reset_at,nullable"`
-	Spend         float64                                 `json:"spend,nullable"`
+	BudgetLimit   float64                                 `json:"budget_limit" api:"required,nullable"`
+	TimePeriod    string                                  `json:"time_period" api:"required,nullable"`
+	BudgetResetAt string                                  `json:"budget_reset_at" api:"nullable"`
+	Spend         float64                                 `json:"spend" api:"nullable"`
 	JSON          providerListBudgetsResponseProviderJSON `json:"-"`
 }
 

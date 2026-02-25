@@ -224,7 +224,7 @@ func (r *CustomerService) Unblock(ctx context.Context, body CustomerUnblockParam
 }
 
 type BlockUsersParam struct {
-	UserIDs param.Field[[]string] `json:"user_ids,required"`
+	UserIDs param.Field[[]string] `json:"user_ids" api:"required"`
 }
 
 func (r BlockUsersParam) MarshalJSON() (data []byte, err error) {
@@ -236,13 +236,13 @@ type CustomerNewResponse = interface{}
 type CustomerUpdateResponse = interface{}
 
 type CustomerListResponse struct {
-	Blocked            bool                                   `json:"blocked,required"`
-	UserID             string                                 `json:"user_id,required"`
-	Alias              string                                 `json:"alias,nullable"`
-	AllowedModelRegion CustomerListResponseAllowedModelRegion `json:"allowed_model_region,nullable"`
-	DefaultModel       string                                 `json:"default_model,nullable"`
+	Blocked            bool                                   `json:"blocked" api:"required"`
+	UserID             string                                 `json:"user_id" api:"required"`
+	Alias              string                                 `json:"alias" api:"nullable"`
+	AllowedModelRegion CustomerListResponseAllowedModelRegion `json:"allowed_model_region" api:"nullable"`
+	DefaultModel       string                                 `json:"default_model" api:"nullable"`
 	// Represents user-controllable params for a LLM_BudgetTable record
-	LlmBudgetTable CustomerListResponseLlmBudgetTable `json:"llm_budget_table,nullable"`
+	LlmBudgetTable CustomerListResponseLlmBudgetTable `json:"llm_budget_table" api:"nullable"`
 	Spend          float64                            `json:"spend"`
 	JSON           customerListResponseJSON           `json:"-"`
 }
@@ -286,13 +286,13 @@ func (r CustomerListResponseAllowedModelRegion) IsKnown() bool {
 
 // Represents user-controllable params for a LLM_BudgetTable record
 type CustomerListResponseLlmBudgetTable struct {
-	BudgetDuration      string                                 `json:"budget_duration,nullable"`
-	MaxBudget           float64                                `json:"max_budget,nullable"`
-	MaxParallelRequests int64                                  `json:"max_parallel_requests,nullable"`
-	ModelMaxBudget      interface{}                            `json:"model_max_budget,nullable"`
-	RpmLimit            int64                                  `json:"rpm_limit,nullable"`
-	SoftBudget          float64                                `json:"soft_budget,nullable"`
-	TpmLimit            int64                                  `json:"tpm_limit,nullable"`
+	BudgetDuration      string                                 `json:"budget_duration" api:"nullable"`
+	MaxBudget           float64                                `json:"max_budget" api:"nullable"`
+	MaxParallelRequests int64                                  `json:"max_parallel_requests" api:"nullable"`
+	ModelMaxBudget      interface{}                            `json:"model_max_budget" api:"nullable"`
+	RpmLimit            int64                                  `json:"rpm_limit" api:"nullable"`
+	SoftBudget          float64                                `json:"soft_budget" api:"nullable"`
+	TpmLimit            int64                                  `json:"tpm_limit" api:"nullable"`
 	JSON                customerListResponseLlmBudgetTableJSON `json:"-"`
 }
 
@@ -323,13 +323,13 @@ type CustomerDeleteResponse = interface{}
 type CustomerBlockResponse = interface{}
 
 type CustomerGetInfoResponse struct {
-	Blocked            bool                                      `json:"blocked,required"`
-	UserID             string                                    `json:"user_id,required"`
-	Alias              string                                    `json:"alias,nullable"`
-	AllowedModelRegion CustomerGetInfoResponseAllowedModelRegion `json:"allowed_model_region,nullable"`
-	DefaultModel       string                                    `json:"default_model,nullable"`
+	Blocked            bool                                      `json:"blocked" api:"required"`
+	UserID             string                                    `json:"user_id" api:"required"`
+	Alias              string                                    `json:"alias" api:"nullable"`
+	AllowedModelRegion CustomerGetInfoResponseAllowedModelRegion `json:"allowed_model_region" api:"nullable"`
+	DefaultModel       string                                    `json:"default_model" api:"nullable"`
 	// Represents user-controllable params for a LLM_BudgetTable record
-	LlmBudgetTable CustomerGetInfoResponseLlmBudgetTable `json:"llm_budget_table,nullable"`
+	LlmBudgetTable CustomerGetInfoResponseLlmBudgetTable `json:"llm_budget_table" api:"nullable"`
 	Spend          float64                               `json:"spend"`
 	JSON           customerGetInfoResponseJSON           `json:"-"`
 }
@@ -373,13 +373,13 @@ func (r CustomerGetInfoResponseAllowedModelRegion) IsKnown() bool {
 
 // Represents user-controllable params for a LLM_BudgetTable record
 type CustomerGetInfoResponseLlmBudgetTable struct {
-	BudgetDuration      string                                    `json:"budget_duration,nullable"`
-	MaxBudget           float64                                   `json:"max_budget,nullable"`
-	MaxParallelRequests int64                                     `json:"max_parallel_requests,nullable"`
-	ModelMaxBudget      interface{}                               `json:"model_max_budget,nullable"`
-	RpmLimit            int64                                     `json:"rpm_limit,nullable"`
-	SoftBudget          float64                                   `json:"soft_budget,nullable"`
-	TpmLimit            int64                                     `json:"tpm_limit,nullable"`
+	BudgetDuration      string                                    `json:"budget_duration" api:"nullable"`
+	MaxBudget           float64                                   `json:"max_budget" api:"nullable"`
+	MaxParallelRequests int64                                     `json:"max_parallel_requests" api:"nullable"`
+	ModelMaxBudget      interface{}                               `json:"model_max_budget" api:"nullable"`
+	RpmLimit            int64                                     `json:"rpm_limit" api:"nullable"`
+	SoftBudget          float64                                   `json:"soft_budget" api:"nullable"`
+	TpmLimit            int64                                     `json:"tpm_limit" api:"nullable"`
 	JSON                customerGetInfoResponseLlmBudgetTableJSON `json:"-"`
 }
 
@@ -408,7 +408,7 @@ func (r customerGetInfoResponseLlmBudgetTableJSON) RawJSON() string {
 type CustomerUnblockResponse = interface{}
 
 type CustomerNewParams struct {
-	UserID             param.Field[string]                              `json:"user_id,required"`
+	UserID             param.Field[string]                              `json:"user_id" api:"required"`
 	Alias              param.Field[string]                              `json:"alias"`
 	AllowedModelRegion param.Field[CustomerNewParamsAllowedModelRegion] `json:"allowed_model_region"`
 	Blocked            param.Field[bool]                                `json:"blocked"`
@@ -462,7 +462,7 @@ func (r CustomerNewParamsModelMaxBudget) MarshalJSON() (data []byte, err error) 
 }
 
 type CustomerUpdateParams struct {
-	UserID             param.Field[string]                                 `json:"user_id,required"`
+	UserID             param.Field[string]                                 `json:"user_id" api:"required"`
 	Alias              param.Field[string]                                 `json:"alias"`
 	AllowedModelRegion param.Field[CustomerUpdateParamsAllowedModelRegion] `json:"allowed_model_region"`
 	Blocked            param.Field[bool]                                   `json:"blocked"`
@@ -491,7 +491,7 @@ func (r CustomerUpdateParamsAllowedModelRegion) IsKnown() bool {
 }
 
 type CustomerDeleteParams struct {
-	UserIDs param.Field[[]string] `json:"user_ids,required"`
+	UserIDs param.Field[[]string] `json:"user_ids" api:"required"`
 }
 
 func (r CustomerDeleteParams) MarshalJSON() (data []byte, err error) {
@@ -499,7 +499,7 @@ func (r CustomerDeleteParams) MarshalJSON() (data []byte, err error) {
 }
 
 type CustomerBlockParams struct {
-	BlockUsers BlockUsersParam `json:"block_users,required"`
+	BlockUsers BlockUsersParam `json:"block_users" api:"required"`
 }
 
 func (r CustomerBlockParams) MarshalJSON() (data []byte, err error) {
@@ -508,7 +508,7 @@ func (r CustomerBlockParams) MarshalJSON() (data []byte, err error) {
 
 type CustomerGetInfoParams struct {
 	// End User ID in the request parameters
-	EndUserID param.Field[string] `query:"end_user_id,required"`
+	EndUserID param.Field[string] `query:"end_user_id" api:"required"`
 }
 
 // URLQuery serializes [CustomerGetInfoParams]'s query parameters as `url.Values`.
@@ -520,7 +520,7 @@ func (r CustomerGetInfoParams) URLQuery() (v url.Values) {
 }
 
 type CustomerUnblockParams struct {
-	BlockUsers BlockUsersParam `json:"block_users,required"`
+	BlockUsers BlockUsersParam `json:"block_users" api:"required"`
 }
 
 func (r CustomerUnblockParams) MarshalJSON() (data []byte, err error) {

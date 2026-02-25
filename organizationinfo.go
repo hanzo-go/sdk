@@ -53,18 +53,18 @@ func (r *OrganizationInfoService) Deprecated(ctx context.Context, body Organizat
 
 // Returned by the /organization/info endpoint and /organization/list endpoint
 type OrganizationInfoGetResponse struct {
-	BudgetID  string    `json:"budget_id,required"`
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	CreatedBy string    `json:"created_by,required"`
-	Models    []string  `json:"models,required"`
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	UpdatedBy string    `json:"updated_by,required"`
+	BudgetID  string    `json:"budget_id" api:"required"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	CreatedBy string    `json:"created_by" api:"required"`
+	Models    []string  `json:"models" api:"required"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
+	UpdatedBy string    `json:"updated_by" api:"required"`
 	// Represents user-controllable params for a LLM_BudgetTable record
-	LlmBudgetTable    OrganizationInfoGetResponseLlmBudgetTable `json:"llm_budget_table,nullable"`
+	LlmBudgetTable    OrganizationInfoGetResponseLlmBudgetTable `json:"llm_budget_table" api:"nullable"`
 	Members           []OrganizationInfoGetResponseMember       `json:"members"`
-	Metadata          interface{}                               `json:"metadata,nullable"`
-	OrganizationAlias string                                    `json:"organization_alias,nullable"`
-	OrganizationID    string                                    `json:"organization_id,nullable"`
+	Metadata          interface{}                               `json:"metadata" api:"nullable"`
+	OrganizationAlias string                                    `json:"organization_alias" api:"nullable"`
+	OrganizationID    string                                    `json:"organization_id" api:"nullable"`
 	Spend             float64                                   `json:"spend"`
 	Teams             []OrganizationInfoGetResponseTeam         `json:"teams"`
 	JSON              organizationInfoGetResponseJSON           `json:"-"`
@@ -100,13 +100,13 @@ func (r organizationInfoGetResponseJSON) RawJSON() string {
 
 // Represents user-controllable params for a LLM_BudgetTable record
 type OrganizationInfoGetResponseLlmBudgetTable struct {
-	BudgetDuration      string                                        `json:"budget_duration,nullable"`
-	MaxBudget           float64                                       `json:"max_budget,nullable"`
-	MaxParallelRequests int64                                         `json:"max_parallel_requests,nullable"`
-	ModelMaxBudget      interface{}                                   `json:"model_max_budget,nullable"`
-	RpmLimit            int64                                         `json:"rpm_limit,nullable"`
-	SoftBudget          float64                                       `json:"soft_budget,nullable"`
-	TpmLimit            int64                                         `json:"tpm_limit,nullable"`
+	BudgetDuration      string                                        `json:"budget_duration" api:"nullable"`
+	MaxBudget           float64                                       `json:"max_budget" api:"nullable"`
+	MaxParallelRequests int64                                         `json:"max_parallel_requests" api:"nullable"`
+	ModelMaxBudget      interface{}                                   `json:"model_max_budget" api:"nullable"`
+	RpmLimit            int64                                         `json:"rpm_limit" api:"nullable"`
+	SoftBudget          float64                                       `json:"soft_budget" api:"nullable"`
+	TpmLimit            int64                                         `json:"tpm_limit" api:"nullable"`
 	JSON                organizationInfoGetResponseLlmBudgetTableJSON `json:"-"`
 }
 
@@ -135,16 +135,16 @@ func (r organizationInfoGetResponseLlmBudgetTableJSON) RawJSON() string {
 // This is the table that track what organizations a user belongs to and users
 // spend within the organization
 type OrganizationInfoGetResponseMember struct {
-	CreatedAt      time.Time `json:"created_at,required" format:"date-time"`
-	OrganizationID string    `json:"organization_id,required"`
-	UpdatedAt      time.Time `json:"updated_at,required" format:"date-time"`
-	UserID         string    `json:"user_id,required"`
-	BudgetID       string    `json:"budget_id,nullable"`
+	CreatedAt      time.Time `json:"created_at" api:"required" format:"date-time"`
+	OrganizationID string    `json:"organization_id" api:"required"`
+	UpdatedAt      time.Time `json:"updated_at" api:"required" format:"date-time"`
+	UserID         string    `json:"user_id" api:"required"`
+	BudgetID       string    `json:"budget_id" api:"nullable"`
 	// Represents user-controllable params for a LLM_BudgetTable record
-	LlmBudgetTable OrganizationInfoGetResponseMembersLlmBudgetTable `json:"llm_budget_table,nullable"`
+	LlmBudgetTable OrganizationInfoGetResponseMembersLlmBudgetTable `json:"llm_budget_table" api:"nullable"`
 	Spend          float64                                          `json:"spend"`
 	User           interface{}                                      `json:"user"`
-	UserRole       string                                           `json:"user_role,nullable"`
+	UserRole       string                                           `json:"user_role" api:"nullable"`
 	JSON           organizationInfoGetResponseMemberJSON            `json:"-"`
 }
 
@@ -174,13 +174,13 @@ func (r organizationInfoGetResponseMemberJSON) RawJSON() string {
 
 // Represents user-controllable params for a LLM_BudgetTable record
 type OrganizationInfoGetResponseMembersLlmBudgetTable struct {
-	BudgetDuration      string                                               `json:"budget_duration,nullable"`
-	MaxBudget           float64                                              `json:"max_budget,nullable"`
-	MaxParallelRequests int64                                                `json:"max_parallel_requests,nullable"`
-	ModelMaxBudget      interface{}                                          `json:"model_max_budget,nullable"`
-	RpmLimit            int64                                                `json:"rpm_limit,nullable"`
-	SoftBudget          float64                                              `json:"soft_budget,nullable"`
-	TpmLimit            int64                                                `json:"tpm_limit,nullable"`
+	BudgetDuration      string                                               `json:"budget_duration" api:"nullable"`
+	MaxBudget           float64                                              `json:"max_budget" api:"nullable"`
+	MaxParallelRequests int64                                                `json:"max_parallel_requests" api:"nullable"`
+	ModelMaxBudget      interface{}                                          `json:"model_max_budget" api:"nullable"`
+	RpmLimit            int64                                                `json:"rpm_limit" api:"nullable"`
+	SoftBudget          float64                                              `json:"soft_budget" api:"nullable"`
+	TpmLimit            int64                                                `json:"tpm_limit" api:"nullable"`
 	JSON                organizationInfoGetResponseMembersLlmBudgetTableJSON `json:"-"`
 }
 
@@ -207,25 +207,25 @@ func (r organizationInfoGetResponseMembersLlmBudgetTableJSON) RawJSON() string {
 }
 
 type OrganizationInfoGetResponseTeam struct {
-	TeamID              string                                        `json:"team_id,required"`
+	TeamID              string                                        `json:"team_id" api:"required"`
 	Admins              []interface{}                                 `json:"admins"`
 	Blocked             bool                                          `json:"blocked"`
-	BudgetDuration      string                                        `json:"budget_duration,nullable"`
-	BudgetResetAt       time.Time                                     `json:"budget_reset_at,nullable" format:"date-time"`
-	CreatedAt           time.Time                                     `json:"created_at,nullable" format:"date-time"`
-	LlmModelTable       OrganizationInfoGetResponseTeamsLlmModelTable `json:"llm_model_table,nullable"`
-	MaxBudget           float64                                       `json:"max_budget,nullable"`
-	MaxParallelRequests int64                                         `json:"max_parallel_requests,nullable"`
+	BudgetDuration      string                                        `json:"budget_duration" api:"nullable"`
+	BudgetResetAt       time.Time                                     `json:"budget_reset_at" api:"nullable" format:"date-time"`
+	CreatedAt           time.Time                                     `json:"created_at" api:"nullable" format:"date-time"`
+	LlmModelTable       OrganizationInfoGetResponseTeamsLlmModelTable `json:"llm_model_table" api:"nullable"`
+	MaxBudget           float64                                       `json:"max_budget" api:"nullable"`
+	MaxParallelRequests int64                                         `json:"max_parallel_requests" api:"nullable"`
 	Members             []interface{}                                 `json:"members"`
 	MembersWithRoles    []Member                                      `json:"members_with_roles"`
-	Metadata            interface{}                                   `json:"metadata,nullable"`
-	ModelID             int64                                         `json:"model_id,nullable"`
+	Metadata            interface{}                                   `json:"metadata" api:"nullable"`
+	ModelID             int64                                         `json:"model_id" api:"nullable"`
 	Models              []interface{}                                 `json:"models"`
-	OrganizationID      string                                        `json:"organization_id,nullable"`
-	RpmLimit            int64                                         `json:"rpm_limit,nullable"`
-	Spend               float64                                       `json:"spend,nullable"`
-	TeamAlias           string                                        `json:"team_alias,nullable"`
-	TpmLimit            int64                                         `json:"tpm_limit,nullable"`
+	OrganizationID      string                                        `json:"organization_id" api:"nullable"`
+	RpmLimit            int64                                         `json:"rpm_limit" api:"nullable"`
+	Spend               float64                                       `json:"spend" api:"nullable"`
+	TeamAlias           string                                        `json:"team_alias" api:"nullable"`
+	TpmLimit            int64                                         `json:"tpm_limit" api:"nullable"`
 	JSON                organizationInfoGetResponseTeamJSON           `json:"-"`
 }
 
@@ -264,9 +264,9 @@ func (r organizationInfoGetResponseTeamJSON) RawJSON() string {
 }
 
 type OrganizationInfoGetResponseTeamsLlmModelTable struct {
-	CreatedBy    string                                            `json:"created_by,required"`
-	UpdatedBy    string                                            `json:"updated_by,required"`
-	ModelAliases interface{}                                       `json:"model_aliases,nullable"`
+	CreatedBy    string                                            `json:"created_by" api:"required"`
+	UpdatedBy    string                                            `json:"updated_by" api:"required"`
+	ModelAliases interface{}                                       `json:"model_aliases" api:"nullable"`
 	JSON         organizationInfoGetResponseTeamsLlmModelTableJSON `json:"-"`
 }
 
@@ -291,7 +291,7 @@ func (r organizationInfoGetResponseTeamsLlmModelTableJSON) RawJSON() string {
 type OrganizationInfoDeprecatedResponse = interface{}
 
 type OrganizationInfoGetParams struct {
-	OrganizationID param.Field[string] `query:"organization_id,required"`
+	OrganizationID param.Field[string] `query:"organization_id" api:"required"`
 }
 
 // URLQuery serializes [OrganizationInfoGetParams]'s query parameters as
@@ -304,7 +304,7 @@ func (r OrganizationInfoGetParams) URLQuery() (v url.Values) {
 }
 
 type OrganizationInfoDeprecatedParams struct {
-	Organizations param.Field[[]string] `json:"organizations,required"`
+	Organizations param.Field[[]string] `json:"organizations" api:"required"`
 }
 
 func (r OrganizationInfoDeprecatedParams) MarshalJSON() (data []byte, err error) {

@@ -105,9 +105,9 @@ type FineTuningJobGetResponse = interface{}
 type FineTuningJobListResponse = interface{}
 
 type FineTuningJobNewParams struct {
-	CustomLlmProvider param.Field[FineTuningJobNewParamsCustomLlmProvider] `json:"custom_llm_provider,required"`
-	Model             param.Field[string]                                  `json:"model,required"`
-	TrainingFile      param.Field[string]                                  `json:"training_file,required"`
+	CustomLlmProvider param.Field[FineTuningJobNewParamsCustomLlmProvider] `json:"custom_llm_provider" api:"required"`
+	Model             param.Field[string]                                  `json:"model" api:"required"`
+	TrainingFile      param.Field[string]                                  `json:"training_file" api:"required"`
 	Hyperparameters   param.Field[FineTuningJobNewParamsHyperparameters]   `json:"hyperparameters"`
 	Integrations      param.Field[[]string]                                `json:"integrations"`
 	Seed              param.Field[int64]                                   `json:"seed"`
@@ -161,7 +161,7 @@ type FineTuningJobNewParamsHyperparametersNEpochsUnion interface {
 }
 
 type FineTuningJobGetParams struct {
-	CustomLlmProvider param.Field[FineTuningJobGetParamsCustomLlmProvider] `query:"custom_llm_provider,required"`
+	CustomLlmProvider param.Field[FineTuningJobGetParamsCustomLlmProvider] `query:"custom_llm_provider" api:"required"`
 }
 
 // URLQuery serializes [FineTuningJobGetParams]'s query parameters as `url.Values`.
@@ -188,7 +188,7 @@ func (r FineTuningJobGetParamsCustomLlmProvider) IsKnown() bool {
 }
 
 type FineTuningJobListParams struct {
-	CustomLlmProvider param.Field[FineTuningJobListParamsCustomLlmProvider] `query:"custom_llm_provider,required"`
+	CustomLlmProvider param.Field[FineTuningJobListParamsCustomLlmProvider] `query:"custom_llm_provider" api:"required"`
 	After             param.Field[string]                                   `query:"after"`
 	Limit             param.Field[int64]                                    `query:"limit"`
 }

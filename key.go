@@ -451,7 +451,7 @@ func (r *KeyService) Unblock(ctx context.Context, params KeyUnblockParams, opts 
 }
 
 type BlockKeyRequestParam struct {
-	Key param.Field[string] `json:"key,required"`
+	Key param.Field[string] `json:"key" api:"required"`
 }
 
 func (r BlockKeyRequestParam) MarshalJSON() (data []byte, err error) {
@@ -459,38 +459,38 @@ func (r BlockKeyRequestParam) MarshalJSON() (data []byte, err error) {
 }
 
 type GenerateKeyResponse struct {
-	Expires              time.Time               `json:"expires,required,nullable" format:"date-time"`
-	Key                  string                  `json:"key,required"`
-	Token                string                  `json:"token,nullable"`
-	Aliases              interface{}             `json:"aliases,nullable"`
-	AllowedCacheControls []interface{}           `json:"allowed_cache_controls,nullable"`
-	Blocked              bool                    `json:"blocked,nullable"`
-	BudgetDuration       string                  `json:"budget_duration,nullable"`
-	BudgetID             string                  `json:"budget_id,nullable"`
-	Config               interface{}             `json:"config,nullable"`
-	CreatedBy            string                  `json:"created_by,nullable"`
-	Duration             string                  `json:"duration,nullable"`
-	EnforcedParams       []string                `json:"enforced_params,nullable"`
-	Guardrails           []string                `json:"guardrails,nullable"`
-	KeyAlias             string                  `json:"key_alias,nullable"`
-	KeyName              string                  `json:"key_name,nullable"`
+	Expires              time.Time               `json:"expires" api:"required,nullable" format:"date-time"`
+	Key                  string                  `json:"key" api:"required"`
+	Token                string                  `json:"token" api:"nullable"`
+	Aliases              interface{}             `json:"aliases" api:"nullable"`
+	AllowedCacheControls []interface{}           `json:"allowed_cache_controls" api:"nullable"`
+	Blocked              bool                    `json:"blocked" api:"nullable"`
+	BudgetDuration       string                  `json:"budget_duration" api:"nullable"`
+	BudgetID             string                  `json:"budget_id" api:"nullable"`
+	Config               interface{}             `json:"config" api:"nullable"`
+	CreatedBy            string                  `json:"created_by" api:"nullable"`
+	Duration             string                  `json:"duration" api:"nullable"`
+	EnforcedParams       []string                `json:"enforced_params" api:"nullable"`
+	Guardrails           []string                `json:"guardrails" api:"nullable"`
+	KeyAlias             string                  `json:"key_alias" api:"nullable"`
+	KeyName              string                  `json:"key_name" api:"nullable"`
 	LlmBudgetTable       interface{}             `json:"llm_budget_table"`
-	MaxBudget            float64                 `json:"max_budget,nullable"`
-	MaxParallelRequests  int64                   `json:"max_parallel_requests,nullable"`
-	Metadata             interface{}             `json:"metadata,nullable"`
-	ModelMaxBudget       interface{}             `json:"model_max_budget,nullable"`
-	ModelRpmLimit        interface{}             `json:"model_rpm_limit,nullable"`
-	ModelTpmLimit        interface{}             `json:"model_tpm_limit,nullable"`
-	Models               []interface{}           `json:"models,nullable"`
-	Permissions          interface{}             `json:"permissions,nullable"`
-	RpmLimit             int64                   `json:"rpm_limit,nullable"`
-	Spend                float64                 `json:"spend,nullable"`
-	Tags                 []string                `json:"tags,nullable"`
-	TeamID               string                  `json:"team_id,nullable"`
-	TokenID              string                  `json:"token_id,nullable"`
-	TpmLimit             int64                   `json:"tpm_limit,nullable"`
-	UpdatedBy            string                  `json:"updated_by,nullable"`
-	UserID               string                  `json:"user_id,nullable"`
+	MaxBudget            float64                 `json:"max_budget" api:"nullable"`
+	MaxParallelRequests  int64                   `json:"max_parallel_requests" api:"nullable"`
+	Metadata             interface{}             `json:"metadata" api:"nullable"`
+	ModelMaxBudget       interface{}             `json:"model_max_budget" api:"nullable"`
+	ModelRpmLimit        interface{}             `json:"model_rpm_limit" api:"nullable"`
+	ModelTpmLimit        interface{}             `json:"model_tpm_limit" api:"nullable"`
+	Models               []interface{}           `json:"models" api:"nullable"`
+	Permissions          interface{}             `json:"permissions" api:"nullable"`
+	RpmLimit             int64                   `json:"rpm_limit" api:"nullable"`
+	Spend                float64                 `json:"spend" api:"nullable"`
+	Tags                 []string                `json:"tags" api:"nullable"`
+	TeamID               string                  `json:"team_id" api:"nullable"`
+	TokenID              string                  `json:"token_id" api:"nullable"`
+	TpmLimit             int64                   `json:"tpm_limit" api:"nullable"`
+	UpdatedBy            string                  `json:"updated_by" api:"nullable"`
+	UserID               string                  `json:"user_id" api:"nullable"`
 	JSON                 generateKeyResponseJSON `json:"-"`
 }
 
@@ -544,10 +544,10 @@ func (r generateKeyResponseJSON) RawJSON() string {
 type KeyUpdateResponse = interface{}
 
 type KeyListResponse struct {
-	CurrentPage int64                      `json:"current_page,nullable"`
+	CurrentPage int64                      `json:"current_page" api:"nullable"`
 	Keys        []KeyListResponseKeysUnion `json:"keys"`
-	TotalCount  int64                      `json:"total_count,nullable"`
-	TotalPages  int64                      `json:"total_pages,nullable"`
+	TotalCount  int64                      `json:"total_count" api:"nullable"`
+	TotalPages  int64                      `json:"total_pages" api:"nullable"`
 	JSON        keyListResponseJSON        `json:"-"`
 }
 
@@ -593,58 +593,58 @@ func init() {
 
 // Return the row in the db
 type KeyListResponseKeysUserAPIKeyAuth struct {
-	Token                string                                              `json:"token,nullable"`
+	Token                string                                              `json:"token" api:"nullable"`
 	Aliases              interface{}                                         `json:"aliases"`
-	AllowedCacheControls []interface{}                                       `json:"allowed_cache_controls,nullable"`
-	AllowedModelRegion   KeyListResponseKeysUserAPIKeyAuthAllowedModelRegion `json:"allowed_model_region,nullable"`
-	APIKey               string                                              `json:"api_key,nullable"`
-	Blocked              bool                                                `json:"blocked,nullable"`
-	BudgetDuration       string                                              `json:"budget_duration,nullable"`
-	BudgetResetAt        time.Time                                           `json:"budget_reset_at,nullable" format:"date-time"`
+	AllowedCacheControls []interface{}                                       `json:"allowed_cache_controls" api:"nullable"`
+	AllowedModelRegion   KeyListResponseKeysUserAPIKeyAuthAllowedModelRegion `json:"allowed_model_region" api:"nullable"`
+	APIKey               string                                              `json:"api_key" api:"nullable"`
+	Blocked              bool                                                `json:"blocked" api:"nullable"`
+	BudgetDuration       string                                              `json:"budget_duration" api:"nullable"`
+	BudgetResetAt        time.Time                                           `json:"budget_reset_at" api:"nullable" format:"date-time"`
 	Config               interface{}                                         `json:"config"`
-	CreatedAt            time.Time                                           `json:"created_at,nullable" format:"date-time"`
-	CreatedBy            string                                              `json:"created_by,nullable"`
-	EndUserID            string                                              `json:"end_user_id,nullable"`
-	EndUserMaxBudget     float64                                             `json:"end_user_max_budget,nullable"`
-	EndUserRpmLimit      int64                                               `json:"end_user_rpm_limit,nullable"`
-	EndUserTpmLimit      int64                                               `json:"end_user_tpm_limit,nullable"`
-	Expires              KeyListResponseKeysUserAPIKeyAuthExpiresUnion       `json:"expires,nullable" format:"date-time"`
-	KeyAlias             string                                              `json:"key_alias,nullable"`
-	KeyName              string                                              `json:"key_name,nullable"`
-	LastRefreshedAt      float64                                             `json:"last_refreshed_at,nullable"`
-	LlmBudgetTable       interface{}                                         `json:"llm_budget_table,nullable"`
-	MaxBudget            float64                                             `json:"max_budget,nullable"`
-	MaxParallelRequests  int64                                               `json:"max_parallel_requests,nullable"`
+	CreatedAt            time.Time                                           `json:"created_at" api:"nullable" format:"date-time"`
+	CreatedBy            string                                              `json:"created_by" api:"nullable"`
+	EndUserID            string                                              `json:"end_user_id" api:"nullable"`
+	EndUserMaxBudget     float64                                             `json:"end_user_max_budget" api:"nullable"`
+	EndUserRpmLimit      int64                                               `json:"end_user_rpm_limit" api:"nullable"`
+	EndUserTpmLimit      int64                                               `json:"end_user_tpm_limit" api:"nullable"`
+	Expires              KeyListResponseKeysUserAPIKeyAuthExpiresUnion       `json:"expires" api:"nullable" format:"date-time"`
+	KeyAlias             string                                              `json:"key_alias" api:"nullable"`
+	KeyName              string                                              `json:"key_name" api:"nullable"`
+	LastRefreshedAt      float64                                             `json:"last_refreshed_at" api:"nullable"`
+	LlmBudgetTable       interface{}                                         `json:"llm_budget_table" api:"nullable"`
+	MaxBudget            float64                                             `json:"max_budget" api:"nullable"`
+	MaxParallelRequests  int64                                               `json:"max_parallel_requests" api:"nullable"`
 	Metadata             interface{}                                         `json:"metadata"`
 	ModelMaxBudget       interface{}                                         `json:"model_max_budget"`
 	ModelSpend           interface{}                                         `json:"model_spend"`
 	Models               []interface{}                                       `json:"models"`
-	OrgID                string                                              `json:"org_id,nullable"`
+	OrgID                string                                              `json:"org_id" api:"nullable"`
 	ParentOtelSpan       interface{}                                         `json:"parent_otel_span"`
 	Permissions          interface{}                                         `json:"permissions"`
-	RpmLimit             int64                                               `json:"rpm_limit,nullable"`
-	RpmLimitPerModel     map[string]int64                                    `json:"rpm_limit_per_model,nullable"`
-	SoftBudget           float64                                             `json:"soft_budget,nullable"`
+	RpmLimit             int64                                               `json:"rpm_limit" api:"nullable"`
+	RpmLimitPerModel     map[string]int64                                    `json:"rpm_limit_per_model" api:"nullable"`
+	SoftBudget           float64                                             `json:"soft_budget" api:"nullable"`
 	SoftBudgetCooldown   bool                                                `json:"soft_budget_cooldown"`
 	Spend                float64                                             `json:"spend"`
-	TeamAlias            string                                              `json:"team_alias,nullable"`
+	TeamAlias            string                                              `json:"team_alias" api:"nullable"`
 	TeamBlocked          bool                                                `json:"team_blocked"`
-	TeamID               string                                              `json:"team_id,nullable"`
-	TeamMaxBudget        float64                                             `json:"team_max_budget,nullable"`
-	TeamMember           Member                                              `json:"team_member,nullable"`
-	TeamMemberSpend      float64                                             `json:"team_member_spend,nullable"`
-	TeamMetadata         interface{}                                         `json:"team_metadata,nullable"`
-	TeamModelAliases     interface{}                                         `json:"team_model_aliases,nullable"`
+	TeamID               string                                              `json:"team_id" api:"nullable"`
+	TeamMaxBudget        float64                                             `json:"team_max_budget" api:"nullable"`
+	TeamMember           Member                                              `json:"team_member" api:"nullable"`
+	TeamMemberSpend      float64                                             `json:"team_member_spend" api:"nullable"`
+	TeamMetadata         interface{}                                         `json:"team_metadata" api:"nullable"`
+	TeamModelAliases     interface{}                                         `json:"team_model_aliases" api:"nullable"`
 	TeamModels           []interface{}                                       `json:"team_models"`
-	TeamRpmLimit         int64                                               `json:"team_rpm_limit,nullable"`
-	TeamSpend            float64                                             `json:"team_spend,nullable"`
-	TeamTpmLimit         int64                                               `json:"team_tpm_limit,nullable"`
-	TpmLimit             int64                                               `json:"tpm_limit,nullable"`
-	TpmLimitPerModel     map[string]int64                                    `json:"tpm_limit_per_model,nullable"`
-	UpdatedAt            time.Time                                           `json:"updated_at,nullable" format:"date-time"`
-	UpdatedBy            string                                              `json:"updated_by,nullable"`
-	UserEmail            string                                              `json:"user_email,nullable"`
-	UserID               string                                              `json:"user_id,nullable"`
+	TeamRpmLimit         int64                                               `json:"team_rpm_limit" api:"nullable"`
+	TeamSpend            float64                                             `json:"team_spend" api:"nullable"`
+	TeamTpmLimit         int64                                               `json:"team_tpm_limit" api:"nullable"`
+	TpmLimit             int64                                               `json:"tpm_limit" api:"nullable"`
+	TpmLimitPerModel     map[string]int64                                    `json:"tpm_limit_per_model" api:"nullable"`
+	UpdatedAt            time.Time                                           `json:"updated_at" api:"nullable" format:"date-time"`
+	UpdatedBy            string                                              `json:"updated_by" api:"nullable"`
+	UserEmail            string                                              `json:"user_email" api:"nullable"`
+	UserID               string                                              `json:"user_id" api:"nullable"`
 	// Admin Roles: PROXY_ADMIN: admin over the platform PROXY_ADMIN_VIEW_ONLY: can
 	// login, view all own keys, view all spend ORG_ADMIN: admin over a specific
 	// organization, can create teams, users only within their organization
@@ -656,9 +656,9 @@ type KeyListResponseKeysUserAPIKeyAuth struct {
 	// Team Roles: TEAM: used for JWT auth
 	//
 	// Customer Roles: CUSTOMER: External users -> these are customers
-	UserRole     KeyListResponseKeysUserAPIKeyAuthUserRole `json:"user_role,nullable"`
-	UserRpmLimit int64                                     `json:"user_rpm_limit,nullable"`
-	UserTpmLimit int64                                     `json:"user_tpm_limit,nullable"`
+	UserRole     KeyListResponseKeysUserAPIKeyAuthUserRole `json:"user_role" api:"nullable"`
+	UserRpmLimit int64                                     `json:"user_rpm_limit" api:"nullable"`
+	UserTpmLimit int64                                     `json:"user_tpm_limit" api:"nullable"`
 	JSON         keyListResponseKeysUserAPIKeyAuthJSON     `json:"-"`
 }
 
@@ -803,35 +803,35 @@ func (r KeyListResponseKeysUserAPIKeyAuthUserRole) IsKnown() bool {
 type KeyDeleteResponse = interface{}
 
 type KeyBlockResponse struct {
-	Token                string                       `json:"token,nullable"`
+	Token                string                       `json:"token" api:"nullable"`
 	Aliases              interface{}                  `json:"aliases"`
-	AllowedCacheControls []interface{}                `json:"allowed_cache_controls,nullable"`
-	Blocked              bool                         `json:"blocked,nullable"`
-	BudgetDuration       string                       `json:"budget_duration,nullable"`
-	BudgetResetAt        time.Time                    `json:"budget_reset_at,nullable" format:"date-time"`
+	AllowedCacheControls []interface{}                `json:"allowed_cache_controls" api:"nullable"`
+	Blocked              bool                         `json:"blocked" api:"nullable"`
+	BudgetDuration       string                       `json:"budget_duration" api:"nullable"`
+	BudgetResetAt        time.Time                    `json:"budget_reset_at" api:"nullable" format:"date-time"`
 	Config               interface{}                  `json:"config"`
-	CreatedAt            time.Time                    `json:"created_at,nullable" format:"date-time"`
-	CreatedBy            string                       `json:"created_by,nullable"`
-	Expires              KeyBlockResponseExpiresUnion `json:"expires,nullable" format:"date-time"`
-	KeyAlias             string                       `json:"key_alias,nullable"`
-	KeyName              string                       `json:"key_name,nullable"`
-	LlmBudgetTable       interface{}                  `json:"llm_budget_table,nullable"`
-	MaxBudget            float64                      `json:"max_budget,nullable"`
-	MaxParallelRequests  int64                        `json:"max_parallel_requests,nullable"`
+	CreatedAt            time.Time                    `json:"created_at" api:"nullable" format:"date-time"`
+	CreatedBy            string                       `json:"created_by" api:"nullable"`
+	Expires              KeyBlockResponseExpiresUnion `json:"expires" api:"nullable" format:"date-time"`
+	KeyAlias             string                       `json:"key_alias" api:"nullable"`
+	KeyName              string                       `json:"key_name" api:"nullable"`
+	LlmBudgetTable       interface{}                  `json:"llm_budget_table" api:"nullable"`
+	MaxBudget            float64                      `json:"max_budget" api:"nullable"`
+	MaxParallelRequests  int64                        `json:"max_parallel_requests" api:"nullable"`
 	Metadata             interface{}                  `json:"metadata"`
 	ModelMaxBudget       interface{}                  `json:"model_max_budget"`
 	ModelSpend           interface{}                  `json:"model_spend"`
 	Models               []interface{}                `json:"models"`
-	OrgID                string                       `json:"org_id,nullable"`
+	OrgID                string                       `json:"org_id" api:"nullable"`
 	Permissions          interface{}                  `json:"permissions"`
-	RpmLimit             int64                        `json:"rpm_limit,nullable"`
+	RpmLimit             int64                        `json:"rpm_limit" api:"nullable"`
 	SoftBudgetCooldown   bool                         `json:"soft_budget_cooldown"`
 	Spend                float64                      `json:"spend"`
-	TeamID               string                       `json:"team_id,nullable"`
-	TpmLimit             int64                        `json:"tpm_limit,nullable"`
-	UpdatedAt            time.Time                    `json:"updated_at,nullable" format:"date-time"`
-	UpdatedBy            string                       `json:"updated_by,nullable"`
-	UserID               string                       `json:"user_id,nullable"`
+	TeamID               string                       `json:"team_id" api:"nullable"`
+	TpmLimit             int64                        `json:"tpm_limit" api:"nullable"`
+	UpdatedAt            time.Time                    `json:"updated_at" api:"nullable" format:"date-time"`
+	UpdatedBy            string                       `json:"updated_by" api:"nullable"`
+	UserID               string                       `json:"user_id" api:"nullable"`
 	JSON                 keyBlockResponseJSON         `json:"-"`
 }
 
@@ -901,7 +901,7 @@ func init() {
 
 type KeyCheckHealthResponse struct {
 	Key              KeyCheckHealthResponseKey              `json:"key"`
-	LoggingCallbacks KeyCheckHealthResponseLoggingCallbacks `json:"logging_callbacks,nullable"`
+	LoggingCallbacks KeyCheckHealthResponseLoggingCallbacks `json:"logging_callbacks" api:"nullable"`
 	JSON             keyCheckHealthResponseJSON             `json:"-"`
 }
 
@@ -939,7 +939,7 @@ func (r KeyCheckHealthResponseKey) IsKnown() bool {
 
 type KeyCheckHealthResponseLoggingCallbacks struct {
 	Callbacks []string                                     `json:"callbacks"`
-	Details   string                                       `json:"details,nullable"`
+	Details   string                                       `json:"details" api:"nullable"`
 	Status    KeyCheckHealthResponseLoggingCallbacksStatus `json:"status"`
 	JSON      keyCheckHealthResponseLoggingCallbacksJSON   `json:"-"`
 }
@@ -982,7 +982,7 @@ type KeyGetInfoResponse = interface{}
 type KeyUnblockResponse = interface{}
 
 type KeyUpdateParams struct {
-	Key                  param.Field[string]        `json:"key,required"`
+	Key                  param.Field[string]        `json:"key" api:"required"`
 	Aliases              param.Field[interface{}]   `json:"aliases"`
 	AllowedCacheControls param.Field[[]interface{}] `json:"allowed_cache_controls"`
 	Blocked              param.Field[bool]          `json:"blocked"`
@@ -1058,7 +1058,7 @@ func (r KeyDeleteParams) MarshalJSON() (data []byte, err error) {
 }
 
 type KeyBlockParams struct {
-	BlockKeyRequest BlockKeyRequestParam `json:"block_key_request,required"`
+	BlockKeyRequest BlockKeyRequestParam `json:"block_key_request" api:"required"`
 	// The llm-changed-by header enables tracking of actions performed by authorized
 	// users on behalf of other users, providing an audit trail for accountability
 	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
@@ -1130,7 +1130,7 @@ func (r KeyGetInfoParams) URLQuery() (v url.Values) {
 }
 
 type KeyUnblockParams struct {
-	BlockKeyRequest BlockKeyRequestParam `json:"block_key_request,required"`
+	BlockKeyRequest BlockKeyRequestParam `json:"block_key_request" api:"required"`
 	// The llm-changed-by header enables tracking of actions performed by authorized
 	// users on behalf of other users, providing an audit trail for accountability
 	LlmChangedBy param.Field[string] `header:"llm-changed-by"`

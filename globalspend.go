@@ -86,25 +86,25 @@ func (r *GlobalSpendService) GetReport(ctx context.Context, query GlobalSpendGet
 }
 
 type GlobalSpendListTagsResponse struct {
-	APIKey             string                                    `json:"api_key,required"`
-	CallType           string                                    `json:"call_type,required"`
-	EndTime            GlobalSpendListTagsResponseEndTimeUnion   `json:"endTime,required,nullable" format:"date-time"`
-	Messages           GlobalSpendListTagsResponseMessagesUnion  `json:"messages,required,nullable"`
-	RequestID          string                                    `json:"request_id,required"`
-	Response           GlobalSpendListTagsResponseResponseUnion  `json:"response,required,nullable"`
-	StartTime          GlobalSpendListTagsResponseStartTimeUnion `json:"startTime,required,nullable" format:"date-time"`
-	APIBase            string                                    `json:"api_base,nullable"`
-	CacheHit           string                                    `json:"cache_hit,nullable"`
-	CacheKey           string                                    `json:"cache_key,nullable"`
-	CompletionTokens   int64                                     `json:"completion_tokens,nullable"`
+	APIKey             string                                    `json:"api_key" api:"required"`
+	CallType           string                                    `json:"call_type" api:"required"`
+	EndTime            GlobalSpendListTagsResponseEndTimeUnion   `json:"endTime" api:"required,nullable" format:"date-time"`
+	Messages           GlobalSpendListTagsResponseMessagesUnion  `json:"messages" api:"required,nullable"`
+	RequestID          string                                    `json:"request_id" api:"required"`
+	Response           GlobalSpendListTagsResponseResponseUnion  `json:"response" api:"required,nullable"`
+	StartTime          GlobalSpendListTagsResponseStartTimeUnion `json:"startTime" api:"required,nullable" format:"date-time"`
+	APIBase            string                                    `json:"api_base" api:"nullable"`
+	CacheHit           string                                    `json:"cache_hit" api:"nullable"`
+	CacheKey           string                                    `json:"cache_key" api:"nullable"`
+	CompletionTokens   int64                                     `json:"completion_tokens" api:"nullable"`
 	Metadata           interface{}                               `json:"metadata"`
-	Model              string                                    `json:"model,nullable"`
-	PromptTokens       int64                                     `json:"prompt_tokens,nullable"`
+	Model              string                                    `json:"model" api:"nullable"`
+	PromptTokens       int64                                     `json:"prompt_tokens" api:"nullable"`
 	RequestTags        interface{}                               `json:"request_tags"`
-	RequesterIPAddress string                                    `json:"requester_ip_address,nullable"`
-	Spend              float64                                   `json:"spend,nullable"`
-	TotalTokens        int64                                     `json:"total_tokens,nullable"`
-	User               string                                    `json:"user,nullable"`
+	RequesterIPAddress string                                    `json:"requester_ip_address" api:"nullable"`
+	Spend              float64                                   `json:"spend" api:"nullable"`
+	TotalTokens        int64                                     `json:"total_tokens" api:"nullable"`
+	User               string                                    `json:"user" api:"nullable"`
 	JSON               globalSpendListTagsResponseJSON           `json:"-"`
 }
 
@@ -237,25 +237,25 @@ func init() {
 type GlobalSpendResetResponse = interface{}
 
 type GlobalSpendGetReportResponse struct {
-	APIKey             string                                     `json:"api_key,required"`
-	CallType           string                                     `json:"call_type,required"`
-	EndTime            GlobalSpendGetReportResponseEndTimeUnion   `json:"endTime,required,nullable" format:"date-time"`
-	Messages           GlobalSpendGetReportResponseMessagesUnion  `json:"messages,required,nullable"`
-	RequestID          string                                     `json:"request_id,required"`
-	Response           GlobalSpendGetReportResponseResponseUnion  `json:"response,required,nullable"`
-	StartTime          GlobalSpendGetReportResponseStartTimeUnion `json:"startTime,required,nullable" format:"date-time"`
-	APIBase            string                                     `json:"api_base,nullable"`
-	CacheHit           string                                     `json:"cache_hit,nullable"`
-	CacheKey           string                                     `json:"cache_key,nullable"`
-	CompletionTokens   int64                                      `json:"completion_tokens,nullable"`
+	APIKey             string                                     `json:"api_key" api:"required"`
+	CallType           string                                     `json:"call_type" api:"required"`
+	EndTime            GlobalSpendGetReportResponseEndTimeUnion   `json:"endTime" api:"required,nullable" format:"date-time"`
+	Messages           GlobalSpendGetReportResponseMessagesUnion  `json:"messages" api:"required,nullable"`
+	RequestID          string                                     `json:"request_id" api:"required"`
+	Response           GlobalSpendGetReportResponseResponseUnion  `json:"response" api:"required,nullable"`
+	StartTime          GlobalSpendGetReportResponseStartTimeUnion `json:"startTime" api:"required,nullable" format:"date-time"`
+	APIBase            string                                     `json:"api_base" api:"nullable"`
+	CacheHit           string                                     `json:"cache_hit" api:"nullable"`
+	CacheKey           string                                     `json:"cache_key" api:"nullable"`
+	CompletionTokens   int64                                      `json:"completion_tokens" api:"nullable"`
 	Metadata           interface{}                                `json:"metadata"`
-	Model              string                                     `json:"model,nullable"`
-	PromptTokens       int64                                      `json:"prompt_tokens,nullable"`
+	Model              string                                     `json:"model" api:"nullable"`
+	PromptTokens       int64                                      `json:"prompt_tokens" api:"nullable"`
 	RequestTags        interface{}                                `json:"request_tags"`
-	RequesterIPAddress string                                     `json:"requester_ip_address,nullable"`
-	Spend              float64                                    `json:"spend,nullable"`
-	TotalTokens        int64                                      `json:"total_tokens,nullable"`
-	User               string                                     `json:"user,nullable"`
+	RequesterIPAddress string                                     `json:"requester_ip_address" api:"nullable"`
+	Spend              float64                                    `json:"spend" api:"nullable"`
+	TotalTokens        int64                                      `json:"total_tokens" api:"nullable"`
+	User               string                                     `json:"user" api:"nullable"`
 	JSON               globalSpendGetReportResponseJSON           `json:"-"`
 }
 
