@@ -32,7 +32,7 @@ func TestFileNewWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"provider",
 		hanzoai.FileNewParams{
-			File:              hanzoai.F(io.Reader(bytes.NewBuffer([]byte("some file contents")))),
+			File:              hanzoai.F(io.Reader(bytes.NewBuffer([]byte("Example data")))),
 			Purpose:           hanzoai.F("purpose"),
 			CustomLlmProvider: hanzoai.F("custom_llm_provider"),
 		},

@@ -29,7 +29,7 @@ func TestAudioTranscriptionNew(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Audio.Transcriptions.New(context.TODO(), hanzoai.AudioTranscriptionNewParams{
-		File: hanzoai.F(io.Reader(bytes.NewBuffer([]byte("some file contents")))),
+		File: hanzoai.F(io.Reader(bytes.NewBuffer([]byte("Example data")))),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
