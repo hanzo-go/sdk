@@ -38,7 +38,7 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.GetHome(context.Background())
+	_, _ = client.GetHome(context.Background())
 	if userAgent != fmt.Sprintf("Hanzo/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
 	}
