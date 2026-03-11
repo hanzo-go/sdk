@@ -54,11 +54,11 @@ func (r *OpenAIDeploymentService) Complete(ctx context.Context, model string, op
 	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("openai/deployments/%s/completions", model)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Follows the exact same API spec as
@@ -79,11 +79,11 @@ func (r *OpenAIDeploymentService) Embed(ctx context.Context, model string, opts 
 	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("openai/deployments/%s/embeddings", model)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type OpenAIDeploymentCompleteResponse = interface{}

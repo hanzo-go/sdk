@@ -40,11 +40,11 @@ func (r *ThreadMessageService) New(ctx context.Context, threadID string, opts ..
 	opts = slices.Concat(r.Options, opts)
 	if threadID == "" {
 		err = errors.New("missing required thread_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/threads/%s/messages", threadID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Returns a list of messages for a given thread.
@@ -55,11 +55,11 @@ func (r *ThreadMessageService) List(ctx context.Context, threadID string, opts .
 	opts = slices.Concat(r.Options, opts)
 	if threadID == "" {
 		err = errors.New("missing required thread_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/threads/%s/messages", threadID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type ThreadMessageNewResponse = interface{}

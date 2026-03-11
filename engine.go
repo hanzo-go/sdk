@@ -54,11 +54,11 @@ func (r *EngineService) Complete(ctx context.Context, model string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("engines/%s/completions", model)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Follows the exact same API spec as
@@ -79,11 +79,11 @@ func (r *EngineService) Embed(ctx context.Context, model string, opts ...option.
 	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("engines/%s/embeddings", model)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type EngineCompleteResponse = interface{}

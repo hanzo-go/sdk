@@ -91,7 +91,7 @@ func (r *CustomerService) New(ctx context.Context, body CustomerNewParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Example curl
@@ -123,7 +123,7 @@ func (r *CustomerService) Update(ctx context.Context, body CustomerUpdateParams,
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // [Admin-only] List all available customers
@@ -137,7 +137,7 @@ func (r *CustomerService) List(ctx context.Context, opts ...option.RequestOption
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete multiple end-users.
@@ -160,7 +160,7 @@ func (r *CustomerService) Delete(ctx context.Context, body CustomerDeleteParams,
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // [BETA] Reject calls with this end-user id
@@ -183,7 +183,7 @@ func (r *CustomerService) Block(ctx context.Context, body CustomerBlockParams, o
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/block"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get information about an end-user. An `end_user` is a customer (external user)
@@ -202,7 +202,7 @@ func (r *CustomerService) GetInfo(ctx context.Context, query CustomerGetInfoPara
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // [BETA] Unblock calls with this user id
@@ -220,7 +220,7 @@ func (r *CustomerService) Unblock(ctx context.Context, body CustomerUnblockParam
 	opts = slices.Concat(r.Options, opts)
 	path := "customer/unblock"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type BlockUsersParam struct {

@@ -49,15 +49,15 @@ func (r *FileContentService) Get(ctx context.Context, provider string, fileID st
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	if fileID == "" {
 		err = errors.New("missing required file_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files/%s/content", provider, fileID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type FileContentGetResponse = interface{}

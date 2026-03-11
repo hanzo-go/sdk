@@ -42,7 +42,7 @@ func (r *ModelService) New(ctx context.Context, body ModelNewParams, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	path := "model/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Allows deleting models in the model list in the config.yaml
@@ -50,7 +50,7 @@ func (r *ModelService) Delete(ctx context.Context, body ModelDeleteParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "model/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type ConfigurableClientsideParamsCustomAuth struct {

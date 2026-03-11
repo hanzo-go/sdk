@@ -44,11 +44,11 @@ func (r *ResponseInputItemService) List(ctx context.Context, responseID string, 
 	opts = slices.Concat(r.Options, opts)
 	if responseID == "" {
 		err = errors.New("missing required response_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/responses/%s/input_items", responseID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type ResponseInputItemListResponse = interface{}

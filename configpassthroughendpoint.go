@@ -41,7 +41,7 @@ func (r *ConfigPassThroughEndpointService) New(ctx context.Context, body ConfigP
 	opts = slices.Concat(r.Options, opts)
 	path := "config/pass_through_endpoint"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a pass-through endpoint
@@ -49,11 +49,11 @@ func (r *ConfigPassThroughEndpointService) Update(ctx context.Context, endpointI
 	opts = slices.Concat(r.Options, opts)
 	if endpointID == "" {
 		err = errors.New("missing required endpoint_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("config/pass_through_endpoint/%s", endpointID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // GET configured pass through endpoint.
@@ -63,7 +63,7 @@ func (r *ConfigPassThroughEndpointService) List(ctx context.Context, query Confi
 	opts = slices.Concat(r.Options, opts)
 	path := "config/pass_through_endpoint"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a pass-through endpoint
@@ -73,7 +73,7 @@ func (r *ConfigPassThroughEndpointService) Delete(ctx context.Context, body Conf
 	opts = slices.Concat(r.Options, opts)
 	path := "config/pass_through_endpoint"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type PassThroughEndpointResponse struct {

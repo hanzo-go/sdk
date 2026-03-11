@@ -37,11 +37,11 @@ func (r *BedrockService) New(ctx context.Context, endpoint string, opts ...optio
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
@@ -49,11 +49,11 @@ func (r *BedrockService) Get(ctx context.Context, endpoint string, opts ...optio
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
@@ -61,11 +61,11 @@ func (r *BedrockService) Update(ctx context.Context, endpoint string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
@@ -73,11 +73,11 @@ func (r *BedrockService) Delete(ctx context.Context, endpoint string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
@@ -85,11 +85,11 @@ func (r *BedrockService) Patch(ctx context.Context, endpoint string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type BedrockNewResponse = interface{}

@@ -40,7 +40,7 @@ func (r *ModelUpdateService) Full(ctx context.Context, body ModelUpdateFullParam
 	opts = slices.Concat(r.Options, opts)
 	path := "model/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // PATCH Endpoint for partial model updates.
@@ -59,11 +59,11 @@ func (r *ModelUpdateService) Partial(ctx context.Context, modelID string, body M
 	opts = slices.Concat(r.Options, opts)
 	if modelID == "" {
 		err = errors.New("missing required model_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("model/%s/update", modelID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // ModelInfoParam represents model information parameters

@@ -124,7 +124,7 @@ func (r *UserService) New(ctx context.Context, body UserNewParams, opts ...optio
 	opts = slices.Concat(r.Options, opts)
 	path := "user/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Example curl
@@ -189,7 +189,7 @@ func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ..
 	opts = slices.Concat(r.Options, opts)
 	path := "user/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of users, optionally filtered by role.
@@ -213,7 +213,7 @@ func (r *UserService) List(ctx context.Context, query UserListParams, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	path := "user/get_users"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // delete user and associated user keys
@@ -239,7 +239,7 @@ func (r *UserService) Delete(ctx context.Context, params UserDeleteParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "user/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // [10/07/2024] Note: To get all users (+pagination), use `/user/list` endpoint.
@@ -255,7 +255,7 @@ func (r *UserService) GetInfo(ctx context.Context, query UserGetInfoParams, opts
 	opts = slices.Concat(r.Options, opts)
 	path := "user/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type UserNewResponse struct {

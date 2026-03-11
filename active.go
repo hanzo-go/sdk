@@ -59,7 +59,7 @@ func (r *ActiveService) ListCallbacks(ctx context.Context, opts ...option.Reques
 	opts = slices.Concat(r.Options, opts)
 	path := "active/callbacks"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type ActiveListCallbacksResponse = interface{}

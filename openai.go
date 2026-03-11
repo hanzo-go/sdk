@@ -40,11 +40,11 @@ func (r *OpenAIService) New(ctx context.Context, endpoint string, opts ...option
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("openai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
@@ -53,11 +53,11 @@ func (r *OpenAIService) Get(ctx context.Context, endpoint string, opts ...option
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("openai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
@@ -66,11 +66,11 @@ func (r *OpenAIService) Update(ctx context.Context, endpoint string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("openai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
@@ -79,11 +79,11 @@ func (r *OpenAIService) Delete(ctx context.Context, endpoint string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("openai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Simple pass-through for OpenAI. Use this if you want to directly send a request
@@ -92,11 +92,11 @@ func (r *OpenAIService) Patch(ctx context.Context, endpoint string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("openai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type OpenAINewResponse = interface{}

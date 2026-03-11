@@ -35,7 +35,7 @@ func (r *ImageGenerationService) New(ctx context.Context, opts ...option.Request
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/images/generations"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type ImageGenerationNewResponse = interface{}

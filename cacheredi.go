@@ -35,7 +35,7 @@ func (r *CacheRediService) GetInfo(ctx context.Context, opts ...option.RequestOp
 	opts = slices.Concat(r.Options, opts)
 	path := "cache/redis/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type CacheRediGetInfoResponse = interface{}

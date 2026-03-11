@@ -57,11 +57,11 @@ func (r *TeamCallbackService) Get(ctx context.Context, teamID string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("team/%s/callback", teamID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Add a success/failure callback to a team
@@ -112,11 +112,11 @@ func (r *TeamCallbackService) Add(ctx context.Context, teamID string, params Tea
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("team/%s/callback", teamID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type TeamCallbackGetResponse = interface{}

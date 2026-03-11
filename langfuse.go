@@ -39,11 +39,11 @@ func (r *LangfuseService) New(ctx context.Context, endpoint string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("langfuse/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Call Langfuse via LLM proxy. Works with Langfuse SDK.
@@ -53,11 +53,11 @@ func (r *LangfuseService) Get(ctx context.Context, endpoint string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("langfuse/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Call Langfuse via LLM proxy. Works with Langfuse SDK.
@@ -67,11 +67,11 @@ func (r *LangfuseService) Update(ctx context.Context, endpoint string, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("langfuse/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Call Langfuse via LLM proxy. Works with Langfuse SDK.
@@ -81,11 +81,11 @@ func (r *LangfuseService) Delete(ctx context.Context, endpoint string, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("langfuse/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Call Langfuse via LLM proxy. Works with Langfuse SDK.
@@ -95,11 +95,11 @@ func (r *LangfuseService) Patch(ctx context.Context, endpoint string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("langfuse/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type LangfuseNewResponse = interface{}

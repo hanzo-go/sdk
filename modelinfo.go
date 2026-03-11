@@ -69,7 +69,7 @@ func (r *ModelInfoService) List(ctx context.Context, query ModelInfoListParams, 
 	opts = slices.Concat(r.Options, opts)
 	path := "model/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type ModelInfoListResponse = interface{}

@@ -47,7 +47,7 @@ func (r *UtilService) GetSupportedOpenAIParams(ctx context.Context, query UtilGe
 	opts = slices.Concat(r.Options, opts)
 	path := "utils/supported_openai_params"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Token Counter
@@ -55,7 +55,7 @@ func (r *UtilService) TokenCounter(ctx context.Context, body UtilTokenCounterPar
 	opts = slices.Concat(r.Options, opts)
 	path := "utils/token_counter"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Transform Request
@@ -63,7 +63,7 @@ func (r *UtilService) TransformRequest(ctx context.Context, body UtilTransformRe
 	opts = slices.Concat(r.Options, opts)
 	path := "utils/transform_request"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type UtilGetSupportedOpenAIParamsResponse = interface{}

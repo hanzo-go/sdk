@@ -37,7 +37,7 @@ func (r *AddService) AddAllowedIP(ctx context.Context, body AddAddAllowedIPParam
 	opts = slices.Concat(r.Options, opts)
 	path := "add/allowed_ip"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type IPAddressParam struct {

@@ -54,7 +54,7 @@ func (r *BudgetService) New(ctx context.Context, body BudgetNewParams, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	path := "budget/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update an existing budget object.
@@ -77,7 +77,7 @@ func (r *BudgetService) Update(ctx context.Context, body BudgetUpdateParams, opt
 	opts = slices.Concat(r.Options, opts)
 	path := "budget/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all the created budgets in proxy db. Used on Admin UI.
@@ -85,7 +85,7 @@ func (r *BudgetService) List(ctx context.Context, opts ...option.RequestOption) 
 	opts = slices.Concat(r.Options, opts)
 	path := "budget/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete budget
@@ -97,7 +97,7 @@ func (r *BudgetService) Delete(ctx context.Context, body BudgetDeleteParams, opt
 	opts = slices.Concat(r.Options, opts)
 	path := "budget/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get the budget id specific information
@@ -109,7 +109,7 @@ func (r *BudgetService) Info(ctx context.Context, body BudgetInfoParams, opts ..
 	opts = slices.Concat(r.Options, opts)
 	path := "budget/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get list of configurable params + current value for a budget item + description
@@ -124,7 +124,7 @@ func (r *BudgetService) Settings(ctx context.Context, query BudgetSettingsParams
 	opts = slices.Concat(r.Options, opts)
 	path := "budget/settings"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type BudgetNewParam struct {

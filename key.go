@@ -108,7 +108,7 @@ func (r *KeyService) Update(ctx context.Context, params KeyUpdateParams, opts ..
 	opts = slices.Concat(r.Options, opts)
 	path := "key/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // List all keys for a given user / team / organization.
@@ -119,7 +119,7 @@ func (r *KeyService) List(ctx context.Context, query KeyListParams, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	path := "key/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a key from the key management system.
@@ -156,7 +156,7 @@ func (r *KeyService) Delete(ctx context.Context, params KeyDeleteParams, opts ..
 	opts = slices.Concat(r.Options, opts)
 	path := "key/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Block an Virtual key from making any requests.
@@ -184,7 +184,7 @@ func (r *KeyService) Block(ctx context.Context, params KeyBlockParams, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	path := "key/block"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Check the health of the key
@@ -234,7 +234,7 @@ func (r *KeyService) CheckHealth(ctx context.Context, opts ...option.RequestOpti
 	opts = slices.Concat(r.Options, opts)
 	path := "key/health"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Generate an API key based on the provided data.
@@ -329,7 +329,7 @@ func (r *KeyService) Generate(ctx context.Context, params KeyGenerateParams, opt
 	opts = slices.Concat(r.Options, opts)
 	path := "key/generate"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Regenerate an existing API key while optionally updating its parameters.
@@ -391,11 +391,11 @@ func (r *KeyService) RegenerateByKey(ctx context.Context, key string, params Key
 	opts = slices.Concat(r.Options, opts)
 	if key == "" {
 		err = errors.New("missing required key parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("key/%s/regenerate", key)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve information about a key. Parameters: key: Optional[str] = Query
@@ -419,7 +419,7 @@ func (r *KeyService) GetInfo(ctx context.Context, query KeyGetInfoParams, opts .
 	opts = slices.Concat(r.Options, opts)
 	path := "key/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Unblock a Virtual key to allow it to make requests again.
@@ -447,7 +447,7 @@ func (r *KeyService) Unblock(ctx context.Context, params KeyUnblockParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "key/unblock"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type BlockKeyRequestParam struct {

@@ -48,7 +48,7 @@ func (r *CacheService) Delete(ctx context.Context, opts ...option.RequestOption)
 	opts = slices.Concat(r.Options, opts)
 	path := "cache/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // A function to flush all items from the cache. (All items will be deleted from
@@ -65,7 +65,7 @@ func (r *CacheService) FlushAll(ctx context.Context, opts ...option.RequestOptio
 	opts = slices.Concat(r.Options, opts)
 	path := "cache/flushall"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Endpoint for checking if cache can be pinged
@@ -73,7 +73,7 @@ func (r *CacheService) Ping(ctx context.Context, opts ...option.RequestOption) (
 	opts = slices.Concat(r.Options, opts)
 	path := "cache/ping"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type CacheDeleteResponse = interface{}

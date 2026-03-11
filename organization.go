@@ -105,7 +105,7 @@ func (r *OrganizationService) New(ctx context.Context, body OrganizationNewParam
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update an organization
@@ -113,7 +113,7 @@ func (r *OrganizationService) Update(ctx context.Context, body OrganizationUpdat
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // ```
@@ -123,7 +123,7 @@ func (r *OrganizationService) List(ctx context.Context, opts ...option.RequestOp
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete an organization
@@ -135,7 +135,7 @@ func (r *OrganizationService) Delete(ctx context.Context, body OrganizationDelet
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // [BETA]
@@ -181,7 +181,7 @@ func (r *OrganizationService) AddMember(ctx context.Context, body OrganizationAd
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/member_add"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a member from an organization
@@ -189,7 +189,7 @@ func (r *OrganizationService) DeleteMember(ctx context.Context, body Organizatio
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/member_delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a member's role in an organization
@@ -197,7 +197,7 @@ func (r *OrganizationService) UpdateMember(ctx context.Context, body Organizatio
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/member_update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type OrgMemberParam struct {

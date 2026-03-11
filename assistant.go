@@ -40,7 +40,7 @@ func (r *AssistantService) New(ctx context.Context, opts ...option.RequestOption
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/assistants"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Returns a list of assistants.
@@ -51,7 +51,7 @@ func (r *AssistantService) List(ctx context.Context, opts ...option.RequestOptio
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/assistants"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete assistant
@@ -62,11 +62,11 @@ func (r *AssistantService) Delete(ctx context.Context, assistantID string, opts 
 	opts = slices.Concat(r.Options, opts)
 	if assistantID == "" {
 		err = errors.New("missing required assistant_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/assistants/%s", assistantID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type AssistantNewResponse = interface{}

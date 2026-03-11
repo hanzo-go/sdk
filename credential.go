@@ -40,7 +40,7 @@ func (r *CredentialService) New(ctx context.Context, body CredentialNewParams, o
 	opts = slices.Concat(r.Options, opts)
 	path := "credentials"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // [BETA] endpoint. This might change unexpectedly.
@@ -48,7 +48,7 @@ func (r *CredentialService) List(ctx context.Context, opts ...option.RequestOpti
 	opts = slices.Concat(r.Options, opts)
 	path := "credentials"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [BETA] endpoint. This might change unexpectedly.
@@ -56,11 +56,11 @@ func (r *CredentialService) Delete(ctx context.Context, credentialName string, o
 	opts = slices.Concat(r.Options, opts)
 	if credentialName == "" {
 		err = errors.New("missing required credential_name parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("credentials/%s", credentialName)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type CredentialNewResponse = interface{}

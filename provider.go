@@ -81,7 +81,7 @@ func (r *ProviderService) ListBudgets(ctx context.Context, opts ...option.Reques
 	opts = slices.Concat(r.Options, opts)
 	path := "provider/budgets"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Complete provider budget configuration and status. Maps provider names to their

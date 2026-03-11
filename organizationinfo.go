@@ -40,7 +40,7 @@ func (r *OrganizationInfoService) Get(ctx context.Context, query OrganizationInf
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // DEPRECATED: Use GET /organization/info instead
@@ -48,7 +48,7 @@ func (r *OrganizationInfoService) Deprecated(ctx context.Context, body Organizat
 	opts = slices.Concat(r.Options, opts)
 	path := "organization/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Returned by the /organization/info endpoint and /organization/list endpoint

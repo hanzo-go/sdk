@@ -181,7 +181,7 @@ func (r *ModelGroupService) GetInfo(ctx context.Context, query ModelGroupGetInfo
 	opts = slices.Concat(r.Options, opts)
 	path := "model_group/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type ModelGroupGetInfoResponse = interface{}

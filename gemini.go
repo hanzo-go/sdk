@@ -37,11 +37,11 @@ func (r *GeminiService) New(ctx context.Context, endpoint string, opts ...option
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("gemini/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
@@ -49,11 +49,11 @@ func (r *GeminiService) Get(ctx context.Context, endpoint string, opts ...option
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("gemini/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
@@ -61,11 +61,11 @@ func (r *GeminiService) Update(ctx context.Context, endpoint string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("gemini/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
@@ -73,11 +73,11 @@ func (r *GeminiService) Delete(ctx context.Context, endpoint string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("gemini/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // [Docs](https://docs.hanzo.ai/docs/pass_through/google_ai_studio)
@@ -85,11 +85,11 @@ func (r *GeminiService) Patch(ctx context.Context, endpoint string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("gemini/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type GeminiNewResponse = interface{}

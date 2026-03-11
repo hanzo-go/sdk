@@ -57,11 +57,11 @@ func (r *FileService) New(ctx context.Context, provider string, body FileNewPara
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files", provider)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Returns information about a specific file. that can be used across - Assistants
@@ -81,15 +81,15 @@ func (r *FileService) Get(ctx context.Context, provider string, fileID string, o
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	if fileID == "" {
 		err = errors.New("missing required file_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files/%s", provider, fileID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Returns information about a specific file. that can be used across - Assistants
@@ -108,11 +108,11 @@ func (r *FileService) List(ctx context.Context, provider string, query FileListP
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files", provider)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Deletes a specified file. that can be used across - Assistants API, Batch API
@@ -131,15 +131,15 @@ func (r *FileService) Delete(ctx context.Context, provider string, fileID string
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	if fileID == "" {
 		err = errors.New("missing required file_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files/%s", provider, fileID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type FileNewResponse = interface{}

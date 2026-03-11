@@ -37,11 +37,11 @@ func (r *AssemblyaiService) New(ctx context.Context, endpoint string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("assemblyai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Assemblyai Proxy Route
@@ -49,11 +49,11 @@ func (r *AssemblyaiService) Get(ctx context.Context, endpoint string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("assemblyai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Assemblyai Proxy Route
@@ -61,11 +61,11 @@ func (r *AssemblyaiService) Update(ctx context.Context, endpoint string, opts ..
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("assemblyai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Assemblyai Proxy Route
@@ -73,11 +73,11 @@ func (r *AssemblyaiService) Delete(ctx context.Context, endpoint string, opts ..
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("assemblyai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Assemblyai Proxy Route
@@ -85,11 +85,11 @@ func (r *AssemblyaiService) Patch(ctx context.Context, endpoint string, opts ...
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("assemblyai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type AssemblyaiNewResponse = interface{}

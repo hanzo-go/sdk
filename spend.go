@@ -92,7 +92,7 @@ func (r *SpendService) CalculateSpend(ctx context.Context, body SpendCalculateSp
 	opts = slices.Concat(r.Options, opts)
 	path := "spend/calculate"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // View all spend logs, if request_id is provided, only logs for that request_id
@@ -125,7 +125,7 @@ func (r *SpendService) ListLogs(ctx context.Context, query SpendListLogsParams, 
 	opts = slices.Concat(r.Options, opts)
 	path := "spend/logs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // LLM Enterprise - View Spend Per Request Tag
@@ -145,7 +145,7 @@ func (r *SpendService) ListTags(ctx context.Context, query SpendListTagsParams, 
 	opts = slices.Concat(r.Options, opts)
 	path := "spend/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type SpendCalculateSpendResponse = interface{}

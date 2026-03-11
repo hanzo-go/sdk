@@ -117,7 +117,7 @@ func (r *TeamService) New(ctx context.Context, params TeamNewParams, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	path := "team/new"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Use `/team/member_add` AND `/team/member/delete` to add/remove new team members
@@ -182,7 +182,7 @@ func (r *TeamService) Update(ctx context.Context, params TeamUpdateParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "team/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // ```
@@ -200,7 +200,7 @@ func (r *TeamService) List(ctx context.Context, query TeamListParams, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	path := "team/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // delete team and associated team keys
@@ -224,7 +224,7 @@ func (r *TeamService) Delete(ctx context.Context, params TeamDeleteParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "team/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // [BETA]
@@ -244,7 +244,7 @@ func (r *TeamService) AddMember(ctx context.Context, body TeamAddMemberParams, o
 	opts = slices.Concat(r.Options, opts)
 	path := "team/member_add"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Blocks all calls from keys with this team id.
@@ -270,7 +270,7 @@ func (r *TeamService) Block(ctx context.Context, body TeamBlockParams, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	path := "team/block"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Disable all logging callbacks for a team
@@ -288,11 +288,11 @@ func (r *TeamService) DisableLogging(ctx context.Context, teamID string, opts ..
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("team/%s/disable_logging", teamID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // List Available Teams
@@ -300,7 +300,7 @@ func (r *TeamService) ListAvailable(ctx context.Context, query TeamListAvailable
 	opts = slices.Concat(r.Options, opts)
 	path := "team/available"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // [BETA]
@@ -324,7 +324,7 @@ func (r *TeamService) RemoveMember(ctx context.Context, body TeamRemoveMemberPar
 	opts = slices.Concat(r.Options, opts)
 	path := "team/member_delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // get info on team + related keys
@@ -340,7 +340,7 @@ func (r *TeamService) GetInfo(ctx context.Context, query TeamGetInfoParams, opts
 	opts = slices.Concat(r.Options, opts)
 	path := "team/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Blocks all calls from keys with this team id.
@@ -362,7 +362,7 @@ func (r *TeamService) Unblock(ctx context.Context, body TeamUnblockParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "team/unblock"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // [BETA]
@@ -372,7 +372,7 @@ func (r *TeamService) UpdateMember(ctx context.Context, body TeamUpdateMemberPar
 	opts = slices.Concat(r.Options, opts)
 	path := "team/member_update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type BlockTeamRequestParam struct {

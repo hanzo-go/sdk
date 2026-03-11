@@ -54,7 +54,7 @@ func (r *GlobalSpendService) ListTags(ctx context.Context, query GlobalSpendList
 	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // ADMIN ONLY / MASTER KEY Only Endpoint
@@ -69,7 +69,7 @@ func (r *GlobalSpendService) Reset(ctx context.Context, opts ...option.RequestOp
 	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/reset"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get Daily Spend per Team, based on specific startTime and endTime. Per team,
@@ -82,7 +82,7 @@ func (r *GlobalSpendService) GetReport(ctx context.Context, query GlobalSpendGet
 	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/report"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type GlobalSpendListTagsResponse struct {

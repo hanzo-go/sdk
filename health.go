@@ -54,7 +54,7 @@ func (r *HealthService) CheckAll(ctx context.Context, query HealthCheckAllParams
 	opts = slices.Concat(r.Options, opts)
 	path := "health"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Unprotected endpoint for checking if worker is alive
@@ -62,7 +62,7 @@ func (r *HealthService) CheckLiveliness(ctx context.Context, opts ...option.Requ
 	opts = slices.Concat(r.Options, opts)
 	path := "health/liveliness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Unprotected endpoint for checking if worker is alive
@@ -70,7 +70,7 @@ func (r *HealthService) CheckLiveness(ctx context.Context, opts ...option.Reques
 	opts = slices.Concat(r.Options, opts)
 	path := "health/liveness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Unprotected endpoint for checking if worker can receive requests
@@ -78,7 +78,7 @@ func (r *HealthService) CheckReadiness(ctx context.Context, opts ...option.Reque
 	opts = slices.Concat(r.Options, opts)
 	path := "health/readiness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Use this admin-only endpoint to check if the service is healthy.
@@ -92,7 +92,7 @@ func (r *HealthService) CheckServices(ctx context.Context, query HealthCheckServ
 	opts = slices.Concat(r.Options, opts)
 	path := "health/services"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type HealthCheckAllResponse = interface{}

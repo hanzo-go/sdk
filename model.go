@@ -45,7 +45,7 @@ func (r *ModelService) List(ctx context.Context, query ModelListParams, opts ...
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/models"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type ModelListResponse = interface{}

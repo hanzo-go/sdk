@@ -55,11 +55,11 @@ func (r *EngineChatService) Complete(ctx context.Context, model string, opts ...
 	opts = slices.Concat(r.Options, opts)
 	if model == "" {
 		err = errors.New("missing required model parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("engines/%s/chat/completions", model)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type EngineChatCompleteResponse = interface{}

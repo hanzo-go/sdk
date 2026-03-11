@@ -56,7 +56,7 @@ func (r *BatchService) New(ctx context.Context, body BatchNewParams, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/batches"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieves a batch. This is the equivalent of GET
@@ -72,11 +72,11 @@ func (r *BatchService) Get(ctx context.Context, batchID string, query BatchGetPa
 	opts = slices.Concat(r.Options, opts)
 	if batchID == "" {
 		err = errors.New("missing required batch_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/batches/%s", batchID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Lists This is the equivalent of GET https://api.openai.com/v1/batches/ Supports
@@ -91,7 +91,7 @@ func (r *BatchService) List(ctx context.Context, query BatchListParams, opts ...
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/batches"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Cancel a batch. This is the equivalent of POST
@@ -110,15 +110,15 @@ func (r *BatchService) CancelWithProvider(ctx context.Context, provider string, 
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	if batchID == "" {
 		err = errors.New("missing required batch_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/batches/%s/cancel", provider, batchID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Create large batches of API requests for asynchronous processing. This is the
@@ -140,11 +140,11 @@ func (r *BatchService) NewWithProvider(ctx context.Context, provider string, opt
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/batches", provider)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Lists This is the equivalent of GET https://api.openai.com/v1/batches/ Supports
@@ -159,11 +159,11 @@ func (r *BatchService) ListWithProvider(ctx context.Context, provider string, qu
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/batches", provider)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieves a batch. This is the equivalent of GET
@@ -179,15 +179,15 @@ func (r *BatchService) GetWithProvider(ctx context.Context, provider string, bat
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	if batchID == "" {
 		err = errors.New("missing required batch_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/batches/%s", provider, batchID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type BatchNewResponse = interface{}
