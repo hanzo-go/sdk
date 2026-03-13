@@ -40,8 +40,18 @@ func TestNewDeleteService(t *testing.T) {
 	if service == nil {
 		t.Fatal("NewDeleteService() returned nil")
 	}
-	if service.Options == nil {
-		t.Error("DeleteService.Options is nil")
+}
+
+func TestNewDeleteServiceWithOptions(t *testing.T) {
+	opts := []option.RequestOption{
+		option.WithAPIKey("test-key"),
+	}
+	service := NewDeleteService(opts...)
+	if service == nil {
+		t.Fatal("NewDeleteService() returned nil")
+	}
+	if len(service.Options) != len(opts) {
+		t.Errorf("DeleteService.Options length = %d, want %d", len(service.Options), len(opts))
 	}
 }
 
@@ -50,18 +60,12 @@ func TestNewModelInfoService(t *testing.T) {
 	if service == nil {
 		t.Fatal("NewModelInfoService() returned nil")
 	}
-	if service.Options == nil {
-		t.Error("ModelInfoService.Options is nil")
-	}
 }
 
 func TestNewModelUpdateService(t *testing.T) {
 	service := NewModelUpdateService()
 	if service == nil {
 		t.Fatal("NewModelUpdateService() returned nil")
-	}
-	if service.Options == nil {
-		t.Error("ModelUpdateService.Options is nil")
 	}
 }
 

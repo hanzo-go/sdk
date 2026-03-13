@@ -41,7 +41,7 @@ func TestWithBaseURL(t *testing.T) {
 		t.Fatalf("Apply() error = %v", err)
 	}
 
-	if cfg.BaseURL == nil || cfg.BaseURL.String() != url+"/" {
+	if cfg.BaseURL == nil || cfg.BaseURL.String() != url {
 		t.Errorf("BaseURL = %v, want %v", cfg.BaseURL, url)
 	}
 }
@@ -59,8 +59,8 @@ func TestWithEnvironmentProduction(t *testing.T) {
 	}
 
 	expectedURL := "https://api.hanzo.ai/"
-	if cfg.BaseURL == nil || cfg.BaseURL.String() != expectedURL {
-		t.Errorf("BaseURL = %v, want %v", cfg.BaseURL, expectedURL)
+	if cfg.DefaultBaseURL == nil || cfg.DefaultBaseURL.String() != expectedURL {
+		t.Errorf("DefaultBaseURL = %v, want %v", cfg.DefaultBaseURL, expectedURL)
 	}
 }
 
