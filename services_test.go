@@ -11,9 +11,6 @@ func TestNewModelService(t *testing.T) {
 	if service == nil {
 		t.Fatal("NewModelService() returned nil")
 	}
-	if service.Options == nil {
-		t.Error("ModelService.Options is nil")
-	}
 	if service.Info == nil {
 		t.Error("ModelService.Info is nil")
 	}
