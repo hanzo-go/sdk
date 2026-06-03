@@ -42,7 +42,7 @@ func NewSpendService(opts ...option.RequestOption) (r *SpendService) {
 // Calculate spend **before** making call:
 //
 // Note: If you see a spend of $0.0 you need to set custom_pricing for your model:
-// https://docs.litellm.ai/docs/proxy/custom_pricing
+// https://docs.hanzo.ai/docs/proxy/custom_pricing
 //
 // ```
 // curl --location 'http://localhost:4000/spend/calculate'
@@ -92,20 +92,11 @@ func (r *SpendService) CalculateSpend(ctx context.Context, body SpendCalculateSp
 	opts = slices.Concat(r.Options, opts)
 	path := "spend/calculate"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
-// [DEPRECATED] This endpoint is not paginated and can cause performance issues.
-// Please use `/spend/logs/v2` instead for paginated access to spend logs.
-//
 // View all spend logs, if request_id is provided, only logs for that request_id
 // will be returned
-//
-// When start_date and end_date are provided:
-//
-//   - summarize=true (default): Returns aggregated spend data grouped by date
-//     (maintains backward compatibility)
-//   - summarize=false: Returns filtered individual log entries within the date range
 //
 // # Example Request for all logs
 //
@@ -122,28 +113,22 @@ func (r *SpendService) CalculateSpend(ctx context.Context, body SpendCalculateSp
 // Example Request for specific api_key
 //
 // ```
-// curl -X GET "http://0.0.0.0:8000/spend/logs?api_key=sk-test-example-key-123" -H "Authorization: Bearer sk-1234"
+// curl -X GET "http://0.0.0.0:8000/spend/logs?api_key=sk-Fn8Ej39NkBQmUagFEoUWPQ" -H "Authorization: Bearer sk-1234"
 // ```
 //
 // Example Request for specific user_id
 //
 // ```
-// curl -X GET "http://0.0.0.0:8000/spend/logs?user_id=ishaan@berri.ai" -H "Authorization: Bearer sk-1234"
-// ```
-//
-// Example Request for date range with individual logs (unsummarized)
-//
-// ```
-// curl -X GET "http://0.0.0.0:8000/spend/logs?start_date=2024-01-01&end_date=2024-01-02&summarize=false" -H "Authorization: Bearer sk-1234"
+// curl -X GET "http://0.0.0.0:8000/spend/logs?user_id=z@hanzo.ai" -H "Authorization: Bearer sk-1234"
 // ```
 func (r *SpendService) ListLogs(ctx context.Context, query SpendListLogsParams, opts ...option.RequestOption) (res *[]SpendListLogsResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "spend/logs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
-// LiteLLM Enterprise - View Spend Per Request Tag
+// LLM Enterprise - View Spend Per Request Tag
 //
 // Example Request:
 //
@@ -160,31 +145,31 @@ func (r *SpendService) ListTags(ctx context.Context, query SpendListTagsParams, 
 	opts = slices.Concat(r.Options, opts)
 	path := "spend/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type SpendCalculateSpendResponse = interface{}
 
 type SpendListLogsResponse struct {
-	APIKey             string                              `json:"api_key,required"`
-	CallType           string                              `json:"call_type,required"`
-	EndTime            SpendListLogsResponseEndTimeUnion   `json:"endTime,required,nullable" format:"date-time"`
-	Messages           SpendListLogsResponseMessagesUnion  `json:"messages,required,nullable"`
-	RequestID          string                              `json:"request_id,required"`
-	Response           SpendListLogsResponseResponseUnion  `json:"response,required,nullable"`
-	StartTime          SpendListLogsResponseStartTimeUnion `json:"startTime,required,nullable" format:"date-time"`
-	APIBase            string                              `json:"api_base,nullable"`
-	CacheHit           string                              `json:"cache_hit,nullable"`
-	CacheKey           string                              `json:"cache_key,nullable"`
-	CompletionTokens   int64                               `json:"completion_tokens,nullable"`
+	APIKey             string                              `json:"api_key" api:"required"`
+	CallType           string                              `json:"call_type" api:"required"`
+	EndTime            SpendListLogsResponseEndTimeUnion   `json:"endTime" api:"required,nullable" format:"date-time"`
+	Messages           SpendListLogsResponseMessagesUnion  `json:"messages" api:"required,nullable"`
+	RequestID          string                              `json:"request_id" api:"required"`
+	Response           SpendListLogsResponseResponseUnion  `json:"response" api:"required,nullable"`
+	StartTime          SpendListLogsResponseStartTimeUnion `json:"startTime" api:"required,nullable" format:"date-time"`
+	APIBase            string                              `json:"api_base" api:"nullable"`
+	CacheHit           string                              `json:"cache_hit" api:"nullable"`
+	CacheKey           string                              `json:"cache_key" api:"nullable"`
+	CompletionTokens   int64                               `json:"completion_tokens" api:"nullable"`
 	Metadata           interface{}                         `json:"metadata"`
-	Model              string                              `json:"model,nullable"`
-	PromptTokens       int64                               `json:"prompt_tokens,nullable"`
+	Model              string                              `json:"model" api:"nullable"`
+	PromptTokens       int64                               `json:"prompt_tokens" api:"nullable"`
 	RequestTags        interface{}                         `json:"request_tags"`
-	RequesterIPAddress string                              `json:"requester_ip_address,nullable"`
-	Spend              float64                             `json:"spend,nullable"`
-	TotalTokens        int64                               `json:"total_tokens,nullable"`
-	User               string                              `json:"user,nullable"`
+	RequesterIPAddress string                              `json:"requester_ip_address" api:"nullable"`
+	Spend              float64                             `json:"spend" api:"nullable"`
+	TotalTokens        int64                               `json:"total_tokens" api:"nullable"`
+	User               string                              `json:"user" api:"nullable"`
 	JSON               spendListLogsResponseJSON           `json:"-"`
 }
 
@@ -242,8 +227,7 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString], [SpendListLogsResponseMessagesArray] or
-// [SpendListLogsResponseMessagesMap].
+// Union satisfied by [shared.UnionString] or [SpendListLogsResponseMessagesArray].
 type SpendListLogsResponseMessagesUnion interface {
 	ImplementsSpendListLogsResponseMessagesUnion()
 }
@@ -260,10 +244,6 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(SpendListLogsResponseMessagesArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(SpendListLogsResponseMessagesMap{}),
-		},
 	)
 }
 
@@ -271,12 +251,7 @@ type SpendListLogsResponseMessagesArray []interface{}
 
 func (r SpendListLogsResponseMessagesArray) ImplementsSpendListLogsResponseMessagesUnion() {}
 
-type SpendListLogsResponseMessagesMap map[string]interface{}
-
-func (r SpendListLogsResponseMessagesMap) ImplementsSpendListLogsResponseMessagesUnion() {}
-
-// Union satisfied by [shared.UnionString], [SpendListLogsResponseResponseArray] or
-// [SpendListLogsResponseResponseMap].
+// Union satisfied by [shared.UnionString] or [SpendListLogsResponseResponseArray].
 type SpendListLogsResponseResponseUnion interface {
 	ImplementsSpendListLogsResponseResponseUnion()
 }
@@ -293,20 +268,12 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(SpendListLogsResponseResponseArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(SpendListLogsResponseResponseMap{}),
-		},
 	)
 }
 
 type SpendListLogsResponseResponseArray []interface{}
 
 func (r SpendListLogsResponseResponseArray) ImplementsSpendListLogsResponseResponseUnion() {}
-
-type SpendListLogsResponseResponseMap map[string]interface{}
-
-func (r SpendListLogsResponseResponseMap) ImplementsSpendListLogsResponseResponseUnion() {}
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].
 type SpendListLogsResponseStartTimeUnion interface {
@@ -329,25 +296,25 @@ func init() {
 }
 
 type SpendListTagsResponse struct {
-	APIKey             string                              `json:"api_key,required"`
-	CallType           string                              `json:"call_type,required"`
-	EndTime            SpendListTagsResponseEndTimeUnion   `json:"endTime,required,nullable" format:"date-time"`
-	Messages           SpendListTagsResponseMessagesUnion  `json:"messages,required,nullable"`
-	RequestID          string                              `json:"request_id,required"`
-	Response           SpendListTagsResponseResponseUnion  `json:"response,required,nullable"`
-	StartTime          SpendListTagsResponseStartTimeUnion `json:"startTime,required,nullable" format:"date-time"`
-	APIBase            string                              `json:"api_base,nullable"`
-	CacheHit           string                              `json:"cache_hit,nullable"`
-	CacheKey           string                              `json:"cache_key,nullable"`
-	CompletionTokens   int64                               `json:"completion_tokens,nullable"`
+	APIKey             string                              `json:"api_key" api:"required"`
+	CallType           string                              `json:"call_type" api:"required"`
+	EndTime            SpendListTagsResponseEndTimeUnion   `json:"endTime" api:"required,nullable" format:"date-time"`
+	Messages           SpendListTagsResponseMessagesUnion  `json:"messages" api:"required,nullable"`
+	RequestID          string                              `json:"request_id" api:"required"`
+	Response           SpendListTagsResponseResponseUnion  `json:"response" api:"required,nullable"`
+	StartTime          SpendListTagsResponseStartTimeUnion `json:"startTime" api:"required,nullable" format:"date-time"`
+	APIBase            string                              `json:"api_base" api:"nullable"`
+	CacheHit           string                              `json:"cache_hit" api:"nullable"`
+	CacheKey           string                              `json:"cache_key" api:"nullable"`
+	CompletionTokens   int64                               `json:"completion_tokens" api:"nullable"`
 	Metadata           interface{}                         `json:"metadata"`
-	Model              string                              `json:"model,nullable"`
-	PromptTokens       int64                               `json:"prompt_tokens,nullable"`
+	Model              string                              `json:"model" api:"nullable"`
+	PromptTokens       int64                               `json:"prompt_tokens" api:"nullable"`
 	RequestTags        interface{}                         `json:"request_tags"`
-	RequesterIPAddress string                              `json:"requester_ip_address,nullable"`
-	Spend              float64                             `json:"spend,nullable"`
-	TotalTokens        int64                               `json:"total_tokens,nullable"`
-	User               string                              `json:"user,nullable"`
+	RequesterIPAddress string                              `json:"requester_ip_address" api:"nullable"`
+	Spend              float64                             `json:"spend" api:"nullable"`
+	TotalTokens        int64                               `json:"total_tokens" api:"nullable"`
+	User               string                              `json:"user" api:"nullable"`
 	JSON               spendListTagsResponseJSON           `json:"-"`
 }
 
@@ -405,8 +372,7 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString], [SpendListTagsResponseMessagesArray] or
-// [SpendListTagsResponseMessagesMap].
+// Union satisfied by [shared.UnionString] or [SpendListTagsResponseMessagesArray].
 type SpendListTagsResponseMessagesUnion interface {
 	ImplementsSpendListTagsResponseMessagesUnion()
 }
@@ -423,10 +389,6 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(SpendListTagsResponseMessagesArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(SpendListTagsResponseMessagesMap{}),
-		},
 	)
 }
 
@@ -434,12 +396,7 @@ type SpendListTagsResponseMessagesArray []interface{}
 
 func (r SpendListTagsResponseMessagesArray) ImplementsSpendListTagsResponseMessagesUnion() {}
 
-type SpendListTagsResponseMessagesMap map[string]interface{}
-
-func (r SpendListTagsResponseMessagesMap) ImplementsSpendListTagsResponseMessagesUnion() {}
-
-// Union satisfied by [shared.UnionString], [SpendListTagsResponseResponseArray] or
-// [SpendListTagsResponseResponseMap].
+// Union satisfied by [shared.UnionString] or [SpendListTagsResponseResponseArray].
 type SpendListTagsResponseResponseUnion interface {
 	ImplementsSpendListTagsResponseResponseUnion()
 }
@@ -456,20 +413,12 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(SpendListTagsResponseResponseArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(SpendListTagsResponseResponseMap{}),
-		},
 	)
 }
 
 type SpendListTagsResponseResponseArray []interface{}
 
 func (r SpendListTagsResponseResponseArray) ImplementsSpendListTagsResponseResponseUnion() {}
-
-type SpendListTagsResponseResponseMap map[string]interface{}
-
-func (r SpendListTagsResponseResponseMap) ImplementsSpendListTagsResponseResponseUnion() {}
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].
 type SpendListTagsResponseStartTimeUnion interface {
@@ -492,9 +441,9 @@ func init() {
 }
 
 type SpendCalculateSpendParams struct {
-	CompletionResponse param.Field[map[string]interface{}] `json:"completion_response"`
-	Messages           param.Field[[]interface{}]          `json:"messages"`
-	Model              param.Field[string]                 `json:"model"`
+	CompletionResponse param.Field[interface{}]   `json:"completion_response"`
+	Messages           param.Field[[]interface{}] `json:"messages"`
+	Model              param.Field[string]        `json:"model"`
 }
 
 func (r SpendCalculateSpendParams) MarshalJSON() (data []byte, err error) {
@@ -511,9 +460,6 @@ type SpendListLogsParams struct {
 	RequestID param.Field[string] `query:"request_id"`
 	// Time from which to start viewing key spend
 	StartDate param.Field[string] `query:"start_date"`
-	// When start_date and end_date are provided, summarize=true returns aggregated
-	// data by date (legacy behavior), summarize=false returns filtered individual logs
-	Summarize param.Field[bool] `query:"summarize"`
 	// Get spend logs based on user_id
 	UserID param.Field[string] `query:"user_id"`
 }

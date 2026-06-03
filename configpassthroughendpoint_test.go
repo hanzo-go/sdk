@@ -13,8 +13,8 @@ import (
 	"github.com/hanzoai/go-sdk/option"
 )
 
-func TestConfigPassThroughEndpointNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+func TestConfigPassThroughEndpointNew(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -28,21 +28,9 @@ func TestConfigPassThroughEndpointNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Config.PassThroughEndpoint.New(context.TODO(), hanzoai.ConfigPassThroughEndpointNewParams{
 		PassThroughGenericEndpoint: hanzoai.PassThroughGenericEndpointParam{
-			Path:           hanzoai.F("path"),
-			Target:         hanzoai.F("target"),
-			ID:             hanzoai.F("id"),
-			Auth:           hanzoai.F(true),
-			CostPerRequest: hanzoai.F(0.000000),
-			Guardrails: hanzoai.F(map[string]hanzoai.PassThroughGenericEndpointGuardrailParam{
-				"foo": {
-					RequestFields:  hanzoai.F([]string{"string"}),
-					ResponseFields: hanzoai.F([]string{"string"}),
-				},
-			}),
-			Headers: hanzoai.F(map[string]interface{}{
-				"foo": "bar",
-			}),
-			IncludeSubpath: hanzoai.F(true),
+			Headers: hanzoai.F[any](map[string]interface{}{}),
+			Path:    hanzoai.F("path"),
+			Target:  hanzoai.F("target"),
 		},
 	})
 	if err != nil {
@@ -54,8 +42,8 @@ func TestConfigPassThroughEndpointNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestConfigPassThroughEndpointUpdateWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+func TestConfigPassThroughEndpointUpdate(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -67,29 +55,7 @@ func TestConfigPassThroughEndpointUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Config.PassThroughEndpoint.Update(
-		context.TODO(),
-		"endpoint_id",
-		hanzoai.ConfigPassThroughEndpointUpdateParams{
-			PassThroughGenericEndpoint: hanzoai.PassThroughGenericEndpointParam{
-				Path:           hanzoai.F("path"),
-				Target:         hanzoai.F("target"),
-				ID:             hanzoai.F("id"),
-				Auth:           hanzoai.F(true),
-				CostPerRequest: hanzoai.F(0.000000),
-				Guardrails: hanzoai.F(map[string]hanzoai.PassThroughGenericEndpointGuardrailParam{
-					"foo": {
-						RequestFields:  hanzoai.F([]string{"string"}),
-						ResponseFields: hanzoai.F([]string{"string"}),
-					},
-				}),
-				Headers: hanzoai.F(map[string]interface{}{
-					"foo": "bar",
-				}),
-				IncludeSubpath: hanzoai.F(true),
-			},
-		},
-	)
+	_, err := client.Config.PassThroughEndpoint.Update(context.TODO(), "endpoint_id")
 	if err != nil {
 		var apierr *hanzoai.Error
 		if errors.As(err, &apierr) {
@@ -100,7 +66,7 @@ func TestConfigPassThroughEndpointUpdateWithOptionalParams(t *testing.T) {
 }
 
 func TestConfigPassThroughEndpointListWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -114,7 +80,6 @@ func TestConfigPassThroughEndpointListWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Config.PassThroughEndpoint.List(context.TODO(), hanzoai.ConfigPassThroughEndpointListParams{
 		EndpointID: hanzoai.F("endpoint_id"),
-		TeamID:     hanzoai.F("team_id"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -126,7 +91,7 @@ func TestConfigPassThroughEndpointListWithOptionalParams(t *testing.T) {
 }
 
 func TestConfigPassThroughEndpointDelete(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

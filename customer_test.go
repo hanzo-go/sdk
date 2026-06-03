@@ -7,7 +7,6 @@ import (
 	"errors"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/hanzoai/go-sdk"
 	"github.com/hanzoai/go-sdk/internal/testutil"
@@ -15,7 +14,7 @@ import (
 )
 
 func TestCustomerNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -34,7 +33,6 @@ func TestCustomerNewWithOptionalParams(t *testing.T) {
 		Blocked:             hanzoai.F(true),
 		BudgetDuration:      hanzoai.F("budget_duration"),
 		BudgetID:            hanzoai.F("budget_id"),
-		BudgetResetAt:       hanzoai.F(time.Now()),
 		DefaultModel:        hanzoai.F("default_model"),
 		MaxBudget:           hanzoai.F(0.000000),
 		MaxParallelRequests: hanzoai.F(int64(0)),
@@ -48,7 +46,6 @@ func TestCustomerNewWithOptionalParams(t *testing.T) {
 		}),
 		RpmLimit:   hanzoai.F(int64(0)),
 		SoftBudget: hanzoai.F(0.000000),
-		Spend:      hanzoai.F(0.000000),
 		TpmLimit:   hanzoai.F(int64(0)),
 	})
 	if err != nil {
@@ -61,7 +58,7 @@ func TestCustomerNewWithOptionalParams(t *testing.T) {
 }
 
 func TestCustomerUpdateWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -92,7 +89,7 @@ func TestCustomerUpdateWithOptionalParams(t *testing.T) {
 }
 
 func TestCustomerList(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -115,7 +112,7 @@ func TestCustomerList(t *testing.T) {
 }
 
 func TestCustomerDelete(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -140,7 +137,7 @@ func TestCustomerDelete(t *testing.T) {
 }
 
 func TestCustomerBlock(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -167,7 +164,7 @@ func TestCustomerBlock(t *testing.T) {
 }
 
 func TestCustomerGetInfo(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -192,7 +189,7 @@ func TestCustomerGetInfo(t *testing.T) {
 }
 
 func TestCustomerUnblock(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

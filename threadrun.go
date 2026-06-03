@@ -39,11 +39,11 @@ func (r *ThreadRunService) New(ctx context.Context, threadID string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if threadID == "" {
 		err = errors.New("missing required thread_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/threads/%s/runs", threadID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type ThreadRunNewResponse = interface{}

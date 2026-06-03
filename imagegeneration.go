@@ -5,11 +5,8 @@ package hanzoai
 import (
 	"context"
 	"net/http"
-	"net/url"
 	"slices"
 
-	"github.com/hanzoai/go-sdk/internal/apiquery"
-	"github.com/hanzoai/go-sdk/internal/param"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
 )
@@ -34,24 +31,11 @@ func NewImageGenerationService(opts ...option.RequestOption) (r *ImageGeneration
 }
 
 // Image Generation
-func (r *ImageGenerationService) New(ctx context.Context, body ImageGenerationNewParams, opts ...option.RequestOption) (res *ImageGenerationNewResponse, err error) {
+func (r *ImageGenerationService) New(ctx context.Context, opts ...option.RequestOption) (res *ImageGenerationNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/images/generations"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	return res, err
 }
 
 type ImageGenerationNewResponse = interface{}
-
-type ImageGenerationNewParams struct {
-	Model param.Field[string] `query:"model"`
-}
-
-// URLQuery serializes [ImageGenerationNewParams]'s query parameters as
-// `url.Values`.
-func (r ImageGenerationNewParams) URLQuery() (v url.Values) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}

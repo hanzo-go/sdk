@@ -32,74 +32,74 @@ func NewVertexAIService(opts ...option.RequestOption) (r *VertexAIService) {
 	return
 }
 
-// Call LiteLLM proxy via Vertex AI SDK.
+// Call LLM proxy via Vertex AI SDK.
 //
-// [Docs](https://docs.litellm.ai/docs/pass_through/vertex_ai)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAINewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("vertex_ai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// Call LiteLLM proxy via Vertex AI SDK.
+// Call LLM proxy via Vertex AI SDK.
 //
-// [Docs](https://docs.litellm.ai/docs/pass_through/vertex_ai)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAIGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("vertex_ai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// Call LiteLLM proxy via Vertex AI SDK.
+// Call LLM proxy via Vertex AI SDK.
 //
-// [Docs](https://docs.litellm.ai/docs/pass_through/vertex_ai)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAIUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("vertex_ai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// Call LiteLLM proxy via Vertex AI SDK.
+// Call LLM proxy via Vertex AI SDK.
 //
-// [Docs](https://docs.litellm.ai/docs/pass_through/vertex_ai)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAIDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("vertex_ai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// Call LiteLLM proxy via Vertex AI SDK.
+// Call LLM proxy via Vertex AI SDK.
 //
-// [Docs](https://docs.litellm.ai/docs/pass_through/vertex_ai)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/vertex_ai)
 func (r *VertexAIService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *VertexAIPatchResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("vertex_ai/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type VertexAINewResponse = interface{}

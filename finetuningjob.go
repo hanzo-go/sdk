@@ -62,7 +62,7 @@ func (r *FineTuningJobService) New(ctx context.Context, body FineTuningJobNewPar
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/fine_tuning/jobs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieves a fine-tuning job. This is the equivalent of GET
@@ -70,17 +70,17 @@ func (r *FineTuningJobService) New(ctx context.Context, body FineTuningJobNewPar
 //
 // Supported Query Params:
 //
-// - `custom_llm_provider`: Name of the LiteLLM provider
+// - `custom_llm_provider`: Name of the LLM provider
 // - `fine_tuning_job_id`: The ID of the fine-tuning job to retrieve.
 func (r *FineTuningJobService) Get(ctx context.Context, fineTuningJobID string, query FineTuningJobGetParams, opts ...option.RequestOption) (res *FineTuningJobGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if fineTuningJobID == "" {
 		err = errors.New("missing required fine_tuning_job_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/fine_tuning/jobs/%s", fineTuningJobID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Lists fine-tuning jobs for the organization. This is the equivalent of GET
@@ -88,71 +88,14 @@ func (r *FineTuningJobService) Get(ctx context.Context, fineTuningJobID string, 
 //
 // Supported Query Params:
 //
-// - `custom_llm_provider`: Name of the LiteLLM provider
+// - `custom_llm_provider`: Name of the LLM provider
 // - `after`: Identifier for the last job from the previous pagination request.
 // - `limit`: Number of fine-tuning jobs to retrieve (default is 20).
 func (r *FineTuningJobService) List(ctx context.Context, query FineTuningJobListParams, opts ...option.RequestOption) (res *FineTuningJobListResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/fine_tuning/jobs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
-}
-
-type LiteLlmFineTuningJobCreateParam struct {
-	Model             param.Field[string]                                         `json:"model,required"`
-	TrainingFile      param.Field[string]                                         `json:"training_file,required"`
-	CustomLlmProvider param.Field[LiteLlmFineTuningJobCreateCustomLlmProvider]    `json:"custom_llm_provider"`
-	Hyperparameters   param.Field[LiteLlmFineTuningJobCreateHyperparametersParam] `json:"hyperparameters"`
-	Integrations      param.Field[[]string]                                       `json:"integrations"`
-	Seed              param.Field[int64]                                          `json:"seed"`
-	Suffix            param.Field[string]                                         `json:"suffix"`
-	ValidationFile    param.Field[string]                                         `json:"validation_file"`
-	ExtraFields       map[string]interface{}                                      `json:"-,extras"`
-}
-
-func (r LiteLlmFineTuningJobCreateParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-type LiteLlmFineTuningJobCreateCustomLlmProvider string
-
-const (
-	LiteLlmFineTuningJobCreateCustomLlmProviderOpenAI   LiteLlmFineTuningJobCreateCustomLlmProvider = "openai"
-	LiteLlmFineTuningJobCreateCustomLlmProviderAzure    LiteLlmFineTuningJobCreateCustomLlmProvider = "azure"
-	LiteLlmFineTuningJobCreateCustomLlmProviderVertexAI LiteLlmFineTuningJobCreateCustomLlmProvider = "vertex_ai"
-)
-
-func (r LiteLlmFineTuningJobCreateCustomLlmProvider) IsKnown() bool {
-	switch r {
-	case LiteLlmFineTuningJobCreateCustomLlmProviderOpenAI, LiteLlmFineTuningJobCreateCustomLlmProviderAzure, LiteLlmFineTuningJobCreateCustomLlmProviderVertexAI:
-		return true
-	}
-	return false
-}
-
-type LiteLlmFineTuningJobCreateHyperparametersParam struct {
-	BatchSize              param.Field[LiteLlmFineTuningJobCreateHyperparametersBatchSizeUnionParam]              `json:"batch_size"`
-	LearningRateMultiplier param.Field[LiteLlmFineTuningJobCreateHyperparametersLearningRateMultiplierUnionParam] `json:"learning_rate_multiplier"`
-	NEpochs                param.Field[LiteLlmFineTuningJobCreateHyperparametersNEpochsUnionParam]                `json:"n_epochs"`
-}
-
-func (r LiteLlmFineTuningJobCreateHyperparametersParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Satisfied by [shared.UnionString], [shared.UnionInt].
-type LiteLlmFineTuningJobCreateHyperparametersBatchSizeUnionParam interface {
-	ImplementsLiteLlmFineTuningJobCreateHyperparametersBatchSizeUnionParam()
-}
-
-// Satisfied by [shared.UnionString], [shared.UnionFloat].
-type LiteLlmFineTuningJobCreateHyperparametersLearningRateMultiplierUnionParam interface {
-	ImplementsLiteLlmFineTuningJobCreateHyperparametersLearningRateMultiplierUnionParam()
-}
-
-// Satisfied by [shared.UnionString], [shared.UnionInt].
-type LiteLlmFineTuningJobCreateHyperparametersNEpochsUnionParam interface {
-	ImplementsLiteLlmFineTuningJobCreateHyperparametersNEpochsUnionParam()
+	return res, err
 }
 
 type FineTuningJobNewResponse = interface{}
@@ -162,15 +105,63 @@ type FineTuningJobGetResponse = interface{}
 type FineTuningJobListResponse = interface{}
 
 type FineTuningJobNewParams struct {
-	LiteLlmFineTuningJobCreate LiteLlmFineTuningJobCreateParam `json:"lite_llm_fine_tuning_job_create,required"`
+	CustomLlmProvider param.Field[FineTuningJobNewParamsCustomLlmProvider] `json:"custom_llm_provider" api:"required"`
+	Model             param.Field[string]                                  `json:"model" api:"required"`
+	TrainingFile      param.Field[string]                                  `json:"training_file" api:"required"`
+	Hyperparameters   param.Field[FineTuningJobNewParamsHyperparameters]   `json:"hyperparameters"`
+	Integrations      param.Field[[]string]                                `json:"integrations"`
+	Seed              param.Field[int64]                                   `json:"seed"`
+	Suffix            param.Field[string]                                  `json:"suffix"`
+	ValidationFile    param.Field[string]                                  `json:"validation_file"`
 }
 
 func (r FineTuningJobNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r.LiteLlmFineTuningJobCreate)
+	return apijson.MarshalRoot(r)
+}
+
+type FineTuningJobNewParamsCustomLlmProvider string
+
+const (
+	FineTuningJobNewParamsCustomLlmProviderOpenAI   FineTuningJobNewParamsCustomLlmProvider = "openai"
+	FineTuningJobNewParamsCustomLlmProviderAzure    FineTuningJobNewParamsCustomLlmProvider = "azure"
+	FineTuningJobNewParamsCustomLlmProviderVertexAI FineTuningJobNewParamsCustomLlmProvider = "vertex_ai"
+)
+
+func (r FineTuningJobNewParamsCustomLlmProvider) IsKnown() bool {
+	switch r {
+	case FineTuningJobNewParamsCustomLlmProviderOpenAI, FineTuningJobNewParamsCustomLlmProviderAzure, FineTuningJobNewParamsCustomLlmProviderVertexAI:
+		return true
+	}
+	return false
+}
+
+type FineTuningJobNewParamsHyperparameters struct {
+	BatchSize              param.Field[FineTuningJobNewParamsHyperparametersBatchSizeUnion]              `json:"batch_size"`
+	LearningRateMultiplier param.Field[FineTuningJobNewParamsHyperparametersLearningRateMultiplierUnion] `json:"learning_rate_multiplier"`
+	NEpochs                param.Field[FineTuningJobNewParamsHyperparametersNEpochsUnion]                `json:"n_epochs"`
+}
+
+func (r FineTuningJobNewParamsHyperparameters) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// Satisfied by [shared.UnionString], [shared.UnionInt].
+type FineTuningJobNewParamsHyperparametersBatchSizeUnion interface {
+	ImplementsFineTuningJobNewParamsHyperparametersBatchSizeUnion()
+}
+
+// Satisfied by [shared.UnionString], [shared.UnionFloat].
+type FineTuningJobNewParamsHyperparametersLearningRateMultiplierUnion interface {
+	ImplementsFineTuningJobNewParamsHyperparametersLearningRateMultiplierUnion()
+}
+
+// Satisfied by [shared.UnionString], [shared.UnionInt].
+type FineTuningJobNewParamsHyperparametersNEpochsUnion interface {
+	ImplementsFineTuningJobNewParamsHyperparametersNEpochsUnion()
 }
 
 type FineTuningJobGetParams struct {
-	CustomLlmProvider param.Field[FineTuningJobGetParamsCustomLlmProvider] `query:"custom_llm_provider"`
+	CustomLlmProvider param.Field[FineTuningJobGetParamsCustomLlmProvider] `query:"custom_llm_provider" api:"required"`
 }
 
 // URLQuery serializes [FineTuningJobGetParams]'s query parameters as `url.Values`.
@@ -197,11 +188,9 @@ func (r FineTuningJobGetParamsCustomLlmProvider) IsKnown() bool {
 }
 
 type FineTuningJobListParams struct {
+	CustomLlmProvider param.Field[FineTuningJobListParamsCustomLlmProvider] `query:"custom_llm_provider" api:"required"`
 	After             param.Field[string]                                   `query:"after"`
-	CustomLlmProvider param.Field[FineTuningJobListParamsCustomLlmProvider] `query:"custom_llm_provider"`
 	Limit             param.Field[int64]                                    `query:"limit"`
-	// Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'
-	TargetModelNames param.Field[string] `query:"target_model_names"`
 }
 
 // URLQuery serializes [FineTuningJobListParams]'s query parameters as

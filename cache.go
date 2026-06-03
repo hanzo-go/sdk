@@ -33,8 +33,8 @@ func NewCacheService(opts ...option.RequestOption) (r *CacheService) {
 	return
 }
 
-// Endpoint for deleting a key from the cache. All responses from litellm proxy
-// have `x-litellm-cache-key` in the headers
+// Endpoint for deleting a key from the cache. All responses from llm proxy have
+// `x-llm-cache-key` in the headers
 //
 // Parameters:
 //
@@ -48,7 +48,7 @@ func (r *CacheService) Delete(ctx context.Context, opts ...option.RequestOption)
 	opts = slices.Concat(r.Options, opts)
 	path := "cache/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // A function to flush all items from the cache. (All items will be deleted from
@@ -65,7 +65,7 @@ func (r *CacheService) FlushAll(ctx context.Context, opts ...option.RequestOptio
 	opts = slices.Concat(r.Options, opts)
 	path := "cache/flushall"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Endpoint for checking if cache can be pinged
@@ -73,7 +73,7 @@ func (r *CacheService) Ping(ctx context.Context, opts ...option.RequestOption) (
 	opts = slices.Concat(r.Options, opts)
 	path := "cache/ping"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type CacheDeleteResponse = interface{}
@@ -81,13 +81,13 @@ type CacheDeleteResponse = interface{}
 type CacheFlushAllResponse = interface{}
 
 type CachePingResponse struct {
-	CacheType              string                 `json:"cache_type,required"`
-	Status                 string                 `json:"status,required"`
-	HealthCheckCacheParams map[string]interface{} `json:"health_check_cache_params,nullable"`
-	LitellmCacheParams     string                 `json:"litellm_cache_params,nullable"`
-	PingResponse           bool                   `json:"ping_response,nullable"`
-	SetCacheResponse       string                 `json:"set_cache_response,nullable"`
-	JSON                   cachePingResponseJSON  `json:"-"`
+	CacheType              string                `json:"cache_type" api:"required"`
+	Status                 string                `json:"status" api:"required"`
+	HealthCheckCacheParams interface{}           `json:"health_check_cache_params" api:"nullable"`
+	LlmCacheParams         string                `json:"llm_cache_params" api:"nullable"`
+	PingResponse           bool                  `json:"ping_response" api:"nullable"`
+	SetCacheResponse       string                `json:"set_cache_response" api:"nullable"`
+	JSON                   cachePingResponseJSON `json:"-"`
 }
 
 // cachePingResponseJSON contains the JSON metadata for the struct
@@ -96,7 +96,7 @@ type cachePingResponseJSON struct {
 	CacheType              apijson.Field
 	Status                 apijson.Field
 	HealthCheckCacheParams apijson.Field
-	LitellmCacheParams     apijson.Field
+	LlmCacheParams         apijson.Field
 	PingResponse           apijson.Field
 	SetCacheResponse       apijson.Field
 	raw                    string

@@ -31,7 +31,9 @@ func NewModerationService(opts ...option.RequestOption) (r *ModerationService) {
 }
 
 // The moderations endpoint is a tool you can use to check whether content complies
-// with an LLM Providers policies. Quick Start
+// with an LLM Providers policies.
+//
+// # Quick Start
 //
 // ```
 // curl --location 'http://0.0.0.0:4000/moderations'     --header 'Content-Type: application/json'     --header 'Authorization: Bearer sk-1234'     --data '{"input": "Sample text goes here", "model": "text-moderation-stable"}'
@@ -40,7 +42,7 @@ func (r *ModerationService) New(ctx context.Context, opts ...option.RequestOptio
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/moderations"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type ModerationNewResponse = interface{}

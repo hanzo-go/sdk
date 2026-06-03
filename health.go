@@ -35,7 +35,7 @@ func NewHealthService(opts ...option.RequestOption) (r *HealthService) {
 
 // 🚨 USE `/health/liveliness` to health check the proxy 🚨
 //
-// See more 👉 https://docs.litellm.ai/docs/proxy/health
+// See more 👉 https://docs.hanzo.ai/docs/proxy/health
 //
 // # Check the health of all the endpoints in config.yaml
 //
@@ -54,7 +54,7 @@ func (r *HealthService) CheckAll(ctx context.Context, query HealthCheckAllParams
 	opts = slices.Concat(r.Options, opts)
 	path := "health"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Unprotected endpoint for checking if worker is alive
@@ -62,7 +62,7 @@ func (r *HealthService) CheckLiveliness(ctx context.Context, opts ...option.Requ
 	opts = slices.Concat(r.Options, opts)
 	path := "health/liveliness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Unprotected endpoint for checking if worker is alive
@@ -70,7 +70,7 @@ func (r *HealthService) CheckLiveness(ctx context.Context, opts ...option.Reques
 	opts = slices.Concat(r.Options, opts)
 	path := "health/liveness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Unprotected endpoint for checking if worker can receive requests
@@ -78,7 +78,7 @@ func (r *HealthService) CheckReadiness(ctx context.Context, opts ...option.Reque
 	opts = slices.Concat(r.Options, opts)
 	path := "health/readiness"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Use this admin-only endpoint to check if the service is healthy.
@@ -92,7 +92,7 @@ func (r *HealthService) CheckServices(ctx context.Context, query HealthCheckServ
 	opts = slices.Concat(r.Options, opts)
 	path := "health/services"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type HealthCheckAllResponse = interface{}
@@ -108,8 +108,6 @@ type HealthCheckServicesResponse = interface{}
 type HealthCheckAllParams struct {
 	// Specify the model name (optional)
 	Model param.Field[string] `query:"model"`
-	// Specify the model ID (optional)
-	ModelID param.Field[string] `query:"model_id"`
 }
 
 // URLQuery serializes [HealthCheckAllParams]'s query parameters as `url.Values`.
@@ -122,7 +120,7 @@ func (r HealthCheckAllParams) URLQuery() (v url.Values) {
 
 type HealthCheckServicesParams struct {
 	// Specify the service being hit.
-	Service param.Field[HealthCheckServicesParamsService] `query:"service,required"`
+	Service param.Field[HealthCheckServicesParamsService] `query:"service" api:"required"`
 }
 
 // URLQuery serializes [HealthCheckServicesParams]'s query parameters as
@@ -140,21 +138,17 @@ type HealthCheckServicesParamsService string
 const (
 	HealthCheckServicesParamsServiceSlackBudgetAlerts HealthCheckServicesParamsService = "slack_budget_alerts"
 	HealthCheckServicesParamsServiceLangfuse          HealthCheckServicesParamsService = "langfuse"
-	HealthCheckServicesParamsServiceLangfuseOtel      HealthCheckServicesParamsService = "langfuse_otel"
 	HealthCheckServicesParamsServiceSlack             HealthCheckServicesParamsService = "slack"
 	HealthCheckServicesParamsServiceOpenmeter         HealthCheckServicesParamsService = "openmeter"
 	HealthCheckServicesParamsServiceWebhook           HealthCheckServicesParamsService = "webhook"
 	HealthCheckServicesParamsServiceEmail             HealthCheckServicesParamsService = "email"
 	HealthCheckServicesParamsServiceBraintrust        HealthCheckServicesParamsService = "braintrust"
 	HealthCheckServicesParamsServiceDatadog           HealthCheckServicesParamsService = "datadog"
-	HealthCheckServicesParamsServiceGenericAPI        HealthCheckServicesParamsService = "generic_api"
-	HealthCheckServicesParamsServiceArize             HealthCheckServicesParamsService = "arize"
-	HealthCheckServicesParamsServiceSqs               HealthCheckServicesParamsService = "sqs"
 )
 
 func (r HealthCheckServicesParamsService) IsKnown() bool {
 	switch r {
-	case HealthCheckServicesParamsServiceSlackBudgetAlerts, HealthCheckServicesParamsServiceLangfuse, HealthCheckServicesParamsServiceLangfuseOtel, HealthCheckServicesParamsServiceSlack, HealthCheckServicesParamsServiceOpenmeter, HealthCheckServicesParamsServiceWebhook, HealthCheckServicesParamsServiceEmail, HealthCheckServicesParamsServiceBraintrust, HealthCheckServicesParamsServiceDatadog, HealthCheckServicesParamsServiceGenericAPI, HealthCheckServicesParamsServiceArize, HealthCheckServicesParamsServiceSqs:
+	case HealthCheckServicesParamsServiceSlackBudgetAlerts, HealthCheckServicesParamsServiceLangfuse, HealthCheckServicesParamsServiceSlack, HealthCheckServicesParamsServiceOpenmeter, HealthCheckServicesParamsServiceWebhook, HealthCheckServicesParamsServiceEmail, HealthCheckServicesParamsServiceBraintrust, HealthCheckServicesParamsServiceDatadog:
 		return true
 	}
 	return false

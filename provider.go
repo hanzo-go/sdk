@@ -32,7 +32,7 @@ func NewProviderService(opts ...option.RequestOption) (r *ProviderService) {
 }
 
 // Provider Budget Routing - Get Budget, Spend Details
-// https://docs.litellm.ai/docs/proxy/provider_budget_routing
+// https://docs.hanzo.ai/docs/proxy/provider_budget_routing
 //
 // Use this endpoint to check current budget, spend and budget reset time for a
 // provider
@@ -81,7 +81,7 @@ func (r *ProviderService) ListBudgets(ctx context.Context, opts ...option.Reques
 	opts = slices.Concat(r.Options, opts)
 	path := "provider/budgets"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Complete provider budget configuration and status. Maps provider names to their
@@ -109,10 +109,10 @@ func (r providerListBudgetsResponseJSON) RawJSON() string {
 
 // Configuration for a single provider's budget settings
 type ProviderListBudgetsResponseProvider struct {
-	BudgetLimit   float64                                 `json:"budget_limit,required,nullable"`
-	TimePeriod    string                                  `json:"time_period,required,nullable"`
-	BudgetResetAt string                                  `json:"budget_reset_at,nullable"`
-	Spend         float64                                 `json:"spend,nullable"`
+	BudgetLimit   float64                                 `json:"budget_limit" api:"required,nullable"`
+	TimePeriod    string                                  `json:"time_period" api:"required,nullable"`
+	BudgetResetAt string                                  `json:"budget_reset_at" api:"nullable"`
+	Spend         float64                                 `json:"spend" api:"nullable"`
 	JSON          providerListBudgetsResponseProviderJSON `json:"-"`
 }
 

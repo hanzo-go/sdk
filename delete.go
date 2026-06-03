@@ -36,13 +36,13 @@ func (r *DeleteService) NewAllowedIP(ctx context.Context, body DeleteNewAllowedI
 	opts = slices.Concat(r.Options, opts)
 	path := "delete/allowed_ip"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type DeleteNewAllowedIPResponse = interface{}
 
 type DeleteNewAllowedIPParams struct {
-	IPAddress IPAddressParam `json:"ip_address,required"`
+	IPAddress IPAddressParam `json:"ip_address" api:"required"`
 }
 
 func (r DeleteNewAllowedIPParams) MarshalJSON() (data []byte, err error) {

@@ -32,64 +32,64 @@ func NewAnthropicService(opts ...option.RequestOption) (r *AnthropicService) {
 	return
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("anthropic/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("anthropic/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("anthropic/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("anthropic/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/anthropic_completion)
+// [Docs](https://docs.hanzo.ai/docs/anthropic_completion)
 func (r *AnthropicService) Modify(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AnthropicModifyResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("anthropic/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type AnthropicNewResponse = interface{}

@@ -51,11 +51,11 @@ func (r *BatchCancelService) Cancel(ctx context.Context, batchID string, body Ba
 	opts = slices.Concat(r.Options, opts)
 	if batchID == "" {
 		err = errors.New("missing required batch_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("batches/%s/cancel", batchID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type BatchCancelCancelResponse = interface{}

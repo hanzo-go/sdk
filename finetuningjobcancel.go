@@ -39,17 +39,17 @@ func NewFineTuningJobCancelService(opts ...option.RequestOption) (r *FineTuningJ
 //
 // Supported Query Params:
 //
-// - `custom_llm_provider`: Name of the LiteLLM provider
+// - `custom_llm_provider`: Name of the LLM provider
 // - `fine_tuning_job_id`: The ID of the fine-tuning job to cancel.
 func (r *FineTuningJobCancelService) New(ctx context.Context, fineTuningJobID string, opts ...option.RequestOption) (res *FineTuningJobCancelNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if fineTuningJobID == "" {
 		err = errors.New("missing required fine_tuning_job_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/fine_tuning/jobs/%s/cancel", fineTuningJobID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type FineTuningJobCancelNewResponse = interface{}

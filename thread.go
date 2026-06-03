@@ -44,7 +44,7 @@ func (r *ThreadService) New(ctx context.Context, opts ...option.RequestOption) (
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/threads"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieves a thread.
@@ -54,11 +54,11 @@ func (r *ThreadService) Get(ctx context.Context, threadID string, opts ...option
 	opts = slices.Concat(r.Options, opts)
 	if threadID == "" {
 		err = errors.New("missing required thread_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/threads/%s", threadID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type ThreadNewResponse = interface{}

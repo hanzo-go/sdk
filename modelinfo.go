@@ -36,11 +36,11 @@ func NewModelInfoService(opts ...option.RequestOption) (r *ModelInfoService) {
 // Provides more info about each model in /models, including config.yaml
 // descriptions (except api key and api base)
 //
-// Parameters: litellm_model_id: Optional[str] = None (this is the value of
-// `x-litellm-model-id` returned in response headers)
+// Parameters: llm_model_id: Optional[str] = None (this is the value of
+// `x-llm-model-id` returned in response headers)
 //
-//   - When litellm_model_id is passed, it will return the info for that specific model
-//   - When litellm_model_id is not passed, it will return the info for all models
+//   - When llm_model_id is passed, it will return the info for that specific model
+//   - When llm_model_id is not passed, it will return the info for all models
 //
 // Returns: Returns a dictionary containing information about each model.
 //
@@ -52,7 +52,7 @@ func NewModelInfoService(opts ...option.RequestOption) (r *ModelInfoService) {
 //	  "data": [
 //	    {
 //	      "model_name": "fake-openai-endpoint",
-//	      "litellm_params": {
+//	      "llm_params": {
 //	        "api_base": "https://exampleopenaiendpoint-production.up.railway.app/",
 //	        "model": "openai/fake"
 //	      },
@@ -69,13 +69,13 @@ func (r *ModelInfoService) List(ctx context.Context, query ModelInfoListParams, 
 	opts = slices.Concat(r.Options, opts)
 	path := "model/info"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type ModelInfoListResponse = interface{}
 
 type ModelInfoListParams struct {
-	LitellmModelID param.Field[string] `query:"litellm_model_id"`
+	LlmModelID param.Field[string] `query:"llm_model_id"`
 }
 
 // URLQuery serializes [ModelInfoListParams]'s query parameters as `url.Values`.

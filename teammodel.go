@@ -54,7 +54,7 @@ func (r *TeamModelService) Add(ctx context.Context, body TeamModelAddParams, opt
 	opts = slices.Concat(r.Options, opts)
 	path := "team/model/add"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Remove models from a team's allowed model list. Only proxy admin or team admin
@@ -79,7 +79,7 @@ func (r *TeamModelService) Remove(ctx context.Context, body TeamModelRemoveParam
 	opts = slices.Concat(r.Options, opts)
 	path := "team/model/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type TeamModelAddResponse = interface{}
@@ -87,8 +87,8 @@ type TeamModelAddResponse = interface{}
 type TeamModelRemoveResponse = interface{}
 
 type TeamModelAddParams struct {
-	Models param.Field[[]string] `json:"models,required"`
-	TeamID param.Field[string]   `json:"team_id,required"`
+	Models param.Field[[]string] `json:"models" api:"required"`
+	TeamID param.Field[string]   `json:"team_id" api:"required"`
 }
 
 func (r TeamModelAddParams) MarshalJSON() (data []byte, err error) {
@@ -96,8 +96,8 @@ func (r TeamModelAddParams) MarshalJSON() (data []byte, err error) {
 }
 
 type TeamModelRemoveParams struct {
-	Models param.Field[[]string] `json:"models,required"`
-	TeamID param.Field[string]   `json:"team_id,required"`
+	Models param.Field[[]string] `json:"models" api:"required"`
+	TeamID param.Field[string]   `json:"team_id" api:"required"`
 }
 
 func (r TeamModelRemoveParams) MarshalJSON() (data []byte, err error) {

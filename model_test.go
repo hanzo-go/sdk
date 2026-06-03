@@ -14,7 +14,7 @@ import (
 )
 
 func TestModelListWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -27,12 +27,8 @@ func TestModelListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Models.List(context.TODO(), hanzoai.ModelListParams{
-		FallbackType:             hanzoai.F("fallback_type"),
-		IncludeMetadata:          hanzoai.F(true),
-		IncludeModelAccessGroups: hanzoai.F(true),
-		OnlyModelAccessGroups:    hanzoai.F(true),
-		ReturnWildcardRoutes:     hanzoai.F(true),
-		TeamID:                   hanzoai.F("team_id"),
+		ReturnWildcardRoutes: hanzoai.F(true),
+		TeamID:               hanzoai.F("team_id"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error

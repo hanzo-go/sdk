@@ -14,7 +14,7 @@ import (
 )
 
 func TestCredentialNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -27,14 +27,10 @@ func TestCredentialNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Credentials.New(context.TODO(), hanzoai.CredentialNewParams{
-		CredentialInfo: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		CredentialName: hanzoai.F("credential_name"),
-		CredentialValues: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		ModelID: hanzoai.F("model_id"),
+		CredentialInfo:   hanzoai.F[any](map[string]interface{}{}),
+		CredentialName:   hanzoai.F("credential_name"),
+		CredentialValues: hanzoai.F[any](map[string]interface{}{}),
+		ModelID:          hanzoai.F("model_id"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -46,7 +42,7 @@ func TestCredentialNewWithOptionalParams(t *testing.T) {
 }
 
 func TestCredentialList(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -69,7 +65,7 @@ func TestCredentialList(t *testing.T) {
 }
 
 func TestCredentialDelete(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

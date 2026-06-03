@@ -7,7 +7,6 @@ import (
 	"errors"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/hanzoai/go-sdk"
 	"github.com/hanzoai/go-sdk/internal/testutil"
@@ -15,7 +14,7 @@ import (
 )
 
 func TestBudgetNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -31,7 +30,6 @@ func TestBudgetNewWithOptionalParams(t *testing.T) {
 		BudgetNew: hanzoai.BudgetNewParam{
 			BudgetDuration:      hanzoai.F("budget_duration"),
 			BudgetID:            hanzoai.F("budget_id"),
-			BudgetResetAt:       hanzoai.F(time.Now()),
 			MaxBudget:           hanzoai.F(0.000000),
 			MaxParallelRequests: hanzoai.F(int64(0)),
 			ModelMaxBudget: hanzoai.F(map[string]hanzoai.BudgetNewModelMaxBudgetParam{
@@ -57,7 +55,7 @@ func TestBudgetNewWithOptionalParams(t *testing.T) {
 }
 
 func TestBudgetUpdateWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -73,7 +71,6 @@ func TestBudgetUpdateWithOptionalParams(t *testing.T) {
 		BudgetNew: hanzoai.BudgetNewParam{
 			BudgetDuration:      hanzoai.F("budget_duration"),
 			BudgetID:            hanzoai.F("budget_id"),
-			BudgetResetAt:       hanzoai.F(time.Now()),
 			MaxBudget:           hanzoai.F(0.000000),
 			MaxParallelRequests: hanzoai.F(int64(0)),
 			ModelMaxBudget: hanzoai.F(map[string]hanzoai.BudgetNewModelMaxBudgetParam{
@@ -99,7 +96,7 @@ func TestBudgetUpdateWithOptionalParams(t *testing.T) {
 }
 
 func TestBudgetList(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -122,7 +119,7 @@ func TestBudgetList(t *testing.T) {
 }
 
 func TestBudgetDelete(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -147,7 +144,7 @@ func TestBudgetDelete(t *testing.T) {
 }
 
 func TestBudgetInfo(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -172,7 +169,7 @@ func TestBudgetInfo(t *testing.T) {
 }
 
 func TestBudgetSettings(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

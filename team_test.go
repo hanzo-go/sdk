@@ -14,7 +14,7 @@ import (
 )
 
 func TestTeamNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -27,12 +27,7 @@ func TestTeamNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Team.New(context.TODO(), hanzoai.TeamNewParams{
-		Admins:                   hanzoai.F([]interface{}{map[string]interface{}{}}),
-		AllowedPassthroughRoutes: hanzoai.F([]interface{}{map[string]interface{}{}}),
-		AllowedVectorStoreIndexes: hanzoai.F([]hanzoai.TeamNewParamsAllowedVectorStoreIndex{{
-			IndexName:        hanzoai.F("index_name"),
-			IndexPermissions: hanzoai.F([]hanzoai.TeamNewParamsAllowedVectorStoreIndexesIndexPermission{hanzoai.TeamNewParamsAllowedVectorStoreIndexesIndexPermissionRead}),
-		}}),
+		Admins:         hanzoai.F([]interface{}{map[string]interface{}{}}),
 		Blocked:        hanzoai.F(true),
 		BudgetDuration: hanzoai.F("budget_duration"),
 		Guardrails:     hanzoai.F([]string{"string"}),
@@ -43,50 +38,16 @@ func TestTeamNewWithOptionalParams(t *testing.T) {
 			UserEmail: hanzoai.F("user_email"),
 			UserID:    hanzoai.F("user_id"),
 		}}),
-		Metadata: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		ModelAliases: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		ModelRpmLimit: hanzoai.F(map[string]int64{
-			"foo": int64(0),
-		}),
-		ModelTpmLimit: hanzoai.F(map[string]int64{
-			"foo": int64(0),
-		}),
-		Models: hanzoai.F([]interface{}{map[string]interface{}{}}),
-		ObjectPermission: hanzoai.F(hanzoai.TeamNewParamsObjectPermission{
-			AgentAccessGroups: hanzoai.F([]string{"string"}),
-			Agents:            hanzoai.F([]string{"string"}),
-			McpAccessGroups:   hanzoai.F([]string{"string"}),
-			McpServers:        hanzoai.F([]string{"string"}),
-			McpToolPermissions: hanzoai.F(map[string][]string{
-				"foo": {"string"},
-			}),
-			VectorStores: hanzoai.F([]string{"string"}),
-		}),
+		Metadata:       hanzoai.F[any](map[string]interface{}{}),
+		ModelAliases:   hanzoai.F[any](map[string]interface{}{}),
+		Models:         hanzoai.F([]interface{}{map[string]interface{}{}}),
 		OrganizationID: hanzoai.F("organization_id"),
-		Prompts:        hanzoai.F([]string{"string"}),
-		RouterSettings: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		RpmLimit:     hanzoai.F(int64(0)),
-		RpmLimitType: hanzoai.F(hanzoai.TeamNewParamsRpmLimitTypeGuaranteedThroughput),
-		SecretManagerSettings: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		Tags:                  hanzoai.F([]interface{}{map[string]interface{}{}}),
-		TeamAlias:             hanzoai.F("team_alias"),
-		TeamID:                hanzoai.F("team_id"),
-		TeamMemberBudget:      hanzoai.F(0.000000),
-		TeamMemberKeyDuration: hanzoai.F("team_member_key_duration"),
-		TeamMemberPermissions: hanzoai.F([]string{"string"}),
-		TeamMemberRpmLimit:    hanzoai.F(int64(0)),
-		TeamMemberTpmLimit:    hanzoai.F(int64(0)),
-		TpmLimit:              hanzoai.F(int64(0)),
-		TpmLimitType:          hanzoai.F(hanzoai.TeamNewParamsTpmLimitTypeGuaranteedThroughput),
-		LitellmChangedBy:      hanzoai.F("litellm-changed-by"),
+		RpmLimit:       hanzoai.F(int64(0)),
+		Tags:           hanzoai.F([]interface{}{map[string]interface{}{}}),
+		TeamAlias:      hanzoai.F("team_alias"),
+		TeamID:         hanzoai.F("team_id"),
+		TpmLimit:       hanzoai.F(int64(0)),
+		LlmChangedBy:   hanzoai.F("llm-changed-by"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -98,7 +59,7 @@ func TestTeamNewWithOptionalParams(t *testing.T) {
 }
 
 func TestTeamUpdateWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -111,57 +72,20 @@ func TestTeamUpdateWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Team.Update(context.TODO(), hanzoai.TeamUpdateParams{
-		TeamID:                   hanzoai.F("team_id"),
-		AllowedPassthroughRoutes: hanzoai.F([]interface{}{map[string]interface{}{}}),
-		AllowedVectorStoreIndexes: hanzoai.F([]hanzoai.TeamUpdateParamsAllowedVectorStoreIndex{{
-			IndexName:        hanzoai.F("index_name"),
-			IndexPermissions: hanzoai.F([]hanzoai.TeamUpdateParamsAllowedVectorStoreIndexesIndexPermission{hanzoai.TeamUpdateParamsAllowedVectorStoreIndexesIndexPermissionRead}),
-		}}),
+		TeamID:         hanzoai.F("team_id"),
 		Blocked:        hanzoai.F(true),
 		BudgetDuration: hanzoai.F("budget_duration"),
 		Guardrails:     hanzoai.F([]string{"string"}),
 		MaxBudget:      hanzoai.F(0.000000),
-		Metadata: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		ModelAliases: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		ModelRpmLimit: hanzoai.F(map[string]int64{
-			"foo": int64(0),
-		}),
-		ModelTpmLimit: hanzoai.F(map[string]int64{
-			"foo": int64(0),
-		}),
-		Models: hanzoai.F([]interface{}{map[string]interface{}{}}),
-		ObjectPermission: hanzoai.F(hanzoai.TeamUpdateParamsObjectPermission{
-			AgentAccessGroups: hanzoai.F([]string{"string"}),
-			Agents:            hanzoai.F([]string{"string"}),
-			McpAccessGroups:   hanzoai.F([]string{"string"}),
-			McpServers:        hanzoai.F([]string{"string"}),
-			McpToolPermissions: hanzoai.F(map[string][]string{
-				"foo": {"string"},
-			}),
-			VectorStores: hanzoai.F([]string{"string"}),
-		}),
+		Metadata:       hanzoai.F[any](map[string]interface{}{}),
+		ModelAliases:   hanzoai.F[any](map[string]interface{}{}),
+		Models:         hanzoai.F([]interface{}{map[string]interface{}{}}),
 		OrganizationID: hanzoai.F("organization_id"),
-		Prompts:        hanzoai.F([]string{"string"}),
-		RouterSettings: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		RpmLimit: hanzoai.F(int64(0)),
-		SecretManagerSettings: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		Tags:                     hanzoai.F([]interface{}{map[string]interface{}{}}),
-		TeamAlias:                hanzoai.F("team_alias"),
-		TeamMemberBudget:         hanzoai.F(0.000000),
-		TeamMemberBudgetDuration: hanzoai.F("team_member_budget_duration"),
-		TeamMemberKeyDuration:    hanzoai.F("team_member_key_duration"),
-		TeamMemberRpmLimit:       hanzoai.F(int64(0)),
-		TeamMemberTpmLimit:       hanzoai.F(int64(0)),
-		TpmLimit:                 hanzoai.F(int64(0)),
-		LitellmChangedBy:         hanzoai.F("litellm-changed-by"),
+		RpmLimit:       hanzoai.F(int64(0)),
+		Tags:           hanzoai.F([]interface{}{map[string]interface{}{}}),
+		TeamAlias:      hanzoai.F("team_alias"),
+		TpmLimit:       hanzoai.F(int64(0)),
+		LlmChangedBy:   hanzoai.F("llm-changed-by"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -173,7 +97,7 @@ func TestTeamUpdateWithOptionalParams(t *testing.T) {
 }
 
 func TestTeamListWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -199,7 +123,7 @@ func TestTeamListWithOptionalParams(t *testing.T) {
 }
 
 func TestTeamDeleteWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -212,8 +136,8 @@ func TestTeamDeleteWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Team.Delete(context.TODO(), hanzoai.TeamDeleteParams{
-		TeamIDs:          hanzoai.F([]string{"string"}),
-		LitellmChangedBy: hanzoai.F("litellm-changed-by"),
+		TeamIDs:      hanzoai.F([]string{"string"}),
+		LlmChangedBy: hanzoai.F("llm-changed-by"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -225,7 +149,7 @@ func TestTeamDeleteWithOptionalParams(t *testing.T) {
 }
 
 func TestTeamAddMemberWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -256,7 +180,7 @@ func TestTeamAddMemberWithOptionalParams(t *testing.T) {
 }
 
 func TestTeamBlock(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -283,7 +207,7 @@ func TestTeamBlock(t *testing.T) {
 }
 
 func TestTeamDisableLogging(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -306,7 +230,7 @@ func TestTeamDisableLogging(t *testing.T) {
 }
 
 func TestTeamListAvailableWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -331,7 +255,7 @@ func TestTeamListAvailableWithOptionalParams(t *testing.T) {
 }
 
 func TestTeamRemoveMemberWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -358,7 +282,7 @@ func TestTeamRemoveMemberWithOptionalParams(t *testing.T) {
 }
 
 func TestTeamGetInfoWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -383,7 +307,7 @@ func TestTeamGetInfoWithOptionalParams(t *testing.T) {
 }
 
 func TestTeamUnblock(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -410,7 +334,7 @@ func TestTeamUnblock(t *testing.T) {
 }
 
 func TestTeamUpdateMemberWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -426,8 +350,6 @@ func TestTeamUpdateMemberWithOptionalParams(t *testing.T) {
 		TeamID:          hanzoai.F("team_id"),
 		MaxBudgetInTeam: hanzoai.F(0.000000),
 		Role:            hanzoai.F(hanzoai.TeamUpdateMemberParamsRoleAdmin),
-		RpmLimit:        hanzoai.F(int64(0)),
-		TpmLimit:        hanzoai.F(int64(0)),
 		UserEmail:       hanzoai.F("user_email"),
 		UserID:          hanzoai.F("user_id"),
 	})

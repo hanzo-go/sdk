@@ -15,7 +15,7 @@ import (
 )
 
 func TestFineTuningJobNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -28,20 +28,18 @@ func TestFineTuningJobNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.FineTuning.Jobs.New(context.TODO(), hanzoai.FineTuningJobNewParams{
-		LiteLlmFineTuningJobCreate: hanzoai.LiteLlmFineTuningJobCreateParam{
-			Model:             hanzoai.F("model"),
-			TrainingFile:      hanzoai.F("training_file"),
-			CustomLlmProvider: hanzoai.F(hanzoai.LiteLlmFineTuningJobCreateCustomLlmProviderOpenAI),
-			Hyperparameters: hanzoai.F(hanzoai.LiteLlmFineTuningJobCreateHyperparametersParam{
-				BatchSize:              hanzoai.F[hanzoai.LiteLlmFineTuningJobCreateHyperparametersBatchSizeUnionParam](shared.UnionString("string")),
-				LearningRateMultiplier: hanzoai.F[hanzoai.LiteLlmFineTuningJobCreateHyperparametersLearningRateMultiplierUnionParam](shared.UnionString("string")),
-				NEpochs:                hanzoai.F[hanzoai.LiteLlmFineTuningJobCreateHyperparametersNEpochsUnionParam](shared.UnionString("string")),
-			}),
-			Integrations:   hanzoai.F([]string{"string"}),
-			Seed:           hanzoai.F(int64(0)),
-			Suffix:         hanzoai.F("suffix"),
-			ValidationFile: hanzoai.F("validation_file"),
-		},
+		CustomLlmProvider: hanzoai.F(hanzoai.FineTuningJobNewParamsCustomLlmProviderOpenAI),
+		Model:             hanzoai.F("model"),
+		TrainingFile:      hanzoai.F("training_file"),
+		Hyperparameters: hanzoai.F(hanzoai.FineTuningJobNewParamsHyperparameters{
+			BatchSize:              hanzoai.F[hanzoai.FineTuningJobNewParamsHyperparametersBatchSizeUnion](shared.UnionString("string")),
+			LearningRateMultiplier: hanzoai.F[hanzoai.FineTuningJobNewParamsHyperparametersLearningRateMultiplierUnion](shared.UnionString("string")),
+			NEpochs:                hanzoai.F[hanzoai.FineTuningJobNewParamsHyperparametersNEpochsUnion](shared.UnionString("string")),
+		}),
+		Integrations:   hanzoai.F([]string{"string"}),
+		Seed:           hanzoai.F(int64(0)),
+		Suffix:         hanzoai.F("suffix"),
+		ValidationFile: hanzoai.F("validation_file"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -52,8 +50,8 @@ func TestFineTuningJobNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFineTuningJobGetWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+func TestFineTuningJobGet(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -82,7 +80,7 @@ func TestFineTuningJobGetWithOptionalParams(t *testing.T) {
 }
 
 func TestFineTuningJobListWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -95,10 +93,9 @@ func TestFineTuningJobListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.FineTuning.Jobs.List(context.TODO(), hanzoai.FineTuningJobListParams{
-		After:             hanzoai.F("after"),
 		CustomLlmProvider: hanzoai.F(hanzoai.FineTuningJobListParamsCustomLlmProviderOpenAI),
+		After:             hanzoai.F("after"),
 		Limit:             hanzoai.F(int64(0)),
-		TargetModelNames:  hanzoai.F("target_model_names"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error

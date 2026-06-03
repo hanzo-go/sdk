@@ -14,7 +14,7 @@ import (
 )
 
 func TestHealthCheckAllWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -27,8 +27,7 @@ func TestHealthCheckAllWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Health.CheckAll(context.TODO(), hanzoai.HealthCheckAllParams{
-		Model:   hanzoai.F("model"),
-		ModelID: hanzoai.F("model_id"),
+		Model: hanzoai.F("model"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -40,7 +39,7 @@ func TestHealthCheckAllWithOptionalParams(t *testing.T) {
 }
 
 func TestHealthCheckLiveliness(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -63,7 +62,7 @@ func TestHealthCheckLiveliness(t *testing.T) {
 }
 
 func TestHealthCheckLiveness(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -86,7 +85,7 @@ func TestHealthCheckLiveness(t *testing.T) {
 }
 
 func TestHealthCheckReadiness(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -109,7 +108,7 @@ func TestHealthCheckReadiness(t *testing.T) {
 }
 
 func TestHealthCheckServices(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

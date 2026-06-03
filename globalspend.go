@@ -37,7 +37,7 @@ func NewGlobalSpendService(opts ...option.RequestOption) (r *GlobalSpendService)
 	return
 }
 
-// LiteLLM Enterprise - View Spend Per Request Tag. Used by LiteLLM UI
+// LLM Enterprise - View Spend Per Request Tag. Used by LLM UI
 //
 // Example Request:
 //
@@ -54,22 +54,22 @@ func (r *GlobalSpendService) ListTags(ctx context.Context, query GlobalSpendList
 	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // ADMIN ONLY / MASTER KEY Only Endpoint
 //
-// Globally reset spend for All API Keys and Teams, maintain LiteLLM_SpendLogs
+// Globally reset spend for All API Keys and Teams, maintain LLM_SpendLogs
 //
-//  1. LiteLLM_SpendLogs will maintain the logs on spend, no data gets deleted from
+//  1. LLM_SpendLogs will maintain the logs on spend, no data gets deleted from
 //     there
-//  2. LiteLLM_VerificationTokens spend will be set = 0
-//  3. LiteLLM_TeamTable spend will be set = 0
+//  2. LLM_VerificationTokens spend will be set = 0
+//  3. LLM_TeamTable spend will be set = 0
 func (r *GlobalSpendService) Reset(ctx context.Context, opts ...option.RequestOption) (res *GlobalSpendResetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/reset"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get Daily Spend per Team, based on specific startTime and endTime. Per team,
@@ -82,29 +82,29 @@ func (r *GlobalSpendService) GetReport(ctx context.Context, query GlobalSpendGet
 	opts = slices.Concat(r.Options, opts)
 	path := "global/spend/report"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type GlobalSpendListTagsResponse struct {
-	APIKey             string                                    `json:"api_key,required"`
-	CallType           string                                    `json:"call_type,required"`
-	EndTime            GlobalSpendListTagsResponseEndTimeUnion   `json:"endTime,required,nullable" format:"date-time"`
-	Messages           GlobalSpendListTagsResponseMessagesUnion  `json:"messages,required,nullable"`
-	RequestID          string                                    `json:"request_id,required"`
-	Response           GlobalSpendListTagsResponseResponseUnion  `json:"response,required,nullable"`
-	StartTime          GlobalSpendListTagsResponseStartTimeUnion `json:"startTime,required,nullable" format:"date-time"`
-	APIBase            string                                    `json:"api_base,nullable"`
-	CacheHit           string                                    `json:"cache_hit,nullable"`
-	CacheKey           string                                    `json:"cache_key,nullable"`
-	CompletionTokens   int64                                     `json:"completion_tokens,nullable"`
+	APIKey             string                                    `json:"api_key" api:"required"`
+	CallType           string                                    `json:"call_type" api:"required"`
+	EndTime            GlobalSpendListTagsResponseEndTimeUnion   `json:"endTime" api:"required,nullable" format:"date-time"`
+	Messages           GlobalSpendListTagsResponseMessagesUnion  `json:"messages" api:"required,nullable"`
+	RequestID          string                                    `json:"request_id" api:"required"`
+	Response           GlobalSpendListTagsResponseResponseUnion  `json:"response" api:"required,nullable"`
+	StartTime          GlobalSpendListTagsResponseStartTimeUnion `json:"startTime" api:"required,nullable" format:"date-time"`
+	APIBase            string                                    `json:"api_base" api:"nullable"`
+	CacheHit           string                                    `json:"cache_hit" api:"nullable"`
+	CacheKey           string                                    `json:"cache_key" api:"nullable"`
+	CompletionTokens   int64                                     `json:"completion_tokens" api:"nullable"`
 	Metadata           interface{}                               `json:"metadata"`
-	Model              string                                    `json:"model,nullable"`
-	PromptTokens       int64                                     `json:"prompt_tokens,nullable"`
+	Model              string                                    `json:"model" api:"nullable"`
+	PromptTokens       int64                                     `json:"prompt_tokens" api:"nullable"`
 	RequestTags        interface{}                               `json:"request_tags"`
-	RequesterIPAddress string                                    `json:"requester_ip_address,nullable"`
-	Spend              float64                                   `json:"spend,nullable"`
-	TotalTokens        int64                                     `json:"total_tokens,nullable"`
-	User               string                                    `json:"user,nullable"`
+	RequesterIPAddress string                                    `json:"requester_ip_address" api:"nullable"`
+	Spend              float64                                   `json:"spend" api:"nullable"`
+	TotalTokens        int64                                     `json:"total_tokens" api:"nullable"`
+	User               string                                    `json:"user" api:"nullable"`
 	JSON               globalSpendListTagsResponseJSON           `json:"-"`
 }
 
@@ -162,9 +162,8 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString],
-// [GlobalSpendListTagsResponseMessagesArray] or
-// [GlobalSpendListTagsResponseMessagesMap].
+// Union satisfied by [shared.UnionString] or
+// [GlobalSpendListTagsResponseMessagesArray].
 type GlobalSpendListTagsResponseMessagesUnion interface {
 	ImplementsGlobalSpendListTagsResponseMessagesUnion()
 }
@@ -181,10 +180,6 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendListTagsResponseMessagesArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GlobalSpendListTagsResponseMessagesMap{}),
-		},
 	)
 }
 
@@ -193,14 +188,8 @@ type GlobalSpendListTagsResponseMessagesArray []interface{}
 func (r GlobalSpendListTagsResponseMessagesArray) ImplementsGlobalSpendListTagsResponseMessagesUnion() {
 }
 
-type GlobalSpendListTagsResponseMessagesMap map[string]interface{}
-
-func (r GlobalSpendListTagsResponseMessagesMap) ImplementsGlobalSpendListTagsResponseMessagesUnion() {
-}
-
-// Union satisfied by [shared.UnionString],
-// [GlobalSpendListTagsResponseResponseArray] or
-// [GlobalSpendListTagsResponseResponseMap].
+// Union satisfied by [shared.UnionString] or
+// [GlobalSpendListTagsResponseResponseArray].
 type GlobalSpendListTagsResponseResponseUnion interface {
 	ImplementsGlobalSpendListTagsResponseResponseUnion()
 }
@@ -217,21 +206,12 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendListTagsResponseResponseArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GlobalSpendListTagsResponseResponseMap{}),
-		},
 	)
 }
 
 type GlobalSpendListTagsResponseResponseArray []interface{}
 
 func (r GlobalSpendListTagsResponseResponseArray) ImplementsGlobalSpendListTagsResponseResponseUnion() {
-}
-
-type GlobalSpendListTagsResponseResponseMap map[string]interface{}
-
-func (r GlobalSpendListTagsResponseResponseMap) ImplementsGlobalSpendListTagsResponseResponseUnion() {
 }
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].
@@ -257,25 +237,25 @@ func init() {
 type GlobalSpendResetResponse = interface{}
 
 type GlobalSpendGetReportResponse struct {
-	APIKey             string                                     `json:"api_key,required"`
-	CallType           string                                     `json:"call_type,required"`
-	EndTime            GlobalSpendGetReportResponseEndTimeUnion   `json:"endTime,required,nullable" format:"date-time"`
-	Messages           GlobalSpendGetReportResponseMessagesUnion  `json:"messages,required,nullable"`
-	RequestID          string                                     `json:"request_id,required"`
-	Response           GlobalSpendGetReportResponseResponseUnion  `json:"response,required,nullable"`
-	StartTime          GlobalSpendGetReportResponseStartTimeUnion `json:"startTime,required,nullable" format:"date-time"`
-	APIBase            string                                     `json:"api_base,nullable"`
-	CacheHit           string                                     `json:"cache_hit,nullable"`
-	CacheKey           string                                     `json:"cache_key,nullable"`
-	CompletionTokens   int64                                      `json:"completion_tokens,nullable"`
+	APIKey             string                                     `json:"api_key" api:"required"`
+	CallType           string                                     `json:"call_type" api:"required"`
+	EndTime            GlobalSpendGetReportResponseEndTimeUnion   `json:"endTime" api:"required,nullable" format:"date-time"`
+	Messages           GlobalSpendGetReportResponseMessagesUnion  `json:"messages" api:"required,nullable"`
+	RequestID          string                                     `json:"request_id" api:"required"`
+	Response           GlobalSpendGetReportResponseResponseUnion  `json:"response" api:"required,nullable"`
+	StartTime          GlobalSpendGetReportResponseStartTimeUnion `json:"startTime" api:"required,nullable" format:"date-time"`
+	APIBase            string                                     `json:"api_base" api:"nullable"`
+	CacheHit           string                                     `json:"cache_hit" api:"nullable"`
+	CacheKey           string                                     `json:"cache_key" api:"nullable"`
+	CompletionTokens   int64                                      `json:"completion_tokens" api:"nullable"`
 	Metadata           interface{}                                `json:"metadata"`
-	Model              string                                     `json:"model,nullable"`
-	PromptTokens       int64                                      `json:"prompt_tokens,nullable"`
+	Model              string                                     `json:"model" api:"nullable"`
+	PromptTokens       int64                                      `json:"prompt_tokens" api:"nullable"`
 	RequestTags        interface{}                                `json:"request_tags"`
-	RequesterIPAddress string                                     `json:"requester_ip_address,nullable"`
-	Spend              float64                                    `json:"spend,nullable"`
-	TotalTokens        int64                                      `json:"total_tokens,nullable"`
-	User               string                                     `json:"user,nullable"`
+	RequesterIPAddress string                                     `json:"requester_ip_address" api:"nullable"`
+	Spend              float64                                    `json:"spend" api:"nullable"`
+	TotalTokens        int64                                      `json:"total_tokens" api:"nullable"`
+	User               string                                     `json:"user" api:"nullable"`
 	JSON               globalSpendGetReportResponseJSON           `json:"-"`
 }
 
@@ -333,9 +313,8 @@ func init() {
 	)
 }
 
-// Union satisfied by [shared.UnionString],
-// [GlobalSpendGetReportResponseMessagesArray] or
-// [GlobalSpendGetReportResponseMessagesMap].
+// Union satisfied by [shared.UnionString] or
+// [GlobalSpendGetReportResponseMessagesArray].
 type GlobalSpendGetReportResponseMessagesUnion interface {
 	ImplementsGlobalSpendGetReportResponseMessagesUnion()
 }
@@ -352,10 +331,6 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendGetReportResponseMessagesArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GlobalSpendGetReportResponseMessagesMap{}),
-		},
 	)
 }
 
@@ -364,14 +339,8 @@ type GlobalSpendGetReportResponseMessagesArray []interface{}
 func (r GlobalSpendGetReportResponseMessagesArray) ImplementsGlobalSpendGetReportResponseMessagesUnion() {
 }
 
-type GlobalSpendGetReportResponseMessagesMap map[string]interface{}
-
-func (r GlobalSpendGetReportResponseMessagesMap) ImplementsGlobalSpendGetReportResponseMessagesUnion() {
-}
-
-// Union satisfied by [shared.UnionString],
-// [GlobalSpendGetReportResponseResponseArray] or
-// [GlobalSpendGetReportResponseResponseMap].
+// Union satisfied by [shared.UnionString] or
+// [GlobalSpendGetReportResponseResponseArray].
 type GlobalSpendGetReportResponseResponseUnion interface {
 	ImplementsGlobalSpendGetReportResponseResponseUnion()
 }
@@ -388,21 +357,12 @@ func init() {
 			TypeFilter: gjson.JSON,
 			Type:       reflect.TypeOf(GlobalSpendGetReportResponseResponseArray{}),
 		},
-		apijson.UnionVariant{
-			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(GlobalSpendGetReportResponseResponseMap{}),
-		},
 	)
 }
 
 type GlobalSpendGetReportResponseResponseArray []interface{}
 
 func (r GlobalSpendGetReportResponseResponseArray) ImplementsGlobalSpendGetReportResponseResponseUnion() {
-}
-
-type GlobalSpendGetReportResponseResponseMap map[string]interface{}
-
-func (r GlobalSpendGetReportResponseResponseMap) ImplementsGlobalSpendGetReportResponseResponseUnion() {
 }
 
 // Union satisfied by [shared.UnionString] or [shared.UnionTime].

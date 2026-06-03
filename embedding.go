@@ -5,9 +5,10 @@ package hanzoai
 import (
 	"context"
 	"net/http"
+	"net/url"
 	"slices"
 
-	"github.com/hanzoai/go-sdk/internal/apijson"
+	"github.com/hanzoai/go-sdk/internal/apiquery"
 	"github.com/hanzoai/go-sdk/internal/param"
 	"github.com/hanzoai/go-sdk/internal/requestconfig"
 	"github.com/hanzoai/go-sdk/option"
@@ -50,37 +51,19 @@ func (r *EmbeddingService) New(ctx context.Context, body EmbeddingNewParams, opt
 	opts = slices.Concat(r.Options, opts)
 	path := "embeddings"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type EmbeddingNewResponse = interface{}
 
 type EmbeddingNewParams struct {
-	Model             param.Field[string]                                   `json:"model,required"`
-	APIBase           param.Field[string]                                   `json:"api_base"`
-	APIKey            param.Field[string]                                   `json:"api_key"`
-	APIType           param.Field[string]                                   `json:"api_type"`
-	APIVersion        param.Field[string]                                   `json:"api_version"`
-	Caching           param.Field[bool]                                     `json:"caching"`
-	CustomLlmProvider param.Field[EmbeddingNewParamsCustomLlmProviderUnion] `json:"custom_llm_provider"`
-	Input             param.Field[[]string]                                 `json:"input"`
-	LitellmCallID     param.Field[string]                                   `json:"litellm_call_id"`
-	LitellmLoggingObj param.Field[map[string]interface{}]                   `json:"litellm_logging_obj"`
-	LoggerFn          param.Field[string]                                   `json:"logger_fn"`
-	Timeout           param.Field[int64]                                    `json:"timeout"`
-	User              param.Field[string]                                   `json:"user"`
+	Model param.Field[string] `query:"model"`
 }
 
-func (r EmbeddingNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Satisfied by [shared.UnionString], [EmbeddingNewParamsCustomLlmProviderMap].
-type EmbeddingNewParamsCustomLlmProviderUnion interface {
-	ImplementsEmbeddingNewParamsCustomLlmProviderUnion()
-}
-
-type EmbeddingNewParamsCustomLlmProviderMap map[string]interface{}
-
-func (r EmbeddingNewParamsCustomLlmProviderMap) ImplementsEmbeddingNewParamsCustomLlmProviderUnion() {
+// URLQuery serializes [EmbeddingNewParams]'s query parameters as `url.Values`.
+func (r EmbeddingNewParams) URLQuery() (v url.Values) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }

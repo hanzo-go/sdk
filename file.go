@@ -52,18 +52,16 @@ func NewFileService(opts ...option.RequestOption) (r *FileService) {
 // ```
 // curl http://localhost:4000/v1/files         -H "Authorization: Bearer sk-1234"         -F purpose="batch"         -F file="@mydata.jsonl"
 //
-//	-F expires_after[anchor]="created_at"         -F expires_after[seconds]=2592000
-//
 // ```
 func (r *FileService) New(ctx context.Context, provider string, body FileNewParams, opts ...option.RequestOption) (res *FileNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files", provider)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Returns information about a specific file. that can be used across - Assistants
@@ -83,15 +81,15 @@ func (r *FileService) Get(ctx context.Context, provider string, fileID string, o
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	if fileID == "" {
 		err = errors.New("missing required file_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files/%s", provider, fileID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Returns information about a specific file. that can be used across - Assistants
@@ -110,11 +108,11 @@ func (r *FileService) List(ctx context.Context, provider string, query FileListP
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files", provider)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Deletes a specified file. that can be used across - Assistants API, Batch API
@@ -133,15 +131,15 @@ func (r *FileService) Delete(ctx context.Context, provider string, fileID string
 	opts = slices.Concat(r.Options, opts)
 	if provider == "" {
 		err = errors.New("missing required provider parameter")
-		return
+		return nil, err
 	}
 	if fileID == "" {
 		err = errors.New("missing required file_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("%s/v1/files/%s", provider, fileID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type FileNewResponse = interface{}
@@ -153,12 +151,9 @@ type FileListResponse = interface{}
 type FileDeleteResponse = interface{}
 
 type FileNewParams struct {
-	File              param.Field[io.Reader] `json:"file,required" format:"binary"`
-	Purpose           param.Field[string]    `json:"purpose,required"`
+	File              param.Field[io.Reader] `json:"file" api:"required" format:"binary"`
+	Purpose           param.Field[string]    `json:"purpose" api:"required"`
 	CustomLlmProvider param.Field[string]    `json:"custom_llm_provider"`
-	LitellmMetadata   param.Field[string]    `json:"litellm_metadata"`
-	TargetModelNames  param.Field[string]    `json:"target_model_names"`
-	TargetStorage     param.Field[string]    `json:"target_storage"`
 }
 
 func (r FileNewParams) MarshalMultipart() (data []byte, contentType string, err error) {
@@ -177,8 +172,7 @@ func (r FileNewParams) MarshalMultipart() (data []byte, contentType string, err 
 }
 
 type FileListParams struct {
-	Purpose          param.Field[string] `query:"purpose"`
-	TargetModelNames param.Field[string] `query:"target_model_names"`
+	Purpose param.Field[string] `query:"purpose"`
 }
 
 // URLQuery serializes [FileListParams]'s query parameters as `url.Values`.

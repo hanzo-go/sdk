@@ -14,7 +14,7 @@ import (
 )
 
 func TestBatchNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -39,7 +39,7 @@ func TestBatchNewWithOptionalParams(t *testing.T) {
 }
 
 func TestBatchGetWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -68,7 +68,7 @@ func TestBatchGetWithOptionalParams(t *testing.T) {
 }
 
 func TestBatchListWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -81,10 +81,9 @@ func TestBatchListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Batches.List(context.TODO(), hanzoai.BatchListParams{
-		After:            hanzoai.F("after"),
-		Limit:            hanzoai.F(int64(0)),
-		Provider:         hanzoai.F("provider"),
-		TargetModelNames: hanzoai.F("target_model_names"),
+		After:    hanzoai.F("after"),
+		Limit:    hanzoai.F(int64(0)),
+		Provider: hanzoai.F("provider"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -96,7 +95,7 @@ func TestBatchListWithOptionalParams(t *testing.T) {
 }
 
 func TestBatchCancelWithProvider(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -123,7 +122,7 @@ func TestBatchCancelWithProvider(t *testing.T) {
 }
 
 func TestBatchNewWithProvider(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -146,7 +145,7 @@ func TestBatchNewWithProvider(t *testing.T) {
 }
 
 func TestBatchListWithProviderWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -162,9 +161,8 @@ func TestBatchListWithProviderWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"provider",
 		hanzoai.BatchListWithProviderParams{
-			After:            hanzoai.F("after"),
-			Limit:            hanzoai.F(int64(0)),
-			TargetModelNames: hanzoai.F("target_model_names"),
+			After: hanzoai.F("after"),
+			Limit: hanzoai.F(int64(0)),
 		},
 	)
 	if err != nil {
@@ -177,7 +175,7 @@ func TestBatchListWithProviderWithOptionalParams(t *testing.T) {
 }
 
 func TestBatchGetWithProvider(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

@@ -32,64 +32,64 @@ func NewCohereService(opts ...option.RequestOption) (r *CohereService) {
 	return
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
 func (r *CohereService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("cohere/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
 func (r *CohereService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("cohere/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
 func (r *CohereService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("cohere/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
 func (r *CohereService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("cohere/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// [Docs](https://docs.litellm.ai/docs/pass_through/cohere)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/cohere)
 func (r *CohereService) Modify(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *CohereModifyResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("cohere/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type CohereNewResponse = interface{}

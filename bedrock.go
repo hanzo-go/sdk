@@ -32,69 +32,64 @@ func NewBedrockService(opts ...option.RequestOption) (r *BedrockService) {
 	return
 }
 
-// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
-// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
 func (r *BedrockService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
-// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
 func (r *BedrockService) Get(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
-// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
 func (r *BedrockService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
-// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
 func (r *BedrockService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
-// This is the v1 passthrough for Bedrock. V2 is handled by the `/bedrock/v2`
-// endpoint. [Docs](https://docs.litellm.ai/docs/pass_through/bedrock)
+// [Docs](https://docs.hanzo.ai/docs/pass_through/bedrock)
 func (r *BedrockService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *BedrockPatchResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("bedrock/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type BedrockNewResponse = interface{}

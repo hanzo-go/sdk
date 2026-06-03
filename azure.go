@@ -35,86 +35,71 @@ func NewAzureService(opts ...option.RequestOption) (r *AzureService) {
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) New(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("azure/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) Update(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureUpdateResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("azure/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) Delete(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("azure/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) Call(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzureCallResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("azure/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Call any azure endpoint using the proxy.
 //
 // Just use `{PROXY_BASE_URL}/azure/{endpoint:path}`
-//
-// Checks if the deployment id in the url is a litellm model name. If so, it will
-// route using the llm_router.allm_passthrough_route.
 func (r *AzureService) Patch(ctx context.Context, endpoint string, opts ...option.RequestOption) (res *AzurePatchResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if endpoint == "" {
 		err = errors.New("missing required endpoint parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("azure/%s", endpoint)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type AzureNewResponse = interface{}

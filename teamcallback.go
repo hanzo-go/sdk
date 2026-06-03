@@ -57,11 +57,11 @@ func (r *TeamCallbackService) Get(ctx context.Context, teamID string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("team/%s/callback", teamID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Add a success/failure callback to a team
@@ -106,17 +106,17 @@ func (r *TeamCallbackService) Get(ctx context.Context, teamID string, opts ...op
 // all LLM calls will be logged to langfuse using the public key pk-lf-xxxx1 and
 // the secret key sk-xxxxx
 func (r *TeamCallbackService) Add(ctx context.Context, teamID string, params TeamCallbackAddParams, opts ...option.RequestOption) (res *TeamCallbackAddResponse, err error) {
-	if params.LitellmChangedBy.Present {
-		opts = append(opts, option.WithHeader("litellm-changed-by", fmt.Sprintf("%s", params.LitellmChangedBy)))
+	if params.LlmChangedBy.Present {
+		opts = append(opts, option.WithHeader("llm-changed-by", fmt.Sprintf("%v", params.LlmChangedBy)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("team/%s/callback", teamID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type TeamCallbackGetResponse = interface{}
@@ -124,13 +124,12 @@ type TeamCallbackGetResponse = interface{}
 type TeamCallbackAddResponse = interface{}
 
 type TeamCallbackAddParams struct {
-	CallbackName param.Field[string]                            `json:"callback_name,required"`
-	CallbackVars param.Field[map[string]string]                 `json:"callback_vars,required"`
+	CallbackName param.Field[string]                            `json:"callback_name" api:"required"`
+	CallbackVars param.Field[map[string]string]                 `json:"callback_vars" api:"required"`
 	CallbackType param.Field[TeamCallbackAddParamsCallbackType] `json:"callback_type"`
-	// The litellm-changed-by header enables tracking of actions performed by
-	// authorized users on behalf of other users, providing an audit trail for
-	// accountability
-	LitellmChangedBy param.Field[string] `header:"litellm-changed-by"`
+	// The llm-changed-by header enables tracking of actions performed by authorized
+	// users on behalf of other users, providing an audit trail for accountability
+	LlmChangedBy param.Field[string] `header:"llm-changed-by"`
 }
 
 func (r TeamCallbackAddParams) MarshalJSON() (data []byte, err error) {

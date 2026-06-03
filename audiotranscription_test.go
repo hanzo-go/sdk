@@ -16,7 +16,7 @@ import (
 )
 
 func TestAudioTranscriptionNew(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -29,7 +29,7 @@ func TestAudioTranscriptionNew(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Audio.Transcriptions.New(context.TODO(), hanzoai.AudioTranscriptionNewParams{
-		File: hanzoai.F(io.Reader(bytes.NewBuffer([]byte("some file contents")))),
+		File: hanzoai.F(io.Reader(bytes.NewBuffer([]byte("Example data")))),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error

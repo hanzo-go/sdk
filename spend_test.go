@@ -14,7 +14,7 @@ import (
 )
 
 func TestSpendCalculateSpendWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -27,11 +27,9 @@ func TestSpendCalculateSpendWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Spend.CalculateSpend(context.TODO(), hanzoai.SpendCalculateSpendParams{
-		CompletionResponse: hanzoai.F(map[string]interface{}{
-			"foo": "bar",
-		}),
-		Messages: hanzoai.F([]interface{}{map[string]interface{}{}}),
-		Model:    hanzoai.F("model"),
+		CompletionResponse: hanzoai.F[any](map[string]interface{}{}),
+		Messages:           hanzoai.F([]interface{}{map[string]interface{}{}}),
+		Model:              hanzoai.F("model"),
 	})
 	if err != nil {
 		var apierr *hanzoai.Error
@@ -43,7 +41,7 @@ func TestSpendCalculateSpendWithOptionalParams(t *testing.T) {
 }
 
 func TestSpendListLogsWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -60,7 +58,6 @@ func TestSpendListLogsWithOptionalParams(t *testing.T) {
 		EndDate:   hanzoai.F("end_date"),
 		RequestID: hanzoai.F("request_id"),
 		StartDate: hanzoai.F("start_date"),
-		Summarize: hanzoai.F(true),
 		UserID:    hanzoai.F("user_id"),
 	})
 	if err != nil {
@@ -73,7 +70,7 @@ func TestSpendListLogsWithOptionalParams(t *testing.T) {
 }
 
 func TestSpendListTagsWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
