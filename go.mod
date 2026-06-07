@@ -1,6 +1,6 @@
 module github.com/hanzoai/go-sdk
 
-go 1.26.3
+go 1.26.4
 
 require (
 	github.com/tidwall/gjson v1.18.0
