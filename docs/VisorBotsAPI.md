@@ -1,0 +1,345 @@
+# \VisorBotsAPI
+
+All URIs are relative to *https://api.hanzo.ai*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**VisorBotAction**](VisorBotsAPI.md#VisorBotAction) | **Post** /v1/bots/{id}/{action} | Act on a bot (stop, pause, or message)
+[**VisorDeleteBot**](VisorBotsAPI.md#VisorDeleteBot) | **Delete** /v1/bots/{id} | Terminate a bot (unbind agent + delete machine)
+[**VisorGetBot**](VisorBotsAPI.md#VisorGetBot) | **Get** /v1/bots/{id} | Get one bot by id
+[**VisorLaunchBot**](VisorBotsAPI.md#VisorLaunchBot) | **Post** /v1/bots/launch | Launch a bot (machine + agent binding), or dryRun for a quote
+[**VisorListBots**](VisorBotsAPI.md#VisorListBots) | **Get** /v1/bots | List the org&#39;s bots
+
+
+
+## VisorBotAction
+
+> map[string]interface{} VisorBotAction(ctx, id, action).Body(body).Execute()
+
+Act on a bot (stop, pause, or message)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | 
+	action := "action_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VisorBotsAPI.VisorBotAction(context.Background(), id, action).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VisorBotsAPI.VisorBotAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VisorBotAction`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `VisorBotsAPI.VisorBotAction`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+**action** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVisorBotActionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **body** | **map[string]interface{}** |  | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VisorDeleteBot
+
+> VisorDeleteBot(ctx, id).Execute()
+
+Terminate a bot (unbind agent + delete machine)
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.VisorBotsAPI.VisorDeleteBot(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VisorBotsAPI.VisorDeleteBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVisorDeleteBotRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VisorGetBot
+
+> VisorBotView VisorGetBot(ctx, id).Execute()
+
+Get one bot by id
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VisorBotsAPI.VisorGetBot(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VisorBotsAPI.VisorGetBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VisorGetBot`: VisorBotView
+	fmt.Fprintf(os.Stdout, "Response from `VisorBotsAPI.VisorGetBot`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVisorGetBotRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**VisorBotView**](VisorBotView.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VisorLaunchBot
+
+> map[string]interface{} VisorLaunchBot(ctx).VisorBotLaunchRequest(visorBotLaunchRequest).Execute()
+
+Launch a bot (machine + agent binding), or dryRun for a quote
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	visorBotLaunchRequest := *openapiclient.NewVisorBotLaunchRequest() // VisorBotLaunchRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VisorBotsAPI.VisorLaunchBot(context.Background()).VisorBotLaunchRequest(visorBotLaunchRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VisorBotsAPI.VisorLaunchBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VisorLaunchBot`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `VisorBotsAPI.VisorLaunchBot`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVisorLaunchBotRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **visorBotLaunchRequest** | [**VisorBotLaunchRequest**](VisorBotLaunchRequest.md) |  | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VisorListBots
+
+> VisorListBots200Response VisorListBots(ctx).Execute()
+
+List the org's bots
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VisorBotsAPI.VisorListBots(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VisorBotsAPI.VisorListBots``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VisorListBots`: VisorListBots200Response
+	fmt.Fprintf(os.Stdout, "Response from `VisorBotsAPI.VisorListBots`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVisorListBotsRequest struct via the builder pattern
+
+
+### Return type
+
+[**VisorListBots200Response**](VisorListBots200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
