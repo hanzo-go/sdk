@@ -1,0 +1,18 @@
+name: Release
+# Publishing a Go module = pushing a semver tag. pkg.go.dev indexes it via
+# the module proxy; this warms the proxy so the version goes live immediately.
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  publish:
+    runs-on: hanzo-build-linux-amd64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - run: go build ./...
+      - name: Warm proxy / pkg.go.dev
+        run: GOPROXY=proxy.golang.org GONOSUMCHECK=1 go list -m "github.com/hanzoai/go-sdk@${GITHUB_REF_NAME}" || true
