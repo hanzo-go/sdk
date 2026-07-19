@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.7 (2026-07-18)
+
+Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/hanzoai/go-sdk/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
+
+### Features
+
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([3b649c9](https://github.com/hanzoai/go-sdk/commit/3b649c9a3bfc1f2906f8df5e76f219fe7c37f82e))
+
 ## 0.1.0-alpha.6 (2026-07-05)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/hanzoai/go-sdk/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
