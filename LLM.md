@@ -18,7 +18,8 @@ It should not be. The history:
 | `v0.1.0-alpha.5` | `6cb36eb` | Stainless client. Last good release on `main`'s lineage. |
 | `v1.0.0` | `dbd4195` (#15) | "regenerate SDK from unified OpenAPI spec (retire Stainless)" — deleted the Stainless client, put openapi-generator output at the repo **root** as `package hanzoai`, added `generate.yml` + `release.yml`. |
 | `v0.1.0-alpha.6` | `8145bd3` (#16) | **a full revert of #15.** Removed `.openapi-generator/FILES` (4412 lines), `.openapi-generator-ignore`, `generate.yml`, `release.yml`; restored the Stainless client. |
-| `v0.1.0-alpha.7` | `feb1137` (#17) | version bump only. Branch `next` HEAD. The intended current release. |
+| `v0.1.0-alpha.7` | `feb1137` (#17) | version bump only. Was branch `next` HEAD. |
+| `v0.1.0-alpha.8` | this line | `next` merged into `main`, plus the Stainless-residue removal below. |
 
 So the root-package regeneration was tried, tagged `v1.0.0`, and then abandoned —
 but the tag was never (and can never be) unpublished: the module proxy is
@@ -33,17 +34,16 @@ Do not tag `v0.1.0-alpha.6` or `.7` — both exist and point at other commits.
 
 ## Branches
 
-- `main` — Stainless client. **3 commits behind `next`** (it never received
-  #15/#16/#17). Its version is `0.1.0-alpha.5`, matching its lineage.
-- `next` — `feb1137`, alpha.7, the live release branch. Builds clean.
+- `main` — Stainless client, and now the release branch. `next` was merged in
+  (it had stalled 3 commits ahead, holding #15/#16/#17).
+- `next` — `feb1137`, alpha.7. Merged into `main`; land new work on `main`.
   release-please's flow is `next` → `main` (see the
   `release-please--branches--main--changes--next` branch), and it has stalled.
 - `sdk/openapi-generator`, `generated`, `feat/metering-commerce-client` — other
   in-flight attempts. Check them before starting a fourth.
 
-`main` and `next` have diverged; reconciling them is a decision someone has to
-make, not something to paper over. Nothing should be released from `main` until
-it is.
+The `next` → `main` reconciliation is done, so `main` is releasable again. The
+`v1.0.0` problem above is not fixed by it and still needs a decision.
 
 ## Two client surfaces
 
@@ -91,8 +91,12 @@ surface and forks a second contract.
 
 ## Known blocker — the generated `cloud/` does not compile
 
-From hanzoai/cloud `8143fc0e` + hanzoai/openapi `f581a0e`, `go build ./...` fails
-with 40 errors. Two causes, both upstream in `hanzoai/openapi`:
+From hanzoai/cloud `8143fc0e` + hanzoai/openapi `2861089`, `go build ./...` fails
+with 30 errors. (Re-verified after regenerating at `2861089`, which picked up the
+KMS contract change in `3300cda` — `/v1/kms/orgs/{org}/secrets` became
+`/v1/kms/secrets`, the org now coming from the token. That regeneration fixed the
+routes and changed nothing about the compile failure.) Two causes, both upstream
+in `hanzoai/openapi`:
 
 1. **Seven operations carry multiple tags.** The go generator emits one
    `api_<tag>.go` per tag and re-declares that operation's
