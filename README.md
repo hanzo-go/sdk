@@ -33,7 +33,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/hanzoai/go-sdk@v0.1.0-alpha.5'
+go get -u 'github.com/hanzoai/go-sdk@v0.1.0-alpha.7'
 ```
 
 <!-- x-release-please-end -->
