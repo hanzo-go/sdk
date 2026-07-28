@@ -10,4 +10,6 @@ require (
 require (
 	github.com/tidwall/match v1.2.0 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
+	golang.org/x/oauth2 v0.36.0 // indirect
+	gopkg.in/validator.v2 v2.0.1 // indirect
 )
