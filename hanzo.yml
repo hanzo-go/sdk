@@ -1,0 +1,36 @@
+# Hanzo CI — the ONE way this repo is gated, read by hanzoai/ci.
+#
+# No `images:` and no `deploy:`: this is a Go library. A consumer links it from
+# the module proxy at a tag, so what CI owes is a gate, not an artifact.
+# Publishing is `.github/workflows/release.yml` — for a Go module that means
+# pushing a semver tag and warming the proxy, no registry token involved.
+
+test:
+  - name: go-build
+    # The generated client is 1358 files in one package; if a regeneration
+    # produces something that does not compile, it must not reach a tag.
+    run: |
+      set -e
+      export GOWORK=off
+      go build ./...
+  - name: go-vet
+    run: |
+      set -e
+      export GOWORK=off
+      go vet ./...
+  - name: go-test
+    # hanzo_test.go pins the six canonical example flows to the routes
+    # hanzo.yaml documents, and asserts the client actually sends the bearer
+    # token. Those two facts are the whole contract of a generated SDK.
+    run: |
+      set -e
+      export GOWORK=off
+      go test -count=1 ./...
+  - name: examples-build
+    # The six flows are the same journeys in every Hanzo SDK. An example that
+    # does not compile is worse than no example, so they are gated, not just
+    # committed.
+    run: |
+      set -e
+      export GOWORK=off
+      go build ./examples/...

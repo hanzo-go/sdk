@@ -1,0 +1,26 @@
+name: Release
+# Publishing a Go module is pushing a semver tag — there is no registry to
+# upload to and no token to hold. pkg.go.dev indexes the tag through the module
+# proxy; this build proves the tag compiles and then warms the proxy so the
+# version goes live immediately instead of on first request.
+#
+# The module path is github.com/hanzoai/go-sdk even though the repo now lives
+# at hanzo-go/sdk: that is the path already on the proxy, and a go.mod path must
+# match what consumers require.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go build ./...
+      - run: go test -count=1 ./...
+      - name: Warm the module proxy
+        run: GOPROXY=proxy.golang.org go list -m "github.com/hanzoai/go-sdk@${GITHUB_REF_NAME}"

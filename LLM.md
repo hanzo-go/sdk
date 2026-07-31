@@ -1,130 +1,117 @@
-# LLM.md — hanzoai/go-sdk
+# LLM.md — hanzo-go/sdk
 
 Go module `github.com/hanzoai/go-sdk`, published by **git tag** → proxy.golang.org.
-Read the release-state section before you tag anything.
 
 ```bash
-go build ./...
-go test ./...
+go build ./... && go vet ./... && go test ./... && go build ./examples/...
 ```
 
-## Release state is broken — read this first
+Those four are the whole gate, and `hanzo.yml` runs exactly them.
 
-`v1.0.0` is published and is what `go get github.com/hanzoai/go-sdk` resolves to.
-It should not be. The history:
+## Repo identity
 
-| tag | commit | what it is |
-|---|---|---|
-| `v0.1.0-alpha.5` | `6cb36eb` | Stainless client. Last good release on `main`'s lineage. |
-| `v1.0.0` | `dbd4195` (#15) | "regenerate SDK from unified OpenAPI spec (retire Stainless)" — deleted the Stainless client, put openapi-generator output at the repo **root** as `package hanzoai`, added `generate.yml` + `release.yml`. |
-| `v0.1.0-alpha.6` | `8145bd3` (#16) | **a full revert of #15.** Removed `.openapi-generator/FILES` (4412 lines), `.openapi-generator-ignore`, `generate.yml`, `release.yml`; restored the Stainless client. |
-| `v0.1.0-alpha.7` | `feb1137` (#17) | version bump only. Was branch `next` HEAD. |
-| `v0.1.0-alpha.8` | this line | `next` merged into `main`, plus the Stainless-residue removal below. |
+Canonical repo is **`hanzo-go/sdk`**. `hanzoai/go-sdk` is a GitHub rename
+redirect — `gh api repos/hanzoai/go-sdk --jq .full_name` answers `hanzo-go/sdk`.
 
-So the root-package regeneration was tried, tagged `v1.0.0`, and then abandoned —
-but the tag was never (and can never be) unpublished: the module proxy is
-immutable. Because `v1.0.0` outranks `v0.1.0-alpha.7` in semver, **every consumer
-doing `go get` receives the reverted, abandoned experiment**, not alpha.7.
+The **module path stays `github.com/hanzoai/go-sdk`** and is not renamed. A
+`go.mod` path must match what consumers `require`; `github.com/hanzo-go/sdk` has
+never been on the proxy and resolving it fails with a path mismatch. The clone
+redirect makes the old path keep working, so there is nothing to fix.
 
-The only fix is to publish a **higher** version carrying the intended client —
-`v1.0.1` or later, from whichever layout wins. Retagging or deleting `v1.0.0`
-does nothing; proxy.golang.org has already cached it (2026-07-05).
+## One client, at the module root
 
-Do not tag `v0.1.0-alpha.6` or `.7` — both exist and point at other commits.
+The repo root `*.go` **is** the client, `package hanzoai`, generated from
+`hanzoai/openapi` `hanzo.yaml`. There is no second surface: the Stainless client
+and the parallel `cloud/` subpackage are both gone.
 
-## Branches
+That resolves the layout question this file used to leave open. `v1.0.0` had
+already put generated output at the root and been reverted by `v0.1.0-alpha.6`;
+the root layout is now the one that ships, for the reason the revert never
+addressed — two client surfaces in one module is two ways to do one thing.
 
-- `main` — Stainless client, and now the release branch. `next` was merged in
-  (it had stalled 3 commits ahead, holding #15/#16/#17).
-- `next` — `feb1137`, alpha.7. Merged into `main`; land new work on `main`.
-  release-please's flow is `next` → `main` (see the
-  `release-please--branches--main--changes--next` branch), and it has stalled.
-- `sdk/openapi-generator`, `generated`, `feat/metering-commerce-client` — other
-  in-flight attempts. Check them before starting a fourth.
+Hand-written, and safe from regeneration:
 
-The `next` → `main` reconciliation is done, so `main` is releasable again. The
-`v1.0.0` problem above is not fixed by it and still needs a decision.
+| file | why |
+|---|---|
+| `hanzo.go` | `NewConfig` / `NewClient` — the authenticated constructor |
+| `hanzo_test.go` | pins the six flows to their routes; asserts the bearer token |
+| `examples/` | the six canonical flows |
+| `go.mod`, `README.md`, `hanzo.yml`, `.github/`, `.hanzo/` | repo-owned |
 
-## Two client surfaces
+`scripts/generate.sh` deletes only what the generator's own
+`.openapi-generator/FILES` manifest lists, so the table above survives a
+regeneration. Everything not in that table is generated — do not edit it, edit
+the per-service spec in `hanzoai/openapi`.
 
-| surface | package | origin |
-|---|---|---|
-| repo root `*.go` | `hanzoai` | legacy **Stainless** client, 188 endpoints. Stainless retired 2026-07. |
-| `cloud/` | `cloud` | **generated** from `hanzo.yaml` by openapi-generator. Not committed — see blocker. |
+## Why `hanzo.go` exists
 
-Two *layouts* have been attempted for the generated client and they conflict:
-`v1.0.0` put it at the repo root as `package hanzoai` (replacing Stainless);
-`openapi/sdks.yaml` currently says `take: { .: cloud }`, i.e. a `cloud/`
-subpackage coexisting with Stainless. Pick one deliberately.
+`hanzo.yaml` declares `security: [{bearerAuth: []}]` **once at the document
+root**, which OpenAPI applies to every operation. openapi-generator 7.14.0's
+`go` generator only emits auth code for operations carrying their *own* explicit
+`security` block — 65 of 1518 here — so a straight generated client sends no
+`Authorization` header on the other 1453 operations.
 
-Residue removed from `main`: `.stats.yml` (it recorded an `openapi_spec_url`
-pointing at a `stainless-sdk-openapi-specs` GCS bucket — a second, dead spec
-source competing with `hanzo.yaml`), `model1.go.bak` / `model1_test.go.bak`, and
-the CI `build` job gated `github.repository == 'stainless-sdks/hanzo-ai-go'`
-(never true here) plus its only caller `scripts/utils/upload-artifact.sh`. All of
-these are still present on `next` and will need removing there too.
+Confirmed as a generator limitation, not a spec defect, with a 12-line spec
+carrying only root-level `security`: the generated Go contained zero references
+to `ContextAccessToken`. `NewConfig` sets the bearer as a default header, which
+covers every operation.
 
-## The pipeline — one spec in, N clients out
+## SDKs pull; nobody pushes
 
-```
-hanzoai/cloud    emits its own router spec   -> cloud/openapi.yaml (983 paths)
-hanzoai/openapi  merges 69 per-service specs -> hanzo.yaml (1885 paths)  [the ONE SDK input]
-hanzoai/openapi  generate.py + sdks.yaml     -> projects hanzo.yaml into each SDK repo
-this repo        owns its test, version bump and release
-```
+`scripts/generate.sh` reads `hanzo.yaml` and regenerates in place. This repo owns
+its own generation.
 
-Regenerate — the only way:
+`hanzoai/openapi` also carries `generate.py` + `sdks.yaml` with a `go:` entry
+(`take: { .: cloud }`) that *pushes* generated output into this repo. **That path
+is superseded** — it targets the `cloud/` layout that no longer exists. The
+`sdks.yaml` `go:` entry should be dropped; until it is, do not run
+`generate.py go` against this repo, it will recreate the second surface.
 
 ```bash
-cd ~/work/hanzo/openapi && python3 generate.py go     # rewrites go-sdk/cloud in place
-python3 generate.py go --check                        # non-zero if it drifted
+SPEC_TOKEN=<token with contents:read on hanzoai/openapi> ./scripts/generate.sh
+SPEC=/path/to/hanzo.yaml ./scripts/generate.sh    # local override
 ```
 
-`cloud/` is wholly overwritten by that command (`shutil.rmtree` + `copytree`);
-anything hand-written there is destroyed on the next run. Generation knobs live
-in `openapi/sdks.yaml` under `go:`, **not** here — this repo carries no
-generation config by design, so a client cannot drift on its own.
+`hanzoai/openapi` is **private**, so the spec is read via
+`api.github.com/repos/.../contents/hanzo.yaml`. `raw.githubusercontent.com`
+404s for it — anything still pointing there is broken.
 
-Do **not** generate from `~/work/hanzo/cloud/openapi.yaml` directly. That file is
-an *input* to the merge, not the SDK input; generating from it drops ~48% of the
-surface and forks a second contract.
+## Release state
 
-## Known blocker — the generated `cloud/` does not compile
+`v1.0.0` is published, is what `go get` resolves to, and is the reverted
+experiment. The proxy is immutable (cached 2026-07-05), so retagging or deleting
+it does nothing. The only fix is to publish **higher** — the next tag is
+`v1.0.1`.
 
-From hanzoai/cloud `8143fc0e` + hanzoai/openapi `2861089`, `go build ./...` fails
-with 30 errors. (Re-verified after regenerating at `2861089`, which picked up the
-KMS contract change in `3300cda` — `/v1/kms/orgs/{org}/secrets` became
-`/v1/kms/secrets`, the org now coming from the token. That regeneration fixed the
-routes and changed nothing about the compile failure.) Two causes, both upstream
-in `hanzoai/openapi`:
+Do not tag `v0.1.0-alpha.6`/`.7`/`.8`/`.9`; all exist and point elsewhere.
 
-1. **Seven operations carry multiple tags.** The go generator emits one
-   `api_<tag>.go` per tag and re-declares that operation's
-   `Api<OperationId>Request` struct in each, so they collide:
-   `commerce_{authorize,capture,charge,refund}Order` `[Orders, Checkout]`,
-   `commerce_store{Authorize,Charge}` `[Store, Checkout]`,
-   `pricing_getFullPricing` `[Models, Cloud, Infrastructure]`. Authored in the
-   service specs (e.g. `commerce/openapi.yaml`). `merge.py` namespaces
-   operationIds but does not collapse to one tag, despite `openapi/CLAUDE.md`
-   claiming it "collapses to one primary tag".
-2. **Enum constant collision** — `CANCELLED` is declared by both
-   `model_commerce_payment_status.go` and `model_commerce_order_status.go`.
+Publishing a Go module is pushing the tag. `.github/workflows/release.yml` proves
+the tag compiles and warms the proxy; there is no registry and no token.
 
-The generated client *does* carry the `/v1/admin/plugins` operator surface
-(`PluginAdminPlugins`, `PluginAdminEnablePlugin`, `PluginAdminDisablePlugin`,
-`PluginAdminReloadPlugin` in `cloud/api_admin.go`). The published `v1.0.0` does
-**not** — it predates that spec change. That surface reaches consumers only once
-the compile blocker is fixed and a `v1.0.1`+ is published.
+## Generation knobs
 
-`cloud/` needs two deps the root package does not: `golang.org/x/oauth2`
-(`cloud/client.go`) and `gopkg.in/validator.v2` (generated models). They are kept
-out of `go.mod` while `cloud/` is uncommitted, so `go mod tidy` stays a no-op.
+```
+-g go --skip-validate-spec
+--additional-properties=packageName=hanzoai,withGoMod=false,structPrefix=true,enumClassPrefix=true
+```
 
-## Testing caveat — green is largely vacuous
+`--skip-validate-spec` is load-bearing: 35 `/v1/platform/*` operations in
+`hanzo.yaml` are missing the required `responses` object, which fails validation
+outright. It is a spec-side defect, reported upstream; it does not affect the
+generated Go, and `go build`/`go vet`/`go test` are the gates that matter.
 
-`go test ./...` prints `ok` for the root package, but that is **187 SKIP / 25 PASS**:
-the Stainless-generated tests all target a prism mock server that is disabled
-("Mock server tests are disabled"). Only 25 real unit tests
-(`internal/apijson`, `apiquery`, `apiform`, `option`) assert anything, and none
-of them touch the API surface. `v1.0.0` has **no test files at all**. Do not read
-`ok` as verified behaviour.
+The multi-tag collision this file used to record as a hard blocker (seven
+operations tagged twice, so the generator re-declared their request structs and
+the package would not compile) is **fixed upstream** — the spec now has zero
+multi-tag operations.
+
+## Testing
+
+`hanzo_test.go` stands up an `httptest` server, points the SDK at it with
+`HANZO_BASE_URL`, and asserts for each of the six flows that the client sends the
+documented method and path plus `Authorization: Bearer`. If a regeneration moves
+an operation, that test fails instead of the examples silently calling a wrong
+endpoint.
+
+This replaces the old Stainless suite, whose `ok` was 187 SKIP / 25 PASS against
+a disabled mock server and asserted nothing about the API surface.

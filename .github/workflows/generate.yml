@@ -1,0 +1,42 @@
+name: Regenerate from OpenAPI spec
+# One spec, one way. hanzoai/openapi `hanzo.yaml` is the source of truth; this
+# regenerates the client and opens a PR. Never hand-edit the generated *.go at
+# the module root — edit the per-service spec in hanzoai/openapi.
+#
+# hanzo.go, hanzo_test.go and examples/ are hand-written and survive
+# regeneration: scripts/generate.sh only removes what the generator's own FILES
+# manifest lists.
+on:
+  repository_dispatch:
+    types: [spec-update]
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '21'}
+      - uses: actions/setup-go@v5
+        with: {go-version-file: go.mod}
+      - name: Regenerate
+        run: ./scripts/generate.sh
+        env:
+          # Read token for the private hanzoai/openapi (contents:read).
+          SPEC_TOKEN: ${{ secrets.SPEC_TOKEN }}
+      - name: Verify it builds
+        run: |
+          go build ./...
+          go vet ./...
+          go test -count=1 ./...
+          go build ./examples/...
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          branch: codegen/spec-update
+          title: 'chore: regenerate from openapi hanzo.yaml'
+          commit-message: 'chore: regenerate from openapi hanzo.yaml'
+          body: Automated regeneration from hanzoai/openapi `hanzo.yaml`.
