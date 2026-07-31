@@ -4,19 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ProductGetVectorStats**](VectorAPI.md#ProductGetVectorStats) | **Get** /v1/vector/stats | Get aggregate vector statistics
-[**ProvisioningCreateVector**](VectorAPI.md#ProvisioningCreateVector) | **Post** /v1/vector | Provision a vector resource
-[**ProvisioningDeleteVector**](VectorAPI.md#ProvisioningDeleteVector) | **Delete** /v1/vector/{name} | Deprovision a vector resource
-[**ProvisioningGetVector**](VectorAPI.md#ProvisioningGetVector) | **Get** /v1/vector/{name} | Get one vector resource
-[**ProvisioningListVector**](VectorAPI.md#ProvisioningListVector) | **Get** /v1/vector | List vector resources for the caller&#39;s org
+[**CloudDeleteV1VectorName**](VectorAPI.md#CloudDeleteV1VectorName) | **Delete** /v1/vector/{name} | DropVector deletes one vector collection from the shared backend and removes its metadata row.
+[**CloudGetV1Vector**](VectorAPI.md#CloudGetV1Vector) | **Get** /v1/vector | ListVector lists the caller org&#39;s vector collections.
+[**CloudGetV1VectorCollections**](VectorAPI.md#CloudGetV1VectorCollections) | **Get** /v1/vector/collections | Lists the vector collections with their size and geometry.
+[**CloudGetV1VectorName**](VectorAPI.md#CloudGetV1VectorName) | **Get** /v1/vector/{name} | GetVector returns one vector collection&#39;s metadata.
+[**CloudGetV1VectorStats**](VectorAPI.md#CloudGetV1VectorStats) | **Get** /v1/vector/stats | Totals the collections, vectors and storage across the vector store.
+[**CloudPostV1Vector**](VectorAPI.md#CloudPostV1Vector) | **Post** /v1/vector | 
 
 
 
-## ProductGetVectorStats
+## CloudDeleteV1VectorName
 
-> ProductVectorStats ProductGetVectorStats(ctx).Execute()
+> CloudDeleteV1VectorName(ctx, name).Execute()
 
-Get aggregate vector statistics
+DropVector deletes one vector collection from the shared backend and removes its metadata row.
 
 
 
@@ -33,136 +34,13 @@ import (
 )
 
 func main() {
+	name := "embeddings" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VectorAPI.ProductGetVectorStats(context.Background()).Execute()
+	r, err := apiClient.VectorAPI.CloudDeleteV1VectorName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.ProductGetVectorStats``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProductGetVectorStats`: ProductVectorStats
-	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.ProductGetVectorStats`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProductGetVectorStatsRequest struct via the builder pattern
-
-
-### Return type
-
-[**ProductVectorStats**](ProductVectorStats.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningCreateVector
-
-> ProvisioningCreateResponse ProvisioningCreateVector(ctx).ProvisioningCreateRequest(provisioningCreateRequest).Execute()
-
-Provision a vector resource
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	provisioningCreateRequest := *openapiclient.NewProvisioningCreateRequest("analytics") // ProvisioningCreateRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VectorAPI.ProvisioningCreateVector(context.Background()).ProvisioningCreateRequest(provisioningCreateRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.ProvisioningCreateVector``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningCreateVector`: ProvisioningCreateResponse
-	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.ProvisioningCreateVector`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningCreateVectorRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **provisioningCreateRequest** | [**ProvisioningCreateRequest**](ProvisioningCreateRequest.md) |  | 
-
-### Return type
-
-[**ProvisioningCreateResponse**](ProvisioningCreateResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningDeleteVector
-
-> ProvisioningDeleteVector(ctx, name).Execute()
-
-Deprovision a vector resource
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.VectorAPI.ProvisioningDeleteVector(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.ProvisioningDeleteVector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.CloudDeleteV1VectorName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -174,11 +52,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;.  | 
+**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiProvisioningDeleteVectorRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1VectorNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -196,86 +74,20 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## ProvisioningGetVector
+## CloudGetV1Vector
 
-> ProvisioningGetResponse ProvisioningGetVector(ctx, name).Execute()
+> []CloudProvisionedSummary CloudGetV1Vector(ctx).Execute()
 
-Get one vector resource
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VectorAPI.ProvisioningGetVector(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.ProvisioningGetVector``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningGetVector`: ProvisioningGetResponse
-	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.ProvisioningGetVector`: %v\n", resp)
-}
-```
-
-### Path Parameters
+ListVector lists the caller org's vector collections.
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;.  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningGetVectorRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ProvisioningGetResponse**](ProvisioningGetResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningListVector
-
-> []ProvisioningListItem ProvisioningListVector(ctx).Execute()
-
-List vector resources for the caller's org
 
 ### Example
 
@@ -293,13 +105,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VectorAPI.ProvisioningListVector(context.Background()).Execute()
+	resp, r, err := apiClient.VectorAPI.CloudGetV1Vector(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.ProvisioningListVector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.CloudGetV1Vector``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ProvisioningListVector`: []ProvisioningListItem
-	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.ProvisioningListVector`: %v\n", resp)
+	// response from `CloudGetV1Vector`: []CloudProvisionedSummary
+	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.CloudGetV1Vector`: %v\n", resp)
 }
 ```
 
@@ -309,12 +121,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiProvisioningListVectorRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1VectorRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]ProvisioningListItem**](ProvisioningListItem.md)
+[**[]CloudProvisionedSummary**](CloudProvisionedSummary.md)
 
 ### Authorization
 
@@ -323,6 +135,262 @@ Other parameters are passed through a pointer to a apiProvisioningListVectorRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1VectorCollections
+
+> CloudVectorCollectionList CloudGetV1VectorCollections(ctx).Execute()
+
+Lists the vector collections with their size and geometry.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VectorAPI.CloudGetV1VectorCollections(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.CloudGetV1VectorCollections``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1VectorCollections`: CloudVectorCollectionList
+	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.CloudGetV1VectorCollections`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1VectorCollectionsRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudVectorCollectionList**](CloudVectorCollectionList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1VectorName
+
+> CloudProvisionedResource CloudGetV1VectorName(ctx, name).Execute()
+
+GetVector returns one vector collection's metadata.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "embeddings" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VectorAPI.CloudGetV1VectorName(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.CloudGetV1VectorName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1VectorName`: CloudProvisionedResource
+	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.CloudGetV1VectorName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1VectorNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudProvisionedResource**](CloudProvisionedResource.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1VectorStats
+
+> CloudVectorStats CloudGetV1VectorStats(ctx).Execute()
+
+Totals the collections, vectors and storage across the vector store.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VectorAPI.CloudGetV1VectorStats(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.CloudGetV1VectorStats``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1VectorStats`: CloudVectorStats
+	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.CloudGetV1VectorStats`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1VectorStatsRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudVectorStats**](CloudVectorStats.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1Vector
+
+> CloudProvisionResult CloudPostV1Vector(ctx).CloudProvisionRequest(cloudProvisionRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudProvisionRequest := *openapiclient.NewCloudProvisionRequest() // CloudProvisionRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VectorAPI.CloudPostV1Vector(context.Background()).CloudProvisionRequest(cloudProvisionRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VectorAPI.CloudPostV1Vector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1Vector`: CloudProvisionResult
+	fmt.Fprintf(os.Stdout, "Response from `VectorAPI.CloudPostV1Vector`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1VectorRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudProvisionRequest** | [**CloudProvisionRequest**](CloudProvisionRequest.md) |  | 
+
+### Return type
+
+[**CloudProvisionResult**](CloudProvisionResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

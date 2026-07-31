@@ -4,18 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DoCreateLoadBalancer**](LoadBalancersAPI.md#DoCreateLoadBalancer) | **Post** /v1/load-balancers | Create a load balancer
-[**DoDeleteLoadBalancer**](LoadBalancersAPI.md#DoDeleteLoadBalancer) | **Delete** /v1/load-balancers/{id} | Delete one load balancer (owned)
-[**DoGetLoadBalancer**](LoadBalancersAPI.md#DoGetLoadBalancer) | **Get** /v1/load-balancers/{id} | Get one load balancer (owned)
-[**DoListLoadBalancers**](LoadBalancersAPI.md#DoListLoadBalancers) | **Get** /v1/load-balancers | List the caller&#39;s load balancers
+[**CloudDeleteV1LoadBalancersId**](LoadBalancersAPI.md#CloudDeleteV1LoadBalancersId) | **Delete** /v1/load-balancers/{id} | DeleteLoadBalancer removes one of the caller org&#39;s load balancers and answers 204.
+[**CloudGetV1LoadBalancers**](LoadBalancersAPI.md#CloudGetV1LoadBalancers) | **Get** /v1/load-balancers | ListLoadBalancers returns every load balancer the caller&#39;s org owns, under the friendly names the org created them with.
+[**CloudGetV1LoadBalancersId**](LoadBalancersAPI.md#CloudGetV1LoadBalancersId) | **Get** /v1/load-balancers/{id} | GetLoadBalancer returns one of the caller org&#39;s load balancers by id.
+[**CloudPostV1LoadBalancers**](LoadBalancersAPI.md#CloudPostV1LoadBalancers) | **Post** /v1/load-balancers | CreateLoadBalancer creates a load balancer in the caller&#39;s org namespace and answers 201 with it.
 
 
 
-## DoCreateLoadBalancer
+## CloudDeleteV1LoadBalancersId
 
-> DoLoadBalancer DoCreateLoadBalancer(ctx).DoLoadBalancerCreate(doLoadBalancerCreate).Execute()
+> CloudDeleteV1LoadBalancersId(ctx, id).Execute()
 
-Create a load balancer
+DeleteLoadBalancer removes one of the caller org's load balancers and answers 204.
+
+
 
 ### Example
 
@@ -30,77 +32,13 @@ import (
 )
 
 func main() {
-	doLoadBalancerCreate := *openapiclient.NewDoLoadBalancerCreate("Name_example", "Region_example") // DoLoadBalancerCreate | 
+	id := "id_example" // string | ID is the DigitalOcean resource id (a UUID), from the path.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LoadBalancersAPI.DoCreateLoadBalancer(context.Background()).DoLoadBalancerCreate(doLoadBalancerCreate).Execute()
+	r, err := apiClient.LoadBalancersAPI.CloudDeleteV1LoadBalancersId(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancersAPI.DoCreateLoadBalancer``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DoCreateLoadBalancer`: DoLoadBalancer
-	fmt.Fprintf(os.Stdout, "Response from `LoadBalancersAPI.DoCreateLoadBalancer`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDoCreateLoadBalancerRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **doLoadBalancerCreate** | [**DoLoadBalancerCreate**](DoLoadBalancerCreate.md) |  | 
-
-### Return type
-
-[**DoLoadBalancer**](DoLoadBalancer.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DoDeleteLoadBalancer
-
-> DoDeleteLoadBalancer(ctx, id).Execute()
-
-Delete one load balancer (owned)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | DO load balancer id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.LoadBalancersAPI.DoDeleteLoadBalancer(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancersAPI.DoDeleteLoadBalancer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancersAPI.CloudDeleteV1LoadBalancersId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -112,11 +50,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | DO load balancer id | 
+**id** | **string** | ID is the DigitalOcean resource id (a UUID), from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDoDeleteLoadBalancerRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1LoadBalancersIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -134,86 +72,20 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## DoGetLoadBalancer
+## CloudGetV1LoadBalancers
 
-> DoLoadBalancer DoGetLoadBalancer(ctx, id).Execute()
+> CloudLbList CloudGetV1LoadBalancers(ctx).Execute()
 
-Get one load balancer (owned)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | DO load balancer id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LoadBalancersAPI.DoGetLoadBalancer(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancersAPI.DoGetLoadBalancer``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DoGetLoadBalancer`: DoLoadBalancer
-	fmt.Fprintf(os.Stdout, "Response from `LoadBalancersAPI.DoGetLoadBalancer`: %v\n", resp)
-}
-```
-
-### Path Parameters
+ListLoadBalancers returns every load balancer the caller's org owns, under the friendly names the org created them with.
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | DO load balancer id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDoGetLoadBalancerRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**DoLoadBalancer**](DoLoadBalancer.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DoListLoadBalancers
-
-> DoListLoadBalancers200Response DoListLoadBalancers(ctx).Execute()
-
-List the caller's load balancers
 
 ### Example
 
@@ -231,13 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LoadBalancersAPI.DoListLoadBalancers(context.Background()).Execute()
+	resp, r, err := apiClient.LoadBalancersAPI.CloudGetV1LoadBalancers(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancersAPI.DoListLoadBalancers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancersAPI.CloudGetV1LoadBalancers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DoListLoadBalancers`: DoListLoadBalancers200Response
-	fmt.Fprintf(os.Stdout, "Response from `LoadBalancersAPI.DoListLoadBalancers`: %v\n", resp)
+	// response from `CloudGetV1LoadBalancers`: CloudLbList
+	fmt.Fprintf(os.Stdout, "Response from `LoadBalancersAPI.CloudGetV1LoadBalancers`: %v\n", resp)
 }
 ```
 
@@ -247,12 +119,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDoListLoadBalancersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1LoadBalancersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**DoListLoadBalancers200Response**](DoListLoadBalancers200Response.md)
+[**CloudLbList**](CloudLbList.md)
 
 ### Authorization
 
@@ -261,6 +133,142 @@ Other parameters are passed through a pointer to a apiDoListLoadBalancersRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1LoadBalancersId
+
+> CloudLbView CloudGetV1LoadBalancersId(ctx, id).Execute()
+
+GetLoadBalancer returns one of the caller org's load balancers by id.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the DigitalOcean resource id (a UUID), from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LoadBalancersAPI.CloudGetV1LoadBalancersId(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancersAPI.CloudGetV1LoadBalancersId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1LoadBalancersId`: CloudLbView
+	fmt.Fprintf(os.Stdout, "Response from `LoadBalancersAPI.CloudGetV1LoadBalancersId`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the DigitalOcean resource id (a UUID), from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1LoadBalancersIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudLbView**](CloudLbView.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1LoadBalancers
+
+> CloudLbView CloudPostV1LoadBalancers(ctx).CloudCreateLBReq(cloudCreateLBReq).Execute()
+
+CreateLoadBalancer creates a load balancer in the caller's org namespace and answers 201 with it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudCreateLBReq := *openapiclient.NewCloudCreateLBReq() // CloudCreateLBReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LoadBalancersAPI.CloudPostV1LoadBalancers(context.Background()).CloudCreateLBReq(cloudCreateLBReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancersAPI.CloudPostV1LoadBalancers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1LoadBalancers`: CloudLbView
+	fmt.Fprintf(os.Stdout, "Response from `LoadBalancersAPI.CloudPostV1LoadBalancers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1LoadBalancersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudCreateLBReq** | [**CloudCreateLBReq**](CloudCreateLBReq.md) |  | 
+
+### Return type
+
+[**CloudLbView**](CloudLbView.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -10,8 +10,11 @@ Method | HTTP request | Description
 [**AiGetTemplates**](TemplatesAPI.md#AiGetTemplates) | **Get** /v1/ai/templates | List templates
 [**AiReplaceTemplate**](TemplatesAPI.md#AiReplaceTemplate) | **Put** /v1/ai/templates/{owner}/{name} | Replace a template
 [**AiUpdateTemplate**](TemplatesAPI.md#AiUpdateTemplate) | **Patch** /v1/ai/templates/{owner}/{name} | Update a template
-[**TemplatesGetTemplate**](TemplatesAPI.md#TemplatesGetTemplate) | **Get** /v1/templates/{slug} | One template by slug
-[**TemplatesListTemplates**](TemplatesAPI.md#TemplatesListTemplates) | **Get** /v1/templates | List the starter-kit catalog
+[**CloudDeleteV1TemplatesSlug**](TemplatesAPI.md#CloudDeleteV1TemplatesSlug) | **Delete** /v1/templates/{slug} | Deletes the caller org&#39;s OWN starter kit.
+[**CloudGetV1Templates**](TemplatesAPI.md#CloudGetV1Templates) | **Get** /v1/templates | Lists the public starter-kit catalog plus, for a validated caller, that org&#39;s own private kits.
+[**CloudGetV1TemplatesSlug**](TemplatesAPI.md#CloudGetV1TemplatesSlug) | **Get** /v1/templates/{slug} | Returns one starter kit: the caller org&#39;s own by that slug, else the public catalog&#39;s.
+[**CloudPostV1Templates**](TemplatesAPI.md#CloudPostV1Templates) | **Post** /v1/templates | Creates a starter kit PRIVATE to the caller&#39;s org and answers 201 with the stored kit.
+[**CloudPutV1TemplatesSlug**](TemplatesAPI.md#CloudPutV1TemplatesSlug) | **Put** /v1/templates/{slug} | Overwrites the caller org&#39;s OWN starter kit at the path slug, answering the stored kit.
 
 
 
@@ -438,11 +441,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## TemplatesGetTemplate
+## CloudDeleteV1TemplatesSlug
 
-> TemplatesTemplate TemplatesGetTemplate(ctx, slug).Execute()
+> CloudDeleteV1TemplatesSlug(ctx, slug).Execute()
 
-One template by slug
+Deletes the caller org's OWN starter kit.
+
+
 
 ### Example
 
@@ -457,17 +462,15 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
+	slug := "acme-portal" // string | Slug is the starter kit to act on, from the path.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TemplatesAPI.TemplatesGetTemplate(context.Background(), slug).Execute()
+	r, err := apiClient.TemplatesAPI.CloudDeleteV1TemplatesSlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TemplatesAPI.TemplatesGetTemplate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplatesAPI.CloudDeleteV1TemplatesSlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `TemplatesGetTemplate`: TemplatesTemplate
-	fmt.Fprintf(os.Stdout, "Response from `TemplatesAPI.TemplatesGetTemplate`: %v\n", resp)
 }
 ```
 
@@ -477,11 +480,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**slug** | **string** | Slug is the starter kit to act on, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTemplatesGetTemplateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1TemplatesSlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -490,7 +493,68 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TemplatesTemplate**](TemplatesTemplate.md)
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1Templates
+
+> CloudKitList CloudGetV1Templates(ctx).Execute()
+
+Lists the public starter-kit catalog plus, for a validated caller, that org's own private kits.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TemplatesAPI.CloudGetV1Templates(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplatesAPI.CloudGetV1Templates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1Templates`: CloudKitList
+	fmt.Fprintf(os.Stdout, "Response from `TemplatesAPI.CloudGetV1Templates`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1TemplatesRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudKitList**](CloudKitList.md)
 
 ### Authorization
 
@@ -506,11 +570,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## TemplatesListTemplates
+## CloudGetV1TemplatesSlug
 
-> TemplatesListTemplates200Response TemplatesListTemplates(ctx).Execute()
+> CloudStarterKit CloudGetV1TemplatesSlug(ctx, slug).Execute()
 
-List the starter-kit catalog
+Returns one starter kit: the caller org's own by that slug, else the public catalog's.
+
+
 
 ### Example
 
@@ -525,31 +591,40 @@ import (
 )
 
 func main() {
+	slug := "folio" // string | Slug is the starter kit to act on, from the path.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TemplatesAPI.TemplatesListTemplates(context.Background()).Execute()
+	resp, r, err := apiClient.TemplatesAPI.CloudGetV1TemplatesSlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TemplatesAPI.TemplatesListTemplates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplatesAPI.CloudGetV1TemplatesSlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `TemplatesListTemplates`: TemplatesListTemplates200Response
-	fmt.Fprintf(os.Stdout, "Response from `TemplatesAPI.TemplatesListTemplates`: %v\n", resp)
+	// response from `CloudGetV1TemplatesSlug`: CloudStarterKit
+	fmt.Fprintf(os.Stdout, "Response from `TemplatesAPI.CloudGetV1TemplatesSlug`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the starter kit to act on, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTemplatesListTemplatesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1TemplatesSlugRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type
 
-[**TemplatesListTemplates200Response**](TemplatesListTemplates200Response.md)
+[**CloudStarterKit**](CloudStarterKit.md)
 
 ### Authorization
 
@@ -558,6 +633,144 @@ Other parameters are passed through a pointer to a apiTemplatesListTemplatesRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1Templates
+
+> CloudStarterKit CloudPostV1Templates(ctx).CloudPublishKitIn(cloudPublishKitIn).Execute()
+
+Creates a starter kit PRIVATE to the caller's org and answers 201 with the stored kit.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudPublishKitIn := *openapiclient.NewCloudPublishKitIn() // CloudPublishKitIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TemplatesAPI.CloudPostV1Templates(context.Background()).CloudPublishKitIn(cloudPublishKitIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplatesAPI.CloudPostV1Templates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1Templates`: CloudStarterKit
+	fmt.Fprintf(os.Stdout, "Response from `TemplatesAPI.CloudPostV1Templates`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1TemplatesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudPublishKitIn** | [**CloudPublishKitIn**](CloudPublishKitIn.md) |  | 
+
+### Return type
+
+[**CloudStarterKit**](CloudStarterKit.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPutV1TemplatesSlug
+
+> CloudStarterKit CloudPutV1TemplatesSlug(ctx, slug).CloudReplaceKitIn(cloudReplaceKitIn).Execute()
+
+Overwrites the caller org's OWN starter kit at the path slug, answering the stored kit.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "acme-portal" // string | Slug is the kit to replace, from the path.
+	cloudReplaceKitIn := *openapiclient.NewCloudReplaceKitIn() // CloudReplaceKitIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TemplatesAPI.CloudPutV1TemplatesSlug(context.Background(), slug).CloudReplaceKitIn(cloudReplaceKitIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplatesAPI.CloudPutV1TemplatesSlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPutV1TemplatesSlug`: CloudStarterKit
+	fmt.Fprintf(os.Stdout, "Response from `TemplatesAPI.CloudPutV1TemplatesSlug`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the kit to replace, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPutV1TemplatesSlugRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **cloudReplaceKitIn** | [**CloudReplaceKitIn**](CloudReplaceKitIn.md) |  | 
+
+### Return type
+
+[**CloudStarterKit**](CloudStarterKit.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

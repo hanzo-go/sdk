@@ -4,16 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AdminAdminListAudit**](AuditAPI.md#AdminAdminListAudit) | **Get** /v1/admin/audit | Query the tamper-evident audit trail
-[**AdminAdminVerifyAudit**](AuditAPI.md#AdminAdminVerifyAudit) | **Get** /v1/admin/audit/verify | Verify audit-chain integrity
+[**CloudGetV1Audit**](AuditAPI.md#CloudGetV1Audit) | **Get** /v1/audit | List reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
 
 
 
-## AdminAdminListAudit
+## CloudGetV1Audit
 
-> AdminAdminListAudit200Response AdminAdminListAudit(ctx).Org(org).Sub(sub).Action(action).Resource(resource).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
+> CloudTrailPage CloudGetV1Audit(ctx).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
 
-Query the tamper-evident audit trail
+List reads the caller's OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+
+
 
 ### Example
 
@@ -24,30 +25,29 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/hanzoai/go-sdk"
 )
 
 func main() {
-	org := "org_example" // string |  (optional)
-	sub := "sub_example" // string |  (optional)
-	action := "action_example" // string |  (optional)
-	resource := "resource_example" // string |  (optional)
-	result := "result_example" // string |  (optional)
-	since := time.Now() // time.Time |  (optional)
-	until := time.Now() // time.Time |  (optional)
-	pageSize := int32(56) // int32 |  (optional) (default to 100)
-	p := int32(56) // int32 |  (optional) (default to 1)
+	sub := "sub_example" // string | Sub narrows the trail to one actor — the validated subject that made the request. Blank means every actor in the org. (optional)
+	action := "machine.create" // string | Action narrows it to one action name, e.g. \"machine.create\". (optional)
+	resource := "resource_example" // string | Resource narrows it to one resource TYPE, e.g. \"apikey\". (optional)
+	resourceId := "resourceId_example" // string | ResourceID narrows it to one resource instance. (optional)
+	result := "success" // string | Result narrows it to one outcome: \"success\", \"deny\" or \"error\". (optional)
+	since := "2026-07-01T00:00:00Z" // string | Since is the inclusive lower time bound, RFC3339. An unparseable value is ignored rather than refused — one malformed filter must not hide the trail. (optional)
+	until := "until_example" // string | Until is the upper time bound, RFC3339, with the same tolerance. (optional)
+	pageSize := "50" // string | PageSize is rows per page, default 100. A value that is not a positive integer falls back to the default. (optional)
+	p := "p_example" // string | Page is the 1-based page number, driving the offset. Anything below 2 reads the first page. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuditAPI.AdminAdminListAudit(context.Background()).Org(org).Sub(sub).Action(action).Resource(resource).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
+	resp, r, err := apiClient.AuditAPI.CloudGetV1Audit(context.Background()).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuditAPI.AdminAdminListAudit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuditAPI.CloudGetV1Audit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AdminAdminListAudit`: AdminAdminListAudit200Response
-	fmt.Fprintf(os.Stdout, "Response from `AuditAPI.AdminAdminListAudit`: %v\n", resp)
+	// response from `CloudGetV1Audit`: CloudTrailPage
+	fmt.Fprintf(os.Stdout, "Response from `AuditAPI.CloudGetV1Audit`: %v\n", resp)
 }
 ```
 
@@ -57,83 +57,24 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAdminAdminListAuditRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1AuditRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **org** | **string** |  | 
- **sub** | **string** |  | 
- **action** | **string** |  | 
- **resource** | **string** |  | 
- **result** | **string** |  | 
- **since** | **time.Time** |  | 
- **until** | **time.Time** |  | 
- **pageSize** | **int32** |  | [default to 100]
- **p** | **int32** |  | [default to 1]
+ **sub** | **string** | Sub narrows the trail to one actor — the validated subject that made the request. Blank means every actor in the org. | 
+ **action** | **string** | Action narrows it to one action name, e.g. \&quot;machine.create\&quot;. | 
+ **resource** | **string** | Resource narrows it to one resource TYPE, e.g. \&quot;apikey\&quot;. | 
+ **resourceId** | **string** | ResourceID narrows it to one resource instance. | 
+ **result** | **string** | Result narrows it to one outcome: \&quot;success\&quot;, \&quot;deny\&quot; or \&quot;error\&quot;. | 
+ **since** | **string** | Since is the inclusive lower time bound, RFC3339. An unparseable value is ignored rather than refused — one malformed filter must not hide the trail. | 
+ **until** | **string** | Until is the upper time bound, RFC3339, with the same tolerance. | 
+ **pageSize** | **string** | PageSize is rows per page, default 100. A value that is not a positive integer falls back to the default. | 
+ **p** | **string** | Page is the 1-based page number, driving the offset. Anything below 2 reads the first page. | 
 
 ### Return type
 
-[**AdminAdminListAudit200Response**](AdminAdminListAudit200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## AdminAdminVerifyAudit
-
-> AdminAdminVerifyAudit200Response AdminAdminVerifyAudit(ctx).Execute()
-
-Verify audit-chain integrity
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuditAPI.AdminAdminVerifyAudit(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuditAPI.AdminAdminVerifyAudit``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AdminAdminVerifyAudit`: AdminAdminVerifyAudit200Response
-	fmt.Fprintf(os.Stdout, "Response from `AuditAPI.AdminAdminVerifyAudit`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAdminAdminVerifyAuditRequest struct via the builder pattern
-
-
-### Return type
-
-[**AdminAdminVerifyAudit200Response**](AdminAdminVerifyAudit200Response.md)
+[**CloudTrailPage**](CloudTrailPage.md)
 
 ### Authorization
 

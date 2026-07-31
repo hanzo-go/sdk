@@ -4,15 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ZtListMeshServices**](MeshAPI.md#ZtListMeshServices) | **Get** /v1/mesh/services | List the org&#39;s ZT edge services
+[**CloudGetV1MeshServices**](MeshAPI.md#CloudGetV1MeshServices) | **Get** /v1/mesh/services | Returns the Zero Trust edge services the caller&#39;s org owns.
 
 
 
-## ZtListMeshServices
+## CloudGetV1MeshServices
 
-> ZtListMeshServices200Response ZtListMeshServices(ctx).Execute()
+> CloudMeshServiceList CloudGetV1MeshServices(ctx).Execute()
 
-List the org's ZT edge services
+Returns the Zero Trust edge services the caller's org owns.
+
+
 
 ### Example
 
@@ -30,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MeshAPI.ZtListMeshServices(context.Background()).Execute()
+	resp, r, err := apiClient.MeshAPI.CloudGetV1MeshServices(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MeshAPI.ZtListMeshServices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeshAPI.CloudGetV1MeshServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ZtListMeshServices`: ZtListMeshServices200Response
-	fmt.Fprintf(os.Stdout, "Response from `MeshAPI.ZtListMeshServices`: %v\n", resp)
+	// response from `CloudGetV1MeshServices`: CloudMeshServiceList
+	fmt.Fprintf(os.Stdout, "Response from `MeshAPI.CloudGetV1MeshServices`: %v\n", resp)
 }
 ```
 
@@ -46,12 +48,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiZtListMeshServicesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1MeshServicesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**ZtListMeshServices200Response**](ZtListMeshServices200Response.md)
+[**CloudMeshServiceList**](CloudMeshServiceList.md)
 
 ### Authorization
 

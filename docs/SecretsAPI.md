@@ -9,9 +9,7 @@ Method | HTTP request | Description
 [**EdgeListSecrets**](SecretsAPI.md#EdgeListSecrets) | **Get** /v1/edge/secrets | List secrets
 [**EdgeUpdateSecret**](SecretsAPI.md#EdgeUpdateSecret) | **Put** /v1/edge/secrets/{name} | Update secret
 [**KmsDeleteV1KmsSecretsRest**](SecretsAPI.md#KmsDeleteV1KmsSecretsRest) | **Delete** /v1/kms/secrets/{rest} | Delete a secret
-[**KmsGetV1KmsSecrets**](SecretsAPI.md#KmsGetV1KmsSecrets) | **Get** /v1/kms/secrets | List secret names under a path
 [**KmsGetV1KmsSecretsRest**](SecretsAPI.md#KmsGetV1KmsSecretsRest) | **Get** /v1/kms/secrets/{rest} | Read one secret value
-[**KmsPostV1KmsSecrets**](SecretsAPI.md#KmsPostV1KmsSecrets) | **Post** /v1/kms/secrets | Create or replace a secret
 
 
 
@@ -346,74 +344,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## KmsGetV1KmsSecrets
-
-> KmsGetV1KmsSecrets200Response KmsGetV1KmsSecrets(ctx).Path(path).Env(env).Execute()
-
-List secret names under a path
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	path := "path_example" // string | Grouping path, e.g. gateway (optional)
-	env := "env_example" // string | Environment slug; defaults to `default` (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SecretsAPI.KmsGetV1KmsSecrets(context.Background()).Path(path).Env(env).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SecretsAPI.KmsGetV1KmsSecrets``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `KmsGetV1KmsSecrets`: KmsGetV1KmsSecrets200Response
-	fmt.Fprintf(os.Stdout, "Response from `SecretsAPI.KmsGetV1KmsSecrets`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiKmsGetV1KmsSecretsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **path** | **string** | Grouping path, e.g. gateway | 
- **env** | **string** | Environment slug; defaults to &#x60;default&#x60; | 
-
-### Return type
-
-[**KmsGetV1KmsSecrets200Response**](KmsGetV1KmsSecrets200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## KmsGetV1KmsSecretsRest
 
 > KmsGetV1KmsSecretsRest200Response KmsGetV1KmsSecretsRest(ctx, rest).Env(env).Execute()
@@ -477,72 +407,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## KmsPostV1KmsSecrets
-
-> AnalyticsHeartbeat200Response KmsPostV1KmsSecrets(ctx).KmsPostV1KmsSecretsRequest(kmsPostV1KmsSecretsRequest).Execute()
-
-Create or replace a secret
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	kmsPostV1KmsSecretsRequest := *openapiclient.NewKmsPostV1KmsSecretsRequest("Name_example", "Env_example", "Value_example") // KmsPostV1KmsSecretsRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SecretsAPI.KmsPostV1KmsSecrets(context.Background()).KmsPostV1KmsSecretsRequest(kmsPostV1KmsSecretsRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SecretsAPI.KmsPostV1KmsSecrets``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `KmsPostV1KmsSecrets`: AnalyticsHeartbeat200Response
-	fmt.Fprintf(os.Stdout, "Response from `SecretsAPI.KmsPostV1KmsSecrets`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiKmsPostV1KmsSecretsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **kmsPostV1KmsSecretsRequest** | [**KmsPostV1KmsSecretsRequest**](KmsPostV1KmsSecretsRequest.md) |  | 
-
-### Return type
-
-[**AnalyticsHeartbeat200Response**](AnalyticsHeartbeat200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

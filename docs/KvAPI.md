@@ -4,18 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ProvisioningCreateKv**](KvAPI.md#ProvisioningCreateKv) | **Post** /v1/kv | Provision a key-value resource
-[**ProvisioningDeleteKv**](KvAPI.md#ProvisioningDeleteKv) | **Delete** /v1/kv/{name} | Deprovision a key-value resource
-[**ProvisioningGetKv**](KvAPI.md#ProvisioningGetKv) | **Get** /v1/kv/{name} | Get one key-value resource
-[**ProvisioningListKv**](KvAPI.md#ProvisioningListKv) | **Get** /v1/kv | List key-value resources for the caller&#39;s org
+[**CloudDeleteV1KvName**](KvAPI.md#CloudDeleteV1KvName) | **Delete** /v1/kv/{name} | DropKV deprovisions one Hanzo KV store.
+[**CloudGetV1Kv**](KvAPI.md#CloudGetV1Kv) | **Get** /v1/kv | ListKV lists the caller org&#39;s Hanzo KV stores.
+[**CloudGetV1KvName**](KvAPI.md#CloudGetV1KvName) | **Get** /v1/kv/{name} | GetKV returns one Hanzo KV store&#39;s metadata.
+[**CloudPostV1Kv**](KvAPI.md#CloudPostV1Kv) | **Post** /v1/kv | 
 
 
 
-## ProvisioningCreateKv
+## CloudDeleteV1KvName
 
-> ProvisioningCreateResponse ProvisioningCreateKv(ctx).ProvisioningCreateRequest(provisioningCreateRequest).Execute()
+> CloudDeleteV1KvName(ctx, name).Execute()
 
-Provision a key-value resource
+DropKV deprovisions one Hanzo KV store.
+
+
 
 ### Example
 
@@ -30,77 +32,13 @@ import (
 )
 
 func main() {
-	provisioningCreateRequest := *openapiclient.NewProvisioningCreateRequest("analytics") // ProvisioningCreateRequest | 
+	name := "sessions" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KvAPI.ProvisioningCreateKv(context.Background()).ProvisioningCreateRequest(provisioningCreateRequest).Execute()
+	r, err := apiClient.KvAPI.CloudDeleteV1KvName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.ProvisioningCreateKv``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningCreateKv`: ProvisioningCreateResponse
-	fmt.Fprintf(os.Stdout, "Response from `KvAPI.ProvisioningCreateKv`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningCreateKvRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **provisioningCreateRequest** | [**ProvisioningCreateRequest**](ProvisioningCreateRequest.md) |  | 
-
-### Return type
-
-[**ProvisioningCreateResponse**](ProvisioningCreateResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningDeleteKv
-
-> ProvisioningDeleteKv(ctx, name).Execute()
-
-Deprovision a key-value resource
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KvAPI.ProvisioningDeleteKv(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.ProvisioningDeleteKv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.CloudDeleteV1KvName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -112,11 +50,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;.  | 
+**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiProvisioningDeleteKvRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1KvNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -134,86 +72,20 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## ProvisioningGetKv
+## CloudGetV1Kv
 
-> ProvisioningGetResponse ProvisioningGetKv(ctx, name).Execute()
+> []CloudProvisionedSummary CloudGetV1Kv(ctx).Execute()
 
-Get one key-value resource
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KvAPI.ProvisioningGetKv(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.ProvisioningGetKv``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningGetKv`: ProvisioningGetResponse
-	fmt.Fprintf(os.Stdout, "Response from `KvAPI.ProvisioningGetKv`: %v\n", resp)
-}
-```
-
-### Path Parameters
+ListKV lists the caller org's Hanzo KV stores.
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;.  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningGetKvRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ProvisioningGetResponse**](ProvisioningGetResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningListKv
-
-> []ProvisioningListItem ProvisioningListKv(ctx).Execute()
-
-List key-value resources for the caller's org
 
 ### Example
 
@@ -231,13 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KvAPI.ProvisioningListKv(context.Background()).Execute()
+	resp, r, err := apiClient.KvAPI.CloudGetV1Kv(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.ProvisioningListKv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.CloudGetV1Kv``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ProvisioningListKv`: []ProvisioningListItem
-	fmt.Fprintf(os.Stdout, "Response from `KvAPI.ProvisioningListKv`: %v\n", resp)
+	// response from `CloudGetV1Kv`: []CloudProvisionedSummary
+	fmt.Fprintf(os.Stdout, "Response from `KvAPI.CloudGetV1Kv`: %v\n", resp)
 }
 ```
 
@@ -247,12 +119,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiProvisioningListKvRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1KvRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]ProvisioningListItem**](ProvisioningListItem.md)
+[**[]CloudProvisionedSummary**](CloudProvisionedSummary.md)
 
 ### Authorization
 
@@ -261,6 +133,140 @@ Other parameters are passed through a pointer to a apiProvisioningListKvRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1KvName
+
+> CloudProvisionedResource CloudGetV1KvName(ctx, name).Execute()
+
+GetKV returns one Hanzo KV store's metadata.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "sessions" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KvAPI.CloudGetV1KvName(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.CloudGetV1KvName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1KvName`: CloudProvisionedResource
+	fmt.Fprintf(os.Stdout, "Response from `KvAPI.CloudGetV1KvName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1KvNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudProvisionedResource**](CloudProvisionedResource.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1Kv
+
+> CloudProvisionResult CloudPostV1Kv(ctx).CloudProvisionRequest(cloudProvisionRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudProvisionRequest := *openapiclient.NewCloudProvisionRequest() // CloudProvisionRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KvAPI.CloudPostV1Kv(context.Background()).CloudProvisionRequest(cloudProvisionRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.CloudPostV1Kv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1Kv`: CloudProvisionResult
+	fmt.Fprintf(os.Stdout, "Response from `KvAPI.CloudPostV1Kv`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1KvRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudProvisionRequest** | [**CloudProvisionRequest**](CloudProvisionRequest.md) |  | 
+
+### Return type
+
+[**CloudProvisionResult**](CloudProvisionResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

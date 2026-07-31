@@ -10,11 +10,11 @@ Name | Type | Description | Notes
 **Domains** | Pointer to **[]string** |  | [optional] 
 **Env** | Pointer to [**[]PlatformEnvVarJSON**](PlatformEnvVarJSON.md) |  | [optional] 
 **Environment** | Pointer to **string** |  | [optional] 
-**Image** | Pointer to [**PlatformCreateAppReqImage**](PlatformCreateAppReqImage.md) |  | [optional] 
+**Image** | Pointer to [**CloudCreateAppReqImage**](CloudCreateAppReqImage.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Port** | Pointer to **int32** |  | [optional] 
 **Replicas** | Pointer to **int32** |  | [optional] 
-**Repo** | Pointer to [**PlatformCreateAppReqRepo**](PlatformCreateAppReqRepo.md) |  | [optional] 
+**Repo** | Pointer to [**CloudCreateAppReqRepo**](CloudCreateAppReqRepo.md) |  | [optional] 
 **Slug** | Pointer to **string** |  | [optional] 
 **Source** | Pointer to **string** |  | [optional] 
 **StorageGb** | Pointer to **int32** |  | [optional] 
@@ -190,20 +190,20 @@ HasEnvironment returns a boolean if a field has been set.
 
 ### GetImage
 
-`func (o *PlatformCreateAppReq) GetImage() PlatformCreateAppReqImage`
+`func (o *PlatformCreateAppReq) GetImage() CloudCreateAppReqImage`
 
 GetImage returns the Image field if non-nil, zero value otherwise.
 
 ### GetImageOk
 
-`func (o *PlatformCreateAppReq) GetImageOk() (*PlatformCreateAppReqImage, bool)`
+`func (o *PlatformCreateAppReq) GetImageOk() (*CloudCreateAppReqImage, bool)`
 
 GetImageOk returns a tuple with the Image field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImage
 
-`func (o *PlatformCreateAppReq) SetImage(v PlatformCreateAppReqImage)`
+`func (o *PlatformCreateAppReq) SetImage(v CloudCreateAppReqImage)`
 
 SetImage sets Image field to given value.
 
@@ -290,20 +290,20 @@ HasReplicas returns a boolean if a field has been set.
 
 ### GetRepo
 
-`func (o *PlatformCreateAppReq) GetRepo() PlatformCreateAppReqRepo`
+`func (o *PlatformCreateAppReq) GetRepo() CloudCreateAppReqRepo`
 
 GetRepo returns the Repo field if non-nil, zero value otherwise.
 
 ### GetRepoOk
 
-`func (o *PlatformCreateAppReq) GetRepoOk() (*PlatformCreateAppReqRepo, bool)`
+`func (o *PlatformCreateAppReq) GetRepoOk() (*CloudCreateAppReqRepo, bool)`
 
 GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepo
 
-`func (o *PlatformCreateAppReq) SetRepo(v PlatformCreateAppReqRepo)`
+`func (o *PlatformCreateAppReq) SetRepo(v CloudCreateAppReqRepo)`
 
 SetRepo sets Repo field to given value.
 

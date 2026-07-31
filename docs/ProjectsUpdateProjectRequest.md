@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **Framework** | Pointer to **string** |  | [optional] 
 **CacheControl** | Pointer to **string** | Per-project HTML/document Cache-Control policy; must not contain newlines. | [optional] 
-**Repo** | Pointer to [**PlatformCreateAppReqRepo**](PlatformCreateAppReqRepo.md) |  | [optional] 
+**Repo** | Pointer to [**CloudCreateAppReqRepo**](CloudCreateAppReqRepo.md) |  | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasCacheControl returns a boolean if a field has been set.
 
 ### GetRepo
 
-`func (o *ProjectsUpdateProjectRequest) GetRepo() PlatformCreateAppReqRepo`
+`func (o *ProjectsUpdateProjectRequest) GetRepo() CloudCreateAppReqRepo`
 
 GetRepo returns the Repo field if non-nil, zero value otherwise.
 
 ### GetRepoOk
 
-`func (o *ProjectsUpdateProjectRequest) GetRepoOk() (*PlatformCreateAppReqRepo, bool)`
+`func (o *ProjectsUpdateProjectRequest) GetRepoOk() (*CloudCreateAppReqRepo, bool)`
 
 GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepo
 
-`func (o *ProjectsUpdateProjectRequest) SetRepo(v PlatformCreateAppReqRepo)`
+`func (o *ProjectsUpdateProjectRequest) SetRepo(v CloudCreateAppReqRepo)`
 
 SetRepo sets Repo field to given value.
 

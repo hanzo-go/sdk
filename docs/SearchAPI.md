@@ -6,22 +6,18 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**BotSearchPersonas**](SearchAPI.md#BotSearchPersonas) | **Get** /v1/bot/search/personas | Lexical search for personas
 [**BotSearchSkills**](SearchAPI.md#BotSearchSkills) | **Get** /v1/bot/search/skills | Hybrid vector + lexical search for skills
+[**CloudDeleteV1SearchName**](SearchAPI.md#CloudDeleteV1SearchName) | **Delete** /v1/search/{name} | DropSearch deletes one search index from the shared backend and removes its metadata row.
+[**CloudGetV1Search**](SearchAPI.md#CloudGetV1Search) | **Get** /v1/search | ListSearch lists the caller org&#39;s search indexes.
+[**CloudGetV1SearchName**](SearchAPI.md#CloudGetV1SearchName) | **Get** /v1/search/{name} | GetSearch returns one search index&#39;s metadata.
+[**CloudPostV1Search**](SearchAPI.md#CloudPostV1Search) | **Post** /v1/search | 
 [**CommerceSearchNotes**](SearchAPI.md#CommerceSearchNotes) | **Post** /v1/commerce/search/note | Search notes
 [**CommerceSearchOrders**](SearchAPI.md#CommerceSearchOrders) | **Get** /v1/commerce/search/order | Search orders
 [**CommerceSearchUsers**](SearchAPI.md#CommerceSearchUsers) | **Get** /v1/commerce/search/user | Search users
-[**KbKbSearch**](SearchAPI.md#KbKbSearch) | **Post** /v1/kb/search | Semantic search over the org&#39;s knowledge
-[**ProductGetSearchStats**](SearchAPI.md#ProductGetSearchStats) | **Get** /v1/search-docs/stats | Get aggregate search statistics
-[**ProductListSearchIndexes**](SearchAPI.md#ProductListSearchIndexes) | **Get** /v1/search-docs/indexes | List search indexes
-[**ProvisioningCreateSearch**](SearchAPI.md#ProvisioningCreateSearch) | **Post** /v1/search | Provision a search resource
-[**ProvisioningDeleteSearch**](SearchAPI.md#ProvisioningDeleteSearch) | **Delete** /v1/search/{name} | Deprovision a search resource
-[**ProvisioningGetSearch**](SearchAPI.md#ProvisioningGetSearch) | **Get** /v1/search/{name} | Get one search resource
-[**ProvisioningListSearch**](SearchAPI.md#ProvisioningListSearch) | **Get** /v1/search | List search resources for the caller&#39;s org
 [**SearchSearchGet**](SearchAPI.md#SearchSearchGet) | **Get** /v1/search/indexes/{indexUid}/search | Search documents (GET)
 [**SearchSearchPost**](SearchAPI.md#SearchSearchPost) | **Post** /v1/search/indexes/{indexUid}/search | Search documents (POST)
 [**VectorRecommendPoints**](SearchAPI.md#VectorRecommendPoints) | **Post** /v1/vector/collections/{collection_name}/points/recommend | Recommend points
 [**VectorSearchBatch**](SearchAPI.md#VectorSearchBatch) | **Post** /v1/vector/collections/{collection_name}/points/search/batch | Batch search
 [**VectorSearchPoints**](SearchAPI.md#VectorSearchPoints) | **Post** /v1/vector/collections/{collection_name}/points/search | Search points
-[**WebsearchWebSearch**](SearchAPI.md#WebsearchWebSearch) | **Get** /v1/websearch/search | Search the web (SearXNG JSON contract, proxied verbatim)
 
 
 
@@ -150,6 +146,269 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudDeleteV1SearchName
+
+> CloudDeleteV1SearchName(ctx, name).Execute()
+
+DropSearch deletes one search index from the shared backend and removes its metadata row.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "products" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SearchAPI.CloudDeleteV1SearchName(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.CloudDeleteV1SearchName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudDeleteV1SearchNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1Search
+
+> []CloudProvisionedSummary CloudGetV1Search(ctx).Execute()
+
+ListSearch lists the caller org's search indexes.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SearchAPI.CloudGetV1Search(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.CloudGetV1Search``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1Search`: []CloudProvisionedSummary
+	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.CloudGetV1Search`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1SearchRequest struct via the builder pattern
+
+
+### Return type
+
+[**[]CloudProvisionedSummary**](CloudProvisionedSummary.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1SearchName
+
+> CloudProvisionedResource CloudGetV1SearchName(ctx, name).Execute()
+
+GetSearch returns one search index's metadata.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "products" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SearchAPI.CloudGetV1SearchName(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.CloudGetV1SearchName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1SearchName`: CloudProvisionedResource
+	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.CloudGetV1SearchName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1SearchNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudProvisionedResource**](CloudProvisionedResource.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1Search
+
+> CloudProvisionResult CloudPostV1Search(ctx).CloudProvisionRequest(cloudProvisionRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudProvisionRequest := *openapiclient.NewCloudProvisionRequest() // CloudProvisionRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SearchAPI.CloudPostV1Search(context.Background()).CloudProvisionRequest(cloudProvisionRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.CloudPostV1Search``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1Search`: CloudProvisionResult
+	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.CloudPostV1Search`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1SearchRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudProvisionRequest** | [**CloudProvisionRequest**](CloudProvisionRequest.md) |  | 
+
+### Return type
+
+[**CloudProvisionResult**](CloudProvisionResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -334,449 +593,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]CommerceUser**](CommerceUser.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## KbKbSearch
-
-> KbKbSearch200Response KbKbSearch(ctx).KbSearchRequest(kbSearchRequest).Execute()
-
-Semantic search over the org's knowledge
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	kbSearchRequest := *openapiclient.NewKbSearchRequest("Query_example") // KbSearchRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.KbKbSearch(context.Background()).KbSearchRequest(kbSearchRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.KbKbSearch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `KbKbSearch`: KbKbSearch200Response
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.KbKbSearch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiKbKbSearchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **kbSearchRequest** | [**KbSearchRequest**](KbSearchRequest.md) |  | 
-
-### Return type
-
-[**KbKbSearch200Response**](KbKbSearch200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProductGetSearchStats
-
-> ProductSearchStats ProductGetSearchStats(ctx).Execute()
-
-Get aggregate search statistics
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.ProductGetSearchStats(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.ProductGetSearchStats``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProductGetSearchStats`: ProductSearchStats
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.ProductGetSearchStats`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProductGetSearchStatsRequest struct via the builder pattern
-
-
-### Return type
-
-[**ProductSearchStats**](ProductSearchStats.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProductListSearchIndexes
-
-> ProductListSearchIndexes200Response ProductListSearchIndexes(ctx).Execute()
-
-List search indexes
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.ProductListSearchIndexes(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.ProductListSearchIndexes``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProductListSearchIndexes`: ProductListSearchIndexes200Response
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.ProductListSearchIndexes`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProductListSearchIndexesRequest struct via the builder pattern
-
-
-### Return type
-
-[**ProductListSearchIndexes200Response**](ProductListSearchIndexes200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningCreateSearch
-
-> ProvisioningCreateResponse ProvisioningCreateSearch(ctx).ProvisioningCreateRequest(provisioningCreateRequest).Execute()
-
-Provision a search resource
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	provisioningCreateRequest := *openapiclient.NewProvisioningCreateRequest("analytics") // ProvisioningCreateRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.ProvisioningCreateSearch(context.Background()).ProvisioningCreateRequest(provisioningCreateRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.ProvisioningCreateSearch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningCreateSearch`: ProvisioningCreateResponse
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.ProvisioningCreateSearch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningCreateSearchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **provisioningCreateRequest** | [**ProvisioningCreateRequest**](ProvisioningCreateRequest.md) |  | 
-
-### Return type
-
-[**ProvisioningCreateResponse**](ProvisioningCreateResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningDeleteSearch
-
-> ProvisioningDeleteSearch(ctx, name).Execute()
-
-Deprovision a search resource
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SearchAPI.ProvisioningDeleteSearch(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.ProvisioningDeleteSearch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;.  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningDeleteSearchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningGetSearch
-
-> ProvisioningGetResponse ProvisioningGetSearch(ctx, name).Execute()
-
-Get one search resource
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.ProvisioningGetSearch(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.ProvisioningGetSearch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningGetSearch`: ProvisioningGetResponse
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.ProvisioningGetSearch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;.  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningGetSearchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ProvisioningGetResponse**](ProvisioningGetResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningListSearch
-
-> []ProvisioningListItem ProvisioningListSearch(ctx).Execute()
-
-List search resources for the caller's org
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.ProvisioningListSearch(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.ProvisioningListSearch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningListSearch`: []ProvisioningListItem
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.ProvisioningListSearch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningListSearchRequest struct via the builder pattern
-
-
-### Return type
-
-[**[]ProvisioningListItem**](ProvisioningListItem.md)
 
 ### Authorization
 
@@ -1159,72 +975,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## WebsearchWebSearch
-
-> WebsearchSearchResponse WebsearchWebSearch(ctx).Q(q).Format(format).Execute()
-
-Search the web (SearXNG JSON contract, proxied verbatim)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	q := "q_example" // string | Search query
-	format := "format_example" // string |  (optional) (default to "json")
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.WebsearchWebSearch(context.Background()).Q(q).Format(format).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.WebsearchWebSearch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `WebsearchWebSearch`: WebsearchSearchResponse
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.WebsearchWebSearch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiWebsearchWebSearchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **q** | **string** | Search query | 
- **format** | **string** |  | [default to &quot;json&quot;]
-
-### Return type
-
-[**WebsearchSearchResponse**](WebsearchSearchResponse.md)
-
-### Authorization
-
-[serviceKey](../README.md#serviceKey)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

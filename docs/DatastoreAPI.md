@@ -4,18 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ProvisioningCreateDatastore**](DatastoreAPI.md#ProvisioningCreateDatastore) | **Post** /v1/datastore | Provision a datastore resource (dedicated per-org instance)
-[**ProvisioningDeleteDatastore**](DatastoreAPI.md#ProvisioningDeleteDatastore) | **Delete** /v1/datastore/{name} | Deprovision a datastore instance
-[**ProvisioningGetDatastore**](DatastoreAPI.md#ProvisioningGetDatastore) | **Get** /v1/datastore/{name} | Get one datastore resource (reconciles live instance status)
-[**ProvisioningListDatastore**](DatastoreAPI.md#ProvisioningListDatastore) | **Get** /v1/datastore | List datastore resources for the caller&#39;s org
+[**CloudDeleteV1DatastoreName**](DatastoreAPI.md#CloudDeleteV1DatastoreName) | **Delete** /v1/datastore/{name} | DropDatastore deprovisions one Hanzo Datastore warehouse.
+[**CloudGetV1Datastore**](DatastoreAPI.md#CloudGetV1Datastore) | **Get** /v1/datastore | ListDatastore lists the caller org&#39;s Hanzo Datastore warehouses.
+[**CloudGetV1DatastoreName**](DatastoreAPI.md#CloudGetV1DatastoreName) | **Get** /v1/datastore/{name} | GetDatastore returns one Hanzo Datastore warehouse&#39;s metadata.
+[**CloudPostV1Datastore**](DatastoreAPI.md#CloudPostV1Datastore) | **Post** /v1/datastore | 
 
 
 
-## ProvisioningCreateDatastore
+## CloudDeleteV1DatastoreName
 
-> ProvisioningCreateResponse ProvisioningCreateDatastore(ctx).ProvisioningCreateRequest(provisioningCreateRequest).Execute()
+> CloudDeleteV1DatastoreName(ctx, name).Execute()
 
-Provision a datastore resource (dedicated per-org instance)
+DropDatastore deprovisions one Hanzo Datastore warehouse.
+
+
 
 ### Example
 
@@ -30,77 +32,13 @@ import (
 )
 
 func main() {
-	provisioningCreateRequest := *openapiclient.NewProvisioningCreateRequest("analytics") // ProvisioningCreateRequest | 
+	name := "warehouse" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DatastoreAPI.ProvisioningCreateDatastore(context.Background()).ProvisioningCreateRequest(provisioningCreateRequest).Execute()
+	r, err := apiClient.DatastoreAPI.CloudDeleteV1DatastoreName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.ProvisioningCreateDatastore``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningCreateDatastore`: ProvisioningCreateResponse
-	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.ProvisioningCreateDatastore`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningCreateDatastoreRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **provisioningCreateRequest** | [**ProvisioningCreateRequest**](ProvisioningCreateRequest.md) |  | 
-
-### Return type
-
-[**ProvisioningCreateResponse**](ProvisioningCreateResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningDeleteDatastore
-
-> ProvisioningDeleteDatastore(ctx, name).Execute()
-
-Deprovision a datastore instance
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DatastoreAPI.ProvisioningDeleteDatastore(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.ProvisioningDeleteDatastore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.CloudDeleteV1DatastoreName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -112,11 +50,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;.  | 
+**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiProvisioningDeleteDatastoreRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1DatastoreNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -134,86 +72,20 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## ProvisioningGetDatastore
+## CloudGetV1Datastore
 
-> ProvisioningGetResponse ProvisioningGetDatastore(ctx, name).Execute()
+> []CloudProvisionedSummary CloudGetV1Datastore(ctx).Execute()
 
-Get one datastore resource (reconciles live instance status)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`. 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DatastoreAPI.ProvisioningGetDatastore(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.ProvisioningGetDatastore``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ProvisioningGetDatastore`: ProvisioningGetResponse
-	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.ProvisioningGetDatastore`: %v\n", resp)
-}
-```
-
-### Path Parameters
+ListDatastore lists the caller org's Hanzo Datastore warehouses.
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | The user-supplied resource name (slug). Lowercased and trimmed server-side; must match &#x60;^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$&#x60;.  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisioningGetDatastoreRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ProvisioningGetResponse**](ProvisioningGetResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ProvisioningListDatastore
-
-> []ProvisioningListItem ProvisioningListDatastore(ctx).Execute()
-
-List datastore resources for the caller's org
 
 ### Example
 
@@ -231,13 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DatastoreAPI.ProvisioningListDatastore(context.Background()).Execute()
+	resp, r, err := apiClient.DatastoreAPI.CloudGetV1Datastore(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.ProvisioningListDatastore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.CloudGetV1Datastore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ProvisioningListDatastore`: []ProvisioningListItem
-	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.ProvisioningListDatastore`: %v\n", resp)
+	// response from `CloudGetV1Datastore`: []CloudProvisionedSummary
+	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.CloudGetV1Datastore`: %v\n", resp)
 }
 ```
 
@@ -247,12 +119,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiProvisioningListDatastoreRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1DatastoreRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]ProvisioningListItem**](ProvisioningListItem.md)
+[**[]CloudProvisionedSummary**](CloudProvisionedSummary.md)
 
 ### Authorization
 
@@ -261,6 +133,140 @@ Other parameters are passed through a pointer to a apiProvisioningListDatastoreR
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1DatastoreName
+
+> CloudProvisionedResource CloudGetV1DatastoreName(ctx, name).Execute()
+
+GetDatastore returns one Hanzo Datastore warehouse's metadata.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "warehouse" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DatastoreAPI.CloudGetV1DatastoreName(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.CloudGetV1DatastoreName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1DatastoreName`: CloudProvisionedResource
+	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.CloudGetV1DatastoreName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1DatastoreNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudProvisionedResource**](CloudProvisionedResource.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1Datastore
+
+> CloudProvisionResult CloudPostV1Datastore(ctx).CloudProvisionRequest(cloudProvisionRequest).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudProvisionRequest := *openapiclient.NewCloudProvisionRequest() // CloudProvisionRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DatastoreAPI.CloudPostV1Datastore(context.Background()).CloudProvisionRequest(cloudProvisionRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.CloudPostV1Datastore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1Datastore`: CloudProvisionResult
+	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.CloudPostV1Datastore`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1DatastoreRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudProvisionRequest** | [**CloudProvisionRequest**](CloudProvisionRequest.md) |  | 
+
+### Return type
+
+[**CloudProvisionResult**](CloudProvisionResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

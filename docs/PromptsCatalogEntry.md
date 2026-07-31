@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Labels** | Pointer to **[]string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
 **Prompt** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
-**Labels** | Pointer to **[]string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -28,6 +28,31 @@ will change when the set of required properties is changed
 NewPromptsCatalogEntryWithDefaults instantiates a new PromptsCatalogEntry object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetLabels
+
+`func (o *PromptsCatalogEntry) GetLabels() []string`
+
+GetLabels returns the Labels field if non-nil, zero value otherwise.
+
+### GetLabelsOk
+
+`func (o *PromptsCatalogEntry) GetLabelsOk() (*[]string, bool)`
+
+GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLabels
+
+`func (o *PromptsCatalogEntry) SetLabels(v []string)`
+
+SetLabels sets Labels field to given value.
+
+### HasLabels
+
+`func (o *PromptsCatalogEntry) HasLabels() bool`
+
+HasLabels returns a boolean if a field has been set.
 
 ### GetName
 
@@ -53,31 +78,6 @@ SetName sets Name field to given value.
 `func (o *PromptsCatalogEntry) HasName() bool`
 
 HasName returns a boolean if a field has been set.
-
-### GetType
-
-`func (o *PromptsCatalogEntry) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *PromptsCatalogEntry) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *PromptsCatalogEntry) SetType(v string)`
-
-SetType sets Type field to given value.
-
-### HasType
-
-`func (o *PromptsCatalogEntry) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetPrompt
 
@@ -129,30 +129,30 @@ SetTags sets Tags field to given value.
 
 HasTags returns a boolean if a field has been set.
 
-### GetLabels
+### GetType
 
-`func (o *PromptsCatalogEntry) GetLabels() []string`
+`func (o *PromptsCatalogEntry) GetType() string`
 
-GetLabels returns the Labels field if non-nil, zero value otherwise.
+GetType returns the Type field if non-nil, zero value otherwise.
 
-### GetLabelsOk
+### GetTypeOk
 
-`func (o *PromptsCatalogEntry) GetLabelsOk() (*[]string, bool)`
+`func (o *PromptsCatalogEntry) GetTypeOk() (*string, bool)`
 
-GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLabels
+### SetType
 
-`func (o *PromptsCatalogEntry) SetLabels(v []string)`
+`func (o *PromptsCatalogEntry) SetType(v string)`
 
-SetLabels sets Labels field to given value.
+SetType sets Type field to given value.
 
-### HasLabels
+### HasType
 
-`func (o *PromptsCatalogEntry) HasLabels() bool`
+`func (o *PromptsCatalogEntry) HasType() bool`
 
-HasLabels returns a boolean if a field has been set.
+HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

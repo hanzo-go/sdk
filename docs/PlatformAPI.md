@@ -4,53 +4,53 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PlatformDeleteV1PlatformProjectsByProjectAppsByApp**](PlatformAPI.md#PlatformDeleteV1PlatformProjectsByProjectAppsByApp) | **Delete** /v1/platform/projects/{project}/apps/{app} | 
-[**PlatformDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost**](PlatformAPI.md#PlatformDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost) | **Delete** /v1/platform/projects/{project}/apps/{app}/domains/{host} | 
-[**PlatformDeleteV1PlatformSitesBySlug**](PlatformAPI.md#PlatformDeleteV1PlatformSitesBySlug) | **Delete** /v1/platform/sites/{slug} | 
-[**PlatformDeleteV1PlatformSitesBySlugDomainsByHost**](PlatformAPI.md#PlatformDeleteV1PlatformSitesBySlugDomainsByHost) | **Delete** /v1/platform/sites/{slug}/domains/{host} | 
-[**PlatformGetV1PlatformFleet**](PlatformAPI.md#PlatformGetV1PlatformFleet) | **Get** /v1/platform/fleet | 
-[**PlatformGetV1PlatformFleetByApp**](PlatformAPI.md#PlatformGetV1PlatformFleetByApp) | **Get** /v1/platform/fleet/{app} | 
-[**PlatformGetV1PlatformHealth**](PlatformAPI.md#PlatformGetV1PlatformHealth) | **Get** /v1/platform/health | 
-[**PlatformGetV1PlatformProjects**](PlatformAPI.md#PlatformGetV1PlatformProjects) | **Get** /v1/platform/projects | 
-[**PlatformGetV1PlatformProjectsByProject**](PlatformAPI.md#PlatformGetV1PlatformProjectsByProject) | **Get** /v1/platform/projects/{project} | 
-[**PlatformGetV1PlatformProjectsByProjectApps**](PlatformAPI.md#PlatformGetV1PlatformProjectsByProjectApps) | **Get** /v1/platform/projects/{project}/apps | 
-[**PlatformGetV1PlatformProjectsByProjectAppsByApp**](PlatformAPI.md#PlatformGetV1PlatformProjectsByProjectAppsByApp) | **Get** /v1/platform/projects/{project}/apps/{app} | 
-[**PlatformGetV1PlatformProjectsByProjectAppsByAppDeployments**](PlatformAPI.md#PlatformGetV1PlatformProjectsByProjectAppsByAppDeployments) | **Get** /v1/platform/projects/{project}/apps/{app}/deployments | 
-[**PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsById**](PlatformAPI.md#PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsById) | **Get** /v1/platform/projects/{project}/apps/{app}/deployments/{id} | 
-[**PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs**](PlatformAPI.md#PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs) | **Get** /v1/platform/projects/{project}/apps/{app}/deployments/{id}/logs | 
-[**PlatformGetV1PlatformProjectsByProjectAppsByAppDomains**](PlatformAPI.md#PlatformGetV1PlatformProjectsByProjectAppsByAppDomains) | **Get** /v1/platform/projects/{project}/apps/{app}/domains | 
-[**PlatformGetV1PlatformSites**](PlatformAPI.md#PlatformGetV1PlatformSites) | **Get** /v1/platform/sites | 
-[**PlatformGetV1PlatformSitesBySlug**](PlatformAPI.md#PlatformGetV1PlatformSitesBySlug) | **Get** /v1/platform/sites/{slug} | 
-[**PlatformGetV1PlatformSitesBySlugDeployments**](PlatformAPI.md#PlatformGetV1PlatformSitesBySlugDeployments) | **Get** /v1/platform/sites/{slug}/deployments | 
-[**PlatformGetV1PlatformSitesBySlugDeploymentsById**](PlatformAPI.md#PlatformGetV1PlatformSitesBySlugDeploymentsById) | **Get** /v1/platform/sites/{slug}/deployments/{id} | 
-[**PlatformGetV1PlatformSitesBySlugDomains**](PlatformAPI.md#PlatformGetV1PlatformSitesBySlugDomains) | **Get** /v1/platform/sites/{slug}/domains | 
-[**PlatformGetV1PlatformSitesBySlugReleases**](PlatformAPI.md#PlatformGetV1PlatformSitesBySlugReleases) | **Get** /v1/platform/sites/{slug}/releases | 
-[**PlatformPatchV1PlatformSitesBySlug**](PlatformAPI.md#PlatformPatchV1PlatformSitesBySlug) | **Patch** /v1/platform/sites/{slug} | 
-[**PlatformPostV1PlatformFleetByAppDeploy**](PlatformAPI.md#PlatformPostV1PlatformFleetByAppDeploy) | **Post** /v1/platform/fleet/{app}/deploy | 
-[**PlatformPostV1PlatformProjectsByProjectApps**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectApps) | **Post** /v1/platform/projects/{project}/apps | 
-[**PlatformPostV1PlatformProjectsByProjectAppsByAppDeploy**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectAppsByAppDeploy) | **Post** /v1/platform/projects/{project}/apps/{app}/deploy | 
-[**PlatformPostV1PlatformProjectsByProjectAppsByAppDomains**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectAppsByAppDomains) | **Post** /v1/platform/projects/{project}/apps/{app}/domains | 
-[**PlatformPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify) | **Post** /v1/platform/projects/{project}/apps/{app}/domains/{host}/verify | 
-[**PlatformPostV1PlatformProjectsByProjectAppsByAppPreview**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectAppsByAppPreview) | **Post** /v1/platform/projects/{project}/apps/{app}/preview | 
-[**PlatformPostV1PlatformProjectsByProjectAppsByAppPromote**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectAppsByAppPromote) | **Post** /v1/platform/projects/{project}/apps/{app}/promote | 
-[**PlatformPostV1PlatformProjectsByProjectAppsByAppRollback**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectAppsByAppRollback) | **Post** /v1/platform/projects/{project}/apps/{app}/rollback | 
-[**PlatformPostV1PlatformProjectsByProjectAppsByAppStart**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectAppsByAppStart) | **Post** /v1/platform/projects/{project}/apps/{app}/start | 
-[**PlatformPostV1PlatformProjectsByProjectAppsByAppStop**](PlatformAPI.md#PlatformPostV1PlatformProjectsByProjectAppsByAppStop) | **Post** /v1/platform/projects/{project}/apps/{app}/stop | 
-[**PlatformPostV1PlatformSites**](PlatformAPI.md#PlatformPostV1PlatformSites) | **Post** /v1/platform/sites | 
-[**PlatformPostV1PlatformSitesBySlugDeploy**](PlatformAPI.md#PlatformPostV1PlatformSitesBySlugDeploy) | **Post** /v1/platform/sites/{slug}/deploy | 
-[**PlatformPostV1PlatformSitesBySlugDomains**](PlatformAPI.md#PlatformPostV1PlatformSitesBySlugDomains) | **Post** /v1/platform/sites/{slug}/domains | 
-[**PlatformPostV1PlatformSitesBySlugDomainsByHostVerify**](PlatformAPI.md#PlatformPostV1PlatformSitesBySlugDomainsByHostVerify) | **Post** /v1/platform/sites/{slug}/domains/{host}/verify | 
-[**PlatformPostV1PlatformSitesBySlugPublish**](PlatformAPI.md#PlatformPostV1PlatformSitesBySlugPublish) | **Post** /v1/platform/sites/{slug}/publish | 
-[**PlatformPostV1PlatformSitesBySlugPurge**](PlatformAPI.md#PlatformPostV1PlatformSitesBySlugPurge) | **Post** /v1/platform/sites/{slug}/purge | 
-[**PlatformPostV1PlatformSitesBySlugReleases**](PlatformAPI.md#PlatformPostV1PlatformSitesBySlugReleases) | **Post** /v1/platform/sites/{slug}/releases | 
-[**PlatformPostV1PlatformSitesBySlugReleasesByReleaseActivate**](PlatformAPI.md#PlatformPostV1PlatformSitesBySlugReleasesByReleaseActivate) | **Post** /v1/platform/sites/{slug}/releases/{release}/activate | 
-[**PlatformPutV1PlatformProjectsByProjectAppsByAppEnv**](PlatformAPI.md#PlatformPutV1PlatformProjectsByProjectAppsByAppEnv) | **Put** /v1/platform/projects/{project}/apps/{app}/env | 
+[**CloudDeleteV1PlatformProjectsByProjectAppsByApp**](PlatformAPI.md#CloudDeleteV1PlatformProjectsByProjectAppsByApp) | **Delete** /v1/platform/projects/{project}/apps/{app} | 
+[**CloudDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost**](PlatformAPI.md#CloudDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost) | **Delete** /v1/platform/projects/{project}/apps/{app}/domains/{host} | 
+[**CloudDeleteV1PlatformSitesBySlug**](PlatformAPI.md#CloudDeleteV1PlatformSitesBySlug) | **Delete** /v1/platform/sites/{slug} | 
+[**CloudDeleteV1PlatformSitesBySlugDomainsByHost**](PlatformAPI.md#CloudDeleteV1PlatformSitesBySlugDomainsByHost) | **Delete** /v1/platform/sites/{slug}/domains/{host} | 
+[**CloudGetV1PlatformFleet**](PlatformAPI.md#CloudGetV1PlatformFleet) | **Get** /v1/platform/fleet | 
+[**CloudGetV1PlatformFleetByApp**](PlatformAPI.md#CloudGetV1PlatformFleetByApp) | **Get** /v1/platform/fleet/{app} | 
+[**CloudGetV1PlatformHealth**](PlatformAPI.md#CloudGetV1PlatformHealth) | **Get** /v1/platform/health | 
+[**CloudGetV1PlatformProjects**](PlatformAPI.md#CloudGetV1PlatformProjects) | **Get** /v1/platform/projects | 
+[**CloudGetV1PlatformProjectsByProject**](PlatformAPI.md#CloudGetV1PlatformProjectsByProject) | **Get** /v1/platform/projects/{project} | 
+[**CloudGetV1PlatformProjectsByProjectApps**](PlatformAPI.md#CloudGetV1PlatformProjectsByProjectApps) | **Get** /v1/platform/projects/{project}/apps | 
+[**CloudGetV1PlatformProjectsByProjectAppsByApp**](PlatformAPI.md#CloudGetV1PlatformProjectsByProjectAppsByApp) | **Get** /v1/platform/projects/{project}/apps/{app} | 
+[**CloudGetV1PlatformProjectsByProjectAppsByAppDeployments**](PlatformAPI.md#CloudGetV1PlatformProjectsByProjectAppsByAppDeployments) | **Get** /v1/platform/projects/{project}/apps/{app}/deployments | 
+[**CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsById**](PlatformAPI.md#CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsById) | **Get** /v1/platform/projects/{project}/apps/{app}/deployments/{id} | 
+[**CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs**](PlatformAPI.md#CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs) | **Get** /v1/platform/projects/{project}/apps/{app}/deployments/{id}/logs | 
+[**CloudGetV1PlatformProjectsByProjectAppsByAppDomains**](PlatformAPI.md#CloudGetV1PlatformProjectsByProjectAppsByAppDomains) | **Get** /v1/platform/projects/{project}/apps/{app}/domains | 
+[**CloudGetV1PlatformSites**](PlatformAPI.md#CloudGetV1PlatformSites) | **Get** /v1/platform/sites | 
+[**CloudGetV1PlatformSitesBySlug**](PlatformAPI.md#CloudGetV1PlatformSitesBySlug) | **Get** /v1/platform/sites/{slug} | 
+[**CloudGetV1PlatformSitesBySlugDeployments**](PlatformAPI.md#CloudGetV1PlatformSitesBySlugDeployments) | **Get** /v1/platform/sites/{slug}/deployments | 
+[**CloudGetV1PlatformSitesBySlugDeploymentsById**](PlatformAPI.md#CloudGetV1PlatformSitesBySlugDeploymentsById) | **Get** /v1/platform/sites/{slug}/deployments/{id} | 
+[**CloudGetV1PlatformSitesBySlugDomains**](PlatformAPI.md#CloudGetV1PlatformSitesBySlugDomains) | **Get** /v1/platform/sites/{slug}/domains | 
+[**CloudGetV1PlatformSitesBySlugReleases**](PlatformAPI.md#CloudGetV1PlatformSitesBySlugReleases) | **Get** /v1/platform/sites/{slug}/releases | 
+[**CloudPatchV1PlatformSitesBySlug**](PlatformAPI.md#CloudPatchV1PlatformSitesBySlug) | **Patch** /v1/platform/sites/{slug} | 
+[**CloudPostV1PlatformFleetByAppDeploy**](PlatformAPI.md#CloudPostV1PlatformFleetByAppDeploy) | **Post** /v1/platform/fleet/{app}/deploy | 
+[**CloudPostV1PlatformProjectsByProjectApps**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectApps) | **Post** /v1/platform/projects/{project}/apps | 
+[**CloudPostV1PlatformProjectsByProjectAppsByAppDeploy**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectAppsByAppDeploy) | **Post** /v1/platform/projects/{project}/apps/{app}/deploy | 
+[**CloudPostV1PlatformProjectsByProjectAppsByAppDomains**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectAppsByAppDomains) | **Post** /v1/platform/projects/{project}/apps/{app}/domains | 
+[**CloudPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify) | **Post** /v1/platform/projects/{project}/apps/{app}/domains/{host}/verify | 
+[**CloudPostV1PlatformProjectsByProjectAppsByAppPreview**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectAppsByAppPreview) | **Post** /v1/platform/projects/{project}/apps/{app}/preview | 
+[**CloudPostV1PlatformProjectsByProjectAppsByAppPromote**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectAppsByAppPromote) | **Post** /v1/platform/projects/{project}/apps/{app}/promote | 
+[**CloudPostV1PlatformProjectsByProjectAppsByAppRollback**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectAppsByAppRollback) | **Post** /v1/platform/projects/{project}/apps/{app}/rollback | 
+[**CloudPostV1PlatformProjectsByProjectAppsByAppStart**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectAppsByAppStart) | **Post** /v1/platform/projects/{project}/apps/{app}/start | 
+[**CloudPostV1PlatformProjectsByProjectAppsByAppStop**](PlatformAPI.md#CloudPostV1PlatformProjectsByProjectAppsByAppStop) | **Post** /v1/platform/projects/{project}/apps/{app}/stop | 
+[**CloudPostV1PlatformSites**](PlatformAPI.md#CloudPostV1PlatformSites) | **Post** /v1/platform/sites | 
+[**CloudPostV1PlatformSitesBySlugDeploy**](PlatformAPI.md#CloudPostV1PlatformSitesBySlugDeploy) | **Post** /v1/platform/sites/{slug}/deploy | 
+[**CloudPostV1PlatformSitesBySlugDomains**](PlatformAPI.md#CloudPostV1PlatformSitesBySlugDomains) | **Post** /v1/platform/sites/{slug}/domains | 
+[**CloudPostV1PlatformSitesBySlugDomainsByHostVerify**](PlatformAPI.md#CloudPostV1PlatformSitesBySlugDomainsByHostVerify) | **Post** /v1/platform/sites/{slug}/domains/{host}/verify | 
+[**CloudPostV1PlatformSitesBySlugPublish**](PlatformAPI.md#CloudPostV1PlatformSitesBySlugPublish) | **Post** /v1/platform/sites/{slug}/publish | 
+[**CloudPostV1PlatformSitesBySlugPurge**](PlatformAPI.md#CloudPostV1PlatformSitesBySlugPurge) | **Post** /v1/platform/sites/{slug}/purge | 
+[**CloudPostV1PlatformSitesBySlugReleases**](PlatformAPI.md#CloudPostV1PlatformSitesBySlugReleases) | **Post** /v1/platform/sites/{slug}/releases | 
+[**CloudPostV1PlatformSitesBySlugReleasesByReleaseActivate**](PlatformAPI.md#CloudPostV1PlatformSitesBySlugReleasesByReleaseActivate) | **Post** /v1/platform/sites/{slug}/releases/{release}/activate | 
+[**CloudPutV1PlatformProjectsByProjectAppsByAppEnv**](PlatformAPI.md#CloudPutV1PlatformProjectsByProjectAppsByAppEnv) | **Put** /v1/platform/projects/{project}/apps/{app}/env | 
 
 
 
-## PlatformDeleteV1PlatformProjectsByProjectAppsByApp
+## CloudDeleteV1PlatformProjectsByProjectAppsByApp
 
-> PlatformDeleteV1PlatformProjectsByProjectAppsByApp(ctx, project, app).Execute()
+> CloudDeleteV1PlatformProjectsByProjectAppsByApp(ctx, project, app).Execute()
 
 
 
@@ -72,9 +72,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformDeleteV1PlatformProjectsByProjectAppsByApp(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudDeleteV1PlatformProjectsByProjectAppsByApp(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformDeleteV1PlatformProjectsByProjectAppsByApp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudDeleteV1PlatformProjectsByProjectAppsByApp``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformDeleteV1PlatformProjectsByProjectAppsByAppRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1PlatformProjectsByProjectAppsByAppRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -117,9 +117,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost
+## CloudDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost
 
-> PlatformDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost(ctx, project, app, host).Execute()
+> CloudDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost(ctx, project, app, host).Execute()
 
 
 
@@ -142,9 +142,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost(context.Background(), project, app, host).Execute()
+	r, err := apiClient.PlatformAPI.CloudDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost(context.Background(), project, app, host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1PlatformProjectsByProjectAppsByAppDomainsByHostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -189,9 +189,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformDeleteV1PlatformSitesBySlug
+## CloudDeleteV1PlatformSitesBySlug
 
-> PlatformDeleteV1PlatformSitesBySlug(ctx, slug).Execute()
+> CloudDeleteV1PlatformSitesBySlug(ctx, slug).Execute()
 
 
 
@@ -212,9 +212,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformDeleteV1PlatformSitesBySlug(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudDeleteV1PlatformSitesBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformDeleteV1PlatformSitesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudDeleteV1PlatformSitesBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformDeleteV1PlatformSitesBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1PlatformSitesBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -255,9 +255,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformDeleteV1PlatformSitesBySlugDomainsByHost
+## CloudDeleteV1PlatformSitesBySlugDomainsByHost
 
-> PlatformDeleteV1PlatformSitesBySlugDomainsByHost(ctx, slug, host).Execute()
+> CloudDeleteV1PlatformSitesBySlugDomainsByHost(ctx, slug, host).Execute()
 
 
 
@@ -279,9 +279,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformDeleteV1PlatformSitesBySlugDomainsByHost(context.Background(), slug, host).Execute()
+	r, err := apiClient.PlatformAPI.CloudDeleteV1PlatformSitesBySlugDomainsByHost(context.Background(), slug, host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformDeleteV1PlatformSitesBySlugDomainsByHost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudDeleteV1PlatformSitesBySlugDomainsByHost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformDeleteV1PlatformSitesBySlugDomainsByHostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1PlatformSitesBySlugDomainsByHostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -324,141 +324,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformFleet
+## CloudGetV1PlatformFleet
 
-> PlatformGetV1PlatformFleet(ctx).Env(env).Health(health).Drift(drift).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	env := "env_example" // string | Only rows in this environment (namespace). (optional)
-	health := "health_example" // string | Only rows at this health: green | yellow | red. (optional)
-	drift := "drift_example" // string | 1 or true — only rows whose live state differs from declared. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformFleet(context.Background()).Env(env).Health(health).Drift(drift).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformFleet``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformFleetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **env** | **string** | Only rows in this environment (namespace). | 
- **health** | **string** | Only rows at this health: green | yellow | red. | 
- **drift** | **string** | 1 or true — only rows whose live state differs from declared. | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlatformGetV1PlatformFleetByApp
-
-> PlatformGetV1PlatformFleetByApp(ctx, app).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	app := "app_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformFleetByApp(context.Background(), app).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformFleetByApp``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**app** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformFleetByAppRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlatformGetV1PlatformHealth
-
-> PlatformGetV1PlatformHealth(ctx).Execute()
+> CloudGetV1PlatformFleet(ctx).Execute()
 
 
 
@@ -478,9 +346,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformHealth(context.Background()).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformFleet(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformFleet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -492,7 +360,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformFleetRequest struct via the builder pattern
 
 
 ### Return type
@@ -513,9 +381,75 @@ Other parameters are passed through a pointer to a apiPlatformGetV1PlatformHealt
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformProjects
+## CloudGetV1PlatformFleetByApp
 
-> []PlatformProjectView PlatformGetV1PlatformProjects(ctx).Execute()
+> CloudGetV1PlatformFleetByApp(ctx, app).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	app := "app_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformFleetByApp(context.Background(), app).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformFleetByApp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**app** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformFleetByAppRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlatformHealth
+
+> CloudGetV1PlatformHealth(ctx).Execute()
 
 
 
@@ -535,13 +469,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PlatformGetV1PlatformProjects(context.Background()).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlatformGetV1PlatformProjects`: []PlatformProjectView
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PlatformGetV1PlatformProjects`: %v\n", resp)
 }
 ```
 
@@ -551,12 +483,71 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]PlatformProjectView**](PlatformProjectView.md)
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlatformProjects
+
+> []CloudProjectView CloudGetV1PlatformProjects(ctx).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlatformAPI.CloudGetV1PlatformProjects(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlatformProjects`: []CloudProjectView
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.CloudGetV1PlatformProjects`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformProjectsRequest struct via the builder pattern
+
+
+### Return type
+
+[**[]CloudProjectView**](CloudProjectView.md)
 
 ### Authorization
 
@@ -572,9 +563,9 @@ Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProje
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformProjectsByProject
+## CloudGetV1PlatformProjectsByProject
 
-> PlatformProjectView PlatformGetV1PlatformProjectsByProject(ctx, project).Execute()
+> CloudProjectView CloudGetV1PlatformProjectsByProject(ctx, project).Execute()
 
 
 
@@ -595,13 +586,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PlatformGetV1PlatformProjectsByProject(context.Background(), project).Execute()
+	resp, r, err := apiClient.PlatformAPI.CloudGetV1PlatformProjectsByProject(context.Background(), project).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformProjectsByProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformProjectsByProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlatformGetV1PlatformProjectsByProject`: PlatformProjectView
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PlatformGetV1PlatformProjectsByProject`: %v\n", resp)
+	// response from `CloudGetV1PlatformProjectsByProject`: CloudProjectView
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.CloudGetV1PlatformProjectsByProject`: %v\n", resp)
 }
 ```
 
@@ -615,7 +606,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProjectsByProjectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformProjectsByProjectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -624,7 +615,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PlatformProjectView**](PlatformProjectView.md)
+[**CloudProjectView**](CloudProjectView.md)
 
 ### Authorization
 
@@ -640,9 +631,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformProjectsByProjectApps
+## CloudGetV1PlatformProjectsByProjectApps
 
-> []PlatformAppView PlatformGetV1PlatformProjectsByProjectApps(ctx, project).Execute()
+> []CloudAppView CloudGetV1PlatformProjectsByProjectApps(ctx, project).Execute()
 
 
 
@@ -663,13 +654,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PlatformGetV1PlatformProjectsByProjectApps(context.Background(), project).Execute()
+	resp, r, err := apiClient.PlatformAPI.CloudGetV1PlatformProjectsByProjectApps(context.Background(), project).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformProjectsByProjectApps``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformProjectsByProjectApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlatformGetV1PlatformProjectsByProjectApps`: []PlatformAppView
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PlatformGetV1PlatformProjectsByProjectApps`: %v\n", resp)
+	// response from `CloudGetV1PlatformProjectsByProjectApps`: []CloudAppView
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.CloudGetV1PlatformProjectsByProjectApps`: %v\n", resp)
 }
 ```
 
@@ -683,7 +674,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProjectsByProjectAppsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformProjectsByProjectAppsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -692,7 +683,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PlatformAppView**](PlatformAppView.md)
+[**[]CloudAppView**](CloudAppView.md)
 
 ### Authorization
 
@@ -708,9 +699,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformProjectsByProjectAppsByApp
+## CloudGetV1PlatformProjectsByProjectAppsByApp
 
-> PlatformAppView PlatformGetV1PlatformProjectsByProjectAppsByApp(ctx, project, app).Execute()
+> CloudAppView CloudGetV1PlatformProjectsByProjectAppsByApp(ctx, project, app).Execute()
 
 
 
@@ -732,13 +723,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByApp(context.Background(), project, app).Execute()
+	resp, r, err := apiClient.PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByApp(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByApp``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByApp``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlatformGetV1PlatformProjectsByProjectAppsByApp`: PlatformAppView
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByApp`: %v\n", resp)
+	// response from `CloudGetV1PlatformProjectsByProjectAppsByApp`: CloudAppView
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByApp`: %v\n", resp)
 }
 ```
 
@@ -753,7 +744,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProjectsByProjectAppsByAppRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformProjectsByProjectAppsByAppRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -763,7 +754,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PlatformAppView**](PlatformAppView.md)
+[**CloudAppView**](CloudAppView.md)
 
 ### Authorization
 
@@ -779,9 +770,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformProjectsByProjectAppsByAppDeployments
+## CloudGetV1PlatformProjectsByProjectAppsByAppDeployments
 
-> PlatformGetV1PlatformProjectsByProjectAppsByAppDeployments(ctx, project, app).Execute()
+> CloudGetV1PlatformProjectsByProjectAppsByAppDeployments(ctx, project, app).Execute()
 
 
 
@@ -803,9 +794,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByAppDeployments(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByAppDeployments(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByAppDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByAppDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -822,7 +813,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -848,9 +839,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsById
+## CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsById
 
-> PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsById(ctx, project, app, id).Execute()
+> CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsById(ctx, project, app, id).Execute()
 
 
 
@@ -873,9 +864,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsById(context.Background(), project, app, id).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsById(context.Background(), project, app, id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -893,7 +884,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -920,9 +911,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs
+## CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs
 
-> PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs(ctx, project, app, id).Execute()
+> CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs(ctx, project, app, id).Execute()
 
 
 
@@ -945,9 +936,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs(context.Background(), project, app, id).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs(context.Background(), project, app, id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -965,7 +956,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformProjectsByProjectAppsByAppDeploymentsByIdLogsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -992,9 +983,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformProjectsByProjectAppsByAppDomains
+## CloudGetV1PlatformProjectsByProjectAppsByAppDomains
 
-> PlatformGetV1PlatformProjectsByProjectAppsByAppDomains(ctx, project, app).Execute()
+> CloudGetV1PlatformProjectsByProjectAppsByAppDomains(ctx, project, app).Execute()
 
 
 
@@ -1016,9 +1007,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByAppDomains(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByAppDomains(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformProjectsByProjectAppsByAppDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformProjectsByProjectAppsByAppDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1035,7 +1026,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformProjectsByProjectAppsByAppDomainsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformProjectsByProjectAppsByAppDomainsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1061,9 +1052,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformSites
+## CloudGetV1PlatformSites
 
-> PlatformGetV1PlatformSites(ctx).Execute()
+> CloudGetV1PlatformSites(ctx).Execute()
 
 
 
@@ -1083,9 +1074,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformSites(context.Background()).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformSites(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformSites``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformSites``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1097,7 +1088,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformSitesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformSitesRequest struct via the builder pattern
 
 
 ### Return type
@@ -1118,9 +1109,9 @@ Other parameters are passed through a pointer to a apiPlatformGetV1PlatformSites
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformSitesBySlug
+## CloudGetV1PlatformSitesBySlug
 
-> PlatformGetV1PlatformSitesBySlug(ctx, slug).Execute()
+> CloudGetV1PlatformSitesBySlug(ctx, slug).Execute()
 
 
 
@@ -1141,9 +1132,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformSitesBySlug(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformSitesBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformSitesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformSitesBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1159,7 +1150,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformSitesBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformSitesBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1184,9 +1175,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformSitesBySlugDeployments
+## CloudGetV1PlatformSitesBySlugDeployments
 
-> PlatformGetV1PlatformSitesBySlugDeployments(ctx, slug).Execute()
+> CloudGetV1PlatformSitesBySlugDeployments(ctx, slug).Execute()
 
 
 
@@ -1207,9 +1198,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformSitesBySlugDeployments(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformSitesBySlugDeployments(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformSitesBySlugDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformSitesBySlugDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1225,7 +1216,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformSitesBySlugDeploymentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformSitesBySlugDeploymentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1250,9 +1241,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformSitesBySlugDeploymentsById
+## CloudGetV1PlatformSitesBySlugDeploymentsById
 
-> PlatformGetV1PlatformSitesBySlugDeploymentsById(ctx, slug, id).Execute()
+> CloudGetV1PlatformSitesBySlugDeploymentsById(ctx, slug, id).Execute()
 
 
 
@@ -1274,9 +1265,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformSitesBySlugDeploymentsById(context.Background(), slug, id).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformSitesBySlugDeploymentsById(context.Background(), slug, id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformSitesBySlugDeploymentsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformSitesBySlugDeploymentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1293,7 +1284,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformSitesBySlugDeploymentsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformSitesBySlugDeploymentsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1319,9 +1310,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformSitesBySlugDomains
+## CloudGetV1PlatformSitesBySlugDomains
 
-> PlatformGetV1PlatformSitesBySlugDomains(ctx, slug).Execute()
+> CloudGetV1PlatformSitesBySlugDomains(ctx, slug).Execute()
 
 
 
@@ -1342,9 +1333,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformSitesBySlugDomains(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformSitesBySlugDomains(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformSitesBySlugDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformSitesBySlugDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1360,7 +1351,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformSitesBySlugDomainsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformSitesBySlugDomainsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1385,9 +1376,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformGetV1PlatformSitesBySlugReleases
+## CloudGetV1PlatformSitesBySlugReleases
 
-> PlatformGetV1PlatformSitesBySlugReleases(ctx, slug).Execute()
+> CloudGetV1PlatformSitesBySlugReleases(ctx, slug).Execute()
 
 
 
@@ -1408,9 +1399,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformGetV1PlatformSitesBySlugReleases(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudGetV1PlatformSitesBySlugReleases(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformGetV1PlatformSitesBySlugReleases``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudGetV1PlatformSitesBySlugReleases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1426,7 +1417,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformGetV1PlatformSitesBySlugReleasesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlatformSitesBySlugReleasesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1451,9 +1442,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPatchV1PlatformSitesBySlug
+## CloudPatchV1PlatformSitesBySlug
 
-> PlatformPatchV1PlatformSitesBySlug(ctx, slug).Execute()
+> CloudPatchV1PlatformSitesBySlug(ctx, slug).Execute()
 
 
 
@@ -1474,9 +1465,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPatchV1PlatformSitesBySlug(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudPatchV1PlatformSitesBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPatchV1PlatformSitesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPatchV1PlatformSitesBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1492,7 +1483,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPatchV1PlatformSitesBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPatchV1PlatformSitesBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1517,9 +1508,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformFleetByAppDeploy
+## CloudPostV1PlatformFleetByAppDeploy
 
-> PlatformPostV1PlatformFleetByAppDeploy(ctx, app).Env(env).Execute()
+> CloudPostV1PlatformFleetByAppDeploy(ctx, app).Execute()
 
 
 
@@ -1537,13 +1528,12 @@ import (
 
 func main() {
 	app := "app_example" // string | 
-	env := "env_example" // string | Environment (namespace) holding the Deployment to restart. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformFleetByAppDeploy(context.Background(), app).Env(env).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformFleetByAppDeploy(context.Background(), app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformFleetByAppDeploy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformFleetByAppDeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1559,13 +1549,12 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformFleetByAppDeployRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformFleetByAppDeployRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **env** | **string** | Environment (namespace) holding the Deployment to restart. | 
 
 ### Return type
 
@@ -1585,9 +1574,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectApps
+## CloudPostV1PlatformProjectsByProjectApps
 
-> PlatformAppView PlatformPostV1PlatformProjectsByProjectApps(ctx, project).PlatformCreateAppReq(platformCreateAppReq).Execute()
+> CloudAppView CloudPostV1PlatformProjectsByProjectApps(ctx, project).CloudCreateAppReq(cloudCreateAppReq).Execute()
 
 
 
@@ -1605,17 +1594,17 @@ import (
 
 func main() {
 	project := "project_example" // string | 
-	platformCreateAppReq := *openapiclient.NewPlatformCreateAppReq() // PlatformCreateAppReq |  (optional)
+	cloudCreateAppReq := *openapiclient.NewCloudCreateAppReq() // CloudCreateAppReq |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectApps(context.Background(), project).PlatformCreateAppReq(platformCreateAppReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectApps(context.Background(), project).CloudCreateAppReq(cloudCreateAppReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectApps``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlatformPostV1PlatformProjectsByProjectApps`: PlatformAppView
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PlatformPostV1PlatformProjectsByProjectApps`: %v\n", resp)
+	// response from `CloudPostV1PlatformProjectsByProjectApps`: CloudAppView
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.CloudPostV1PlatformProjectsByProjectApps`: %v\n", resp)
 }
 ```
 
@@ -1629,17 +1618,17 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **platformCreateAppReq** | [**PlatformCreateAppReq**](PlatformCreateAppReq.md) |  | 
+ **cloudCreateAppReq** | [**CloudCreateAppReq**](CloudCreateAppReq.md) |  | 
 
 ### Return type
 
-[**PlatformAppView**](PlatformAppView.md)
+[**CloudAppView**](CloudAppView.md)
 
 ### Authorization
 
@@ -1655,9 +1644,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectAppsByAppDeploy
+## CloudPostV1PlatformProjectsByProjectAppsByAppDeploy
 
-> PlatformPostV1PlatformProjectsByProjectAppsByAppDeploy(ctx, project, app).Execute()
+> CloudPostV1PlatformProjectsByProjectAppsByAppDeploy(ctx, project, app).Execute()
 
 
 
@@ -1679,9 +1668,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppDeploy(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppDeploy(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppDeploy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppDeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1698,7 +1687,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsByAppDeployRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsByAppDeployRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1724,9 +1713,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectAppsByAppDomains
+## CloudPostV1PlatformProjectsByProjectAppsByAppDomains
 
-> PlatformPostV1PlatformProjectsByProjectAppsByAppDomains(ctx, project, app).Execute()
+> CloudPostV1PlatformProjectsByProjectAppsByAppDomains(ctx, project, app).Execute()
 
 
 
@@ -1748,9 +1737,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppDomains(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppDomains(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1767,7 +1756,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsByAppDomainsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsByAppDomainsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1793,9 +1782,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify
+## CloudPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify
 
-> PlatformPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify(ctx, project, app, host).Execute()
+> CloudPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify(ctx, project, app, host).Execute()
 
 
 
@@ -1818,9 +1807,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify(context.Background(), project, app, host).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify(context.Background(), project, app, host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerify``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1838,7 +1827,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1865,9 +1854,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectAppsByAppPreview
+## CloudPostV1PlatformProjectsByProjectAppsByAppPreview
 
-> PlatformPostV1PlatformProjectsByProjectAppsByAppPreview(ctx, project, app).Execute()
+> CloudPostV1PlatformProjectsByProjectAppsByAppPreview(ctx, project, app).Execute()
 
 
 
@@ -1889,9 +1878,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppPreview(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppPreview(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppPreview``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppPreview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1908,7 +1897,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsByAppPreviewRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsByAppPreviewRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1934,9 +1923,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectAppsByAppPromote
+## CloudPostV1PlatformProjectsByProjectAppsByAppPromote
 
-> PlatformPostV1PlatformProjectsByProjectAppsByAppPromote(ctx, project, app).Execute()
+> CloudPostV1PlatformProjectsByProjectAppsByAppPromote(ctx, project, app).Execute()
 
 
 
@@ -1958,9 +1947,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppPromote(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppPromote(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppPromote``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppPromote``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1977,7 +1966,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsByAppPromoteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsByAppPromoteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2003,9 +1992,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectAppsByAppRollback
+## CloudPostV1PlatformProjectsByProjectAppsByAppRollback
 
-> PlatformPostV1PlatformProjectsByProjectAppsByAppRollback(ctx, project, app).Execute()
+> CloudPostV1PlatformProjectsByProjectAppsByAppRollback(ctx, project, app).Execute()
 
 
 
@@ -2027,9 +2016,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppRollback(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppRollback(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppRollback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppRollback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2046,7 +2035,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsByAppRollbackRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsByAppRollbackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2072,9 +2061,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectAppsByAppStart
+## CloudPostV1PlatformProjectsByProjectAppsByAppStart
 
-> PlatformPostV1PlatformProjectsByProjectAppsByAppStart(ctx, project, app).Execute()
+> CloudPostV1PlatformProjectsByProjectAppsByAppStart(ctx, project, app).Execute()
 
 
 
@@ -2096,9 +2085,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppStart(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppStart(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppStart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppStart``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2115,7 +2104,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsByAppStartRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsByAppStartRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2141,9 +2130,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformProjectsByProjectAppsByAppStop
+## CloudPostV1PlatformProjectsByProjectAppsByAppStop
 
-> PlatformPostV1PlatformProjectsByProjectAppsByAppStop(ctx, project, app).Execute()
+> CloudPostV1PlatformProjectsByProjectAppsByAppStop(ctx, project, app).Execute()
 
 
 
@@ -2165,9 +2154,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppStop(context.Background(), project, app).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppStop(context.Background(), project, app).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformProjectsByProjectAppsByAppStop``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformProjectsByProjectAppsByAppStop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2184,7 +2173,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformProjectsByProjectAppsByAppStopRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformProjectsByProjectAppsByAppStopRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2210,9 +2199,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformSites
+## CloudPostV1PlatformSites
 
-> PlatformPostV1PlatformSites(ctx).Execute()
+> CloudPostV1PlatformSites(ctx).Execute()
 
 
 
@@ -2232,9 +2221,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformSites(context.Background()).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformSites(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformSites``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformSites``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2246,7 +2235,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSitesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformSitesRequest struct via the builder pattern
 
 
 ### Return type
@@ -2267,9 +2256,9 @@ Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSite
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformSitesBySlugDeploy
+## CloudPostV1PlatformSitesBySlugDeploy
 
-> PlatformPostV1PlatformSitesBySlugDeploy(ctx, slug).Execute()
+> CloudPostV1PlatformSitesBySlugDeploy(ctx, slug).Execute()
 
 
 
@@ -2290,9 +2279,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformSitesBySlugDeploy(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformSitesBySlugDeploy(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformSitesBySlugDeploy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformSitesBySlugDeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2308,7 +2297,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSitesBySlugDeployRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformSitesBySlugDeployRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2333,9 +2322,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformSitesBySlugDomains
+## CloudPostV1PlatformSitesBySlugDomains
 
-> PlatformPostV1PlatformSitesBySlugDomains(ctx, slug).Execute()
+> CloudPostV1PlatformSitesBySlugDomains(ctx, slug).Execute()
 
 
 
@@ -2356,9 +2345,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformSitesBySlugDomains(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformSitesBySlugDomains(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformSitesBySlugDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformSitesBySlugDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2374,7 +2363,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSitesBySlugDomainsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformSitesBySlugDomainsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2399,9 +2388,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformSitesBySlugDomainsByHostVerify
+## CloudPostV1PlatformSitesBySlugDomainsByHostVerify
 
-> PlatformPostV1PlatformSitesBySlugDomainsByHostVerify(ctx, slug, host).Execute()
+> CloudPostV1PlatformSitesBySlugDomainsByHostVerify(ctx, slug, host).Execute()
 
 
 
@@ -2423,9 +2412,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformSitesBySlugDomainsByHostVerify(context.Background(), slug, host).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformSitesBySlugDomainsByHostVerify(context.Background(), slug, host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformSitesBySlugDomainsByHostVerify``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformSitesBySlugDomainsByHostVerify``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2442,7 +2431,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSitesBySlugDomainsByHostVerifyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformSitesBySlugDomainsByHostVerifyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2468,9 +2457,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformSitesBySlugPublish
+## CloudPostV1PlatformSitesBySlugPublish
 
-> PlatformPostV1PlatformSitesBySlugPublish(ctx, slug).Execute()
+> CloudPostV1PlatformSitesBySlugPublish(ctx, slug).Execute()
 
 
 
@@ -2491,9 +2480,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformSitesBySlugPublish(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformSitesBySlugPublish(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformSitesBySlugPublish``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformSitesBySlugPublish``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2509,7 +2498,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSitesBySlugPublishRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformSitesBySlugPublishRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2534,9 +2523,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformSitesBySlugPurge
+## CloudPostV1PlatformSitesBySlugPurge
 
-> PlatformPostV1PlatformSitesBySlugPurge(ctx, slug).Execute()
+> CloudPostV1PlatformSitesBySlugPurge(ctx, slug).Execute()
 
 
 
@@ -2557,9 +2546,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformSitesBySlugPurge(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformSitesBySlugPurge(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformSitesBySlugPurge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformSitesBySlugPurge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2575,7 +2564,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSitesBySlugPurgeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformSitesBySlugPurgeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2600,9 +2589,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformSitesBySlugReleases
+## CloudPostV1PlatformSitesBySlugReleases
 
-> PlatformPostV1PlatformSitesBySlugReleases(ctx, slug).Execute()
+> CloudPostV1PlatformSitesBySlugReleases(ctx, slug).Execute()
 
 
 
@@ -2623,9 +2612,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformSitesBySlugReleases(context.Background(), slug).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformSitesBySlugReleases(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformSitesBySlugReleases``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformSitesBySlugReleases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2641,7 +2630,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSitesBySlugReleasesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformSitesBySlugReleasesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2666,9 +2655,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPostV1PlatformSitesBySlugReleasesByReleaseActivate
+## CloudPostV1PlatformSitesBySlugReleasesByReleaseActivate
 
-> PlatformPostV1PlatformSitesBySlugReleasesByReleaseActivate(ctx, slug, release).Execute()
+> CloudPostV1PlatformSitesBySlugReleasesByReleaseActivate(ctx, slug, release).Execute()
 
 
 
@@ -2690,9 +2679,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PlatformPostV1PlatformSitesBySlugReleasesByReleaseActivate(context.Background(), slug, release).Execute()
+	r, err := apiClient.PlatformAPI.CloudPostV1PlatformSitesBySlugReleasesByReleaseActivate(context.Background(), slug, release).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPostV1PlatformSitesBySlugReleasesByReleaseActivate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPostV1PlatformSitesBySlugReleasesByReleaseActivate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2709,7 +2698,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPostV1PlatformSitesBySlugReleasesByReleaseActivateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPostV1PlatformSitesBySlugReleasesByReleaseActivateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2735,9 +2724,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlatformPutV1PlatformProjectsByProjectAppsByAppEnv
+## CloudPutV1PlatformProjectsByProjectAppsByAppEnv
 
-> PlatformAppView PlatformPutV1PlatformProjectsByProjectAppsByAppEnv(ctx, project, app).PlatformSetEnvReq(platformSetEnvReq).Execute()
+> CloudAppView CloudPutV1PlatformProjectsByProjectAppsByAppEnv(ctx, project, app).CloudSetEnvReq(cloudSetEnvReq).Execute()
 
 
 
@@ -2756,17 +2745,17 @@ import (
 func main() {
 	project := "project_example" // string | 
 	app := "app_example" // string | 
-	platformSetEnvReq := *openapiclient.NewPlatformSetEnvReq() // PlatformSetEnvReq |  (optional)
+	cloudSetEnvReq := *openapiclient.NewCloudSetEnvReq() // CloudSetEnvReq |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PlatformPutV1PlatformProjectsByProjectAppsByAppEnv(context.Background(), project, app).PlatformSetEnvReq(platformSetEnvReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.CloudPutV1PlatformProjectsByProjectAppsByAppEnv(context.Background(), project, app).CloudSetEnvReq(cloudSetEnvReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PlatformPutV1PlatformProjectsByProjectAppsByAppEnv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.CloudPutV1PlatformProjectsByProjectAppsByAppEnv``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlatformPutV1PlatformProjectsByProjectAppsByAppEnv`: PlatformAppView
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PlatformPutV1PlatformProjectsByProjectAppsByAppEnv`: %v\n", resp)
+	// response from `CloudPutV1PlatformProjectsByProjectAppsByAppEnv`: CloudAppView
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.CloudPutV1PlatformProjectsByProjectAppsByAppEnv`: %v\n", resp)
 }
 ```
 
@@ -2781,18 +2770,18 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlatformPutV1PlatformProjectsByProjectAppsByAppEnvRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPutV1PlatformProjectsByProjectAppsByAppEnvRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **platformSetEnvReq** | [**PlatformSetEnvReq**](PlatformSetEnvReq.md) |  | 
+ **cloudSetEnvReq** | [**CloudSetEnvReq**](CloudSetEnvReq.md) |  | 
 
 ### Return type
 
-[**PlatformAppView**](PlatformAppView.md)
+[**CloudAppView**](CloudAppView.md)
 
 ### Authorization
 

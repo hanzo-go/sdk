@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Slug** | Pointer to **string** | Org-unique handle; derived from name when omitted. | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Framework** | Pointer to **string** | Build hint; defaults to \&quot;static\&quot;. | [optional] 
-**Repo** | Pointer to [**PlatformCreateAppReqRepo**](PlatformCreateAppReqRepo.md) |  | [optional] 
+**Repo** | Pointer to [**CloudCreateAppReqRepo**](CloudCreateAppReqRepo.md) |  | [optional] 
 
 ## Methods
 
@@ -126,20 +126,20 @@ HasFramework returns a boolean if a field has been set.
 
 ### GetRepo
 
-`func (o *ProjectsCreateProjectRequest) GetRepo() PlatformCreateAppReqRepo`
+`func (o *ProjectsCreateProjectRequest) GetRepo() CloudCreateAppReqRepo`
 
 GetRepo returns the Repo field if non-nil, zero value otherwise.
 
 ### GetRepoOk
 
-`func (o *ProjectsCreateProjectRequest) GetRepoOk() (*PlatformCreateAppReqRepo, bool)`
+`func (o *ProjectsCreateProjectRequest) GetRepoOk() (*CloudCreateAppReqRepo, bool)`
 
 GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepo
 
-`func (o *ProjectsCreateProjectRequest) SetRepo(v PlatformCreateAppReqRepo)`
+`func (o *ProjectsCreateProjectRequest) SetRepo(v CloudCreateAppReqRepo)`
 
 SetRepo sets Repo field to given value.
 

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
+**Created** | Pointer to **string** |  | [optional] 
 **Email** | Pointer to **string** |  | [optional] 
-**IsAdmin** | Pointer to **bool** |  | [optional] 
 **Forbidden** | Pointer to **bool** |  | [optional] 
 **HasApiKey** | Pointer to **bool** |  | [optional] 
+**IsAdmin** | Pointer to **bool** |  | [optional] 
 **LastSignin** | Pointer to **string** |  | [optional] 
-**Created** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -31,30 +31,30 @@ NewAdminCustomerUserWithDefaults instantiates a new AdminCustomerUser object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetCreated
 
-`func (o *AdminCustomerUser) GetName() string`
+`func (o *AdminCustomerUser) GetCreated() string`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetCreated returns the Created field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetCreatedOk
 
-`func (o *AdminCustomerUser) GetNameOk() (*string, bool)`
+`func (o *AdminCustomerUser) GetCreatedOk() (*string, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetCreated
 
-`func (o *AdminCustomerUser) SetName(v string)`
+`func (o *AdminCustomerUser) SetCreated(v string)`
 
-SetName sets Name field to given value.
+SetCreated sets Created field to given value.
 
-### HasName
+### HasCreated
 
-`func (o *AdminCustomerUser) HasName() bool`
+`func (o *AdminCustomerUser) HasCreated() bool`
 
-HasName returns a boolean if a field has been set.
+HasCreated returns a boolean if a field has been set.
 
 ### GetEmail
 
@@ -80,31 +80,6 @@ SetEmail sets Email field to given value.
 `func (o *AdminCustomerUser) HasEmail() bool`
 
 HasEmail returns a boolean if a field has been set.
-
-### GetIsAdmin
-
-`func (o *AdminCustomerUser) GetIsAdmin() bool`
-
-GetIsAdmin returns the IsAdmin field if non-nil, zero value otherwise.
-
-### GetIsAdminOk
-
-`func (o *AdminCustomerUser) GetIsAdminOk() (*bool, bool)`
-
-GetIsAdminOk returns a tuple with the IsAdmin field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsAdmin
-
-`func (o *AdminCustomerUser) SetIsAdmin(v bool)`
-
-SetIsAdmin sets IsAdmin field to given value.
-
-### HasIsAdmin
-
-`func (o *AdminCustomerUser) HasIsAdmin() bool`
-
-HasIsAdmin returns a boolean if a field has been set.
 
 ### GetForbidden
 
@@ -156,6 +131,31 @@ SetHasApiKey sets HasApiKey field to given value.
 
 HasHasApiKey returns a boolean if a field has been set.
 
+### GetIsAdmin
+
+`func (o *AdminCustomerUser) GetIsAdmin() bool`
+
+GetIsAdmin returns the IsAdmin field if non-nil, zero value otherwise.
+
+### GetIsAdminOk
+
+`func (o *AdminCustomerUser) GetIsAdminOk() (*bool, bool)`
+
+GetIsAdminOk returns a tuple with the IsAdmin field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsAdmin
+
+`func (o *AdminCustomerUser) SetIsAdmin(v bool)`
+
+SetIsAdmin sets IsAdmin field to given value.
+
+### HasIsAdmin
+
+`func (o *AdminCustomerUser) HasIsAdmin() bool`
+
+HasIsAdmin returns a boolean if a field has been set.
+
 ### GetLastSignin
 
 `func (o *AdminCustomerUser) GetLastSignin() string`
@@ -181,30 +181,30 @@ SetLastSignin sets LastSignin field to given value.
 
 HasLastSignin returns a boolean if a field has been set.
 
-### GetCreated
+### GetName
 
-`func (o *AdminCustomerUser) GetCreated() string`
+`func (o *AdminCustomerUser) GetName() string`
 
-GetCreated returns the Created field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetCreatedOk
+### GetNameOk
 
-`func (o *AdminCustomerUser) GetCreatedOk() (*string, bool)`
+`func (o *AdminCustomerUser) GetNameOk() (*string, bool)`
 
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreated
+### SetName
 
-`func (o *AdminCustomerUser) SetCreated(v string)`
+`func (o *AdminCustomerUser) SetName(v string)`
 
-SetCreated sets Created field to given value.
+SetName sets Name field to given value.
 
-### HasCreated
+### HasName
 
-`func (o *AdminCustomerUser) HasCreated() bool`
+`func (o *AdminCustomerUser) HasName() bool`
 
-HasCreated returns a boolean if a field has been set.
+HasName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

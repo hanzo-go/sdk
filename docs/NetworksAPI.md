@@ -4,16 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ZtGetNetwork**](NetworksAPI.md#ZtGetNetwork) | **Get** /v1/networks/{id} | Get one overlay network by id
-[**ZtListNetworks**](NetworksAPI.md#ZtListNetworks) | **Get** /v1/networks | List the org&#39;s ZT overlay network(s)
+[**CloudGetV1Networks**](NetworksAPI.md#CloudGetV1Networks) | **Get** /v1/networks | Returns the caller&#39;s org overlay network on the Zero Trust fabric.
+[**CloudGetV1NetworksId**](NetworksAPI.md#CloudGetV1NetworksId) | **Get** /v1/networks/{id} | Returns one overlay network by id, scoped to the caller&#39;s org.
 
 
 
-## ZtGetNetwork
+## CloudGetV1Networks
 
-> ZtNetworkView ZtGetNetwork(ctx, id).Execute()
+> CloudNetworkList CloudGetV1Networks(ctx).Execute()
 
-Get one overlay network by id
+Returns the caller's org overlay network on the Zero Trust fabric.
+
+
 
 ### Example
 
@@ -28,40 +30,31 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The org-derived network id (org-<org>)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworksAPI.ZtGetNetwork(context.Background(), id).Execute()
+	resp, r, err := apiClient.NetworksAPI.CloudGetV1Networks(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `NetworksAPI.ZtGetNetwork``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworksAPI.CloudGetV1Networks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ZtGetNetwork`: ZtNetworkView
-	fmt.Fprintf(os.Stdout, "Response from `NetworksAPI.ZtGetNetwork`: %v\n", resp)
+	// response from `CloudGetV1Networks`: CloudNetworkList
+	fmt.Fprintf(os.Stdout, "Response from `NetworksAPI.CloudGetV1Networks`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The org-derived network id (org-&lt;org&gt;) | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiZtGetNetworkRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Other parameters are passed through a pointer to a apiCloudGetV1NetworksRequest struct via the builder pattern
 
 
 ### Return type
 
-[**ZtNetworkView**](ZtNetworkView.md)
+[**CloudNetworkList**](CloudNetworkList.md)
 
 ### Authorization
 
@@ -77,11 +70,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ZtListNetworks
+## CloudGetV1NetworksId
 
-> ZtListNetworks200Response ZtListNetworks(ctx).Execute()
+> CloudNetworkView CloudGetV1NetworksId(ctx, id).Execute()
 
-List the org's ZT overlay network(s)
+Returns one overlay network by id, scoped to the caller's org.
+
+
 
 ### Example
 
@@ -96,31 +91,40 @@ import (
 )
 
 func main() {
+	id := "id_example" // string | ID is the network id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworksAPI.ZtListNetworks(context.Background()).Execute()
+	resp, r, err := apiClient.NetworksAPI.CloudGetV1NetworksId(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `NetworksAPI.ZtListNetworks``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworksAPI.CloudGetV1NetworksId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ZtListNetworks`: ZtListNetworks200Response
-	fmt.Fprintf(os.Stdout, "Response from `NetworksAPI.ZtListNetworks`: %v\n", resp)
+	// response from `CloudGetV1NetworksId`: CloudNetworkView
+	fmt.Fprintf(os.Stdout, "Response from `NetworksAPI.CloudGetV1NetworksId`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the network id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiZtListNetworksRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1NetworksIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type
 
-[**ZtListNetworks200Response**](ZtListNetworks200Response.md)
+[**CloudNetworkView**](CloudNetworkView.md)
 
 ### Authorization
 

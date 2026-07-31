@@ -9,10 +9,10 @@
 #   ./scripts/generate.sh                            # pulls spec from hanzoai/openapi@main
 #   SPEC=/path/to/hanzo.yaml ./scripts/generate.sh   # local spec override
 #
-# hanzoai/openapi is PRIVATE, so the spec is read through the GitHub API with a
-# token (SPEC_TOKEN, or GH_TOKEN/GITHUB_TOKEN). raw.githubusercontent.com only
-# serves public repos — it 404s here. SPEC_URL still overrides for a public
-# mirror.
+# hanzoai/openapi is PRIVATE today. raw.githubusercontent.com only serves public
+# repos, so the plain URL 404s; when that happens this falls back to the GitHub
+# API with a token (SPEC_TOKEN, or GH_TOKEN/GITHUB_TOKEN, or `gh auth token`)
+# and says so. SPEC_URL overrides the URL, SPEC overrides the file.
 #
 # Requires: java 17+, curl, go.
 set -euo pipefail
@@ -21,17 +21,22 @@ cd "$(dirname "$0")/.."
 GENERATOR_VERSION="${GENERATOR_VERSION:-7.14.0}"
 SPEC_REPO="${SPEC_REPO:-hanzoai/openapi}"
 SPEC_REF="${SPEC_REF:-main}"
-SPEC_URL="${SPEC_URL:-}"
+SPEC_URL="${SPEC_URL:-https://raw.githubusercontent.com/${SPEC_REPO}/${SPEC_REF}/hanzo.yaml}"
 SPEC="${SPEC:-}"
 JAR="${JAR:-${TMPDIR:-/tmp}/openapi-generator-cli-${GENERATOR_VERSION}.jar}"
 
 if [ -z "$SPEC" ]; then
   SPEC="$(mktemp)"
-  if [ -n "$SPEC_URL" ]; then
-    curl -fsSL "$SPEC_URL" -o "$SPEC"
-  else
-    TOKEN="${SPEC_TOKEN:-${GH_TOKEN:-${GITHUB_TOKEN:-}}}"
-    : "${TOKEN:?SPEC_TOKEN required to read private $SPEC_REPO (or pass SPEC=/path/to/hanzo.yaml)}"
+  # Public fetch first: it is the plain path, needs no credential, and starts
+  # working the day hanzoai/openapi opens. While the repo is private GitHub
+  # answers 404 rather than 403, so an anonymous miss is indistinguishable from
+  # a deleted file — hence the fallback below, which says which case it was.
+  # Both paths use curl -f under set -e, so a failed fetch stops the script
+  # instead of regenerating from a stale spec.
+  if ! curl -fsSL "$SPEC_URL" -o "$SPEC"; then
+    TOKEN="${SPEC_TOKEN:-${GH_TOKEN:-${GITHUB_TOKEN:-$(gh auth token 2>/dev/null || true)}}}"
+    : "${TOKEN:?$SPEC_URL is not readable anonymously and no SPEC_TOKEN/GH_TOKEN is set. $SPEC_REPO is private; supply a token with contents:read, or pass SPEC=/path/to/hanzo.yaml}"
+    echo "note: $SPEC_URL returned no spec ($SPEC_REPO is private) - reading it through the GitHub API instead" >&2
     curl -fsSL \
       -H "Authorization: Bearer $TOKEN" \
       -H "Accept: application/vnd.github.raw" \
@@ -45,12 +50,11 @@ if [ ! -f "$JAR" ]; then
 fi
 
 OUT="$(mktemp -d)"
-# --skip-validate-spec: 35 /v1/platform/* operations in hanzo.yaml are missing
-# the required `responses` object. That is a spec-side defect (reported
-# upstream); it does not affect the generated Go, and the gate that matters —
-# `go build ./... && go vet ./...` — runs below.
+# Validation stays ON. hanzo.yaml validates clean, and a malformed document
+# should fail here rather than surface as a compile error spread across 1300
+# generated files.
 java -jar "$JAR" generate \
-  -i "$SPEC" -g go --skip-validate-spec \
+  -i "$SPEC" -g go \
   --additional-properties=packageName=hanzoai,withGoMod=false,structPrefix=true,enumClassPrefix=true \
   --git-user-id=hanzoai --git-repo-id=go-sdk \
   -o "$OUT"
@@ -58,8 +62,14 @@ java -jar "$JAR" generate \
 # The repo root owns go.mod, examples/, scripts/ and the docs. Keep only the
 # generated sources. Previous output is removed via the generator's own FILES
 # manifest, so a renamed or dropped operation cannot leave a stale file behind.
+#
+# Only what this script copies back is removed. The generator's manifest also
+# lists files the repo owns and this script never restores — README.md,
+# .gitignore, .travis.yml, git_push.sh — so deleting everything it names takes
+# the hand-written docs with it.
 if [ -f .openapi-generator/FILES ]; then
-  while IFS= read -r f; do [ -n "$f" ] && rm -f "$f"; done < .openapi-generator/FILES
+  grep -E '^([A-Za-z0-9_]+\.go|docs/.+\.md)$' .openapi-generator/FILES |
+    while IFS= read -r f; do [ -n "$f" ] && rm -f "$f"; done
 fi
 rm -rf docs .openapi-generator
 

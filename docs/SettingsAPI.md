@@ -4,19 +4,19 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ObserveGetSettings**](SettingsAPI.md#ObserveGetSettings) | **Get** /v1/settings/{product} | Read per-(org,product) settings
-[**ObservePutSettings**](SettingsAPI.md#ObservePutSettings) | **Put** /v1/settings/{product} | Write per-(org,product) settings
+[**CloudGetV1SettingsProduct**](SettingsAPI.md#CloudGetV1SettingsProduct) | **Get** /v1/settings/{product} | GetSettings reads the caller org&#39;s configuration for one product, with every secret field MASKED — only the names of the set secrets come back, never their values, which live in KMS.
+[**CloudPutV1SettingsProduct**](SettingsAPI.md#CloudPutV1SettingsProduct) | **Put** /v1/settings/{product} | PutSettings writes the caller org&#39;s configuration for one product and answers the stored result, secrets masked.
 [**SearchGetSettings**](SettingsAPI.md#SearchGetSettings) | **Get** /v1/search/indexes/{indexUid}/settings | Get all index settings
 [**SearchResetSettings**](SettingsAPI.md#SearchResetSettings) | **Delete** /v1/search/indexes/{indexUid}/settings | Reset all settings to defaults
 [**SearchUpdateSettings**](SettingsAPI.md#SearchUpdateSettings) | **Patch** /v1/search/indexes/{indexUid}/settings | Update index settings
 
 
 
-## ObserveGetSettings
+## CloudGetV1SettingsProduct
 
-> ObserveSettingsView ObserveGetSettings(ctx, product).Execute()
+> CloudSettingsView CloudGetV1SettingsProduct(ctx, product).Execute()
 
-Read per-(org,product) settings
+GetSettings reads the caller org's configuration for one product, with every secret field MASKED — only the names of the set secrets come back, never their values, which live in KMS.
 
 
 
@@ -33,17 +33,17 @@ import (
 )
 
 func main() {
-	product := "product_example" // string | Console product slug. Must match `^[a-z0-9][a-z0-9._-]{0,62}$`.
+	product := "product_example" // string | Product is the catalog slug, from the path. Must match ^[a-z0-9][a-z0-9._-]{0,62}$.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SettingsAPI.ObserveGetSettings(context.Background(), product).Execute()
+	resp, r, err := apiClient.SettingsAPI.CloudGetV1SettingsProduct(context.Background(), product).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.ObserveGetSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.CloudGetV1SettingsProduct``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ObserveGetSettings`: ObserveSettingsView
-	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.ObserveGetSettings`: %v\n", resp)
+	// response from `CloudGetV1SettingsProduct`: CloudSettingsView
+	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.CloudGetV1SettingsProduct`: %v\n", resp)
 }
 ```
 
@@ -53,11 +53,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**product** | **string** | Console product slug. Must match &#x60;^[a-z0-9][a-z0-9._-]{0,62}$&#x60;. | 
+**product** | **string** | Product is the catalog slug, from the path. Must match ^[a-z0-9][a-z0-9._-]{0,62}$. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiObserveGetSettingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1SettingsProductRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ObserveSettingsView**](ObserveSettingsView.md)
+[**CloudSettingsView**](CloudSettingsView.md)
 
 ### Authorization
 
@@ -82,11 +82,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ObservePutSettings
+## CloudPutV1SettingsProduct
 
-> ObserveSettingsView ObservePutSettings(ctx, product).ObserveSettingsRequest(observeSettingsRequest).Execute()
+> CloudSettingsView CloudPutV1SettingsProduct(ctx, product).CloudSettingsReq(cloudSettingsReq).Execute()
 
-Write per-(org,product) settings
+PutSettings writes the caller org's configuration for one product and answers the stored result, secrets masked.
 
 
 
@@ -103,18 +103,18 @@ import (
 )
 
 func main() {
-	product := "product_example" // string | Console product slug. Must match `^[a-z0-9][a-z0-9._-]{0,62}$`.
-	observeSettingsRequest := *openapiclient.NewObserveSettingsRequest() // ObserveSettingsRequest | 
+	product := "product_example" // string | Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims.
+	cloudSettingsReq := *openapiclient.NewCloudSettingsReq() // CloudSettingsReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SettingsAPI.ObservePutSettings(context.Background(), product).ObserveSettingsRequest(observeSettingsRequest).Execute()
+	resp, r, err := apiClient.SettingsAPI.CloudPutV1SettingsProduct(context.Background(), product).CloudSettingsReq(cloudSettingsReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.ObservePutSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.CloudPutV1SettingsProduct``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ObservePutSettings`: ObserveSettingsView
-	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.ObservePutSettings`: %v\n", resp)
+	// response from `CloudPutV1SettingsProduct`: CloudSettingsView
+	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.CloudPutV1SettingsProduct`: %v\n", resp)
 }
 ```
 
@@ -124,21 +124,21 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**product** | **string** | Console product slug. Must match &#x60;^[a-z0-9][a-z0-9._-]{0,62}$&#x60;. | 
+**product** | **string** | Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiObservePutSettingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudPutV1SettingsProductRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **observeSettingsRequest** | [**ObserveSettingsRequest**](ObserveSettingsRequest.md) |  | 
+ **cloudSettingsReq** | [**CloudSettingsReq**](CloudSettingsReq.md) |  | 
 
 ### Return type
 
-[**ObserveSettingsView**](ObserveSettingsView.md)
+[**CloudSettingsView**](CloudSettingsView.md)
 
 ### Authorization
 

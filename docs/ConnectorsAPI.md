@@ -4,20 +4,24 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**KbConnectCallback**](ConnectorsAPI.md#KbConnectCallback) | **Get** /v1/kb/connectors/{provider}/callback | OAuth callback (provider redirect — org recovered from signed state)
-[**KbConnectStart**](ConnectorsAPI.md#KbConnectStart) | **Get** /v1/kb/connectors/{provider}/connect | Begin an OAuth connection (returns the provider authorize URL)
-[**KbDisconnectConnector**](ConnectorsAPI.md#KbDisconnectConnector) | **Delete** /v1/kb/connectors/{provider} | Disconnect a connector (tombstone token, purge its vector points)
-[**KbListCatalog**](ConnectorsAPI.md#KbListCatalog) | **Get** /v1/kb/connectors/catalog | List every connectable source (native + long-tail pieces)
-[**KbListConnectors**](ConnectorsAPI.md#KbListConnectors) | **Get** /v1/kb/connectors | List this org&#39;s connectors and connection state
-[**KbSyncConnector**](ConnectorsAPI.md#KbSyncConnector) | **Post** /v1/kb/connectors/{provider}/sync | Sync the provider&#39;s documents into this org&#39;s knowledge store
+[**CloudDeleteV1ConnectorsId**](ConnectorsAPI.md#CloudDeleteV1ConnectorsId) | **Delete** /v1/connectors/{id} | Forgets a connector: every custodied secret, then the row.
+[**CloudGetV1Connectors**](ConnectorsAPI.md#CloudGetV1Connectors) | **Get** /v1/connectors | Lists the caller&#39;s OWN connectors across every provider — the set &#x60;hanzo connector ls&#x60; prints.
+[**CloudGetV1ConnectorsIdToken**](ConnectorsAPI.md#CloudGetV1ConnectorsIdToken) | **Get** /v1/connectors/{id}/token | Hands the custodied access token to its owner — the ONE place custody exits.
+[**CloudGetV1ConnectorsProviders**](ConnectorsAPI.md#CloudGetV1ConnectorsProviders) | **Get** /v1/connectors/providers | Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
+[**CloudPostV1ConnectorsIdRefresh**](ConnectorsAPI.md#CloudPostV1ConnectorsIdRefresh) | **Post** /v1/connectors/{id}/refresh | Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
+[**CloudPostV1ConnectorsProviderCredential**](ConnectorsAPI.md#CloudPostV1ConnectorsProviderCredential) | **Post** /v1/connectors/{provider}/credential | Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI&#39;s local PKCE (Adopt).
+[**CloudPostV1ConnectorsProviderDevice**](ConnectorsAPI.md#CloudPostV1ConnectorsProviderDevice) | **Post** /v1/connectors/{provider}/device | Begins a device sign-in and returns the code to show the user plus how to poll for completion.
+[**CloudPostV1ConnectorsProviderDeviceFlowPoll**](ConnectorsAPI.md#CloudPostV1ConnectorsProviderDeviceFlowPoll) | **Post** /v1/connectors/{provider}/device/{flow}/poll | Advances a device sign-in.
 
 
 
-## KbConnectCallback
+## CloudDeleteV1ConnectorsId
 
-> KbConnectCallback200Response KbConnectCallback(ctx, provider).Code(code).State(state).Error_(error_).Execute()
+> CloudDisconnectOut CloudDeleteV1ConnectorsId(ctx, id).Execute()
 
-OAuth callback (provider redirect — org recovered from signed state)
+Forgets a connector: every custodied secret, then the row.
+
+
 
 ### Example
 
@@ -32,20 +36,17 @@ import (
 )
 
 func main() {
-	provider := "provider_example" // string | 
-	code := "code_example" // string |  (optional)
-	state := "state_example" // string |  (optional)
-	error_ := "error__example" // string |  (optional)
+	id := "openai:work" // string | ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.KbConnectCallback(context.Background(), provider).Code(code).State(state).Error_(error_).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.CloudDeleteV1ConnectorsId(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.KbConnectCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudDeleteV1ConnectorsId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `KbConnectCallback`: KbConnectCallback200Response
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.KbConnectCallback`: %v\n", resp)
+	// response from `CloudDeleteV1ConnectorsId`: CloudDisconnectOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudDeleteV1ConnectorsId`: %v\n", resp)
 }
 ```
 
@@ -55,82 +56,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**provider** | **string** |  | 
+**id** | **string** | ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiKbConnectCallbackRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **code** | **string** |  | 
- **state** | **string** |  | 
- **error_** | **string** |  | 
-
-### Return type
-
-[**KbConnectCallback200Response**](KbConnectCallback200Response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## KbConnectStart
-
-> KbConnectStart200Response KbConnectStart(ctx, provider).Execute()
-
-Begin an OAuth connection (returns the provider authorize URL)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	provider := "provider_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.KbConnectStart(context.Background(), provider).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.KbConnectStart``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `KbConnectStart`: KbConnectStart200Response
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.KbConnectStart`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**provider** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiKbConnectStartRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1ConnectorsIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -139,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**KbConnectStart200Response**](KbConnectStart200Response.md)
+[**CloudDisconnectOut**](CloudDisconnectOut.md)
 
 ### Authorization
 
@@ -155,79 +85,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## KbDisconnectConnector
+## CloudGetV1Connectors
 
-> KbDisconnectConnector200Response KbDisconnectConnector(ctx, provider).Execute()
+> CloudConnectorsOut CloudGetV1Connectors(ctx).Execute()
 
-Disconnect a connector (tombstone token, purge its vector points)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	provider := "provider_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.KbDisconnectConnector(context.Background(), provider).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.KbDisconnectConnector``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `KbDisconnectConnector`: KbDisconnectConnector200Response
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.KbDisconnectConnector`: %v\n", resp)
-}
-```
-
-### Path Parameters
+Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints.
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**provider** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiKbDisconnectConnectorRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**KbDisconnectConnector200Response**](KbDisconnectConnector200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## KbListCatalog
-
-> KbListCatalog200Response KbListCatalog(ctx).Execute()
-
-List every connectable source (native + long-tail pieces)
 
 ### Example
 
@@ -245,13 +109,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.KbListCatalog(context.Background()).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.CloudGetV1Connectors(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.KbListCatalog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudGetV1Connectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `KbListCatalog`: KbListCatalog200Response
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.KbListCatalog`: %v\n", resp)
+	// response from `CloudGetV1Connectors`: CloudConnectorsOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudGetV1Connectors`: %v\n", resp)
 }
 ```
 
@@ -261,12 +125,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiKbListCatalogRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1ConnectorsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**KbListCatalog200Response**](KbListCatalog200Response.md)
+[**CloudConnectorsOut**](CloudConnectorsOut.md)
 
 ### Authorization
 
@@ -282,70 +146,13 @@ Other parameters are passed through a pointer to a apiKbListCatalogRequest struc
 [[Back to README]](../README.md)
 
 
-## KbListConnectors
+## CloudGetV1ConnectorsIdToken
 
-> KbListConnectors200Response KbListConnectors(ctx).Execute()
+> CloudConnectorTokenOut CloudGetV1ConnectorsIdToken(ctx, id).Execute()
 
-List this org's connectors and connection state
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.KbListConnectors(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.KbListConnectors``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `KbListConnectors`: KbListConnectors200Response
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.KbListConnectors`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiKbListConnectorsRequest struct via the builder pattern
+Hands the custodied access token to its owner — the ONE place custody exits.
 
 
-### Return type
-
-[**KbListConnectors200Response**](KbListConnectors200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## KbSyncConnector
-
-> KbSyncConnector200Response KbSyncConnector(ctx, provider).Execute()
-
-Sync the provider's documents into this org's knowledge store
 
 ### Example
 
@@ -360,17 +167,17 @@ import (
 )
 
 func main() {
-	provider := "provider_example" // string | 
+	id := "openai:work" // string | ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.KbSyncConnector(context.Background(), provider).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.CloudGetV1ConnectorsIdToken(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.KbSyncConnector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudGetV1ConnectorsIdToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `KbSyncConnector`: KbSyncConnector200Response
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.KbSyncConnector`: %v\n", resp)
+	// response from `CloudGetV1ConnectorsIdToken`: CloudConnectorTokenOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudGetV1ConnectorsIdToken`: %v\n", resp)
 }
 ```
 
@@ -380,11 +187,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**provider** | **string** |  | 
+**id** | **string** | ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiKbSyncConnectorRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1ConnectorsIdTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -393,7 +200,355 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**KbSyncConnector200Response**](KbSyncConnector200Response.md)
+[**CloudConnectorTokenOut**](CloudConnectorTokenOut.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1ConnectorsProviders
+
+> CloudConnectorProvidersOut CloudGetV1ConnectorsProviders(ctx).Execute()
+
+Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ConnectorsAPI.CloudGetV1ConnectorsProviders(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudGetV1ConnectorsProviders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1ConnectorsProviders`: CloudConnectorProvidersOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudGetV1ConnectorsProviders`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1ConnectorsProvidersRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudConnectorProvidersOut**](CloudConnectorProvidersOut.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1ConnectorsIdRefresh
+
+> CloudRefreshOut CloudPostV1ConnectorsIdRefresh(ctx, id).Execute()
+
+Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "openai:work" // string | ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ConnectorsAPI.CloudPostV1ConnectorsIdRefresh(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudPostV1ConnectorsIdRefresh``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1ConnectorsIdRefresh`: CloudRefreshOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudPostV1ConnectorsIdRefresh`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1ConnectorsIdRefreshRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudRefreshOut**](CloudRefreshOut.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1ConnectorsProviderCredential
+
+> CloudCredentialOut CloudPostV1ConnectorsProviderCredential(ctx, provider).CloudCredentialIn(cloudCredentialIn).Execute()
+
+Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	provider := "openai" // string | Provider is the user-scoped provider's registry id, from the path.
+	cloudCredentialIn := *openapiclient.NewCloudCredentialIn() // CloudCredentialIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ConnectorsAPI.CloudPostV1ConnectorsProviderCredential(context.Background(), provider).CloudCredentialIn(cloudCredentialIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudPostV1ConnectorsProviderCredential``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1ConnectorsProviderCredential`: CloudCredentialOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudPostV1ConnectorsProviderCredential`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** | Provider is the user-scoped provider&#39;s registry id, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1ConnectorsProviderCredentialRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **cloudCredentialIn** | [**CloudCredentialIn**](CloudCredentialIn.md) |  | 
+
+### Return type
+
+[**CloudCredentialOut**](CloudCredentialOut.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1ConnectorsProviderDevice
+
+> CloudDeviceStartOut CloudPostV1ConnectorsProviderDevice(ctx, provider).CloudDeviceStartIn(cloudDeviceStartIn).Execute()
+
+Begins a device sign-in and returns the code to show the user plus how to poll for completion.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	provider := "openai" // string | Provider is the user-scoped provider's registry id, from the path.
+	cloudDeviceStartIn := *openapiclient.NewCloudDeviceStartIn() // CloudDeviceStartIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ConnectorsAPI.CloudPostV1ConnectorsProviderDevice(context.Background(), provider).CloudDeviceStartIn(cloudDeviceStartIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudPostV1ConnectorsProviderDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1ConnectorsProviderDevice`: CloudDeviceStartOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudPostV1ConnectorsProviderDevice`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** | Provider is the user-scoped provider&#39;s registry id, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1ConnectorsProviderDeviceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **cloudDeviceStartIn** | [**CloudDeviceStartIn**](CloudDeviceStartIn.md) |  | 
+
+### Return type
+
+[**CloudDeviceStartOut**](CloudDeviceStartOut.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1ConnectorsProviderDeviceFlowPoll
+
+> CloudDevicePollOut CloudPostV1ConnectorsProviderDeviceFlowPoll(ctx, provider, flow).Execute()
+
+Advances a device sign-in.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	provider := "openai" // string | Provider is the user-scoped provider's registry id, from the path.
+	flow := "g_7f2c" // string | Flow is the id deviceStartOut returned. Expired or another user's flow is indistinguishable from an unknown one: 404.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ConnectorsAPI.CloudPostV1ConnectorsProviderDeviceFlowPoll(context.Background(), provider, flow).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudPostV1ConnectorsProviderDeviceFlowPoll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1ConnectorsProviderDeviceFlowPoll`: CloudDevicePollOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudPostV1ConnectorsProviderDeviceFlowPoll`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** | Provider is the user-scoped provider&#39;s registry id, from the path. | 
+**flow** | **string** | Flow is the id deviceStartOut returned. Expired or another user&#39;s flow is indistinguishable from an unknown one: 404. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1ConnectorsProviderDeviceFlowPollRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**CloudDevicePollOut**](CloudDevicePollOut.md)
 
 ### Authorization
 

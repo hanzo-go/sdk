@@ -48,14 +48,15 @@ func TestFlows(t *testing.T) {
 			).Execute()
 		}},
 		{"money", "GET", "/v1/billing/balance", func(c *APIClient) {
-			c.BillingAPI.BillingBillingBalance(ctx).Execute()
+			c.BillingAPI.CloudGetV1BillingBalance(ctx).Execute()
 		}},
 		{"store", "PUT", "/v1/kv/keys/k", func(c *APIClient) {
 			c.KeysAPI.KvSetKey(ctx, "k").KvSetKeyRequest(KvSetKeyRequest{Value: "v"}).Execute()
 		}},
 		{"agent", "POST", "/v1/agents", func(c *APIClient) {
-			c.AgentsAPIAPI.CloudAgentsControllerCreate(ctx).CloudAgentsCreateAgentRequest(
-				CloudAgentsCreateAgentRequest{Name: "n", Model: "zen-1"},
+			name, model := "n", "zen-1"
+			c.AgentsAPI.CloudPostV1Agents(ctx).CloudCreateAgentIn(
+				CloudCreateAgentIn{Name: &name, Model: &model},
 			).Execute()
 		}},
 		{"tools", "POST", "/v1/automations/mcp", func(c *APIClient) {

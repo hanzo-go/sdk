@@ -4,13 +4,186 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CloudGetV1LogsHealth**](LogsAPI.md#CloudGetV1LogsHealth) | **Get** /v1/logs/health | 
+[**CloudGetV1LogsQuery**](LogsAPI.md#CloudGetV1LogsQuery) | **Get** /v1/logs/query | 
+[**CloudPostV1LogsWrite**](LogsAPI.md#CloudPostV1LogsWrite) | **Post** /v1/logs/write | 
 [**EdgeGetFunctionLogs**](LogsAPI.md#EdgeGetFunctionLogs) | **Get** /v1/edge/functions/{slug}/logs | Get function logs
-[**ObserveGetLogs**](LogsAPI.md#ObserveGetLogs) | **Get** /v1/o11y/logs | Live org-scoped log stream for a product
 [**SearchGetStderrLogs**](LogsAPI.md#SearchGetStderrLogs) | **Get** /v1/search/logs/stderr | Get stderr log configuration
 [**SearchResetStderrLogs**](LogsAPI.md#SearchResetStderrLogs) | **Delete** /v1/search/logs/stderr | Reset stderr log level to default
 [**SearchStreamLogs**](LogsAPI.md#SearchStreamLogs) | **Post** /v1/search/logs/stream | Stream logs
 [**SearchUpdateStderrLogs**](LogsAPI.md#SearchUpdateStderrLogs) | **Put** /v1/search/logs/stderr | Update stderr log level
 
+
+
+## CloudGetV1LogsHealth
+
+> CloudGetV1LogsHealth(ctx).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.LogsAPI.CloudGetV1LogsHealth(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogsAPI.CloudGetV1LogsHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1LogsHealthRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1LogsQuery
+
+> CloudGetV1LogsQuery(ctx).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.LogsAPI.CloudGetV1LogsQuery(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogsAPI.CloudGetV1LogsQuery``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1LogsQueryRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1LogsWrite
+
+> CloudPostV1LogsWrite(ctx).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.LogsAPI.CloudPostV1LogsWrite(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogsAPI.CloudPostV1LogsWrite``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1LogsWriteRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## EdgeGetFunctionLogs
@@ -86,78 +259,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, text/event-stream
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ObserveGetLogs
-
-> ObserveLogsResponse ObserveGetLogs(ctx).Product(product).SinceNs(sinceNs).Window(window).Limit(limit).Execute()
-
-Live org-scoped log stream for a product
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	product := "product_example" // string | Console product slug. Must match `^[a-z0-9][a-z0-9._-]{0,62}$`.
-	sinceNs := int64(789) // int64 | Nanosecond cursor from the prior response's `nextCursor`; 0/absent starts a fresh window. (optional)
-	window := int32(56) // int32 | Initial look-back window in seconds when no cursor is supplied (default 900, max 86400). (optional) (default to 900)
-	limit := int32(56) // int32 | Max lines returned (default 200, max 1000). (optional) (default to 200)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LogsAPI.ObserveGetLogs(context.Background()).Product(product).SinceNs(sinceNs).Window(window).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LogsAPI.ObserveGetLogs``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ObserveGetLogs`: ObserveLogsResponse
-	fmt.Fprintf(os.Stdout, "Response from `LogsAPI.ObserveGetLogs`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiObserveGetLogsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **product** | **string** | Console product slug. Must match &#x60;^[a-z0-9][a-z0-9._-]{0,62}$&#x60;. | 
- **sinceNs** | **int64** | Nanosecond cursor from the prior response&#39;s &#x60;nextCursor&#x60;; 0/absent starts a fresh window. | 
- **window** | **int32** | Initial look-back window in seconds when no cursor is supplied (default 900, max 86400). | [default to 900]
- **limit** | **int32** | Max lines returned (default 200, max 1000). | [default to 200]
-
-### Return type
-
-[**ObserveLogsResponse**](ObserveLogsResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

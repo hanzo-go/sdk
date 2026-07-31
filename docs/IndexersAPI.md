@@ -4,15 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GraphListIndexers**](IndexersAPI.md#GraphListIndexers) | **Get** /v1/indexers | List the deployment&#39;s chain indexer(s)
+[**CloudGetV1Indexers**](IndexersAPI.md#CloudGetV1Indexers) | **Get** /v1/indexers | ListIndexers reports the deployment&#39;s chain indexer(s) and how far each has indexed.
 
 
 
-## GraphListIndexers
+## CloudGetV1Indexers
 
-> GraphListIndexers200Response GraphListIndexers(ctx).Execute()
+> CloudIndexersOut CloudGetV1Indexers(ctx).Execute()
 
-List the deployment's chain indexer(s)
+ListIndexers reports the deployment's chain indexer(s) and how far each has indexed.
+
+
 
 ### Example
 
@@ -30,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IndexersAPI.GraphListIndexers(context.Background()).Execute()
+	resp, r, err := apiClient.IndexersAPI.CloudGetV1Indexers(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IndexersAPI.GraphListIndexers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IndexersAPI.CloudGetV1Indexers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GraphListIndexers`: GraphListIndexers200Response
-	fmt.Fprintf(os.Stdout, "Response from `IndexersAPI.GraphListIndexers`: %v\n", resp)
+	// response from `CloudGetV1Indexers`: CloudIndexersOut
+	fmt.Fprintf(os.Stdout, "Response from `IndexersAPI.CloudGetV1Indexers`: %v\n", resp)
 }
 ```
 
@@ -46,12 +48,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGraphListIndexersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1IndexersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**GraphListIndexers200Response**](GraphListIndexers200Response.md)
+[**CloudIndexersOut**](CloudIndexersOut.md)
 
 ### Authorization
 

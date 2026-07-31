@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Stage** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **SourceRunId** | Pointer to **string** | Experiment run that produced this model | [optional] 
-**Artifacts** | Pointer to [**MlRegisterModelRequestArtifacts**](MlRegisterModelRequestArtifacts.md) |  | [optional] 
+**Artifacts** | Pointer to [**MlModelArtifacts**](MlModelArtifacts.md) |  | [optional] 
 **Metrics** | Pointer to **map[string]float32** |  | [optional] 
 **Tags** | Pointer to **map[string]string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -186,20 +186,20 @@ HasSourceRunId returns a boolean if a field has been set.
 
 ### GetArtifacts
 
-`func (o *MlModel) GetArtifacts() MlRegisterModelRequestArtifacts`
+`func (o *MlModel) GetArtifacts() MlModelArtifacts`
 
 GetArtifacts returns the Artifacts field if non-nil, zero value otherwise.
 
 ### GetArtifactsOk
 
-`func (o *MlModel) GetArtifactsOk() (*MlRegisterModelRequestArtifacts, bool)`
+`func (o *MlModel) GetArtifactsOk() (*MlModelArtifacts, bool)`
 
 GetArtifactsOk returns a tuple with the Artifacts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArtifacts
 
-`func (o *MlModel) SetArtifacts(v MlRegisterModelRequestArtifacts)`
+`func (o *MlModel) SetArtifacts(v MlModelArtifacts)`
 
 SetArtifacts sets Artifacts field to given value.
 

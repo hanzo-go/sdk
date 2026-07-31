@@ -4,12 +4,70 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CloudGetV1Pipelines**](PipelinesAPI.md#CloudGetV1Pipelines) | **Get** /v1/pipelines | 
 [**MlCreatePipeline**](PipelinesAPI.md#MlCreatePipeline) | **Post** /v1/ml/pipelines | Create a pipeline
 [**MlGetPipeline**](PipelinesAPI.md#MlGetPipeline) | **Get** /v1/ml/pipelines/{pipeline_id} | Get pipeline details
 [**MlListPipelineRuns**](PipelinesAPI.md#MlListPipelineRuns) | **Get** /v1/ml/pipelines/{pipeline_id}/runs | List pipeline runs
 [**MlListPipelines**](PipelinesAPI.md#MlListPipelines) | **Get** /v1/ml/pipelines | List pipelines
 [**MlStartPipelineRun**](PipelinesAPI.md#MlStartPipelineRun) | **Post** /v1/ml/pipelines/{pipeline_id}/runs | Start a pipeline run
 
+
+
+## CloudGetV1Pipelines
+
+> CloudGetV1Pipelines(ctx).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PipelinesAPI.CloudGetV1Pipelines(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PipelinesAPI.CloudGetV1Pipelines``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PipelinesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## MlCreatePipeline

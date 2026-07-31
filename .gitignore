@@ -1,0 +1,3 @@
+# Generator scratch. The generated client itself IS committed — it is what
+# `go get` resolves — so nothing under the module root is ignored here.
+/openapi-generator-cli-*.jar

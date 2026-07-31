@@ -4,82 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ReferralsClaimReferral**](ReferralsAPI.md#ReferralsClaimReferral) | **Post** /v1/referrals/claim | Claim a referral from a ?ref code
-[**ReferralsGetMyReferrals**](ReferralsAPI.md#ReferralsGetMyReferrals) | **Get** /v1/referrals | Get my referral code, link, and referrals
+[**CloudGetV1Referrals**](ReferralsAPI.md#CloudGetV1Referrals) | **Get** /v1/referrals | Returns the caller&#39;s referral code, share link and the referrals they have made.
+[**CloudPostV1ReferralsClaim**](ReferralsAPI.md#CloudPostV1ReferralsClaim) | **Post** /v1/referrals/claim | Records that the caller&#39;s org signed up through a referral code.
 
 
 
-## ReferralsClaimReferral
+## CloudGetV1Referrals
 
-> ReferralsClaimResponse ReferralsClaimReferral(ctx).ReferralsClaimRequest(referralsClaimRequest).Execute()
+> CloudMyReferrals CloudGetV1Referrals(ctx).Execute()
 
-Claim a referral from a ?ref code
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	referralsClaimRequest := *openapiclient.NewReferralsClaimRequest("Code_example") // ReferralsClaimRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReferralsAPI.ReferralsClaimReferral(context.Background()).ReferralsClaimRequest(referralsClaimRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ReferralsAPI.ReferralsClaimReferral``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReferralsClaimReferral`: ReferralsClaimResponse
-	fmt.Fprintf(os.Stdout, "Response from `ReferralsAPI.ReferralsClaimReferral`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiReferralsClaimReferralRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **referralsClaimRequest** | [**ReferralsClaimRequest**](ReferralsClaimRequest.md) |  | 
-
-### Return type
-
-[**ReferralsClaimResponse**](ReferralsClaimResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ReferralsGetMyReferrals
-
-> ReferralsMyReferralsResponse ReferralsGetMyReferrals(ctx).Execute()
-
-Get my referral code, link, and referrals
+Returns the caller's referral code, share link and the referrals they have made.
 
 
 
@@ -99,13 +33,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReferralsAPI.ReferralsGetMyReferrals(context.Background()).Execute()
+	resp, r, err := apiClient.ReferralsAPI.CloudGetV1Referrals(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ReferralsAPI.ReferralsGetMyReferrals``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ReferralsAPI.CloudGetV1Referrals``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ReferralsGetMyReferrals`: ReferralsMyReferralsResponse
-	fmt.Fprintf(os.Stdout, "Response from `ReferralsAPI.ReferralsGetMyReferrals`: %v\n", resp)
+	// response from `CloudGetV1Referrals`: CloudMyReferrals
+	fmt.Fprintf(os.Stdout, "Response from `ReferralsAPI.CloudGetV1Referrals`: %v\n", resp)
 }
 ```
 
@@ -115,12 +49,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiReferralsGetMyReferralsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1ReferralsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**ReferralsMyReferralsResponse**](ReferralsMyReferralsResponse.md)
+[**CloudMyReferrals**](CloudMyReferrals.md)
 
 ### Authorization
 
@@ -129,6 +63,72 @@ Other parameters are passed through a pointer to a apiReferralsGetMyReferralsReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1ReferralsClaim
+
+> CloudClaimView CloudPostV1ReferralsClaim(ctx).CloudClaimRequest(cloudClaimRequest).Execute()
+
+Records that the caller's org signed up through a referral code.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudClaimRequest := *openapiclient.NewCloudClaimRequest() // CloudClaimRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReferralsAPI.CloudPostV1ReferralsClaim(context.Background()).CloudClaimRequest(cloudClaimRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReferralsAPI.CloudPostV1ReferralsClaim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1ReferralsClaim`: CloudClaimView
+	fmt.Fprintf(os.Stdout, "Response from `ReferralsAPI.CloudPostV1ReferralsClaim`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1ReferralsClaimRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudClaimRequest** | [**CloudClaimRequest**](CloudClaimRequest.md) |  | 
+
+### Return type
+
+[**CloudClaimView**](CloudClaimView.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

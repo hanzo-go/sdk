@@ -16,6 +16,10 @@ Method | HTTP request | Description
 [**BotPublishSkillVersion**](SkillsAPI.md#BotPublishSkillVersion) | **Post** /v1/bot/skills/{slug}/publish | Publish a new version of a skill (creates skill if new)
 [**BotToggleSkillStar**](SkillsAPI.md#BotToggleSkillStar) | **Post** /v1/bot/skills/{slug}/stars | Star or unstar a skill (toggle)
 [**BotUndeleteSkill**](SkillsAPI.md#BotUndeleteSkill) | **Post** /v1/bot/skills/{slug}/undelete | Restore a soft-deleted skill
+[**CloudDeleteV1SkillsId**](SkillsAPI.md#CloudDeleteV1SkillsId) | **Delete** /v1/skills/{id} | DeleteSkill removes one of the caller org&#39;s authored skills.
+[**CloudGetV1Skills**](SkillsAPI.md#CloudGetV1Skills) | **Get** /v1/skills | ListSkills lists the skills the caller&#39;s org can reach — the brand&#39;s embedded catalogue plus the org&#39;s own authored ones — with each one&#39;s activation flag.
+[**CloudGetV1SkillsAuthored**](SkillsAPI.md#CloudGetV1SkillsAuthored) | **Get** /v1/skills/authored | ListAuthoredSkills lists the caller org&#39;s OWN skills with their SKILL.md bodies.
+[**CloudPostV1Skills**](SkillsAPI.md#CloudPostV1Skills) | **Post** /v1/skills | PutSkill adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
 
 
 
@@ -843,6 +847,269 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudDeleteV1SkillsId
+
+> CloudSkillDeleted CloudDeleteV1SkillsId(ctx, id).Execute()
+
+DeleteSkill removes one of the caller org's authored skills.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the skill to remove, from the path. It is the skill's name.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SkillsAPI.CloudDeleteV1SkillsId(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SkillsAPI.CloudDeleteV1SkillsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudDeleteV1SkillsId`: CloudSkillDeleted
+	fmt.Fprintf(os.Stdout, "Response from `SkillsAPI.CloudDeleteV1SkillsId`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the skill to remove, from the path. It is the skill&#39;s name. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudDeleteV1SkillsIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudSkillDeleted**](CloudSkillDeleted.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1Skills
+
+> CloudSourceToolList CloudGetV1Skills(ctx).Activated(activated).Execute()
+
+ListSkills lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	activated := "activated_example" // string | Activated keeps only the tools activated for the caller's org and project, and only when it is exactly the string \"true\". (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SkillsAPI.CloudGetV1Skills(context.Background()).Activated(activated).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SkillsAPI.CloudGetV1Skills``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1Skills`: CloudSourceToolList
+	fmt.Fprintf(os.Stdout, "Response from `SkillsAPI.CloudGetV1Skills`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1SkillsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **activated** | **string** | Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. | 
+
+### Return type
+
+[**CloudSourceToolList**](CloudSourceToolList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1SkillsAuthored
+
+> CloudAuthoredSkillList CloudGetV1SkillsAuthored(ctx).Execute()
+
+ListAuthoredSkills lists the caller org's OWN skills with their SKILL.md bodies.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SkillsAPI.CloudGetV1SkillsAuthored(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SkillsAPI.CloudGetV1SkillsAuthored``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1SkillsAuthored`: CloudAuthoredSkillList
+	fmt.Fprintf(os.Stdout, "Response from `SkillsAPI.CloudGetV1SkillsAuthored`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1SkillsAuthoredRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudAuthoredSkillList**](CloudAuthoredSkillList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1Skills
+
+> CloudSkillWritten CloudPostV1Skills(ctx).CloudSkillIn(cloudSkillIn).Execute()
+
+PutSkill adds or revises one of the caller org's own skills, and answers 201 with the stored record.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudSkillIn := *openapiclient.NewCloudSkillIn() // CloudSkillIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SkillsAPI.CloudPostV1Skills(context.Background()).CloudSkillIn(cloudSkillIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SkillsAPI.CloudPostV1Skills``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1Skills`: CloudSkillWritten
+	fmt.Fprintf(os.Stdout, "Response from `SkillsAPI.CloudPostV1Skills`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1SkillsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudSkillIn** | [**CloudSkillIn**](CloudSkillIn.md) |  | 
+
+### Return type
+
+[**CloudSkillWritten**](CloudSkillWritten.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

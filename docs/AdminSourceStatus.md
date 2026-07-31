@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**At** | Pointer to **string** |  | [optional] 
+**Error** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Ok** | Pointer to **bool** |  | [optional] 
 **Rows** | Pointer to **int32** |  | [optional] 
-**Error** | Pointer to **string** |  | [optional] 
-**At** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -28,6 +28,56 @@ will change when the set of required properties is changed
 NewAdminSourceStatusWithDefaults instantiates a new AdminSourceStatus object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAt
+
+`func (o *AdminSourceStatus) GetAt() string`
+
+GetAt returns the At field if non-nil, zero value otherwise.
+
+### GetAtOk
+
+`func (o *AdminSourceStatus) GetAtOk() (*string, bool)`
+
+GetAtOk returns a tuple with the At field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAt
+
+`func (o *AdminSourceStatus) SetAt(v string)`
+
+SetAt sets At field to given value.
+
+### HasAt
+
+`func (o *AdminSourceStatus) HasAt() bool`
+
+HasAt returns a boolean if a field has been set.
+
+### GetError
+
+`func (o *AdminSourceStatus) GetError() string`
+
+GetError returns the Error field if non-nil, zero value otherwise.
+
+### GetErrorOk
+
+`func (o *AdminSourceStatus) GetErrorOk() (*string, bool)`
+
+GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetError
+
+`func (o *AdminSourceStatus) SetError(v string)`
+
+SetError sets Error field to given value.
+
+### HasError
+
+`func (o *AdminSourceStatus) HasError() bool`
+
+HasError returns a boolean if a field has been set.
 
 ### GetName
 
@@ -103,56 +153,6 @@ SetRows sets Rows field to given value.
 `func (o *AdminSourceStatus) HasRows() bool`
 
 HasRows returns a boolean if a field has been set.
-
-### GetError
-
-`func (o *AdminSourceStatus) GetError() string`
-
-GetError returns the Error field if non-nil, zero value otherwise.
-
-### GetErrorOk
-
-`func (o *AdminSourceStatus) GetErrorOk() (*string, bool)`
-
-GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetError
-
-`func (o *AdminSourceStatus) SetError(v string)`
-
-SetError sets Error field to given value.
-
-### HasError
-
-`func (o *AdminSourceStatus) HasError() bool`
-
-HasError returns a boolean if a field has been set.
-
-### GetAt
-
-`func (o *AdminSourceStatus) GetAt() string`
-
-GetAt returns the At field if non-nil, zero value otherwise.
-
-### GetAtOk
-
-`func (o *AdminSourceStatus) GetAtOk() (*string, bool)`
-
-GetAtOk returns a tuple with the At field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAt
-
-`func (o *AdminSourceStatus) SetAt(v string)`
-
-SetAt sets At field to given value.
-
-### HasAt
-
-`func (o *AdminSourceStatus) HasAt() bool`
-
-HasAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

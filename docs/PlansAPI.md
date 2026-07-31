@@ -4,29 +4,34 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PlanGetPlanEntitlements**](PlansAPI.md#PlanGetPlanEntitlements) | **Get** /v1/plans/entitlements/{id} | Entitlements for a plan
-[**PlanGetPlanPolicy**](PlansAPI.md#PlanGetPlanPolicy) | **Get** /v1/plans/policy | Plan policy
-[**PlanGetPlanSchema**](PlansAPI.md#PlanGetPlanSchema) | **Get** /v1/plans/schema | Entitlement schema
-[**PlanGetPlanVocab**](PlansAPI.md#PlanGetPlanVocab) | **Get** /v1/plans/vocab | Entitlement vocabulary
-[**PlanListBlockchainPlans**](PlansAPI.md#PlanListBlockchainPlans) | **Get** /v1/plans/blockchain | Blockchain plans
-[**PlanListCloudPlans**](PlansAPI.md#PlanListCloudPlans) | **Get** /v1/plans/cloud | Cloud plans
-[**PlanListDnsPlans**](PlansAPI.md#PlanListDnsPlans) | **Get** /v1/plans/dns | DNS plans
-[**PlanListGpuPlans**](PlansAPI.md#PlanListGpuPlans) | **Get** /v1/plans/gpu | GPU plans
-[**PlanListPlanRegions**](PlansAPI.md#PlanListPlanRegions) | **Get** /v1/plans/regions | Regions
-[**PlanListPlanTools**](PlansAPI.md#PlanListPlanTools) | **Get** /v1/plans/tools | Tools catalog
-[**PlanListPlans**](PlansAPI.md#PlanListPlans) | **Get** /v1/plans | The full plan catalog
-[**PlanListStoragePlans**](PlansAPI.md#PlanListStoragePlans) | **Get** /v1/plans/storage | Storage plans
-[**PlanListSubscriptionPlans**](PlansAPI.md#PlanListSubscriptionPlans) | **Get** /v1/plans/subscriptions | Subscription plans
-[**PlanPlansHealth**](PlansAPI.md#PlanPlansHealth) | **Get** /v1/plans/health | Health check
-[**PlanResolvePlan**](PlansAPI.md#PlanResolvePlan) | **Get** /v1/plans/resolve/{id} | Resolve a plan by id
+[**CloudDeleteV1PlansEntriesBySlug**](PlansAPI.md#CloudDeleteV1PlansEntriesBySlug) | **Delete** /v1/plans/entries/{slug} | 
+[**CloudGetV1Plans**](PlansAPI.md#CloudGetV1Plans) | **Get** /v1/plans | ListCloudPlans returns the Hanzo cloud plan catalog: every cloud tier with its price, included capacity, limits and feature list, scoped to the caller&#39;s catalog.
+[**CloudGetV1PlansBlockchain**](PlansAPI.md#CloudGetV1PlansBlockchain) | **Get** /v1/plans/blockchain | ListBlockchainPlans returns the blockchain RPC plan catalog: the tiers metered in monthly compute units, with their prices, limits and overage terms.
+[**CloudGetV1PlansCloud**](PlansAPI.md#CloudGetV1PlansCloud) | **Get** /v1/plans/cloud | ListCloudCapacityPlans returns the cloud plan catalog.
+[**CloudGetV1PlansDns**](PlansAPI.md#CloudGetV1PlansDns) | **Get** /v1/plans/dns | ListDNSPlans returns the DNS plan catalog: the tiers priced on zones, records per zone and queries per day.
+[**CloudGetV1PlansEntitlementsId**](PlansAPI.md#CloudGetV1PlansEntitlementsId) | **Get** /v1/plans/entitlements/{id} | GetPlanEntitlements returns what one plan GRANTS and not what it costs: the canonical namespaced entitlement block and the flat license-feature list derived from it.
+[**CloudGetV1PlansEntries**](PlansAPI.md#CloudGetV1PlansEntries) | **Get** /v1/plans/entries | 
+[**CloudGetV1PlansGpu**](PlansAPI.md#CloudGetV1PlansGpu) | **Get** /v1/plans/gpu | ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPUs, host memory and hourly price.
+[**CloudGetV1PlansHealth**](PlansAPI.md#CloudGetV1PlansHealth) | **Get** /v1/plans/health | Health reports that the plans subsystem is mounted and serving.
+[**CloudGetV1PlansPolicy**](PlansAPI.md#CloudGetV1PlansPolicy) | **Get** /v1/plans/policy | GetPricingPolicy returns the published pricing policy: whether pricing is transparent, the revenue-sharing terms (idle compute resale and the open-source share) and the principles the catalog is priced by.
+[**CloudGetV1PlansRegions**](PlansAPI.md#CloudGetV1PlansRegions) | **Get** /v1/plans/regions | ListRegions returns the regions cloud capacity is offered in, each with its display name and physical location.
+[**CloudGetV1PlansResolveId**](PlansAPI.md#CloudGetV1PlansResolveId) | **Get** /v1/plans/resolve/{id} | ResolvePlan resolves one plan to everything a consumer of the catalog needs at once: its canonical entitlement block, the flat license-feature list a signed license carries, its billing reference, and the catalog it came from.
+[**CloudGetV1PlansSchema**](PlansAPI.md#CloudGetV1PlansSchema) | **Get** /v1/plans/schema | GetPlanSchemas returns the two JSON Schema documents this surface speaks: entitlements.schema.json, which declares every entitlement key with its type, unit and enum, and plan.schema.json, which a catalog plan record conforms to.
+[**CloudGetV1PlansStorage**](PlansAPI.md#CloudGetV1PlansStorage) | **Get** /v1/plans/storage | GetStoragePricing returns the block-storage price block: the price per GB per month and the volume size bounds a cloud plan may attach.
+[**CloudGetV1PlansSubscriptions**](PlansAPI.md#CloudGetV1PlansSubscriptions) | **Get** /v1/plans/subscriptions | ListSubscriptionPlans returns the subscription ladder — the personal and team tiers a customer buys to use the cloud, each with its monthly and annual price, seat rules, limits and billing reference.
+[**CloudGetV1PlansTools**](PlansAPI.md#CloudGetV1PlansTools) | **Get** /v1/plans/tools | ListToolPrices returns the per-use price of every metered tool — web search, code interpreter, image generation, speech — each with the unit it is billed in.
+[**CloudGetV1PlansVocab**](PlansAPI.md#CloudGetV1PlansVocab) | **Get** /v1/plans/vocab | GetEntitlementVocabulary returns the entitlement key vocabulary: every key with its namespace, JSON type, nullability, unit, enum and title, the list of namespaces, and the engine features a license can grant.
+[**CloudPostV1PlansEntries**](PlansAPI.md#CloudPostV1PlansEntries) | **Post** /v1/plans/entries | 
+[**CloudPostV1PlansSeed**](PlansAPI.md#CloudPostV1PlansSeed) | **Post** /v1/plans/seed | 
+[**CloudPutV1PlansEntriesBySlug**](PlansAPI.md#CloudPutV1PlansEntriesBySlug) | **Put** /v1/plans/entries/{slug} | 
 
 
 
-## PlanGetPlanEntitlements
+## CloudDeleteV1PlansEntriesBySlug
 
-> map[string]interface{} PlanGetPlanEntitlements(ctx, id).Execute()
+> CloudDeleteV1PlansEntriesBySlug(ctx, slug).Execute()
 
-Entitlements for a plan
+
 
 ### Example
 
@@ -41,17 +46,15 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | Plan id
+	slug := "slug_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanGetPlanEntitlements(context.Background(), id).Execute()
+	r, err := apiClient.PlansAPI.CloudDeleteV1PlansEntriesBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanGetPlanEntitlements``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudDeleteV1PlansEntriesBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlanGetPlanEntitlements`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanGetPlanEntitlements`: %v\n", resp)
 }
 ```
 
@@ -61,11 +64,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | Plan id | 
+**slug** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlanGetPlanEntitlementsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudDeleteV1PlansEntriesBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -74,7 +77,68 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1Plans
+
+> CloudPlanList CloudGetV1Plans(ctx).Execute()
+
+ListCloudPlans returns the Hanzo cloud plan catalog: every cloud tier with its price, included capacity, limits and feature list, scoped to the caller's catalog.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1Plans(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1Plans``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1Plans`: CloudPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1Plans`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudPlanList**](CloudPlanList.md)
 
 ### Authorization
 
@@ -90,11 +154,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PlanGetPlanPolicy
+## CloudGetV1PlansBlockchain
 
-> map[string]interface{} PlanGetPlanPolicy(ctx).Execute()
+> CloudPlanList CloudGetV1PlansBlockchain(ctx).Execute()
 
-Plan policy
+ListBlockchainPlans returns the blockchain RPC plan catalog: the tiers metered in monthly compute units, with their prices, limits and overage terms.
+
+
 
 ### Example
 
@@ -112,13 +178,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanGetPlanPolicy(context.Background()).Execute()
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansBlockchain(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanGetPlanPolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansBlockchain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlanGetPlanPolicy`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanGetPlanPolicy`: %v\n", resp)
+	// response from `CloudGetV1PlansBlockchain`: CloudPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansBlockchain`: %v\n", resp)
 }
 ```
 
@@ -128,12 +194,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlanGetPlanPolicyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlansBlockchainRequest struct via the builder pattern
 
 
 ### Return type
 
-**map[string]interface{}**
+[**CloudPlanList**](CloudPlanList.md)
 
 ### Authorization
 
@@ -149,11 +215,13 @@ Other parameters are passed through a pointer to a apiPlanGetPlanPolicyRequest s
 [[Back to README]](../README.md)
 
 
-## PlanGetPlanSchema
+## CloudGetV1PlansCloud
 
-> map[string]interface{} PlanGetPlanSchema(ctx).Execute()
+> CloudPlanList CloudGetV1PlansCloud(ctx).Execute()
 
-Entitlement schema
+ListCloudCapacityPlans returns the cloud plan catalog.
+
+
 
 ### Example
 
@@ -171,13 +239,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanGetPlanSchema(context.Background()).Execute()
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansCloud(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanGetPlanSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansCloud``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlanGetPlanSchema`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanGetPlanSchema`: %v\n", resp)
+	// response from `CloudGetV1PlansCloud`: CloudPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansCloud`: %v\n", resp)
 }
 ```
 
@@ -187,12 +255,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlanGetPlanSchemaRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlansCloudRequest struct via the builder pattern
 
 
 ### Return type
 
-**map[string]interface{}**
+[**CloudPlanList**](CloudPlanList.md)
 
 ### Authorization
 
@@ -208,11 +276,13 @@ Other parameters are passed through a pointer to a apiPlanGetPlanSchemaRequest s
 [[Back to README]](../README.md)
 
 
-## PlanGetPlanVocab
+## CloudGetV1PlansDns
 
-> map[string]interface{} PlanGetPlanVocab(ctx).Execute()
+> CloudPlanList CloudGetV1PlansDns(ctx).Execute()
 
-Entitlement vocabulary
+ListDNSPlans returns the DNS plan catalog: the tiers priced on zones, records per zone and queries per day.
+
+
 
 ### Example
 
@@ -230,13 +300,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanGetPlanVocab(context.Background()).Execute()
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansDns(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanGetPlanVocab``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansDns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlanGetPlanVocab`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanGetPlanVocab`: %v\n", resp)
+	// response from `CloudGetV1PlansDns`: CloudPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansDns`: %v\n", resp)
 }
 ```
 
@@ -246,12 +316,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlanGetPlanVocabRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlansDnsRequest struct via the builder pattern
 
 
 ### Return type
 
-**map[string]interface{}**
+[**CloudPlanList**](CloudPlanList.md)
 
 ### Authorization
 
@@ -267,70 +337,13 @@ Other parameters are passed through a pointer to a apiPlanGetPlanVocabRequest st
 [[Back to README]](../README.md)
 
 
-## PlanListBlockchainPlans
+## CloudGetV1PlansEntitlementsId
 
-> map[string]interface{} PlanListBlockchainPlans(ctx).Execute()
+> CloudPlanEntitlements CloudGetV1PlansEntitlementsId(ctx, id).Execute()
 
-Blockchain plans
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListBlockchainPlans(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListBlockchainPlans``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanListBlockchainPlans`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListBlockchainPlans`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListBlockchainPlansRequest struct via the builder pattern
+GetPlanEntitlements returns what one plan GRANTS and not what it costs: the canonical namespaced entitlement block and the flat license-feature list derived from it.
 
 
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanListCloudPlans
-
-> map[string]interface{} PlanListCloudPlans(ctx).Execute()
-
-Cloud plans
 
 ### Example
 
@@ -345,548 +358,17 @@ import (
 )
 
 func main() {
+	id := "team" // string | ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListCloudPlans(context.Background()).Execute()
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansEntitlementsId(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListCloudPlans``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansEntitlementsId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PlanListCloudPlans`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListCloudPlans`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListCloudPlansRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanListDnsPlans
-
-> map[string]interface{} PlanListDnsPlans(ctx).Execute()
-
-DNS plans
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListDnsPlans(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListDnsPlans``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanListDnsPlans`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListDnsPlans`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListDnsPlansRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanListGpuPlans
-
-> map[string]interface{} PlanListGpuPlans(ctx).Execute()
-
-GPU plans
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListGpuPlans(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListGpuPlans``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanListGpuPlans`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListGpuPlans`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListGpuPlansRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanListPlanRegions
-
-> map[string]interface{} PlanListPlanRegions(ctx).Execute()
-
-Regions
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListPlanRegions(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListPlanRegions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanListPlanRegions`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListPlanRegions`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListPlanRegionsRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanListPlanTools
-
-> map[string]interface{} PlanListPlanTools(ctx).Execute()
-
-Tools catalog
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListPlanTools(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListPlanTools``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanListPlanTools`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListPlanTools`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListPlanToolsRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanListPlans
-
-> map[string]interface{} PlanListPlans(ctx).Execute()
-
-The full plan catalog
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListPlans(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListPlans``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanListPlans`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListPlans`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListPlansRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanListStoragePlans
-
-> map[string]interface{} PlanListStoragePlans(ctx).Execute()
-
-Storage plans
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListStoragePlans(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListStoragePlans``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanListStoragePlans`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListStoragePlans`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListStoragePlansRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanListSubscriptionPlans
-
-> map[string]interface{} PlanListSubscriptionPlans(ctx).Execute()
-
-Subscription plans
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanListSubscriptionPlans(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanListSubscriptionPlans``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanListSubscriptionPlans`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanListSubscriptionPlans`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanListSubscriptionPlansRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanPlansHealth
-
-> PlanPlansHealth200Response PlanPlansHealth(ctx).Execute()
-
-Health check
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanPlansHealth(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanPlansHealth``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanPlansHealth`: PlanPlansHealth200Response
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanPlansHealth`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPlanPlansHealthRequest struct via the builder pattern
-
-
-### Return type
-
-[**PlanPlansHealth200Response**](PlanPlansHealth200Response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PlanResolvePlan
-
-> map[string]interface{} PlanResolvePlan(ctx, id).Execute()
-
-Resolve a plan by id
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | Plan id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlansAPI.PlanResolvePlan(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.PlanResolvePlan``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PlanResolvePlan`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.PlanResolvePlan`: %v\n", resp)
+	// response from `CloudGetV1PlansEntitlementsId`: CloudPlanEntitlements
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansEntitlementsId`: %v\n", resp)
 }
 ```
 
@@ -896,15 +378,255 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | Plan id | 
+**id** | **string** | ID is the plan&#39;s catalog id or slug — \&quot;pro\&quot;, \&quot;team\&quot;, \&quot;world-enterprise\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPlanResolvePlanRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1PlansEntitlementsIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudPlanEntitlements**](CloudPlanEntitlements.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansEntries
+
+> CloudGetV1PlansEntries(ctx).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PlansAPI.CloudGetV1PlansEntries(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansEntriesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansGpu
+
+> CloudPlanTierList CloudGetV1PlansGpu(ctx).Execute()
+
+ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPUs, host memory and hourly price.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansGpu(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansGpu``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansGpu`: CloudPlanTierList
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansGpu`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansGpuRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudPlanTierList**](CloudPlanTierList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansHealth
+
+> CloudPlanHealth CloudGetV1PlansHealth(ctx).Execute()
+
+Health reports that the plans subsystem is mounted and serving.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansHealth(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansHealth`: CloudPlanHealth
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansHealth`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansHealthRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudPlanHealth**](CloudPlanHealth.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansPolicy
+
+> map[string]interface{} CloudGetV1PlansPolicy(ctx).Execute()
+
+GetPricingPolicy returns the published pricing policy: whether pricing is transparent, the revenue-sharing terms (idle compute resale and the open-source share) and the principles the catalog is priced by.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansPolicy(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansPolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansPolicy`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansPolicyRequest struct via the builder pattern
 
 
 ### Return type
@@ -919,6 +641,622 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansRegions
+
+> CloudPlanRegionList CloudGetV1PlansRegions(ctx).Execute()
+
+ListRegions returns the regions cloud capacity is offered in, each with its display name and physical location.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansRegions(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansRegions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansRegions`: CloudPlanRegionList
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansRegions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansRegionsRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudPlanRegionList**](CloudPlanRegionList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansResolveId
+
+> CloudPlanResolution CloudGetV1PlansResolveId(ctx, id).Execute()
+
+ResolvePlan resolves one plan to everything a consumer of the catalog needs at once: its canonical entitlement block, the flat license-feature list a signed license carries, its billing reference, and the catalog it came from.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "pro" // string | ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansResolveId(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansResolveId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansResolveId`: CloudPlanResolution
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansResolveId`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the plan&#39;s catalog id or slug — \&quot;pro\&quot;, \&quot;team\&quot;, \&quot;world-enterprise\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansResolveIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CloudPlanResolution**](CloudPlanResolution.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansSchema
+
+> CloudPlanSchemas CloudGetV1PlansSchema(ctx).Execute()
+
+GetPlanSchemas returns the two JSON Schema documents this surface speaks: entitlements.schema.json, which declares every entitlement key with its type, unit and enum, and plan.schema.json, which a catalog plan record conforms to.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansSchema(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansSchema`: CloudPlanSchemas
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansSchema`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansSchemaRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudPlanSchemas**](CloudPlanSchemas.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansStorage
+
+> map[string]interface{} CloudGetV1PlansStorage(ctx).Execute()
+
+GetStoragePricing returns the block-storage price block: the price per GB per month and the volume size bounds a cloud plan may attach.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansStorage(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansStorage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansStorage`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansStorage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansStorageRequest struct via the builder pattern
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansSubscriptions
+
+> CloudPlanList CloudGetV1PlansSubscriptions(ctx).Execute()
+
+ListSubscriptionPlans returns the subscription ladder — the personal and team tiers a customer buys to use the cloud, each with its monthly and annual price, seat rules, limits and billing reference.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansSubscriptions(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansSubscriptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansSubscriptions`: CloudPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansSubscriptions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansSubscriptionsRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudPlanList**](CloudPlanList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansTools
+
+> CloudPlanToolList CloudGetV1PlansTools(ctx).Execute()
+
+ListToolPrices returns the per-use price of every metered tool — web search, code interpreter, image generation, speech — each with the unit it is billed in.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansTools(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansTools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansTools`: CloudPlanToolList
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansTools`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansToolsRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudPlanToolList**](CloudPlanToolList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1PlansVocab
+
+> CloudPlanVocab CloudGetV1PlansVocab(ctx).Execute()
+
+GetEntitlementVocabulary returns the entitlement key vocabulary: every key with its namespace, JSON type, nullability, unit, enum and title, the list of namespaces, and the engine features a license can grant.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlansAPI.CloudGetV1PlansVocab(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudGetV1PlansVocab``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1PlansVocab`: CloudPlanVocab
+	fmt.Fprintf(os.Stdout, "Response from `PlansAPI.CloudGetV1PlansVocab`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1PlansVocabRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudPlanVocab**](CloudPlanVocab.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1PlansEntries
+
+> CloudPostV1PlansEntries(ctx).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PlansAPI.CloudPostV1PlansEntries(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudPostV1PlansEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1PlansEntriesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1PlansSeed
+
+> CloudPostV1PlansSeed(ctx).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PlansAPI.CloudPostV1PlansSeed(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudPostV1PlansSeed``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1PlansSeedRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPutV1PlansEntriesBySlug
+
+> CloudPutV1PlansEntriesBySlug(ctx, slug).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PlansAPI.CloudPutV1PlansEntriesBySlug(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlansAPI.CloudPutV1PlansEntriesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPutV1PlansEntriesBySlugRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

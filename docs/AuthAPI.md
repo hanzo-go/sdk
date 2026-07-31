@@ -16,7 +16,6 @@ Method | HTTP request | Description
 [**BotAuthMe**](AuthAPI.md#BotAuthMe) | **Get** /v1/bot/auth/me | Get current authenticated user
 [**BotWhoami**](AuthAPI.md#BotWhoami) | **Get** /v1/bot/whoami | CLI alias for /v1/bot/auth/me
 [**CommerceAuthenticate**](AuthAPI.md#CommerceAuthenticate) | **Post** /v1/commerce/auth | Authenticate user (OAuth2)
-[**KmsPostV1KmsAuthLogin**](AuthAPI.md#KmsPostV1KmsAuthLogin) | **Post** /v1/kms/auth/login | Exchange machine identity for a bearer token
 
 
 
@@ -745,72 +744,6 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json, application/x-www-form-urlencoded
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## KmsPostV1KmsAuthLogin
-
-> KmsPostV1KmsAuthLogin200Response KmsPostV1KmsAuthLogin(ctx).KmsPostV1KmsAuthLoginRequest(kmsPostV1KmsAuthLoginRequest).Execute()
-
-Exchange machine identity for a bearer token
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	kmsPostV1KmsAuthLoginRequest := *openapiclient.NewKmsPostV1KmsAuthLoginRequest("ClientId_example", "ClientSecret_example") // KmsPostV1KmsAuthLoginRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthAPI.KmsPostV1KmsAuthLogin(context.Background()).KmsPostV1KmsAuthLoginRequest(kmsPostV1KmsAuthLoginRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthAPI.KmsPostV1KmsAuthLogin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `KmsPostV1KmsAuthLogin`: KmsPostV1KmsAuthLogin200Response
-	fmt.Fprintf(os.Stdout, "Response from `AuthAPI.KmsPostV1KmsAuthLogin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiKmsPostV1KmsAuthLoginRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **kmsPostV1KmsAuthLoginRequest** | [**KmsPostV1KmsAuthLoginRequest**](KmsPostV1KmsAuthLoginRequest.md) |  | 
-
-### Return type
-
-[**KmsPostV1KmsAuthLogin200Response**](KmsPostV1KmsAuthLogin200Response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

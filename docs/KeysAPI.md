@@ -4,6 +4,9 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CloudDeleteV1Keys**](KeysAPI.md#CloudDeleteV1Keys) | **Delete** /v1/keys | RevokeKey revokes the caller&#39;s own API key of the requested class.
+[**CloudGetV1Keys**](KeysAPI.md#CloudGetV1Keys) | **Get** /v1/keys | GetKey returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+[**CloudPostV1Keys**](KeysAPI.md#CloudPostV1Keys) | **Post** /v1/keys | MintKey creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
 [**GatewayDeleteKey**](KeysAPI.md#GatewayDeleteKey) | **Post** /v1/gateway/key/delete | Delete key
 [**GatewayGenerateKey**](KeysAPI.md#GatewayGenerateKey) | **Post** /v1/gateway/key/generate | Generate API key
 [**GatewayGetKeyInfo**](KeysAPI.md#GatewayGetKeyInfo) | **Get** /v1/gateway/key/info | Get key info
@@ -27,6 +30,199 @@ Method | HTTP request | Description
 [**SearchListKeys**](KeysAPI.md#SearchListKeys) | **Get** /v1/search/keys | List API keys
 [**SearchUpdateKey**](KeysAPI.md#SearchUpdateKey) | **Patch** /v1/search/keys/{keyOrUid} | Update an API key
 
+
+
+## CloudDeleteV1Keys
+
+> CloudRevokedKey CloudDeleteV1Keys(ctx).Type_(type_).Execute()
+
+RevokeKey revokes the caller's own API key of the requested class.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	type_ := "publishable" // string | Type is the key class to act on: \"secret\" (sk-, session-equivalent, belongs on a server) or \"publishable\" (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KeysAPI.CloudDeleteV1Keys(context.Background()).Type_(type_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KeysAPI.CloudDeleteV1Keys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudDeleteV1Keys`: CloudRevokedKey
+	fmt.Fprintf(os.Stdout, "Response from `KeysAPI.CloudDeleteV1Keys`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudDeleteV1KeysRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type_** | **string** | Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. | 
+
+### Return type
+
+[**CloudRevokedKey**](CloudRevokedKey.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudGetV1Keys
+
+> CloudApiKeyList CloudGetV1Keys(ctx).Execute()
+
+GetKey returns the caller's own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KeysAPI.CloudGetV1Keys(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KeysAPI.CloudGetV1Keys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudGetV1Keys`: CloudApiKeyList
+	fmt.Fprintf(os.Stdout, "Response from `KeysAPI.CloudGetV1Keys`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudGetV1KeysRequest struct via the builder pattern
+
+
+### Return type
+
+[**CloudApiKeyList**](CloudApiKeyList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CloudPostV1Keys
+
+> CloudMintedKey CloudPostV1Keys(ctx).CloudKeyTypeIn(cloudKeyTypeIn).Execute()
+
+MintKey creates — or rotates — the caller's API key of the requested type and returns it ONCE.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cloudKeyTypeIn := *openapiclient.NewCloudKeyTypeIn() // CloudKeyTypeIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KeysAPI.CloudPostV1Keys(context.Background()).CloudKeyTypeIn(cloudKeyTypeIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KeysAPI.CloudPostV1Keys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloudPostV1Keys`: CloudMintedKey
+	fmt.Fprintf(os.Stdout, "Response from `KeysAPI.CloudPostV1Keys`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCloudPostV1KeysRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cloudKeyTypeIn** | [**CloudKeyTypeIn**](CloudKeyTypeIn.md) |  | 
+
+### Return type
+
+[**CloudMintedKey**](CloudMintedKey.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GatewayDeleteKey

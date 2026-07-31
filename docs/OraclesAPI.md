@@ -4,15 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GraphListOracles**](OraclesAPI.md#GraphListOracles) | **Get** /v1/oracles | List on-chain price/data oracles
+[**CloudGetV1Oracles**](OraclesAPI.md#CloudGetV1Oracles) | **Get** /v1/oracles | ListOracles reports the on-chain price/data oracles from the graph&#39;s O-Chain PriceFeed registry.
 
 
 
-## GraphListOracles
+## CloudGetV1Oracles
 
-> GraphListOracles200Response GraphListOracles(ctx).Execute()
+> CloudOraclesOut CloudGetV1Oracles(ctx).Execute()
 
-List on-chain price/data oracles
+ListOracles reports the on-chain price/data oracles from the graph's O-Chain PriceFeed registry.
+
+
 
 ### Example
 
@@ -30,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OraclesAPI.GraphListOracles(context.Background()).Execute()
+	resp, r, err := apiClient.OraclesAPI.CloudGetV1Oracles(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `OraclesAPI.GraphListOracles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `OraclesAPI.CloudGetV1Oracles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GraphListOracles`: GraphListOracles200Response
-	fmt.Fprintf(os.Stdout, "Response from `OraclesAPI.GraphListOracles`: %v\n", resp)
+	// response from `CloudGetV1Oracles`: CloudOraclesOut
+	fmt.Fprintf(os.Stdout, "Response from `OraclesAPI.CloudGetV1Oracles`: %v\n", resp)
 }
 ```
 
@@ -46,12 +48,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGraphListOraclesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCloudGetV1OraclesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**GraphListOracles200Response**](GraphListOracles200Response.md)
+[**CloudOraclesOut**](CloudOraclesOut.md)
 
 ### Authorization
 

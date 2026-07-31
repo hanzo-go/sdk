@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Kind** | Pointer to **string** |  | [optional] 
-**Experiments** | Pointer to **int32** |  | [optional] 
 **CostUsd** | Pointer to **float32** |  | [optional] 
+**Experiments** | Pointer to **int32** |  | [optional] 
+**Kind** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -27,30 +27,30 @@ NewResearchKindTotalWithDefaults instantiates a new ResearchKindTotal object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetKind
+### GetCostUsd
 
-`func (o *ResearchKindTotal) GetKind() string`
+`func (o *ResearchKindTotal) GetCostUsd() float32`
 
-GetKind returns the Kind field if non-nil, zero value otherwise.
+GetCostUsd returns the CostUsd field if non-nil, zero value otherwise.
 
-### GetKindOk
+### GetCostUsdOk
 
-`func (o *ResearchKindTotal) GetKindOk() (*string, bool)`
+`func (o *ResearchKindTotal) GetCostUsdOk() (*float32, bool)`
 
-GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+GetCostUsdOk returns a tuple with the CostUsd field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetKind
+### SetCostUsd
 
-`func (o *ResearchKindTotal) SetKind(v string)`
+`func (o *ResearchKindTotal) SetCostUsd(v float32)`
 
-SetKind sets Kind field to given value.
+SetCostUsd sets CostUsd field to given value.
 
-### HasKind
+### HasCostUsd
 
-`func (o *ResearchKindTotal) HasKind() bool`
+`func (o *ResearchKindTotal) HasCostUsd() bool`
 
-HasKind returns a boolean if a field has been set.
+HasCostUsd returns a boolean if a field has been set.
 
 ### GetExperiments
 
@@ -77,30 +77,30 @@ SetExperiments sets Experiments field to given value.
 
 HasExperiments returns a boolean if a field has been set.
 
-### GetCostUsd
+### GetKind
 
-`func (o *ResearchKindTotal) GetCostUsd() float32`
+`func (o *ResearchKindTotal) GetKind() string`
 
-GetCostUsd returns the CostUsd field if non-nil, zero value otherwise.
+GetKind returns the Kind field if non-nil, zero value otherwise.
 
-### GetCostUsdOk
+### GetKindOk
 
-`func (o *ResearchKindTotal) GetCostUsdOk() (*float32, bool)`
+`func (o *ResearchKindTotal) GetKindOk() (*string, bool)`
 
-GetCostUsdOk returns a tuple with the CostUsd field if it's non-nil, zero value otherwise
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCostUsd
+### SetKind
 
-`func (o *ResearchKindTotal) SetCostUsd(v float32)`
+`func (o *ResearchKindTotal) SetKind(v string)`
 
-SetCostUsd sets CostUsd field to given value.
+SetKind sets Kind field to given value.
 
-### HasCostUsd
+### HasKind
 
-`func (o *ResearchKindTotal) HasCostUsd() bool`
+`func (o *ResearchKindTotal) HasKind() bool`
 
-HasCostUsd returns a boolean if a field has been set.
+HasKind returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
