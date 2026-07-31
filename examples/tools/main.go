@@ -1,17 +1,16 @@
-// tools — list the MCP tools this key can call.
+// tools — list the MCP tools this key can reach.
 //
-// The Hanzo MCP surface is JSON-RPC 2.0 (HIP-0300) over a single endpoint.
-// `tools/list` is the discovery call; every connector action shows up as a tool
-// named <connector>_<action>.
+// Operation: GET /v1/tools (cloud_get_v1_tools).
 //
-// Operation: POST /v1/automations/mcp (automations_mcp), method "tools/list".
+// This is the served tool list: every tool the caller's org can see, which is
+// what an MCP tools/list answers. To CALL one, the next route is
+// POST /v1/tools/call (cloud_post_v1_tools_call).
 //
 //	HANZO_API_KEY=sk-... go run ./examples/tools
 package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -21,24 +20,17 @@ import (
 func main() {
 	client := hanzoai.NewClient("")
 
-	resp, _, err := client.MCPAPI.AutomationsMcp(context.Background()).
-		AutomationsMcpRequest(hanzoai.AutomationsMcpRequest{
-			Jsonrpc: "2.0",
-			Id:      1,
-			Method:  "tools/list",
-		}).Execute()
+	list, _, err := client.ToolsAPI.CloudGetV1Tools(context.Background()).Execute()
 	if err != nil {
-		log.Fatalf("tools/list: %v", err)
+		log.Fatalf("tools: %v", err)
 	}
 
-	// JSON-RPC reports call errors in the body, with HTTP 200.
-	if e := resp.Error; e != nil {
-		log.Fatalf("tools/list: %s", e.GetMessage())
+	tools := list.Tools
+	if len(tools) == 0 {
+		log.Fatal("tools: the list is empty")
 	}
-
-	b, err := json.MarshalIndent(resp.Result, "", "  ")
-	if err != nil {
-		log.Fatalf("encode result: %v", err)
+	fmt.Printf("%d tools\n", len(tools))
+	for _, tool := range tools[:min(3, len(tools))] {
+		fmt.Printf("  %-32s %s\n", tool.GetName(), tool.GetDescription())
 	}
-	fmt.Println(string(b))
 }

@@ -62,16 +62,20 @@ client := hanzoai.NewAPIClient(cfg)
 
 ## Flows
 
-Six journeys, the same six in every Hanzo SDK. Each is a runnable program:
+Six journeys, the same six in every Hanzo SDK, calling the operations
+[`hanzoai/openapi` `flows.yaml`](https://github.com/hanzoai/openapi/blob/main/flows.yaml)
+names — that manifest is what makes "the same six" a fact rather than six repos
+independently remembering to agree. `hanzo_test.go` pins each one to its route.
+Each is a runnable program:
 
 | Flow | What it does | Operations |
 | --- | --- | --- |
-| [`hello`](examples/hello) | Resolve your key to an identity | `GET /v1/bot/whoami` |
+| [`hello`](examples/hello) | Resolve your key to an identity | `GET /v1/bot/auth/me` |
 | [`chat`](examples/chat) | One chat completion | `POST /v1/chat/completions` |
 | [`money`](examples/money) | Balance and usage | `GET /v1/billing/balance`, `GET /v1/billing/usage` |
-| [`store`](examples/store) | Key/value put, get, delete | `PUT`/`GET`/`DELETE /v1/kv/keys/{key}` |
-| [`agent`](examples/agent) | Create an agent, run it, read it back | `POST /v1/agents`, `POST /v1/agents/{ref}/run`, `GET /v1/agents/{ref}` |
-| [`tools`](examples/tools) | List MCP tools | `POST /v1/automations/mcp` (`tools/list`) |
+| [`store`](examples/store) | Provision a KV store, read it, delete it | `POST /v1/kv`, `GET`/`DELETE /v1/kv/{name}` |
+| [`agent`](examples/agent) | Create an agent, run it, poll the run | `POST /v1/agents`, `POST /v1/agents/{ref}/run`, `GET /v1/agents/{ref}/runs` |
+| [`tools`](examples/tools) | List the tools this key can reach | `GET /v1/tools` |
 
 ```bash
 HANZO_API_KEY=sk-... go run ./examples/hello

@@ -1,9 +1,13 @@
-// store — put, get, delete.
+// store — provision a KV store, read it back, delete it.
 //
-// A full key/value round trip against the Hanzo KV service.
+// Operations: POST /v1/kv (cloud_post_v1_kv), GET /v1/kv/{name}
+// (cloud_get_v1_kv_name), DELETE /v1/kv/{name} (cloud_delete_v1_kv_name).
 //
-// Operations: PUT /v1/kv/keys/{key} (kv_setKey), GET /v1/kv/keys/{key}
-// (kv_getKey), DELETE /v1/kv/keys/{key} (kv_deleteKey).
+// This is the provisioning plane, and it is the one that answers. The value
+// plane — /v1/kv/keys/{key}, kv_setKey/kv_getKey/kv_deleteKey — is authored in
+// the spec but is mounted nowhere: it replies 404 to GET and 405 to PUT and
+// DELETE at api.hanzo.ai, while /v1/kv replies 403. An example may only call
+// what routes.
 //
 // KV is org-scoped, so it needs X-Org-Id alongside the API key.
 //
@@ -28,23 +32,27 @@ func main() {
 	}
 	client := hanzoai.NewAPIClient(cfg)
 
-	const key = "hanzo-sdk-example"
+	// Names are org-unique, so a hardcoded one collides with the last run.
+	name := fmt.Sprintf("sdk-example-%d", os.Getpid())
 
-	set, _, err := client.KeysAPI.KvSetKey(ctx, key).
-		KvSetKeyRequest(hanzoai.KvSetKeyRequest{Value: "hello from the Go SDK"}).Execute()
+	created, _, err := client.KvAPI.CloudPostV1Kv(ctx).
+		CloudProvisionRequest(hanzoai.CloudProvisionRequest{Name: &name}).Execute()
 	if err != nil {
-		log.Fatalf("put %s: %v", key, err)
+		log.Fatalf("provision %s: %v", name, err)
 	}
-	fmt.Printf("put     %s = %q\n", key, set.GetValue())
+	// Delete in a defer, so a failed read still cleans up instead of leaving
+	// the store behind for the next run to collide with.
+	defer func() {
+		if _, err := client.KvAPI.CloudDeleteV1KvName(ctx, name).Execute(); err != nil {
+			log.Fatalf("delete %s: %v", name, err)
+		}
+		fmt.Printf("delete   %s\n", name)
+	}()
+	fmt.Printf("create   %s (%s)\n", created.GetName(), created.GetStatus())
 
-	got, _, err := client.KeysAPI.KvGetKey(ctx, key).Execute()
+	got, _, err := client.KvAPI.CloudGetV1KvName(ctx, name).Execute()
 	if err != nil {
-		log.Fatalf("get %s: %v", key, err)
+		log.Fatalf("read %s: %v", name, err)
 	}
-	fmt.Printf("get     %s = %q\n", key, got.GetValue())
-
-	if _, _, err := client.KeysAPI.KvDeleteKey(ctx, key).Execute(); err != nil {
-		log.Fatalf("delete %s: %v", key, err)
-	}
-	fmt.Printf("delete  %s\n", key)
+	fmt.Printf("read     %s kind=%s host=%s\n", got.GetName(), got.GetKind(), got.GetHost())
 }

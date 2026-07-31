@@ -105,6 +105,26 @@ operations tagged twice, so the generator re-declared their request structs and
 the package would not compile) is **fixed upstream** — the spec now has zero
 multi-tag operations.
 
+## The six flows come from `flows.yaml`
+
+`hanzoai/openapi` carries a root-level **`flows.yaml`** naming the six example
+flows and, per flow, the operationIds to call in order. It is the manifest that
+makes "the same six examples in every SDK" a fact. `examples/` and the
+`TestFlows` table both follow it — do not pick a different operation here
+without changing it there first.
+
+Note it is easy to conclude the file does not exist: `hanzoai/openapi` is
+private, and the GitHub contents API answers **404** rather than 403 for a path
+in a repo the caller cannot read, which is indistinguishable from a missing
+file. Fetch it authenticated.
+
+One place this repo knowingly disagrees with the manifest's prose, though not
+with its chosen operation: `flows.yaml`'s `tools` note says `/v1/mcp` "is not
+routed (404 page not found)". `/v1/mcp` is live and POST-only — `POST /v1/mcp`
+answers **202 Accepted**, `GET /v1/mcp` answers 404. The note reads as a
+GET-only probe. The operation it selects, `cloud_get_v1_tools`, is the right one
+regardless and is what `examples/tools` calls.
+
 ## Testing
 
 `hanzo_test.go` stands up an `httptest` server, points the SDK at it with

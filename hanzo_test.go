@@ -29,9 +29,11 @@ func TestNewConfigHonoursBaseURLOverride(t *testing.T) {
 	}
 }
 
-// TestFlows pins the six canonical example flows to the routes hanzo.yaml
-// documents. If a regeneration moves an operation, this fails instead of the
-// examples silently calling the wrong endpoint.
+// TestFlows pins the six canonical example flows to the routes hanzoai/openapi
+// `flows.yaml` names — the manifest that makes "the same six examples in every
+// SDK" a fact rather than six repos independently remembering to agree. If a
+// regeneration moves an operation, this fails instead of the examples silently
+// calling the wrong endpoint.
 func TestFlows(t *testing.T) {
 	ctx := context.Background()
 
@@ -39,8 +41,8 @@ func TestFlows(t *testing.T) {
 		flow, method, path string
 		call               func(c *APIClient)
 	}{
-		{"hello", "GET", "/v1/bot/whoami", func(c *APIClient) {
-			c.AuthAPI.BotWhoami(ctx).Execute()
+		{"hello", "GET", "/v1/bot/auth/me", func(c *APIClient) {
+			c.AuthAPI.BotAuthMe(ctx).Execute()
 		}},
 		{"chat", "POST", "/v1/chat/completions", func(c *APIClient) {
 			c.OpenAICompatibleAPI.AiCreateChatCompletion(ctx).AiChatCompletionRequest(
@@ -50,8 +52,11 @@ func TestFlows(t *testing.T) {
 		{"money", "GET", "/v1/billing/balance", func(c *APIClient) {
 			c.BillingAPI.CloudGetV1BillingBalance(ctx).Execute()
 		}},
-		{"store", "PUT", "/v1/kv/keys/k", func(c *APIClient) {
-			c.KeysAPI.KvSetKey(ctx, "k").KvSetKeyRequest(KvSetKeyRequest{Value: "v"}).Execute()
+		{"store", "POST", "/v1/kv", func(c *APIClient) {
+			name := "n"
+			c.KvAPI.CloudPostV1Kv(ctx).CloudProvisionRequest(
+				CloudProvisionRequest{Name: &name},
+			).Execute()
 		}},
 		{"agent", "POST", "/v1/agents", func(c *APIClient) {
 			name, model := "n", "zen-1"
@@ -59,10 +64,8 @@ func TestFlows(t *testing.T) {
 				CloudCreateAgentIn{Name: &name, Model: &model},
 			).Execute()
 		}},
-		{"tools", "POST", "/v1/automations/mcp", func(c *APIClient) {
-			c.MCPAPI.AutomationsMcp(ctx).AutomationsMcpRequest(
-				AutomationsMcpRequest{Jsonrpc: "2.0", Method: "tools/list"},
-			).Execute()
+		{"tools", "GET", "/v1/tools", func(c *APIClient) {
+			c.ToolsAPI.CloudGetV1Tools(ctx).Execute()
 		}},
 	} {
 		t.Run(tc.flow, func(t *testing.T) {
