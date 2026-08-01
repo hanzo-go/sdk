@@ -7,6 +7,7 @@
 # per-service spec in hanzoai/openapi and regenerate.
 #
 #   ./scripts/generate.sh                            # pulls spec from hanzoai/openapi@main
+#   ./scripts/generate.sh --check                    # diff only; non-zero if the tree drifted
 #   SPEC=/path/to/hanzo.yaml ./scripts/generate.sh   # local spec override
 #
 # hanzoai/openapi is PRIVATE today. raw.githubusercontent.com only serves public
@@ -24,6 +25,9 @@ SPEC_REF="${SPEC_REF:-main}"
 SPEC_URL="${SPEC_URL:-https://raw.githubusercontent.com/${SPEC_REPO}/${SPEC_REF}/hanzo.yaml}"
 SPEC="${SPEC:-}"
 JAR="${JAR:-${TMPDIR:-/tmp}/openapi-generator-cli-${GENERATOR_VERSION}.jar}"
+
+check=0
+[ "${1:-}" = "--check" ] && check=1
 
 if [ -z "$SPEC" ]; then
   SPEC="$(mktemp)"
@@ -49,15 +53,64 @@ if [ ! -f "$JAR" ]; then
     "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${GENERATOR_VERSION}/openapi-generator-cli-${GENERATOR_VERSION}.jar"
 fi
 
-OUT="$(mktemp -d)"
+STAGE="$(mktemp -d)"
+
+# The document as JSON, because YAML has a ceiling and JSON does not.
+#
+# swagger-parser hands a YAML document to snakeyaml, which refuses anything over
+# 3 * 1024 * 1024 = 3145728 code points. hanzo.yaml passed that mark and this
+# script has been unable to generate since: measured 2026-08-01 at 3,686,318
+# code points, `YAMLException: The incoming YAML document exceeds the limit:
+# 3145728 code points`. The failure does not say so out loud — the parser logs
+# SnakeException, falls through to the Swagger 2.0 compat reader, and dies with
+# "Issues with the OpenAPI input", which reads like a malformed spec. It is not:
+# the document validates at 0 errors.
+#
+# `-DmaxYamlCodePoints` is NOT the fix — swagger-parser honours it in generator
+# 7.24.0 and ignores it in the 7.14.0 pinned here. JSON avoids snakeyaml
+# altogether on every version. The generator reads either format from -i, so
+# this costs one temp file and removes a ceiling the document keeps growing into.
+#
+# This is the same conversion hanzoai/openapi's generate.py and cpp-sdk's
+# generate.sh already do, for the same reason, and it is deliberately NOT
+# written back as a second committed artifact: there is one document, and it is
+# hanzo.yaml.
+SPEC_JSON="$STAGE/hanzo.json"
+python3 -c 'import json,sys,yaml; json.dump(yaml.safe_load(open(sys.argv[1])), open(sys.argv[2],"w"))' \
+  "$SPEC" "$SPEC_JSON"
+
+OUT="$STAGE/gen"
 # Validation stays ON. hanzo.yaml validates clean, and a malformed document
 # should fail here rather than surface as a compile error spread across 1300
 # generated files.
 java -jar "$JAR" generate \
-  -i "$SPEC" -g go \
+  -i "$SPEC_JSON" -g go \
   --additional-properties=packageName=hanzoai,withGoMod=false,structPrefix=true,enumClassPrefix=true \
   --git-user-id=hanzoai --git-repo-id=go-sdk \
   -o "$OUT"
+
+gofmt -w "$OUT"/*.go
+
+if [ "$check" = 1 ]; then
+  # The client is generated, so the only thing that can rot is the committed
+  # copy. This is what makes "never edit the generated *.go" a fact rather than
+  # a convention — and it is what lets the release train gate on this repo.
+  #
+  # Compare only what this script writes back: the root *.go and docs/. go.mod,
+  # examples/, scripts/ and the hand-written docs are the repo's own and the
+  # generator never sees them.
+  rc=0
+  for f in "$OUT"/*.go; do
+    b="$(basename "$f")"
+    if ! cmp -s "$f" "$b"; then echo "DRIFTED: $b"; rc=1; fi
+  done
+  for f in ./*.go; do
+    b="$(basename "$f")"
+    [ -f "$OUT/$b" ] || { echo "DRIFTED: $b is committed and hanzo.yaml does not project it"; rc=1; }
+  done
+  [ "$rc" = 0 ] && echo "clean: the module root is what hanzo.yaml projects"
+  exit "$rc"
+fi
 
 # The repo root owns go.mod, examples/, scripts/ and the docs. Keep only the
 # generated sources. Previous output is removed via the generator's own FILES
@@ -77,5 +130,4 @@ cp "$OUT"/*.go .
 cp -r "$OUT"/docs "$OUT"/.openapi-generator .
 cp "$OUT"/.openapi-generator-ignore .
 
-gofmt -w ./*.go
 echo "generated $(ls ./*.go | wc -l) Go files at the module root (package hanzoai)"
