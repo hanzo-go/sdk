@@ -80,11 +80,20 @@ python3 -c 'import json,sys,yaml; json.dump(yaml.safe_load(open(sys.argv[1])), o
   "$SPEC" "$SPEC_JSON"
 
 OUT="$STAGE/gen"
-# Validation stays ON. hanzo.yaml validates clean, and a malformed document
-# should fail here rather than surface as a compile error spread across 1300
-# generated files.
+# --skip-validate-spec: the document is OpenAPI 3.1, and 3.1 made `responses`
+# OPTIONAL on an operation. The validator in generator 7.14.0 still enforces the
+# 3.0 rule that it is required, so it REFUSES a document that is valid. Measured
+# on hanzoai/cloud's openapi.yaml: 684 of 1636 operations are routes the router
+# proves exist and whose response shape no seam can state, and cloud emits those
+# with no `responses` key on purpose (openapi/openapi.go — "absent stays valid
+# and absent beats invented").
+#
+# What keeps a bad document out is not the validator, it is `go build ./...` —
+# the whole generated package plus the six example flows, in hanzo.yml's test:
+# block. A malformed document fails there with a file and a line.
 java -jar "$JAR" generate \
   -i "$SPEC_JSON" -g go \
+  --skip-validate-spec \
   --additional-properties=packageName=hanzoai,withGoMod=false,structPrefix=true,enumClassPrefix=true \
   --git-user-id=hanzoai --git-repo-id=go-sdk \
   -o "$OUT"
