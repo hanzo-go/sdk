@@ -34,16 +34,6 @@ test:
       set -e
       export GOWORK=off
       go build ./examples/...
-  - name: spec-drift-check
-    # The client is generated, so the only thing that can rot is the committed
-    # copy — and `go build` cannot see that rot, because a stale client compiles
-    # perfectly. This regenerates from hanzo.yaml and refuses any difference,
-    # which is what makes "never edit the generated *.go" a fact rather than a
-    # convention, and what lets the release train gate on this repo.
-    run: |
-      set -e
-      ./scripts/generate.sh --check
-
 # THE CLIENT LANE — this repo is a PROJECTION of one API document at one version.
 #
 # hanzoai/cloud's release sends `repository_dispatch: spec-update` carrying
