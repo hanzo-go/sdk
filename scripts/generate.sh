@@ -91,9 +91,71 @@ OUT="$STAGE/gen"
 # What keeps a bad document out is not the validator, it is `go build ./...` —
 # the whole generated package plus the six example flows, in hanzo.yml's test:
 # block. A malformed document fails there with a file and a line.
+#
+# --name-mappings, first line: two properties the document spells twice on
+# purpose. The generator derives a Go field by case-folding the property name, so
+# both spellings land on one identifier and the package will not compile:
+#
+#   model_o11y_gettable_agent_check_in.go:28:2: IntegrationConfig redeclared
+#   model_o11y_gettable_agent_check_in.go:31:2: RemovedAt redeclared
+#
+# o11y.GettableAgentCheckIn carries `integration_config` AND `integrationConfig`
+# — different types, o11y.IntegrationConfig vs o11y.ProviderIntegrationConfig —
+# and `removed_at` AND `removedAt`. That is deliberate, not drift: upstream
+# hanzoai/o11y@v1.5.58 pkg/types/cloudintegrationtypes/checkin.go:33 publishes the
+# snake_case halves so AWS agents built against the old shape keep checking in.
+# Both spellings are on the wire today, so the document must keep both and the
+# rename happens HERE, in Go, on the LEGACY half only. It is a language-side name
+# and nothing else: the struct tag still reads `json:"integration_config"`, so
+# what the client sends and accepts is byte-identical. The Rust SDK maps the same
+# two keys.
+#
+# The VALUE has to be spelled as the finished Go identifier, exported. This
+# generator returns a mapped name verbatim — AbstractGoCodegen.toVarName answers
+# out of nameMapping before it camelizes anything — so Rust's
+# `integration_config_legacy` comes through as a field literally named
+# `integration_config_legacy`, with accessors to match
+# (`Getintegration_config_legacyOk`). That compiles, and it is worse than the
+# error it replaces: an unexported field is invisible to encoding/json, so the
+# generated UnmarshalJSON drops the old agent's value on the floor without
+# saying so. Exported names keep the pair round-tripping.
+#
+# --name-mappings, second line: the generator colliding with itself. For an
+# OPTIONAL field it emits a presence accessor `Has<Field>()`, which takes the
+# identifier a property literally named `has<Field>` also wants:
+#
+#   model_o11y_o11y_pod_onboarding.go:84:33: field and method with the same name HasClusterName
+#   model_o11y_postable_profile.go:69:31: field and method with the same name HasExistingObservabilityTool
+#
+# A `has<X>` property is a problem exactly when its own schema also carries `<X>`.
+# These four are the whole set: o11y.O11yPodOnboarding's other five
+# (hasCronjobName, hasDaemonsetName, hasDeploymentName, hasJobName,
+# hasStatefulsetName) have no bare twin, so no accessor is generated to collide
+# with. The go generator has no option to rename that accessor — `config-help -g
+# go` on 7.14.0 lists none — so the data field is what moves, and again only in
+# Go: the tag still reads `json:"hasClusterName"`.
+#
+# All six keys were checked against the whole document and each occurs in exactly
+# ONE schema, so nothing else among 2186 schemas moves with them. Every mapping
+# here goes the day cloud drops the duplicate pair or the bare twin.
+#
+# --model-name-mappings: the document names a schema plainly `Config` — the
+# POST/PUT /v1/mq/streams body, and `Stream.config` — for which the generator
+# emits `NewConfig()`. That is already this repo's own hand-written constructor:
+#
+#   model_config.go:46:6: NewConfig redeclared in this block
+#       hanzo.go:29:6: other declaration of NewConfig
+#
+# hanzo.go wins, because `NewConfig(apiKey)` is published API — README, two of
+# the six example flows (agent, store) and hanzo_test.go all call it. The model
+# is renamed to what it is instead; a model name is not on the wire, and the only
+# refs are Stream.config and those two request bodies.
 java -jar "$JAR" generate \
   -i "$SPEC_JSON" -g go \
   --skip-validate-spec \
+  --name-mappings integration_config=IntegrationConfigLegacy,removed_at=RemovedAtLegacy \
+  --name-mappings hasClusterName=HasClusterNameFlag,hasNamespaceName=HasNamespaceNameFlag,hasNodeName=HasNodeNameFlag,has_existing_observability_tool=HasExistingObservabilityToolFlag \
+  --model-name-mappings Config=StreamConfig \
   --additional-properties=packageName=hanzoai,withGoMod=false,structPrefix=true,enumClassPrefix=true \
   --git-user-id=hanzoai --git-repo-id=go-sdk \
   -o "$OUT"
