@@ -73,7 +73,14 @@ STAGE="$(mktemp -d)"
 # it is deliberately NOT written back as a second committed artifact: there is
 # one document and it lives in hanzoai/cloud.
 SPEC_JSON="$STAGE/hanzo.json"
-python3 -c 'import json,sys,yaml; json.dump(yaml.safe_load(open(sys.argv[1])), open(sys.argv[2],"w"))' \
+# `uv run --with pyyaml`, not a bare python3: the runner's interpreter has no
+# yaml module. The CI parse toolchain provisions yq instead of PyYAML because
+# pip is unavailable on locked-down nodes, so `import yaml` dies on its import
+# line — which is exactly what the first regeneration to reach this step did.
+# uv carries its own interpreter and resolves the dependency itself, and it is
+# how hanzoai/python-sdk's generate.sh has always run the same conversion.
+uv run --with pyyaml python3 \
+  -c 'import json,sys,yaml; json.dump(yaml.safe_load(open(sys.argv[1])), open(sys.argv[2],"w"))' \
   "$SPEC" "$SPEC_JSON"
 
 OUT="$STAGE/gen"
