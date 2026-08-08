@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
-# Regenerate the Hanzo Go SDK from the unified OpenAPI spec.
+# Regenerate the Hanzo Go SDK from the Hanzo Cloud API document.
 #
-# The ONE way: hanzoai/openapi `hanzo.yaml` is the single source of truth. This
-# SDK is generated from it with openapi-generator (go) — no Stainless, no
-# hand-drift. Never edit the generated *.go at the repo root; edit the
-# per-service spec in hanzoai/openapi and regenerate.
+# THE DOCUMENT IS hanzoai/cloud's `openapi.yaml`, emitted from its own routers
+# and gated on every release, so it cannot describe a route the binary does not
+# serve. Never edit the generated *.go at the module root; change the handler in
+# hanzoai/cloud and regenerate.
 #
-#   ./scripts/generate.sh                            # pulls spec from hanzoai/openapi@main
-#   ./scripts/generate.sh --check                    # diff only; non-zero if the tree drifted
-#   SPEC=/path/to/hanzo.yaml ./scripts/generate.sh   # local spec override
+#   ./scripts/generate.sh                              # regenerate in place
+#   ./scripts/generate.sh --check                      # non-zero if the tree drifted
+#   SPEC=/path/to/openapi.yaml ./scripts/generate.sh   # the document by value
 #
-# hanzoai/openapi is PRIVATE today. raw.githubusercontent.com only serves public
-# repos, so the plain URL 404s; when that happens this falls back to the GitHub
-# API with a token (SPEC_TOKEN, or GH_TOKEN/GITHUB_TOKEN, or `gh auth token`)
-# and says so. SPEC_URL overrides the URL, SPEC overrides the file.
+# What stood here read a DIFFERENT file: hanzoai/openapi's `hanzo.yaml`, over
+# raw.githubusercontent.com, at whatever `main` was that minute, behind a
+# four-deep token chain for a private repo. That file is itself a projection of
+# this document with codegen rules applied, so reading it made this client a
+# projection of a projection — pinned to nothing, one release behind whenever
+# the middle step had not run, and 900-odd routes apart from what cloud serves.
 #
-# Requires: java 17+, curl, go.
+# Requires: java 17+, curl, go, and FORGE_TOKEN (contents:read on hanzoai/cloud)
+# unless SPEC is passed.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 GENERATOR_VERSION="${GENERATOR_VERSION:-7.14.0}"
-SPEC_REPO="${SPEC_REPO:-hanzoai/openapi}"
-SPEC_REF="${SPEC_REF:-main}"
-SPEC_URL="${SPEC_URL:-https://raw.githubusercontent.com/${SPEC_REPO}/${SPEC_REF}/hanzo.yaml}"
 SPEC="${SPEC:-}"
 JAR="${JAR:-${TMPDIR:-/tmp}/openapi-generator-cli-${GENERATOR_VERSION}.jar}"
 
@@ -31,21 +31,19 @@ check=0
 
 if [ -z "$SPEC" ]; then
   SPEC="$(mktemp)"
-  # Public fetch first: it is the plain path, needs no credential, and starts
-  # working the day hanzoai/openapi opens. While the repo is private GitHub
-  # answers 404 rather than 403, so an anonymous miss is indistinguishable from
-  # a deleted file — hence the fallback below, which says which case it was.
-  # Both paths use curl -f under set -e, so a failed fetch stops the script
-  # instead of regenerating from a stale spec.
-  if ! curl -fsSL "$SPEC_URL" -o "$SPEC"; then
-    TOKEN="${SPEC_TOKEN:-${GH_TOKEN:-${GITHUB_TOKEN:-$(gh auth token 2>/dev/null || true)}}}"
-    : "${TOKEN:?$SPEC_URL is not readable anonymously and no SPEC_TOKEN/GH_TOKEN is set. $SPEC_REPO is private; supply a token with contents:read, or pass SPEC=/path/to/hanzo.yaml}"
-    echo "note: $SPEC_URL returned no spec ($SPEC_REPO is private) - reading it through the GitHub API instead" >&2
-    curl -fsSL \
-      -H "Authorization: Bearer $TOKEN" \
-      -H "Accept: application/vnd.github.raw" \
-      "https://api.github.com/repos/${SPEC_REPO}/contents/hanzo.yaml?ref=${SPEC_REF}" -o "$SPEC"
-  fi
+  # THE REF THIS TREE NAMES, not a branch. hanzoai/ci's client lane passes the
+  # document by value in $SPEC, already digest-checked against the release that
+  # published it; by hand, `.spec-lock` says which ref this committed client is a
+  # projection of and the digest is re-checked here. A branch read would drag the
+  # client onto a document no release shipped.
+  ref="$(sed -n 's/^ref=//p' .spec-lock)"
+  want="$(sed -n 's/^sha256=//p' .spec-lock)"
+  : "${ref:?no SPEC and no .spec-lock — this tree names no document}"
+  : "${FORGE_TOKEN:?reading hanzoai/cloud from git.hanzo.ai needs FORGE_TOKEN (contents:read), or pass SPEC=/path/to/the/document}"
+  curl -fsSL -H "Authorization: token $FORGE_TOKEN" \
+    "https://git.hanzo.ai/v1/repos/hanzoai/cloud/raw/openapi.yaml?ref=$ref" -o "$SPEC"
+  got="$(sha256sum "$SPEC" | cut -d' ' -f1)"
+  [ "$got" = "$want" ] || { echo "hanzoai/cloud@$ref:openapi.yaml hashes to $got, but .spec-lock says $want — the ref moved under this projection" >&2; exit 1; }
 fi
 
 if [ ! -f "$JAR" ]; then
@@ -58,7 +56,7 @@ STAGE="$(mktemp -d)"
 # The document as JSON, because YAML has a ceiling and JSON does not.
 #
 # swagger-parser hands a YAML document to snakeyaml, which refuses anything over
-# 3 * 1024 * 1024 = 3145728 code points. hanzo.yaml passed that mark and this
+# 3 * 1024 * 1024 = 3145728 code points. The document passed that mark and this
 # script has been unable to generate since: measured 2026-08-01 at 3,686,318
 # code points, `YAMLException: The incoming YAML document exceeds the limit:
 # 3145728 code points`. The failure does not say so out loud — the parser logs
@@ -71,10 +69,9 @@ STAGE="$(mktemp -d)"
 # altogether on every version. The generator reads either format from -i, so
 # this costs one temp file and removes a ceiling the document keeps growing into.
 #
-# This is the same conversion hanzoai/openapi's generate.py and cpp-sdk's
-# generate.sh already do, for the same reason, and it is deliberately NOT
-# written back as a second committed artifact: there is one document, and it is
-# hanzo.yaml.
+# This is the same conversion generate.py already does, for the same reason, and
+# it is deliberately NOT written back as a second committed artifact: there is
+# one document and it lives in hanzoai/cloud.
 SPEC_JSON="$STAGE/hanzo.json"
 python3 -c 'import json,sys,yaml; json.dump(yaml.safe_load(open(sys.argv[1])), open(sys.argv[2],"w"))' \
   "$SPEC" "$SPEC_JSON"
@@ -115,9 +112,9 @@ if [ "$check" = 1 ]; then
   done
   for f in ./*.go; do
     b="$(basename "$f")"
-    [ -f "$OUT/$b" ] || { echo "DRIFTED: $b is committed and hanzo.yaml does not project it"; rc=1; }
+    [ -f "$OUT/$b" ] || { echo "DRIFTED: $b is committed and the document does not project it"; rc=1; }
   done
-  [ "$rc" = 0 ] && echo "clean: the module root is what hanzo.yaml projects"
+  [ "$rc" = 0 ] && echo "clean: the module root is what the document projects"
   exit "$rc"
 fi
 
