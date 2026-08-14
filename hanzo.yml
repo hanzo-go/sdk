@@ -2,7 +2,7 @@
 #
 # No `images:` and no `deploy:`: this is a Go library. A consumer links it from
 # the module proxy at a tag, so what CI owes is a gate, not an artifact.
-# Publishing is `.github/workflows/release.yml` — for a Go module that means
+# Publishing is `.hanzo/workflows/release.yml` — for a Go module that means
 # pushing a semver tag and warming the proxy, no registry token involved.
 
 test:

@@ -50,7 +50,8 @@ HANZO_API_KEY=sk-... go run .
 
 Every call has the same shape: pick a service off the client, name the
 operation, add parameters by chaining, then `Execute()`. It returns the decoded
-value, the raw `*http.Response`, and an error.
+value, the raw `*http.Response`, and an error — or, where the document states no
+response shape, the response and the error alone.
 
 ## Authenticating
 
@@ -140,7 +141,7 @@ lives in that script and nowhere else.
 ## Development
 
 ```bash
-go build ./... && go vet ./... && go test ./... && go build ./examples/...
+go build ./... && go vet ./... && go test -count=1 ./... && go build ./examples/...
 ```
 
 Those four are the whole gate, and `hanzo.yml` runs exactly them. Publishing is

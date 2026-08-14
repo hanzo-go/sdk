@@ -3,7 +3,7 @@
 Go module `github.com/hanzoai/go-sdk`, published by **git tag** → proxy.golang.org.
 
 ```bash
-go build ./... && go vet ./... && go test ./... && go build ./examples/...
+go build ./... && go vet ./... && go test -count=1 ./... && go build ./examples/...
 ```
 
 Those four are the whole gate, and `hanzo.yml` runs exactly them.
@@ -49,8 +49,8 @@ is the module root, beside `.git`.
 ## One client, at the module root
 
 The repo root `*.go` **is** the client, `package hanzoai` — 2656 generated files
-beside two hand-written ones. There is no second surface: the Stainless client
-and the parallel `cloud/` subpackage are both gone.
+beside two hand-written ones. There is no second surface: the hand-shipped
+client that predated it and the parallel `cloud/` subpackage are both gone.
 
 **The shape, measured against the locked document.** 1814 paths carry 2479
 operations, and 191 distinct tags plus the 50 untagged operations make 192
@@ -218,6 +218,11 @@ proxy reads github.com/hanzoai/go-sdk, which GitHub redirects to hanzo-go/sdk,
 which the forge push-mirrors within seconds — so a tag pushed here is resolvable
 publicly without anything else being done.
 
+There is no `CHANGELOG.md`, and one should not come back. The generator that
+wrote the old one left with the client it described, so it stopped at
+`0.1.0-alpha.7` while three releases shipped past it — a file that says nothing
+happened since July reads as fact. The tag list is the record.
+
 ## Testing
 
 `hanzo_test.go` stands up an `httptest` server, points the SDK at it with
@@ -230,5 +235,6 @@ endpoint.
 because its whole subject is the refusal: it prints `403 Forbidden` and the
 API's own `{"code":"forbidden"}` body. Use it to check a base URL end to end.
 
-This replaces the old Stainless suite, whose `ok` was 187 SKIP / 25 PASS against
-a disabled mock server and asserted nothing about the API surface.
+This replaces the suite that shipped with that client, whose `ok` was 187 SKIP /
+25 PASS against a disabled mock server and asserted nothing about the API
+surface.
