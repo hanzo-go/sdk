@@ -4,89 +4,23 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1BotByWildcard1**](BotAPI.md#CloudDeleteV1BotByWildcard1) | **Delete** /v1/bot/{wildcard1} | 
-[**CloudGetV1BotByWildcard1**](BotAPI.md#CloudGetV1BotByWildcard1) | **Get** /v1/bot/{wildcard1} | 
-[**CloudGetV1BotConnect**](BotAPI.md#CloudGetV1BotConnect) | **Get** /v1/bot/connect | 
-[**CloudGetV1BotNodes**](BotAPI.md#CloudGetV1BotNodes) | **Get** /v1/bot/nodes | Returns the caller org&#39;s currently connected bot nodes: what each one calls itself, the platform it runs on, its agent version, when its socket was established, and the capabilities and commands it reported.
-[**CloudOptionsV1BotByWildcard1**](BotAPI.md#CloudOptionsV1BotByWildcard1) | **Options** /v1/bot/{wildcard1} | 
-[**CloudPatchV1BotByWildcard1**](BotAPI.md#CloudPatchV1BotByWildcard1) | **Patch** /v1/bot/{wildcard1} | 
-[**CloudPostV1BotByWildcard1**](BotAPI.md#CloudPostV1BotByWildcard1) | **Post** /v1/bot/{wildcard1} | 
-[**CloudPostV1BotNodesByIdInvoke**](BotAPI.md#CloudPostV1BotNodesByIdInvoke) | **Post** /v1/bot/nodes/{id}/invoke | 
-[**CloudPostV1BotPeerInvoke**](BotAPI.md#CloudPostV1BotPeerInvoke) | **Post** /v1/bot/peer/invoke | 
-[**CloudPutV1BotByWildcard1**](BotAPI.md#CloudPutV1BotByWildcard1) | **Put** /v1/bot/{wildcard1} | 
-[**CloudTraceV1BotByWildcard1**](BotAPI.md#CloudTraceV1BotByWildcard1) | **Trace** /v1/bot/{wildcard1} | 
+[**DeleteBotByWildcard1**](BotAPI.md#DeleteBotByWildcard1) | **Delete** /v1/bot/{wildcard1} | Relay one of the bot runtime&#39;s own operational paths
+[**GetBotByWildcard1**](BotAPI.md#GetBotByWildcard1) | **Get** /v1/bot/{wildcard1} | Relay one of the bot runtime&#39;s own operational paths
+[**GetBotConnect**](BotAPI.md#GetBotConnect) | **Get** /v1/bot/connect | The socket a bot node dials and holds open to become invokable.
+[**GetBotNodes**](BotAPI.md#GetBotNodes) | **Get** /v1/bot/nodes | Returns the caller org&#39;s currently connected bot nodes: what each one calls itself, the platform it runs on, its agent version, when its socket was established, and the capabilities and commands it reported.
+[**PatchBotByWildcard1**](BotAPI.md#PatchBotByWildcard1) | **Patch** /v1/bot/{wildcard1} | Relay one of the bot runtime&#39;s own operational paths
+[**PostBotByWildcard1**](BotAPI.md#PostBotByWildcard1) | **Post** /v1/bot/{wildcard1} | Relay one of the bot runtime&#39;s own operational paths
+[**PostBotNodesByIdInvoke**](BotAPI.md#PostBotNodesByIdInvoke) | **Post** /v1/bot/nodes/{id}/invoke | Ask one of your connected machines to run a command, and get its answer back.
+[**PostBotPeerInvoke**](BotAPI.md#PostBotPeerInvoke) | **Post** /v1/bot/peer/invoke | Replica-to-replica forward of one invocation to the pod holding the node&#39;s socket.
+[**PutBotByWildcard1**](BotAPI.md#PutBotByWildcard1) | **Put** /v1/bot/{wildcard1} | Relay one of the bot runtime&#39;s own operational paths
 
 
 
-## CloudDeleteV1BotByWildcard1
+## DeleteBotByWildcard1
 
-> CloudDeleteV1BotByWildcard1(ctx, wildcard1).Execute()
+> DeleteBotByWildcard1(ctx, wildcard1).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	wildcard1 := "wildcard1_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudDeleteV1BotByWildcard1(context.Background(), wildcard1).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudDeleteV1BotByWildcard1``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wildcard1** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudDeleteV1BotByWildcard1Request struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1BotByWildcard1
-
-> CloudGetV1BotByWildcard1(ctx, wildcard1).Execute()
+Relay one of the bot runtime's own operational paths
 
 
 
@@ -107,9 +41,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudGetV1BotByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.BotAPI.DeleteBotByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudGetV1BotByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.DeleteBotByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -125,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BotByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteBotByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -138,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -150,9 +84,79 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BotConnect
+## GetBotByWildcard1
 
-> CloudGetV1BotConnect(ctx).Execute()
+> GetBotByWildcard1(ctx, wildcard1).Execute()
+
+Relay one of the bot runtime's own operational paths
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	wildcard1 := "wildcard1_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BotAPI.GetBotByWildcard1(context.Background(), wildcard1).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBotByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**wildcard1** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBotByWildcard1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBotConnect
+
+> GetBotConnect(ctx).Execute()
+
+The socket a bot node dials and holds open to become invokable.
 
 
 
@@ -172,9 +176,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudGetV1BotConnect(context.Background()).Execute()
+	r, err := apiClient.BotAPI.GetBotConnect(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudGetV1BotConnect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBotConnect``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -186,7 +190,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BotConnectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBotConnectRequest struct via the builder pattern
 
 
 ### Return type
@@ -195,7 +199,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1BotConnectReques
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -207,9 +211,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1BotConnectReques
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BotNodes
+## GetBotNodes
 
-> CloudNodesView CloudGetV1BotNodes(ctx).Execute()
+> NodesView GetBotNodes(ctx).Execute()
 
 Returns the caller org's currently connected bot nodes: what each one calls itself, the platform it runs on, its agent version, when its socket was established, and the capabilities and commands it reported.
 
@@ -231,13 +235,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BotAPI.CloudGetV1BotNodes(context.Background()).Execute()
+	resp, r, err := apiClient.BotAPI.GetBotNodes(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudGetV1BotNodes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBotNodes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BotNodes`: CloudNodesView
-	fmt.Fprintf(os.Stdout, "Response from `BotAPI.CloudGetV1BotNodes`: %v\n", resp)
+	// response from `GetBotNodes`: NodesView
+	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetBotNodes`: %v\n", resp)
 }
 ```
 
@@ -247,16 +251,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BotNodesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBotNodesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudNodesView**](CloudNodesView.md)
+[**NodesView**](NodesView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -268,75 +272,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1BotNodesRequest 
 [[Back to README]](../README.md)
 
 
-## CloudOptionsV1BotByWildcard1
+## PatchBotByWildcard1
 
-> CloudOptionsV1BotByWildcard1(ctx, wildcard1).Execute()
+> PatchBotByWildcard1(ctx, wildcard1).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	wildcard1 := "wildcard1_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudOptionsV1BotByWildcard1(context.Background(), wildcard1).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudOptionsV1BotByWildcard1``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wildcard1** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudOptionsV1BotByWildcard1Request struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPatchV1BotByWildcard1
-
-> CloudPatchV1BotByWildcard1(ctx, wildcard1).Execute()
+Relay one of the bot runtime's own operational paths
 
 
 
@@ -357,9 +297,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudPatchV1BotByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.BotAPI.PatchBotByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudPatchV1BotByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PatchBotByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -375,7 +315,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1BotByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchBotByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -388,7 +328,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -400,9 +340,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BotByWildcard1
+## PostBotByWildcard1
 
-> CloudPostV1BotByWildcard1(ctx, wildcard1).Execute()
+> PostBotByWildcard1(ctx, wildcard1).Execute()
+
+Relay one of the bot runtime's own operational paths
 
 
 
@@ -423,9 +365,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudPostV1BotByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.BotAPI.PostBotByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudPostV1BotByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PostBotByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -441,7 +383,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BotByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBotByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -454,7 +396,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -466,9 +408,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BotNodesByIdInvoke
+## PostBotNodesByIdInvoke
 
-> CloudPostV1BotNodesByIdInvoke(ctx, id).Execute()
+> PostBotNodesByIdInvoke(ctx, id).Execute()
+
+Ask one of your connected machines to run a command, and get its answer back.
 
 
 
@@ -489,9 +433,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudPostV1BotNodesByIdInvoke(context.Background(), id).Execute()
+	r, err := apiClient.BotAPI.PostBotNodesByIdInvoke(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudPostV1BotNodesByIdInvoke``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PostBotNodesByIdInvoke``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -507,7 +451,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BotNodesByIdInvokeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBotNodesByIdInvokeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -520,7 +464,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -532,9 +476,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BotPeerInvoke
+## PostBotPeerInvoke
 
-> CloudPostV1BotPeerInvoke(ctx).Execute()
+> PostBotPeerInvoke(ctx).Execute()
+
+Replica-to-replica forward of one invocation to the pod holding the node's socket.
 
 
 
@@ -554,9 +500,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudPostV1BotPeerInvoke(context.Background()).Execute()
+	r, err := apiClient.BotAPI.PostBotPeerInvoke(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudPostV1BotPeerInvoke``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PostBotPeerInvoke``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -568,7 +514,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BotPeerInvokeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBotPeerInvokeRequest struct via the builder pattern
 
 
 ### Return type
@@ -577,7 +523,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1BotPeerInvokeRe
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -589,9 +535,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1BotPeerInvokeRe
 [[Back to README]](../README.md)
 
 
-## CloudPutV1BotByWildcard1
+## PutBotByWildcard1
 
-> CloudPutV1BotByWildcard1(ctx, wildcard1).Execute()
+> PutBotByWildcard1(ctx, wildcard1).Execute()
+
+Relay one of the bot runtime's own operational paths
 
 
 
@@ -612,9 +560,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudPutV1BotByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.BotAPI.PutBotByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudPutV1BotByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PutBotByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -630,7 +578,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1BotByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutBotByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -643,73 +591,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudTraceV1BotByWildcard1
-
-> CloudTraceV1BotByWildcard1(ctx, wildcard1).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	wildcard1 := "wildcard1_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.CloudTraceV1BotByWildcard1(context.Background(), wildcard1).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.CloudTraceV1BotByWildcard1``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wildcard1** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudTraceV1BotByWildcard1Request struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

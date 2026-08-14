@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Prefs**](PrefsAPI.md#CloudGetV1Prefs) | **Get** /v1/prefs | GetPrefs returns the signed-in caller&#39;s OWN preference document — the theme, density and pinned nav that follow them across every Hanzo surface.
-[**CloudPatchV1Prefs**](PrefsAPI.md#CloudPatchV1Prefs) | **Patch** /v1/prefs | 
+[**GetPrefs**](PrefsAPI.md#GetPrefs) | **Get** /v1/prefs | Returns the signed-in caller&#39;s OWN preference document — the theme, density and pinned nav that follow them across every Hanzo surface.
+[**PatchPrefs**](PrefsAPI.md#PatchPrefs) | **Patch** /v1/prefs | Save the preference keys your surface owns, leaving every other key alone
 
 
 
-## CloudGetV1Prefs
+## GetPrefs
 
-> CloudPrefsView CloudGetV1Prefs(ctx).Execute()
+> PrefsView GetPrefs(ctx).Execute()
 
-GetPrefs returns the signed-in caller's OWN preference document — the theme, density and pinned nav that follow them across every Hanzo surface.
+Returns the signed-in caller's OWN preference document — the theme, density and pinned nav that follow them across every Hanzo surface.
 
 
 
@@ -33,13 +33,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PrefsAPI.CloudGetV1Prefs(context.Background()).Execute()
+	resp, r, err := apiClient.PrefsAPI.GetPrefs(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PrefsAPI.CloudGetV1Prefs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PrefsAPI.GetPrefs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Prefs`: CloudPrefsView
-	fmt.Fprintf(os.Stdout, "Response from `PrefsAPI.CloudGetV1Prefs`: %v\n", resp)
+	// response from `GetPrefs`: PrefsView
+	fmt.Fprintf(os.Stdout, "Response from `PrefsAPI.GetPrefs`: %v\n", resp)
 }
 ```
 
@@ -49,16 +49,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PrefsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPrefsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPrefsView**](CloudPrefsView.md)
+[**PrefsView**](PrefsView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -70,9 +70,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PrefsRequest str
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1Prefs
+## PatchPrefs
 
-> CloudPatchV1Prefs(ctx).Execute()
+> PatchPrefs(ctx).Execute()
+
+Save the preference keys your surface owns, leaving every other key alone
 
 
 
@@ -92,9 +94,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PrefsAPI.CloudPatchV1Prefs(context.Background()).Execute()
+	r, err := apiClient.PrefsAPI.PatchPrefs(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PrefsAPI.CloudPatchV1Prefs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PrefsAPI.PatchPrefs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -106,7 +108,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1PrefsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchPrefsRequest struct via the builder pattern
 
 
 ### Return type
@@ -115,7 +117,7 @@ Other parameters are passed through a pointer to a apiCloudPatchV1PrefsRequest s
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

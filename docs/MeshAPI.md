@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1MeshServices**](MeshAPI.md#CloudGetV1MeshServices) | **Get** /v1/mesh/services | Returns the Zero Trust edge services the caller&#39;s org owns.
+[**GetMeshServices**](MeshAPI.md#GetMeshServices) | **Get** /v1/mesh/services | Returns the Zero Trust edge services the caller&#39;s org owns.
 
 
 
-## CloudGetV1MeshServices
+## GetMeshServices
 
-> CloudMeshServiceList CloudGetV1MeshServices(ctx).Execute()
+> MeshServiceList GetMeshServices(ctx).Execute()
 
 Returns the Zero Trust edge services the caller's org owns.
 
@@ -32,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MeshAPI.CloudGetV1MeshServices(context.Background()).Execute()
+	resp, r, err := apiClient.MeshAPI.GetMeshServices(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MeshAPI.CloudGetV1MeshServices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MeshAPI.GetMeshServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MeshServices`: CloudMeshServiceList
-	fmt.Fprintf(os.Stdout, "Response from `MeshAPI.CloudGetV1MeshServices`: %v\n", resp)
+	// response from `GetMeshServices`: MeshServiceList
+	fmt.Fprintf(os.Stdout, "Response from `MeshAPI.GetMeshServices`: %v\n", resp)
 }
 ```
 
@@ -48,16 +48,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MeshServicesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMeshServicesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudMeshServiceList**](CloudMeshServiceList.md)
+[**MeshServiceList**](MeshServiceList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

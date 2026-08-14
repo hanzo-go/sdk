@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Oracles**](OraclesAPI.md#CloudGetV1Oracles) | **Get** /v1/oracles | ListOracles reports the on-chain price/data oracles from the graph&#39;s O-Chain PriceFeed registry.
+[**GetOracles**](OraclesAPI.md#GetOracles) | **Get** /v1/oracles | Reports the on-chain price/data oracles from the graph&#39;s O-Chain PriceFeed registry.
 
 
 
-## CloudGetV1Oracles
+## GetOracles
 
-> CloudOraclesOut CloudGetV1Oracles(ctx).Execute()
+> OraclesOut GetOracles(ctx).Execute()
 
-ListOracles reports the on-chain price/data oracles from the graph's O-Chain PriceFeed registry.
+Reports the on-chain price/data oracles from the graph's O-Chain PriceFeed registry.
 
 
 
@@ -32,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OraclesAPI.CloudGetV1Oracles(context.Background()).Execute()
+	resp, r, err := apiClient.OraclesAPI.GetOracles(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `OraclesAPI.CloudGetV1Oracles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `OraclesAPI.GetOracles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Oracles`: CloudOraclesOut
-	fmt.Fprintf(os.Stdout, "Response from `OraclesAPI.CloudGetV1Oracles`: %v\n", resp)
+	// response from `GetOracles`: OraclesOut
+	fmt.Fprintf(os.Stdout, "Response from `OraclesAPI.GetOracles`: %v\n", resp)
 }
 ```
 
@@ -48,16 +48,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1OraclesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetOraclesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudOraclesOut**](CloudOraclesOut.md)
+[**OraclesOut**](OraclesOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

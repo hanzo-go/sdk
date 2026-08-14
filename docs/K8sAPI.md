@@ -4,17 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudCreateKubernetesCluster**](K8sAPI.md#CloudCreateKubernetesCluster) | **Post** /v1/k8s/clusters | Provisions a DOKS cluster for the caller&#39;s org and answers 201.
-[**CloudDeleteKubernetesCluster**](K8sAPI.md#CloudDeleteKubernetesCluster) | **Delete** /v1/k8s/clusters/{id} | Destroys a DOKS cluster by id and answers 204.
-[**CloudGetKubernetesCluster**](K8sAPI.md#CloudGetKubernetesCluster) | **Get** /v1/k8s/clusters/{id} | Returns one cluster&#39;s detail: node pools + worker nodes.
-[**CloudListKubernetesClusters**](K8sAPI.md#CloudListKubernetesClusters) | **Get** /v1/k8s/clusters | Lists the org&#39;s DOKS clusters (Visor, house account) folded with the org&#39;s BYO clusters — ONE fleet cluster view under the unified k8s noun.
-[**CloudListKubernetesNodes**](K8sAPI.md#CloudListKubernetesNodes) | **Get** /v1/k8s/nodes | Returns every DOKS worker node in the org&#39;s clusters as a machine — the SAME set the fleet folds in (managedMachines), exposed directly under the k8s noun.
+[**CreateKubernetesCluster**](K8sAPI.md#CreateKubernetesCluster) | **Post** /v1/k8s/clusters | Provisions a DOKS cluster for the caller&#39;s org and answers 201.
+[**DeleteKubernetesCluster**](K8sAPI.md#DeleteKubernetesCluster) | **Delete** /v1/k8s/clusters/{id} | Destroys a DOKS cluster by id and answers 204.
+[**GetKubernetesCluster**](K8sAPI.md#GetKubernetesCluster) | **Get** /v1/k8s/clusters/{id} | Returns one cluster&#39;s detail: node pools + worker nodes.
+[**ListKubernetesClusters**](K8sAPI.md#ListKubernetesClusters) | **Get** /v1/k8s/clusters | Lists the org&#39;s DOKS clusters (Visor, house account) folded with the org&#39;s BYO clusters — ONE fleet cluster view under the unified k8s noun.
+[**ListKubernetesNodes**](K8sAPI.md#ListKubernetesNodes) | **Get** /v1/k8s/nodes | Returns every DOKS worker node in the org&#39;s clusters as a machine — the SAME set the fleet folds in (managedMachines), exposed directly under the k8s noun.
 
 
 
-## CloudCreateKubernetesCluster
+## CreateKubernetesCluster
 
-> CloudClusterView CloudCreateKubernetesCluster(ctx).CloudCreateClusterReq(cloudCreateClusterReq).Execute()
+> ClusterView CreateKubernetesCluster(ctx).CreateClusterReq(createClusterReq).Execute()
 
 Provisions a DOKS cluster for the caller's org and answers 201.
 
@@ -33,17 +33,17 @@ import (
 )
 
 func main() {
-	cloudCreateClusterReq := *openapiclient.NewCloudCreateClusterReq() // CloudCreateClusterReq | 
+	createClusterReq := *openapiclient.NewCreateClusterReq() // CreateClusterReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.K8sAPI.CloudCreateKubernetesCluster(context.Background()).CloudCreateClusterReq(cloudCreateClusterReq).Execute()
+	resp, r, err := apiClient.K8sAPI.CreateKubernetesCluster(context.Background()).CreateClusterReq(createClusterReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.CloudCreateKubernetesCluster``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.CreateKubernetesCluster``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudCreateKubernetesCluster`: CloudClusterView
-	fmt.Fprintf(os.Stdout, "Response from `K8sAPI.CloudCreateKubernetesCluster`: %v\n", resp)
+	// response from `CreateKubernetesCluster`: ClusterView
+	fmt.Fprintf(os.Stdout, "Response from `K8sAPI.CreateKubernetesCluster`: %v\n", resp)
 }
 ```
 
@@ -53,20 +53,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudCreateKubernetesClusterRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateKubernetesClusterRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCreateClusterReq** | [**CloudCreateClusterReq**](CloudCreateClusterReq.md) |  | 
+ **createClusterReq** | [**CreateClusterReq**](CreateClusterReq.md) |  | 
 
 ### Return type
 
-[**CloudClusterView**](CloudClusterView.md)
+[**ClusterView**](ClusterView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -78,9 +78,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteKubernetesCluster
+## DeleteKubernetesCluster
 
-> CloudDeleteKubernetesCluster(ctx, id).Execute()
+> DeleteKubernetesCluster(ctx, id).Execute()
 
 Destroys a DOKS cluster by id and answers 204.
 
@@ -103,9 +103,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.K8sAPI.CloudDeleteKubernetesCluster(context.Background(), id).Execute()
+	r, err := apiClient.K8sAPI.DeleteKubernetesCluster(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.CloudDeleteKubernetesCluster``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.DeleteKubernetesCluster``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteKubernetesClusterRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteKubernetesClusterRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -146,9 +146,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetKubernetesCluster
+## GetKubernetesCluster
 
-> CloudClusterDetailView CloudGetKubernetesCluster(ctx, id).Execute()
+> ClusterDetailView GetKubernetesCluster(ctx, id).Execute()
 
 Returns one cluster's detail: node pools + worker nodes.
 
@@ -171,13 +171,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.K8sAPI.CloudGetKubernetesCluster(context.Background(), id).Execute()
+	resp, r, err := apiClient.K8sAPI.GetKubernetesCluster(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.CloudGetKubernetesCluster``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.GetKubernetesCluster``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetKubernetesCluster`: CloudClusterDetailView
-	fmt.Fprintf(os.Stdout, "Response from `K8sAPI.CloudGetKubernetesCluster`: %v\n", resp)
+	// response from `GetKubernetesCluster`: ClusterDetailView
+	fmt.Fprintf(os.Stdout, "Response from `K8sAPI.GetKubernetesCluster`: %v\n", resp)
 }
 ```
 
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetKubernetesClusterRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetKubernetesClusterRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -200,11 +200,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudClusterDetailView**](CloudClusterDetailView.md)
+[**ClusterDetailView**](ClusterDetailView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -216,9 +216,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudListKubernetesClusters
+## ListKubernetesClusters
 
-> CloudClusterList CloudListKubernetesClusters(ctx).Execute()
+> ClusterList ListKubernetesClusters(ctx).Execute()
 
 Lists the org's DOKS clusters (Visor, house account) folded with the org's BYO clusters — ONE fleet cluster view under the unified k8s noun.
 
@@ -240,13 +240,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.K8sAPI.CloudListKubernetesClusters(context.Background()).Execute()
+	resp, r, err := apiClient.K8sAPI.ListKubernetesClusters(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.CloudListKubernetesClusters``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.ListKubernetesClusters``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListKubernetesClusters`: CloudClusterList
-	fmt.Fprintf(os.Stdout, "Response from `K8sAPI.CloudListKubernetesClusters`: %v\n", resp)
+	// response from `ListKubernetesClusters`: ClusterList
+	fmt.Fprintf(os.Stdout, "Response from `K8sAPI.ListKubernetesClusters`: %v\n", resp)
 }
 ```
 
@@ -256,16 +256,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListKubernetesClustersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListKubernetesClustersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudClusterList**](CloudClusterList.md)
+[**ClusterList**](ClusterList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -277,9 +277,9 @@ Other parameters are passed through a pointer to a apiCloudListKubernetesCluster
 [[Back to README]](../README.md)
 
 
-## CloudListKubernetesNodes
+## ListKubernetesNodes
 
-> CloudNodeList CloudListKubernetesNodes(ctx).Execute()
+> NodeList ListKubernetesNodes(ctx).Execute()
 
 Returns every DOKS worker node in the org's clusters as a machine — the SAME set the fleet folds in (managedMachines), exposed directly under the k8s noun.
 
@@ -301,13 +301,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.K8sAPI.CloudListKubernetesNodes(context.Background()).Execute()
+	resp, r, err := apiClient.K8sAPI.ListKubernetesNodes(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.CloudListKubernetesNodes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `K8sAPI.ListKubernetesNodes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListKubernetesNodes`: CloudNodeList
-	fmt.Fprintf(os.Stdout, "Response from `K8sAPI.CloudListKubernetesNodes`: %v\n", resp)
+	// response from `ListKubernetesNodes`: NodeList
+	fmt.Fprintf(os.Stdout, "Response from `K8sAPI.ListKubernetesNodes`: %v\n", resp)
 }
 ```
 
@@ -317,16 +317,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListKubernetesNodesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListKubernetesNodesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudNodeList**](CloudNodeList.md)
+[**NodeList**](NodeList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,32 +4,32 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1AutomationsFlowsId**](AutomationsAPI.md#CloudDeleteV1AutomationsFlowsId) | **Delete** /v1/automations/flows/{id} | DeleteFlow deletes one automation, its versions and its run history.
-[**CloudGetV1AutomationsConnectors**](AutomationsAPI.md#CloudGetV1AutomationsConnectors) | **Get** /v1/automations/connectors | Connectors returns the connector catalogue.
-[**CloudGetV1AutomationsFlows**](AutomationsAPI.md#CloudGetV1AutomationsFlows) | **Get** /v1/automations/flows | ListFlows returns the caller org&#39;s automations, most-recently-updated first.
-[**CloudGetV1AutomationsFlowsId**](AutomationsAPI.md#CloudGetV1AutomationsFlowsId) | **Get** /v1/automations/flows/{id} | GetFlow returns one automation and its latest version.
-[**CloudGetV1AutomationsFlowsIdVersions**](AutomationsAPI.md#CloudGetV1AutomationsFlowsIdVersions) | **Get** /v1/automations/flows/{id}/versions | ListVersions returns one flow&#39;s versions, newest first.
-[**CloudGetV1AutomationsPieces**](AutomationsAPI.md#CloudGetV1AutomationsPieces) | **Get** /v1/automations/pieces | Pieces is the retired-name alias of the connector catalogue.
-[**CloudGetV1AutomationsRuns**](AutomationsAPI.md#CloudGetV1AutomationsRuns) | **Get** /v1/automations/runs | ListRuns returns the caller org&#39;s run history, newest first.
-[**CloudGetV1AutomationsRunsId**](AutomationsAPI.md#CloudGetV1AutomationsRunsId) | **Get** /v1/automations/runs/{id} | GetRun returns one run.
-[**CloudPatchV1AutomationsFlowsId**](AutomationsAPI.md#CloudPatchV1AutomationsFlowsId) | **Patch** /v1/automations/flows/{id} | UpdateFlow updates one automation&#39;s metadata in place.
-[**CloudPostV1AutomationsConnectorsIdRun**](AutomationsAPI.md#CloudPostV1AutomationsConnectorsIdRun) | **Post** /v1/automations/connectors/{id}/run | Run executes one connector action in-process and answers the outcome.
-[**CloudPostV1AutomationsFlows**](AutomationsAPI.md#CloudPostV1AutomationsFlows) | **Post** /v1/automations/flows | CreateFlow creates an automation and its initial DRAFT version in one call.
-[**CloudPostV1AutomationsFlowsByIdOperations**](AutomationsAPI.md#CloudPostV1AutomationsFlowsByIdOperations) | **Post** /v1/automations/flows/{id}/operations | 
-[**CloudPostV1AutomationsFlowsIdDisable**](AutomationsAPI.md#CloudPostV1AutomationsFlowsIdDisable) | **Post** /v1/automations/flows/{id}/disable | DisableFlow disarms a flow&#39;s trigger and marks it DISABLED.
-[**CloudPostV1AutomationsFlowsIdEnable**](AutomationsAPI.md#CloudPostV1AutomationsFlowsIdEnable) | **Post** /v1/automations/flows/{id}/enable | EnableFlow arms a flow&#39;s trigger and marks it ENABLED.
-[**CloudPostV1AutomationsFlowsIdRun**](AutomationsAPI.md#CloudPostV1AutomationsFlowsIdRun) | **Post** /v1/automations/flows/{id}/run | RunFlow starts one durable run of a flow now.
-[**CloudPostV1AutomationsFlowsIdVersions**](AutomationsAPI.md#CloudPostV1AutomationsFlowsIdVersions) | **Post** /v1/automations/flows/{id}/versions | CreateVersion adds a new DRAFT version to a flow.
-[**CloudPostV1AutomationsHooksBySourceByEvent**](AutomationsAPI.md#CloudPostV1AutomationsHooksBySourceByEvent) | **Post** /v1/automations/hooks/{source}/{event} | 
-[**CloudPostV1AutomationsRunsByIdResume**](AutomationsAPI.md#CloudPostV1AutomationsRunsByIdResume) | **Post** /v1/automations/runs/{id}/resume | 
+[**DeleteAutomationsFlowsById**](AutomationsAPI.md#DeleteAutomationsFlowsById) | **Delete** /v1/automations/flows/{id} | Deletes one automation, its versions and its run history.
+[**GetAutomationsConnectors**](AutomationsAPI.md#GetAutomationsConnectors) | **Get** /v1/automations/connectors | Connectors returns the connector catalogue.
+[**GetAutomationsFlows**](AutomationsAPI.md#GetAutomationsFlows) | **Get** /v1/automations/flows | Returns the caller org&#39;s automations, most-recently-updated first.
+[**GetAutomationsFlowsById**](AutomationsAPI.md#GetAutomationsFlowsById) | **Get** /v1/automations/flows/{id} | Returns one automation and its latest version.
+[**GetAutomationsFlowsByIdVersions**](AutomationsAPI.md#GetAutomationsFlowsByIdVersions) | **Get** /v1/automations/flows/{id}/versions | Returns one flow&#39;s versions, newest first.
+[**GetAutomationsPieces**](AutomationsAPI.md#GetAutomationsPieces) | **Get** /v1/automations/pieces | Pieces is the retired-name alias of the connector catalogue.
+[**GetAutomationsRuns**](AutomationsAPI.md#GetAutomationsRuns) | **Get** /v1/automations/runs | Returns the caller org&#39;s run history, newest first.
+[**GetAutomationsRunsById**](AutomationsAPI.md#GetAutomationsRunsById) | **Get** /v1/automations/runs/{id} | Returns one run.
+[**PatchAutomationsFlowsById**](AutomationsAPI.md#PatchAutomationsFlowsById) | **Patch** /v1/automations/flows/{id} | Updates one automation&#39;s metadata in place.
+[**PostAutomationsConnectorsByIdRun**](AutomationsAPI.md#PostAutomationsConnectorsByIdRun) | **Post** /v1/automations/connectors/{id}/run | Run executes one connector action in-process and answers the outcome.
+[**PostAutomationsFlows**](AutomationsAPI.md#PostAutomationsFlows) | **Post** /v1/automations/flows | Creates an automation and its initial DRAFT version in one call.
+[**PostAutomationsFlowsByIdDisable**](AutomationsAPI.md#PostAutomationsFlowsByIdDisable) | **Post** /v1/automations/flows/{id}/disable | Disarms a flow&#39;s trigger and marks it DISABLED.
+[**PostAutomationsFlowsByIdEnable**](AutomationsAPI.md#PostAutomationsFlowsByIdEnable) | **Post** /v1/automations/flows/{id}/enable | Arms a flow&#39;s trigger and marks it ENABLED.
+[**PostAutomationsFlowsByIdOperations**](AutomationsAPI.md#PostAutomationsFlowsByIdOperations) | **Post** /v1/automations/flows/{id}/operations | Edit a flow — rename it, retarget its trigger, or add, move and delete steps
+[**PostAutomationsFlowsByIdRun**](AutomationsAPI.md#PostAutomationsFlowsByIdRun) | **Post** /v1/automations/flows/{id}/run | Starts one durable run of a flow now.
+[**PostAutomationsFlowsByIdVersions**](AutomationsAPI.md#PostAutomationsFlowsByIdVersions) | **Post** /v1/automations/flows/{id}/versions | Adds a new DRAFT version to a flow.
+[**PostAutomationsHooksBySourceByEvent**](AutomationsAPI.md#PostAutomationsHooksBySourceByEvent) | **Post** /v1/automations/hooks/{source}/{event} | Fire an event that starts every enabled flow subscribed to it
+[**PostAutomationsRunsByIdResume**](AutomationsAPI.md#PostAutomationsRunsByIdResume) | **Post** /v1/automations/runs/{id}/resume | Release a run waiting at an approval step, with the approval payload
 
 
 
-## CloudDeleteV1AutomationsFlowsId
+## DeleteAutomationsFlowsById
 
-> CloudDeleteV1AutomationsFlowsId(ctx, id).Execute()
+> DeleteAutomationsFlowsById(ctx, id).Execute()
 
-DeleteFlow deletes one automation, its versions and its run history.
+Deletes one automation, its versions and its run history.
 
 
 
@@ -50,9 +50,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AutomationsAPI.CloudDeleteV1AutomationsFlowsId(context.Background(), id).Execute()
+	r, err := apiClient.AutomationsAPI.DeleteAutomationsFlowsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudDeleteV1AutomationsFlowsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.DeleteAutomationsFlowsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1AutomationsFlowsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteAutomationsFlowsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -93,9 +93,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutomationsConnectors
+## GetAutomationsConnectors
 
-> CloudCatalog CloudGetV1AutomationsConnectors(ctx).Execute()
+> Catalog GetAutomationsConnectors(ctx).Execute()
 
 Connectors returns the connector catalogue.
 
@@ -117,13 +117,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudGetV1AutomationsConnectors(context.Background()).Execute()
+	resp, r, err := apiClient.AutomationsAPI.GetAutomationsConnectors(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudGetV1AutomationsConnectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.GetAutomationsConnectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutomationsConnectors`: CloudCatalog
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudGetV1AutomationsConnectors`: %v\n", resp)
+	// response from `GetAutomationsConnectors`: Catalog
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.GetAutomationsConnectors`: %v\n", resp)
 }
 ```
 
@@ -133,16 +133,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutomationsConnectorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutomationsConnectorsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCatalog**](CloudCatalog.md)
+[**Catalog**](Catalog.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -154,11 +154,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AutomationsConne
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutomationsFlows
+## GetAutomationsFlows
 
-> CloudFlowPage CloudGetV1AutomationsFlows(ctx).Limit(limit).Execute()
+> FlowPage GetAutomationsFlows(ctx).Limit(limit).Execute()
 
-ListFlows returns the caller org's automations, most-recently-updated first.
+Returns the caller org's automations, most-recently-updated first.
 
 
 
@@ -179,13 +179,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudGetV1AutomationsFlows(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.AutomationsAPI.GetAutomationsFlows(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudGetV1AutomationsFlows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.GetAutomationsFlows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutomationsFlows`: CloudFlowPage
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudGetV1AutomationsFlows`: %v\n", resp)
+	// response from `GetAutomationsFlows`: FlowPage
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.GetAutomationsFlows`: %v\n", resp)
 }
 ```
 
@@ -195,7 +195,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutomationsFlowsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutomationsFlowsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -204,11 +204,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudFlowPage**](CloudFlowPage.md)
+[**FlowPage**](FlowPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -220,11 +220,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutomationsFlowsId
+## GetAutomationsFlowsById
 
-> CloudPopulatedFlow CloudGetV1AutomationsFlowsId(ctx, id).Execute()
+> PopulatedFlow GetAutomationsFlowsById(ctx, id).Execute()
 
-GetFlow returns one automation and its latest version.
+Returns one automation and its latest version.
 
 
 
@@ -245,13 +245,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudGetV1AutomationsFlowsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.AutomationsAPI.GetAutomationsFlowsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudGetV1AutomationsFlowsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.GetAutomationsFlowsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutomationsFlowsId`: CloudPopulatedFlow
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudGetV1AutomationsFlowsId`: %v\n", resp)
+	// response from `GetAutomationsFlowsById`: PopulatedFlow
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.GetAutomationsFlowsById`: %v\n", resp)
 }
 ```
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutomationsFlowsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutomationsFlowsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -274,11 +274,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudPopulatedFlow**](CloudPopulatedFlow.md)
+[**PopulatedFlow**](PopulatedFlow.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -290,11 +290,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutomationsFlowsIdVersions
+## GetAutomationsFlowsByIdVersions
 
-> CloudVersionPage CloudGetV1AutomationsFlowsIdVersions(ctx, id).Limit(limit).Execute()
+> VersionPage GetAutomationsFlowsByIdVersions(ctx, id).Limit(limit).Execute()
 
-ListVersions returns one flow's versions, newest first.
+Returns one flow's versions, newest first.
 
 
 
@@ -316,13 +316,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudGetV1AutomationsFlowsIdVersions(context.Background(), id).Limit(limit).Execute()
+	resp, r, err := apiClient.AutomationsAPI.GetAutomationsFlowsByIdVersions(context.Background(), id).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudGetV1AutomationsFlowsIdVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.GetAutomationsFlowsByIdVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutomationsFlowsIdVersions`: CloudVersionPage
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudGetV1AutomationsFlowsIdVersions`: %v\n", resp)
+	// response from `GetAutomationsFlowsByIdVersions`: VersionPage
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.GetAutomationsFlowsByIdVersions`: %v\n", resp)
 }
 ```
 
@@ -336,7 +336,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutomationsFlowsIdVersionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutomationsFlowsByIdVersionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -346,11 +346,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudVersionPage**](CloudVersionPage.md)
+[**VersionPage**](VersionPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -362,9 +362,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutomationsPieces
+## GetAutomationsPieces
 
-> CloudCatalog CloudGetV1AutomationsPieces(ctx).Execute()
+> Catalog GetAutomationsPieces(ctx).Execute()
 
 Pieces is the retired-name alias of the connector catalogue.
 
@@ -386,13 +386,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudGetV1AutomationsPieces(context.Background()).Execute()
+	resp, r, err := apiClient.AutomationsAPI.GetAutomationsPieces(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudGetV1AutomationsPieces``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.GetAutomationsPieces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutomationsPieces`: CloudCatalog
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudGetV1AutomationsPieces`: %v\n", resp)
+	// response from `GetAutomationsPieces`: Catalog
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.GetAutomationsPieces`: %v\n", resp)
 }
 ```
 
@@ -402,16 +402,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutomationsPiecesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutomationsPiecesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCatalog**](CloudCatalog.md)
+[**Catalog**](Catalog.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -423,11 +423,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AutomationsPiece
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutomationsRuns
+## GetAutomationsRuns
 
-> CloudRunPage CloudGetV1AutomationsRuns(ctx).FlowId(flowId).Limit(limit).Execute()
+> RunPage GetAutomationsRuns(ctx).FlowId(flowId).Limit(limit).Execute()
 
-ListRuns returns the caller org's run history, newest first.
+Returns the caller org's run history, newest first.
 
 
 
@@ -449,13 +449,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudGetV1AutomationsRuns(context.Background()).FlowId(flowId).Limit(limit).Execute()
+	resp, r, err := apiClient.AutomationsAPI.GetAutomationsRuns(context.Background()).FlowId(flowId).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudGetV1AutomationsRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.GetAutomationsRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutomationsRuns`: CloudRunPage
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudGetV1AutomationsRuns`: %v\n", resp)
+	// response from `GetAutomationsRuns`: RunPage
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.GetAutomationsRuns`: %v\n", resp)
 }
 ```
 
@@ -465,7 +465,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutomationsRunsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutomationsRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -475,11 +475,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRunPage**](CloudRunPage.md)
+[**RunPage**](RunPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -491,11 +491,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutomationsRunsId
+## GetAutomationsRunsById
 
-> CloudFlowRun CloudGetV1AutomationsRunsId(ctx, id).Execute()
+> FlowRun GetAutomationsRunsById(ctx, id).Execute()
 
-GetRun returns one run.
+Returns one run.
 
 
 
@@ -516,13 +516,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudGetV1AutomationsRunsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.AutomationsAPI.GetAutomationsRunsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudGetV1AutomationsRunsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.GetAutomationsRunsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutomationsRunsId`: CloudFlowRun
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudGetV1AutomationsRunsId`: %v\n", resp)
+	// response from `GetAutomationsRunsById`: FlowRun
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.GetAutomationsRunsById`: %v\n", resp)
 }
 ```
 
@@ -536,7 +536,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutomationsRunsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutomationsRunsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -545,11 +545,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudFlowRun**](CloudFlowRun.md)
+[**FlowRun**](FlowRun.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -561,11 +561,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1AutomationsFlowsId
+## PatchAutomationsFlowsById
 
-> CloudFlow CloudPatchV1AutomationsFlowsId(ctx, id).CloudPatchFlowIn(cloudPatchFlowIn).Execute()
+> Flow PatchAutomationsFlowsById(ctx, id).PatchFlowIn(patchFlowIn).Execute()
 
-UpdateFlow updates one automation's metadata in place.
+Updates one automation's metadata in place.
 
 
 
@@ -583,17 +583,17 @@ import (
 
 func main() {
 	id := "flow_1" // string | ID is the flow to update, from the path.
-	cloudPatchFlowIn := *openapiclient.NewCloudPatchFlowIn() // CloudPatchFlowIn | 
+	patchFlowIn := *openapiclient.NewPatchFlowIn() // PatchFlowIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudPatchV1AutomationsFlowsId(context.Background(), id).CloudPatchFlowIn(cloudPatchFlowIn).Execute()
+	resp, r, err := apiClient.AutomationsAPI.PatchAutomationsFlowsById(context.Background(), id).PatchFlowIn(patchFlowIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPatchV1AutomationsFlowsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PatchAutomationsFlowsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1AutomationsFlowsId`: CloudFlow
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudPatchV1AutomationsFlowsId`: %v\n", resp)
+	// response from `PatchAutomationsFlowsById`: Flow
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.PatchAutomationsFlowsById`: %v\n", resp)
 }
 ```
 
@@ -607,21 +607,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1AutomationsFlowsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchAutomationsFlowsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPatchFlowIn** | [**CloudPatchFlowIn**](CloudPatchFlowIn.md) |  | 
+ **patchFlowIn** | [**PatchFlowIn**](PatchFlowIn.md) |  | 
 
 ### Return type
 
-[**CloudFlow**](CloudFlow.md)
+[**Flow**](Flow.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -633,9 +633,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutomationsConnectorsIdRun
+## PostAutomationsConnectorsByIdRun
 
-> CloudRunResp CloudPostV1AutomationsConnectorsIdRun(ctx, id).CloudRunIn(cloudRunIn).Execute()
+> RunResp PostAutomationsConnectorsByIdRun(ctx, id).RunIn(runIn).Execute()
 
 Run executes one connector action in-process and answers the outcome.
 
@@ -655,17 +655,17 @@ import (
 
 func main() {
 	id := "notion" // string | ID is the connector to run, from the path.
-	cloudRunIn := *openapiclient.NewCloudRunIn() // CloudRunIn | 
+	runIn := *openapiclient.NewRunIn() // RunIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsConnectorsIdRun(context.Background(), id).CloudRunIn(cloudRunIn).Execute()
+	resp, r, err := apiClient.AutomationsAPI.PostAutomationsConnectorsByIdRun(context.Background(), id).RunIn(runIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsConnectorsIdRun``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsConnectorsByIdRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AutomationsConnectorsIdRun`: CloudRunResp
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudPostV1AutomationsConnectorsIdRun`: %v\n", resp)
+	// response from `PostAutomationsConnectorsByIdRun`: RunResp
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.PostAutomationsConnectorsByIdRun`: %v\n", resp)
 }
 ```
 
@@ -679,21 +679,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsConnectorsIdRunRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutomationsConnectorsByIdRunRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudRunIn** | [**CloudRunIn**](CloudRunIn.md) |  | 
+ **runIn** | [**RunIn**](RunIn.md) |  | 
 
 ### Return type
 
-[**CloudRunResp**](CloudRunResp.md)
+[**RunResp**](RunResp.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -705,11 +705,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutomationsFlows
+## PostAutomationsFlows
 
-> CloudPopulatedFlow CloudPostV1AutomationsFlows(ctx).CloudCreateFlowReq(cloudCreateFlowReq).Execute()
+> PopulatedFlow PostAutomationsFlows(ctx).CreateFlowReq(createFlowReq).Execute()
 
-CreateFlow creates an automation and its initial DRAFT version in one call.
+Creates an automation and its initial DRAFT version in one call.
 
 
 
@@ -726,17 +726,17 @@ import (
 )
 
 func main() {
-	cloudCreateFlowReq := *openapiclient.NewCloudCreateFlowReq() // CloudCreateFlowReq | 
+	createFlowReq := *openapiclient.NewCreateFlowReq() // CreateFlowReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsFlows(context.Background()).CloudCreateFlowReq(cloudCreateFlowReq).Execute()
+	resp, r, err := apiClient.AutomationsAPI.PostAutomationsFlows(context.Background()).CreateFlowReq(createFlowReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsFlows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsFlows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AutomationsFlows`: CloudPopulatedFlow
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudPostV1AutomationsFlows`: %v\n", resp)
+	// response from `PostAutomationsFlows`: PopulatedFlow
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.PostAutomationsFlows`: %v\n", resp)
 }
 ```
 
@@ -746,20 +746,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsFlowsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutomationsFlowsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCreateFlowReq** | [**CloudCreateFlowReq**](CloudCreateFlowReq.md) |  | 
+ **createFlowReq** | [**CreateFlowReq**](CreateFlowReq.md) |  | 
 
 ### Return type
 
-[**CloudPopulatedFlow**](CloudPopulatedFlow.md)
+[**PopulatedFlow**](PopulatedFlow.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -771,9 +771,151 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutomationsFlowsByIdOperations
+## PostAutomationsFlowsByIdDisable
 
-> CloudPostV1AutomationsFlowsByIdOperations(ctx, id).Execute()
+> Flow PostAutomationsFlowsByIdDisable(ctx, id).Execute()
+
+Disarms a flow's trigger and marks it DISABLED.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "flow_1" // string | ID is the flow to act on, from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutomationsAPI.PostAutomationsFlowsByIdDisable(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsFlowsByIdDisable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAutomationsFlowsByIdDisable`: Flow
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.PostAutomationsFlowsByIdDisable`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the flow to act on, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAutomationsFlowsByIdDisableRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Flow**](Flow.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAutomationsFlowsByIdEnable
+
+> Flow PostAutomationsFlowsByIdEnable(ctx, id).Execute()
+
+Arms a flow's trigger and marks it ENABLED.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "flow_1" // string | ID is the flow to act on, from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutomationsAPI.PostAutomationsFlowsByIdEnable(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsFlowsByIdEnable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAutomationsFlowsByIdEnable`: Flow
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.PostAutomationsFlowsByIdEnable`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the flow to act on, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAutomationsFlowsByIdEnableRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Flow**](Flow.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAutomationsFlowsByIdOperations
+
+> PostAutomationsFlowsByIdOperations(ctx, id).Execute()
+
+Edit a flow — rename it, retarget its trigger, or add, move and delete steps
 
 
 
@@ -794,9 +936,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsFlowsByIdOperations(context.Background(), id).Execute()
+	r, err := apiClient.AutomationsAPI.PostAutomationsFlowsByIdOperations(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsFlowsByIdOperations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsFlowsByIdOperations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -812,7 +954,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsFlowsByIdOperationsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutomationsFlowsByIdOperationsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -825,7 +967,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -837,81 +979,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutomationsFlowsIdDisable
+## PostAutomationsFlowsByIdRun
 
-> CloudFlow CloudPostV1AutomationsFlowsIdDisable(ctx, id).Execute()
+> FlowRun PostAutomationsFlowsByIdRun(ctx, id).Execute()
 
-DisableFlow disarms a flow's trigger and marks it DISABLED.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "flow_1" // string | ID is the flow to act on, from the path.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsFlowsIdDisable(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsFlowsIdDisable``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1AutomationsFlowsIdDisable`: CloudFlow
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudPostV1AutomationsFlowsIdDisable`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the flow to act on, from the path. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsFlowsIdDisableRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**CloudFlow**](CloudFlow.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1AutomationsFlowsIdEnable
-
-> CloudFlow CloudPostV1AutomationsFlowsIdEnable(ctx, id).Execute()
-
-EnableFlow arms a flow's trigger and marks it ENABLED.
+Starts one durable run of a flow now.
 
 
 
@@ -932,13 +1004,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsFlowsIdEnable(context.Background(), id).Execute()
+	resp, r, err := apiClient.AutomationsAPI.PostAutomationsFlowsByIdRun(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsFlowsIdEnable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsFlowsByIdRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AutomationsFlowsIdEnable`: CloudFlow
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudPostV1AutomationsFlowsIdEnable`: %v\n", resp)
+	// response from `PostAutomationsFlowsByIdRun`: FlowRun
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.PostAutomationsFlowsByIdRun`: %v\n", resp)
 }
 ```
 
@@ -952,7 +1024,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsFlowsIdEnableRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutomationsFlowsByIdRunRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -961,11 +1033,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudFlow**](CloudFlow.md)
+[**FlowRun**](FlowRun.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -977,81 +1049,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutomationsFlowsIdRun
+## PostAutomationsFlowsByIdVersions
 
-> CloudFlowRun CloudPostV1AutomationsFlowsIdRun(ctx, id).Execute()
+> FlowVersion PostAutomationsFlowsByIdVersions(ctx, id).CreateVersionIn(createVersionIn).Execute()
 
-RunFlow starts one durable run of a flow now.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "flow_1" // string | ID is the flow to act on, from the path.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsFlowsIdRun(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsFlowsIdRun``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1AutomationsFlowsIdRun`: CloudFlowRun
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudPostV1AutomationsFlowsIdRun`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the flow to act on, from the path. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsFlowsIdRunRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**CloudFlowRun**](CloudFlowRun.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1AutomationsFlowsIdVersions
-
-> CloudFlowVersion CloudPostV1AutomationsFlowsIdVersions(ctx, id).CloudCreateVersionIn(cloudCreateVersionIn).Execute()
-
-CreateVersion adds a new DRAFT version to a flow.
+Adds a new DRAFT version to a flow.
 
 
 
@@ -1069,17 +1071,17 @@ import (
 
 func main() {
 	id := "flow_1" // string | ID is the flow to add a version to, from the path.
-	cloudCreateVersionIn := *openapiclient.NewCloudCreateVersionIn() // CloudCreateVersionIn | 
+	createVersionIn := *openapiclient.NewCreateVersionIn() // CreateVersionIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsFlowsIdVersions(context.Background(), id).CloudCreateVersionIn(cloudCreateVersionIn).Execute()
+	resp, r, err := apiClient.AutomationsAPI.PostAutomationsFlowsByIdVersions(context.Background(), id).CreateVersionIn(createVersionIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsFlowsIdVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsFlowsByIdVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AutomationsFlowsIdVersions`: CloudFlowVersion
-	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.CloudPostV1AutomationsFlowsIdVersions`: %v\n", resp)
+	// response from `PostAutomationsFlowsByIdVersions`: FlowVersion
+	fmt.Fprintf(os.Stdout, "Response from `AutomationsAPI.PostAutomationsFlowsByIdVersions`: %v\n", resp)
 }
 ```
 
@@ -1093,21 +1095,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsFlowsIdVersionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutomationsFlowsByIdVersionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudCreateVersionIn** | [**CloudCreateVersionIn**](CloudCreateVersionIn.md) |  | 
+ **createVersionIn** | [**CreateVersionIn**](CreateVersionIn.md) |  | 
 
 ### Return type
 
-[**CloudFlowVersion**](CloudFlowVersion.md)
+[**FlowVersion**](FlowVersion.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1119,9 +1121,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutomationsHooksBySourceByEvent
+## PostAutomationsHooksBySourceByEvent
 
-> CloudPostV1AutomationsHooksBySourceByEvent(ctx, source, event).Execute()
+> PostAutomationsHooksBySourceByEvent(ctx, source, event).Execute()
+
+Fire an event that starts every enabled flow subscribed to it
 
 
 
@@ -1143,9 +1147,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsHooksBySourceByEvent(context.Background(), source, event).Execute()
+	r, err := apiClient.AutomationsAPI.PostAutomationsHooksBySourceByEvent(context.Background(), source, event).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsHooksBySourceByEvent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsHooksBySourceByEvent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1162,7 +1166,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsHooksBySourceByEventRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutomationsHooksBySourceByEventRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1176,7 +1180,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1188,9 +1192,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutomationsRunsByIdResume
+## PostAutomationsRunsByIdResume
 
-> CloudPostV1AutomationsRunsByIdResume(ctx, id).Execute()
+> PostAutomationsRunsByIdResume(ctx, id).Execute()
+
+Release a run waiting at an approval step, with the approval payload
 
 
 
@@ -1211,9 +1217,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AutomationsAPI.CloudPostV1AutomationsRunsByIdResume(context.Background(), id).Execute()
+	r, err := apiClient.AutomationsAPI.PostAutomationsRunsByIdResume(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.CloudPostV1AutomationsRunsByIdResume``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutomationsAPI.PostAutomationsRunsByIdResume``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1229,7 +1235,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutomationsRunsByIdResumeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutomationsRunsByIdResumeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1242,7 +1248,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

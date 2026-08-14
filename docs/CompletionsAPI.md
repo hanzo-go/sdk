@@ -4,15 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GatewayCreateCompletion**](CompletionsAPI.md#GatewayCreateCompletion) | **Post** /v1/gateway/completions | Create completion
+[**PostCompletions**](CompletionsAPI.md#PostCompletions) | **Post** /v1/completions | Implements the OpenAI-compatible chat completions API
 
 
 
-## GatewayCreateCompletion
+## PostCompletions
 
-> map[string]interface{} GatewayCreateCompletion(ctx).GatewayCreateCompletionRequest(gatewayCreateCompletionRequest).Execute()
+> PostCompletions(ctx).Execute()
 
-Create completion
+Implements the OpenAI-compatible chat completions API
+
+
 
 ### Example
 
@@ -27,45 +29,38 @@ import (
 )
 
 func main() {
-	gatewayCreateCompletionRequest := *openapiclient.NewGatewayCreateCompletionRequest("Model_example", openapiclient.gateway_createCompletion_request_prompt{ArrayOfString: new([]string)}) // GatewayCreateCompletionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompletionsAPI.GatewayCreateCompletion(context.Background()).GatewayCreateCompletionRequest(gatewayCreateCompletionRequest).Execute()
+	r, err := apiClient.CompletionsAPI.PostCompletions(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompletionsAPI.GatewayCreateCompletion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompletionsAPI.PostCompletions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GatewayCreateCompletion`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CompletionsAPI.GatewayCreateCompletion`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGatewayCreateCompletionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompletionsRequest struct via the builder pattern
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **gatewayCreateCompletionRequest** | [**GatewayCreateCompletionRequest**](GatewayCreateCompletionRequest.md) |  | 
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

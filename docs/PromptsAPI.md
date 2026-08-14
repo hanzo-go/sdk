@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1PromptsName**](PromptsAPI.md#CloudDeleteV1PromptsName) | **Delete** /v1/prompts/{name} | Delete removes one of the caller org&#39;s prompts and every version of it, answering 204.
-[**CloudGetV1Prompts**](PromptsAPI.md#CloudGetV1Prompts) | **Get** /v1/prompts | List returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
-[**CloudGetV1PromptsCatalog**](PromptsAPI.md#CloudGetV1PromptsCatalog) | **Get** /v1/prompts/catalog | Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
-[**CloudGetV1PromptsMetrics**](PromptsAPI.md#CloudGetV1PromptsMetrics) | **Get** /v1/prompts/metrics | Metrics returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
-[**CloudGetV1PromptsName**](PromptsAPI.md#CloudGetV1PromptsName) | **Get** /v1/prompts/{name} | Get returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
-[**CloudPostV1Prompts**](PromptsAPI.md#CloudPostV1Prompts) | **Post** /v1/prompts | Create records a prompt for the caller&#39;s org and answers 201 with it.
+[**DeletePromptsByName**](PromptsAPI.md#DeletePromptsByName) | **Delete** /v1/prompts/{name} | Delete removes one of the caller org&#39;s prompts and every version of it, answering 204.
+[**GetPrompts**](PromptsAPI.md#GetPrompts) | **Get** /v1/prompts | List returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
+[**GetPromptsByName**](PromptsAPI.md#GetPromptsByName) | **Get** /v1/prompts/{name} | Get returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
+[**GetPromptsCatalog**](PromptsAPI.md#GetPromptsCatalog) | **Get** /v1/prompts/catalog | Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
+[**GetPromptsMetrics**](PromptsAPI.md#GetPromptsMetrics) | **Get** /v1/prompts/metrics | Metrics returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
+[**PostPrompts**](PromptsAPI.md#PostPrompts) | **Post** /v1/prompts | Create records a prompt for the caller&#39;s org and answers 201 with it.
 
 
 
-## CloudDeleteV1PromptsName
+## DeletePromptsByName
 
-> CloudDeleteV1PromptsName(ctx, name).Execute()
+> DeletePromptsByName(ctx, name).Execute()
 
 Delete removes one of the caller org's prompts and every version of it, answering 204.
 
@@ -38,9 +38,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PromptsAPI.CloudDeleteV1PromptsName(context.Background(), name).Execute()
+	r, err := apiClient.PromptsAPI.DeletePromptsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.CloudDeleteV1PromptsName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.DeletePromptsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1PromptsNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeletePromptsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -81,9 +81,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Prompts
+## GetPrompts
 
-> CloudPromptList CloudGetV1Prompts(ctx).Execute()
+> PromptList GetPrompts(ctx).Execute()
 
 List returns the caller org's prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
 
@@ -105,13 +105,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromptsAPI.CloudGetV1Prompts(context.Background()).Execute()
+	resp, r, err := apiClient.PromptsAPI.GetPrompts(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.CloudGetV1Prompts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.GetPrompts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Prompts`: CloudPromptList
-	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.CloudGetV1Prompts`: %v\n", resp)
+	// response from `GetPrompts`: PromptList
+	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.GetPrompts`: %v\n", resp)
 }
 ```
 
@@ -121,16 +121,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PromptsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPromptsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPromptList**](CloudPromptList.md)
+[**PromptList**](PromptList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -142,131 +142,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1PromptsRequest s
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PromptsCatalog
+## GetPromptsByName
 
-> CloudCatalogList CloudGetV1PromptsCatalog(ctx).Execute()
-
-Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller's own prompts and never mixed into them.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromptsAPI.CloudGetV1PromptsCatalog(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.CloudGetV1PromptsCatalog``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1PromptsCatalog`: CloudCatalogList
-	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.CloudGetV1PromptsCatalog`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1PromptsCatalogRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudCatalogList**](CloudCatalogList.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1PromptsMetrics
-
-> CloudMetricList CloudGetV1PromptsMetrics(ctx).Execute()
-
-Metrics returns real per-prompt statistics for the caller's org: how many versions each prompt has, which one is current, and when it was created and last changed.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromptsAPI.CloudGetV1PromptsMetrics(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.CloudGetV1PromptsMetrics``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1PromptsMetrics`: CloudMetricList
-	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.CloudGetV1PromptsMetrics`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1PromptsMetricsRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudMetricList**](CloudMetricList.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1PromptsName
-
-> CloudPromptDetail CloudGetV1PromptsName(ctx, name).Execute()
+> PromptDetail GetPromptsByName(ctx, name).Execute()
 
 Get returns one of the caller org's prompts: its CURRENT template text plus the metadata of every version it has had.
 
@@ -289,13 +167,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromptsAPI.CloudGetV1PromptsName(context.Background(), name).Execute()
+	resp, r, err := apiClient.PromptsAPI.GetPromptsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.CloudGetV1PromptsName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.GetPromptsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PromptsName`: CloudPromptDetail
-	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.CloudGetV1PromptsName`: %v\n", resp)
+	// response from `GetPromptsByName`: PromptDetail
+	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.GetPromptsByName`: %v\n", resp)
 }
 ```
 
@@ -309,7 +187,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PromptsNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPromptsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -318,11 +196,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudPromptDetail**](CloudPromptDetail.md)
+[**PromptDetail**](PromptDetail.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -334,9 +212,131 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Prompts
+## GetPromptsCatalog
 
-> CloudPromptDetail CloudPostV1Prompts(ctx).CloudPromptReq(cloudPromptReq).Execute()
+> CatalogList GetPromptsCatalog(ctx).Execute()
+
+Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller's own prompts and never mixed into them.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PromptsAPI.GetPromptsCatalog(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.GetPromptsCatalog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPromptsCatalog`: CatalogList
+	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.GetPromptsCatalog`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPromptsCatalogRequest struct via the builder pattern
+
+
+### Return type
+
+[**CatalogList**](CatalogList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPromptsMetrics
+
+> MetricList GetPromptsMetrics(ctx).Execute()
+
+Metrics returns real per-prompt statistics for the caller's org: how many versions each prompt has, which one is current, and when it was created and last changed.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PromptsAPI.GetPromptsMetrics(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.GetPromptsMetrics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPromptsMetrics`: MetricList
+	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.GetPromptsMetrics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPromptsMetricsRequest struct via the builder pattern
+
+
+### Return type
+
+[**MetricList**](MetricList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostPrompts
+
+> PromptDetail PostPrompts(ctx).PromptReq(promptReq).Execute()
 
 Create records a prompt for the caller's org and answers 201 with it.
 
@@ -355,17 +355,17 @@ import (
 )
 
 func main() {
-	cloudPromptReq := *openapiclient.NewCloudPromptReq() // CloudPromptReq | 
+	promptReq := *openapiclient.NewPromptReq() // PromptReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromptsAPI.CloudPostV1Prompts(context.Background()).CloudPromptReq(cloudPromptReq).Execute()
+	resp, r, err := apiClient.PromptsAPI.PostPrompts(context.Background()).PromptReq(promptReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.CloudPostV1Prompts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PromptsAPI.PostPrompts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Prompts`: CloudPromptDetail
-	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.CloudPostV1Prompts`: %v\n", resp)
+	// response from `PostPrompts`: PromptDetail
+	fmt.Fprintf(os.Stdout, "Response from `PromptsAPI.PostPrompts`: %v\n", resp)
 }
 ```
 
@@ -375,20 +375,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1PromptsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostPromptsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudPromptReq** | [**CloudPromptReq**](CloudPromptReq.md) |  | 
+ **promptReq** | [**PromptReq**](PromptReq.md) |  | 
 
 ### Return type
 
-[**CloudPromptDetail**](CloudPromptDetail.md)
+[**PromptDetail**](PromptDetail.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

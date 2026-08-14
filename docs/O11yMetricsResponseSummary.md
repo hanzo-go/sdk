@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Requests** | Pointer to **int64** |  | [optional] 
-**Errors** | Pointer to **int64** |  | [optional] 
 **ErrorRate** | Pointer to **float32** |  | [optional] 
+**Errors** | Pointer to **int32** |  | [optional] 
 **P95Ms** | Pointer to **float32** |  | [optional] 
+**Requests** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -27,56 +27,6 @@ will change when the set of required properties is changed
 NewO11yMetricsResponseSummaryWithDefaults instantiates a new O11yMetricsResponseSummary object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetRequests
-
-`func (o *O11yMetricsResponseSummary) GetRequests() int64`
-
-GetRequests returns the Requests field if non-nil, zero value otherwise.
-
-### GetRequestsOk
-
-`func (o *O11yMetricsResponseSummary) GetRequestsOk() (*int64, bool)`
-
-GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRequests
-
-`func (o *O11yMetricsResponseSummary) SetRequests(v int64)`
-
-SetRequests sets Requests field to given value.
-
-### HasRequests
-
-`func (o *O11yMetricsResponseSummary) HasRequests() bool`
-
-HasRequests returns a boolean if a field has been set.
-
-### GetErrors
-
-`func (o *O11yMetricsResponseSummary) GetErrors() int64`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *O11yMetricsResponseSummary) GetErrorsOk() (*int64, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *O11yMetricsResponseSummary) SetErrors(v int64)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *O11yMetricsResponseSummary) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 ### GetErrorRate
 
@@ -103,6 +53,31 @@ SetErrorRate sets ErrorRate field to given value.
 
 HasErrorRate returns a boolean if a field has been set.
 
+### GetErrors
+
+`func (o *O11yMetricsResponseSummary) GetErrors() int32`
+
+GetErrors returns the Errors field if non-nil, zero value otherwise.
+
+### GetErrorsOk
+
+`func (o *O11yMetricsResponseSummary) GetErrorsOk() (*int32, bool)`
+
+GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrors
+
+`func (o *O11yMetricsResponseSummary) SetErrors(v int32)`
+
+SetErrors sets Errors field to given value.
+
+### HasErrors
+
+`func (o *O11yMetricsResponseSummary) HasErrors() bool`
+
+HasErrors returns a boolean if a field has been set.
+
 ### GetP95Ms
 
 `func (o *O11yMetricsResponseSummary) GetP95Ms() float32`
@@ -127,6 +102,31 @@ SetP95Ms sets P95Ms field to given value.
 `func (o *O11yMetricsResponseSummary) HasP95Ms() bool`
 
 HasP95Ms returns a boolean if a field has been set.
+
+### GetRequests
+
+`func (o *O11yMetricsResponseSummary) GetRequests() int32`
+
+GetRequests returns the Requests field if non-nil, zero value otherwise.
+
+### GetRequestsOk
+
+`func (o *O11yMetricsResponseSummary) GetRequestsOk() (*int32, bool)`
+
+GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequests
+
+`func (o *O11yMetricsResponseSummary) SetRequests(v int32)`
+
+SetRequests sets Requests field to given value.
+
+### HasRequests
+
+`func (o *O11yMetricsResponseSummary) HasRequests() bool`
+
+HasRequests returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

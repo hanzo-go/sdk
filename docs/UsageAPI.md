@@ -4,23 +4,23 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1UsageActivity**](UsageAPI.md#CloudGetV1UsageActivity) | **Get** /v1/usage/activity | Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
-[**CloudGetV1UsageAnalytics**](UsageAPI.md#CloudGetV1UsageAnalytics) | **Get** /v1/usage/analytics | Is the entitlement-GATED per-provider breakdown of the caller org&#39;s LLM usage — the paid lens over the same warehouse ledger GET /v1/usage/summary reads its totals from.
-[**CloudGetV1UsageAnalyticsAccess**](UsageAPI.md#CloudGetV1UsageAnalyticsAccess) | **Get** /v1/usage/analytics/access | Echoes a plan&#39;s resolved analytics entitlement so a dashboard can configure itself against the LIVE catalog instead of hardcoding tier numbers.
-[**CloudGetV1UsageLeaderboard**](UsageAPI.md#CloudGetV1UsageLeaderboard) | **Get** /v1/usage/leaderboard | Leaderboard ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
-[**CloudGetV1UsageLeaderboardOptin**](UsageAPI.md#CloudGetV1UsageLeaderboardOptin) | **Get** /v1/usage/leaderboard/optin | GetOptin returns the caller&#39;s own public-listing preference and their org&#39;s, each with whether the caller may change it.
-[**CloudGetV1UsageSamples**](UsageAPI.md#CloudGetV1UsageSamples) | **Get** /v1/usage/samples | Is the PER-PROVIDER view: one connected account&#39;s own consumption of its own plan — \&quot;my Claude Max plan is 47% through its 6h window, resets at 14:20\&quot;.
-[**CloudGetV1UsageSummary**](UsageAPI.md#CloudGetV1UsageSummary) | **Get** /v1/usage/summary | Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
-[**CloudPostV1Usage**](UsageAPI.md#CloudPostV1Usage) | **Post** /v1/usage | Ingests a batch of account-usage samples — what a developer&#39;s OWN AI accounts have consumed of their OWN plans, metered from each provider&#39;s own login — and appends them to the warehouse series.
-[**CloudPostV1UsageRollupBackfill**](UsageAPI.md#CloudPostV1UsageRollupBackfill) | **Post** /v1/usage/rollup/backfill | Backfill seeds the derived usage rollup from ledger history — the rows written before the incremental view existed, which that view can never capture.
-[**CloudPutV1UsageLeaderboardOptin**](UsageAPI.md#CloudPutV1UsageLeaderboardOptin) | **Put** /v1/usage/leaderboard/optin | PutUserOptin sets the CALLER&#39;s own public-listing preference on the leaderboard.
-[**CloudPutV1UsageLeaderboardOptinOrg**](UsageAPI.md#CloudPutV1UsageLeaderboardOptinOrg) | **Put** /v1/usage/leaderboard/optin/org | PutOrgOptin sets the ORG&#39;s listing on the cross-org global board.
+[**GetUsageActivity**](UsageAPI.md#GetUsageActivity) | **Get** /v1/usage/activity | Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
+[**GetUsageAnalytics**](UsageAPI.md#GetUsageAnalytics) | **Get** /v1/usage/analytics | Is the entitlement-GATED per-provider breakdown of the caller org&#39;s LLM usage — the paid lens over the same warehouse ledger GET /v1/usage/summary reads its totals from.
+[**GetUsageAnalyticsAccess**](UsageAPI.md#GetUsageAnalyticsAccess) | **Get** /v1/usage/analytics/access | Echoes a plan&#39;s resolved analytics entitlement so a dashboard can configure itself against the LIVE catalog instead of hardcoding tier numbers.
+[**GetUsageLeaderboard**](UsageAPI.md#GetUsageLeaderboard) | **Get** /v1/usage/leaderboard | Leaderboard ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
+[**GetUsageLeaderboardOptin**](UsageAPI.md#GetUsageLeaderboardOptin) | **Get** /v1/usage/leaderboard/optin | Returns the caller&#39;s own public-listing preference and their org&#39;s, each with whether the caller may change it.
+[**GetUsageSamples**](UsageAPI.md#GetUsageSamples) | **Get** /v1/usage/samples | Is the PER-PROVIDER view: one connected account&#39;s own consumption of its own plan — \&quot;my plan is 47% through its 6h window, resets at 14:20\&quot;.
+[**GetUsageSummary**](UsageAPI.md#GetUsageSummary) | **Get** /v1/usage/summary | Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
+[**PostUsage**](UsageAPI.md#PostUsage) | **Post** /v1/usage | Ingests a batch of account-usage samples — what a developer&#39;s OWN AI accounts have consumed of their OWN plans, metered from each provider&#39;s own login — and appends them to the warehouse series.
+[**PostUsageRollupBackfill**](UsageAPI.md#PostUsageRollupBackfill) | **Post** /v1/usage/rollup/backfill | Backfill seeds the derived usage rollup from ledger history — the rows written before the incremental view existed, which that view can never capture.
+[**PutUsageLeaderboardOptin**](UsageAPI.md#PutUsageLeaderboardOptin) | **Put** /v1/usage/leaderboard/optin | Sets the CALLER&#39;s own public-listing preference on the leaderboard.
+[**PutUsageLeaderboardOptinOrg**](UsageAPI.md#PutUsageLeaderboardOptinOrg) | **Put** /v1/usage/leaderboard/optin/org | Sets the ORG&#39;s listing on the cross-org global board.
 
 
 
-## CloudGetV1UsageActivity
+## GetUsageActivity
 
-> CloudActivityView CloudGetV1UsageActivity(ctx).Subject(subject).Id(id).From(from).To(to).Execute()
+> ActivityView GetUsageActivity(ctx).Subject(subject).Id(id).From(from).To(to).Execute()
 
 Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
 
@@ -46,13 +46,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudGetV1UsageActivity(context.Background()).Subject(subject).Id(id).From(from).To(to).Execute()
+	resp, r, err := apiClient.UsageAPI.GetUsageActivity(context.Background()).Subject(subject).Id(id).From(from).To(to).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudGetV1UsageActivity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageActivity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1UsageActivity`: CloudActivityView
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudGetV1UsageActivity`: %v\n", resp)
+	// response from `GetUsageActivity`: ActivityView
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageActivity`: %v\n", resp)
 }
 ```
 
@@ -62,7 +62,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1UsageActivityRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetUsageActivityRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -74,11 +74,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudActivityView**](CloudActivityView.md)
+[**ActivityView**](ActivityView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -90,9 +90,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1UsageAnalytics
+## GetUsageAnalytics
 
-> CloudUsageAnalyticsView CloudGetV1UsageAnalytics(ctx).End(end).Plan(plan).Range_(range_).Start(start).Execute()
+> UsageAnalyticsView GetUsageAnalytics(ctx).End(end).Plan(plan).Range_(range_).Start(start).Execute()
 
 Is the entitlement-GATED per-provider breakdown of the caller org's LLM usage — the paid lens over the same warehouse ledger GET /v1/usage/summary reads its totals from.
 
@@ -113,18 +113,18 @@ import (
 func main() {
 	end := "end_example" // string | End is the exclusive window end, RFC3339. Read only when Range is custom. (optional)
 	plan := "plan_example" // string | Plan is the plan id whose entitlement decides access and retention. INTERIM: cloud has no org-to-plan resolver yet, so the caller names the plan; when that resolver lands this becomes the caller org's own plan. (optional)
-	range_ := "range__example" // string | Range is the window: 24h, 7d, 30d, or custom. Empty means 24h. (optional)
+	range_ := "range__example" // string | Range is the window: a count and a unit — 24h, 7d, 90d, any <N>h or <N>d — or day, week, month, all, custom. Empty means 24h. The window is then clamped forward to the plan's retention entitlement. (optional)
 	start := "start_example" // string | Start is the inclusive window start, RFC3339. Read only when Range is custom, and clamped forward to the plan's retention floor. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudGetV1UsageAnalytics(context.Background()).End(end).Plan(plan).Range_(range_).Start(start).Execute()
+	resp, r, err := apiClient.UsageAPI.GetUsageAnalytics(context.Background()).End(end).Plan(plan).Range_(range_).Start(start).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudGetV1UsageAnalytics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageAnalytics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1UsageAnalytics`: CloudUsageAnalyticsView
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudGetV1UsageAnalytics`: %v\n", resp)
+	// response from `GetUsageAnalytics`: UsageAnalyticsView
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageAnalytics`: %v\n", resp)
 }
 ```
 
@@ -134,23 +134,23 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1UsageAnalyticsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetUsageAnalyticsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **end** | **string** | End is the exclusive window end, RFC3339. Read only when Range is custom. | 
  **plan** | **string** | Plan is the plan id whose entitlement decides access and retention. INTERIM: cloud has no org-to-plan resolver yet, so the caller names the plan; when that resolver lands this becomes the caller org&#39;s own plan. | 
- **range_** | **string** | Range is the window: 24h, 7d, 30d, or custom. Empty means 24h. | 
+ **range_** | **string** | Range is the window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all, custom. Empty means 24h. The window is then clamped forward to the plan&#39;s retention entitlement. | 
  **start** | **string** | Start is the inclusive window start, RFC3339. Read only when Range is custom, and clamped forward to the plan&#39;s retention floor. | 
 
 ### Return type
 
-[**CloudUsageAnalyticsView**](CloudUsageAnalyticsView.md)
+[**UsageAnalyticsView**](UsageAnalyticsView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -162,9 +162,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1UsageAnalyticsAccess
+## GetUsageAnalyticsAccess
 
-> CloudUsageAnalyticsAccess CloudGetV1UsageAnalyticsAccess(ctx).Plan(plan).Execute()
+> UsageAnalyticsAccess GetUsageAnalyticsAccess(ctx).Plan(plan).Execute()
 
 Echoes a plan's resolved analytics entitlement so a dashboard can configure itself against the LIVE catalog instead of hardcoding tier numbers.
 
@@ -187,13 +187,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudGetV1UsageAnalyticsAccess(context.Background()).Plan(plan).Execute()
+	resp, r, err := apiClient.UsageAPI.GetUsageAnalyticsAccess(context.Background()).Plan(plan).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudGetV1UsageAnalyticsAccess``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageAnalyticsAccess``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1UsageAnalyticsAccess`: CloudUsageAnalyticsAccess
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudGetV1UsageAnalyticsAccess`: %v\n", resp)
+	// response from `GetUsageAnalyticsAccess`: UsageAnalyticsAccess
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageAnalyticsAccess`: %v\n", resp)
 }
 ```
 
@@ -203,7 +203,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1UsageAnalyticsAccessRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetUsageAnalyticsAccessRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -212,11 +212,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudUsageAnalyticsAccess**](CloudUsageAnalyticsAccess.md)
+[**UsageAnalyticsAccess**](UsageAnalyticsAccess.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -228,9 +228,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1UsageLeaderboard
+## GetUsageLeaderboard
 
-> CloudLeaderboardView CloudGetV1UsageLeaderboard(ctx).Scope(scope).Metric(metric).Period(period).Limit(limit).Execute()
+> LeaderboardView GetUsageLeaderboard(ctx).Scope(scope).Metric(metric).Period(period).Limit(limit).Execute()
 
 Leaderboard ranks AI usage over a window, either the users of the caller's own org or organizations against each other, and always reports the caller's own standing even when it falls outside the returned page.
 
@@ -256,13 +256,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudGetV1UsageLeaderboard(context.Background()).Scope(scope).Metric(metric).Period(period).Limit(limit).Execute()
+	resp, r, err := apiClient.UsageAPI.GetUsageLeaderboard(context.Background()).Scope(scope).Metric(metric).Period(period).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudGetV1UsageLeaderboard``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageLeaderboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1UsageLeaderboard`: CloudLeaderboardView
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudGetV1UsageLeaderboard`: %v\n", resp)
+	// response from `GetUsageLeaderboard`: LeaderboardView
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageLeaderboard`: %v\n", resp)
 }
 ```
 
@@ -272,7 +272,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1UsageLeaderboardRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetUsageLeaderboardRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -284,11 +284,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudLeaderboardView**](CloudLeaderboardView.md)
+[**LeaderboardView**](LeaderboardView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -300,11 +300,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1UsageLeaderboardOptin
+## GetUsageLeaderboardOptin
 
-> CloudOptinView CloudGetV1UsageLeaderboardOptin(ctx).Execute()
+> OptinView GetUsageLeaderboardOptin(ctx).Execute()
 
-GetOptin returns the caller's own public-listing preference and their org's, each with whether the caller may change it.
+Returns the caller's own public-listing preference and their org's, each with whether the caller may change it.
 
 
 
@@ -324,13 +324,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudGetV1UsageLeaderboardOptin(context.Background()).Execute()
+	resp, r, err := apiClient.UsageAPI.GetUsageLeaderboardOptin(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudGetV1UsageLeaderboardOptin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageLeaderboardOptin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1UsageLeaderboardOptin`: CloudOptinView
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudGetV1UsageLeaderboardOptin`: %v\n", resp)
+	// response from `GetUsageLeaderboardOptin`: OptinView
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageLeaderboardOptin`: %v\n", resp)
 }
 ```
 
@@ -340,16 +340,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1UsageLeaderboardOptinRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetUsageLeaderboardOptinRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudOptinView**](CloudOptinView.md)
+[**OptinView**](OptinView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -361,11 +361,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1UsageLeaderboard
 [[Back to README]](../README.md)
 
 
-## CloudGetV1UsageSamples
+## GetUsageSamples
 
-> CloudDashResp CloudGetV1UsageSamples(ctx).Account(account).Provider(provider).Range_(range_).Window(window).Execute()
+> DashResp GetUsageSamples(ctx).Account(account).Provider(provider).Range_(range_).Window(window).Execute()
 
-Is the PER-PROVIDER view: one connected account's own consumption of its own plan — \"my Claude Max plan is 47% through its 6h window, resets at 14:20\".
+Is the PER-PROVIDER view: one connected account's own consumption of its own plan — \"my plan is 47% through its 6h window, resets at 14:20\".
 
 
 
@@ -384,18 +384,18 @@ import (
 func main() {
 	account := "account_example" // string | Account narrows to ONE linked account of that provider. Empty covers every account the caller has linked there. (optional)
 	provider := "provider_example" // string | Provider is the upstream to read, e.g. anthropic. Required. (optional)
-	range_ := "range__example" // string | Range is the window to read: 1h, 24h, 7d or 30d. Empty means 24h, and any other label is refused rather than silently replaced. (optional)
+	range_ := "range__example" // string | Range is the window to read: a count and a unit — 1h, 24h, 90d, any <N>h or <N>d — or day, week, month, all. Empty means 24h. A label that is not a count, or one reaching past the 730-day horizon, is refused rather than silently replaced. (optional)
 	window := "window_example" // string | Window narrows to ONE window class: 6h, day, week or month. Empty covers every class. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudGetV1UsageSamples(context.Background()).Account(account).Provider(provider).Range_(range_).Window(window).Execute()
+	resp, r, err := apiClient.UsageAPI.GetUsageSamples(context.Background()).Account(account).Provider(provider).Range_(range_).Window(window).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudGetV1UsageSamples``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageSamples``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1UsageSamples`: CloudDashResp
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudGetV1UsageSamples`: %v\n", resp)
+	// response from `GetUsageSamples`: DashResp
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageSamples`: %v\n", resp)
 }
 ```
 
@@ -405,23 +405,23 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1UsageSamplesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetUsageSamplesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account** | **string** | Account narrows to ONE linked account of that provider. Empty covers every account the caller has linked there. | 
  **provider** | **string** | Provider is the upstream to read, e.g. anthropic. Required. | 
- **range_** | **string** | Range is the window to read: 1h, 24h, 7d or 30d. Empty means 24h, and any other label is refused rather than silently replaced. | 
+ **range_** | **string** | Range is the window to read: a count and a unit — 1h, 24h, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Empty means 24h. A label that is not a count, or one reaching past the 730-day horizon, is refused rather than silently replaced. | 
  **window** | **string** | Window narrows to ONE window class: 6h, day, week or month. Empty covers every class. | 
 
 ### Return type
 
-[**CloudDashResp**](CloudDashResp.md)
+[**DashResp**](DashResp.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -433,9 +433,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1UsageSummary
+## GetUsageSummary
 
-> CloudUsageSummary CloudGetV1UsageSummary(ctx).Range_(range_).Start(start).End(end).Execute()
+> UsageSummary GetUsageSummary(ctx).Range_(range_).Start(start).End(end).Execute()
 
 Answers GET /v1/usage/summary: the caller's own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org's LLM usage totals from the warehouse, and the caller's OWN linked provider accounts beside the org's Hanzo-routed usage.
 
@@ -454,19 +454,19 @@ import (
 )
 
 func main() {
-	range_ := "range__example" // string | Range is the window: 24h, 7d, 30d, or custom. Empty means 24h. A label this surface does not know is refused rather than silently replaced. (optional)
+	range_ := "range__example" // string | Range is the window: a count and a unit — 24h, 7d, 90d, any <N>h or <N>d — or day, week, month, all, custom. Empty means 24h. A label this surface does not know, or one reaching past the 730-day horizon, is refused rather than silently replaced. (optional)
 	start := "start_example" // string | Start is the inclusive window start, RFC3339. Read only when Range is custom. (optional)
 	end := "end_example" // string | End is the exclusive window end, RFC3339. Read only when Range is custom. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudGetV1UsageSummary(context.Background()).Range_(range_).Start(start).End(end).Execute()
+	resp, r, err := apiClient.UsageAPI.GetUsageSummary(context.Background()).Range_(range_).Start(start).End(end).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudGetV1UsageSummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1UsageSummary`: CloudUsageSummary
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudGetV1UsageSummary`: %v\n", resp)
+	// response from `GetUsageSummary`: UsageSummary
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageSummary`: %v\n", resp)
 }
 ```
 
@@ -476,22 +476,22 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1UsageSummaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetUsageSummaryRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **range_** | **string** | Range is the window: 24h, 7d, 30d, or custom. Empty means 24h. A label this surface does not know is refused rather than silently replaced. | 
+ **range_** | **string** | Range is the window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all, custom. Empty means 24h. A label this surface does not know, or one reaching past the 730-day horizon, is refused rather than silently replaced. | 
  **start** | **string** | Start is the inclusive window start, RFC3339. Read only when Range is custom. | 
  **end** | **string** | End is the exclusive window end, RFC3339. Read only when Range is custom. | 
 
 ### Return type
 
-[**CloudUsageSummary**](CloudUsageSummary.md)
+[**UsageSummary**](UsageSummary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -503,9 +503,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Usage
+## PostUsage
 
-> CloudReportResp CloudPostV1Usage(ctx).CloudReportReq(cloudReportReq).Execute()
+> ReportResp PostUsage(ctx).ReportReq(reportReq).Execute()
 
 Ingests a batch of account-usage samples — what a developer's OWN AI accounts have consumed of their OWN plans, metered from each provider's own login — and appends them to the warehouse series.
 
@@ -524,17 +524,17 @@ import (
 )
 
 func main() {
-	cloudReportReq := *openapiclient.NewCloudReportReq() // CloudReportReq | 
+	reportReq := *openapiclient.NewReportReq() // ReportReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudPostV1Usage(context.Background()).CloudReportReq(cloudReportReq).Execute()
+	resp, r, err := apiClient.UsageAPI.PostUsage(context.Background()).ReportReq(reportReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudPostV1Usage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.PostUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Usage`: CloudReportResp
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudPostV1Usage`: %v\n", resp)
+	// response from `PostUsage`: ReportResp
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.PostUsage`: %v\n", resp)
 }
 ```
 
@@ -544,20 +544,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1UsageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostUsageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudReportReq** | [**CloudReportReq**](CloudReportReq.md) |  | 
+ **reportReq** | [**ReportReq**](ReportReq.md) |  | 
 
 ### Return type
 
-[**CloudReportResp**](CloudReportResp.md)
+[**ReportResp**](ReportResp.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -569,9 +569,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1UsageRollupBackfill
+## PostUsageRollupBackfill
 
-> CloudBackfillResult CloudPostV1UsageRollupBackfill(ctx).CloudBackfillQuery(cloudBackfillQuery).Execute()
+> BackfillResult PostUsageRollupBackfill(ctx).BackfillQuery(backfillQuery).Execute()
 
 Backfill seeds the derived usage rollup from ledger history — the rows written before the incremental view existed, which that view can never capture.
 
@@ -590,17 +590,17 @@ import (
 )
 
 func main() {
-	cloudBackfillQuery := *openapiclient.NewCloudBackfillQuery() // CloudBackfillQuery | 
+	backfillQuery := *openapiclient.NewBackfillQuery() // BackfillQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudPostV1UsageRollupBackfill(context.Background()).CloudBackfillQuery(cloudBackfillQuery).Execute()
+	resp, r, err := apiClient.UsageAPI.PostUsageRollupBackfill(context.Background()).BackfillQuery(backfillQuery).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudPostV1UsageRollupBackfill``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.PostUsageRollupBackfill``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1UsageRollupBackfill`: CloudBackfillResult
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudPostV1UsageRollupBackfill`: %v\n", resp)
+	// response from `PostUsageRollupBackfill`: BackfillResult
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.PostUsageRollupBackfill`: %v\n", resp)
 }
 ```
 
@@ -610,20 +610,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1UsageRollupBackfillRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostUsageRollupBackfillRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudBackfillQuery** | [**CloudBackfillQuery**](CloudBackfillQuery.md) |  | 
+ **backfillQuery** | [**BackfillQuery**](BackfillQuery.md) |  | 
 
 ### Return type
 
-[**CloudBackfillResult**](CloudBackfillResult.md)
+[**BackfillResult**](BackfillResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -635,11 +635,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1UsageLeaderboardOptin
+## PutUsageLeaderboardOptin
 
-> CloudUserOptinView CloudPutV1UsageLeaderboardOptin(ctx).CloudUserOptinReq(cloudUserOptinReq).Execute()
+> UserOptinView PutUsageLeaderboardOptin(ctx).UserOptinReq(userOptinReq).Execute()
 
-PutUserOptin sets the CALLER's own public-listing preference on the leaderboard.
+Sets the CALLER's own public-listing preference on the leaderboard.
 
 
 
@@ -656,17 +656,17 @@ import (
 )
 
 func main() {
-	cloudUserOptinReq := *openapiclient.NewCloudUserOptinReq() // CloudUserOptinReq | 
+	userOptinReq := *openapiclient.NewUserOptinReq() // UserOptinReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudPutV1UsageLeaderboardOptin(context.Background()).CloudUserOptinReq(cloudUserOptinReq).Execute()
+	resp, r, err := apiClient.UsageAPI.PutUsageLeaderboardOptin(context.Background()).UserOptinReq(userOptinReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudPutV1UsageLeaderboardOptin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.PutUsageLeaderboardOptin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1UsageLeaderboardOptin`: CloudUserOptinView
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudPutV1UsageLeaderboardOptin`: %v\n", resp)
+	// response from `PutUsageLeaderboardOptin`: UserOptinView
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.PutUsageLeaderboardOptin`: %v\n", resp)
 }
 ```
 
@@ -676,20 +676,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1UsageLeaderboardOptinRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutUsageLeaderboardOptinRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudUserOptinReq** | [**CloudUserOptinReq**](CloudUserOptinReq.md) |  | 
+ **userOptinReq** | [**UserOptinReq**](UserOptinReq.md) |  | 
 
 ### Return type
 
-[**CloudUserOptinView**](CloudUserOptinView.md)
+[**UserOptinView**](UserOptinView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -701,11 +701,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1UsageLeaderboardOptinOrg
+## PutUsageLeaderboardOptinOrg
 
-> CloudOrgOptinView CloudPutV1UsageLeaderboardOptinOrg(ctx).CloudOrgOptinReq(cloudOrgOptinReq).Execute()
+> OrgOptinView PutUsageLeaderboardOptinOrg(ctx).OrgOptinReq(orgOptinReq).Execute()
 
-PutOrgOptin sets the ORG's listing on the cross-org global board.
+Sets the ORG's listing on the cross-org global board.
 
 
 
@@ -722,17 +722,17 @@ import (
 )
 
 func main() {
-	cloudOrgOptinReq := *openapiclient.NewCloudOrgOptinReq() // CloudOrgOptinReq | 
+	orgOptinReq := *openapiclient.NewOrgOptinReq() // OrgOptinReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.CloudPutV1UsageLeaderboardOptinOrg(context.Background()).CloudOrgOptinReq(cloudOrgOptinReq).Execute()
+	resp, r, err := apiClient.UsageAPI.PutUsageLeaderboardOptinOrg(context.Background()).OrgOptinReq(orgOptinReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.CloudPutV1UsageLeaderboardOptinOrg``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.PutUsageLeaderboardOptinOrg``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1UsageLeaderboardOptinOrg`: CloudOrgOptinView
-	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.CloudPutV1UsageLeaderboardOptinOrg`: %v\n", resp)
+	// response from `PutUsageLeaderboardOptinOrg`: OrgOptinView
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.PutUsageLeaderboardOptinOrg`: %v\n", resp)
 }
 ```
 
@@ -742,20 +742,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1UsageLeaderboardOptinOrgRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutUsageLeaderboardOptinOrgRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudOrgOptinReq** | [**CloudOrgOptinReq**](CloudOrgOptinReq.md) |  | 
+ **orgOptinReq** | [**OrgOptinReq**](OrgOptinReq.md) |  | 
 
 ### Return type
 
-[**CloudOrgOptinView**](CloudOrgOptinView.md)
+[**OrgOptinView**](OrgOptinView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

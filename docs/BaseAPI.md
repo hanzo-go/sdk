@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1BaseHealth**](BaseAPI.md#CloudGetV1BaseHealth) | **Get** /v1/base/health | BaseHealth reports that the base subsystem is serving.
+[**GetBaseHealth**](BaseAPI.md#GetBaseHealth) | **Get** /v1/base/health | Reports that the base subsystem is serving.
 
 
 
-## CloudGetV1BaseHealth
+## GetBaseHealth
 
-> CloudBaseHealth CloudGetV1BaseHealth(ctx).Execute()
+> BaseHealth GetBaseHealth(ctx).Execute()
 
-BaseHealth reports that the base subsystem is serving.
+Reports that the base subsystem is serving.
 
 
 
@@ -32,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BaseAPI.CloudGetV1BaseHealth(context.Background()).Execute()
+	resp, r, err := apiClient.BaseAPI.GetBaseHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BaseAPI.CloudGetV1BaseHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BaseAPI.GetBaseHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BaseHealth`: CloudBaseHealth
-	fmt.Fprintf(os.Stdout, "Response from `BaseAPI.CloudGetV1BaseHealth`: %v\n", resp)
+	// response from `GetBaseHealth`: BaseHealth
+	fmt.Fprintf(os.Stdout, "Response from `BaseAPI.GetBaseHealth`: %v\n", resp)
 }
 ```
 
@@ -48,16 +48,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BaseHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBaseHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudBaseHealth**](CloudBaseHealth.md)
+[**BaseHealth**](BaseHealth.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

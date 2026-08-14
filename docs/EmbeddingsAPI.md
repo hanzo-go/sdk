@@ -4,15 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GatewayCreateEmbedding**](EmbeddingsAPI.md#GatewayCreateEmbedding) | **Post** /v1/gateway/embeddings | Create embeddings
+[**PostEmbeddings**](EmbeddingsAPI.md#PostEmbeddings) | **Post** /v1/embeddings | Implements POST /v1/embeddings (OpenAI-compatible).
 
 
 
-## GatewayCreateEmbedding
+## PostEmbeddings
 
-> GatewayEmbeddingResponse GatewayCreateEmbedding(ctx).GatewayEmbeddingRequest(gatewayEmbeddingRequest).Execute()
+> PostEmbeddings(ctx).Execute()
 
-Create embeddings
+Implements POST /v1/embeddings (OpenAI-compatible).
+
+
 
 ### Example
 
@@ -27,45 +29,38 @@ import (
 )
 
 func main() {
-	gatewayEmbeddingRequest := *openapiclient.NewGatewayEmbeddingRequest("Model_example", openapiclient.gateway_createCompletion_request_prompt{ArrayOfString: new([]string)}) // GatewayEmbeddingRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EmbeddingsAPI.GatewayCreateEmbedding(context.Background()).GatewayEmbeddingRequest(gatewayEmbeddingRequest).Execute()
+	r, err := apiClient.EmbeddingsAPI.PostEmbeddings(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EmbeddingsAPI.GatewayCreateEmbedding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EmbeddingsAPI.PostEmbeddings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GatewayCreateEmbedding`: GatewayEmbeddingResponse
-	fmt.Fprintf(os.Stdout, "Response from `EmbeddingsAPI.GatewayCreateEmbedding`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGatewayCreateEmbeddingRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostEmbeddingsRequest struct via the builder pattern
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **gatewayEmbeddingRequest** | [**GatewayEmbeddingRequest**](GatewayEmbeddingRequest.md) |  | 
 
 ### Return type
 
-[**GatewayEmbeddingResponse**](GatewayEmbeddingResponse.md)
+ (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

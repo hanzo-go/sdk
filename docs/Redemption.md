@@ -1,0 +1,160 @@
+# Redemption
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Code** | Pointer to **string** | Code is the promo redeemed. | [optional] 
+**DiscountCents** | Pointer to **int32** | DiscountCents is the month-one discount this redemption CLAIMS, in USD cents. It is a recorded figure, NOT a balance: nothing was credited and no wallet moved. An admin granting against this claim is what would make it money, and that decision happens on the admin surface, not here. | [optional] 
+**Plan** | Pointer to **string** | Plan and Seats are what was redeemed against. Both are DERIVED server-side — Plan from the org&#39;s live paid subscription, Seats from claimSeats — and neither is ever read from the request. | [optional] 
+**RedeemedAt** | Pointer to **int32** | RedeemedAt is unix seconds. | [optional] 
+**Seats** | Pointer to **int32** |  | [optional] 
+
+## Methods
+
+### NewRedemption
+
+`func NewRedemption() *Redemption`
+
+NewRedemption instantiates a new Redemption object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewRedemptionWithDefaults
+
+`func NewRedemptionWithDefaults() *Redemption`
+
+NewRedemptionWithDefaults instantiates a new Redemption object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetCode
+
+`func (o *Redemption) GetCode() string`
+
+GetCode returns the Code field if non-nil, zero value otherwise.
+
+### GetCodeOk
+
+`func (o *Redemption) GetCodeOk() (*string, bool)`
+
+GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCode
+
+`func (o *Redemption) SetCode(v string)`
+
+SetCode sets Code field to given value.
+
+### HasCode
+
+`func (o *Redemption) HasCode() bool`
+
+HasCode returns a boolean if a field has been set.
+
+### GetDiscountCents
+
+`func (o *Redemption) GetDiscountCents() int32`
+
+GetDiscountCents returns the DiscountCents field if non-nil, zero value otherwise.
+
+### GetDiscountCentsOk
+
+`func (o *Redemption) GetDiscountCentsOk() (*int32, bool)`
+
+GetDiscountCentsOk returns a tuple with the DiscountCents field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDiscountCents
+
+`func (o *Redemption) SetDiscountCents(v int32)`
+
+SetDiscountCents sets DiscountCents field to given value.
+
+### HasDiscountCents
+
+`func (o *Redemption) HasDiscountCents() bool`
+
+HasDiscountCents returns a boolean if a field has been set.
+
+### GetPlan
+
+`func (o *Redemption) GetPlan() string`
+
+GetPlan returns the Plan field if non-nil, zero value otherwise.
+
+### GetPlanOk
+
+`func (o *Redemption) GetPlanOk() (*string, bool)`
+
+GetPlanOk returns a tuple with the Plan field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlan
+
+`func (o *Redemption) SetPlan(v string)`
+
+SetPlan sets Plan field to given value.
+
+### HasPlan
+
+`func (o *Redemption) HasPlan() bool`
+
+HasPlan returns a boolean if a field has been set.
+
+### GetRedeemedAt
+
+`func (o *Redemption) GetRedeemedAt() int32`
+
+GetRedeemedAt returns the RedeemedAt field if non-nil, zero value otherwise.
+
+### GetRedeemedAtOk
+
+`func (o *Redemption) GetRedeemedAtOk() (*int32, bool)`
+
+GetRedeemedAtOk returns a tuple with the RedeemedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRedeemedAt
+
+`func (o *Redemption) SetRedeemedAt(v int32)`
+
+SetRedeemedAt sets RedeemedAt field to given value.
+
+### HasRedeemedAt
+
+`func (o *Redemption) HasRedeemedAt() bool`
+
+HasRedeemedAt returns a boolean if a field has been set.
+
+### GetSeats
+
+`func (o *Redemption) GetSeats() int32`
+
+GetSeats returns the Seats field if non-nil, zero value otherwise.
+
+### GetSeatsOk
+
+`func (o *Redemption) GetSeatsOk() (*int32, bool)`
+
+GetSeatsOk returns a tuple with the Seats field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSeats
+
+`func (o *Redemption) SetSeats(v int32)`
+
+SetSeats sets Seats field to given value.
+
+### HasSeats
+
+`func (o *Redemption) HasSeats() bool`
+
+HasSeats returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

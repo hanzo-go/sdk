@@ -4,22 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CommerceCreateCart**](CartAPI.md#CommerceCreateCart) | **Post** /v1/commerce/cart | Create cart
-[**CommerceDeleteCart**](CartAPI.md#CommerceDeleteCart) | **Delete** /v1/commerce/cart/{cartid} | Delete cart
-[**CommerceDiscardCart**](CartAPI.md#CommerceDiscardCart) | **Post** /v1/commerce/cart/{cartid}/discard | Discard cart
-[**CommerceGetCart**](CartAPI.md#CommerceGetCart) | **Get** /v1/commerce/cart/{cartid} | Get cart
-[**CommerceListCarts**](CartAPI.md#CommerceListCarts) | **Get** /v1/commerce/cart | List carts
-[**CommercePatchCart**](CartAPI.md#CommercePatchCart) | **Patch** /v1/commerce/cart/{cartid} | Partially update cart
-[**CommerceSetCartItem**](CartAPI.md#CommerceSetCartItem) | **Post** /v1/commerce/cart/{cartid}/set | Set item in cart
-[**CommerceUpdateCart**](CartAPI.md#CommerceUpdateCart) | **Put** /v1/commerce/cart/{cartid} | Update cart
+[**DiscardCart**](CartAPI.md#DiscardCart) | **Post** /v1/cart/{id}/discard | Discard a cart the shopper abandoned
+[**GetCart**](CartAPI.md#GetCart) | **Get** /v1/cart/{id} | Read one cart with its lines and totals
+[**OpenCart**](CartAPI.md#OpenCart) | **Post** /v1/cart | Open a cart for a shopper to fill
+[**SetCartItem**](CartAPI.md#SetCartItem) | **Post** /v1/cart/{id}/item | Set one item&#39;s quantity in a cart; zero removes it
 
 
 
-## CommerceCreateCart
+## DiscardCart
 
-> CommerceCart CommerceCreateCart(ctx).CommerceCart(commerceCart).Execute()
+> Cart DiscardCart(ctx, id).Execute()
 
-Create cart
+Discard a cart the shopper abandoned
+
+
 
 ### Example
 
@@ -34,17 +32,157 @@ import (
 )
 
 func main() {
-	commerceCart := *openapiclient.NewCommerceCart() // CommerceCart | 
+	id := "id_example" // string | ID is the cart's id, as the open call answered it.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CartAPI.CommerceCreateCart(context.Background()).CommerceCart(commerceCart).Execute()
+	resp, r, err := apiClient.CartAPI.DiscardCart(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.CommerceCreateCart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.DiscardCart``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CommerceCreateCart`: CommerceCart
-	fmt.Fprintf(os.Stdout, "Response from `CartAPI.CommerceCreateCart`: %v\n", resp)
+	// response from `DiscardCart`: Cart
+	fmt.Fprintf(os.Stdout, "Response from `CartAPI.DiscardCart`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the cart&#39;s id, as the open call answered it. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDiscardCartRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Cart**](Cart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCart
+
+> Cart GetCart(ctx, id).Execute()
+
+Read one cart with its lines and totals
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the cart's id, as the open call answered it.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CartAPI.GetCart(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.GetCart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCart`: Cart
+	fmt.Fprintf(os.Stdout, "Response from `CartAPI.GetCart`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the cart&#39;s id, as the open call answered it. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCartRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Cart**](Cart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## OpenCart
+
+> Cart OpenCart(ctx).CartOpen(cartOpen).Execute()
+
+Open a cart for a shopper to fill
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cartOpen := *openapiclient.NewCartOpen() // CartOpen | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CartAPI.OpenCart(context.Background()).CartOpen(cartOpen).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.OpenCart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OpenCart`: Cart
+	fmt.Fprintf(os.Stdout, "Response from `CartAPI.OpenCart`: %v\n", resp)
 }
 ```
 
@@ -54,20 +192,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCommerceCreateCartRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiOpenCartRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **commerceCart** | [**CommerceCart**](CommerceCart.md) |  | 
+ **cartOpen** | [**CartOpen**](CartOpen.md) |  | 
 
 ### Return type
 
-[**CommerceCart**](CommerceCart.md)
+[**Cart**](Cart.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -79,11 +217,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CommerceDeleteCart
+## SetCartItem
 
-> CommerceDeleteCart(ctx, cartid).Execute()
+> Cart SetCartItem(ctx, id).CartItemSet(cartItemSet).Execute()
 
-Delete cart
+Set one item's quantity in a cart; zero removes it
+
+
 
 ### Example
 
@@ -98,15 +238,18 @@ import (
 )
 
 func main() {
-	cartid := "cartid_example" // string | 
+	id := "id_example" // string | ID is the cart to amend, from the path.
+	cartItemSet := *openapiclient.NewCartItemSet() // CartItemSet | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CartAPI.CommerceDeleteCart(context.Background(), cartid).Execute()
+	resp, r, err := apiClient.CartAPI.SetCartItem(context.Background(), id).CartItemSet(cartItemSet).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.CommerceDeleteCart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.SetCartItem``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `SetCartItem`: Cart
+	fmt.Fprintf(os.Stdout, "Response from `CartAPI.SetCartItem`: %v\n", resp)
 }
 ```
 
@@ -116,436 +259,25 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**cartid** | **string** |  | 
+**id** | **string** | ID is the cart to amend, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCommerceDeleteCartRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSetCartItemRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **cartItemSet** | [**CartItemSet**](CartItemSet.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**Cart**](Cart.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceDiscardCart
-
-> CommerceCart CommerceDiscardCart(ctx, cartid).Execute()
-
-Discard cart
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cartid := "cartid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CartAPI.CommerceDiscardCart(context.Background(), cartid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.CommerceDiscardCart``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceDiscardCart`: CommerceCart
-	fmt.Fprintf(os.Stdout, "Response from `CartAPI.CommerceDiscardCart`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**cartid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceDiscardCartRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**CommerceCart**](CommerceCart.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceGetCart
-
-> CommerceCart CommerceGetCart(ctx, cartid).Execute()
-
-Get cart
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cartid := "cartid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CartAPI.CommerceGetCart(context.Background(), cartid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.CommerceGetCart``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceGetCart`: CommerceCart
-	fmt.Fprintf(os.Stdout, "Response from `CartAPI.CommerceGetCart`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**cartid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceGetCartRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**CommerceCart**](CommerceCart.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceListCarts
-
-> CommercePaginatedCarts CommerceListCarts(ctx).Page(page).Display(display).Execute()
-
-List carts
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	page := int32(56) // int32 | Page number (1-indexed) (optional) (default to 1)
-	display := int32(56) // int32 | Number of items per page (optional) (default to 20)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CartAPI.CommerceListCarts(context.Background()).Page(page).Display(display).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.CommerceListCarts``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceListCarts`: CommercePaginatedCarts
-	fmt.Fprintf(os.Stdout, "Response from `CartAPI.CommerceListCarts`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceListCartsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int32** | Page number (1-indexed) | [default to 1]
- **display** | **int32** | Number of items per page | [default to 20]
-
-### Return type
-
-[**CommercePaginatedCarts**](CommercePaginatedCarts.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommercePatchCart
-
-> CommerceCart CommercePatchCart(ctx, cartid).CommerceCart(commerceCart).Execute()
-
-Partially update cart
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cartid := "cartid_example" // string | 
-	commerceCart := *openapiclient.NewCommerceCart() // CommerceCart | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CartAPI.CommercePatchCart(context.Background(), cartid).CommerceCart(commerceCart).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.CommercePatchCart``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommercePatchCart`: CommerceCart
-	fmt.Fprintf(os.Stdout, "Response from `CartAPI.CommercePatchCart`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**cartid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommercePatchCartRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **commerceCart** | [**CommerceCart**](CommerceCart.md) |  | 
-
-### Return type
-
-[**CommerceCart**](CommerceCart.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceSetCartItem
-
-> CommerceCart CommerceSetCartItem(ctx, cartid).CommerceSetCartItemRequest(commerceSetCartItemRequest).Execute()
-
-Set item in cart
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cartid := "cartid_example" // string | 
-	commerceSetCartItemRequest := *openapiclient.NewCommerceSetCartItemRequest() // CommerceSetCartItemRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CartAPI.CommerceSetCartItem(context.Background(), cartid).CommerceSetCartItemRequest(commerceSetCartItemRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.CommerceSetCartItem``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceSetCartItem`: CommerceCart
-	fmt.Fprintf(os.Stdout, "Response from `CartAPI.CommerceSetCartItem`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**cartid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceSetCartItemRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **commerceSetCartItemRequest** | [**CommerceSetCartItemRequest**](CommerceSetCartItemRequest.md) |  | 
-
-### Return type
-
-[**CommerceCart**](CommerceCart.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceUpdateCart
-
-> CommerceCart CommerceUpdateCart(ctx, cartid).CommerceCart(commerceCart).Execute()
-
-Update cart
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cartid := "cartid_example" // string | 
-	commerceCart := *openapiclient.NewCommerceCart() // CommerceCart | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CartAPI.CommerceUpdateCart(context.Background(), cartid).CommerceCart(commerceCart).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CartAPI.CommerceUpdateCart``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceUpdateCart`: CommerceCart
-	fmt.Fprintf(os.Stdout, "Response from `CartAPI.CommerceUpdateCart`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**cartid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceUpdateCartRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **commerceCart** | [**CommerceCart**](CommerceCart.md) |  | 
-
-### Return type
-
-[**CommerceCart**](CommerceCart.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

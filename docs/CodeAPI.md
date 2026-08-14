@@ -4,19 +4,24 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1CodeAsk**](CodeAPI.md#CloudGetV1CodeAsk) | **Get** /v1/code/ask | Answers a question about the caller org&#39;s code with a CITED answer: retrieval packs grounding context, then the synthesizer writes the answer over exactly those spans, which come back alongside it.
-[**CloudGetV1CodeFile**](CodeAPI.md#CloudGetV1CodeFile) | **Get** /v1/code/file | Returns the INDEXED content of one file — read_file over the chunks the search tiers hold, for pulling up code an agent just found.
-[**CloudGetV1CodeSearch**](CodeAPI.md#CloudGetV1CodeSearch) | **Get** /v1/code/search | Finds code in the caller org&#39;s index across three orthogonal retrieval tiers fused by reciprocal-rank fusion: lexical (FTS5 trigram over code-tokenized text), symbolic (real definition and reference edges), and semantic (embedding cosine over AST-boundary chunks).
-[**CloudGetV1CodeTree**](CodeAPI.md#CloudGetV1CodeTree) | **Get** /v1/code/tree | Returns one repository&#39;s file structure with a per-file symbol count — get_repo_structure over the org&#39;s own index, with no git checkout involved.
-[**CloudPostV1CodeAsk**](CodeAPI.md#CloudPostV1CodeAsk) | **Post** /v1/code/ask | Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
-[**CloudPostV1CodeContext**](CodeAPI.md#CloudPostV1CodeContext) | **Post** /v1/code/context | Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
-[**CloudPostV1CodeIndex**](CodeAPI.md#CloudPostV1CodeIndex) | **Post** /v1/code/index | (re)indexes a repository for the caller&#39;s org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
+[**GetCodeAsk**](CodeAPI.md#GetCodeAsk) | **Get** /v1/code/ask | Answers a question about the caller org&#39;s code with a CITED answer: retrieval packs grounding context, then the synthesizer writes the answer over exactly those spans, which come back alongside it.
+[**GetCodeFile**](CodeAPI.md#GetCodeFile) | **Get** /v1/code/file | Returns the INDEXED content of one file — read_file over the chunks the search tiers hold, for pulling up code an agent just found.
+[**GetCodeSearch**](CodeAPI.md#GetCodeSearch) | **Get** /v1/code/search | Finds code in the caller org&#39;s index across three orthogonal retrieval tiers fused by reciprocal-rank fusion: lexical (FTS5 trigram over code-tokenized text), symbolic (real definition and reference edges), and semantic (embedding cosine over AST-boundary chunks).
+[**GetCodeTree**](CodeAPI.md#GetCodeTree) | **Get** /v1/code/tree | Returns one repository&#39;s file structure with a per-file symbol count — get_repo_structure over the org&#39;s own index, with no git checkout involved.
+[**PostCodeAsk**](CodeAPI.md#PostCodeAsk) | **Post** /v1/code/ask | Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
+[**PostCodeContext**](CodeAPI.md#PostCodeContext) | **Post** /v1/code/context | Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
+[**PostCodeIndex**](CodeAPI.md#PostCodeIndex) | **Post** /v1/code/index | (re)indexes a repository for the caller&#39;s org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
+[**PostCodeLspComplete**](CodeAPI.md#PostCodeLspComplete) | **Post** /v1/code/lsp/complete | Offers the candidates a language server has at a position, typed and resolved through the repository&#39;s dependencies rather than guessed from text.
+[**PostCodeLspDiagnostics**](CodeAPI.md#PostCodeLspDiagnostics) | **Post** /v1/code/lsp/diagnostics | Reports every problem the language server finds in one file — compile errors, type errors and lints, each with its span and its severity (1 error, 2 warning, 3 information, 4 hint).
+[**PostCodeLspHover**](CodeAPI.md#PostCodeLspHover) | **Post** /v1/code/lsp/hover | Renders the type and documentation of the symbol at a position, as the language server itself renders it.
+[**PostCodeLspLocate**](CodeAPI.md#PostCodeLspLocate) | **Post** /v1/code/lsp/locate | Finds where a symbol lives: its definition, its references, its type or its implementations, chosen by relation (definition, reference, type, implementation — empty means definition).
+[**PostCodeLspSymbols**](CodeAPI.md#PostCodeLspSymbols) | **Post** /v1/code/lsp/symbols | Outlines one file: every declaration in it, with its kind and its span.
 
 
 
-## CloudGetV1CodeAsk
+## GetCodeAsk
 
-> CloudAskAnswer CloudGetV1CodeAsk(ctx).Q(q).Repo(repo).Execute()
+> AskAnswer GetCodeAsk(ctx).Q(q).Repo(repo).Execute()
 
 Answers a question about the caller org's code with a CITED answer: retrieval packs grounding context, then the synthesizer writes the answer over exactly those spans, which come back alongside it.
 
@@ -40,13 +45,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.CloudGetV1CodeAsk(context.Background()).Q(q).Repo(repo).Execute()
+	resp, r, err := apiClient.CodeAPI.GetCodeAsk(context.Background()).Q(q).Repo(repo).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.CloudGetV1CodeAsk``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.GetCodeAsk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CodeAsk`: CloudAskAnswer
-	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.CloudGetV1CodeAsk`: %v\n", resp)
+	// response from `GetCodeAsk`: AskAnswer
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.GetCodeAsk`: %v\n", resp)
 }
 ```
 
@@ -56,7 +61,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CodeAskRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCodeAskRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -66,11 +71,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAskAnswer**](CloudAskAnswer.md)
+[**AskAnswer**](AskAnswer.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -82,9 +87,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CodeFile
+## GetCodeFile
 
-> CloudFileContent CloudGetV1CodeFile(ctx).Path(path).Repo(repo).Execute()
+> FileContent GetCodeFile(ctx).Path(path).Repo(repo).Execute()
 
 Returns the INDEXED content of one file — read_file over the chunks the search tiers hold, for pulling up code an agent just found.
 
@@ -108,13 +113,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.CloudGetV1CodeFile(context.Background()).Path(path).Repo(repo).Execute()
+	resp, r, err := apiClient.CodeAPI.GetCodeFile(context.Background()).Path(path).Repo(repo).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.CloudGetV1CodeFile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.GetCodeFile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CodeFile`: CloudFileContent
-	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.CloudGetV1CodeFile`: %v\n", resp)
+	// response from `GetCodeFile`: FileContent
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.GetCodeFile`: %v\n", resp)
 }
 ```
 
@@ -124,7 +129,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CodeFileRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCodeFileRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -134,11 +139,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudFileContent**](CloudFileContent.md)
+[**FileContent**](FileContent.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -150,9 +155,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CodeSearch
+## GetCodeSearch
 
-> CloudSearchResults CloudGetV1CodeSearch(ctx).Q(q).Type_(type_).Repo(repo).Limit(limit).Execute()
+> SearchResults GetCodeSearch(ctx).Q(q).Type_(type_).Repo(repo).Limit(limit).Execute()
 
 Finds code in the caller org's index across three orthogonal retrieval tiers fused by reciprocal-rank fusion: lexical (FTS5 trigram over code-tokenized text), symbolic (real definition and reference edges), and semantic (embedding cosine over AST-boundary chunks).
 
@@ -178,13 +183,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.CloudGetV1CodeSearch(context.Background()).Q(q).Type_(type_).Repo(repo).Limit(limit).Execute()
+	resp, r, err := apiClient.CodeAPI.GetCodeSearch(context.Background()).Q(q).Type_(type_).Repo(repo).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.CloudGetV1CodeSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.GetCodeSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CodeSearch`: CloudSearchResults
-	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.CloudGetV1CodeSearch`: %v\n", resp)
+	// response from `GetCodeSearch`: SearchResults
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.GetCodeSearch`: %v\n", resp)
 }
 ```
 
@@ -194,7 +199,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CodeSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCodeSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -206,11 +211,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSearchResults**](CloudSearchResults.md)
+[**SearchResults**](SearchResults.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -222,9 +227,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CodeTree
+## GetCodeTree
 
-> CloudRepoTree CloudGetV1CodeTree(ctx).Repo(repo).Execute()
+> RepoTree GetCodeTree(ctx).Repo(repo).Execute()
 
 Returns one repository's file structure with a per-file symbol count — get_repo_structure over the org's own index, with no git checkout involved.
 
@@ -247,13 +252,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.CloudGetV1CodeTree(context.Background()).Repo(repo).Execute()
+	resp, r, err := apiClient.CodeAPI.GetCodeTree(context.Background()).Repo(repo).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.CloudGetV1CodeTree``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.GetCodeTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CodeTree`: CloudRepoTree
-	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.CloudGetV1CodeTree`: %v\n", resp)
+	// response from `GetCodeTree`: RepoTree
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.GetCodeTree`: %v\n", resp)
 }
 ```
 
@@ -263,7 +268,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CodeTreeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCodeTreeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -272,11 +277,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRepoTree**](CloudRepoTree.md)
+[**RepoTree**](RepoTree.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -288,9 +293,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CodeAsk
+## PostCodeAsk
 
-> CloudAskAnswer CloudPostV1CodeAsk(ctx).CloudAskPostIn(cloudAskPostIn).Execute()
+> AskAnswer PostCodeAsk(ctx).AskPostIn(askPostIn).Execute()
 
 Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
 
@@ -309,17 +314,17 @@ import (
 )
 
 func main() {
-	cloudAskPostIn := *openapiclient.NewCloudAskPostIn() // CloudAskPostIn | 
+	askPostIn := *openapiclient.NewAskPostIn() // AskPostIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.CloudPostV1CodeAsk(context.Background()).CloudAskPostIn(cloudAskPostIn).Execute()
+	resp, r, err := apiClient.CodeAPI.PostCodeAsk(context.Background()).AskPostIn(askPostIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.CloudPostV1CodeAsk``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeAsk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CodeAsk`: CloudAskAnswer
-	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.CloudPostV1CodeAsk`: %v\n", resp)
+	// response from `PostCodeAsk`: AskAnswer
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeAsk`: %v\n", resp)
 }
 ```
 
@@ -329,20 +334,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CodeAskRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCodeAskRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudAskPostIn** | [**CloudAskPostIn**](CloudAskPostIn.md) |  | 
+ **askPostIn** | [**AskPostIn**](AskPostIn.md) |  | 
 
 ### Return type
 
-[**CloudAskAnswer**](CloudAskAnswer.md)
+[**AskAnswer**](AskAnswer.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -354,9 +359,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CodeContext
+## PostCodeContext
 
-> CloudContextBundle CloudPostV1CodeContext(ctx).CloudContextIn(cloudContextIn).Execute()
+> ContextBundle PostCodeContext(ctx).ContextIn(contextIn).Execute()
 
 Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
 
@@ -375,17 +380,17 @@ import (
 )
 
 func main() {
-	cloudContextIn := *openapiclient.NewCloudContextIn() // CloudContextIn | 
+	contextIn := *openapiclient.NewContextIn() // ContextIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.CloudPostV1CodeContext(context.Background()).CloudContextIn(cloudContextIn).Execute()
+	resp, r, err := apiClient.CodeAPI.PostCodeContext(context.Background()).ContextIn(contextIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.CloudPostV1CodeContext``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeContext``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CodeContext`: CloudContextBundle
-	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.CloudPostV1CodeContext`: %v\n", resp)
+	// response from `PostCodeContext`: ContextBundle
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeContext`: %v\n", resp)
 }
 ```
 
@@ -395,20 +400,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CodeContextRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCodeContextRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudContextIn** | [**CloudContextIn**](CloudContextIn.md) |  | 
+ **contextIn** | [**ContextIn**](ContextIn.md) |  | 
 
 ### Return type
 
-[**CloudContextBundle**](CloudContextBundle.md)
+[**ContextBundle**](ContextBundle.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -420,9 +425,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CodeIndex
+## PostCodeIndex
 
-> CloudIndexResult CloudPostV1CodeIndex(ctx).CloudIndexIn(cloudIndexIn).Execute()
+> IndexResult PostCodeIndex(ctx).IndexIn(indexIn).Execute()
 
 (re)indexes a repository for the caller's org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
 
@@ -441,17 +446,17 @@ import (
 )
 
 func main() {
-	cloudIndexIn := *openapiclient.NewCloudIndexIn() // CloudIndexIn | 
+	indexIn := *openapiclient.NewIndexIn() // IndexIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.CloudPostV1CodeIndex(context.Background()).CloudIndexIn(cloudIndexIn).Execute()
+	resp, r, err := apiClient.CodeAPI.PostCodeIndex(context.Background()).IndexIn(indexIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.CloudPostV1CodeIndex``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeIndex``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CodeIndex`: CloudIndexResult
-	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.CloudPostV1CodeIndex`: %v\n", resp)
+	// response from `PostCodeIndex`: IndexResult
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeIndex`: %v\n", resp)
 }
 ```
 
@@ -461,20 +466,350 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CodeIndexRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCodeIndexRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudIndexIn** | [**CloudIndexIn**](CloudIndexIn.md) |  | 
+ **indexIn** | [**IndexIn**](IndexIn.md) |  | 
 
 ### Return type
 
-[**CloudIndexResult**](CloudIndexResult.md)
+[**IndexResult**](IndexResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCodeLspComplete
+
+> Answer PostCodeLspComplete(ctx).Query(query).Execute()
+
+Offers the candidates a language server has at a position, typed and resolved through the repository's dependencies rather than guessed from text.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	query := *openapiclient.NewQuery() // Query | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CodeAPI.PostCodeLspComplete(context.Background()).Query(query).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeLspComplete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCodeLspComplete`: Answer
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeLspComplete`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCodeLspCompleteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md) |  | 
+
+### Return type
+
+[**Answer**](Answer.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCodeLspDiagnostics
+
+> Answer PostCodeLspDiagnostics(ctx).Query(query).Execute()
+
+Reports every problem the language server finds in one file — compile errors, type errors and lints, each with its span and its severity (1 error, 2 warning, 3 information, 4 hint).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	query := *openapiclient.NewQuery() // Query | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CodeAPI.PostCodeLspDiagnostics(context.Background()).Query(query).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeLspDiagnostics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCodeLspDiagnostics`: Answer
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeLspDiagnostics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCodeLspDiagnosticsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md) |  | 
+
+### Return type
+
+[**Answer**](Answer.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCodeLspHover
+
+> Answer PostCodeLspHover(ctx).Query(query).Execute()
+
+Renders the type and documentation of the symbol at a position, as the language server itself renders it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	query := *openapiclient.NewQuery() // Query | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CodeAPI.PostCodeLspHover(context.Background()).Query(query).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeLspHover``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCodeLspHover`: Answer
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeLspHover`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCodeLspHoverRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md) |  | 
+
+### Return type
+
+[**Answer**](Answer.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCodeLspLocate
+
+> Answer PostCodeLspLocate(ctx).Query(query).Execute()
+
+Finds where a symbol lives: its definition, its references, its type or its implementations, chosen by relation (definition, reference, type, implementation — empty means definition).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	query := *openapiclient.NewQuery() // Query | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CodeAPI.PostCodeLspLocate(context.Background()).Query(query).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeLspLocate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCodeLspLocate`: Answer
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeLspLocate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCodeLspLocateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md) |  | 
+
+### Return type
+
+[**Answer**](Answer.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCodeLspSymbols
+
+> Answer PostCodeLspSymbols(ctx).Query(query).Execute()
+
+Outlines one file: every declaration in it, with its kind and its span.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	query := *openapiclient.NewQuery() // Query | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CodeAPI.PostCodeLspSymbols(context.Background()).Query(query).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeLspSymbols``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCodeLspSymbols`: Answer
+	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeLspSymbols`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCodeLspSymbolsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | [**Query**](Query.md) |  | 
+
+### Return type
+
+[**Answer**](Answer.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

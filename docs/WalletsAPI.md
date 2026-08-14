@@ -4,20 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Wallets**](WalletsAPI.md#CloudGetV1Wallets) | **Get** /v1/wallets | Returns the caller org&#39;s wallets, newest first, optionally NARROWED within the org by project, agent or account.
-[**CloudGetV1WalletsAccounts**](WalletsAPI.md#CloudGetV1WalletsAccounts) | **Get** /v1/wallets/accounts | Returns the caller org&#39;s wallet accounts, newest first.
-[**CloudGetV1WalletsId**](WalletsAPI.md#CloudGetV1WalletsId) | **Get** /v1/wallets/{id} | Returns one of the caller org&#39;s wallets: its scope, custody kind, tier, chain and on-chain address.
-[**CloudPostV1Wallets**](WalletsAPI.md#CloudPostV1Wallets) | **Post** /v1/wallets | Provisions a new signing identity under one of the caller org&#39;s accounts and answers the stored wallet including its on-chain address.
-[**CloudPostV1WalletsAccounts**](WalletsAPI.md#CloudPostV1WalletsAccounts) | **Post** /v1/wallets/accounts | Opens a named wallet account for the caller&#39;s org.
-[**CloudPostV1WalletsIdKeys**](WalletsAPI.md#CloudPostV1WalletsIdKeys) | **Post** /v1/wallets/{id}/keys | Rolls one wallet&#39;s signing material through its own custody backend and answers the wallet with whatever address that produced.
-[**CloudPostV1WalletsIdSafeTx**](WalletsAPI.md#CloudPostV1WalletsIdSafeTx) | **Post** /v1/wallets/{id}/safe-tx | Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring&#39;s threshold signature produced.
-[**CloudPostV1WalletsIdSign**](WalletsAPI.md#CloudPostV1WalletsIdSign) | **Post** /v1/wallets/{id}/sign | Produces a secp256k1 signature from one of the caller org&#39;s wallets over a 32-byte digest, through whichever custody backend that wallet uses.
+[**GetWallets**](WalletsAPI.md#GetWallets) | **Get** /v1/wallets | Returns the caller org&#39;s wallets, newest first, optionally NARROWED within the org by project, agent or account.
+[**GetWalletsAccounts**](WalletsAPI.md#GetWalletsAccounts) | **Get** /v1/wallets/accounts | Returns the caller org&#39;s wallet accounts, newest first.
+[**GetWalletsById**](WalletsAPI.md#GetWalletsById) | **Get** /v1/wallets/{id} | Returns one of the caller org&#39;s wallets: its scope, custody kind, tier, chain and on-chain address.
+[**PostWallets**](WalletsAPI.md#PostWallets) | **Post** /v1/wallets | Provisions a new signing identity under one of the caller org&#39;s accounts and answers the stored wallet including its on-chain address.
+[**PostWalletsAccounts**](WalletsAPI.md#PostWalletsAccounts) | **Post** /v1/wallets/accounts | Opens a named wallet account for the caller&#39;s org.
+[**PostWalletsByIdKeys**](WalletsAPI.md#PostWalletsByIdKeys) | **Post** /v1/wallets/{id}/keys | Rolls one wallet&#39;s signing material through its own custody backend and answers the wallet with whatever address that produced.
+[**PostWalletsByIdSign**](WalletsAPI.md#PostWalletsByIdSign) | **Post** /v1/wallets/{id}/sign | Produces a secp256k1 signature from one of the caller org&#39;s wallets over a 32-byte digest, through whichever custody backend that wallet uses.
+[**PostWalletsByIdTransactions**](WalletsAPI.md#PostWalletsByIdTransactions) | **Post** /v1/wallets/{id}/transactions | Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring&#39;s threshold signature produced.
 
 
 
-## CloudGetV1Wallets
+## GetWallets
 
-> CloudWalletList CloudGetV1Wallets(ctx).Project(project).Agent(agent).Account(account).Execute()
+> WalletList GetWallets(ctx).Project(project).Agent(agent).Account(account).Execute()
 
 Returns the caller org's wallets, newest first, optionally NARROWED within the org by project, agent or account.
 
@@ -42,13 +42,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAPI.CloudGetV1Wallets(context.Background()).Project(project).Agent(agent).Account(account).Execute()
+	resp, r, err := apiClient.WalletsAPI.GetWallets(context.Background()).Project(project).Agent(agent).Account(account).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.CloudGetV1Wallets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.GetWallets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Wallets`: CloudWalletList
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.CloudGetV1Wallets`: %v\n", resp)
+	// response from `GetWallets`: WalletList
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.GetWallets`: %v\n", resp)
 }
 ```
 
@@ -58,7 +58,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1WalletsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetWalletsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -69,11 +69,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudWalletList**](CloudWalletList.md)
+[**WalletList**](WalletList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -85,9 +85,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1WalletsAccounts
+## GetWalletsAccounts
 
-> CloudAccountList CloudGetV1WalletsAccounts(ctx).Execute()
+> AccountList GetWalletsAccounts(ctx).Execute()
 
 Returns the caller org's wallet accounts, newest first.
 
@@ -109,13 +109,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAPI.CloudGetV1WalletsAccounts(context.Background()).Execute()
+	resp, r, err := apiClient.WalletsAPI.GetWalletsAccounts(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.CloudGetV1WalletsAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.GetWalletsAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1WalletsAccounts`: CloudAccountList
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.CloudGetV1WalletsAccounts`: %v\n", resp)
+	// response from `GetWalletsAccounts`: AccountList
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.GetWalletsAccounts`: %v\n", resp)
 }
 ```
 
@@ -125,16 +125,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1WalletsAccountsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetWalletsAccountsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudAccountList**](CloudAccountList.md)
+[**AccountList**](AccountList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -146,9 +146,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1WalletsAccountsR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1WalletsId
+## GetWalletsById
 
-> CloudWallet CloudGetV1WalletsId(ctx, id).Execute()
+> Wallet GetWalletsById(ctx, id).Execute()
 
 Returns one of the caller org's wallets: its scope, custody kind, tier, chain and on-chain address.
 
@@ -171,13 +171,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAPI.CloudGetV1WalletsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.WalletsAPI.GetWalletsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.CloudGetV1WalletsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.GetWalletsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1WalletsId`: CloudWallet
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.CloudGetV1WalletsId`: %v\n", resp)
+	// response from `GetWalletsById`: Wallet
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.GetWalletsById`: %v\n", resp)
 }
 ```
 
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1WalletsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetWalletsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -200,11 +200,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudWallet**](CloudWallet.md)
+[**Wallet**](Wallet.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -216,9 +216,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Wallets
+## PostWallets
 
-> CloudWallet CloudPostV1Wallets(ctx).CloudCreateWalletIn(cloudCreateWalletIn).Execute()
+> Wallet PostWallets(ctx).CreateWalletIn(createWalletIn).Execute()
 
 Provisions a new signing identity under one of the caller org's accounts and answers the stored wallet including its on-chain address.
 
@@ -237,17 +237,17 @@ import (
 )
 
 func main() {
-	cloudCreateWalletIn := *openapiclient.NewCloudCreateWalletIn() // CloudCreateWalletIn | 
+	createWalletIn := *openapiclient.NewCreateWalletIn() // CreateWalletIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAPI.CloudPostV1Wallets(context.Background()).CloudCreateWalletIn(cloudCreateWalletIn).Execute()
+	resp, r, err := apiClient.WalletsAPI.PostWallets(context.Background()).CreateWalletIn(createWalletIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.CloudPostV1Wallets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.PostWallets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Wallets`: CloudWallet
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.CloudPostV1Wallets`: %v\n", resp)
+	// response from `PostWallets`: Wallet
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.PostWallets`: %v\n", resp)
 }
 ```
 
@@ -257,20 +257,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1WalletsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostWalletsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCreateWalletIn** | [**CloudCreateWalletIn**](CloudCreateWalletIn.md) |  | 
+ **createWalletIn** | [**CreateWalletIn**](CreateWalletIn.md) |  | 
 
 ### Return type
 
-[**CloudWallet**](CloudWallet.md)
+[**Wallet**](Wallet.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -282,9 +282,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1WalletsAccounts
+## PostWalletsAccounts
 
-> CloudWalletAccount CloudPostV1WalletsAccounts(ctx).CloudCreateAccountIn(cloudCreateAccountIn).Execute()
+> WalletAccount PostWalletsAccounts(ctx).CreateAccountIn(createAccountIn).Execute()
 
 Opens a named wallet account for the caller's org.
 
@@ -303,17 +303,17 @@ import (
 )
 
 func main() {
-	cloudCreateAccountIn := *openapiclient.NewCloudCreateAccountIn() // CloudCreateAccountIn | 
+	createAccountIn := *openapiclient.NewCreateAccountIn() // CreateAccountIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAPI.CloudPostV1WalletsAccounts(context.Background()).CloudCreateAccountIn(cloudCreateAccountIn).Execute()
+	resp, r, err := apiClient.WalletsAPI.PostWalletsAccounts(context.Background()).CreateAccountIn(createAccountIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.CloudPostV1WalletsAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.PostWalletsAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1WalletsAccounts`: CloudWalletAccount
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.CloudPostV1WalletsAccounts`: %v\n", resp)
+	// response from `PostWalletsAccounts`: WalletAccount
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.PostWalletsAccounts`: %v\n", resp)
 }
 ```
 
@@ -323,20 +323,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1WalletsAccountsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostWalletsAccountsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCreateAccountIn** | [**CloudCreateAccountIn**](CloudCreateAccountIn.md) |  | 
+ **createAccountIn** | [**CreateAccountIn**](CreateAccountIn.md) |  | 
 
 ### Return type
 
-[**CloudWalletAccount**](CloudWalletAccount.md)
+[**WalletAccount**](WalletAccount.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -348,9 +348,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1WalletsIdKeys
+## PostWalletsByIdKeys
 
-> CloudWallet CloudPostV1WalletsIdKeys(ctx, id).Execute()
+> Wallet PostWalletsByIdKeys(ctx, id).Execute()
 
 Rolls one wallet's signing material through its own custody backend and answers the wallet with whatever address that produced.
 
@@ -373,13 +373,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAPI.CloudPostV1WalletsIdKeys(context.Background(), id).Execute()
+	resp, r, err := apiClient.WalletsAPI.PostWalletsByIdKeys(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.CloudPostV1WalletsIdKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.PostWalletsByIdKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1WalletsIdKeys`: CloudWallet
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.CloudPostV1WalletsIdKeys`: %v\n", resp)
+	// response from `PostWalletsByIdKeys`: Wallet
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.PostWalletsByIdKeys`: %v\n", resp)
 }
 ```
 
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1WalletsIdKeysRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostWalletsByIdKeysRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -402,11 +402,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudWallet**](CloudWallet.md)
+[**Wallet**](Wallet.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -418,81 +418,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1WalletsIdSafeTx
+## PostWalletsByIdSign
 
-> CloudSafeProposal CloudPostV1WalletsIdSafeTx(ctx, id).CloudSafeTxIn(cloudSafeTxIn).Execute()
-
-Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring's threshold signature produced.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "wal_4b1e77" // string | 
-	cloudSafeTxIn := *openapiclient.NewCloudSafeTxIn() // CloudSafeTxIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAPI.CloudPostV1WalletsIdSafeTx(context.Background(), id).CloudSafeTxIn(cloudSafeTxIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.CloudPostV1WalletsIdSafeTx``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1WalletsIdSafeTx`: CloudSafeProposal
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.CloudPostV1WalletsIdSafeTx`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1WalletsIdSafeTxRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **cloudSafeTxIn** | [**CloudSafeTxIn**](CloudSafeTxIn.md) |  | 
-
-### Return type
-
-[**CloudSafeProposal**](CloudSafeProposal.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1WalletsIdSign
-
-> CloudSignature CloudPostV1WalletsIdSign(ctx, id).CloudSignIn(cloudSignIn).Execute()
+> Signature PostWalletsByIdSign(ctx, id).SignIn(signIn).Execute()
 
 Produces a secp256k1 signature from one of the caller org's wallets over a 32-byte digest, through whichever custody backend that wallet uses.
 
@@ -512,17 +440,17 @@ import (
 
 func main() {
 	id := "wal_4b1e77" // string | 
-	cloudSignIn := *openapiclient.NewCloudSignIn() // CloudSignIn | 
+	signIn := *openapiclient.NewSignIn() // SignIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAPI.CloudPostV1WalletsIdSign(context.Background(), id).CloudSignIn(cloudSignIn).Execute()
+	resp, r, err := apiClient.WalletsAPI.PostWalletsByIdSign(context.Background(), id).SignIn(signIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.CloudPostV1WalletsIdSign``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.PostWalletsByIdSign``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1WalletsIdSign`: CloudSignature
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.CloudPostV1WalletsIdSign`: %v\n", resp)
+	// response from `PostWalletsByIdSign`: Signature
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.PostWalletsByIdSign`: %v\n", resp)
 }
 ```
 
@@ -536,21 +464,93 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1WalletsIdSignRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostWalletsByIdSignRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudSignIn** | [**CloudSignIn**](CloudSignIn.md) |  | 
+ **signIn** | [**SignIn**](SignIn.md) |  | 
 
 ### Return type
 
-[**CloudSignature**](CloudSignature.md)
+[**Signature**](Signature.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostWalletsByIdTransactions
+
+> SafeProposal PostWalletsByIdTransactions(ctx, id).SafeTxIn(safeTxIn).Execute()
+
+Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring's threshold signature produced.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "wal_4b1e77" // string | 
+	safeTxIn := *openapiclient.NewSafeTxIn() // SafeTxIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WalletsAPI.PostWalletsByIdTransactions(context.Background(), id).SafeTxIn(safeTxIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAPI.PostWalletsByIdTransactions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostWalletsByIdTransactions`: SafeProposal
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAPI.PostWalletsByIdTransactions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostWalletsByIdTransactionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **safeTxIn** | [**SafeTxIn**](SafeTxIn.md) |  | 
+
+### Return type
+
+[**SafeProposal**](SafeProposal.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

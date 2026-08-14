@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1X402SettlementsId**](X402API.md#CloudGetV1X402SettlementsId) | **Get** /v1/x402/settlements/{id} | Settlement reads one x402 payment receipt by id.
+[**GetX402SettlementsById**](X402API.md#GetX402SettlementsById) | **Get** /v1/x402/settlements/{id} | Settlement reads one x402 payment receipt by id.
 
 
 
-## CloudGetV1X402SettlementsId
+## GetX402SettlementsById
 
-> CloudReceipt CloudGetV1X402SettlementsId(ctx, id).Execute()
+> Receipt GetX402SettlementsById(ctx, id).Execute()
 
 Settlement reads one x402 payment receipt by id.
 
@@ -29,17 +29,17 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the `id` field of a Receipt, and the value of the X-Payment-Response header a paid request answers with).
+	id := "id_example" // string | ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the `id` field of a Receipt, and the `transaction` of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with).
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.X402API.CloudGetV1X402SettlementsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.X402API.GetX402SettlementsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `X402API.CloudGetV1X402SettlementsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `X402API.GetX402SettlementsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1X402SettlementsId`: CloudReceipt
-	fmt.Fprintf(os.Stdout, "Response from `X402API.CloudGetV1X402SettlementsId`: %v\n", resp)
+	// response from `GetX402SettlementsById`: Receipt
+	fmt.Fprintf(os.Stdout, "Response from `X402API.GetX402SettlementsById`: %v\n", resp)
 }
 ```
 
@@ -49,11 +49,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the &#x60;id&#x60; field of a Receipt, and the value of the X-Payment-Response header a paid request answers with). | 
+**id** | **string** | ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the &#x60;id&#x60; field of a Receipt, and the &#x60;transaction&#x60; of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with). | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1X402SettlementsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetX402SettlementsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -62,11 +62,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudReceipt**](CloudReceipt.md)
+[**Receipt**](Receipt.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

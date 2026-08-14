@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Validators**](ValidatorsAPI.md#CloudGetV1Validators) | **Get** /v1/validators | Returns the validator slots the caller&#39;s org has claimed.
-[**CloudGetV1ValidatorsChallenge**](ValidatorsAPI.md#CloudGetV1ValidatorsChallenge) | **Get** /v1/validators/challenge | Issues the single-use nonce and the exact message a wallet must sign to claim a validator slot.
-[**CloudGetV1ValidatorsTokenId**](ValidatorsAPI.md#CloudGetV1ValidatorsTokenId) | **Get** /v1/validators/{tokenId} | Returns one claimed validator slot, scoped to the caller&#39;s org.
-[**CloudPostV1Validators**](ValidatorsAPI.md#CloudPostV1Validators) | **Post** /v1/validators | Claims a validator slot and provisions its node, after proving the caller&#39;s wallet owns the slot&#39;s NFT.
+[**GetValidators**](ValidatorsAPI.md#GetValidators) | **Get** /v1/validators | Returns the validator slots the caller&#39;s org has claimed.
+[**GetValidatorsByTokenid**](ValidatorsAPI.md#GetValidatorsByTokenid) | **Get** /v1/validators/{tokenId} | Returns one claimed validator slot, scoped to the caller&#39;s org.
+[**GetValidatorsChallenge**](ValidatorsAPI.md#GetValidatorsChallenge) | **Get** /v1/validators/challenge | Issues the single-use nonce and the exact message a wallet must sign to claim a validator slot.
+[**PostValidators**](ValidatorsAPI.md#PostValidators) | **Post** /v1/validators | Claims a validator slot and provisions its node, after proving the caller&#39;s wallet owns the slot&#39;s NFT.
 
 
 
-## CloudGetV1Validators
+## GetValidators
 
-> CloudValidatorList CloudGetV1Validators(ctx).Limit(limit).Execute()
+> ValidatorList GetValidators(ctx).Limit(limit).Execute()
 
 Returns the validator slots the caller's org has claimed.
 
@@ -36,13 +36,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ValidatorsAPI.CloudGetV1Validators(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.ValidatorsAPI.GetValidators(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorsAPI.CloudGetV1Validators``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorsAPI.GetValidators``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Validators`: CloudValidatorList
-	fmt.Fprintf(os.Stdout, "Response from `ValidatorsAPI.CloudGetV1Validators`: %v\n", resp)
+	// response from `GetValidators`: ValidatorList
+	fmt.Fprintf(os.Stdout, "Response from `ValidatorsAPI.GetValidators`: %v\n", resp)
 }
 ```
 
@@ -52,7 +52,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ValidatorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetValidatorsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -61,11 +61,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudValidatorList**](CloudValidatorList.md)
+[**ValidatorList**](ValidatorList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -77,75 +77,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ValidatorsChallenge
+## GetValidatorsByTokenid
 
-> CloudChallengeView CloudGetV1ValidatorsChallenge(ctx).TokenId(tokenId).Execute()
-
-Issues the single-use nonce and the exact message a wallet must sign to claim a validator slot.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	tokenId := "tokenId_example" // string | TokenID is the Validator-tier GenesisNFT token id, as a decimal string in the `?tokenId=` query. A value that is not a positive integer is 400. It is a string rather than a number because the parse that has always served this route trims surrounding whitespace, and one parse rule is better than two. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ValidatorsAPI.CloudGetV1ValidatorsChallenge(context.Background()).TokenId(tokenId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorsAPI.CloudGetV1ValidatorsChallenge``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1ValidatorsChallenge`: CloudChallengeView
-	fmt.Fprintf(os.Stdout, "Response from `ValidatorsAPI.CloudGetV1ValidatorsChallenge`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1ValidatorsChallengeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tokenId** | **string** | TokenID is the Validator-tier GenesisNFT token id, as a decimal string in the &#x60;?tokenId&#x3D;&#x60; query. A value that is not a positive integer is 400. It is a string rather than a number because the parse that has always served this route trims surrounding whitespace, and one parse rule is better than two. | 
-
-### Return type
-
-[**CloudChallengeView**](CloudChallengeView.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1ValidatorsTokenId
-
-> CloudSlotView CloudGetV1ValidatorsTokenId(ctx, tokenId).Execute()
+> SlotView GetValidatorsByTokenid(ctx, tokenId).Execute()
 
 Returns one claimed validator slot, scoped to the caller's org.
 
@@ -168,13 +102,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ValidatorsAPI.CloudGetV1ValidatorsTokenId(context.Background(), tokenId).Execute()
+	resp, r, err := apiClient.ValidatorsAPI.GetValidatorsByTokenid(context.Background(), tokenId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorsAPI.CloudGetV1ValidatorsTokenId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorsAPI.GetValidatorsByTokenid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ValidatorsTokenId`: CloudSlotView
-	fmt.Fprintf(os.Stdout, "Response from `ValidatorsAPI.CloudGetV1ValidatorsTokenId`: %v\n", resp)
+	// response from `GetValidatorsByTokenid`: SlotView
+	fmt.Fprintf(os.Stdout, "Response from `ValidatorsAPI.GetValidatorsByTokenid`: %v\n", resp)
 }
 ```
 
@@ -188,7 +122,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ValidatorsTokenIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetValidatorsByTokenidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -197,11 +131,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSlotView**](CloudSlotView.md)
+[**SlotView**](SlotView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -213,9 +147,75 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Validators
+## GetValidatorsChallenge
 
-> CloudSlotView CloudPostV1Validators(ctx).CloudValidatorClaim(cloudValidatorClaim).Execute()
+> ChallengeView GetValidatorsChallenge(ctx).TokenId(tokenId).Execute()
+
+Issues the single-use nonce and the exact message a wallet must sign to claim a validator slot.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	tokenId := "tokenId_example" // string | TokenID is the Validator-tier GenesisNFT token id, as a decimal string in the `?tokenId=` query. A value that is not a positive integer is 400. It is a string rather than a number because the parse that has always served this route trims surrounding whitespace, and one parse rule is better than two. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ValidatorsAPI.GetValidatorsChallenge(context.Background()).TokenId(tokenId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorsAPI.GetValidatorsChallenge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetValidatorsChallenge`: ChallengeView
+	fmt.Fprintf(os.Stdout, "Response from `ValidatorsAPI.GetValidatorsChallenge`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetValidatorsChallengeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tokenId** | **string** | TokenID is the Validator-tier GenesisNFT token id, as a decimal string in the &#x60;?tokenId&#x3D;&#x60; query. A value that is not a positive integer is 400. It is a string rather than a number because the parse that has always served this route trims surrounding whitespace, and one parse rule is better than two. | 
+
+### Return type
+
+[**ChallengeView**](ChallengeView.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostValidators
+
+> SlotView PostValidators(ctx).ValidatorClaim(validatorClaim).Execute()
 
 Claims a validator slot and provisions its node, after proving the caller's wallet owns the slot's NFT.
 
@@ -234,17 +234,17 @@ import (
 )
 
 func main() {
-	cloudValidatorClaim := *openapiclient.NewCloudValidatorClaim() // CloudValidatorClaim | 
+	validatorClaim := *openapiclient.NewValidatorClaim() // ValidatorClaim | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ValidatorsAPI.CloudPostV1Validators(context.Background()).CloudValidatorClaim(cloudValidatorClaim).Execute()
+	resp, r, err := apiClient.ValidatorsAPI.PostValidators(context.Background()).ValidatorClaim(validatorClaim).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorsAPI.CloudPostV1Validators``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorsAPI.PostValidators``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Validators`: CloudSlotView
-	fmt.Fprintf(os.Stdout, "Response from `ValidatorsAPI.CloudPostV1Validators`: %v\n", resp)
+	// response from `PostValidators`: SlotView
+	fmt.Fprintf(os.Stdout, "Response from `ValidatorsAPI.PostValidators`: %v\n", resp)
 }
 ```
 
@@ -254,20 +254,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ValidatorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostValidatorsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudValidatorClaim** | [**CloudValidatorClaim**](CloudValidatorClaim.md) |  | 
+ **validatorClaim** | [**ValidatorClaim**](ValidatorClaim.md) |  | 
 
 ### Return type
 
-[**CloudSlotView**](CloudSlotView.md)
+[**SlotView**](SlotView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,21 +4,21 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Channels**](ChannelsAPI.md#CloudGetV1Channels) | **Get** /v1/channels | Returns every chat transport channels can talk to — Discord, Slack, Teams and Telegram — with the caller org&#39;s own facts on each: whether it is connected and to which account, what the transport supports, the org&#39;s DM and group access policies, and how many pairing requests are pending approval.
-[**CloudGetV1ChannelsAllowlist**](ChannelsAPI.md#CloudGetV1ChannelsAllowlist) | **Get** /v1/channels/allowlist | Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
-[**CloudGetV1ChannelsInbox**](ChannelsAPI.md#CloudGetV1ChannelsInbox) | **Get** /v1/channels/inbox | Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
-[**CloudGetV1ChannelsPairing**](ChannelsAPI.md#CloudGetV1ChannelsPairing) | **Get** /v1/channels/pairing | Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
-[**CloudPostV1ChannelsByChannelSend**](ChannelsAPI.md#CloudPostV1ChannelsByChannelSend) | **Post** /v1/channels/{channel}/send | 
-[**CloudPostV1ChannelsPairingApprove**](ChannelsAPI.md#CloudPostV1ChannelsPairingApprove) | **Post** /v1/channels/pairing/approve | Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
-[**CloudPutV1ChannelsAllowlist**](ChannelsAPI.md#CloudPutV1ChannelsAllowlist) | **Put** /v1/channels/allowlist | Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
+[**GetChannels**](ChannelsAPI.md#GetChannels) | **Get** /v1/channels | Reports every chat channel this org can send through, and whether it can send through it right now.
+[**GetChannelsAllowlist**](ChannelsAPI.md#GetChannelsAllowlist) | **Get** /v1/channels/allowlist | Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
+[**GetChannelsInbox**](ChannelsAPI.md#GetChannelsInbox) | **Get** /v1/channels/inbox | Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
+[**GetChannelsPairing**](ChannelsAPI.md#GetChannelsPairing) | **Get** /v1/channels/pairing | Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
+[**PostChannelsByChannelSend**](ChannelsAPI.md#PostChannelsByChannelSend) | **Post** /v1/channels/{channel}/send | Send a message from your org&#39;s bot to one chat room
+[**PostChannelsPairingApprove**](ChannelsAPI.md#PostChannelsPairingApprove) | **Post** /v1/channels/pairing/approve | Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
+[**PutChannelsAllowlist**](ChannelsAPI.md#PutChannelsAllowlist) | **Put** /v1/channels/allowlist | Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
 
 
 
-## CloudGetV1Channels
+## GetChannels
 
-> CloudChatChannels CloudGetV1Channels(ctx).Execute()
+> ChatChannels GetChannels(ctx).Execute()
 
-Returns every chat transport channels can talk to — Discord, Slack, Teams and Telegram — with the caller org's own facts on each: whether it is connected and to which account, what the transport supports, the org's DM and group access policies, and how many pairing requests are pending approval.
+Reports every chat channel this org can send through, and whether it can send through it right now.
 
 
 
@@ -38,13 +38,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.CloudGetV1Channels(context.Background()).Execute()
+	resp, r, err := apiClient.ChannelsAPI.GetChannels(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.CloudGetV1Channels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Channels`: CloudChatChannels
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.CloudGetV1Channels`: %v\n", resp)
+	// response from `GetChannels`: ChatChannels
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannels`: %v\n", resp)
 }
 ```
 
@@ -54,16 +54,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ChannelsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudChatChannels**](CloudChatChannels.md)
+[**ChatChannels**](ChatChannels.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -75,9 +75,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1ChannelsRequest 
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ChannelsAllowlist
+## GetChannelsAllowlist
 
-> CloudAllowlistView CloudGetV1ChannelsAllowlist(ctx).Channel(channel).Execute()
+> AllowlistView GetChannelsAllowlist(ctx).Channel(channel).Execute()
 
 Returns the caller org's access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org's named access groups.
 
@@ -100,13 +100,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.CloudGetV1ChannelsAllowlist(context.Background()).Channel(channel).Execute()
+	resp, r, err := apiClient.ChannelsAPI.GetChannelsAllowlist(context.Background()).Channel(channel).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.CloudGetV1ChannelsAllowlist``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannelsAllowlist``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ChannelsAllowlist`: CloudAllowlistView
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.CloudGetV1ChannelsAllowlist`: %v\n", resp)
+	// response from `GetChannelsAllowlist`: AllowlistView
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannelsAllowlist`: %v\n", resp)
 }
 ```
 
@@ -116,7 +116,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ChannelsAllowlistRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelsAllowlistRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -125,11 +125,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAllowlistView**](CloudAllowlistView.md)
+[**AllowlistView**](AllowlistView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -141,9 +141,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ChannelsInbox
+## GetChannelsInbox
 
-> CloudInboxPage CloudGetV1ChannelsInbox(ctx).Since(since).Limit(limit).Execute()
+> InboxPage GetChannelsInbox(ctx).Since(since).Limit(limit).Execute()
 
 Returns the messages people have sent to the caller org's connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
 
@@ -167,13 +167,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.CloudGetV1ChannelsInbox(context.Background()).Since(since).Limit(limit).Execute()
+	resp, r, err := apiClient.ChannelsAPI.GetChannelsInbox(context.Background()).Since(since).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.CloudGetV1ChannelsInbox``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannelsInbox``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ChannelsInbox`: CloudInboxPage
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.CloudGetV1ChannelsInbox`: %v\n", resp)
+	// response from `GetChannelsInbox`: InboxPage
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannelsInbox`: %v\n", resp)
 }
 ```
 
@@ -183,7 +183,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ChannelsInboxRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelsInboxRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -193,11 +193,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudInboxPage**](CloudInboxPage.md)
+[**InboxPage**](InboxPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -209,9 +209,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ChannelsPairing
+## GetChannelsPairing
 
-> CloudPairingQueue CloudGetV1ChannelsPairing(ctx).Execute()
+> PairingQueue GetChannelsPairing(ctx).Execute()
 
 Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \"pairing\" and who is not allowed yet.
 
@@ -233,13 +233,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.CloudGetV1ChannelsPairing(context.Background()).Execute()
+	resp, r, err := apiClient.ChannelsAPI.GetChannelsPairing(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.CloudGetV1ChannelsPairing``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannelsPairing``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ChannelsPairing`: CloudPairingQueue
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.CloudGetV1ChannelsPairing`: %v\n", resp)
+	// response from `GetChannelsPairing`: PairingQueue
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannelsPairing`: %v\n", resp)
 }
 ```
 
@@ -249,16 +249,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ChannelsPairingRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetChannelsPairingRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPairingQueue**](CloudPairingQueue.md)
+[**PairingQueue**](PairingQueue.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -270,9 +270,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1ChannelsPairingR
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ChannelsByChannelSend
+## PostChannelsByChannelSend
 
-> CloudPostV1ChannelsByChannelSend(ctx, channel).Execute()
+> PostChannelsByChannelSend(ctx, channel).Execute()
+
+Send a message from your org's bot to one chat room
 
 
 
@@ -293,9 +295,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ChannelsAPI.CloudPostV1ChannelsByChannelSend(context.Background(), channel).Execute()
+	r, err := apiClient.ChannelsAPI.PostChannelsByChannelSend(context.Background(), channel).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.CloudPostV1ChannelsByChannelSend``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.PostChannelsByChannelSend``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -311,7 +313,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ChannelsByChannelSendRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostChannelsByChannelSendRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -324,7 +326,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -336,9 +338,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ChannelsPairingApprove
+## PostChannelsPairingApprove
 
-> CloudPairingApproved CloudPostV1ChannelsPairingApprove(ctx).CloudApprovePairingIn(cloudApprovePairingIn).Execute()
+> PairingApproved PostChannelsPairingApprove(ctx).ApprovePairingIn(approvePairingIn).Execute()
 
 Turns one pending pairing code into a standing allow entry, so that person can DM the org's bot on that channel from now on.
 
@@ -357,17 +359,17 @@ import (
 )
 
 func main() {
-	cloudApprovePairingIn := *openapiclient.NewCloudApprovePairingIn() // CloudApprovePairingIn | 
+	approvePairingIn := *openapiclient.NewApprovePairingIn() // ApprovePairingIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.CloudPostV1ChannelsPairingApprove(context.Background()).CloudApprovePairingIn(cloudApprovePairingIn).Execute()
+	resp, r, err := apiClient.ChannelsAPI.PostChannelsPairingApprove(context.Background()).ApprovePairingIn(approvePairingIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.CloudPostV1ChannelsPairingApprove``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.PostChannelsPairingApprove``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ChannelsPairingApprove`: CloudPairingApproved
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.CloudPostV1ChannelsPairingApprove`: %v\n", resp)
+	// response from `PostChannelsPairingApprove`: PairingApproved
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.PostChannelsPairingApprove`: %v\n", resp)
 }
 ```
 
@@ -377,20 +379,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ChannelsPairingApproveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostChannelsPairingApproveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudApprovePairingIn** | [**CloudApprovePairingIn**](CloudApprovePairingIn.md) |  | 
+ **approvePairingIn** | [**ApprovePairingIn**](ApprovePairingIn.md) |  | 
 
 ### Return type
 
-[**CloudPairingApproved**](CloudPairingApproved.md)
+[**PairingApproved**](PairingApproved.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -402,9 +404,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1ChannelsAllowlist
+## PutChannelsAllowlist
 
-> CloudAllowlistView CloudPutV1ChannelsAllowlist(ctx).CloudAllowlistPutIn(cloudAllowlistPutIn).Execute()
+> AllowlistView PutChannelsAllowlist(ctx).AllowlistPutIn(allowlistPutIn).Execute()
 
 Edits the caller org's access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
 
@@ -423,17 +425,17 @@ import (
 )
 
 func main() {
-	cloudAllowlistPutIn := *openapiclient.NewCloudAllowlistPutIn() // CloudAllowlistPutIn | 
+	allowlistPutIn := *openapiclient.NewAllowlistPutIn() // AllowlistPutIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelsAPI.CloudPutV1ChannelsAllowlist(context.Background()).CloudAllowlistPutIn(cloudAllowlistPutIn).Execute()
+	resp, r, err := apiClient.ChannelsAPI.PutChannelsAllowlist(context.Background()).AllowlistPutIn(allowlistPutIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.CloudPutV1ChannelsAllowlist``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.PutChannelsAllowlist``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1ChannelsAllowlist`: CloudAllowlistView
-	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.CloudPutV1ChannelsAllowlist`: %v\n", resp)
+	// response from `PutChannelsAllowlist`: AllowlistView
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.PutChannelsAllowlist`: %v\n", resp)
 }
 ```
 
@@ -443,20 +445,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1ChannelsAllowlistRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutChannelsAllowlistRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudAllowlistPutIn** | [**CloudAllowlistPutIn**](CloudAllowlistPutIn.md) |  | 
+ **allowlistPutIn** | [**AllowlistPutIn**](AllowlistPutIn.md) |  | 
 
 ### Return type
 
-[**CloudAllowlistView**](CloudAllowlistView.md)
+[**AllowlistView**](AllowlistView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

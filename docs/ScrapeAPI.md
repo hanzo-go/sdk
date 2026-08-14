@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudPostV1Scrape**](ScrapeAPI.md#CloudPostV1Scrape) | **Post** /v1/scrape | 
-[**WebsearchWebScrape**](ScrapeAPI.md#WebsearchWebScrape) | **Post** /v1/websearch/v1/scrape | Scrape a URL to markdown (Firecrawl response shape)
-[**WebsearchWebScrapeBare**](ScrapeAPI.md#WebsearchWebScrapeBare) | **Post** /v1/websearch/scrape | Scrape a URL to markdown (bare alias of /v1/websearch/v1/scrape)
+[**PostScrape**](ScrapeAPI.md#PostScrape) | **Post** /v1/scrape | Fetch one page and get its extracted markdown, in the firecrawl envelope.
 
 
 
-## CloudPostV1Scrape
+## PostScrape
 
-> CloudPostV1Scrape(ctx).Execute()
+> PostScrape(ctx).Execute()
+
+Fetch one page and get its extracted markdown, in the firecrawl envelope.
 
 
 
@@ -32,9 +32,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ScrapeAPI.CloudPostV1Scrape(context.Background()).Execute()
+	r, err := apiClient.ScrapeAPI.PostScrape(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ScrapeAPI.CloudPostV1Scrape``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ScrapeAPI.PostScrape``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -46,7 +46,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ScrapeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostScrapeRequest struct via the builder pattern
 
 
 ### Return type
@@ -55,140 +55,12 @@ Other parameters are passed through a pointer to a apiCloudPostV1ScrapeRequest s
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## WebsearchWebScrape
-
-> WebsearchScrapeResponse WebsearchWebScrape(ctx).WebsearchScrapeRequest(websearchScrapeRequest).Execute()
-
-Scrape a URL to markdown (Firecrawl response shape)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	websearchScrapeRequest := *openapiclient.NewWebsearchScrapeRequest("Url_example") // WebsearchScrapeRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ScrapeAPI.WebsearchWebScrape(context.Background()).WebsearchScrapeRequest(websearchScrapeRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ScrapeAPI.WebsearchWebScrape``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `WebsearchWebScrape`: WebsearchScrapeResponse
-	fmt.Fprintf(os.Stdout, "Response from `ScrapeAPI.WebsearchWebScrape`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiWebsearchWebScrapeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **websearchScrapeRequest** | [**WebsearchScrapeRequest**](WebsearchScrapeRequest.md) |  | 
-
-### Return type
-
-[**WebsearchScrapeResponse**](WebsearchScrapeResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## WebsearchWebScrapeBare
-
-> WebsearchScrapeResponse WebsearchWebScrapeBare(ctx).WebsearchScrapeRequest(websearchScrapeRequest).Execute()
-
-Scrape a URL to markdown (bare alias of /v1/websearch/v1/scrape)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	websearchScrapeRequest := *openapiclient.NewWebsearchScrapeRequest("Url_example") // WebsearchScrapeRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ScrapeAPI.WebsearchWebScrapeBare(context.Background()).WebsearchScrapeRequest(websearchScrapeRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ScrapeAPI.WebsearchWebScrapeBare``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `WebsearchWebScrapeBare`: WebsearchScrapeResponse
-	fmt.Fprintf(os.Stdout, "Response from `ScrapeAPI.WebsearchWebScrapeBare`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiWebsearchWebScrapeBareRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **websearchScrapeRequest** | [**WebsearchScrapeRequest**](WebsearchScrapeRequest.md) |  | 
-
-### Return type
-
-[**WebsearchScrapeResponse**](WebsearchScrapeResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -4,39 +4,39 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1BooksAccounts**](BooksAPI.md#CloudGetV1BooksAccounts) | **Get** /v1/books/accounts | ListAccounts returns the org&#39;s chart of accounts — the seeded fixed chart every posting key in the ledger refers to.
-[**CloudGetV1BooksBalanceSheet**](BooksAPI.md#CloudGetV1BooksBalanceSheet) | **Get** /v1/books/balance-sheet | BalanceSheet returns the org&#39;s Balance Sheet as of &#x60;to&#x60; (empty &#x3D; all time), with the Assets &#x3D;&#x3D; Liabilities + Equity equation proof.
-[**CloudGetV1BooksBankTransactions**](BooksAPI.md#CloudGetV1BooksBankTransactions) | **Get** /v1/books/bank/transactions | ListBankTransactions returns the org&#39;s normalized bank transactions, newest first — every row the import and connector paths have ingested, with its amount in exact cents, its direction, and whether it has been matched to a voucher yet.
-[**CloudGetV1BooksBankUnreconciled**](BooksAPI.md#CloudGetV1BooksBankUnreconciled) | **Get** /v1/books/bank/unreconciled | ListUnreconciled returns the org&#39;s unmatched bank inflows and their open clarifying questions — the queue a human answers so an unexplained deposit is never guessed into revenue.
-[**CloudGetV1BooksExport**](BooksAPI.md#CloudGetV1BooksExport) | **Get** /v1/books/export | ExportPackage returns the complete financial package for the caller&#39;s org over (from, to]: the trial balance, the P&amp;L, the balance sheet, and the GL detail behind them — the four statements a tax preparer or an investor asks for, assembled from the one ledger in a single read so they cannot disagree with each other.
-[**CloudGetV1BooksGl**](BooksAPI.md#CloudGetV1BooksGl) | **Get** /v1/books/gl | ListGL returns the org&#39;s most recent GL Entry rows, newest first.
-[**CloudGetV1BooksInbox**](BooksAPI.md#CloudGetV1BooksInbox) | **Get** /v1/books/inbox | ListInbox returns the org&#39;s open document queue — everything uploaded but not yet booked, newest first, each with its extracted summary and the confidence the scanner resolved its category at.
-[**CloudGetV1BooksMetrics**](BooksAPI.md#CloudGetV1BooksMetrics) | **Get** /v1/books/metrics | Metrics returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
-[**CloudGetV1BooksPnl**](BooksAPI.md#CloudGetV1BooksPnl) | **Get** /v1/books/pnl | ProfitAndLoss returns the org&#39;s accrual-basis Profit &amp; Loss over an optional (from, to] window of RFC3339 posting times: recognized revenue, matched cost, and the net.
-[**CloudGetV1BooksQuestions**](BooksAPI.md#CloudGetV1BooksQuestions) | **Get** /v1/books/questions | ListQuestions returns the clarifying questions the caller&#39;s own recent GL raises — the unusual postings a founder should look at (outliers, reversals, round-offs, uncosted revenue, an overdrawn wallet), sharpest first.
-[**CloudGetV1BooksRules**](BooksAPI.md#CloudGetV1BooksRules) | **Get** /v1/books/rules | ListRules returns the org&#39;s auto-categorization rules, highest priority first.
-[**CloudGetV1BooksTransactions**](BooksAPI.md#CloudGetV1BooksTransactions) | **Get** /v1/books/transactions | ListTransactions returns the org&#39;s booked ledger as a single-line register, newest first: one row per voucher, with its date, description, vendor, category, source and amount in exact cents.
-[**CloudGetV1BooksTrialBalance**](BooksAPI.md#CloudGetV1BooksTrialBalance) | **Get** /v1/books/trial-balance | TrialBalance returns the org&#39;s trial balance over an optional [from, to] window of RFC3339 posting times, including the opening/closing columns and the TotalDebit &#x3D;&#x3D; TotalCredit proof that the books balance.
-[**CloudGetV1BooksVendors**](BooksAPI.md#CloudGetV1BooksVendors) | **Get** /v1/books/vendors | ListVendors returns the org&#39;s vendor book: each canonical vendor, the alias spellings a receipt may print it under, and the expense account new bills from it default to.
-[**CloudPostV1BooksAsk**](BooksAPI.md#CloudPostV1BooksAsk) | **Post** /v1/books/ask | AskBooks answers a plain-language question about the caller&#39;s own books — \&quot;what is my MRR?\&quot;, \&quot;how long is my runway?\&quot; — with figures taken from their ledger, never a guessed number.
-[**CloudPostV1BooksBankExchange**](BooksAPI.md#CloudPostV1BooksBankExchange) | **Post** /v1/books/bank/exchange | 
-[**CloudPostV1BooksBankImport**](BooksAPI.md#CloudPostV1BooksBankImport) | **Post** /v1/books/bank/import | 
-[**CloudPostV1BooksBankLinkToken**](BooksAPI.md#CloudPostV1BooksBankLinkToken) | **Post** /v1/books/bank/link-token | 
-[**CloudPostV1BooksBankSync**](BooksAPI.md#CloudPostV1BooksBankSync) | **Post** /v1/books/bank/sync | SyncBank pulls every connected bank (Plaid/Teller) for the caller&#39;s org, maps each fetched transaction to a posting and books it idempotently, then advances that connector&#39;s cursor so the next sync resumes where this one stopped.
-[**CloudPostV1BooksInbox**](BooksAPI.md#CloudPostV1BooksInbox) | **Post** /v1/books/inbox | 
-[**CloudPostV1BooksRules**](BooksAPI.md#CloudPostV1BooksRules) | **Post** /v1/books/rules | UpsertRule creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row&#39;s category and priority.
-[**CloudPostV1BooksScan**](BooksAPI.md#CloudPostV1BooksScan) | **Post** /v1/books/scan | 
-[**CloudPostV1BooksScanBook**](BooksAPI.md#CloudPostV1BooksScanBook) | **Post** /v1/books/scan/book | BookScan posts a reviewed scanned bill to the ledger.
-[**CloudPostV1BooksSync**](BooksAPI.md#CloudPostV1BooksSync) | **Post** /v1/books/sync | Sync ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
-[**CloudPostV1BooksVendors**](BooksAPI.md#CloudPostV1BooksVendors) | **Post** /v1/books/vendors | UpsertVendor creates or updates one vendor in the org&#39;s vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row&#39;s aliases and default category.
+[**GetBooksAccounts**](BooksAPI.md#GetBooksAccounts) | **Get** /v1/books/accounts | Returns the org&#39;s chart of accounts — the seeded fixed chart every posting key in the ledger refers to.
+[**GetBooksBankTransactions**](BooksAPI.md#GetBooksBankTransactions) | **Get** /v1/books/bank/transactions | Returns the org&#39;s normalized bank transactions, newest first — every row the import and connector paths have ingested, with its amount in exact cents, its direction, and whether it has been matched to a voucher yet.
+[**GetBooksBankUnreconciled**](BooksAPI.md#GetBooksBankUnreconciled) | **Get** /v1/books/bank/unreconciled | Returns the org&#39;s unmatched bank inflows and their open clarifying questions — the queue a human answers so an unexplained deposit is never guessed into revenue.
+[**GetBooksExport**](BooksAPI.md#GetBooksExport) | **Get** /v1/books/export | Returns the complete financial package for the caller&#39;s org over (from, to]: the trial balance, the P&amp;L, the balance sheet, and the GL detail behind them — the four statements a tax preparer or an investor asks for, assembled from the one ledger in a single read so they cannot disagree with each other.
+[**GetBooksGl**](BooksAPI.md#GetBooksGl) | **Get** /v1/books/gl | ListGL returns the org&#39;s most recent GL Entry rows, newest first.
+[**GetBooksInbox**](BooksAPI.md#GetBooksInbox) | **Get** /v1/books/inbox | Returns the org&#39;s open document queue — everything uploaded but not yet booked, newest first, each with its extracted summary and the confidence the scanner resolved its category at.
+[**GetBooksMetrics**](BooksAPI.md#GetBooksMetrics) | **Get** /v1/books/metrics | Metrics returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
+[**GetBooksPnl**](BooksAPI.md#GetBooksPnl) | **Get** /v1/books/pnl | Returns the org&#39;s accrual-basis Profit &amp; Loss over an optional (from, to] window of RFC3339 posting times: recognized revenue, matched cost, and the net.
+[**GetBooksPosition**](BooksAPI.md#GetBooksPosition) | **Get** /v1/books/position | Returns the org&#39;s Balance Sheet as of &#x60;to&#x60; (empty &#x3D; all time), with the Assets &#x3D;&#x3D; Liabilities + Equity equation proof.
+[**GetBooksQuestions**](BooksAPI.md#GetBooksQuestions) | **Get** /v1/books/questions | Returns the clarifying questions the caller&#39;s own recent GL raises — the unusual postings a founder should look at (outliers, reversals, round-offs, uncosted revenue, an overdrawn wallet), sharpest first.
+[**GetBooksRules**](BooksAPI.md#GetBooksRules) | **Get** /v1/books/rules | Returns the org&#39;s auto-categorization rules, highest priority first.
+[**GetBooksTransactions**](BooksAPI.md#GetBooksTransactions) | **Get** /v1/books/transactions | Returns the org&#39;s booked ledger as a single-line register, newest first: one row per voucher, with its date, description, vendor, category, source and amount in exact cents.
+[**GetBooksTrial**](BooksAPI.md#GetBooksTrial) | **Get** /v1/books/trial | Returns the org&#39;s trial balance over an optional [from, to] window of RFC3339 posting times, including the opening/closing columns and the TotalDebit &#x3D;&#x3D; TotalCredit proof that the books balance.
+[**GetBooksVendors**](BooksAPI.md#GetBooksVendors) | **Get** /v1/books/vendors | Returns the org&#39;s vendor book: each canonical vendor, the alias spellings a receipt may print it under, and the expense account new bills from it default to.
+[**PostBooksAsk**](BooksAPI.md#PostBooksAsk) | **Post** /v1/books/ask | Answers a plain-language question about the caller&#39;s own books — \&quot;what is my MRR?\&quot;, \&quot;how long is my runway?\&quot; — with figures taken from their ledger, never a guessed number.
+[**PostBooksBankExchange**](BooksAPI.md#PostBooksBankExchange) | **Post** /v1/books/bank/exchange | Finish connecting a bank account (not yet available)
+[**PostBooksBankImport**](BooksAPI.md#PostBooksBankImport) | **Post** /v1/books/bank/import | Import a bank statement file into your books
+[**PostBooksBankSync**](BooksAPI.md#PostBooksBankSync) | **Post** /v1/books/bank/sync | Pulls every connected bank (Plaid/Teller) for the caller&#39;s org, maps each fetched transaction to a posting and books it idempotently, then advances that connector&#39;s cursor so the next sync resumes where this one stopped.
+[**PostBooksBankToken**](BooksAPI.md#PostBooksBankToken) | **Post** /v1/books/bank/token | Begin connecting a bank account (not yet available)
+[**PostBooksInbox**](BooksAPI.md#PostBooksInbox) | **Post** /v1/books/inbox | Queue a document for later scanning
+[**PostBooksRules**](BooksAPI.md#PostBooksRules) | **Post** /v1/books/rules | Creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row&#39;s category and priority.
+[**PostBooksScan**](BooksAPI.md#PostBooksScan) | **Post** /v1/books/scan | Scan a receipt or invoice into a proposed voucher
+[**PostBooksScanBook**](BooksAPI.md#PostBooksScanBook) | **Post** /v1/books/scan/book | Posts a reviewed scanned bill to the ledger.
+[**PostBooksSync**](BooksAPI.md#PostBooksSync) | **Post** /v1/books/sync | Sync ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
+[**PostBooksVendors**](BooksAPI.md#PostBooksVendors) | **Post** /v1/books/vendors | Creates or updates one vendor in the org&#39;s vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row&#39;s aliases and default category.
 
 
 
-## CloudGetV1BooksAccounts
+## GetBooksAccounts
 
-> []CloudAccount CloudGetV1BooksAccounts(ctx).Sandbox(sandbox).Execute()
+> []Account GetBooksAccounts(ctx).Sandbox(sandbox).Execute()
 
-ListAccounts returns the org's chart of accounts — the seeded fixed chart every posting key in the ledger refers to.
+Returns the org's chart of accounts — the seeded fixed chart every posting key in the ledger refers to.
 
 
 
@@ -57,13 +57,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksAccounts(context.Background()).Sandbox(sandbox).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksAccounts(context.Background()).Sandbox(sandbox).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksAccounts`: []CloudAccount
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksAccounts`: %v\n", resp)
+	// response from `GetBooksAccounts`: []Account
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksAccounts`: %v\n", resp)
 }
 ```
 
@@ -73,7 +73,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksAccountsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksAccountsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -82,11 +82,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]CloudAccount**](CloudAccount.md)
+[**[]Account**](Account.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -98,79 +98,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksBalanceSheet
+## GetBooksBankTransactions
 
-> CloudBalanceSheet CloudGetV1BooksBalanceSheet(ctx).Sandbox(sandbox).To(to).Execute()
+> []BankTxnRow GetBooksBankTransactions(ctx).Sandbox(sandbox).Limit(limit).Execute()
 
-BalanceSheet returns the org's Balance Sheet as of `to` (empty = all time), with the Assets == Liabilities + Equity equation proof.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	sandbox := "sandbox_example" // string | Sandbox reads the org's SANDBOX ledger when it is exactly \"true\". (optional)
-	to := "2026-03-31T23:59:59Z" // string | To is the RFC3339 instant the statement is struck as of. Empty means all time. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksBalanceSheet(context.Background()).Sandbox(sandbox).To(to).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksBalanceSheet``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1BooksBalanceSheet`: CloudBalanceSheet
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksBalanceSheet`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1BooksBalanceSheetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sandbox** | **string** | Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. | 
- **to** | **string** | To is the RFC3339 instant the statement is struck as of. Empty means all time. | 
-
-### Return type
-
-[**CloudBalanceSheet**](CloudBalanceSheet.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1BooksBankTransactions
-
-> []CloudBankTxnRow CloudGetV1BooksBankTransactions(ctx).Sandbox(sandbox).Limit(limit).Execute()
-
-ListBankTransactions returns the org's normalized bank transactions, newest first — every row the import and connector paths have ingested, with its amount in exact cents, its direction, and whether it has been matched to a voucher yet.
+Returns the org's normalized bank transactions, newest first — every row the import and connector paths have ingested, with its amount in exact cents, its direction, and whether it has been matched to a voucher yet.
 
 
 
@@ -192,13 +124,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksBankTransactions(context.Background()).Sandbox(sandbox).Limit(limit).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksBankTransactions(context.Background()).Sandbox(sandbox).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksBankTransactions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksBankTransactions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksBankTransactions`: []CloudBankTxnRow
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksBankTransactions`: %v\n", resp)
+	// response from `GetBooksBankTransactions`: []BankTxnRow
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksBankTransactions`: %v\n", resp)
 }
 ```
 
@@ -208,7 +140,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksBankTransactionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksBankTransactionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -218,11 +150,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]CloudBankTxnRow**](CloudBankTxnRow.md)
+[**[]BankTxnRow**](BankTxnRow.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -234,11 +166,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksBankUnreconciled
+## GetBooksBankUnreconciled
 
-> CloudUnreconciledOut CloudGetV1BooksBankUnreconciled(ctx).Sandbox(sandbox).Execute()
+> UnreconciledOut GetBooksBankUnreconciled(ctx).Sandbox(sandbox).Execute()
 
-ListUnreconciled returns the org's unmatched bank inflows and their open clarifying questions — the queue a human answers so an unexplained deposit is never guessed into revenue.
+Returns the org's unmatched bank inflows and their open clarifying questions — the queue a human answers so an unexplained deposit is never guessed into revenue.
 
 
 
@@ -259,13 +191,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksBankUnreconciled(context.Background()).Sandbox(sandbox).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksBankUnreconciled(context.Background()).Sandbox(sandbox).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksBankUnreconciled``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksBankUnreconciled``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksBankUnreconciled`: CloudUnreconciledOut
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksBankUnreconciled`: %v\n", resp)
+	// response from `GetBooksBankUnreconciled`: UnreconciledOut
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksBankUnreconciled`: %v\n", resp)
 }
 ```
 
@@ -275,7 +207,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksBankUnreconciledRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksBankUnreconciledRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -284,11 +216,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudUnreconciledOut**](CloudUnreconciledOut.md)
+[**UnreconciledOut**](UnreconciledOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -300,11 +232,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksExport
+## GetBooksExport
 
-> CloudFinancialPackage CloudGetV1BooksExport(ctx).Sandbox(sandbox).From(from).To(to).Format(format).Limit(limit).Execute()
+> FinancialPackage GetBooksExport(ctx).Sandbox(sandbox).From(from).To(to).Format(format).Limit(limit).Execute()
 
-ExportPackage returns the complete financial package for the caller's org over (from, to]: the trial balance, the P&L, the balance sheet, and the GL detail behind them — the four statements a tax preparer or an investor asks for, assembled from the one ledger in a single read so they cannot disagree with each other.
+Returns the complete financial package for the caller's org over (from, to]: the trial balance, the P&L, the balance sheet, and the GL detail behind them — the four statements a tax preparer or an investor asks for, assembled from the one ledger in a single read so they cannot disagree with each other.
 
 
 
@@ -329,13 +261,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksExport(context.Background()).Sandbox(sandbox).From(from).To(to).Format(format).Limit(limit).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksExport(context.Background()).Sandbox(sandbox).From(from).To(to).Format(format).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksExport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksExport``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksExport`: CloudFinancialPackage
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksExport`: %v\n", resp)
+	// response from `GetBooksExport`: FinancialPackage
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksExport`: %v\n", resp)
 }
 ```
 
@@ -345,7 +277,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksExportRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksExportRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -358,11 +290,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudFinancialPackage**](CloudFinancialPackage.md)
+[**FinancialPackage**](FinancialPackage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -374,9 +306,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksGl
+## GetBooksGl
 
-> []CloudGLRow CloudGetV1BooksGl(ctx).Sandbox(sandbox).Limit(limit).Execute()
+> []GLRow GetBooksGl(ctx).Sandbox(sandbox).Limit(limit).Execute()
 
 ListGL returns the org's most recent GL Entry rows, newest first.
 
@@ -400,13 +332,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksGl(context.Background()).Sandbox(sandbox).Limit(limit).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksGl(context.Background()).Sandbox(sandbox).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksGl``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksGl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksGl`: []CloudGLRow
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksGl`: %v\n", resp)
+	// response from `GetBooksGl`: []GLRow
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksGl`: %v\n", resp)
 }
 ```
 
@@ -416,7 +348,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksGlRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksGlRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -426,11 +358,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]CloudGLRow**](CloudGLRow.md)
+[**[]GLRow**](GLRow.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -442,11 +374,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksInbox
+## GetBooksInbox
 
-> CloudInboxOut CloudGetV1BooksInbox(ctx).Sandbox(sandbox).Execute()
+> InboxOut GetBooksInbox(ctx).Sandbox(sandbox).Execute()
 
-ListInbox returns the org's open document queue — everything uploaded but not yet booked, newest first, each with its extracted summary and the confidence the scanner resolved its category at.
+Returns the org's open document queue — everything uploaded but not yet booked, newest first, each with its extracted summary and the confidence the scanner resolved its category at.
 
 
 
@@ -467,13 +399,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksInbox(context.Background()).Sandbox(sandbox).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksInbox(context.Background()).Sandbox(sandbox).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksInbox``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksInbox``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksInbox`: CloudInboxOut
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksInbox`: %v\n", resp)
+	// response from `GetBooksInbox`: InboxOut
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksInbox`: %v\n", resp)
 }
 ```
 
@@ -483,7 +415,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksInboxRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksInboxRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -492,11 +424,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudInboxOut**](CloudInboxOut.md)
+[**InboxOut**](InboxOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -508,9 +440,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksMetrics
+## GetBooksMetrics
 
-> CloudMetricsResponse CloudGetV1BooksMetrics(ctx).Sandbox(sandbox).From(from).To(to).Execute()
+> MetricsResponse GetBooksMetrics(ctx).Sandbox(sandbox).From(from).To(to).Execute()
 
 Metrics returns the org's deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
 
@@ -535,13 +467,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksMetrics(context.Background()).Sandbox(sandbox).From(from).To(to).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksMetrics(context.Background()).Sandbox(sandbox).From(from).To(to).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksMetrics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksMetrics`: CloudMetricsResponse
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksMetrics`: %v\n", resp)
+	// response from `GetBooksMetrics`: MetricsResponse
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksMetrics`: %v\n", resp)
 }
 ```
 
@@ -551,7 +483,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksMetricsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksMetricsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -562,11 +494,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudMetricsResponse**](CloudMetricsResponse.md)
+[**MetricsResponse**](MetricsResponse.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -578,11 +510,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksPnl
+## GetBooksPnl
 
-> CloudPnL CloudGetV1BooksPnl(ctx).Sandbox(sandbox).From(from).To(to).Execute()
+> PnL GetBooksPnl(ctx).Sandbox(sandbox).From(from).To(to).Execute()
 
-ProfitAndLoss returns the org's accrual-basis Profit & Loss over an optional (from, to] window of RFC3339 posting times: recognized revenue, matched cost, and the net.
+Returns the org's accrual-basis Profit & Loss over an optional (from, to] window of RFC3339 posting times: recognized revenue, matched cost, and the net.
 
 
 
@@ -605,13 +537,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksPnl(context.Background()).Sandbox(sandbox).From(from).To(to).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksPnl(context.Background()).Sandbox(sandbox).From(from).To(to).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksPnl``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksPnl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksPnl`: CloudPnL
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksPnl`: %v\n", resp)
+	// response from `GetBooksPnl`: PnL
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksPnl`: %v\n", resp)
 }
 ```
 
@@ -621,7 +553,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksPnlRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksPnlRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -632,11 +564,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudPnL**](CloudPnL.md)
+[**PnL**](PnL.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -648,11 +580,79 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksQuestions
+## GetBooksPosition
 
-> CloudQuestionsResponse CloudGetV1BooksQuestions(ctx).Sandbox(sandbox).Execute()
+> BalanceSheet GetBooksPosition(ctx).Sandbox(sandbox).To(to).Execute()
 
-ListQuestions returns the clarifying questions the caller's own recent GL raises — the unusual postings a founder should look at (outliers, reversals, round-offs, uncosted revenue, an overdrawn wallet), sharpest first.
+Returns the org's Balance Sheet as of `to` (empty = all time), with the Assets == Liabilities + Equity equation proof.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	sandbox := "sandbox_example" // string | Sandbox reads the org's SANDBOX ledger when it is exactly \"true\". (optional)
+	to := "2026-03-31T23:59:59Z" // string | To is the RFC3339 instant the statement is struck as of. Empty means all time. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BooksAPI.GetBooksPosition(context.Background()).Sandbox(sandbox).To(to).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksPosition``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBooksPosition`: BalanceSheet
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksPosition`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBooksPositionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sandbox** | **string** | Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. | 
+ **to** | **string** | To is the RFC3339 instant the statement is struck as of. Empty means all time. | 
+
+### Return type
+
+[**BalanceSheet**](BalanceSheet.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBooksQuestions
+
+> QuestionsResponse GetBooksQuestions(ctx).Sandbox(sandbox).Execute()
+
+Returns the clarifying questions the caller's own recent GL raises — the unusual postings a founder should look at (outliers, reversals, round-offs, uncosted revenue, an overdrawn wallet), sharpest first.
 
 
 
@@ -673,13 +673,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksQuestions(context.Background()).Sandbox(sandbox).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksQuestions(context.Background()).Sandbox(sandbox).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksQuestions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksQuestions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksQuestions`: CloudQuestionsResponse
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksQuestions`: %v\n", resp)
+	// response from `GetBooksQuestions`: QuestionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksQuestions`: %v\n", resp)
 }
 ```
 
@@ -689,7 +689,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksQuestionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksQuestionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -698,11 +698,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudQuestionsResponse**](CloudQuestionsResponse.md)
+[**QuestionsResponse**](QuestionsResponse.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -714,11 +714,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksRules
+## GetBooksRules
 
-> CloudRulesOut CloudGetV1BooksRules(ctx).Sandbox(sandbox).Execute()
+> RulesOut GetBooksRules(ctx).Sandbox(sandbox).Execute()
 
-ListRules returns the org's auto-categorization rules, highest priority first.
+Returns the org's auto-categorization rules, highest priority first.
 
 
 
@@ -739,13 +739,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksRules(context.Background()).Sandbox(sandbox).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksRules(context.Background()).Sandbox(sandbox).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksRules`: CloudRulesOut
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksRules`: %v\n", resp)
+	// response from `GetBooksRules`: RulesOut
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksRules`: %v\n", resp)
 }
 ```
 
@@ -755,7 +755,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksRulesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksRulesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -764,11 +764,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRulesOut**](CloudRulesOut.md)
+[**RulesOut**](RulesOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -780,11 +780,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksTransactions
+## GetBooksTransactions
 
-> CloudTransactionsOut CloudGetV1BooksTransactions(ctx).Sandbox(sandbox).From(from).To(to).Category(category).Vendor(vendor).Limit(limit).Execute()
+> TransactionsOut GetBooksTransactions(ctx).Sandbox(sandbox).From(from).To(to).Category(category).Vendor(vendor).Limit(limit).Execute()
 
-ListTransactions returns the org's booked ledger as a single-line register, newest first: one row per voucher, with its date, description, vendor, category, source and amount in exact cents.
+Returns the org's booked ledger as a single-line register, newest first: one row per voucher, with its date, description, vendor, category, source and amount in exact cents.
 
 
 
@@ -810,13 +810,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksTransactions(context.Background()).Sandbox(sandbox).From(from).To(to).Category(category).Vendor(vendor).Limit(limit).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksTransactions(context.Background()).Sandbox(sandbox).From(from).To(to).Category(category).Vendor(vendor).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksTransactions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksTransactions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksTransactions`: CloudTransactionsOut
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksTransactions`: %v\n", resp)
+	// response from `GetBooksTransactions`: TransactionsOut
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksTransactions`: %v\n", resp)
 }
 ```
 
@@ -826,7 +826,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksTransactionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksTransactionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -840,11 +840,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTransactionsOut**](CloudTransactionsOut.md)
+[**TransactionsOut**](TransactionsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -856,11 +856,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksTrialBalance
+## GetBooksTrial
 
-> CloudTrialBalance CloudGetV1BooksTrialBalance(ctx).Sandbox(sandbox).From(from).To(to).Execute()
+> TrialBalance GetBooksTrial(ctx).Sandbox(sandbox).From(from).To(to).Execute()
 
-TrialBalance returns the org's trial balance over an optional [from, to] window of RFC3339 posting times, including the opening/closing columns and the TotalDebit == TotalCredit proof that the books balance.
+Returns the org's trial balance over an optional [from, to] window of RFC3339 posting times, including the opening/closing columns and the TotalDebit == TotalCredit proof that the books balance.
 
 
 
@@ -883,13 +883,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksTrialBalance(context.Background()).Sandbox(sandbox).From(from).To(to).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksTrial(context.Background()).Sandbox(sandbox).From(from).To(to).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksTrialBalance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksTrial``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksTrialBalance`: CloudTrialBalance
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksTrialBalance`: %v\n", resp)
+	// response from `GetBooksTrial`: TrialBalance
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksTrial`: %v\n", resp)
 }
 ```
 
@@ -899,7 +899,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksTrialBalanceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksTrialRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -910,11 +910,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTrialBalance**](CloudTrialBalance.md)
+[**TrialBalance**](TrialBalance.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -926,11 +926,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BooksVendors
+## GetBooksVendors
 
-> CloudVendorsOut CloudGetV1BooksVendors(ctx).Sandbox(sandbox).Execute()
+> VendorsOut GetBooksVendors(ctx).Sandbox(sandbox).Execute()
 
-ListVendors returns the org's vendor book: each canonical vendor, the alias spellings a receipt may print it under, and the expense account new bills from it default to.
+Returns the org's vendor book: each canonical vendor, the alias spellings a receipt may print it under, and the expense account new bills from it default to.
 
 
 
@@ -951,13 +951,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudGetV1BooksVendors(context.Background()).Sandbox(sandbox).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBooksVendors(context.Background()).Sandbox(sandbox).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudGetV1BooksVendors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksVendors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BooksVendors`: CloudVendorsOut
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudGetV1BooksVendors`: %v\n", resp)
+	// response from `GetBooksVendors`: VendorsOut
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksVendors`: %v\n", resp)
 }
 ```
 
@@ -967,7 +967,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BooksVendorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBooksVendorsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -976,11 +976,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudVendorsOut**](CloudVendorsOut.md)
+[**VendorsOut**](VendorsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -992,11 +992,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksAsk
+## PostBooksAsk
 
-> CloudAskResponse CloudPostV1BooksAsk(ctx).CloudAskRequest(cloudAskRequest).Execute()
+> AskResponse PostBooksAsk(ctx).AskRequest(askRequest).Execute()
 
-AskBooks answers a plain-language question about the caller's own books — \"what is my MRR?\", \"how long is my runway?\" — with figures taken from their ledger, never a guessed number.
+Answers a plain-language question about the caller's own books — \"what is my MRR?\", \"how long is my runway?\" — with figures taken from their ledger, never a guessed number.
 
 
 
@@ -1013,17 +1013,17 @@ import (
 )
 
 func main() {
-	cloudAskRequest := *openapiclient.NewCloudAskRequest() // CloudAskRequest | 
+	askRequest := *openapiclient.NewAskRequest() // AskRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksAsk(context.Background()).CloudAskRequest(cloudAskRequest).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksAsk(context.Background()).AskRequest(askRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksAsk``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksAsk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1BooksAsk`: CloudAskResponse
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksAsk`: %v\n", resp)
+	// response from `PostBooksAsk`: AskResponse
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksAsk`: %v\n", resp)
 }
 ```
 
@@ -1033,20 +1033,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksAskRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksAskRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudAskRequest** | [**CloudAskRequest**](CloudAskRequest.md) |  | 
+ **askRequest** | [**AskRequest**](AskRequest.md) |  | 
 
 ### Return type
 
-[**CloudAskResponse**](CloudAskResponse.md)
+[**AskResponse**](AskResponse.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1058,9 +1058,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksBankExchange
+## PostBooksBankExchange
 
-> CloudPostV1BooksBankExchange(ctx).Execute()
+> PostBooksBankExchange(ctx).Execute()
+
+Finish connecting a bank account (not yet available)
 
 
 
@@ -1080,9 +1082,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BooksAPI.CloudPostV1BooksBankExchange(context.Background()).Execute()
+	r, err := apiClient.BooksAPI.PostBooksBankExchange(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksBankExchange``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksBankExchange``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1094,7 +1096,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksBankExchangeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksBankExchangeRequest struct via the builder pattern
 
 
 ### Return type
@@ -1103,7 +1105,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1BooksBankExchan
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1115,9 +1117,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1BooksBankExchan
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksBankImport
+## PostBooksBankImport
 
-> CloudBankTally CloudPostV1BooksBankImport(ctx).Body(body).Execute()
+> BankTally PostBooksBankImport(ctx).Body(body).Execute()
+
+Import a bank statement file into your books
 
 
 
@@ -1138,13 +1142,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksBankImport(context.Background()).Body(body).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksBankImport(context.Background()).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksBankImport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksBankImport``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1BooksBankImport`: CloudBankTally
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksBankImport`: %v\n", resp)
+	// response from `PostBooksBankImport`: BankTally
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksBankImport`: %v\n", resp)
 }
 ```
 
@@ -1154,7 +1158,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksBankImportRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksBankImportRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1163,11 +1167,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudBankTally**](CloudBankTally.md)
+[**BankTally**](BankTally.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1179,9 +1183,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksBankLinkToken
+## PostBooksBankSync
 
-> CloudPostV1BooksBankLinkToken(ctx).Execute()
+> BankTally PostBooksBankSync(ctx).Execute()
+
+Pulls every connected bank (Plaid/Teller) for the caller's org, maps each fetched transaction to a posting and books it idempotently, then advances that connector's cursor so the next sync resumes where this one stopped.
 
 
 
@@ -1201,9 +1207,70 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BooksAPI.CloudPostV1BooksBankLinkToken(context.Background()).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksBankSync(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksBankLinkToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksBankSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostBooksBankSync`: BankTally
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksBankSync`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBooksBankSyncRequest struct via the builder pattern
+
+
+### Return type
+
+[**BankTally**](BankTally.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostBooksBankToken
+
+> PostBooksBankToken(ctx).Execute()
+
+Begin connecting a bank account (not yet available)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BooksAPI.PostBooksBankToken(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksBankToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1215,7 +1282,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksBankLinkTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksBankTokenRequest struct via the builder pattern
 
 
 ### Return type
@@ -1224,7 +1291,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1BooksBankLinkTo
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1236,70 +1303,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1BooksBankLinkTo
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksBankSync
+## PostBooksInbox
 
-> CloudBankTally CloudPostV1BooksBankSync(ctx).Execute()
+> InboxItem PostBooksInbox(ctx).Body(body).Execute()
 
-SyncBank pulls every connected bank (Plaid/Teller) for the caller's org, maps each fetched transaction to a posting and books it idempotently, then advances that connector's cursor so the next sync resumes where this one stopped.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksBankSync(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksBankSync``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1BooksBankSync`: CloudBankTally
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksBankSync`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1BooksBankSyncRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudBankTally**](CloudBankTally.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1BooksInbox
-
-> CloudInboxItem CloudPostV1BooksInbox(ctx).Body(body).Execute()
+Queue a document for later scanning
 
 
 
@@ -1320,13 +1328,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksInbox(context.Background()).Body(body).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksInbox(context.Background()).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksInbox``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksInbox``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1BooksInbox`: CloudInboxItem
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksInbox`: %v\n", resp)
+	// response from `PostBooksInbox`: InboxItem
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksInbox`: %v\n", resp)
 }
 ```
 
@@ -1336,7 +1344,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksInboxRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksInboxRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1345,11 +1353,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudInboxItem**](CloudInboxItem.md)
+[**InboxItem**](InboxItem.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1361,11 +1369,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksRules
+## PostBooksRules
 
-> CloudRule CloudPostV1BooksRules(ctx).CloudRule(cloudRule).Execute()
+> Rule PostBooksRules(ctx).Rule(rule).Execute()
 
-UpsertRule creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row's category and priority.
+Creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row's category and priority.
 
 
 
@@ -1382,17 +1390,17 @@ import (
 )
 
 func main() {
-	cloudRule := *openapiclient.NewCloudRule() // CloudRule | 
+	rule := *openapiclient.NewRule() // Rule | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksRules(context.Background()).CloudRule(cloudRule).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksRules(context.Background()).Rule(rule).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1BooksRules`: CloudRule
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksRules`: %v\n", resp)
+	// response from `PostBooksRules`: Rule
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksRules`: %v\n", resp)
 }
 ```
 
@@ -1402,20 +1410,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksRulesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksRulesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudRule** | [**CloudRule**](CloudRule.md) |  | 
+ **rule** | [**Rule**](Rule.md) |  | 
 
 ### Return type
 
-[**CloudRule**](CloudRule.md)
+[**Rule**](Rule.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1427,9 +1435,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksScan
+## PostBooksScan
 
-> CloudScanDraft CloudPostV1BooksScan(ctx).Body(body).Execute()
+> ScanDraft PostBooksScan(ctx).Body(body).Execute()
+
+Scan a receipt or invoice into a proposed voucher
 
 
 
@@ -1450,13 +1460,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksScan(context.Background()).Body(body).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksScan(context.Background()).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksScan``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksScan``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1BooksScan`: CloudScanDraft
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksScan`: %v\n", resp)
+	// response from `PostBooksScan`: ScanDraft
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksScan`: %v\n", resp)
 }
 ```
 
@@ -1466,7 +1476,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksScanRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksScanRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1475,11 +1485,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudScanDraft**](CloudScanDraft.md)
+[**ScanDraft**](ScanDraft.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1491,11 +1501,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksScanBook
+## PostBooksScanBook
 
-> CloudBookResponse CloudPostV1BooksScanBook(ctx).CloudBookRequest(cloudBookRequest).Execute()
+> BookResponse PostBooksScanBook(ctx).BookRequest(bookRequest).Execute()
 
-BookScan posts a reviewed scanned bill to the ledger.
+Posts a reviewed scanned bill to the ledger.
 
 
 
@@ -1512,17 +1522,17 @@ import (
 )
 
 func main() {
-	cloudBookRequest := *openapiclient.NewCloudBookRequest() // CloudBookRequest | 
+	bookRequest := *openapiclient.NewBookRequest() // BookRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksScanBook(context.Background()).CloudBookRequest(cloudBookRequest).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksScanBook(context.Background()).BookRequest(bookRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksScanBook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksScanBook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1BooksScanBook`: CloudBookResponse
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksScanBook`: %v\n", resp)
+	// response from `PostBooksScanBook`: BookResponse
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksScanBook`: %v\n", resp)
 }
 ```
 
@@ -1532,20 +1542,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksScanBookRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksScanBookRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudBookRequest** | [**CloudBookRequest**](CloudBookRequest.md) |  | 
+ **bookRequest** | [**BookRequest**](BookRequest.md) |  | 
 
 ### Return type
 
-[**CloudBookResponse**](CloudBookResponse.md)
+[**BookResponse**](BookResponse.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1557,9 +1567,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksSync
+## PostBooksSync
 
-> CloudSyncTally CloudPostV1BooksSync(ctx).Execute()
+> SyncTally PostBooksSync(ctx).Execute()
 
 Sync ingests the caller's OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
 
@@ -1581,13 +1591,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksSync(context.Background()).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksSync(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1BooksSync`: CloudSyncTally
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksSync`: %v\n", resp)
+	// response from `PostBooksSync`: SyncTally
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksSync`: %v\n", resp)
 }
 ```
 
@@ -1597,16 +1607,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksSyncRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksSyncRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudSyncTally**](CloudSyncTally.md)
+[**SyncTally**](SyncTally.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1618,11 +1628,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1BooksSyncReques
 [[Back to README]](../README.md)
 
 
-## CloudPostV1BooksVendors
+## PostBooksVendors
 
-> CloudVendorRow CloudPostV1BooksVendors(ctx).CloudVendorRow(cloudVendorRow).Execute()
+> VendorRow PostBooksVendors(ctx).VendorRow(vendorRow).Execute()
 
-UpsertVendor creates or updates one vendor in the org's vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row's aliases and default category.
+Creates or updates one vendor in the org's vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row's aliases and default category.
 
 
 
@@ -1639,17 +1649,17 @@ import (
 )
 
 func main() {
-	cloudVendorRow := *openapiclient.NewCloudVendorRow() // CloudVendorRow | 
+	vendorRow := *openapiclient.NewVendorRow() // VendorRow | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.CloudPostV1BooksVendors(context.Background()).CloudVendorRow(cloudVendorRow).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksVendors(context.Background()).VendorRow(vendorRow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.CloudPostV1BooksVendors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksVendors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1BooksVendors`: CloudVendorRow
-	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.CloudPostV1BooksVendors`: %v\n", resp)
+	// response from `PostBooksVendors`: VendorRow
+	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksVendors`: %v\n", resp)
 }
 ```
 
@@ -1659,20 +1669,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1BooksVendorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBooksVendorsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudVendorRow** | [**CloudVendorRow**](CloudVendorRow.md) |  | 
+ **vendorRow** | [**VendorRow**](VendorRow.md) |  | 
 
 ### Return type
 
-[**CloudVendorRow**](CloudVendorRow.md)
+[**VendorRow**](VendorRow.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

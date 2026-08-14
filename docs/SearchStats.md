@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DatabaseSize** | Pointer to **int64** |  | [optional] 
-**UsedDatabaseSize** | Pointer to **int64** |  | [optional] 
-**LastUpdate** | Pointer to **time.Time** |  | [optional] 
-**Indexes** | Pointer to [**map[string]SearchIndexStats**](SearchIndexStats.md) |  | [optional] 
+**SearchesPerDay** | Pointer to [**[]DayCount**](DayCount.md) | SearchesPerDay is always empty, for the same reason as totalSearches. | [optional] 
+**TotalDocuments** | Pointer to **int32** | TotalDocuments is the sum of every index&#39;s document count. | [optional] 
+**TotalSearches** | Pointer to **int32** | TotalSearches is always 0: Meilisearch keeps no query-history counter, so this surface reports the honest zero rather than an estimate. | [optional] 
+**TotalSessions** | Pointer to **int32** | TotalSessions is always 0, for the same reason as totalSearches. | [optional] 
 
 ## Methods
 
@@ -28,105 +28,105 @@ NewSearchStatsWithDefaults instantiates a new SearchStats object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetDatabaseSize
+### GetSearchesPerDay
 
-`func (o *SearchStats) GetDatabaseSize() int64`
+`func (o *SearchStats) GetSearchesPerDay() []DayCount`
 
-GetDatabaseSize returns the DatabaseSize field if non-nil, zero value otherwise.
+GetSearchesPerDay returns the SearchesPerDay field if non-nil, zero value otherwise.
 
-### GetDatabaseSizeOk
+### GetSearchesPerDayOk
 
-`func (o *SearchStats) GetDatabaseSizeOk() (*int64, bool)`
+`func (o *SearchStats) GetSearchesPerDayOk() (*[]DayCount, bool)`
 
-GetDatabaseSizeOk returns a tuple with the DatabaseSize field if it's non-nil, zero value otherwise
+GetSearchesPerDayOk returns a tuple with the SearchesPerDay field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDatabaseSize
+### SetSearchesPerDay
 
-`func (o *SearchStats) SetDatabaseSize(v int64)`
+`func (o *SearchStats) SetSearchesPerDay(v []DayCount)`
 
-SetDatabaseSize sets DatabaseSize field to given value.
+SetSearchesPerDay sets SearchesPerDay field to given value.
 
-### HasDatabaseSize
+### HasSearchesPerDay
 
-`func (o *SearchStats) HasDatabaseSize() bool`
+`func (o *SearchStats) HasSearchesPerDay() bool`
 
-HasDatabaseSize returns a boolean if a field has been set.
+HasSearchesPerDay returns a boolean if a field has been set.
 
-### GetUsedDatabaseSize
+### GetTotalDocuments
 
-`func (o *SearchStats) GetUsedDatabaseSize() int64`
+`func (o *SearchStats) GetTotalDocuments() int32`
 
-GetUsedDatabaseSize returns the UsedDatabaseSize field if non-nil, zero value otherwise.
+GetTotalDocuments returns the TotalDocuments field if non-nil, zero value otherwise.
 
-### GetUsedDatabaseSizeOk
+### GetTotalDocumentsOk
 
-`func (o *SearchStats) GetUsedDatabaseSizeOk() (*int64, bool)`
+`func (o *SearchStats) GetTotalDocumentsOk() (*int32, bool)`
 
-GetUsedDatabaseSizeOk returns a tuple with the UsedDatabaseSize field if it's non-nil, zero value otherwise
+GetTotalDocumentsOk returns a tuple with the TotalDocuments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUsedDatabaseSize
+### SetTotalDocuments
 
-`func (o *SearchStats) SetUsedDatabaseSize(v int64)`
+`func (o *SearchStats) SetTotalDocuments(v int32)`
 
-SetUsedDatabaseSize sets UsedDatabaseSize field to given value.
+SetTotalDocuments sets TotalDocuments field to given value.
 
-### HasUsedDatabaseSize
+### HasTotalDocuments
 
-`func (o *SearchStats) HasUsedDatabaseSize() bool`
+`func (o *SearchStats) HasTotalDocuments() bool`
 
-HasUsedDatabaseSize returns a boolean if a field has been set.
+HasTotalDocuments returns a boolean if a field has been set.
 
-### GetLastUpdate
+### GetTotalSearches
 
-`func (o *SearchStats) GetLastUpdate() time.Time`
+`func (o *SearchStats) GetTotalSearches() int32`
 
-GetLastUpdate returns the LastUpdate field if non-nil, zero value otherwise.
+GetTotalSearches returns the TotalSearches field if non-nil, zero value otherwise.
 
-### GetLastUpdateOk
+### GetTotalSearchesOk
 
-`func (o *SearchStats) GetLastUpdateOk() (*time.Time, bool)`
+`func (o *SearchStats) GetTotalSearchesOk() (*int32, bool)`
 
-GetLastUpdateOk returns a tuple with the LastUpdate field if it's non-nil, zero value otherwise
+GetTotalSearchesOk returns a tuple with the TotalSearches field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastUpdate
+### SetTotalSearches
 
-`func (o *SearchStats) SetLastUpdate(v time.Time)`
+`func (o *SearchStats) SetTotalSearches(v int32)`
 
-SetLastUpdate sets LastUpdate field to given value.
+SetTotalSearches sets TotalSearches field to given value.
 
-### HasLastUpdate
+### HasTotalSearches
 
-`func (o *SearchStats) HasLastUpdate() bool`
+`func (o *SearchStats) HasTotalSearches() bool`
 
-HasLastUpdate returns a boolean if a field has been set.
+HasTotalSearches returns a boolean if a field has been set.
 
-### GetIndexes
+### GetTotalSessions
 
-`func (o *SearchStats) GetIndexes() map[string]SearchIndexStats`
+`func (o *SearchStats) GetTotalSessions() int32`
 
-GetIndexes returns the Indexes field if non-nil, zero value otherwise.
+GetTotalSessions returns the TotalSessions field if non-nil, zero value otherwise.
 
-### GetIndexesOk
+### GetTotalSessionsOk
 
-`func (o *SearchStats) GetIndexesOk() (*map[string]SearchIndexStats, bool)`
+`func (o *SearchStats) GetTotalSessionsOk() (*int32, bool)`
 
-GetIndexesOk returns a tuple with the Indexes field if it's non-nil, zero value otherwise
+GetTotalSessionsOk returns a tuple with the TotalSessions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIndexes
+### SetTotalSessions
 
-`func (o *SearchStats) SetIndexes(v map[string]SearchIndexStats)`
+`func (o *SearchStats) SetTotalSessions(v int32)`
 
-SetIndexes sets Indexes field to given value.
+SetTotalSessions sets TotalSessions field to given value.
 
-### HasIndexes
+### HasTotalSessions
 
-`func (o *SearchStats) HasIndexes() bool`
+`func (o *SearchStats) HasTotalSessions() bool`
 
-HasIndexes returns a boolean if a field has been set.
+HasTotalSessions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

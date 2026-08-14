@@ -4,32 +4,32 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1IngressMiddlewaresId**](IngressAPI.md#CloudDeleteV1IngressMiddlewaresId) | **Delete** /v1/ingress/middlewares/{id} | DeleteMiddleware removes one of the caller org&#39;s edge transforms and hot-applies the change.
-[**CloudDeleteV1IngressRoutesId**](IngressAPI.md#CloudDeleteV1IngressRoutesId) | **Delete** /v1/ingress/routes/{id} | DeleteRoute removes one of the caller org&#39;s routing rules and hot-applies the shrunken table, freeing its host for another claim.
-[**CloudDeleteV1IngressServicesId**](IngressAPI.md#CloudDeleteV1IngressServicesId) | **Delete** /v1/ingress/services/{id} | DeleteService removes one of the caller org&#39;s backend pools and hot-applies the change.
-[**CloudGetV1IngressMiddlewares**](IngressAPI.md#CloudGetV1IngressMiddlewares) | **Get** /v1/ingress/middlewares | ListMiddlewares returns every edge transform the caller&#39;s org has configured, ordered by id.
-[**CloudGetV1IngressMiddlewaresId**](IngressAPI.md#CloudGetV1IngressMiddlewaresId) | **Get** /v1/ingress/middlewares/{id} | GetMiddleware returns one of the caller org&#39;s edge transforms by id.
-[**CloudGetV1IngressRoutes**](IngressAPI.md#CloudGetV1IngressRoutes) | **Get** /v1/ingress/routes | ListRoutes returns every routing rule the caller&#39;s org has configured, ordered by id.
-[**CloudGetV1IngressRoutesId**](IngressAPI.md#CloudGetV1IngressRoutesId) | **Get** /v1/ingress/routes/{id} | GetRoute returns one of the caller org&#39;s routing rules by id.
-[**CloudGetV1IngressServices**](IngressAPI.md#CloudGetV1IngressServices) | **Get** /v1/ingress/services | ListServices returns every backend pool the caller&#39;s org has configured, ordered by id.
-[**CloudGetV1IngressServicesId**](IngressAPI.md#CloudGetV1IngressServicesId) | **Get** /v1/ingress/services/{id} | GetService returns one of the caller org&#39;s backend pools by id.
-[**CloudGetV1IngressStatus**](IngressAPI.md#CloudGetV1IngressStatus) | **Get** /v1/ingress/status | Status reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
-[**CloudGetV1IngressTls**](IngressAPI.md#CloudGetV1IngressTls) | **Get** /v1/ingress/tls | GetTLS returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
-[**CloudPostV1IngressMiddlewares**](IngressAPI.md#CloudPostV1IngressMiddlewares) | **Post** /v1/ingress/middlewares | PutMiddleware creates or replaces one edge transform and hot-applies it.
-[**CloudPostV1IngressRoutes**](IngressAPI.md#CloudPostV1IngressRoutes) | **Post** /v1/ingress/routes | PutRoute creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
-[**CloudPostV1IngressServices**](IngressAPI.md#CloudPostV1IngressServices) | **Post** /v1/ingress/services | PutService creates or replaces one backend pool and hot-applies it.
-[**CloudPutV1IngressMiddlewaresId**](IngressAPI.md#CloudPutV1IngressMiddlewaresId) | **Put** /v1/ingress/middlewares/{id} | PutMiddleware creates or replaces one edge transform and hot-applies it.
-[**CloudPutV1IngressRoutesId**](IngressAPI.md#CloudPutV1IngressRoutesId) | **Put** /v1/ingress/routes/{id} | PutRoute creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
-[**CloudPutV1IngressServicesId**](IngressAPI.md#CloudPutV1IngressServicesId) | **Put** /v1/ingress/services/{id} | PutService creates or replaces one backend pool and hot-applies it.
-[**CloudPutV1IngressTls**](IngressAPI.md#CloudPutV1IngressTls) | **Put** /v1/ingress/tls | PutTLS replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
+[**DeleteIngressMiddlewaresById**](IngressAPI.md#DeleteIngressMiddlewaresById) | **Delete** /v1/ingress/middlewares/{id} | Removes one of the caller org&#39;s edge transforms and hot-applies the change.
+[**DeleteIngressRoutesById**](IngressAPI.md#DeleteIngressRoutesById) | **Delete** /v1/ingress/routes/{id} | Removes one of the caller org&#39;s routing rules and hot-applies the shrunken table, freeing its host for another claim.
+[**DeleteIngressServicesById**](IngressAPI.md#DeleteIngressServicesById) | **Delete** /v1/ingress/services/{id} | Removes one of the caller org&#39;s backend pools and hot-applies the change.
+[**GetIngressMiddlewares**](IngressAPI.md#GetIngressMiddlewares) | **Get** /v1/ingress/middlewares | Returns every edge transform the caller&#39;s org has configured, ordered by id.
+[**GetIngressMiddlewaresById**](IngressAPI.md#GetIngressMiddlewaresById) | **Get** /v1/ingress/middlewares/{id} | Returns one of the caller org&#39;s edge transforms by id.
+[**GetIngressRoutes**](IngressAPI.md#GetIngressRoutes) | **Get** /v1/ingress/routes | Returns every routing rule the caller&#39;s org has configured, ordered by id.
+[**GetIngressRoutesById**](IngressAPI.md#GetIngressRoutesById) | **Get** /v1/ingress/routes/{id} | Returns one of the caller org&#39;s routing rules by id.
+[**GetIngressServices**](IngressAPI.md#GetIngressServices) | **Get** /v1/ingress/services | Returns every backend pool the caller&#39;s org has configured, ordered by id.
+[**GetIngressServicesById**](IngressAPI.md#GetIngressServicesById) | **Get** /v1/ingress/services/{id} | Returns one of the caller org&#39;s backend pools by id.
+[**GetIngressStatus**](IngressAPI.md#GetIngressStatus) | **Get** /v1/ingress/status | Status reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
+[**GetIngressTls**](IngressAPI.md#GetIngressTls) | **Get** /v1/ingress/tls | GetTLS returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
+[**PostIngressMiddlewares**](IngressAPI.md#PostIngressMiddlewares) | **Post** /v1/ingress/middlewares | Creates or replaces one edge transform and hot-applies it.
+[**PostIngressRoutes**](IngressAPI.md#PostIngressRoutes) | **Post** /v1/ingress/routes | Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
+[**PostIngressServices**](IngressAPI.md#PostIngressServices) | **Post** /v1/ingress/services | Creates or replaces one backend pool and hot-applies it.
+[**PutIngressMiddlewaresById**](IngressAPI.md#PutIngressMiddlewaresById) | **Put** /v1/ingress/middlewares/{id} | Creates or replaces one edge transform and hot-applies it.
+[**PutIngressRoutesById**](IngressAPI.md#PutIngressRoutesById) | **Put** /v1/ingress/routes/{id} | Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
+[**PutIngressServicesById**](IngressAPI.md#PutIngressServicesById) | **Put** /v1/ingress/services/{id} | Creates or replaces one backend pool and hot-applies it.
+[**PutIngressTls**](IngressAPI.md#PutIngressTls) | **Put** /v1/ingress/tls | PutTLS replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
 
 
 
-## CloudDeleteV1IngressMiddlewaresId
+## DeleteIngressMiddlewaresById
 
-> CloudDeleteV1IngressMiddlewaresId(ctx, id).Execute()
+> DeleteIngressMiddlewaresById(ctx, id).Execute()
 
-DeleteMiddleware removes one of the caller org's edge transforms and hot-applies the change.
+Removes one of the caller org's edge transforms and hot-applies the change.
 
 
 
@@ -50,9 +50,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IngressAPI.CloudDeleteV1IngressMiddlewaresId(context.Background(), id).Execute()
+	r, err := apiClient.IngressAPI.DeleteIngressMiddlewaresById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudDeleteV1IngressMiddlewaresId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.DeleteIngressMiddlewaresById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1IngressMiddlewaresIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteIngressMiddlewaresByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -93,11 +93,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1IngressRoutesId
+## DeleteIngressRoutesById
 
-> CloudDeleteV1IngressRoutesId(ctx, id).Execute()
+> DeleteIngressRoutesById(ctx, id).Execute()
 
-DeleteRoute removes one of the caller org's routing rules and hot-applies the shrunken table, freeing its host for another claim.
+Removes one of the caller org's routing rules and hot-applies the shrunken table, freeing its host for another claim.
 
 
 
@@ -118,9 +118,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IngressAPI.CloudDeleteV1IngressRoutesId(context.Background(), id).Execute()
+	r, err := apiClient.IngressAPI.DeleteIngressRoutesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudDeleteV1IngressRoutesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.DeleteIngressRoutesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1IngressRoutesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteIngressRoutesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -161,11 +161,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1IngressServicesId
+## DeleteIngressServicesById
 
-> CloudDeleteV1IngressServicesId(ctx, id).Execute()
+> DeleteIngressServicesById(ctx, id).Execute()
 
-DeleteService removes one of the caller org's backend pools and hot-applies the change.
+Removes one of the caller org's backend pools and hot-applies the change.
 
 
 
@@ -186,9 +186,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IngressAPI.CloudDeleteV1IngressServicesId(context.Background(), id).Execute()
+	r, err := apiClient.IngressAPI.DeleteIngressServicesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudDeleteV1IngressServicesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.DeleteIngressServicesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1IngressServicesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteIngressServicesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -229,11 +229,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1IngressMiddlewares
+## GetIngressMiddlewares
 
-> CloudIngressMiddlewares CloudGetV1IngressMiddlewares(ctx).Execute()
+> IngressMiddlewares GetIngressMiddlewares(ctx).Execute()
 
-ListMiddlewares returns every edge transform the caller's org has configured, ordered by id.
+Returns every edge transform the caller's org has configured, ordered by id.
 
 
 
@@ -253,13 +253,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudGetV1IngressMiddlewares(context.Background()).Execute()
+	resp, r, err := apiClient.IngressAPI.GetIngressMiddlewares(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudGetV1IngressMiddlewares``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressMiddlewares``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1IngressMiddlewares`: CloudIngressMiddlewares
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudGetV1IngressMiddlewares`: %v\n", resp)
+	// response from `GetIngressMiddlewares`: IngressMiddlewares
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressMiddlewares`: %v\n", resp)
 }
 ```
 
@@ -269,16 +269,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IngressMiddlewaresRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIngressMiddlewaresRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudIngressMiddlewares**](CloudIngressMiddlewares.md)
+[**IngressMiddlewares**](IngressMiddlewares.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -290,11 +290,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1IngressMiddlewar
 [[Back to README]](../README.md)
 
 
-## CloudGetV1IngressMiddlewaresId
+## GetIngressMiddlewaresById
 
-> CloudMiddleware CloudGetV1IngressMiddlewaresId(ctx, id).Execute()
+> Middleware GetIngressMiddlewaresById(ctx, id).Execute()
 
-GetMiddleware returns one of the caller org's edge transforms by id.
+Returns one of the caller org's edge transforms by id.
 
 
 
@@ -315,13 +315,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudGetV1IngressMiddlewaresId(context.Background(), id).Execute()
+	resp, r, err := apiClient.IngressAPI.GetIngressMiddlewaresById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudGetV1IngressMiddlewaresId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressMiddlewaresById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1IngressMiddlewaresId`: CloudMiddleware
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudGetV1IngressMiddlewaresId`: %v\n", resp)
+	// response from `GetIngressMiddlewaresById`: Middleware
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressMiddlewaresById`: %v\n", resp)
 }
 ```
 
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IngressMiddlewaresIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIngressMiddlewaresByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -344,11 +344,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudMiddleware**](CloudMiddleware.md)
+[**Middleware**](Middleware.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -360,11 +360,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1IngressRoutes
+## GetIngressRoutes
 
-> CloudIngressRoutes CloudGetV1IngressRoutes(ctx).Execute()
+> IngressRoutes GetIngressRoutes(ctx).Execute()
 
-ListRoutes returns every routing rule the caller's org has configured, ordered by id.
+Returns every routing rule the caller's org has configured, ordered by id.
 
 
 
@@ -384,13 +384,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudGetV1IngressRoutes(context.Background()).Execute()
+	resp, r, err := apiClient.IngressAPI.GetIngressRoutes(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudGetV1IngressRoutes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1IngressRoutes`: CloudIngressRoutes
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudGetV1IngressRoutes`: %v\n", resp)
+	// response from `GetIngressRoutes`: IngressRoutes
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressRoutes`: %v\n", resp)
 }
 ```
 
@@ -400,16 +400,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IngressRoutesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIngressRoutesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudIngressRoutes**](CloudIngressRoutes.md)
+[**IngressRoutes**](IngressRoutes.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -421,11 +421,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1IngressRoutesReq
 [[Back to README]](../README.md)
 
 
-## CloudGetV1IngressRoutesId
+## GetIngressRoutesById
 
-> CloudRoute CloudGetV1IngressRoutesId(ctx, id).Execute()
+> Route GetIngressRoutesById(ctx, id).Execute()
 
-GetRoute returns one of the caller org's routing rules by id.
+Returns one of the caller org's routing rules by id.
 
 
 
@@ -446,13 +446,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudGetV1IngressRoutesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.IngressAPI.GetIngressRoutesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudGetV1IngressRoutesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressRoutesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1IngressRoutesId`: CloudRoute
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudGetV1IngressRoutesId`: %v\n", resp)
+	// response from `GetIngressRoutesById`: Route
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressRoutesById`: %v\n", resp)
 }
 ```
 
@@ -466,7 +466,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IngressRoutesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIngressRoutesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -475,11 +475,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRoute**](CloudRoute.md)
+[**Route**](Route.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -491,11 +491,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1IngressServices
+## GetIngressServices
 
-> CloudIngressServices CloudGetV1IngressServices(ctx).Execute()
+> IngressServices GetIngressServices(ctx).Execute()
 
-ListServices returns every backend pool the caller's org has configured, ordered by id.
+Returns every backend pool the caller's org has configured, ordered by id.
 
 
 
@@ -515,13 +515,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudGetV1IngressServices(context.Background()).Execute()
+	resp, r, err := apiClient.IngressAPI.GetIngressServices(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudGetV1IngressServices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1IngressServices`: CloudIngressServices
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudGetV1IngressServices`: %v\n", resp)
+	// response from `GetIngressServices`: IngressServices
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressServices`: %v\n", resp)
 }
 ```
 
@@ -531,16 +531,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IngressServicesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIngressServicesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudIngressServices**](CloudIngressServices.md)
+[**IngressServices**](IngressServices.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -552,11 +552,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1IngressServicesR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1IngressServicesId
+## GetIngressServicesById
 
-> CloudService CloudGetV1IngressServicesId(ctx, id).Execute()
+> Upstream GetIngressServicesById(ctx, id).Execute()
 
-GetService returns one of the caller org's backend pools by id.
+Returns one of the caller org's backend pools by id.
 
 
 
@@ -577,13 +577,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudGetV1IngressServicesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.IngressAPI.GetIngressServicesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudGetV1IngressServicesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressServicesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1IngressServicesId`: CloudService
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudGetV1IngressServicesId`: %v\n", resp)
+	// response from `GetIngressServicesById`: Upstream
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressServicesById`: %v\n", resp)
 }
 ```
 
@@ -597,7 +597,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IngressServicesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIngressServicesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -606,11 +606,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudService**](CloudService.md)
+[**Upstream**](Upstream.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -622,9 +622,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1IngressStatus
+## GetIngressStatus
 
-> CloudIngressStatus CloudGetV1IngressStatus(ctx).Execute()
+> IngressStatus GetIngressStatus(ctx).Execute()
 
 Status reports the ingress edge's live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
 
@@ -646,13 +646,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudGetV1IngressStatus(context.Background()).Execute()
+	resp, r, err := apiClient.IngressAPI.GetIngressStatus(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudGetV1IngressStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1IngressStatus`: CloudIngressStatus
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudGetV1IngressStatus`: %v\n", resp)
+	// response from `GetIngressStatus`: IngressStatus
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressStatus`: %v\n", resp)
 }
 ```
 
@@ -662,16 +662,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IngressStatusRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIngressStatusRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudIngressStatus**](CloudIngressStatus.md)
+[**IngressStatus**](IngressStatus.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -683,9 +683,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1IngressStatusReq
 [[Back to README]](../README.md)
 
 
-## CloudGetV1IngressTls
+## GetIngressTls
 
-> CloudIngressTLS CloudGetV1IngressTls(ctx).Execute()
+> IngressTLS GetIngressTls(ctx).Execute()
 
 GetTLS returns the caller org's ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
 
@@ -707,13 +707,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudGetV1IngressTls(context.Background()).Execute()
+	resp, r, err := apiClient.IngressAPI.GetIngressTls(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudGetV1IngressTls``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressTls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1IngressTls`: CloudIngressTLS
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudGetV1IngressTls`: %v\n", resp)
+	// response from `GetIngressTls`: IngressTLS
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressTls`: %v\n", resp)
 }
 ```
 
@@ -723,16 +723,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IngressTlsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIngressTlsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudIngressTLS**](CloudIngressTLS.md)
+[**IngressTLS**](IngressTLS.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -744,77 +744,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1IngressTlsReques
 [[Back to README]](../README.md)
 
 
-## CloudPostV1IngressMiddlewares
+## PostIngressMiddlewares
 
-> CloudMiddleware CloudPostV1IngressMiddlewares(ctx).CloudMiddleware(cloudMiddleware).Execute()
+> Middleware PostIngressMiddlewares(ctx).Middleware(middleware).Execute()
 
-PutMiddleware creates or replaces one edge transform and hot-applies it.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudMiddleware := *openapiclient.NewCloudMiddleware() // CloudMiddleware | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudPostV1IngressMiddlewares(context.Background()).CloudMiddleware(cloudMiddleware).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudPostV1IngressMiddlewares``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1IngressMiddlewares`: CloudMiddleware
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudPostV1IngressMiddlewares`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1IngressMiddlewaresRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudMiddleware** | [**CloudMiddleware**](CloudMiddleware.md) |  | 
-
-### Return type
-
-[**CloudMiddleware**](CloudMiddleware.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1IngressRoutes
-
-> CloudRoute CloudPostV1IngressRoutes(ctx).CloudRoute(cloudRoute).Execute()
-
-PutRoute creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
+Creates or replaces one edge transform and hot-applies it.
 
 
 
@@ -831,17 +765,17 @@ import (
 )
 
 func main() {
-	cloudRoute := *openapiclient.NewCloudRoute() // CloudRoute | 
+	middleware := *openapiclient.NewMiddleware() // Middleware | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudPostV1IngressRoutes(context.Background()).CloudRoute(cloudRoute).Execute()
+	resp, r, err := apiClient.IngressAPI.PostIngressMiddlewares(context.Background()).Middleware(middleware).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudPostV1IngressRoutes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PostIngressMiddlewares``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1IngressRoutes`: CloudRoute
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudPostV1IngressRoutes`: %v\n", resp)
+	// response from `PostIngressMiddlewares`: Middleware
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PostIngressMiddlewares`: %v\n", resp)
 }
 ```
 
@@ -851,20 +785,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1IngressRoutesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostIngressMiddlewaresRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudRoute** | [**CloudRoute**](CloudRoute.md) |  | 
+ **middleware** | [**Middleware**](Middleware.md) |  | 
 
 ### Return type
 
-[**CloudRoute**](CloudRoute.md)
+[**Middleware**](Middleware.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -876,11 +810,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1IngressServices
+## PostIngressRoutes
 
-> CloudService CloudPostV1IngressServices(ctx).CloudService(cloudService).Execute()
+> Route PostIngressRoutes(ctx).Route(route).Execute()
 
-PutService creates or replaces one backend pool and hot-applies it.
+Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
 
 
 
@@ -897,17 +831,17 @@ import (
 )
 
 func main() {
-	cloudService := *openapiclient.NewCloudService() // CloudService | 
+	route := *openapiclient.NewRoute() // Route | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudPostV1IngressServices(context.Background()).CloudService(cloudService).Execute()
+	resp, r, err := apiClient.IngressAPI.PostIngressRoutes(context.Background()).Route(route).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudPostV1IngressServices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PostIngressRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1IngressServices`: CloudService
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudPostV1IngressServices`: %v\n", resp)
+	// response from `PostIngressRoutes`: Route
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PostIngressRoutes`: %v\n", resp)
 }
 ```
 
@@ -917,20 +851,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1IngressServicesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostIngressRoutesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudService** | [**CloudService**](CloudService.md) |  | 
+ **route** | [**Route**](Route.md) |  | 
 
 ### Return type
 
-[**CloudService**](CloudService.md)
+[**Route**](Route.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -942,11 +876,77 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1IngressMiddlewaresId
+## PostIngressServices
 
-> CloudMiddleware CloudPutV1IngressMiddlewaresId(ctx, id).CloudMiddleware(cloudMiddleware).Execute()
+> Upstream PostIngressServices(ctx).Upstream(upstream).Execute()
 
-PutMiddleware creates or replaces one edge transform and hot-applies it.
+Creates or replaces one backend pool and hot-applies it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	upstream := *openapiclient.NewUpstream() // Upstream | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IngressAPI.PostIngressServices(context.Background()).Upstream(upstream).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PostIngressServices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIngressServices`: Upstream
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PostIngressServices`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIngressServicesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **upstream** | [**Upstream**](Upstream.md) |  | 
+
+### Return type
+
+[**Upstream**](Upstream.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutIngressMiddlewaresById
+
+> Middleware PutIngressMiddlewaresById(ctx, id).Middleware(middleware).Execute()
+
+Creates or replaces one edge transform and hot-applies it.
 
 
 
@@ -964,17 +964,17 @@ import (
 
 func main() {
 	id := "strip-api" // string | ID identifies the transform within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id.
-	cloudMiddleware := *openapiclient.NewCloudMiddleware() // CloudMiddleware | 
+	middleware := *openapiclient.NewMiddleware() // Middleware | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudPutV1IngressMiddlewaresId(context.Background(), id).CloudMiddleware(cloudMiddleware).Execute()
+	resp, r, err := apiClient.IngressAPI.PutIngressMiddlewaresById(context.Background(), id).Middleware(middleware).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudPutV1IngressMiddlewaresId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PutIngressMiddlewaresById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1IngressMiddlewaresId`: CloudMiddleware
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudPutV1IngressMiddlewaresId`: %v\n", resp)
+	// response from `PutIngressMiddlewaresById`: Middleware
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PutIngressMiddlewaresById`: %v\n", resp)
 }
 ```
 
@@ -988,21 +988,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1IngressMiddlewaresIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutIngressMiddlewaresByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudMiddleware** | [**CloudMiddleware**](CloudMiddleware.md) |  | 
+ **middleware** | [**Middleware**](Middleware.md) |  | 
 
 ### Return type
 
-[**CloudMiddleware**](CloudMiddleware.md)
+[**Middleware**](Middleware.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1014,11 +1014,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1IngressRoutesId
+## PutIngressRoutesById
 
-> CloudRoute CloudPutV1IngressRoutesId(ctx, id).CloudRoute(cloudRoute).Execute()
+> Route PutIngressRoutesById(ctx, id).Route(route).Execute()
 
-PutRoute creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
+Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
 
 
 
@@ -1036,17 +1036,17 @@ import (
 
 func main() {
 	id := "web" // string | ID identifies the route within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one.
-	cloudRoute := *openapiclient.NewCloudRoute() // CloudRoute | 
+	route := *openapiclient.NewRoute() // Route | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudPutV1IngressRoutesId(context.Background(), id).CloudRoute(cloudRoute).Execute()
+	resp, r, err := apiClient.IngressAPI.PutIngressRoutesById(context.Background(), id).Route(route).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudPutV1IngressRoutesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PutIngressRoutesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1IngressRoutesId`: CloudRoute
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudPutV1IngressRoutesId`: %v\n", resp)
+	// response from `PutIngressRoutesById`: Route
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PutIngressRoutesById`: %v\n", resp)
 }
 ```
 
@@ -1060,21 +1060,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1IngressRoutesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutIngressRoutesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudRoute** | [**CloudRoute**](CloudRoute.md) |  | 
+ **route** | [**Route**](Route.md) |  | 
 
 ### Return type
 
-[**CloudRoute**](CloudRoute.md)
+[**Route**](Route.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1086,11 +1086,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1IngressServicesId
+## PutIngressServicesById
 
-> CloudService CloudPutV1IngressServicesId(ctx, id).CloudService(cloudService).Execute()
+> Upstream PutIngressServicesById(ctx, id).Upstream(upstream).Execute()
 
-PutService creates or replaces one backend pool and hot-applies it.
+Creates or replaces one backend pool and hot-applies it.
 
 
 
@@ -1108,17 +1108,17 @@ import (
 
 func main() {
 	id := "app-pool" // string | ID identifies the pool within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id.
-	cloudService := *openapiclient.NewCloudService() // CloudService | 
+	upstream := *openapiclient.NewUpstream() // Upstream | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudPutV1IngressServicesId(context.Background(), id).CloudService(cloudService).Execute()
+	resp, r, err := apiClient.IngressAPI.PutIngressServicesById(context.Background(), id).Upstream(upstream).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudPutV1IngressServicesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PutIngressServicesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1IngressServicesId`: CloudService
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudPutV1IngressServicesId`: %v\n", resp)
+	// response from `PutIngressServicesById`: Upstream
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PutIngressServicesById`: %v\n", resp)
 }
 ```
 
@@ -1132,21 +1132,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1IngressServicesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutIngressServicesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudService** | [**CloudService**](CloudService.md) |  | 
+ **upstream** | [**Upstream**](Upstream.md) |  | 
 
 ### Return type
 
-[**CloudService**](CloudService.md)
+[**Upstream**](Upstream.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1158,9 +1158,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1IngressTls
+## PutIngressTls
 
-> CloudTLSConfig CloudPutV1IngressTls(ctx).CloudTLSConfig(cloudTLSConfig).Execute()
+> TLSConfig PutIngressTls(ctx).TLSConfig(tLSConfig).Execute()
 
 PutTLS replaces the caller org's ACME intent and hot-applies what can be hot-applied.
 
@@ -1179,17 +1179,17 @@ import (
 )
 
 func main() {
-	cloudTLSConfig := *openapiclient.NewCloudTLSConfig() // CloudTLSConfig | 
+	tLSConfig := *openapiclient.NewTLSConfig() // TLSConfig | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.CloudPutV1IngressTls(context.Background()).CloudTLSConfig(cloudTLSConfig).Execute()
+	resp, r, err := apiClient.IngressAPI.PutIngressTls(context.Background()).TLSConfig(tLSConfig).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.CloudPutV1IngressTls``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PutIngressTls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1IngressTls`: CloudTLSConfig
-	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.CloudPutV1IngressTls`: %v\n", resp)
+	// response from `PutIngressTls`: TLSConfig
+	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PutIngressTls`: %v\n", resp)
 }
 ```
 
@@ -1199,20 +1199,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1IngressTlsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutIngressTlsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudTLSConfig** | [**CloudTLSConfig**](CloudTLSConfig.md) |  | 
+ **tLSConfig** | [**TLSConfig**](TLSConfig.md) |  | 
 
 ### Return type
 
-[**CloudTLSConfig**](CloudTLSConfig.md)
+[**TLSConfig**](TLSConfig.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

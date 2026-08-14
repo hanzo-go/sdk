@@ -1,13 +1,16 @@
 // money — what do I have, and what have I spent?
 //
-// Operations: GET /v1/billing/balance (cloud_get_v1_billing_balance) and
-// GET /v1/billing/usage (cloud_get_v1_billing_usage).
+// Operations: GET /v1/billing/balance (get_billing_balance) and
+// GET /v1/billing/usage (get_billing_usage).
 //
-// Both currently declare only a `default` response with no content schema in
-// hanzo.yaml, so the generated methods hand back the raw *http.Response and
-// there is nothing to unmarshal into. This decodes the JSON body directly.
-// When the spec regains response schemas for these two, the decode goes away
-// and the typed value is returned instead.
+// Neither takes an org: both derive the tenant server-side from the JWT `owner`
+// claim, so a key can only read its own money.
+//
+// Both declare the address and not the shape — two of the 684 operations the
+// document publishes with no `responses` — so the generated methods hand back
+// the raw *http.Response and there is nothing to unmarshal into. This decodes
+// the JSON body directly. When cloud's handlers declare their Out types, the
+// decode goes away and the typed value is returned instead.
 //
 //	HANZO_API_KEY=sk-... go run ./examples/money
 package main
@@ -26,13 +29,13 @@ func main() {
 	ctx := context.Background()
 	client := hanzoai.NewClient("")
 
-	balance, err := client.BillingAPI.CloudGetV1BillingBalance(ctx).Execute()
+	balance, err := client.BillingAPI.GetBillingBalance(ctx).Execute()
 	if err != nil {
 		log.Fatalf("balance: %v", err)
 	}
 	fmt.Printf("balance  %s\n", decode(balance))
 
-	usage, err := client.BillingAPI.CloudGetV1BillingUsage(ctx).Execute()
+	usage, err := client.BillingAPI.GetBillingUsage(ctx).Execute()
 	if err != nil {
 		log.Fatalf("usage: %v", err)
 	}

@@ -4,21 +4,21 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1MlModelsName**](MlAPI.md#CloudDeleteV1MlModelsName) | **Delete** /v1/ml/models/{name} | DeleteModel deletes a deployed inference model.
-[**CloudGetV1MlHealth**](MlAPI.md#CloudGetV1MlHealth) | **Get** /v1/ml/health | 
-[**CloudGetV1MlModels**](MlAPI.md#CloudGetV1MlModels) | **Get** /v1/ml/models | ListModels lists the inference models deployed in the caller&#39;s org.
-[**CloudGetV1MlModelsName**](MlAPI.md#CloudGetV1MlModelsName) | **Get** /v1/ml/models/{name} | GetModel returns one deployed inference model.
-[**CloudPatchV1MlModelsByName**](MlAPI.md#CloudPatchV1MlModelsByName) | **Patch** /v1/ml/models/{name} | 
-[**CloudPostV1MlModels**](MlAPI.md#CloudPostV1MlModels) | **Post** /v1/ml/models | 
-[**CloudPostV1MlModelsByNamePredict**](MlAPI.md#CloudPostV1MlModelsByNamePredict) | **Post** /v1/ml/models/{name}/predict | 
+[**DeleteMlModelsByName**](MlAPI.md#DeleteMlModelsByName) | **Delete** /v1/ml/models/{name} | Deletes a deployed inference model.
+[**GetMlHealth**](MlAPI.md#GetMlHealth) | **Get** /v1/ml/health | Whether model serving can actually work right now
+[**GetMlModels**](MlAPI.md#GetMlModels) | **Get** /v1/ml/models | Lists the inference models deployed in the caller&#39;s org.
+[**GetMlModelsByName**](MlAPI.md#GetMlModelsByName) | **Get** /v1/ml/models/{name} | Returns one deployed inference model.
+[**PatchMlModelsByName**](MlAPI.md#PatchMlModelsByName) | **Patch** /v1/ml/models/{name} | Change a deployed model in place
+[**PostMlModels**](MlAPI.md#PostMlModels) | **Post** /v1/ml/models | Deploy an inference model
+[**PostMlModelsByNamePredict**](MlAPI.md#PostMlModelsByNamePredict) | **Post** /v1/ml/models/{name}/predict | Run inference against one of your deployed models
 
 
 
-## CloudDeleteV1MlModelsName
+## DeleteMlModelsByName
 
-> CloudDeleteV1MlModelsName(ctx, name).Execute()
+> DeleteMlModelsByName(ctx, name).Execute()
 
-DeleteModel deletes a deployed inference model.
+Deletes a deployed inference model.
 
 
 
@@ -39,9 +39,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MlAPI.CloudDeleteV1MlModelsName(context.Background(), name).Execute()
+	r, err := apiClient.MlAPI.DeleteMlModelsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.CloudDeleteV1MlModelsName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.DeleteMlModelsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MlModelsNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMlModelsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -82,9 +82,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MlHealth
+## GetMlHealth
 
-> CloudGetV1MlHealth(ctx).Execute()
+> GetMlHealth(ctx).Execute()
+
+Whether model serving can actually work right now
 
 
 
@@ -104,9 +106,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MlAPI.CloudGetV1MlHealth(context.Background()).Execute()
+	r, err := apiClient.MlAPI.GetMlHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.CloudGetV1MlHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.GetMlHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -118,7 +120,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MlHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMlHealthRequest struct via the builder pattern
 
 
 ### Return type
@@ -127,7 +129,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1MlHealthRequest 
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -139,11 +141,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1MlHealthRequest 
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MlModels
+## GetMlModels
 
-> CloudMlResourceList CloudGetV1MlModels(ctx).Execute()
+> MlResourceList GetMlModels(ctx).Execute()
 
-ListModels lists the inference models deployed in the caller's org.
+Lists the inference models deployed in the caller's org.
 
 
 
@@ -163,13 +165,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MlAPI.CloudGetV1MlModels(context.Background()).Execute()
+	resp, r, err := apiClient.MlAPI.GetMlModels(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.CloudGetV1MlModels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.GetMlModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MlModels`: CloudMlResourceList
-	fmt.Fprintf(os.Stdout, "Response from `MlAPI.CloudGetV1MlModels`: %v\n", resp)
+	// response from `GetMlModels`: MlResourceList
+	fmt.Fprintf(os.Stdout, "Response from `MlAPI.GetMlModels`: %v\n", resp)
 }
 ```
 
@@ -179,16 +181,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MlModelsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMlModelsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudMlResourceList**](CloudMlResourceList.md)
+[**MlResourceList**](MlResourceList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -200,11 +202,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1MlModelsRequest 
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MlModelsName
+## GetMlModelsByName
 
-> CloudMlResource CloudGetV1MlModelsName(ctx, name).Execute()
+> MlResource GetMlModelsByName(ctx, name).Execute()
 
-GetModel returns one deployed inference model.
+Returns one deployed inference model.
 
 
 
@@ -225,13 +227,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MlAPI.CloudGetV1MlModelsName(context.Background(), name).Execute()
+	resp, r, err := apiClient.MlAPI.GetMlModelsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.CloudGetV1MlModelsName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.GetMlModelsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MlModelsName`: CloudMlResource
-	fmt.Fprintf(os.Stdout, "Response from `MlAPI.CloudGetV1MlModelsName`: %v\n", resp)
+	// response from `GetMlModelsByName`: MlResource
+	fmt.Fprintf(os.Stdout, "Response from `MlAPI.GetMlModelsByName`: %v\n", resp)
 }
 ```
 
@@ -245,7 +247,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MlModelsNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMlModelsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -254,11 +256,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudMlResource**](CloudMlResource.md)
+[**MlResource**](MlResource.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -270,9 +272,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1MlModelsByName
+## PatchMlModelsByName
 
-> CloudPatchV1MlModelsByName(ctx, name).Execute()
+> PatchMlModelsByName(ctx, name).Execute()
+
+Change a deployed model in place
 
 
 
@@ -293,9 +297,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MlAPI.CloudPatchV1MlModelsByName(context.Background(), name).Execute()
+	r, err := apiClient.MlAPI.PatchMlModelsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.CloudPatchV1MlModelsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.PatchMlModelsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -311,7 +315,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1MlModelsByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchMlModelsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -324,7 +328,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -336,9 +340,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MlModels
+## PostMlModels
 
-> CloudPostV1MlModels(ctx).Execute()
+> PostMlModels(ctx).Execute()
+
+Deploy an inference model
 
 
 
@@ -358,9 +364,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MlAPI.CloudPostV1MlModels(context.Background()).Execute()
+	r, err := apiClient.MlAPI.PostMlModels(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.CloudPostV1MlModels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.PostMlModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -372,7 +378,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MlModelsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMlModelsRequest struct via the builder pattern
 
 
 ### Return type
@@ -381,7 +387,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1MlModelsRequest
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -393,9 +399,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1MlModelsRequest
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MlModelsByNamePredict
+## PostMlModelsByNamePredict
 
-> CloudPostV1MlModelsByNamePredict(ctx, name).Execute()
+> PostMlModelsByNamePredict(ctx, name).Execute()
+
+Run inference against one of your deployed models
 
 
 
@@ -416,9 +424,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MlAPI.CloudPostV1MlModelsByNamePredict(context.Background(), name).Execute()
+	r, err := apiClient.MlAPI.PostMlModelsByNamePredict(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.CloudPostV1MlModelsByNamePredict``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.PostMlModelsByNamePredict``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -434,7 +442,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MlModelsByNamePredictRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMlModelsByNamePredictRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -447,7 +455,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

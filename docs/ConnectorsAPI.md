@@ -4,20 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1ConnectorsId**](ConnectorsAPI.md#CloudDeleteV1ConnectorsId) | **Delete** /v1/connectors/{id} | Forgets a connector: every custodied secret, then the row.
-[**CloudGetV1Connectors**](ConnectorsAPI.md#CloudGetV1Connectors) | **Get** /v1/connectors | Lists the caller&#39;s OWN connectors across every provider — the set &#x60;hanzo connector ls&#x60; prints.
-[**CloudGetV1ConnectorsIdToken**](ConnectorsAPI.md#CloudGetV1ConnectorsIdToken) | **Get** /v1/connectors/{id}/token | Hands the custodied access token to its owner — the ONE place custody exits.
-[**CloudGetV1ConnectorsProviders**](ConnectorsAPI.md#CloudGetV1ConnectorsProviders) | **Get** /v1/connectors/providers | Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
-[**CloudPostV1ConnectorsIdRefresh**](ConnectorsAPI.md#CloudPostV1ConnectorsIdRefresh) | **Post** /v1/connectors/{id}/refresh | Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
-[**CloudPostV1ConnectorsProviderCredential**](ConnectorsAPI.md#CloudPostV1ConnectorsProviderCredential) | **Post** /v1/connectors/{provider}/credential | Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI&#39;s local PKCE (Adopt).
-[**CloudPostV1ConnectorsProviderDevice**](ConnectorsAPI.md#CloudPostV1ConnectorsProviderDevice) | **Post** /v1/connectors/{provider}/device | Begins a device sign-in and returns the code to show the user plus how to poll for completion.
-[**CloudPostV1ConnectorsProviderDeviceFlowPoll**](ConnectorsAPI.md#CloudPostV1ConnectorsProviderDeviceFlowPoll) | **Post** /v1/connectors/{provider}/device/{flow}/poll | Advances a device sign-in.
+[**DeleteConnectorsById**](ConnectorsAPI.md#DeleteConnectorsById) | **Delete** /v1/connectors/{id} | Forgets a connector: every custodied secret, then the row.
+[**GetConnectors**](ConnectorsAPI.md#GetConnectors) | **Get** /v1/connectors | Lists the caller&#39;s OWN connectors across every provider — the set &#x60;hanzo connector ls&#x60; prints.
+[**GetConnectorsByIdToken**](ConnectorsAPI.md#GetConnectorsByIdToken) | **Get** /v1/connectors/{id}/token | Hands the custodied access token to its owner — the ONE place custody exits.
+[**GetConnectorsProviders**](ConnectorsAPI.md#GetConnectorsProviders) | **Get** /v1/connectors/providers | Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
+[**PostConnectorsByIdRefresh**](ConnectorsAPI.md#PostConnectorsByIdRefresh) | **Post** /v1/connectors/{id}/refresh | Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
+[**PostConnectorsByProviderCredential**](ConnectorsAPI.md#PostConnectorsByProviderCredential) | **Post** /v1/connectors/{provider}/credential | Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI&#39;s local PKCE (Adopt).
+[**PostConnectorsByProviderDevice**](ConnectorsAPI.md#PostConnectorsByProviderDevice) | **Post** /v1/connectors/{provider}/device | Begins a device sign-in and returns the code to show the user plus how to poll for completion.
+[**PostConnectorsByProviderDeviceByFlowPoll**](ConnectorsAPI.md#PostConnectorsByProviderDeviceByFlowPoll) | **Post** /v1/connectors/{provider}/device/{flow}/poll | Advances a device sign-in.
 
 
 
-## CloudDeleteV1ConnectorsId
+## DeleteConnectorsById
 
-> CloudDisconnectOut CloudDeleteV1ConnectorsId(ctx, id).Execute()
+> DisconnectOut DeleteConnectorsById(ctx, id).Execute()
 
 Forgets a connector: every custodied secret, then the row.
 
@@ -40,13 +40,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.CloudDeleteV1ConnectorsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.DeleteConnectorsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudDeleteV1ConnectorsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.DeleteConnectorsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1ConnectorsId`: CloudDisconnectOut
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudDeleteV1ConnectorsId`: %v\n", resp)
+	// response from `DeleteConnectorsById`: DisconnectOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.DeleteConnectorsById`: %v\n", resp)
 }
 ```
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1ConnectorsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteConnectorsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -69,11 +69,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDisconnectOut**](CloudDisconnectOut.md)
+[**DisconnectOut**](DisconnectOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -85,9 +85,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Connectors
+## GetConnectors
 
-> CloudConnectorsOut CloudGetV1Connectors(ctx).Execute()
+> ConnectorsOut GetConnectors(ctx).Execute()
 
 Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints.
 
@@ -109,13 +109,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.CloudGetV1Connectors(context.Background()).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.GetConnectors(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudGetV1Connectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.GetConnectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Connectors`: CloudConnectorsOut
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudGetV1Connectors`: %v\n", resp)
+	// response from `GetConnectors`: ConnectorsOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.GetConnectors`: %v\n", resp)
 }
 ```
 
@@ -125,16 +125,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ConnectorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetConnectorsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudConnectorsOut**](CloudConnectorsOut.md)
+[**ConnectorsOut**](ConnectorsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -146,9 +146,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1ConnectorsReques
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ConnectorsIdToken
+## GetConnectorsByIdToken
 
-> CloudConnectorTokenOut CloudGetV1ConnectorsIdToken(ctx, id).Execute()
+> ConnectorTokenOut GetConnectorsByIdToken(ctx, id).Execute()
 
 Hands the custodied access token to its owner — the ONE place custody exits.
 
@@ -171,13 +171,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.CloudGetV1ConnectorsIdToken(context.Background(), id).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.GetConnectorsByIdToken(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudGetV1ConnectorsIdToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.GetConnectorsByIdToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ConnectorsIdToken`: CloudConnectorTokenOut
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudGetV1ConnectorsIdToken`: %v\n", resp)
+	// response from `GetConnectorsByIdToken`: ConnectorTokenOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.GetConnectorsByIdToken`: %v\n", resp)
 }
 ```
 
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ConnectorsIdTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetConnectorsByIdTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -200,11 +200,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudConnectorTokenOut**](CloudConnectorTokenOut.md)
+[**ConnectorTokenOut**](ConnectorTokenOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -216,9 +216,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ConnectorsProviders
+## GetConnectorsProviders
 
-> CloudConnectorProvidersOut CloudGetV1ConnectorsProviders(ctx).Execute()
+> ConnectorProvidersOut GetConnectorsProviders(ctx).Execute()
 
 Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
 
@@ -240,13 +240,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.CloudGetV1ConnectorsProviders(context.Background()).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.GetConnectorsProviders(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudGetV1ConnectorsProviders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.GetConnectorsProviders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ConnectorsProviders`: CloudConnectorProvidersOut
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudGetV1ConnectorsProviders`: %v\n", resp)
+	// response from `GetConnectorsProviders`: ConnectorProvidersOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.GetConnectorsProviders`: %v\n", resp)
 }
 ```
 
@@ -256,16 +256,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ConnectorsProvidersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetConnectorsProvidersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudConnectorProvidersOut**](CloudConnectorProvidersOut.md)
+[**ConnectorProvidersOut**](ConnectorProvidersOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -277,9 +277,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1ConnectorsProvid
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ConnectorsIdRefresh
+## PostConnectorsByIdRefresh
 
-> CloudRefreshOut CloudPostV1ConnectorsIdRefresh(ctx, id).Execute()
+> RefreshOut PostConnectorsByIdRefresh(ctx, id).Execute()
 
 Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
 
@@ -302,13 +302,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.CloudPostV1ConnectorsIdRefresh(context.Background(), id).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.PostConnectorsByIdRefresh(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudPostV1ConnectorsIdRefresh``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.PostConnectorsByIdRefresh``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ConnectorsIdRefresh`: CloudRefreshOut
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudPostV1ConnectorsIdRefresh`: %v\n", resp)
+	// response from `PostConnectorsByIdRefresh`: RefreshOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.PostConnectorsByIdRefresh`: %v\n", resp)
 }
 ```
 
@@ -322,7 +322,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ConnectorsIdRefreshRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostConnectorsByIdRefreshRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -331,11 +331,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRefreshOut**](CloudRefreshOut.md)
+[**RefreshOut**](RefreshOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -347,9 +347,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ConnectorsProviderCredential
+## PostConnectorsByProviderCredential
 
-> CloudCredentialOut CloudPostV1ConnectorsProviderCredential(ctx, provider).CloudCredentialIn(cloudCredentialIn).Execute()
+> CredentialOut PostConnectorsByProviderCredential(ctx, provider).CredentialIn(credentialIn).Execute()
 
 Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt).
 
@@ -369,17 +369,17 @@ import (
 
 func main() {
 	provider := "openai" // string | Provider is the user-scoped provider's registry id, from the path.
-	cloudCredentialIn := *openapiclient.NewCloudCredentialIn() // CloudCredentialIn | 
+	credentialIn := *openapiclient.NewCredentialIn() // CredentialIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.CloudPostV1ConnectorsProviderCredential(context.Background(), provider).CloudCredentialIn(cloudCredentialIn).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.PostConnectorsByProviderCredential(context.Background(), provider).CredentialIn(credentialIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudPostV1ConnectorsProviderCredential``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.PostConnectorsByProviderCredential``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ConnectorsProviderCredential`: CloudCredentialOut
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudPostV1ConnectorsProviderCredential`: %v\n", resp)
+	// response from `PostConnectorsByProviderCredential`: CredentialOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.PostConnectorsByProviderCredential`: %v\n", resp)
 }
 ```
 
@@ -393,21 +393,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ConnectorsProviderCredentialRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostConnectorsByProviderCredentialRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudCredentialIn** | [**CloudCredentialIn**](CloudCredentialIn.md) |  | 
+ **credentialIn** | [**CredentialIn**](CredentialIn.md) |  | 
 
 ### Return type
 
-[**CloudCredentialOut**](CloudCredentialOut.md)
+[**CredentialOut**](CredentialOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -419,9 +419,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ConnectorsProviderDevice
+## PostConnectorsByProviderDevice
 
-> CloudDeviceStartOut CloudPostV1ConnectorsProviderDevice(ctx, provider).CloudDeviceStartIn(cloudDeviceStartIn).Execute()
+> DeviceStartOut PostConnectorsByProviderDevice(ctx, provider).DeviceStartIn(deviceStartIn).Execute()
 
 Begins a device sign-in and returns the code to show the user plus how to poll for completion.
 
@@ -441,17 +441,17 @@ import (
 
 func main() {
 	provider := "openai" // string | Provider is the user-scoped provider's registry id, from the path.
-	cloudDeviceStartIn := *openapiclient.NewCloudDeviceStartIn() // CloudDeviceStartIn | 
+	deviceStartIn := *openapiclient.NewDeviceStartIn() // DeviceStartIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.CloudPostV1ConnectorsProviderDevice(context.Background(), provider).CloudDeviceStartIn(cloudDeviceStartIn).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.PostConnectorsByProviderDevice(context.Background(), provider).DeviceStartIn(deviceStartIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudPostV1ConnectorsProviderDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.PostConnectorsByProviderDevice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ConnectorsProviderDevice`: CloudDeviceStartOut
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudPostV1ConnectorsProviderDevice`: %v\n", resp)
+	// response from `PostConnectorsByProviderDevice`: DeviceStartOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.PostConnectorsByProviderDevice`: %v\n", resp)
 }
 ```
 
@@ -465,21 +465,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ConnectorsProviderDeviceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostConnectorsByProviderDeviceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudDeviceStartIn** | [**CloudDeviceStartIn**](CloudDeviceStartIn.md) |  | 
+ **deviceStartIn** | [**DeviceStartIn**](DeviceStartIn.md) |  | 
 
 ### Return type
 
-[**CloudDeviceStartOut**](CloudDeviceStartOut.md)
+[**DeviceStartOut**](DeviceStartOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -491,9 +491,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ConnectorsProviderDeviceFlowPoll
+## PostConnectorsByProviderDeviceByFlowPoll
 
-> CloudDevicePollOut CloudPostV1ConnectorsProviderDeviceFlowPoll(ctx, provider, flow).Execute()
+> DevicePollOut PostConnectorsByProviderDeviceByFlowPoll(ctx, provider, flow).Execute()
 
 Advances a device sign-in.
 
@@ -517,13 +517,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.CloudPostV1ConnectorsProviderDeviceFlowPoll(context.Background(), provider, flow).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.PostConnectorsByProviderDeviceByFlowPoll(context.Background(), provider, flow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CloudPostV1ConnectorsProviderDeviceFlowPoll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.PostConnectorsByProviderDeviceByFlowPoll``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ConnectorsProviderDeviceFlowPoll`: CloudDevicePollOut
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CloudPostV1ConnectorsProviderDeviceFlowPoll`: %v\n", resp)
+	// response from `PostConnectorsByProviderDeviceByFlowPoll`: DevicePollOut
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.PostConnectorsByProviderDeviceByFlowPoll`: %v\n", resp)
 }
 ```
 
@@ -538,7 +538,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ConnectorsProviderDeviceFlowPollRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostConnectorsByProviderDeviceByFlowPollRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -548,11 +548,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDevicePollOut**](CloudDevicePollOut.md)
+[**DevicePollOut**](DevicePollOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

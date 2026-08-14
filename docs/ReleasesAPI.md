@@ -4,13 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Releases**](ReleasesAPI.md#CloudGetV1Releases) | **Get** /v1/releases | 
+[**GetReleases**](ReleasesAPI.md#GetReleases) | **Get** /v1/releases | Returns the versions that actually reached the cluster.
 
 
 
-## CloudGetV1Releases
+## GetReleases
 
-> CloudGetV1Releases(ctx).Execute()
+> ReleaseBoard GetReleases(ctx).Execute()
+
+Returns the versions that actually reached the cluster.
 
 
 
@@ -30,11 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ReleasesAPI.CloudGetV1Releases(context.Background()).Execute()
+	resp, r, err := apiClient.ReleasesAPI.GetReleases(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ReleasesAPI.CloudGetV1Releases``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasesAPI.GetReleases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetReleases`: ReleaseBoard
+	fmt.Fprintf(os.Stdout, "Response from `ReleasesAPI.GetReleases`: %v\n", resp)
 }
 ```
 
@@ -44,21 +48,21 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ReleasesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetReleasesRequest struct via the builder pattern
 
 
 ### Return type
 
- (empty response body)
+[**ReleaseBoard**](ReleaseBoard.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

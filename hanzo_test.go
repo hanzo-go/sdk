@@ -34,6 +34,11 @@ func TestNewConfigHonoursBaseURLOverride(t *testing.T) {
 // SDK" a fact rather than six repos independently remembering to agree. If a
 // regeneration moves an operation, this fails instead of the examples silently
 // calling the wrong endpoint.
+//
+// Six flows and five examples: `chat` is pinned here and shipped nowhere. The
+// document states POST /v1/chat/completions and not its shape, so the generated
+// method carries no prompt — what this asserts is that the address still
+// resolves to a method, which is what has to hold for the example to return.
 func TestFlows(t *testing.T) {
 	ctx := context.Background()
 
@@ -41,31 +46,29 @@ func TestFlows(t *testing.T) {
 		flow, method, path string
 		call               func(c *APIClient)
 	}{
-		{"hello", "GET", "/v1/bot/auth/me", func(c *APIClient) {
-			c.AuthAPI.BotAuthMe(ctx).Execute()
+		{"hello", "GET", "/v1/keys", func(c *APIClient) {
+			c.KeysAPI.GetKeys(ctx).Execute()
 		}},
 		{"chat", "POST", "/v1/chat/completions", func(c *APIClient) {
-			c.OpenAICompatibleAPI.AiCreateChatCompletion(ctx).AiChatCompletionRequest(
-				AiChatCompletionRequest{Model: "zen-1", Messages: []AiChatMessage{{Role: "user"}}},
-			).Execute()
+			c.ChatAPI.PostChatCompletions(ctx).Execute()
 		}},
 		{"money", "GET", "/v1/billing/balance", func(c *APIClient) {
-			c.BillingAPI.CloudGetV1BillingBalance(ctx).Execute()
+			c.BillingAPI.GetBillingBalance(ctx).Execute()
 		}},
 		{"store", "POST", "/v1/kv", func(c *APIClient) {
 			name := "n"
-			c.KvAPI.CloudPostV1Kv(ctx).CloudProvisionRequest(
-				CloudProvisionRequest{Name: &name},
+			c.KvAPI.PostKv(ctx).ProvisionRequest(
+				ProvisionRequest{Name: &name},
 			).Execute()
 		}},
 		{"agent", "POST", "/v1/agents", func(c *APIClient) {
 			name, model := "n", "zen-1"
-			c.AgentsAPI.CloudPostV1Agents(ctx).CloudCreateAgentIn(
-				CloudCreateAgentIn{Name: &name, Model: &model},
+			c.AgentsAPI.PostAgents(ctx).CreateAgentIn(
+				CreateAgentIn{Name: &name, Model: &model},
 			).Execute()
 		}},
 		{"tools", "GET", "/v1/tools", func(c *APIClient) {
-			c.ToolsAPI.CloudGetV1Tools(ctx).Execute()
+			c.ToolsAPI.GetTools(ctx).Execute()
 		}},
 	} {
 		t.Run(tc.flow, func(t *testing.T) {

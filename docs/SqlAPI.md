@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1SqlName**](SqlAPI.md#CloudDeleteV1SqlName) | **Delete** /v1/sql/{name} | DropSQL deprovisions one Hanzo SQL database.
-[**CloudGetV1Sql**](SqlAPI.md#CloudGetV1Sql) | **Get** /v1/sql | ListSQL lists the caller org&#39;s Hanzo SQL databases.
-[**CloudGetV1SqlName**](SqlAPI.md#CloudGetV1SqlName) | **Get** /v1/sql/{name} | GetSQL returns one Hanzo SQL database&#39;s metadata.
-[**CloudPostV1Sql**](SqlAPI.md#CloudPostV1Sql) | **Post** /v1/sql | 
+[**DeleteSqlByName**](SqlAPI.md#DeleteSqlByName) | **Delete** /v1/sql/{name} | DropSQL deprovisions one Hanzo SQL database.
+[**GetSql**](SqlAPI.md#GetSql) | **Get** /v1/sql | ListSQL lists the caller org&#39;s Hanzo SQL databases.
+[**GetSqlByName**](SqlAPI.md#GetSqlByName) | **Get** /v1/sql/{name} | GetSQL returns one Hanzo SQL database&#39;s metadata.
+[**PostSql**](SqlAPI.md#PostSql) | **Post** /v1/sql | Provision a PostgreSQL database for your org
 
 
 
-## CloudDeleteV1SqlName
+## DeleteSqlByName
 
-> CloudDeleteV1SqlName(ctx, name).Execute()
+> DeleteSqlByName(ctx, name).Execute()
 
 DropSQL deprovisions one Hanzo SQL database.
 
@@ -36,9 +36,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SqlAPI.CloudDeleteV1SqlName(context.Background(), name).Execute()
+	r, err := apiClient.SqlAPI.DeleteSqlByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SqlAPI.CloudDeleteV1SqlName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SqlAPI.DeleteSqlByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1SqlNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteSqlByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -79,9 +79,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Sql
+## GetSql
 
-> []CloudProvisionedSummary CloudGetV1Sql(ctx).Execute()
+> []ProvisionedSummary GetSql(ctx).Execute()
 
 ListSQL lists the caller org's Hanzo SQL databases.
 
@@ -103,13 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SqlAPI.CloudGetV1Sql(context.Background()).Execute()
+	resp, r, err := apiClient.SqlAPI.GetSql(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SqlAPI.CloudGetV1Sql``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SqlAPI.GetSql``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Sql`: []CloudProvisionedSummary
-	fmt.Fprintf(os.Stdout, "Response from `SqlAPI.CloudGetV1Sql`: %v\n", resp)
+	// response from `GetSql`: []ProvisionedSummary
+	fmt.Fprintf(os.Stdout, "Response from `SqlAPI.GetSql`: %v\n", resp)
 }
 ```
 
@@ -119,16 +119,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SqlRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSqlRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]CloudProvisionedSummary**](CloudProvisionedSummary.md)
+[**[]ProvisionedSummary**](ProvisionedSummary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -140,9 +140,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1SqlRequest struc
 [[Back to README]](../README.md)
 
 
-## CloudGetV1SqlName
+## GetSqlByName
 
-> CloudProvisionedResource CloudGetV1SqlName(ctx, name).Execute()
+> ProvisionedResource GetSqlByName(ctx, name).Execute()
 
 GetSQL returns one Hanzo SQL database's metadata.
 
@@ -165,13 +165,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SqlAPI.CloudGetV1SqlName(context.Background(), name).Execute()
+	resp, r, err := apiClient.SqlAPI.GetSqlByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SqlAPI.CloudGetV1SqlName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SqlAPI.GetSqlByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1SqlName`: CloudProvisionedResource
-	fmt.Fprintf(os.Stdout, "Response from `SqlAPI.CloudGetV1SqlName`: %v\n", resp)
+	// response from `GetSqlByName`: ProvisionedResource
+	fmt.Fprintf(os.Stdout, "Response from `SqlAPI.GetSqlByName`: %v\n", resp)
 }
 ```
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SqlNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSqlByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -194,11 +194,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudProvisionedResource**](CloudProvisionedResource.md)
+[**ProvisionedResource**](ProvisionedResource.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -210,9 +210,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Sql
+## PostSql
 
-> CloudProvisionResult CloudPostV1Sql(ctx).CloudProvisionRequest(cloudProvisionRequest).Execute()
+> ProvisionResult PostSql(ctx).ProvisionRequest(provisionRequest).Execute()
+
+Provision a PostgreSQL database for your org
 
 
 
@@ -229,17 +231,17 @@ import (
 )
 
 func main() {
-	cloudProvisionRequest := *openapiclient.NewCloudProvisionRequest() // CloudProvisionRequest |  (optional)
+	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SqlAPI.CloudPostV1Sql(context.Background()).CloudProvisionRequest(cloudProvisionRequest).Execute()
+	resp, r, err := apiClient.SqlAPI.PostSql(context.Background()).ProvisionRequest(provisionRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SqlAPI.CloudPostV1Sql``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SqlAPI.PostSql``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Sql`: CloudProvisionResult
-	fmt.Fprintf(os.Stdout, "Response from `SqlAPI.CloudPostV1Sql`: %v\n", resp)
+	// response from `PostSql`: ProvisionResult
+	fmt.Fprintf(os.Stdout, "Response from `SqlAPI.PostSql`: %v\n", resp)
 }
 ```
 
@@ -249,20 +251,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1SqlRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostSqlRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudProvisionRequest** | [**CloudProvisionRequest**](CloudProvisionRequest.md) |  | 
+ **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
 
 ### Return type
 
-[**CloudProvisionResult**](CloudProvisionResult.md)
+[**ProvisionResult**](ProvisionResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

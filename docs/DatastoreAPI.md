@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1DatastoreName**](DatastoreAPI.md#CloudDeleteV1DatastoreName) | **Delete** /v1/datastore/{name} | DropDatastore deprovisions one Hanzo Datastore warehouse.
-[**CloudGetV1Datastore**](DatastoreAPI.md#CloudGetV1Datastore) | **Get** /v1/datastore | ListDatastore lists the caller org&#39;s Hanzo Datastore warehouses.
-[**CloudGetV1DatastoreName**](DatastoreAPI.md#CloudGetV1DatastoreName) | **Get** /v1/datastore/{name} | GetDatastore returns one Hanzo Datastore warehouse&#39;s metadata.
-[**CloudPostV1Datastore**](DatastoreAPI.md#CloudPostV1Datastore) | **Post** /v1/datastore | 
+[**DeleteDatastoreByName**](DatastoreAPI.md#DeleteDatastoreByName) | **Delete** /v1/datastore/{name} | Deprovisions one Hanzo Datastore warehouse.
+[**GetDatastore**](DatastoreAPI.md#GetDatastore) | **Get** /v1/datastore | Lists the caller org&#39;s Hanzo Datastore warehouses.
+[**GetDatastoreByName**](DatastoreAPI.md#GetDatastoreByName) | **Get** /v1/datastore/{name} | Returns one Hanzo Datastore warehouse&#39;s metadata.
+[**PostDatastore**](DatastoreAPI.md#PostDatastore) | **Post** /v1/datastore | Provision a Hanzo Datastore instance for your org
 
 
 
-## CloudDeleteV1DatastoreName
+## DeleteDatastoreByName
 
-> CloudDeleteV1DatastoreName(ctx, name).Execute()
+> DeleteDatastoreByName(ctx, name).Execute()
 
-DropDatastore deprovisions one Hanzo Datastore warehouse.
+Deprovisions one Hanzo Datastore warehouse.
 
 
 
@@ -36,9 +36,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DatastoreAPI.CloudDeleteV1DatastoreName(context.Background(), name).Execute()
+	r, err := apiClient.DatastoreAPI.DeleteDatastoreByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.CloudDeleteV1DatastoreName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.DeleteDatastoreByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1DatastoreNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteDatastoreByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -79,11 +79,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Datastore
+## GetDatastore
 
-> []CloudProvisionedSummary CloudGetV1Datastore(ctx).Execute()
+> []ProvisionedSummary GetDatastore(ctx).Execute()
 
-ListDatastore lists the caller org's Hanzo Datastore warehouses.
+Lists the caller org's Hanzo Datastore warehouses.
 
 
 
@@ -103,13 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DatastoreAPI.CloudGetV1Datastore(context.Background()).Execute()
+	resp, r, err := apiClient.DatastoreAPI.GetDatastore(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.CloudGetV1Datastore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.GetDatastore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Datastore`: []CloudProvisionedSummary
-	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.CloudGetV1Datastore`: %v\n", resp)
+	// response from `GetDatastore`: []ProvisionedSummary
+	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.GetDatastore`: %v\n", resp)
 }
 ```
 
@@ -119,16 +119,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DatastoreRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDatastoreRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]CloudProvisionedSummary**](CloudProvisionedSummary.md)
+[**[]ProvisionedSummary**](ProvisionedSummary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -140,11 +140,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DatastoreRequest
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DatastoreName
+## GetDatastoreByName
 
-> CloudProvisionedResource CloudGetV1DatastoreName(ctx, name).Execute()
+> ProvisionedResource GetDatastoreByName(ctx, name).Execute()
 
-GetDatastore returns one Hanzo Datastore warehouse's metadata.
+Returns one Hanzo Datastore warehouse's metadata.
 
 
 
@@ -165,13 +165,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DatastoreAPI.CloudGetV1DatastoreName(context.Background(), name).Execute()
+	resp, r, err := apiClient.DatastoreAPI.GetDatastoreByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.CloudGetV1DatastoreName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.GetDatastoreByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DatastoreName`: CloudProvisionedResource
-	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.CloudGetV1DatastoreName`: %v\n", resp)
+	// response from `GetDatastoreByName`: ProvisionedResource
+	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.GetDatastoreByName`: %v\n", resp)
 }
 ```
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DatastoreNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDatastoreByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -194,11 +194,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudProvisionedResource**](CloudProvisionedResource.md)
+[**ProvisionedResource**](ProvisionedResource.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -210,9 +210,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Datastore
+## PostDatastore
 
-> CloudProvisionResult CloudPostV1Datastore(ctx).CloudProvisionRequest(cloudProvisionRequest).Execute()
+> ProvisionResult PostDatastore(ctx).ProvisionRequest(provisionRequest).Execute()
+
+Provision a Hanzo Datastore instance for your org
 
 
 
@@ -229,17 +231,17 @@ import (
 )
 
 func main() {
-	cloudProvisionRequest := *openapiclient.NewCloudProvisionRequest() // CloudProvisionRequest |  (optional)
+	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DatastoreAPI.CloudPostV1Datastore(context.Background()).CloudProvisionRequest(cloudProvisionRequest).Execute()
+	resp, r, err := apiClient.DatastoreAPI.PostDatastore(context.Background()).ProvisionRequest(provisionRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.CloudPostV1Datastore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DatastoreAPI.PostDatastore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Datastore`: CloudProvisionResult
-	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.CloudPostV1Datastore`: %v\n", resp)
+	// response from `PostDatastore`: ProvisionResult
+	fmt.Fprintf(os.Stdout, "Response from `DatastoreAPI.PostDatastore`: %v\n", resp)
 }
 ```
 
@@ -249,20 +251,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1DatastoreRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostDatastoreRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudProvisionRequest** | [**CloudProvisionRequest**](CloudProvisionRequest.md) |  | 
+ **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
 
 ### Return type
 
-[**CloudProvisionResult**](CloudProvisionResult.md)
+[**ProvisionResult**](ProvisionResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

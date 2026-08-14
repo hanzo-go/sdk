@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Companies** | Pointer to **int32** |  | [optional] 
-**Contacts** | Pointer to **int32** |  | [optional] 
-**Opportunities** | Pointer to **int32** |  | [optional] 
+**Companies** | Pointer to **int32** | Companies is how many companies the org has. | [optional] 
+**Contacts** | Pointer to **int32** | Contacts is how many contacts the org has. | [optional] 
+**Opportunities** | Pointer to **int32** | Opportunities is how many opportunities the org has. | [optional] 
 
 ## Methods
 

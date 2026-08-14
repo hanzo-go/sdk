@@ -4,27 +4,27 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1MqStreamsName**](MqAPI.md#CloudDeleteV1MqStreamsName) | **Delete** /v1/mq/streams/{name} | Removes a stream with all its messages and consumers.
-[**CloudDeleteV1MqStreamsNameMessagesSeq**](MqAPI.md#CloudDeleteV1MqStreamsNameMessagesSeq) | **Delete** /v1/mq/streams/{name}/messages/{seq} | Erases one message by sequence; the sequence gap remains.
-[**CloudDeleteV1MqStreamsStreamConsumersName**](MqAPI.md#CloudDeleteV1MqStreamsStreamConsumersName) | **Delete** /v1/mq/streams/{stream}/consumers/{name} | Removes a consumer and its delivery state; unacknowledged messages stay in the stream.
-[**CloudGetV1MqHealth**](MqAPI.md#CloudGetV1MqHealth) | **Get** /v1/mq/health | Reports whether the message plane behind this surface answers.
-[**CloudGetV1MqInfo**](MqAPI.md#CloudGetV1MqInfo) | **Get** /v1/mq/info | Returns the broker&#39;s identity and the org&#39;s stream count.
-[**CloudGetV1MqStreams**](MqAPI.md#CloudGetV1MqStreams) | **Get** /v1/mq/streams | Returns the org&#39;s streams, name-ordered, with their live state.
-[**CloudGetV1MqStreamsName**](MqAPI.md#CloudGetV1MqStreamsName) | **Get** /v1/mq/streams/{name} | Returns one stream&#39;s configuration and live state.
-[**CloudGetV1MqStreamsNameMessages**](MqAPI.md#CloudGetV1MqStreamsNameMessages) | **Get** /v1/mq/streams/{name}/messages | Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
-[**CloudGetV1MqStreamsStreamConsumers**](MqAPI.md#CloudGetV1MqStreamsStreamConsumers) | **Get** /v1/mq/streams/{stream}/consumers | Returns a stream&#39;s consumers, name-ordered, with delivery state.
-[**CloudGetV1MqStreamsStreamConsumersName**](MqAPI.md#CloudGetV1MqStreamsStreamConsumersName) | **Get** /v1/mq/streams/{stream}/consumers/{name} | Returns one consumer&#39;s configuration and delivery state.
-[**CloudPostV1MqStreams**](MqAPI.md#CloudPostV1MqStreams) | **Post** /v1/mq/streams | Creates a durable stream in the org&#39;s namespace and returns it.
-[**CloudPostV1MqStreamsNamePurge**](MqAPI.md#CloudPostV1MqStreamsNamePurge) | **Post** /v1/mq/streams/{name}/purge | Removes messages from a stream, leaving its consumers in place.
-[**CloudPostV1MqStreamsStreamConsumers**](MqAPI.md#CloudPostV1MqStreamsStreamConsumers) | **Post** /v1/mq/streams/{stream}/consumers | Creates a durable pull consumer on a stream and returns it.
-[**CloudPostV1MqStreamsStreamConsumersNameNext**](MqAPI.md#CloudPostV1MqStreamsStreamConsumersNameNext) | **Post** /v1/mq/streams/{stream}/consumers/{name}/next | Pulls the consumer&#39;s next batch.
-[**CloudPutV1MqStreamsName**](MqAPI.md#CloudPutV1MqStreamsName) | **Put** /v1/mq/streams/{name} | Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
+[**DeleteMqStreamsByName**](MqAPI.md#DeleteMqStreamsByName) | **Delete** /v1/mq/streams/{name} | Removes a stream with all its messages and consumers.
+[**DeleteMqStreamsByNameMessagesBySeq**](MqAPI.md#DeleteMqStreamsByNameMessagesBySeq) | **Delete** /v1/mq/streams/{name}/messages/{seq} | Erases one message by sequence; the sequence gap remains.
+[**DeleteMqStreamsByStreamConsumersByName**](MqAPI.md#DeleteMqStreamsByStreamConsumersByName) | **Delete** /v1/mq/streams/{stream}/consumers/{name} | Removes a consumer and its delivery state; unacknowledged messages stay in the stream.
+[**GetMqHealth**](MqAPI.md#GetMqHealth) | **Get** /v1/mq/health | Reports whether the message plane behind this surface answers.
+[**GetMqInfo**](MqAPI.md#GetMqInfo) | **Get** /v1/mq/info | Returns the broker&#39;s identity and the org&#39;s stream count.
+[**GetMqStreams**](MqAPI.md#GetMqStreams) | **Get** /v1/mq/streams | Returns the org&#39;s streams, name-ordered, with their live state.
+[**GetMqStreamsByName**](MqAPI.md#GetMqStreamsByName) | **Get** /v1/mq/streams/{name} | Returns one stream&#39;s configuration and live state.
+[**GetMqStreamsByNameMessages**](MqAPI.md#GetMqStreamsByNameMessages) | **Get** /v1/mq/streams/{name}/messages | Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
+[**GetMqStreamsByStreamConsumers**](MqAPI.md#GetMqStreamsByStreamConsumers) | **Get** /v1/mq/streams/{stream}/consumers | Returns a stream&#39;s consumers, name-ordered, with delivery state.
+[**GetMqStreamsByStreamConsumersByName**](MqAPI.md#GetMqStreamsByStreamConsumersByName) | **Get** /v1/mq/streams/{stream}/consumers/{name} | Returns one consumer&#39;s configuration and delivery state.
+[**PostMqStreams**](MqAPI.md#PostMqStreams) | **Post** /v1/mq/streams | Creates a durable stream in the org&#39;s namespace and returns it.
+[**PostMqStreamsByNamePurge**](MqAPI.md#PostMqStreamsByNamePurge) | **Post** /v1/mq/streams/{name}/purge | Removes messages from a stream, leaving its consumers in place.
+[**PostMqStreamsByStreamConsumers**](MqAPI.md#PostMqStreamsByStreamConsumers) | **Post** /v1/mq/streams/{stream}/consumers | Creates a durable pull consumer on a stream and returns it.
+[**PostMqStreamsByStreamConsumersByNameNext**](MqAPI.md#PostMqStreamsByStreamConsumersByNameNext) | **Post** /v1/mq/streams/{stream}/consumers/{name}/next | Pulls the consumer&#39;s next batch.
+[**PutMqStreamsByName**](MqAPI.md#PutMqStreamsByName) | **Put** /v1/mq/streams/{name} | Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
 
 
 
-## CloudDeleteV1MqStreamsName
+## DeleteMqStreamsByName
 
-> CloudDeleteV1MqStreamsName(ctx, name).Execute()
+> DeleteMqStreamsByName(ctx, name).Execute()
 
 Removes a stream with all its messages and consumers.
 
@@ -47,9 +47,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MqAPI.CloudDeleteV1MqStreamsName(context.Background(), name).Execute()
+	r, err := apiClient.MqAPI.DeleteMqStreamsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudDeleteV1MqStreamsName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MqStreamsNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMqStreamsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -90,9 +90,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1MqStreamsNameMessagesSeq
+## DeleteMqStreamsByNameMessagesBySeq
 
-> CloudDeleteV1MqStreamsNameMessagesSeq(ctx, name, seq).Execute()
+> DeleteMqStreamsByNameMessagesBySeq(ctx, name, seq).Execute()
 
 Erases one message by sequence; the sequence gap remains.
 
@@ -116,9 +116,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MqAPI.CloudDeleteV1MqStreamsNameMessagesSeq(context.Background(), name, seq).Execute()
+	r, err := apiClient.MqAPI.DeleteMqStreamsByNameMessagesBySeq(context.Background(), name, seq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudDeleteV1MqStreamsNameMessagesSeq``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamsByNameMessagesBySeq``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MqStreamsNameMessagesSeqRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMqStreamsByNameMessagesBySeqRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -161,9 +161,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1MqStreamsStreamConsumersName
+## DeleteMqStreamsByStreamConsumersByName
 
-> CloudDeleteV1MqStreamsStreamConsumersName(ctx, stream, name).Execute()
+> DeleteMqStreamsByStreamConsumersByName(ctx, stream, name).Execute()
 
 Removes a consumer and its delivery state; unacknowledged messages stay in the stream.
 
@@ -187,9 +187,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MqAPI.CloudDeleteV1MqStreamsStreamConsumersName(context.Background(), stream, name).Execute()
+	r, err := apiClient.MqAPI.DeleteMqStreamsByStreamConsumersByName(context.Background(), stream, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudDeleteV1MqStreamsStreamConsumersName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamsByStreamConsumersByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MqStreamsStreamConsumersNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMqStreamsByStreamConsumersByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -232,9 +232,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MqHealth
+## GetMqHealth
 
-> CloudHealth CloudGetV1MqHealth(ctx).Execute()
+> Health GetMqHealth(ctx).Execute()
 
 Reports whether the message plane behind this surface answers.
 
@@ -256,13 +256,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudGetV1MqHealth(context.Background()).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudGetV1MqHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MqHealth`: CloudHealth
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudGetV1MqHealth`: %v\n", resp)
+	// response from `GetMqHealth`: Health
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqHealth`: %v\n", resp)
 }
 ```
 
@@ -272,16 +272,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MqHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudHealth**](CloudHealth.md)
+[**Health**](Health.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -293,9 +293,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1MqHealthRequest 
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MqInfo
+## GetMqInfo
 
-> CloudInfoOut CloudGetV1MqInfo(ctx).Execute()
+> InfoOut GetMqInfo(ctx).Execute()
 
 Returns the broker's identity and the org's stream count.
 
@@ -317,13 +317,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudGetV1MqInfo(context.Background()).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqInfo(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudGetV1MqInfo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqInfo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MqInfo`: CloudInfoOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudGetV1MqInfo`: %v\n", resp)
+	// response from `GetMqInfo`: InfoOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqInfo`: %v\n", resp)
 }
 ```
 
@@ -333,16 +333,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MqInfoRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqInfoRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudInfoOut**](CloudInfoOut.md)
+[**InfoOut**](InfoOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -354,9 +354,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1MqInfoRequest st
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MqStreams
+## GetMqStreams
 
-> CloudStreams CloudGetV1MqStreams(ctx).Limit(limit).Offset(offset).Execute()
+> Streams GetMqStreams(ctx).Limit(limit).Offset(offset).Execute()
 
 Returns the org's streams, name-ordered, with their live state.
 
@@ -380,13 +380,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudGetV1MqStreams(context.Background()).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreams(context.Background()).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudGetV1MqStreams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreams``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MqStreams`: CloudStreams
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudGetV1MqStreams`: %v\n", resp)
+	// response from `GetMqStreams`: Streams
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreams`: %v\n", resp)
 }
 ```
 
@@ -396,7 +396,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MqStreamsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -406,11 +406,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudStreams**](CloudStreams.md)
+[**Streams**](Streams.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -422,9 +422,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MqStreamsName
+## GetMqStreamsByName
 
-> CloudStream CloudGetV1MqStreamsName(ctx, name).Execute()
+> Stream GetMqStreamsByName(ctx, name).Execute()
 
 Returns one stream's configuration and live state.
 
@@ -447,13 +447,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudGetV1MqStreamsName(context.Background(), name).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreamsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudGetV1MqStreamsName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MqStreamsName`: CloudStream
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudGetV1MqStreamsName`: %v\n", resp)
+	// response from `GetMqStreamsByName`: Stream
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamsByName`: %v\n", resp)
 }
 ```
 
@@ -467,7 +467,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MqStreamsNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -476,11 +476,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudStream**](CloudStream.md)
+[**Stream**](Stream.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -492,9 +492,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MqStreamsNameMessages
+## GetMqStreamsByNameMessages
 
-> CloudReadOut CloudGetV1MqStreamsNameMessages(ctx, name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
+> ReadOut GetMqStreamsByNameMessages(ctx, name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
 
 Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
 
@@ -521,13 +521,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudGetV1MqStreamsNameMessages(context.Background(), name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreamsByNameMessages(context.Background(), name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudGetV1MqStreamsNameMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamsByNameMessages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MqStreamsNameMessages`: CloudReadOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudGetV1MqStreamsNameMessages`: %v\n", resp)
+	// response from `GetMqStreamsByNameMessages`: ReadOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamsByNameMessages`: %v\n", resp)
 }
 ```
 
@@ -541,7 +541,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MqStreamsNameMessagesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamsByNameMessagesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -554,11 +554,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudReadOut**](CloudReadOut.md)
+[**ReadOut**](ReadOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -570,9 +570,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MqStreamsStreamConsumers
+## GetMqStreamsByStreamConsumers
 
-> CloudPickOut CloudGetV1MqStreamsStreamConsumers(ctx, stream).Limit(limit).Offset(offset).Execute()
+> PickOut GetMqStreamsByStreamConsumers(ctx, stream).Limit(limit).Offset(offset).Execute()
 
 Returns a stream's consumers, name-ordered, with delivery state.
 
@@ -597,13 +597,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudGetV1MqStreamsStreamConsumers(context.Background(), stream).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreamsByStreamConsumers(context.Background(), stream).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudGetV1MqStreamsStreamConsumers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamsByStreamConsumers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MqStreamsStreamConsumers`: CloudPickOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudGetV1MqStreamsStreamConsumers`: %v\n", resp)
+	// response from `GetMqStreamsByStreamConsumers`: PickOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamsByStreamConsumers`: %v\n", resp)
 }
 ```
 
@@ -617,7 +617,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MqStreamsStreamConsumersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamsByStreamConsumersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -628,11 +628,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudPickOut**](CloudPickOut.md)
+[**PickOut**](PickOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -644,9 +644,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MqStreamsStreamConsumersName
+## GetMqStreamsByStreamConsumersByName
 
-> CloudConsumer CloudGetV1MqStreamsStreamConsumersName(ctx, stream, name).Execute()
+> Consumer GetMqStreamsByStreamConsumersByName(ctx, stream, name).Execute()
 
 Returns one consumer's configuration and delivery state.
 
@@ -670,13 +670,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudGetV1MqStreamsStreamConsumersName(context.Background(), stream, name).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreamsByStreamConsumersByName(context.Background(), stream, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudGetV1MqStreamsStreamConsumersName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamsByStreamConsumersByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MqStreamsStreamConsumersName`: CloudConsumer
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudGetV1MqStreamsStreamConsumersName`: %v\n", resp)
+	// response from `GetMqStreamsByStreamConsumersByName`: Consumer
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamsByStreamConsumersByName`: %v\n", resp)
 }
 ```
 
@@ -691,7 +691,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MqStreamsStreamConsumersNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamsByStreamConsumersByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -701,11 +701,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudConsumer**](CloudConsumer.md)
+[**Consumer**](Consumer.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -717,9 +717,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MqStreams
+## PostMqStreams
 
-> CloudStream CloudPostV1MqStreams(ctx).CloudConfig(cloudConfig).Execute()
+> Stream PostMqStreams(ctx).StreamConfig(streamConfig).Execute()
 
 Creates a durable stream in the org's namespace and returns it.
 
@@ -738,17 +738,17 @@ import (
 )
 
 func main() {
-	cloudConfig := *openapiclient.NewCloudConfig() // CloudConfig | 
+	streamConfig := *openapiclient.NewStreamConfig() // StreamConfig | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudPostV1MqStreams(context.Background()).CloudConfig(cloudConfig).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreams(context.Background()).StreamConfig(streamConfig).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudPostV1MqStreams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreams``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MqStreams`: CloudStream
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudPostV1MqStreams`: %v\n", resp)
+	// response from `PostMqStreams`: Stream
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreams`: %v\n", resp)
 }
 ```
 
@@ -758,20 +758,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MqStreamsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMqStreamsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudConfig** | [**CloudConfig**](CloudConfig.md) |  | 
+ **streamConfig** | [**StreamConfig**](StreamConfig.md) |  | 
 
 ### Return type
 
-[**CloudStream**](CloudStream.md)
+[**Stream**](Stream.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -783,9 +783,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MqStreamsNamePurge
+## PostMqStreamsByNamePurge
 
-> CloudPurgeOut CloudPostV1MqStreamsNamePurge(ctx, name).CloudPurge(cloudPurge).Execute()
+> PurgeOut PostMqStreamsByNamePurge(ctx, name).Purge(purge).Execute()
 
 Removes messages from a stream, leaving its consumers in place.
 
@@ -805,17 +805,17 @@ import (
 
 func main() {
 	name := "name_example" // string | Name is the stream name, from the path.
-	cloudPurge := *openapiclient.NewCloudPurge() // CloudPurge | 
+	purge := *openapiclient.NewPurge() // Purge | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudPostV1MqStreamsNamePurge(context.Background(), name).CloudPurge(cloudPurge).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamsByNamePurge(context.Background(), name).Purge(purge).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudPostV1MqStreamsNamePurge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamsByNamePurge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MqStreamsNamePurge`: CloudPurgeOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudPostV1MqStreamsNamePurge`: %v\n", resp)
+	// response from `PostMqStreamsByNamePurge`: PurgeOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamsByNamePurge`: %v\n", resp)
 }
 ```
 
@@ -829,21 +829,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MqStreamsNamePurgeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMqStreamsByNamePurgeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPurge** | [**CloudPurge**](CloudPurge.md) |  | 
+ **purge** | [**Purge**](Purge.md) |  | 
 
 ### Return type
 
-[**CloudPurgeOut**](CloudPurgeOut.md)
+[**PurgeOut**](PurgeOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -855,9 +855,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MqStreamsStreamConsumers
+## PostMqStreamsByStreamConsumers
 
-> CloudConsumer CloudPostV1MqStreamsStreamConsumers(ctx, stream).CloudMakeIn(cloudMakeIn).Execute()
+> Consumer PostMqStreamsByStreamConsumers(ctx, stream).MakeIn(makeIn).Execute()
 
 Creates a durable pull consumer on a stream and returns it.
 
@@ -877,17 +877,17 @@ import (
 
 func main() {
 	stream := "stream_example" // string | Stream is the stream name, from the path.
-	cloudMakeIn := *openapiclient.NewCloudMakeIn() // CloudMakeIn | 
+	makeIn := *openapiclient.NewMakeIn() // MakeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudPostV1MqStreamsStreamConsumers(context.Background(), stream).CloudMakeIn(cloudMakeIn).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamsByStreamConsumers(context.Background(), stream).MakeIn(makeIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudPostV1MqStreamsStreamConsumers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamsByStreamConsumers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MqStreamsStreamConsumers`: CloudConsumer
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudPostV1MqStreamsStreamConsumers`: %v\n", resp)
+	// response from `PostMqStreamsByStreamConsumers`: Consumer
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamsByStreamConsumers`: %v\n", resp)
 }
 ```
 
@@ -901,21 +901,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MqStreamsStreamConsumersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMqStreamsByStreamConsumersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudMakeIn** | [**CloudMakeIn**](CloudMakeIn.md) |  | 
+ **makeIn** | [**MakeIn**](MakeIn.md) |  | 
 
 ### Return type
 
-[**CloudConsumer**](CloudConsumer.md)
+[**Consumer**](Consumer.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -927,9 +927,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MqStreamsStreamConsumersNameNext
+## PostMqStreamsByStreamConsumersByNameNext
 
-> CloudReadOut CloudPostV1MqStreamsStreamConsumersNameNext(ctx, stream, name).CloudNextIn(cloudNextIn).Execute()
+> ReadOut PostMqStreamsByStreamConsumersByNameNext(ctx, stream, name).NextIn(nextIn).Execute()
 
 Pulls the consumer's next batch.
 
@@ -950,17 +950,17 @@ import (
 func main() {
 	stream := "stream_example" // string | Stream is the stream name, from the path.
 	name := "name_example" // string | Name is the consumer name, from the path.
-	cloudNextIn := *openapiclient.NewCloudNextIn() // CloudNextIn | 
+	nextIn := *openapiclient.NewNextIn() // NextIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudPostV1MqStreamsStreamConsumersNameNext(context.Background(), stream, name).CloudNextIn(cloudNextIn).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamsByStreamConsumersByNameNext(context.Background(), stream, name).NextIn(nextIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudPostV1MqStreamsStreamConsumersNameNext``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamsByStreamConsumersByNameNext``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MqStreamsStreamConsumersNameNext`: CloudReadOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudPostV1MqStreamsStreamConsumersNameNext`: %v\n", resp)
+	// response from `PostMqStreamsByStreamConsumersByNameNext`: ReadOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamsByStreamConsumersByNameNext`: %v\n", resp)
 }
 ```
 
@@ -975,22 +975,22 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MqStreamsStreamConsumersNameNextRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMqStreamsByStreamConsumersByNameNextRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **cloudNextIn** | [**CloudNextIn**](CloudNextIn.md) |  | 
+ **nextIn** | [**NextIn**](NextIn.md) |  | 
 
 ### Return type
 
-[**CloudReadOut**](CloudReadOut.md)
+[**ReadOut**](ReadOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1002,9 +1002,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1MqStreamsName
+## PutMqStreamsByName
 
-> CloudStream CloudPutV1MqStreamsName(ctx, name).CloudConfig(cloudConfig).Execute()
+> Stream PutMqStreamsByName(ctx, name).StreamConfig(streamConfig).Execute()
 
 Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
 
@@ -1024,17 +1024,17 @@ import (
 
 func main() {
 	name := "name_example" // string | Name is the stream name, unique within the org (alphanumeric, hyphens, underscores).
-	cloudConfig := *openapiclient.NewCloudConfig() // CloudConfig | 
+	streamConfig := *openapiclient.NewStreamConfig() // StreamConfig | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.CloudPutV1MqStreamsName(context.Background(), name).CloudConfig(cloudConfig).Execute()
+	resp, r, err := apiClient.MqAPI.PutMqStreamsByName(context.Background(), name).StreamConfig(streamConfig).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.CloudPutV1MqStreamsName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PutMqStreamsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1MqStreamsName`: CloudStream
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.CloudPutV1MqStreamsName`: %v\n", resp)
+	// response from `PutMqStreamsByName`: Stream
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PutMqStreamsByName`: %v\n", resp)
 }
 ```
 
@@ -1048,21 +1048,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1MqStreamsNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutMqStreamsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudConfig** | [**CloudConfig**](CloudConfig.md) |  | 
+ **streamConfig** | [**StreamConfig**](StreamConfig.md) |  | 
 
 ### Return type
 
-[**CloudStream**](CloudStream.md)
+[**Stream**](Stream.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

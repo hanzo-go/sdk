@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1RegistryImages**](RegistryAPI.md#CloudGetV1RegistryImages) | **Get** /v1/registry/images | Images lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
-[**CloudGetV1RegistryPackages**](RegistryAPI.md#CloudGetV1RegistryPackages) | **Get** /v1/registry/packages | Packages lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
-[**CloudGetV1RegistryProjects**](RegistryAPI.md#CloudGetV1RegistryProjects) | **Get** /v1/registry/projects | Projects lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
-[**CloudGetV1RegistryStatus**](RegistryAPI.md#CloudGetV1RegistryStatus) | **Get** /v1/registry/status | Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
-[**CloudGetV1RegistryTags**](RegistryAPI.md#CloudGetV1RegistryTags) | **Get** /v1/registry/tags | Tags lists one org-owned repository&#39;s tags, read live from the OCI registry.
-[**CloudPostV1RegistryToken**](RegistryAPI.md#CloudPostV1RegistryToken) | **Post** /v1/registry/token | Token mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
+[**GetRegistryImages**](RegistryAPI.md#GetRegistryImages) | **Get** /v1/registry/images | Images lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
+[**GetRegistryPackages**](RegistryAPI.md#GetRegistryPackages) | **Get** /v1/registry/packages | Packages lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
+[**GetRegistryProjects**](RegistryAPI.md#GetRegistryProjects) | **Get** /v1/registry/projects | Projects lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
+[**GetRegistryStatus**](RegistryAPI.md#GetRegistryStatus) | **Get** /v1/registry/status | Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
+[**GetRegistryTags**](RegistryAPI.md#GetRegistryTags) | **Get** /v1/registry/tags | Tags lists one org-owned repository&#39;s tags, read live from the OCI registry.
+[**PostRegistryToken**](RegistryAPI.md#PostRegistryToken) | **Post** /v1/registry/token | Token mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
 
 
 
-## CloudGetV1RegistryImages
+## GetRegistryImages
 
-> CloudRegistryImageList CloudGetV1RegistryImages(ctx).Execute()
+> RegistryImageList GetRegistryImages(ctx).Execute()
 
 Images lists the org's container repositories, read live from the OCI catalog and filtered server-side to the org's namespace — the page can only ever hold the caller's own images.
 
@@ -37,13 +37,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RegistryAPI.CloudGetV1RegistryImages(context.Background()).Execute()
+	resp, r, err := apiClient.RegistryAPI.GetRegistryImages(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.CloudGetV1RegistryImages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryImages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1RegistryImages`: CloudRegistryImageList
-	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.CloudGetV1RegistryImages`: %v\n", resp)
+	// response from `GetRegistryImages`: RegistryImageList
+	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryImages`: %v\n", resp)
 }
 ```
 
@@ -53,16 +53,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1RegistryImagesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetRegistryImagesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudRegistryImageList**](CloudRegistryImageList.md)
+[**RegistryImageList**](RegistryImageList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -74,9 +74,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1RegistryImagesRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1RegistryPackages
+## GetRegistryPackages
 
-> CloudRegistryPackageList CloudGetV1RegistryPackages(ctx).Query(query).Execute()
+> RegistryPackageList GetRegistryPackages(ctx).Query(query).Execute()
 
 Packages lists the org's npm packages — `<org>` and `@<org>/…` — from the npm registry's search index, optionally narrowed by a query within that scope.
 
@@ -99,13 +99,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RegistryAPI.CloudGetV1RegistryPackages(context.Background()).Query(query).Execute()
+	resp, r, err := apiClient.RegistryAPI.GetRegistryPackages(context.Background()).Query(query).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.CloudGetV1RegistryPackages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryPackages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1RegistryPackages`: CloudRegistryPackageList
-	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.CloudGetV1RegistryPackages`: %v\n", resp)
+	// response from `GetRegistryPackages`: RegistryPackageList
+	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryPackages`: %v\n", resp)
 }
 ```
 
@@ -115,7 +115,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1RegistryPackagesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetRegistryPackagesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -124,11 +124,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRegistryPackageList**](CloudRegistryPackageList.md)
+[**RegistryPackageList**](RegistryPackageList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -140,9 +140,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1RegistryProjects
+## GetRegistryProjects
 
-> CloudRegistryProjectList CloudGetV1RegistryProjects(ctx).Execute()
+> RegistryProjectList GetRegistryProjects(ctx).Execute()
 
 Projects lists the namespaces the caller can see with what each holds: the org's slug, its repository count on the OCI catalog, and its package count on the npm registry.
 
@@ -164,13 +164,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RegistryAPI.CloudGetV1RegistryProjects(context.Background()).Execute()
+	resp, r, err := apiClient.RegistryAPI.GetRegistryProjects(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.CloudGetV1RegistryProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1RegistryProjects`: CloudRegistryProjectList
-	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.CloudGetV1RegistryProjects`: %v\n", resp)
+	// response from `GetRegistryProjects`: RegistryProjectList
+	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryProjects`: %v\n", resp)
 }
 ```
 
@@ -180,16 +180,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1RegistryProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetRegistryProjectsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudRegistryProjectList**](CloudRegistryProjectList.md)
+[**RegistryProjectList**](RegistryProjectList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -201,9 +201,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1RegistryProjects
 [[Back to README]](../README.md)
 
 
-## CloudGetV1RegistryStatus
+## GetRegistryStatus
 
-> CloudRegistryStatus CloudGetV1RegistryStatus(ctx).Execute()
+> RegistryStatus GetRegistryStatus(ctx).Execute()
 
 Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \"is the registry plane up\", never a fabricated ok.
 
@@ -225,13 +225,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RegistryAPI.CloudGetV1RegistryStatus(context.Background()).Execute()
+	resp, r, err := apiClient.RegistryAPI.GetRegistryStatus(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.CloudGetV1RegistryStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1RegistryStatus`: CloudRegistryStatus
-	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.CloudGetV1RegistryStatus`: %v\n", resp)
+	// response from `GetRegistryStatus`: RegistryStatus
+	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryStatus`: %v\n", resp)
 }
 ```
 
@@ -241,16 +241,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1RegistryStatusRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetRegistryStatusRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudRegistryStatus**](CloudRegistryStatus.md)
+[**RegistryStatus**](RegistryStatus.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -262,9 +262,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1RegistryStatusRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1RegistryTags
+## GetRegistryTags
 
-> CloudRegistryTagList CloudGetV1RegistryTags(ctx).Image(image).Execute()
+> RegistryTagList GetRegistryTags(ctx).Image(image).Execute()
 
 Tags lists one org-owned repository's tags, read live from the OCI registry.
 
@@ -287,13 +287,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RegistryAPI.CloudGetV1RegistryTags(context.Background()).Image(image).Execute()
+	resp, r, err := apiClient.RegistryAPI.GetRegistryTags(context.Background()).Image(image).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.CloudGetV1RegistryTags``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryTags``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1RegistryTags`: CloudRegistryTagList
-	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.CloudGetV1RegistryTags`: %v\n", resp)
+	// response from `GetRegistryTags`: RegistryTagList
+	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryTags`: %v\n", resp)
 }
 ```
 
@@ -303,7 +303,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1RegistryTagsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetRegistryTagsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -312,11 +312,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRegistryTagList**](CloudRegistryTagList.md)
+[**RegistryTagList**](RegistryTagList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -328,9 +328,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1RegistryToken
+## PostRegistryToken
 
-> CloudRegistryToken CloudPostV1RegistryToken(ctx).CloudRegistryMint(cloudRegistryMint).Execute()
+> RegistryToken PostRegistryToken(ctx).RegistryMint(registryMint).Execute()
 
 Token mints a short-lived, pull-only registry token for exactly one of the org's images, through the same IAM realm the docker CLI authenticates against.
 
@@ -349,17 +349,17 @@ import (
 )
 
 func main() {
-	cloudRegistryMint := *openapiclient.NewCloudRegistryMint() // CloudRegistryMint | 
+	registryMint := *openapiclient.NewRegistryMint() // RegistryMint | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RegistryAPI.CloudPostV1RegistryToken(context.Background()).CloudRegistryMint(cloudRegistryMint).Execute()
+	resp, r, err := apiClient.RegistryAPI.PostRegistryToken(context.Background()).RegistryMint(registryMint).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.CloudPostV1RegistryToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.PostRegistryToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1RegistryToken`: CloudRegistryToken
-	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.CloudPostV1RegistryToken`: %v\n", resp)
+	// response from `PostRegistryToken`: RegistryToken
+	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.PostRegistryToken`: %v\n", resp)
 }
 ```
 
@@ -369,20 +369,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1RegistryTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostRegistryTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudRegistryMint** | [**CloudRegistryMint**](CloudRegistryMint.md) |  | 
+ **registryMint** | [**RegistryMint**](RegistryMint.md) |  | 
 
 ### Return type
 
-[**CloudRegistryToken**](CloudRegistryToken.md)
+[**RegistryToken**](RegistryToken.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

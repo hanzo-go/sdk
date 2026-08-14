@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1InsightsEvents**](InsightsAPI.md#CloudGetV1InsightsEvents) | **Get** /v1/insights/events | InsightsEvents returns the caller org&#39;s most recent product events, newest first.
-[**CloudGetV1InsightsHealth**](InsightsAPI.md#CloudGetV1InsightsHealth) | **Get** /v1/insights/health | InsightsHealth reports that the unified insights surface is serving.
+[**GetInsightsEvents**](InsightsAPI.md#GetInsightsEvents) | **Get** /v1/insights/events | Returns the caller org&#39;s most recent product events, newest first.
+[**GetInsightsHealth**](InsightsAPI.md#GetInsightsHealth) | **Get** /v1/insights/health | Reports that the unified insights surface is serving.
 
 
 
-## CloudGetV1InsightsEvents
+## GetInsightsEvents
 
-> CloudEventList CloudGetV1InsightsEvents(ctx).Limit(limit).Execute()
+> EventList GetInsightsEvents(ctx).Limit(limit).Execute()
 
-InsightsEvents returns the caller org's most recent product events, newest first.
+Returns the caller org's most recent product events, newest first.
 
 
 
@@ -34,13 +34,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InsightsAPI.CloudGetV1InsightsEvents(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.InsightsAPI.GetInsightsEvents(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InsightsAPI.CloudGetV1InsightsEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsAPI.GetInsightsEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1InsightsEvents`: CloudEventList
-	fmt.Fprintf(os.Stdout, "Response from `InsightsAPI.CloudGetV1InsightsEvents`: %v\n", resp)
+	// response from `GetInsightsEvents`: EventList
+	fmt.Fprintf(os.Stdout, "Response from `InsightsAPI.GetInsightsEvents`: %v\n", resp)
 }
 ```
 
@@ -50,7 +50,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1InsightsEventsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetInsightsEventsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -59,11 +59,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudEventList**](CloudEventList.md)
+[**EventList**](EventList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -75,11 +75,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1InsightsHealth
+## GetInsightsHealth
 
-> CloudInsightsStatus CloudGetV1InsightsHealth(ctx).Execute()
+> InsightsStatus GetInsightsHealth(ctx).Execute()
 
-InsightsHealth reports that the unified insights surface is serving.
+Reports that the unified insights surface is serving.
 
 
 
@@ -99,13 +99,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InsightsAPI.CloudGetV1InsightsHealth(context.Background()).Execute()
+	resp, r, err := apiClient.InsightsAPI.GetInsightsHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InsightsAPI.CloudGetV1InsightsHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsAPI.GetInsightsHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1InsightsHealth`: CloudInsightsStatus
-	fmt.Fprintf(os.Stdout, "Response from `InsightsAPI.CloudGetV1InsightsHealth`: %v\n", resp)
+	// response from `GetInsightsHealth`: InsightsStatus
+	fmt.Fprintf(os.Stdout, "Response from `InsightsAPI.GetInsightsHealth`: %v\n", resp)
 }
 ```
 
@@ -115,16 +115,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1InsightsHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetInsightsHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudInsightsStatus**](CloudInsightsStatus.md)
+[**InsightsStatus**](InsightsStatus.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,37 +4,39 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Pricing**](PricingAPI.md#CloudGetV1Pricing) | **Get** /v1/pricing | GetPricing returns the whole pricing catalog in one document: Zen and third-party models, providers, model families, the free-model list, plan and infrastructure pricing.
-[**CloudGetV1PricingBase**](PricingAPI.md#CloudGetV1PricingBase) | **Get** /v1/pricing/base | ListBasePlans returns the Hanzo Base plans — the managed-instance tiers, each with its monthly and annual price, storage and request allowances and feature list.
-[**CloudGetV1PricingBlockchain**](PricingAPI.md#CloudGetV1PricingBlockchain) | **Get** /v1/pricing/blockchain | ListBlockchainPlans returns the blockchain access plans — the RPC and node tiers, each with its monthly price, compute-unit allowance and feature list.
-[**CloudGetV1PricingCloud**](PricingAPI.md#CloudGetV1PricingCloud) | **Get** /v1/pricing/cloud | GetCloudPricing returns the public cloud section of the catalog in one document: its instance plans, its regions and its block-storage prices.
-[**CloudGetV1PricingCloudPlans**](PricingAPI.md#CloudGetV1PricingCloudPlans) | **Get** /v1/pricing/cloud/plans | GetCloudPlans returns just the cloud instance plans — each with its vCPU, memory, disk, CPU type, VM allowance, feature list and monthly and hourly price.
-[**CloudGetV1PricingCloudRegions**](PricingAPI.md#CloudGetV1PricingCloudRegions) | **Get** /v1/pricing/cloud/regions | GetCloudRegions returns the regions a cloud instance can be placed in, each with its id, display name and physical location.
-[**CloudGetV1PricingCloudStorage**](PricingAPI.md#CloudGetV1PricingCloudStorage) | **Get** /v1/pricing/cloud/storage | GetCloudStoragePricing returns the block-storage prices of the cloud section: the per-GB monthly rate and the volume size bounds a caller may ask for.
-[**CloudGetV1PricingCompute**](PricingAPI.md#CloudGetV1PricingCompute) | **Get** /v1/pricing/compute | GetComputePricing returns the compute section of the catalog: the cloud provider and region the prices are quoted for, the monthly markup applied to them, the full instance-size tier list and the named presets.
-[**CloudGetV1PricingComputePresets**](PricingAPI.md#CloudGetV1PricingComputePresets) | **Get** /v1/pricing/compute/presets | GetComputePresets returns just the named compute sizes — the short, human-labelled list (\&quot;Starter\&quot;, \&quot;Pro\&quot;) a size picker renders, each carrying its provider slug, vCPU, memory, disk and price.
-[**CloudGetV1PricingFeatured**](PricingAPI.md#CloudGetV1PricingFeatured) | **Get** /v1/pricing/featured | ListFeaturedModels returns the models the catalog highlights, filtered to what the caller&#39;s org may see.
-[**CloudGetV1PricingFree**](PricingAPI.md#CloudGetV1PricingFree) | **Get** /v1/pricing/free | ListFreeModels returns the models that cost nothing to call, filtered to what the caller&#39;s org may see.
-[**CloudGetV1PricingGpu**](PricingAPI.md#CloudGetV1PricingGpu) | **Get** /v1/pricing/gpu | ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPU, host memory and hourly price.
-[**CloudGetV1PricingHealth**](PricingAPI.md#CloudGetV1PricingHealth) | **Get** /v1/pricing/health | Health reports that the pricing subsystem is mounted and serving.
-[**CloudGetV1PricingIam**](PricingAPI.md#CloudGetV1PricingIam) | **Get** /v1/pricing/iam | ListIAMPlans returns the identity plans — the Hanzo IAM tiers, each with its monthly and annual price, monthly-active-user allowance and feature list.
-[**CloudGetV1PricingModelName**](PricingAPI.md#CloudGetV1PricingModelName) | **Get** /v1/pricing/model/{name} | GetModel returns one model&#39;s catalog entry — its pricing, context window and capabilities as the pricing source records them.
-[**CloudGetV1PricingModels**](PricingAPI.md#CloudGetV1PricingModels) | **Get** /v1/pricing/models | ListModels returns the whole model catalog — Hanzo&#39;s own Zen models and every third-party model — filtered to what the caller&#39;s org may see.
-[**CloudGetV1PricingPaas**](PricingAPI.md#CloudGetV1PricingPaas) | **Get** /v1/pricing/paas | ListPaaSPlans returns the application-hosting plans — the deploy-and-host tiers, each with its monthly and annual price, app and memory allowances and feature list.
-[**CloudGetV1PricingPolicy2**](PricingAPI.md#CloudGetV1PricingPolicy2) | **Get** /v1/pricing/policy | GetPricingPolicy returns the pricing policy document: the revenue-sharing terms (the idle-resale share and the open-source share, each with its percentage and who is eligible) and the commitments Hanzo makes about how it bills — no hidden fees, no egress charges, no surprise bills.
-[**CloudGetV1PricingProviders**](PricingAPI.md#CloudGetV1PricingProviders) | **Get** /v1/pricing/providers | ListProviders returns the model providers the catalog knows, each with its info object, filtered to what the caller&#39;s org may see.
-[**CloudGetV1PricingSubscriptions**](PricingAPI.md#CloudGetV1PricingSubscriptions) | **Get** /v1/pricing/subscriptions | ListSubscriptionPlans returns the API subscription plans — the account-level tiers a customer subscribes to, each with its monthly and annual price, included credit, rate limits and feature list.
-[**CloudGetV1PricingSummary**](PricingAPI.md#CloudGetV1PricingSummary) | **Get** /v1/pricing/summary | GetPricingSummary returns the catalog&#39;s headline statistics — model counts by family and the provider directory.
-[**CloudGetV1PricingTools**](PricingAPI.md#CloudGetV1PricingTools) | **Get** /v1/pricing/tools | ListToolPrices returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
-[**CloudPostV1PricingSync**](PricingAPI.md#CloudPostV1PricingSync) | **Post** /v1/pricing/sync | SyncPricing refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
+[**GetPricing**](PricingAPI.md#GetPricing) | **Get** /v1/pricing | Returns the whole pricing catalog in one document: Zen and third-party models, providers, model families, the free-model list, plan and infrastructure pricing.
+[**GetPricingBase**](PricingAPI.md#GetPricingBase) | **Get** /v1/pricing/base | Returns the Hanzo Base plans — the managed-instance tiers, each with its monthly and annual price, storage and request allowances and feature list.
+[**GetPricingBlockchain**](PricingAPI.md#GetPricingBlockchain) | **Get** /v1/pricing/blockchain | Returns the blockchain access plans — the RPC and node tiers, each with its monthly price, compute-unit allowance and feature list.
+[**GetPricingCloud**](PricingAPI.md#GetPricingCloud) | **Get** /v1/pricing/cloud | Returns the public cloud section of the catalog in one document: its instance plans, its regions and its block-storage prices.
+[**GetPricingCloudPlans**](PricingAPI.md#GetPricingCloudPlans) | **Get** /v1/pricing/cloud/plans | Returns just the cloud instance plans — each with its vCPU, memory, disk, CPU type, VM allowance, feature list and monthly and hourly price.
+[**GetPricingCloudRegions**](PricingAPI.md#GetPricingCloudRegions) | **Get** /v1/pricing/cloud/regions | Returns the regions a cloud instance can be placed in, each with its id, display name and physical location.
+[**GetPricingCloudStorage**](PricingAPI.md#GetPricingCloudStorage) | **Get** /v1/pricing/cloud/storage | Returns the block-storage prices of the cloud section: the per-GB monthly rate and the volume size bounds a caller may ask for.
+[**GetPricingCompute**](PricingAPI.md#GetPricingCompute) | **Get** /v1/pricing/compute | Returns the compute section of the catalog: the cloud provider and region the prices are quoted for, the monthly markup applied to them, the full instance-size tier list and the named presets.
+[**GetPricingComputePresets**](PricingAPI.md#GetPricingComputePresets) | **Get** /v1/pricing/compute/presets | Returns just the named compute sizes — the short, human-labelled list (\&quot;Starter\&quot;, \&quot;Pro\&quot;) a size picker renders, each carrying its provider slug, vCPU, memory, disk and price.
+[**GetPricingDatastore**](PricingAPI.md#GetPricingDatastore) | **Get** /v1/pricing/datastore | Returns the Hanzo Datastore rate card: the tier list, the per-GB storage and egress usage rates, the annual discount and the trial.
+[**GetPricingFeatured**](PricingAPI.md#GetPricingFeatured) | **Get** /v1/pricing/featured | Returns the models the catalog highlights, filtered to what the caller&#39;s org may see.
+[**GetPricingFree**](PricingAPI.md#GetPricingFree) | **Get** /v1/pricing/free | Returns the models that cost nothing to call, filtered to what the caller&#39;s org may see.
+[**GetPricingGpu**](PricingAPI.md#GetPricingGpu) | **Get** /v1/pricing/gpu | ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPU, host memory and hourly price.
+[**GetPricingHealth**](PricingAPI.md#GetPricingHealth) | **Get** /v1/pricing/health | Health reports that the pricing subsystem is mounted and serving.
+[**GetPricingIam**](PricingAPI.md#GetPricingIam) | **Get** /v1/pricing/iam | ListIAMPlans returns the identity plans — the Hanzo IAM tiers, each with its monthly and annual price, monthly-active-user allowance and feature list.
+[**GetPricingModelByName**](PricingAPI.md#GetPricingModelByName) | **Get** /v1/pricing/model/{name} | Returns one model&#39;s catalog entry — its pricing, context window and capabilities as the pricing source records them.
+[**GetPricingModels**](PricingAPI.md#GetPricingModels) | **Get** /v1/pricing/models | Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller&#39;s org may see.
+[**GetPricingPaas**](PricingAPI.md#GetPricingPaas) | **Get** /v1/pricing/paas | ListPaaSPlans returns the application-hosting plans — the deploy-and-host tiers, each with its monthly and annual price, app and memory allowances and feature list.
+[**GetPricingPolicy**](PricingAPI.md#GetPricingPolicy) | **Get** /v1/pricing/policy | Returns the pricing policy document: the revenue-sharing terms (the idle-resale share and the open-source share, each with its percentage and who is eligible) and the commitments Hanzo makes about how it bills — no hidden fees, no egress charges, no surprise bills.
+[**GetPricingProviders**](PricingAPI.md#GetPricingProviders) | **Get** /v1/pricing/providers | Returns the model providers the catalog knows, each with its info object, filtered to what the caller&#39;s org may see.
+[**GetPricingServices**](PricingAPI.md#GetPricingServices) | **Get** /v1/pricing/services | Returns the managed-service rate cards — Search, Crawl, Vector, Console and Managed Services — each with its own tiers, and some with usage rates or a comparison table.
+[**GetPricingSubscriptions**](PricingAPI.md#GetPricingSubscriptions) | **Get** /v1/pricing/subscriptions | Returns the API subscription plans — the account-level tiers a customer subscribes to, each with its monthly and annual price, included credit, rate limits and feature list.
+[**GetPricingSummary**](PricingAPI.md#GetPricingSummary) | **Get** /v1/pricing/summary | Returns the catalog&#39;s headline statistics — model counts by family and the provider directory.
+[**GetPricingTools**](PricingAPI.md#GetPricingTools) | **Get** /v1/pricing/tools | Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+[**PostPricingSync**](PricingAPI.md#PostPricingSync) | **Post** /v1/pricing/sync | Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
 
 
 
-## CloudGetV1Pricing
+## GetPricing
 
-> map[string]map[string]interface{} CloudGetV1Pricing(ctx).Execute()
+> map[string]map[string]interface{} GetPricing(ctx).Execute()
 
-GetPricing returns the whole pricing catalog in one document: Zen and third-party models, providers, model families, the free-model list, plan and infrastructure pricing.
+Returns the whole pricing catalog in one document: Zen and third-party models, providers, model families, the free-model list, plan and infrastructure pricing.
 
 
 
@@ -54,13 +56,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1Pricing(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricing(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1Pricing``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricing``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Pricing`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1Pricing`: %v\n", resp)
+	// response from `GetPricing`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricing`: %v\n", resp)
 }
 ```
 
@@ -70,7 +72,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingRequest struct via the builder pattern
 
 
 ### Return type
@@ -79,7 +81,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingRequest s
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -91,11 +93,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingRequest s
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingBase
+## GetPricingBase
 
-> CloudPricingPlanList CloudGetV1PricingBase(ctx).Execute()
+> PricingPlanList GetPricingBase(ctx).Execute()
 
-ListBasePlans returns the Hanzo Base plans — the managed-instance tiers, each with its monthly and annual price, storage and request allowances and feature list.
+Returns the Hanzo Base plans — the managed-instance tiers, each with its monthly and annual price, storage and request allowances and feature list.
 
 
 
@@ -115,13 +117,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingBase(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingBase(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingBase``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingBase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingBase`: CloudPricingPlanList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingBase`: %v\n", resp)
+	// response from `GetPricingBase`: PricingPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingBase`: %v\n", resp)
 }
 ```
 
@@ -131,16 +133,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingBaseRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingBaseRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingPlanList**](CloudPricingPlanList.md)
+[**PricingPlanList**](PricingPlanList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -152,11 +154,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingBaseReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingBlockchain
+## GetPricingBlockchain
 
-> CloudPricingPlanList CloudGetV1PricingBlockchain(ctx).Execute()
+> PricingPlanList GetPricingBlockchain(ctx).Execute()
 
-ListBlockchainPlans returns the blockchain access plans — the RPC and node tiers, each with its monthly price, compute-unit allowance and feature list.
+Returns the blockchain access plans — the RPC and node tiers, each with its monthly price, compute-unit allowance and feature list.
 
 
 
@@ -176,13 +178,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingBlockchain(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingBlockchain(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingBlockchain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingBlockchain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingBlockchain`: CloudPricingPlanList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingBlockchain`: %v\n", resp)
+	// response from `GetPricingBlockchain`: PricingPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingBlockchain`: %v\n", resp)
 }
 ```
 
@@ -192,16 +194,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingBlockchainRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingBlockchainRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingPlanList**](CloudPricingPlanList.md)
+[**PricingPlanList**](PricingPlanList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -213,11 +215,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingBlockchai
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingCloud
+## GetPricingCloud
 
-> map[string]map[string]interface{} CloudGetV1PricingCloud(ctx).Execute()
+> map[string]map[string]interface{} GetPricingCloud(ctx).Execute()
 
-GetCloudPricing returns the public cloud section of the catalog in one document: its instance plans, its regions and its block-storage prices.
+Returns the public cloud section of the catalog in one document: its instance plans, its regions and its block-storage prices.
 
 
 
@@ -237,13 +239,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingCloud(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingCloud(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingCloud``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCloud``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingCloud`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingCloud`: %v\n", resp)
+	// response from `GetPricingCloud`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCloud`: %v\n", resp)
 }
 ```
 
@@ -253,190 +255,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingCloudRequest struct via the builder pattern
-
-
-### Return type
-
-**map[string]map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1PricingCloudPlans
-
-> CloudPricingPlanList CloudGetV1PricingCloudPlans(ctx).Execute()
-
-GetCloudPlans returns just the cloud instance plans — each with its vCPU, memory, disk, CPU type, VM allowance, feature list and monthly and hourly price.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingCloudPlans(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingCloudPlans``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1PricingCloudPlans`: CloudPricingPlanList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingCloudPlans`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1PricingCloudPlansRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudPricingPlanList**](CloudPricingPlanList.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1PricingCloudRegions
-
-> CloudPricingRegionList CloudGetV1PricingCloudRegions(ctx).Execute()
-
-GetCloudRegions returns the regions a cloud instance can be placed in, each with its id, display name and physical location.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingCloudRegions(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingCloudRegions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1PricingCloudRegions`: CloudPricingRegionList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingCloudRegions`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1PricingCloudRegionsRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudPricingRegionList**](CloudPricingRegionList.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1PricingCloudStorage
-
-> map[string]map[string]interface{} CloudGetV1PricingCloudStorage(ctx).Execute()
-
-GetCloudStoragePricing returns the block-storage prices of the cloud section: the per-GB monthly rate and the volume size bounds a caller may ask for.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingCloudStorage(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingCloudStorage``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1PricingCloudStorage`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingCloudStorage`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1PricingCloudStorageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingCloudRequest struct via the builder pattern
 
 
 ### Return type
@@ -445,7 +264,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingCloudStor
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -457,11 +276,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingCloudStor
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingCompute
+## GetPricingCloudPlans
 
-> map[string]map[string]interface{} CloudGetV1PricingCompute(ctx).Execute()
+> PricingPlanList GetPricingCloudPlans(ctx).Execute()
 
-GetComputePricing returns the compute section of the catalog: the cloud provider and region the prices are quoted for, the monthly markup applied to them, the full instance-size tier list and the named presets.
+Returns just the cloud instance plans — each with its vCPU, memory, disk, CPU type, VM allowance, feature list and monthly and hourly price.
 
 
 
@@ -481,13 +300,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingCompute(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingCloudPlans(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingCompute``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCloudPlans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingCompute`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingCompute`: %v\n", resp)
+	// response from `GetPricingCloudPlans`: PricingPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCloudPlans`: %v\n", resp)
 }
 ```
 
@@ -497,7 +316,129 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingComputeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingCloudPlansRequest struct via the builder pattern
+
+
+### Return type
+
+[**PricingPlanList**](PricingPlanList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPricingCloudRegions
+
+> PricingRegionList GetPricingCloudRegions(ctx).Execute()
+
+Returns the regions a cloud instance can be placed in, each with its id, display name and physical location.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.GetPricingCloudRegions(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCloudRegions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPricingCloudRegions`: PricingRegionList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCloudRegions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPricingCloudRegionsRequest struct via the builder pattern
+
+
+### Return type
+
+[**PricingRegionList**](PricingRegionList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPricingCloudStorage
+
+> map[string]map[string]interface{} GetPricingCloudStorage(ctx).Execute()
+
+Returns the block-storage prices of the cloud section: the per-GB monthly rate and the volume size bounds a caller may ask for.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.GetPricingCloudStorage(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCloudStorage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPricingCloudStorage`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCloudStorage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPricingCloudStorageRequest struct via the builder pattern
 
 
 ### Return type
@@ -506,7 +447,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingComputeRe
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -518,11 +459,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingComputeRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingComputePresets
+## GetPricingCompute
 
-> CloudPricingPresetList CloudGetV1PricingComputePresets(ctx).Execute()
+> map[string]map[string]interface{} GetPricingCompute(ctx).Execute()
 
-GetComputePresets returns just the named compute sizes — the short, human-labelled list (\"Starter\", \"Pro\") a size picker renders, each carrying its provider slug, vCPU, memory, disk and price.
+Returns the compute section of the catalog: the cloud provider and region the prices are quoted for, the monthly markup applied to them, the full instance-size tier list and the named presets.
 
 
 
@@ -542,13 +483,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingComputePresets(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingCompute(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingComputePresets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCompute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingComputePresets`: CloudPricingPresetList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingComputePresets`: %v\n", resp)
+	// response from `GetPricingCompute`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCompute`: %v\n", resp)
 }
 ```
 
@@ -558,16 +499,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingComputePresetsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingComputeRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingPresetList**](CloudPricingPresetList.md)
+**map[string]map[string]interface{}**
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -579,11 +520,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingComputePr
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingFeatured
+## GetPricingComputePresets
 
-> CloudPricingModelList CloudGetV1PricingFeatured(ctx).Execute()
+> PricingPresetList GetPricingComputePresets(ctx).Execute()
 
-ListFeaturedModels returns the models the catalog highlights, filtered to what the caller's org may see.
+Returns just the named compute sizes — the short, human-labelled list (\"Starter\", \"Pro\") a size picker renders, each carrying its provider slug, vCPU, memory, disk and price.
 
 
 
@@ -603,13 +544,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingFeatured(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingComputePresets(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingFeatured``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingComputePresets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingFeatured`: CloudPricingModelList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingFeatured`: %v\n", resp)
+	// response from `GetPricingComputePresets`: PricingPresetList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingComputePresets`: %v\n", resp)
 }
 ```
 
@@ -619,16 +560,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingFeaturedRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingComputePresetsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingModelList**](CloudPricingModelList.md)
+[**PricingPresetList**](PricingPresetList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -640,11 +581,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingFeaturedR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingFree
+## GetPricingDatastore
 
-> CloudPricingModelList CloudGetV1PricingFree(ctx).Execute()
+> map[string]map[string]interface{} GetPricingDatastore(ctx).Execute()
 
-ListFreeModels returns the models that cost nothing to call, filtered to what the caller's org may see.
+Returns the Hanzo Datastore rate card: the tier list, the per-GB storage and egress usage rates, the annual discount and the trial.
 
 
 
@@ -664,13 +605,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingFree(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingDatastore(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingFree``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingDatastore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingFree`: CloudPricingModelList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingFree`: %v\n", resp)
+	// response from `GetPricingDatastore`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingDatastore`: %v\n", resp)
 }
 ```
 
@@ -680,16 +621,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingFreeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingDatastoreRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingModelList**](CloudPricingModelList.md)
+**map[string]map[string]interface{}**
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -701,9 +642,131 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingFreeReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingGpu
+## GetPricingFeatured
 
-> CloudPricingTierList CloudGetV1PricingGpu(ctx).Execute()
+> PricingModelList GetPricingFeatured(ctx).Execute()
+
+Returns the models the catalog highlights, filtered to what the caller's org may see.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.GetPricingFeatured(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingFeatured``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPricingFeatured`: PricingModelList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingFeatured`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPricingFeaturedRequest struct via the builder pattern
+
+
+### Return type
+
+[**PricingModelList**](PricingModelList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPricingFree
+
+> PricingModelList GetPricingFree(ctx).Execute()
+
+Returns the models that cost nothing to call, filtered to what the caller's org may see.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.GetPricingFree(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingFree``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPricingFree`: PricingModelList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingFree`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPricingFreeRequest struct via the builder pattern
+
+
+### Return type
+
+[**PricingModelList**](PricingModelList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPricingGpu
+
+> PricingTierList GetPricingGpu(ctx).Execute()
 
 ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPU, host memory and hourly price.
 
@@ -725,13 +788,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingGpu(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingGpu(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingGpu``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingGpu``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingGpu`: CloudPricingTierList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingGpu`: %v\n", resp)
+	// response from `GetPricingGpu`: PricingTierList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingGpu`: %v\n", resp)
 }
 ```
 
@@ -741,16 +804,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingGpuRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingGpuRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingTierList**](CloudPricingTierList.md)
+[**PricingTierList**](PricingTierList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -762,9 +825,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingGpuReques
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingHealth
+## GetPricingHealth
 
-> CloudPricingHealth CloudGetV1PricingHealth(ctx).Execute()
+> PricingHealth GetPricingHealth(ctx).Execute()
 
 Health reports that the pricing subsystem is mounted and serving.
 
@@ -786,13 +849,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingHealth(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingHealth`: CloudPricingHealth
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingHealth`: %v\n", resp)
+	// response from `GetPricingHealth`: PricingHealth
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingHealth`: %v\n", resp)
 }
 ```
 
@@ -802,16 +865,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingHealth**](CloudPricingHealth.md)
+[**PricingHealth**](PricingHealth.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -823,9 +886,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingHealthReq
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingIam
+## GetPricingIam
 
-> CloudPricingPlanList CloudGetV1PricingIam(ctx).Execute()
+> PricingPlanList GetPricingIam(ctx).Execute()
 
 ListIAMPlans returns the identity plans — the Hanzo IAM tiers, each with its monthly and annual price, monthly-active-user allowance and feature list.
 
@@ -847,13 +910,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingIam(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingIam(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingIam``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingIam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingIam`: CloudPricingPlanList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingIam`: %v\n", resp)
+	// response from `GetPricingIam`: PricingPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingIam`: %v\n", resp)
 }
 ```
 
@@ -863,16 +926,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingIamRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingIamRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingPlanList**](CloudPricingPlanList.md)
+[**PricingPlanList**](PricingPlanList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -884,11 +947,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingIamReques
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingModelName
+## GetPricingModelByName
 
-> map[string]map[string]interface{} CloudGetV1PricingModelName(ctx, name).Execute()
+> map[string]map[string]interface{} GetPricingModelByName(ctx, name).Execute()
 
-GetModel returns one model's catalog entry — its pricing, context window and capabilities as the pricing source records them.
+Returns one model's catalog entry — its pricing, context window and capabilities as the pricing source records them.
 
 
 
@@ -905,17 +968,17 @@ import (
 )
 
 func main() {
-	name := "zen4" // string | Name is the model's name or its slugged id (\"zen4\", \"anthropic/claude-opus-4.6\"), matched case-insensitively. It comes from the path: the URL is the addressing authority.
+	name := "zen4" // string | Name is the model's name or its slugged id (\"zen4\", \"acme/some-model-1\"), matched case-insensitively. It comes from the path: the URL is the addressing authority.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingModelName(context.Background(), name).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingModelByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingModelName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingModelByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingModelName`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingModelName`: %v\n", resp)
+	// response from `GetPricingModelByName`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingModelByName`: %v\n", resp)
 }
 ```
 
@@ -925,11 +988,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the model&#39;s name or its slugged id (\&quot;zen4\&quot;, \&quot;anthropic/claude-opus-4.6\&quot;), matched case-insensitively. It comes from the path: the URL is the addressing authority. | 
+**name** | **string** | Name is the model&#39;s name or its slugged id (\&quot;zen4\&quot;, \&quot;acme/some-model-1\&quot;), matched case-insensitively. It comes from the path: the URL is the addressing authority. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingModelNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingModelByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -942,7 +1005,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -954,11 +1017,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingModels
+## GetPricingModels
 
-> CloudPricingModelList CloudGetV1PricingModels(ctx).Execute()
+> PricingModelList GetPricingModels(ctx).Execute()
 
-ListModels returns the whole model catalog — Hanzo's own Zen models and every third-party model — filtered to what the caller's org may see.
+Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller's org may see.
 
 
 
@@ -978,13 +1041,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingModels(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingModels(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingModels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingModels`: CloudPricingModelList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingModels`: %v\n", resp)
+	// response from `GetPricingModels`: PricingModelList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingModels`: %v\n", resp)
 }
 ```
 
@@ -994,16 +1057,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingModelsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingModelsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingModelList**](CloudPricingModelList.md)
+[**PricingModelList**](PricingModelList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1015,9 +1078,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingModelsReq
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingPaas
+## GetPricingPaas
 
-> CloudPricingPlanList CloudGetV1PricingPaas(ctx).Execute()
+> PricingPlanList GetPricingPaas(ctx).Execute()
 
 ListPaaSPlans returns the application-hosting plans — the deploy-and-host tiers, each with its monthly and annual price, app and memory allowances and feature list.
 
@@ -1039,13 +1102,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingPaas(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingPaas(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingPaas``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingPaas``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingPaas`: CloudPricingPlanList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingPaas`: %v\n", resp)
+	// response from `GetPricingPaas`: PricingPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingPaas`: %v\n", resp)
 }
 ```
 
@@ -1055,16 +1118,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingPaasRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingPaasRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingPlanList**](CloudPricingPlanList.md)
+[**PricingPlanList**](PricingPlanList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1076,11 +1139,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingPaasReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingPolicy2
+## GetPricingPolicy
 
-> map[string]map[string]interface{} CloudGetV1PricingPolicy2(ctx).Execute()
+> map[string]map[string]interface{} GetPricingPolicy(ctx).Execute()
 
-GetPricingPolicy returns the pricing policy document: the revenue-sharing terms (the idle-resale share and the open-source share, each with its percentage and who is eligible) and the commitments Hanzo makes about how it bills — no hidden fees, no egress charges, no surprise bills.
+Returns the pricing policy document: the revenue-sharing terms (the idle-resale share and the open-source share, each with its percentage and who is eligible) and the commitments Hanzo makes about how it bills — no hidden fees, no egress charges, no surprise bills.
 
 
 
@@ -1100,13 +1163,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingPolicy2(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingPolicy(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingPolicy2``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingPolicy2`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingPolicy2`: %v\n", resp)
+	// response from `GetPricingPolicy`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingPolicy`: %v\n", resp)
 }
 ```
 
@@ -1116,7 +1179,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingPolicy2Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingPolicyRequest struct via the builder pattern
 
 
 ### Return type
@@ -1125,7 +1188,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingPolicy2Re
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1137,11 +1200,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingPolicy2Re
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingProviders
+## GetPricingProviders
 
-> CloudPricingProviderList CloudGetV1PricingProviders(ctx).Execute()
+> PricingProviderList GetPricingProviders(ctx).Execute()
 
-ListProviders returns the model providers the catalog knows, each with its info object, filtered to what the caller's org may see.
+Returns the model providers the catalog knows, each with its info object, filtered to what the caller's org may see.
 
 
 
@@ -1161,13 +1224,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingProviders(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingProviders(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingProviders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingProviders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingProviders`: CloudPricingProviderList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingProviders`: %v\n", resp)
+	// response from `GetPricingProviders`: PricingProviderList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingProviders`: %v\n", resp)
 }
 ```
 
@@ -1177,16 +1240,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingProvidersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingProvidersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingProviderList**](CloudPricingProviderList.md)
+[**PricingProviderList**](PricingProviderList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1198,11 +1261,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingProviders
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingSubscriptions
+## GetPricingServices
 
-> CloudPricingPlanList CloudGetV1PricingSubscriptions(ctx).Execute()
+> map[string]map[string]interface{} GetPricingServices(ctx).Execute()
 
-ListSubscriptionPlans returns the API subscription plans — the account-level tiers a customer subscribes to, each with its monthly and annual price, included credit, rate limits and feature list.
+Returns the managed-service rate cards — Search, Crawl, Vector, Console and Managed Services — each with its own tiers, and some with usage rates or a comparison table.
 
 
 
@@ -1222,13 +1285,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingSubscriptions(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingServices(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingSubscriptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingSubscriptions`: CloudPricingPlanList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingSubscriptions`: %v\n", resp)
+	// response from `GetPricingServices`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingServices`: %v\n", resp)
 }
 ```
 
@@ -1238,68 +1301,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingSubscriptionsRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudPricingPlanList**](CloudPricingPlanList.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1PricingSummary
-
-> map[string]map[string]interface{} CloudGetV1PricingSummary(ctx).Execute()
-
-GetPricingSummary returns the catalog's headline statistics — model counts by family and the provider directory.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingSummary(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingSummary``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1PricingSummary`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingSummary`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1PricingSummaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingServicesRequest struct via the builder pattern
 
 
 ### Return type
@@ -1308,7 +1310,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingSummaryRe
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1320,11 +1322,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingSummaryRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PricingTools
+## GetPricingSubscriptions
 
-> CloudPricingToolList CloudGetV1PricingTools(ctx).Execute()
+> PricingPlanList GetPricingSubscriptions(ctx).Execute()
 
-ListToolPrices returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+Returns the API subscription plans — the account-level tiers a customer subscribes to, each with its monthly and annual price, included credit, rate limits and feature list.
 
 
 
@@ -1344,13 +1346,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudGetV1PricingTools(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingSubscriptions(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudGetV1PricingTools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingSubscriptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PricingTools`: CloudPricingToolList
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudGetV1PricingTools`: %v\n", resp)
+	// response from `GetPricingSubscriptions`: PricingPlanList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingSubscriptions`: %v\n", resp)
 }
 ```
 
@@ -1360,16 +1362,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PricingToolsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingSubscriptionsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingToolList**](CloudPricingToolList.md)
+[**PricingPlanList**](PricingPlanList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1381,11 +1383,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PricingToolsRequ
 [[Back to README]](../README.md)
 
 
-## CloudPostV1PricingSync
+## GetPricingSummary
 
-> CloudPricingSyncOut CloudPostV1PricingSync(ctx).Execute()
+> map[string]map[string]interface{} GetPricingSummary(ctx).Execute()
 
-SyncPricing refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
+Returns the catalog's headline statistics — model counts by family and the provider directory.
 
 
 
@@ -1405,13 +1407,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.CloudPostV1PricingSync(context.Background()).Execute()
+	resp, r, err := apiClient.PricingAPI.GetPricingSummary(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.CloudPostV1PricingSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1PricingSync`: CloudPricingSyncOut
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.CloudPostV1PricingSync`: %v\n", resp)
+	// response from `GetPricingSummary`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingSummary`: %v\n", resp)
 }
 ```
 
@@ -1421,16 +1423,138 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1PricingSyncRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPricingSummaryRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPricingSyncOut**](CloudPricingSyncOut.md)
+**map[string]map[string]interface{}**
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPricingTools
+
+> PricingToolList GetPricingTools(ctx).Execute()
+
+Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.GetPricingTools(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingTools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPricingTools`: PricingToolList
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingTools`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPricingToolsRequest struct via the builder pattern
+
+
+### Return type
+
+[**PricingToolList**](PricingToolList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostPricingSync
+
+> PricingSyncOut PostPricingSync(ctx).Execute()
+
+Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.PostPricingSync(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.PostPricingSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostPricingSync`: PricingSyncOut
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.PostPricingSync`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostPricingSyncRequest struct via the builder pattern
+
+
+### Return type
+
+[**PricingSyncOut**](PricingSyncOut.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

@@ -4,22 +4,22 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1FlowWorkflowsWorkflow**](FlowAPI.md#CloudDeleteV1FlowWorkflowsWorkflow) | **Delete** /v1/flow/workflows/{workflow} | WorkflowDelete deletes one of the caller&#39;s workflows and its runs.
-[**CloudGetV1FlowRuns**](FlowAPI.md#CloudGetV1FlowRuns) | **Get** /v1/flow/runs | Runs reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
-[**CloudGetV1FlowStatus**](FlowAPI.md#CloudGetV1FlowStatus) | **Get** /v1/flow/status | Status reports whether the flow service is reachable and which version it runs.
-[**CloudGetV1FlowWorkflows**](FlowAPI.md#CloudGetV1FlowWorkflows) | **Get** /v1/flow/workflows | Workflows lists the caller&#39;s workflows, paged.
-[**CloudGetV1FlowWorkflowsWorkflow**](FlowAPI.md#CloudGetV1FlowWorkflowsWorkflow) | **Get** /v1/flow/workflows/{workflow} | Workflow reads one of the caller&#39;s workflows — the full record, graph included.
-[**CloudPatchV1FlowWorkflowsWorkflow**](FlowAPI.md#CloudPatchV1FlowWorkflowsWorkflow) | **Patch** /v1/flow/workflows/{workflow} | WorkflowUpdate patches one of the caller&#39;s workflows: name, description, graph, or the locked flag — only the stated fields move.
-[**CloudPostV1FlowRuns**](FlowAPI.md#CloudPostV1FlowRuns) | **Post** /v1/flow/runs | Run executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
-[**CloudPostV1FlowWorkflows**](FlowAPI.md#CloudPostV1FlowWorkflows) | **Post** /v1/flow/workflows | WorkflowCreate creates a workflow in the caller&#39;s org.
+[**DeleteFlowWorkflowsByWorkflow**](FlowAPI.md#DeleteFlowWorkflowsByWorkflow) | **Delete** /v1/flow/workflows/{workflow} | Deletes one of the caller&#39;s workflows and its runs.
+[**GetFlowRuns**](FlowAPI.md#GetFlowRuns) | **Get** /v1/flow/runs | Runs reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
+[**GetFlowStatus**](FlowAPI.md#GetFlowStatus) | **Get** /v1/flow/status | Status reports whether the flow service is reachable and which version it runs.
+[**GetFlowWorkflows**](FlowAPI.md#GetFlowWorkflows) | **Get** /v1/flow/workflows | Workflows lists the caller&#39;s workflows, paged.
+[**GetFlowWorkflowsByWorkflow**](FlowAPI.md#GetFlowWorkflowsByWorkflow) | **Get** /v1/flow/workflows/{workflow} | Workflow reads one of the caller&#39;s workflows — the full record, graph included.
+[**PatchFlowWorkflowsByWorkflow**](FlowAPI.md#PatchFlowWorkflowsByWorkflow) | **Patch** /v1/flow/workflows/{workflow} | Patches one of the caller&#39;s workflows: name, description, graph, or the locked flag — only the stated fields move.
+[**PostFlowRuns**](FlowAPI.md#PostFlowRuns) | **Post** /v1/flow/runs | Run executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
+[**PostFlowWorkflows**](FlowAPI.md#PostFlowWorkflows) | **Post** /v1/flow/workflows | Creates a workflow in the caller&#39;s org.
 
 
 
-## CloudDeleteV1FlowWorkflowsWorkflow
+## DeleteFlowWorkflowsByWorkflow
 
-> interface{} CloudDeleteV1FlowWorkflowsWorkflow(ctx, workflow).Execute()
+> interface{} DeleteFlowWorkflowsByWorkflow(ctx, workflow).Execute()
 
-WorkflowDelete deletes one of the caller's workflows and its runs.
+Deletes one of the caller's workflows and its runs.
 
 
 
@@ -40,13 +40,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.CloudDeleteV1FlowWorkflowsWorkflow(context.Background(), workflow).Execute()
+	resp, r, err := apiClient.FlowAPI.DeleteFlowWorkflowsByWorkflow(context.Background(), workflow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.CloudDeleteV1FlowWorkflowsWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.DeleteFlowWorkflowsByWorkflow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1FlowWorkflowsWorkflow`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.CloudDeleteV1FlowWorkflowsWorkflow`: %v\n", resp)
+	// response from `DeleteFlowWorkflowsByWorkflow`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.DeleteFlowWorkflowsByWorkflow`: %v\n", resp)
 }
 ```
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1FlowWorkflowsWorkflowRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteFlowWorkflowsByWorkflowRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -85,9 +85,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlowRuns
+## GetFlowRuns
 
-> interface{} CloudGetV1FlowRuns(ctx).Workflow(workflow).Execute()
+> interface{} GetFlowRuns(ctx).Workflow(workflow).Execute()
 
 Runs reads one workflow's recorded runs: every component build with its result, keyed by component.
 
@@ -110,13 +110,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.CloudGetV1FlowRuns(context.Background()).Workflow(workflow).Execute()
+	resp, r, err := apiClient.FlowAPI.GetFlowRuns(context.Background()).Workflow(workflow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.CloudGetV1FlowRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.GetFlowRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlowRuns`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.CloudGetV1FlowRuns`: %v\n", resp)
+	// response from `GetFlowRuns`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.GetFlowRuns`: %v\n", resp)
 }
 ```
 
@@ -126,7 +126,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlowRunsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlowRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -151,9 +151,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlowStatus
+## GetFlowStatus
 
-> CloudFlowStatus CloudGetV1FlowStatus(ctx).Execute()
+> FlowStatus GetFlowStatus(ctx).Execute()
 
 Status reports whether the flow service is reachable and which version it runs.
 
@@ -175,13 +175,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.CloudGetV1FlowStatus(context.Background()).Execute()
+	resp, r, err := apiClient.FlowAPI.GetFlowStatus(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.CloudGetV1FlowStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.GetFlowStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlowStatus`: CloudFlowStatus
-	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.CloudGetV1FlowStatus`: %v\n", resp)
+	// response from `GetFlowStatus`: FlowStatus
+	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.GetFlowStatus`: %v\n", resp)
 }
 ```
 
@@ -191,16 +191,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlowStatusRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlowStatusRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudFlowStatus**](CloudFlowStatus.md)
+[**FlowStatus**](FlowStatus.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -212,9 +212,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1FlowStatusReques
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlowWorkflows
+## GetFlowWorkflows
 
-> interface{} CloudGetV1FlowWorkflows(ctx).Page(page).Size(size).Execute()
+> interface{} GetFlowWorkflows(ctx).Page(page).Size(size).Execute()
 
 Workflows lists the caller's workflows, paged.
 
@@ -238,13 +238,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.CloudGetV1FlowWorkflows(context.Background()).Page(page).Size(size).Execute()
+	resp, r, err := apiClient.FlowAPI.GetFlowWorkflows(context.Background()).Page(page).Size(size).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.CloudGetV1FlowWorkflows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.GetFlowWorkflows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlowWorkflows`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.CloudGetV1FlowWorkflows`: %v\n", resp)
+	// response from `GetFlowWorkflows`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.GetFlowWorkflows`: %v\n", resp)
 }
 ```
 
@@ -254,7 +254,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlowWorkflowsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlowWorkflowsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -280,9 +280,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlowWorkflowsWorkflow
+## GetFlowWorkflowsByWorkflow
 
-> interface{} CloudGetV1FlowWorkflowsWorkflow(ctx, workflow).Execute()
+> interface{} GetFlowWorkflowsByWorkflow(ctx, workflow).Execute()
 
 Workflow reads one of the caller's workflows — the full record, graph included.
 
@@ -305,13 +305,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.CloudGetV1FlowWorkflowsWorkflow(context.Background(), workflow).Execute()
+	resp, r, err := apiClient.FlowAPI.GetFlowWorkflowsByWorkflow(context.Background(), workflow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.CloudGetV1FlowWorkflowsWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.GetFlowWorkflowsByWorkflow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlowWorkflowsWorkflow`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.CloudGetV1FlowWorkflowsWorkflow`: %v\n", resp)
+	// response from `GetFlowWorkflowsByWorkflow`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.GetFlowWorkflowsByWorkflow`: %v\n", resp)
 }
 ```
 
@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlowWorkflowsWorkflowRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlowWorkflowsByWorkflowRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -350,11 +350,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1FlowWorkflowsWorkflow
+## PatchFlowWorkflowsByWorkflow
 
-> interface{} CloudPatchV1FlowWorkflowsWorkflow(ctx, workflow).CloudFlowUpdate(cloudFlowUpdate).Execute()
+> interface{} PatchFlowWorkflowsByWorkflow(ctx, workflow).FlowUpdate(flowUpdate).Execute()
 
-WorkflowUpdate patches one of the caller's workflows: name, description, graph, or the locked flag — only the stated fields move.
+Patches one of the caller's workflows: name, description, graph, or the locked flag — only the stated fields move.
 
 
 
@@ -372,17 +372,17 @@ import (
 
 func main() {
 	workflow := "workflow_example" // string | Workflow is the workflow's UUID, taken from the path.
-	cloudFlowUpdate := *openapiclient.NewCloudFlowUpdate() // CloudFlowUpdate | 
+	flowUpdate := *openapiclient.NewFlowUpdate() // FlowUpdate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.CloudPatchV1FlowWorkflowsWorkflow(context.Background(), workflow).CloudFlowUpdate(cloudFlowUpdate).Execute()
+	resp, r, err := apiClient.FlowAPI.PatchFlowWorkflowsByWorkflow(context.Background(), workflow).FlowUpdate(flowUpdate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.CloudPatchV1FlowWorkflowsWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.PatchFlowWorkflowsByWorkflow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1FlowWorkflowsWorkflow`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.CloudPatchV1FlowWorkflowsWorkflow`: %v\n", resp)
+	// response from `PatchFlowWorkflowsByWorkflow`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.PatchFlowWorkflowsByWorkflow`: %v\n", resp)
 }
 ```
 
@@ -396,13 +396,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1FlowWorkflowsWorkflowRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchFlowWorkflowsByWorkflowRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudFlowUpdate** | [**CloudFlowUpdate**](CloudFlowUpdate.md) |  | 
+ **flowUpdate** | [**FlowUpdate**](FlowUpdate.md) |  | 
 
 ### Return type
 
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -422,9 +422,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1FlowRuns
+## PostFlowRuns
 
-> interface{} CloudPostV1FlowRuns(ctx).CloudFlowRun(cloudFlowRun).Execute()
+> interface{} PostFlowRuns(ctx).FlowRun(flowRun).Execute()
 
 Run executes one of the caller's workflows synchronously: the graph runs in the flow service and the response carries the run's session and outputs.
 
@@ -443,17 +443,17 @@ import (
 )
 
 func main() {
-	cloudFlowRun := *openapiclient.NewCloudFlowRun() // CloudFlowRun | 
+	flowRun := *openapiclient.NewFlowRun() // FlowRun | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.CloudPostV1FlowRuns(context.Background()).CloudFlowRun(cloudFlowRun).Execute()
+	resp, r, err := apiClient.FlowAPI.PostFlowRuns(context.Background()).FlowRun(flowRun).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.CloudPostV1FlowRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.PostFlowRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1FlowRuns`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.CloudPostV1FlowRuns`: %v\n", resp)
+	// response from `PostFlowRuns`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.PostFlowRuns`: %v\n", resp)
 }
 ```
 
@@ -463,12 +463,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FlowRunsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFlowRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudFlowRun** | [**CloudFlowRun**](CloudFlowRun.md) |  | 
+ **flowRun** | [**FlowRun**](FlowRun.md) |  | 
 
 ### Return type
 
@@ -476,7 +476,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -488,11 +488,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1FlowWorkflows
+## PostFlowWorkflows
 
-> interface{} CloudPostV1FlowWorkflows(ctx).CloudFlowCreate(cloudFlowCreate).Execute()
+> interface{} PostFlowWorkflows(ctx).FlowCreate(flowCreate).Execute()
 
-WorkflowCreate creates a workflow in the caller's org.
+Creates a workflow in the caller's org.
 
 
 
@@ -509,17 +509,17 @@ import (
 )
 
 func main() {
-	cloudFlowCreate := *openapiclient.NewCloudFlowCreate() // CloudFlowCreate | 
+	flowCreate := *openapiclient.NewFlowCreate() // FlowCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.CloudPostV1FlowWorkflows(context.Background()).CloudFlowCreate(cloudFlowCreate).Execute()
+	resp, r, err := apiClient.FlowAPI.PostFlowWorkflows(context.Background()).FlowCreate(flowCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.CloudPostV1FlowWorkflows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.PostFlowWorkflows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1FlowWorkflows`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.CloudPostV1FlowWorkflows`: %v\n", resp)
+	// response from `PostFlowWorkflows`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.PostFlowWorkflows`: %v\n", resp)
 }
 ```
 
@@ -529,12 +529,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FlowWorkflowsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFlowWorkflowsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudFlowCreate** | [**CloudFlowCreate**](CloudFlowCreate.md) |  | 
+ **flowCreate** | [**FlowCreate**](FlowCreate.md) |  | 
 
 ### Return type
 
@@ -542,7 +542,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

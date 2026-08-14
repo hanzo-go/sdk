@@ -4,33 +4,35 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1DeployAccountCanIByWildcard1**](DeployAPI.md#CloudGetV1DeployAccountCanIByWildcard1) | **Get** /v1/deploy/account/can-i/{wildcard1} | 
-[**CloudGetV1DeployApplications**](DeployAPI.md#CloudGetV1DeployApplications) | **Get** /v1/deploy/applications | ListDeployApplications returns the fleet as an argocd ApplicationList: one projected Application per operator App CR, carrying the image tag the CR DECLARES, the tag actually RUNNING in the cluster&#39;s Deployment, the reconciled health, and the sync verdict those two produce (declared &#x3D;&#x3D; running ⇒ Synced, both known and different ⇒ OutOfSync, either unknown ⇒ Unknown).
-[**CloudGetV1DeployApplicationsName**](DeployAPI.md#CloudGetV1DeployApplicationsName) | **Get** /v1/deploy/applications/{name} | GetDeployApplication returns ONE projected argocd Application by name, with status.resources filled in from its reconciled resource tree — which is what makes it the detail view rather than a row of the list.
-[**CloudGetV1DeployApplicationsNameResourceTree**](DeployAPI.md#CloudGetV1DeployApplicationsNameResourceTree) | **Get** /v1/deploy/applications/{name}/resource-tree | GetDeployResourceTree returns one application&#39;s argocd ApplicationTree: the objects the operator reconciled from its App CR, reached by ownerRef — the Deployment and, under it, the ReplicaSet and Pods, plus the Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMaps it owns — each node carrying its parent edges and its health.
-[**CloudGetV1DeployApplicationsNameRevisionsRevisionMetadata**](DeployAPI.md#CloudGetV1DeployApplicationsNameRevisionsRevisionMetadata) | **Get** /v1/deploy/applications/{name}/revisions/{revision}/metadata | GetDeployRevisionMetadata returns the argocd RevisionMetadata for one revision of one application — what the detail view shows beside a revision.
-[**CloudGetV1DeployApplicationsNameSyncwindows**](DeployAPI.md#CloudGetV1DeployApplicationsNameSyncwindows) | **Get** /v1/deploy/applications/{name}/syncwindows | GetDeploySyncWindows returns one application&#39;s argocd ApplicationSyncWindowState — the answer to \&quot;is anything blocking a sync of this application right now?\&quot;.
-[**CloudGetV1DeployCallback**](DeployAPI.md#CloudGetV1DeployCallback) | **Get** /v1/deploy/callback | 
-[**CloudGetV1DeployClusters**](DeployAPI.md#CloudGetV1DeployClusters) | **Get** /v1/deploy/clusters | ListDeployClusters returns the argocd ClusterList of the destinations the caller&#39;s applications reconcile into: one entry per distinct destination server, carrying the count of applications reconciling into it.
-[**CloudGetV1DeployGitops**](DeployAPI.md#CloudGetV1DeployGitops) | **Get** /v1/deploy/gitops | GetDeployGitOps lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-[**CloudGetV1DeployHealth**](DeployAPI.md#CloudGetV1DeployHealth) | **Get** /v1/deploy/health | 
-[**CloudGetV1DeployLogin**](DeployAPI.md#CloudGetV1DeployLogin) | **Get** /v1/deploy/login | 
-[**CloudGetV1DeployProjects**](DeployAPI.md#CloudGetV1DeployProjects) | **Get** /v1/deploy/projects | ListDeployProjects returns the argocd AppProjectList this console groups and filters applications by.
-[**CloudGetV1DeploySessionUserinfo**](DeployAPI.md#CloudGetV1DeploySessionUserinfo) | **Get** /v1/deploy/session/userinfo | GetDeploySession answers \&quot;is this browser signed in, and if not where does it sign in?\&quot; — the dashboard SPA&#39;s bootstrap question, and the only route on this plane that answers for an anonymous caller.
-[**CloudGetV1DeploySettings**](DeployAPI.md#CloudGetV1DeploySettings) | **Get** /v1/deploy/settings | GetDeploySettings returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
-[**CloudGetV1DeployStreamApplications**](DeployAPI.md#CloudGetV1DeployStreamApplications) | **Get** /v1/deploy/stream/applications | 
-[**CloudGetV1DeployStreamApplicationsByNameResourceTree**](DeployAPI.md#CloudGetV1DeployStreamApplicationsByNameResourceTree) | **Get** /v1/deploy/stream/applications/{name}/resource-tree | 
-[**CloudGetV1DeployVersion**](DeployAPI.md#CloudGetV1DeployVersion) | **Get** /v1/deploy/version | GetDeployVersion returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
-[**CloudPostV1DeployApplicationsByNameRollback**](DeployAPI.md#CloudPostV1DeployApplicationsByNameRollback) | **Post** /v1/deploy/applications/{name}/rollback | 
-[**CloudPostV1DeployApplicationsByNameSync**](DeployAPI.md#CloudPostV1DeployApplicationsByNameSync) | **Post** /v1/deploy/applications/{name}/sync | 
-[**CloudPostV1DeployLogout**](DeployAPI.md#CloudPostV1DeployLogout) | **Post** /v1/deploy/logout | 
-[**CloudPostV1DeployReconcile**](DeployAPI.md#CloudPostV1DeployReconcile) | **Post** /v1/deploy/reconcile | 
+[**GetDeployAccountCanIByWildcard1**](DeployAPI.md#GetDeployAccountCanIByWildcard1) | **Get** /v1/deploy/account/can-i/{wildcard1} | Compatibility answer the console UI asks before enabling its buttons
+[**GetDeployApplications**](DeployAPI.md#GetDeployApplications) | **Get** /v1/deploy/applications | Returns the fleet as an argocd ApplicationList: one projected Application per operator App CR, carrying the image tag the CR DECLARES, the tag actually RUNNING in the cluster&#39;s Deployment, the reconciled health, and the sync verdict those two produce (declared &#x3D;&#x3D; running ⇒ Synced, both known and different ⇒ OutOfSync, either unknown ⇒ Unknown).
+[**GetDeployApplicationsByName**](DeployAPI.md#GetDeployApplicationsByName) | **Get** /v1/deploy/applications/{name} | Returns ONE projected argocd Application by name, with status.resources filled in from its reconciled resource tree — which is what makes it the detail view rather than a row of the list.
+[**GetDeployApplicationsByNameResourceTree**](DeployAPI.md#GetDeployApplicationsByNameResourceTree) | **Get** /v1/deploy/applications/{name}/resource-tree | Returns one application&#39;s argocd ApplicationTree: the objects the operator reconciled from its App CR, reached by ownerRef — the Deployment and, under it, the ReplicaSet and Pods, plus the Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMaps it owns — each node carrying its parent edges and its health.
+[**GetDeployApplicationsByNameRevisionsByRevisionMetadata**](DeployAPI.md#GetDeployApplicationsByNameRevisionsByRevisionMetadata) | **Get** /v1/deploy/applications/{name}/revisions/{revision}/metadata | Returns the argocd RevisionMetadata for one revision of one application — what the detail view shows beside a revision.
+[**GetDeployApplicationsByNameSyncwindows**](DeployAPI.md#GetDeployApplicationsByNameSyncwindows) | **Get** /v1/deploy/applications/{name}/syncwindows | Returns one application&#39;s argocd ApplicationSyncWindowState — the answer to \&quot;is anything blocking a sync of this application right now?\&quot;.
+[**GetDeployCallback**](DeployAPI.md#GetDeployCallback) | **Get** /v1/deploy/callback | Finish the sign-in round trip and mint the console session
+[**GetDeployClusters**](DeployAPI.md#GetDeployClusters) | **Get** /v1/deploy/clusters | Returns the argocd ClusterList of the destinations the caller&#39;s applications reconcile into: one entry per distinct destination server, carrying the count of applications reconciling into it.
+[**GetDeployGitops**](DeployAPI.md#GetDeployGitops) | **Get** /v1/deploy/gitops | Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
+[**GetDeployHealth**](DeployAPI.md#GetDeployHealth) | **Get** /v1/deploy/health | Whether this control plane can actually reach the cluster it deploys to
+[**GetDeployLogin**](DeployAPI.md#GetDeployLogin) | **Get** /v1/deploy/login | Start the sign-in round trip for this console
+[**GetDeployProjects**](DeployAPI.md#GetDeployProjects) | **Get** /v1/deploy/projects | Returns the argocd AppProjectList this console groups and filters applications by.
+[**GetDeploySessionUserinfo**](DeployAPI.md#GetDeploySessionUserinfo) | **Get** /v1/deploy/session/userinfo | Answers \&quot;is this browser signed in, and if not where does it sign in?\&quot; — the dashboard SPA&#39;s bootstrap question, and the only route on this plane that answers for an anonymous caller.
+[**GetDeploySettings**](DeployAPI.md#GetDeploySettings) | **Get** /v1/deploy/settings | Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
+[**GetDeployStreamApplications**](DeployAPI.md#GetDeployStreamApplications) | **Get** /v1/deploy/stream/applications | Live application fleet updates as Server-Sent Events
+[**GetDeployStreamApplicationsByNameResourceTree**](DeployAPI.md#GetDeployStreamApplicationsByNameResourceTree) | **Get** /v1/deploy/stream/applications/{name}/resource-tree | Live resource tree for one application, as Server-Sent Events
+[**GetDeployVersion**](DeployAPI.md#GetDeployVersion) | **Get** /v1/deploy/version | Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
+[**PostDeployApplicationsByNameRollback**](DeployAPI.md#PostDeployApplicationsByNameRollback) | **Post** /v1/deploy/applications/{name}/rollback | The console&#39;s rollback control — today it requests a reconcile, nothing more
+[**PostDeployApplicationsByNameSync**](DeployAPI.md#PostDeployApplicationsByNameSync) | **Post** /v1/deploy/applications/{name}/sync | Ask the operator to reconcile one application now
+[**PostDeployLogout**](DeployAPI.md#PostDeployLogout) | **Post** /v1/deploy/logout | End the console session on this host
+[**PostDeployReconcile**](DeployAPI.md#PostDeployReconcile) | **Post** /v1/deploy/reconcile | Render the configured git source and apply it to the cluster, once
 
 
 
-## CloudGetV1DeployAccountCanIByWildcard1
+## GetDeployAccountCanIByWildcard1
 
-> CloudGetV1DeployAccountCanIByWildcard1(ctx, wildcard1).Execute()
+> GetDeployAccountCanIByWildcard1(ctx, wildcard1).Execute()
+
+Compatibility answer the console UI asks before enabling its buttons
 
 
 
@@ -51,9 +53,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudGetV1DeployAccountCanIByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.DeployAPI.GetDeployAccountCanIByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployAccountCanIByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployAccountCanIByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -69,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployAccountCanIByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployAccountCanIByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -82,7 +84,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -94,11 +96,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployApplications
+## GetDeployApplications
 
-> CloudArgoAppList CloudGetV1DeployApplications(ctx).Execute()
+> ArgoAppList GetDeployApplications(ctx).Execute()
 
-ListDeployApplications returns the fleet as an argocd ApplicationList: one projected Application per operator App CR, carrying the image tag the CR DECLARES, the tag actually RUNNING in the cluster's Deployment, the reconciled health, and the sync verdict those two produce (declared == running ⇒ Synced, both known and different ⇒ OutOfSync, either unknown ⇒ Unknown).
+Returns the fleet as an argocd ApplicationList: one projected Application per operator App CR, carrying the image tag the CR DECLARES, the tag actually RUNNING in the cluster's Deployment, the reconciled health, and the sync verdict those two produce (declared == running ⇒ Synced, both known and different ⇒ OutOfSync, either unknown ⇒ Unknown).
 
 
 
@@ -118,13 +120,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployApplications(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployApplications(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployApplications``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployApplications`: CloudArgoAppList
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployApplications`: %v\n", resp)
+	// response from `GetDeployApplications`: ArgoAppList
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplications`: %v\n", resp)
 }
 ```
 
@@ -134,16 +136,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployApplicationsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployApplicationsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudArgoAppList**](CloudArgoAppList.md)
+[**ArgoAppList**](ArgoAppList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -155,11 +157,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployApplicatio
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployApplicationsName
+## GetDeployApplicationsByName
 
-> CloudArgoApp CloudGetV1DeployApplicationsName(ctx, name).Execute()
+> ArgoApp GetDeployApplicationsByName(ctx, name).Execute()
 
-GetDeployApplication returns ONE projected argocd Application by name, with status.resources filled in from its reconciled resource tree — which is what makes it the detail view rather than a row of the list.
+Returns ONE projected argocd Application by name, with status.resources filled in from its reconciled resource tree — which is what makes it the detail view rather than a row of the list.
 
 
 
@@ -180,13 +182,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployApplicationsName(context.Background(), name).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployApplicationsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployApplicationsName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplicationsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployApplicationsName`: CloudArgoApp
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployApplicationsName`: %v\n", resp)
+	// response from `GetDeployApplicationsByName`: ArgoApp
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplicationsByName`: %v\n", resp)
 }
 ```
 
@@ -200,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployApplicationsNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployApplicationsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -209,11 +211,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudArgoApp**](CloudArgoApp.md)
+[**ArgoApp**](ArgoApp.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -225,11 +227,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployApplicationsNameResourceTree
+## GetDeployApplicationsByNameResourceTree
 
-> CloudArgoTree CloudGetV1DeployApplicationsNameResourceTree(ctx, name).Execute()
+> ArgoTree GetDeployApplicationsByNameResourceTree(ctx, name).Execute()
 
-GetDeployResourceTree returns one application's argocd ApplicationTree: the objects the operator reconciled from its App CR, reached by ownerRef — the Deployment and, under it, the ReplicaSet and Pods, plus the Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMaps it owns — each node carrying its parent edges and its health.
+Returns one application's argocd ApplicationTree: the objects the operator reconciled from its App CR, reached by ownerRef — the Deployment and, under it, the ReplicaSet and Pods, plus the Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMaps it owns — each node carrying its parent edges and its health.
 
 
 
@@ -250,13 +252,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployApplicationsNameResourceTree(context.Background(), name).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployApplicationsByNameResourceTree(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployApplicationsNameResourceTree``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplicationsByNameResourceTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployApplicationsNameResourceTree`: CloudArgoTree
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployApplicationsNameResourceTree`: %v\n", resp)
+	// response from `GetDeployApplicationsByNameResourceTree`: ArgoTree
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplicationsByNameResourceTree`: %v\n", resp)
 }
 ```
 
@@ -270,7 +272,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployApplicationsNameResourceTreeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployApplicationsByNameResourceTreeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -279,11 +281,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudArgoTree**](CloudArgoTree.md)
+[**ArgoTree**](ArgoTree.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -295,11 +297,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployApplicationsNameRevisionsRevisionMetadata
+## GetDeployApplicationsByNameRevisionsByRevisionMetadata
 
-> CloudArgoRevisionMetadata CloudGetV1DeployApplicationsNameRevisionsRevisionMetadata(ctx, name, revision).Execute()
+> ArgoRevisionMetadata GetDeployApplicationsByNameRevisionsByRevisionMetadata(ctx, name, revision).Execute()
 
-GetDeployRevisionMetadata returns the argocd RevisionMetadata for one revision of one application — what the detail view shows beside a revision.
+Returns the argocd RevisionMetadata for one revision of one application — what the detail view shows beside a revision.
 
 
 
@@ -321,13 +323,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployApplicationsNameRevisionsRevisionMetadata(context.Background(), name, revision).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployApplicationsByNameRevisionsByRevisionMetadata(context.Background(), name, revision).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployApplicationsNameRevisionsRevisionMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplicationsByNameRevisionsByRevisionMetadata``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployApplicationsNameRevisionsRevisionMetadata`: CloudArgoRevisionMetadata
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployApplicationsNameRevisionsRevisionMetadata`: %v\n", resp)
+	// response from `GetDeployApplicationsByNameRevisionsByRevisionMetadata`: ArgoRevisionMetadata
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplicationsByNameRevisionsByRevisionMetadata`: %v\n", resp)
 }
 ```
 
@@ -342,7 +344,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployApplicationsNameRevisionsRevisionMetadataRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployApplicationsByNameRevisionsByRevisionMetadataRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -352,11 +354,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudArgoRevisionMetadata**](CloudArgoRevisionMetadata.md)
+[**ArgoRevisionMetadata**](ArgoRevisionMetadata.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -368,11 +370,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployApplicationsNameSyncwindows
+## GetDeployApplicationsByNameSyncwindows
 
-> CloudArgoSyncWindows CloudGetV1DeployApplicationsNameSyncwindows(ctx, name).Execute()
+> ArgoSyncWindows GetDeployApplicationsByNameSyncwindows(ctx, name).Execute()
 
-GetDeploySyncWindows returns one application's argocd ApplicationSyncWindowState — the answer to \"is anything blocking a sync of this application right now?\".
+Returns one application's argocd ApplicationSyncWindowState — the answer to \"is anything blocking a sync of this application right now?\".
 
 
 
@@ -393,13 +395,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployApplicationsNameSyncwindows(context.Background(), name).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployApplicationsByNameSyncwindows(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployApplicationsNameSyncwindows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplicationsByNameSyncwindows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployApplicationsNameSyncwindows`: CloudArgoSyncWindows
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployApplicationsNameSyncwindows`: %v\n", resp)
+	// response from `GetDeployApplicationsByNameSyncwindows`: ArgoSyncWindows
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplicationsByNameSyncwindows`: %v\n", resp)
 }
 ```
 
@@ -413,7 +415,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployApplicationsNameSyncwindowsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployApplicationsByNameSyncwindowsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -422,11 +424,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudArgoSyncWindows**](CloudArgoSyncWindows.md)
+[**ArgoSyncWindows**](ArgoSyncWindows.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -438,9 +440,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployCallback
+## GetDeployCallback
 
-> CloudGetV1DeployCallback(ctx).Execute()
+> GetDeployCallback(ctx).Execute()
+
+Finish the sign-in round trip and mint the console session
 
 
 
@@ -460,9 +464,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudGetV1DeployCallback(context.Background()).Execute()
+	r, err := apiClient.DeployAPI.GetDeployCallback(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployCallback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -474,7 +478,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployCallbackRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployCallbackRequest struct via the builder pattern
 
 
 ### Return type
@@ -483,7 +487,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployCallbackRe
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -495,11 +499,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployCallbackRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployClusters
+## GetDeployClusters
 
-> CloudArgoClusterList CloudGetV1DeployClusters(ctx).Execute()
+> ArgoClusterList GetDeployClusters(ctx).Execute()
 
-ListDeployClusters returns the argocd ClusterList of the destinations the caller's applications reconcile into: one entry per distinct destination server, carrying the count of applications reconciling into it.
+Returns the argocd ClusterList of the destinations the caller's applications reconcile into: one entry per distinct destination server, carrying the count of applications reconciling into it.
 
 
 
@@ -519,13 +523,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployClusters(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployClusters(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployClusters``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployClusters``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployClusters`: CloudArgoClusterList
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployClusters`: %v\n", resp)
+	// response from `GetDeployClusters`: ArgoClusterList
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployClusters`: %v\n", resp)
 }
 ```
 
@@ -535,16 +539,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployClustersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployClustersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudArgoClusterList**](CloudArgoClusterList.md)
+[**ArgoClusterList**](ArgoClusterList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -556,11 +560,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployClustersRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployGitops
+## GetDeployGitops
 
-> CloudGitOpsPlane CloudGetV1DeployGitops(ctx).Execute()
+> GitOpsPlane GetDeployGitops(ctx).Execute()
 
-GetDeployGitOps lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
+Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
 
 
 
@@ -580,13 +584,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployGitops(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployGitops(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployGitops``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployGitops``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployGitops`: CloudGitOpsPlane
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployGitops`: %v\n", resp)
+	// response from `GetDeployGitops`: GitOpsPlane
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployGitops`: %v\n", resp)
 }
 ```
 
@@ -596,16 +600,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployGitopsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployGitopsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudGitOpsPlane**](CloudGitOpsPlane.md)
+[**GitOpsPlane**](GitOpsPlane.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -617,9 +621,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployGitopsRequ
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployHealth
+## GetDeployHealth
 
-> CloudGetV1DeployHealth(ctx).Execute()
+> GetDeployHealth(ctx).Execute()
+
+Whether this control plane can actually reach the cluster it deploys to
 
 
 
@@ -639,9 +645,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudGetV1DeployHealth(context.Background()).Execute()
+	r, err := apiClient.DeployAPI.GetDeployHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -653,7 +659,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployHealthRequest struct via the builder pattern
 
 
 ### Return type
@@ -662,7 +668,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployHealthRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -674,9 +680,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployHealthRequ
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployLogin
+## GetDeployLogin
 
-> CloudGetV1DeployLogin(ctx).Execute()
+> GetDeployLogin(ctx).Execute()
+
+Start the sign-in round trip for this console
 
 
 
@@ -696,9 +704,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudGetV1DeployLogin(context.Background()).Execute()
+	r, err := apiClient.DeployAPI.GetDeployLogin(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployLogin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployLogin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -710,7 +718,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployLoginRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployLoginRequest struct via the builder pattern
 
 
 ### Return type
@@ -719,7 +727,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployLoginReque
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -731,11 +739,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployLoginReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployProjects
+## GetDeployProjects
 
-> CloudArgoProjectList CloudGetV1DeployProjects(ctx).Execute()
+> ArgoProjectList GetDeployProjects(ctx).Execute()
 
-ListDeployProjects returns the argocd AppProjectList this console groups and filters applications by.
+Returns the argocd AppProjectList this console groups and filters applications by.
 
 
 
@@ -755,13 +763,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployProjects(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployProjects(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployProjects`: CloudArgoProjectList
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployProjects`: %v\n", resp)
+	// response from `GetDeployProjects`: ArgoProjectList
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployProjects`: %v\n", resp)
 }
 ```
 
@@ -771,16 +779,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployProjectsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudArgoProjectList**](CloudArgoProjectList.md)
+[**ArgoProjectList**](ArgoProjectList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -792,11 +800,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployProjectsRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeploySessionUserinfo
+## GetDeploySessionUserinfo
 
-> CloudSessionUser CloudGetV1DeploySessionUserinfo(ctx).Execute()
+> SessionUser GetDeploySessionUserinfo(ctx).Execute()
 
-GetDeploySession answers \"is this browser signed in, and if not where does it sign in?\" — the dashboard SPA's bootstrap question, and the only route on this plane that answers for an anonymous caller.
+Answers \"is this browser signed in, and if not where does it sign in?\" — the dashboard SPA's bootstrap question, and the only route on this plane that answers for an anonymous caller.
 
 
 
@@ -816,13 +824,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeploySessionUserinfo(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeploySessionUserinfo(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeploySessionUserinfo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeploySessionUserinfo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeploySessionUserinfo`: CloudSessionUser
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeploySessionUserinfo`: %v\n", resp)
+	// response from `GetDeploySessionUserinfo`: SessionUser
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeploySessionUserinfo`: %v\n", resp)
 }
 ```
 
@@ -832,16 +840,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeploySessionUserinfoRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeploySessionUserinfoRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudSessionUser**](CloudSessionUser.md)
+[**SessionUser**](SessionUser.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -853,11 +861,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeploySessionUse
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeploySettings
+## GetDeploySettings
 
-> CloudConsoleSettings CloudGetV1DeploySettings(ctx).Execute()
+> ConsoleSettings GetDeploySettings(ctx).Execute()
 
-GetDeploySettings returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
+Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
 
 
 
@@ -877,13 +885,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeploySettings(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeploySettings(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeploySettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeploySettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeploySettings`: CloudConsoleSettings
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeploySettings`: %v\n", resp)
+	// response from `GetDeploySettings`: ConsoleSettings
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeploySettings`: %v\n", resp)
 }
 ```
 
@@ -893,16 +901,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeploySettingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeploySettingsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudConsoleSettings**](CloudConsoleSettings.md)
+[**ConsoleSettings**](ConsoleSettings.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -914,9 +922,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeploySettingsRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployStreamApplications
+## GetDeployStreamApplications
 
-> CloudGetV1DeployStreamApplications(ctx).Execute()
+> GetDeployStreamApplications(ctx).Execute()
+
+Live application fleet updates as Server-Sent Events
 
 
 
@@ -936,9 +946,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudGetV1DeployStreamApplications(context.Background()).Execute()
+	r, err := apiClient.DeployAPI.GetDeployStreamApplications(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployStreamApplications``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployStreamApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -950,7 +960,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployStreamApplicationsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployStreamApplicationsRequest struct via the builder pattern
 
 
 ### Return type
@@ -959,7 +969,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployStreamAppl
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -971,9 +981,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployStreamAppl
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployStreamApplicationsByNameResourceTree
+## GetDeployStreamApplicationsByNameResourceTree
 
-> CloudGetV1DeployStreamApplicationsByNameResourceTree(ctx, name).Execute()
+> GetDeployStreamApplicationsByNameResourceTree(ctx, name).Execute()
+
+Live resource tree for one application, as Server-Sent Events
 
 
 
@@ -994,9 +1006,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudGetV1DeployStreamApplicationsByNameResourceTree(context.Background(), name).Execute()
+	r, err := apiClient.DeployAPI.GetDeployStreamApplicationsByNameResourceTree(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployStreamApplicationsByNameResourceTree``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployStreamApplicationsByNameResourceTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1012,7 +1024,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployStreamApplicationsByNameResourceTreeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployStreamApplicationsByNameResourceTreeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1025,7 +1037,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1037,11 +1049,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DeployVersion
+## GetDeployVersion
 
-> CloudVersionMessage CloudGetV1DeployVersion(ctx).Execute()
+> VersionMessage GetDeployVersion(ctx).Execute()
 
-GetDeployVersion returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
+Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
 
 
 
@@ -1061,13 +1073,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.CloudGetV1DeployVersion(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployVersion(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudGetV1DeployVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DeployVersion`: CloudVersionMessage
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.CloudGetV1DeployVersion`: %v\n", resp)
+	// response from `GetDeployVersion`: VersionMessage
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployVersion`: %v\n", resp)
 }
 ```
 
@@ -1077,16 +1089,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DeployVersionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDeployVersionRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudVersionMessage**](CloudVersionMessage.md)
+[**VersionMessage**](VersionMessage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1098,75 +1110,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1DeployVersionReq
 [[Back to README]](../README.md)
 
 
-## CloudPostV1DeployApplicationsByNameRollback
+## PostDeployApplicationsByNameRollback
 
-> CloudPostV1DeployApplicationsByNameRollback(ctx, name).Execute()
+> PostDeployApplicationsByNameRollback(ctx, name).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudPostV1DeployApplicationsByNameRollback(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudPostV1DeployApplicationsByNameRollback``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1DeployApplicationsByNameRollbackRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1DeployApplicationsByNameSync
-
-> CloudPostV1DeployApplicationsByNameSync(ctx, name).Execute()
+The console's rollback control — today it requests a reconcile, nothing more
 
 
 
@@ -1187,9 +1135,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudPostV1DeployApplicationsByNameSync(context.Background(), name).Execute()
+	r, err := apiClient.DeployAPI.PostDeployApplicationsByNameRollback(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudPostV1DeployApplicationsByNameSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployApplicationsByNameRollback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1205,7 +1153,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1DeployApplicationsByNameSyncRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostDeployApplicationsByNameRollbackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1218,7 +1166,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1230,9 +1178,79 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1DeployLogout
+## PostDeployApplicationsByNameSync
 
-> CloudPostV1DeployLogout(ctx).Execute()
+> PostDeployApplicationsByNameSync(ctx, name).Execute()
+
+Ask the operator to reconcile one application now
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "name_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeployAPI.PostDeployApplicationsByNameSync(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployApplicationsByNameSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostDeployApplicationsByNameSyncRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostDeployLogout
+
+> PostDeployLogout(ctx).Execute()
+
+End the console session on this host
 
 
 
@@ -1252,9 +1270,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudPostV1DeployLogout(context.Background()).Execute()
+	r, err := apiClient.DeployAPI.PostDeployLogout(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudPostV1DeployLogout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployLogout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1266,7 +1284,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1DeployLogoutRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostDeployLogoutRequest struct via the builder pattern
 
 
 ### Return type
@@ -1275,7 +1293,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1DeployLogoutReq
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1287,9 +1305,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1DeployLogoutReq
 [[Back to README]](../README.md)
 
 
-## CloudPostV1DeployReconcile
+## PostDeployReconcile
 
-> CloudPostV1DeployReconcile(ctx).Execute()
+> PostDeployReconcile(ctx).Execute()
+
+Render the configured git source and apply it to the cluster, once
 
 
 
@@ -1309,9 +1329,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.CloudPostV1DeployReconcile(context.Background()).Execute()
+	r, err := apiClient.DeployAPI.PostDeployReconcile(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.CloudPostV1DeployReconcile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployReconcile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1323,7 +1343,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1DeployReconcileRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostDeployReconcileRequest struct via the builder pattern
 
 
 ### Return type
@@ -1332,7 +1352,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1DeployReconcile
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1VpcsId**](VpcsAPI.md#CloudDeleteV1VpcsId) | **Delete** /v1/vpcs/{id} | DeleteVpc removes one of the caller org&#39;s VPCs and answers 204.
-[**CloudGetV1Vpcs**](VpcsAPI.md#CloudGetV1Vpcs) | **Get** /v1/vpcs | ListVpcs returns every VPC the caller&#39;s org owns, under the friendly names the org created them with.
-[**CloudGetV1VpcsId**](VpcsAPI.md#CloudGetV1VpcsId) | **Get** /v1/vpcs/{id} | GetVpc returns one of the caller org&#39;s VPCs by id.
-[**CloudPostV1Vpcs**](VpcsAPI.md#CloudPostV1Vpcs) | **Post** /v1/vpcs | CreateVpc creates a VPC in the caller&#39;s org namespace and answers 201 with it.
+[**DeleteVpcsById**](VpcsAPI.md#DeleteVpcsById) | **Delete** /v1/vpcs/{id} | Removes one of the caller org&#39;s VPCs and answers 204.
+[**GetVpcs**](VpcsAPI.md#GetVpcs) | **Get** /v1/vpcs | Returns every VPC the caller&#39;s org owns, under the friendly names the org created them with.
+[**GetVpcsById**](VpcsAPI.md#GetVpcsById) | **Get** /v1/vpcs/{id} | Returns one of the caller org&#39;s VPCs by id.
+[**PostVpcs**](VpcsAPI.md#PostVpcs) | **Post** /v1/vpcs | Creates a VPC in the caller&#39;s org namespace and answers 201 with it.
 
 
 
-## CloudDeleteV1VpcsId
+## DeleteVpcsById
 
-> CloudDeleteV1VpcsId(ctx, id).Execute()
+> DeleteVpcsById(ctx, id).Execute()
 
-DeleteVpc removes one of the caller org's VPCs and answers 204.
+Removes one of the caller org's VPCs and answers 204.
 
 
 
@@ -36,9 +36,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.VpcsAPI.CloudDeleteV1VpcsId(context.Background(), id).Execute()
+	r, err := apiClient.VpcsAPI.DeleteVpcsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VpcsAPI.CloudDeleteV1VpcsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `VpcsAPI.DeleteVpcsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1VpcsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteVpcsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -79,11 +79,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Vpcs
+## GetVpcs
 
-> CloudVpcList CloudGetV1Vpcs(ctx).Execute()
+> VpcList GetVpcs(ctx).Execute()
 
-ListVpcs returns every VPC the caller's org owns, under the friendly names the org created them with.
+Returns every VPC the caller's org owns, under the friendly names the org created them with.
 
 
 
@@ -103,13 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VpcsAPI.CloudGetV1Vpcs(context.Background()).Execute()
+	resp, r, err := apiClient.VpcsAPI.GetVpcs(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VpcsAPI.CloudGetV1Vpcs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `VpcsAPI.GetVpcs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Vpcs`: CloudVpcList
-	fmt.Fprintf(os.Stdout, "Response from `VpcsAPI.CloudGetV1Vpcs`: %v\n", resp)
+	// response from `GetVpcs`: VpcList
+	fmt.Fprintf(os.Stdout, "Response from `VpcsAPI.GetVpcs`: %v\n", resp)
 }
 ```
 
@@ -119,16 +119,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1VpcsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetVpcsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudVpcList**](CloudVpcList.md)
+[**VpcList**](VpcList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -140,11 +140,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1VpcsRequest stru
 [[Back to README]](../README.md)
 
 
-## CloudGetV1VpcsId
+## GetVpcsById
 
-> CloudVpcView CloudGetV1VpcsId(ctx, id).Execute()
+> VpcView GetVpcsById(ctx, id).Execute()
 
-GetVpc returns one of the caller org's VPCs by id.
+Returns one of the caller org's VPCs by id.
 
 
 
@@ -165,13 +165,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VpcsAPI.CloudGetV1VpcsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.VpcsAPI.GetVpcsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VpcsAPI.CloudGetV1VpcsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `VpcsAPI.GetVpcsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1VpcsId`: CloudVpcView
-	fmt.Fprintf(os.Stdout, "Response from `VpcsAPI.CloudGetV1VpcsId`: %v\n", resp)
+	// response from `GetVpcsById`: VpcView
+	fmt.Fprintf(os.Stdout, "Response from `VpcsAPI.GetVpcsById`: %v\n", resp)
 }
 ```
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1VpcsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetVpcsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -194,11 +194,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudVpcView**](CloudVpcView.md)
+[**VpcView**](VpcView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -210,11 +210,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Vpcs
+## PostVpcs
 
-> CloudVpcView CloudPostV1Vpcs(ctx).CloudCreateVPCReq(cloudCreateVPCReq).Execute()
+> VpcView PostVpcs(ctx).CreateVPCReq(createVPCReq).Execute()
 
-CreateVpc creates a VPC in the caller's org namespace and answers 201 with it.
+Creates a VPC in the caller's org namespace and answers 201 with it.
 
 
 
@@ -231,17 +231,17 @@ import (
 )
 
 func main() {
-	cloudCreateVPCReq := *openapiclient.NewCloudCreateVPCReq() // CloudCreateVPCReq | 
+	createVPCReq := *openapiclient.NewCreateVPCReq() // CreateVPCReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VpcsAPI.CloudPostV1Vpcs(context.Background()).CloudCreateVPCReq(cloudCreateVPCReq).Execute()
+	resp, r, err := apiClient.VpcsAPI.PostVpcs(context.Background()).CreateVPCReq(createVPCReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `VpcsAPI.CloudPostV1Vpcs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `VpcsAPI.PostVpcs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Vpcs`: CloudVpcView
-	fmt.Fprintf(os.Stdout, "Response from `VpcsAPI.CloudPostV1Vpcs`: %v\n", resp)
+	// response from `PostVpcs`: VpcView
+	fmt.Fprintf(os.Stdout, "Response from `VpcsAPI.PostVpcs`: %v\n", resp)
 }
 ```
 
@@ -251,20 +251,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1VpcsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostVpcsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCreateVPCReq** | [**CloudCreateVPCReq**](CloudCreateVPCReq.md) |  | 
+ **createVPCReq** | [**CreateVPCReq**](CreateVPCReq.md) |  | 
 
 ### Return type
 
-[**CloudVpcView**](CloudVpcView.md)
+[**VpcView**](VpcView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

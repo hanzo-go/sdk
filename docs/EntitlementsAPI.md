@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Entitlements**](EntitlementsAPI.md#CloudGetV1Entitlements) | **Get** /v1/entitlements | Projection reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
+[**GetEntitlements**](EntitlementsAPI.md#GetEntitlements) | **Get** /v1/entitlements | Projection reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
 
 
 
-## CloudGetV1Entitlements
+## GetEntitlements
 
-> CloudProjectionView CloudGetV1Entitlements(ctx).Execute()
+> ProjectionView GetEntitlements(ctx).Execute()
 
 Projection reports which console apps the CALLER's org may open, and the plan slug that decides it.
 
@@ -32,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EntitlementsAPI.CloudGetV1Entitlements(context.Background()).Execute()
+	resp, r, err := apiClient.EntitlementsAPI.GetEntitlements(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementsAPI.CloudGetV1Entitlements``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementsAPI.GetEntitlements``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Entitlements`: CloudProjectionView
-	fmt.Fprintf(os.Stdout, "Response from `EntitlementsAPI.CloudGetV1Entitlements`: %v\n", resp)
+	// response from `GetEntitlements`: ProjectionView
+	fmt.Fprintf(os.Stdout, "Response from `EntitlementsAPI.GetEntitlements`: %v\n", resp)
 }
 ```
 
@@ -48,16 +48,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1EntitlementsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetEntitlementsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudProjectionView**](CloudProjectionView.md)
+[**ProjectionView**](ProjectionView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

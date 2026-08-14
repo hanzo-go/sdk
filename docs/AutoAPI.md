@@ -4,25 +4,25 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1AutoFlowsFlow**](AutoAPI.md#CloudDeleteV1AutoFlowsFlow) | **Delete** /v1/auto/flows/{flow} | FlowDelete deletes one of the caller&#39;s flows.
-[**CloudGetV1AutoFlows**](AutoAPI.md#CloudGetV1AutoFlows) | **Get** /v1/auto/flows | Flows lists the caller&#39;s flows, newest first.
-[**CloudGetV1AutoFlowsFlow**](AutoAPI.md#CloudGetV1AutoFlowsFlow) | **Get** /v1/auto/flows/{flow} | Flow reads one of the caller&#39;s flows — the full record, graph included.
-[**CloudGetV1AutoPieces**](AutoAPI.md#CloudGetV1AutoPieces) | **Get** /v1/auto/pieces | Pieces lists the product&#39;s built-in piece catalog: the trigger and action types a flow&#39;s nodes can use (webhook, schedule, http, set, branch), each with its input descriptors.
-[**CloudGetV1AutoRuns**](AutoAPI.md#CloudGetV1AutoRuns) | **Get** /v1/auto/runs | Runs lists the caller&#39;s run records, newest first — optionally one flow&#39;s.
-[**CloudGetV1AutoRunsRun**](AutoAPI.md#CloudGetV1AutoRunsRun) | **Get** /v1/auto/runs/{run} | Run reads one run record: status, input, output (each executed node&#39;s result keyed by node id once completed), error detail if it failed, and timestamps.
-[**CloudGetV1AutoStatus**](AutoAPI.md#CloudGetV1AutoStatus) | **Get** /v1/auto/status | Status reports whether the auto service is reachable — its own health endpoint as an honest lens for \&quot;is the automation plane up\&quot;.
-[**CloudPatchV1AutoFlowsFlow**](AutoAPI.md#CloudPatchV1AutoFlowsFlow) | **Patch** /v1/auto/flows/{flow} | FlowUpdate patches one of the caller&#39;s flows: the name, the graph, or both — only the stated fields move.
-[**CloudPostV1AutoFlows**](AutoAPI.md#CloudPostV1AutoFlows) | **Post** /v1/auto/flows | FlowCreate creates a flow in the caller&#39;s org.
-[**CloudPostV1AutoFlowsFlowPublish**](AutoAPI.md#CloudPostV1AutoFlowsFlowPublish) | **Post** /v1/auto/flows/{flow}/publish | Publish snapshots the flow&#39;s current graph as its next immutable version and arms the flow&#39;s triggers.
-[**CloudPostV1AutoRuns**](AutoAPI.md#CloudPostV1AutoRuns) | **Post** /v1/auto/runs | Start begins one asynchronous run of a flow: the product dispatches the graph to its durable execution engine (the hanzo tasks plane) and answers immediately with the run record in status running.
+[**DeleteAutoFlowsByFlow**](AutoAPI.md#DeleteAutoFlowsByFlow) | **Delete** /v1/auto/flows/{flow} | Deletes one of the caller&#39;s flows.
+[**GetAutoFlows**](AutoAPI.md#GetAutoFlows) | **Get** /v1/auto/flows | Flows lists the caller&#39;s flows, newest first.
+[**GetAutoFlowsByFlow**](AutoAPI.md#GetAutoFlowsByFlow) | **Get** /v1/auto/flows/{flow} | Flow reads one of the caller&#39;s flows — the full record, graph included.
+[**GetAutoPieces**](AutoAPI.md#GetAutoPieces) | **Get** /v1/auto/pieces | Pieces lists the product&#39;s built-in piece catalog: the trigger and action types a flow&#39;s nodes can use (webhook, schedule, http, set, branch), each with its input descriptors.
+[**GetAutoRuns**](AutoAPI.md#GetAutoRuns) | **Get** /v1/auto/runs | Runs lists the caller&#39;s run records, newest first — optionally one flow&#39;s.
+[**GetAutoRunsByRun**](AutoAPI.md#GetAutoRunsByRun) | **Get** /v1/auto/runs/{run} | Run reads one run record: status, input, output (each executed node&#39;s result keyed by node id once completed), error detail if it failed, and timestamps.
+[**GetAutoStatus**](AutoAPI.md#GetAutoStatus) | **Get** /v1/auto/status | Status reports whether the auto service is reachable — its own health endpoint as an honest lens for \&quot;is the automation plane up\&quot;.
+[**PatchAutoFlowsByFlow**](AutoAPI.md#PatchAutoFlowsByFlow) | **Patch** /v1/auto/flows/{flow} | Patches one of the caller&#39;s flows: the name, the graph, or both — only the stated fields move.
+[**PostAutoFlows**](AutoAPI.md#PostAutoFlows) | **Post** /v1/auto/flows | Creates a flow in the caller&#39;s org.
+[**PostAutoFlowsByFlowPublish**](AutoAPI.md#PostAutoFlowsByFlowPublish) | **Post** /v1/auto/flows/{flow}/publish | Publish snapshots the flow&#39;s current graph as its next immutable version and arms the flow&#39;s triggers.
+[**PostAutoRuns**](AutoAPI.md#PostAutoRuns) | **Post** /v1/auto/runs | Start begins one asynchronous run of a flow: the product dispatches the graph to its durable execution engine (the hanzo tasks plane) and answers immediately with the run record in status running.
 
 
 
-## CloudDeleteV1AutoFlowsFlow
+## DeleteAutoFlowsByFlow
 
-> interface{} CloudDeleteV1AutoFlowsFlow(ctx, flow).Execute()
+> interface{} DeleteAutoFlowsByFlow(ctx, flow).Execute()
 
-FlowDelete deletes one of the caller's flows.
+Deletes one of the caller's flows.
 
 
 
@@ -43,13 +43,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudDeleteV1AutoFlowsFlow(context.Background(), flow).Execute()
+	resp, r, err := apiClient.AutoAPI.DeleteAutoFlowsByFlow(context.Background(), flow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudDeleteV1AutoFlowsFlow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.DeleteAutoFlowsByFlow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1AutoFlowsFlow`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudDeleteV1AutoFlowsFlow`: %v\n", resp)
+	// response from `DeleteAutoFlowsByFlow`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.DeleteAutoFlowsByFlow`: %v\n", resp)
 }
 ```
 
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1AutoFlowsFlowRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteAutoFlowsByFlowRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -88,9 +88,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutoFlows
+## GetAutoFlows
 
-> interface{} CloudGetV1AutoFlows(ctx).Execute()
+> interface{} GetAutoFlows(ctx).Execute()
 
 Flows lists the caller's flows, newest first.
 
@@ -112,13 +112,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudGetV1AutoFlows(context.Background()).Execute()
+	resp, r, err := apiClient.AutoAPI.GetAutoFlows(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudGetV1AutoFlows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoFlows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutoFlows`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudGetV1AutoFlows`: %v\n", resp)
+	// response from `GetAutoFlows`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoFlows`: %v\n", resp)
 }
 ```
 
@@ -128,7 +128,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutoFlowsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutoFlowsRequest struct via the builder pattern
 
 
 ### Return type
@@ -137,7 +137,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1AutoFlowsRequest
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -149,9 +149,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1AutoFlowsRequest
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutoFlowsFlow
+## GetAutoFlowsByFlow
 
-> interface{} CloudGetV1AutoFlowsFlow(ctx, flow).Execute()
+> interface{} GetAutoFlowsByFlow(ctx, flow).Execute()
 
 Flow reads one of the caller's flows — the full record, graph included.
 
@@ -174,13 +174,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudGetV1AutoFlowsFlow(context.Background(), flow).Execute()
+	resp, r, err := apiClient.AutoAPI.GetAutoFlowsByFlow(context.Background(), flow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudGetV1AutoFlowsFlow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoFlowsByFlow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutoFlowsFlow`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudGetV1AutoFlowsFlow`: %v\n", resp)
+	// response from `GetAutoFlowsByFlow`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoFlowsByFlow`: %v\n", resp)
 }
 ```
 
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutoFlowsFlowRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutoFlowsByFlowRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -219,9 +219,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutoPieces
+## GetAutoPieces
 
-> interface{} CloudGetV1AutoPieces(ctx).Execute()
+> interface{} GetAutoPieces(ctx).Execute()
 
 Pieces lists the product's built-in piece catalog: the trigger and action types a flow's nodes can use (webhook, schedule, http, set, branch), each with its input descriptors.
 
@@ -243,13 +243,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudGetV1AutoPieces(context.Background()).Execute()
+	resp, r, err := apiClient.AutoAPI.GetAutoPieces(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudGetV1AutoPieces``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoPieces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutoPieces`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudGetV1AutoPieces`: %v\n", resp)
+	// response from `GetAutoPieces`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoPieces`: %v\n", resp)
 }
 ```
 
@@ -259,7 +259,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutoPiecesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutoPiecesRequest struct via the builder pattern
 
 
 ### Return type
@@ -268,7 +268,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1AutoPiecesReques
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -280,9 +280,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1AutoPiecesReques
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutoRuns
+## GetAutoRuns
 
-> interface{} CloudGetV1AutoRuns(ctx).Flow(flow).Execute()
+> interface{} GetAutoRuns(ctx).Flow(flow).Execute()
 
 Runs lists the caller's run records, newest first — optionally one flow's.
 
@@ -305,13 +305,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudGetV1AutoRuns(context.Background()).Flow(flow).Execute()
+	resp, r, err := apiClient.AutoAPI.GetAutoRuns(context.Background()).Flow(flow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudGetV1AutoRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutoRuns`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudGetV1AutoRuns`: %v\n", resp)
+	// response from `GetAutoRuns`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoRuns`: %v\n", resp)
 }
 ```
 
@@ -321,7 +321,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutoRunsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutoRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -334,7 +334,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -346,9 +346,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutoRunsRun
+## GetAutoRunsByRun
 
-> interface{} CloudGetV1AutoRunsRun(ctx, run).Execute()
+> interface{} GetAutoRunsByRun(ctx, run).Execute()
 
 Run reads one run record: status, input, output (each executed node's result keyed by node id once completed), error detail if it failed, and timestamps.
 
@@ -371,13 +371,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudGetV1AutoRunsRun(context.Background(), run).Execute()
+	resp, r, err := apiClient.AutoAPI.GetAutoRunsByRun(context.Background(), run).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudGetV1AutoRunsRun``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoRunsByRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutoRunsRun`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudGetV1AutoRunsRun`: %v\n", resp)
+	// response from `GetAutoRunsByRun`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoRunsByRun`: %v\n", resp)
 }
 ```
 
@@ -391,7 +391,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutoRunsRunRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutoRunsByRunRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -404,7 +404,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -416,9 +416,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AutoStatus
+## GetAutoStatus
 
-> CloudAutoStatus CloudGetV1AutoStatus(ctx).Execute()
+> AutoStatus GetAutoStatus(ctx).Execute()
 
 Status reports whether the auto service is reachable — its own health endpoint as an honest lens for \"is the automation plane up\".
 
@@ -440,13 +440,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudGetV1AutoStatus(context.Background()).Execute()
+	resp, r, err := apiClient.AutoAPI.GetAutoStatus(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudGetV1AutoStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AutoStatus`: CloudAutoStatus
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudGetV1AutoStatus`: %v\n", resp)
+	// response from `GetAutoStatus`: AutoStatus
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoStatus`: %v\n", resp)
 }
 ```
 
@@ -456,16 +456,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AutoStatusRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutoStatusRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudAutoStatus**](CloudAutoStatus.md)
+[**AutoStatus**](AutoStatus.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -477,11 +477,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AutoStatusReques
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1AutoFlowsFlow
+## PatchAutoFlowsByFlow
 
-> interface{} CloudPatchV1AutoFlowsFlow(ctx, flow).CloudAutoUpdate(cloudAutoUpdate).Execute()
+> interface{} PatchAutoFlowsByFlow(ctx, flow).AutoUpdate(autoUpdate).Execute()
 
-FlowUpdate patches one of the caller's flows: the name, the graph, or both — only the stated fields move.
+Patches one of the caller's flows: the name, the graph, or both — only the stated fields move.
 
 
 
@@ -499,17 +499,17 @@ import (
 
 func main() {
 	flow := "flow_example" // string | Flow is the flow's id, taken from the path.
-	cloudAutoUpdate := *openapiclient.NewCloudAutoUpdate() // CloudAutoUpdate | 
+	autoUpdate := *openapiclient.NewAutoUpdate() // AutoUpdate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudPatchV1AutoFlowsFlow(context.Background(), flow).CloudAutoUpdate(cloudAutoUpdate).Execute()
+	resp, r, err := apiClient.AutoAPI.PatchAutoFlowsByFlow(context.Background(), flow).AutoUpdate(autoUpdate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudPatchV1AutoFlowsFlow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PatchAutoFlowsByFlow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1AutoFlowsFlow`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudPatchV1AutoFlowsFlow`: %v\n", resp)
+	// response from `PatchAutoFlowsByFlow`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PatchAutoFlowsByFlow`: %v\n", resp)
 }
 ```
 
@@ -523,13 +523,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1AutoFlowsFlowRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchAutoFlowsByFlowRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudAutoUpdate** | [**CloudAutoUpdate**](CloudAutoUpdate.md) |  | 
+ **autoUpdate** | [**AutoUpdate**](AutoUpdate.md) |  | 
 
 ### Return type
 
@@ -537,7 +537,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -549,11 +549,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutoFlows
+## PostAutoFlows
 
-> interface{} CloudPostV1AutoFlows(ctx).CloudAutoCreate(cloudAutoCreate).Execute()
+> interface{} PostAutoFlows(ctx).AutoCreate(autoCreate).Execute()
 
-FlowCreate creates a flow in the caller's org.
+Creates a flow in the caller's org.
 
 
 
@@ -570,17 +570,17 @@ import (
 )
 
 func main() {
-	cloudAutoCreate := *openapiclient.NewCloudAutoCreate() // CloudAutoCreate | 
+	autoCreate := *openapiclient.NewAutoCreate() // AutoCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudPostV1AutoFlows(context.Background()).CloudAutoCreate(cloudAutoCreate).Execute()
+	resp, r, err := apiClient.AutoAPI.PostAutoFlows(context.Background()).AutoCreate(autoCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudPostV1AutoFlows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoFlows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AutoFlows`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudPostV1AutoFlows`: %v\n", resp)
+	// response from `PostAutoFlows`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoFlows`: %v\n", resp)
 }
 ```
 
@@ -590,12 +590,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutoFlowsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutoFlowsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudAutoCreate** | [**CloudAutoCreate**](CloudAutoCreate.md) |  | 
+ **autoCreate** | [**AutoCreate**](AutoCreate.md) |  | 
 
 ### Return type
 
@@ -603,7 +603,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -615,9 +615,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutoFlowsFlowPublish
+## PostAutoFlowsByFlowPublish
 
-> interface{} CloudPostV1AutoFlowsFlowPublish(ctx, flow).Execute()
+> interface{} PostAutoFlowsByFlowPublish(ctx, flow).Execute()
 
 Publish snapshots the flow's current graph as its next immutable version and arms the flow's triggers.
 
@@ -640,13 +640,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudPostV1AutoFlowsFlowPublish(context.Background(), flow).Execute()
+	resp, r, err := apiClient.AutoAPI.PostAutoFlowsByFlowPublish(context.Background(), flow).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudPostV1AutoFlowsFlowPublish``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoFlowsByFlowPublish``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AutoFlowsFlowPublish`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudPostV1AutoFlowsFlowPublish`: %v\n", resp)
+	// response from `PostAutoFlowsByFlowPublish`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoFlowsByFlowPublish`: %v\n", resp)
 }
 ```
 
@@ -660,7 +660,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutoFlowsFlowPublishRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutoFlowsByFlowPublishRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -673,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -685,9 +685,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AutoRuns
+## PostAutoRuns
 
-> interface{} CloudPostV1AutoRuns(ctx).CloudAutoStart(cloudAutoStart).Execute()
+> interface{} PostAutoRuns(ctx).AutoStart(autoStart).Execute()
 
 Start begins one asynchronous run of a flow: the product dispatches the graph to its durable execution engine (the hanzo tasks plane) and answers immediately with the run record in status running.
 
@@ -706,17 +706,17 @@ import (
 )
 
 func main() {
-	cloudAutoStart := *openapiclient.NewCloudAutoStart() // CloudAutoStart | 
+	autoStart := *openapiclient.NewAutoStart() // AutoStart | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.CloudPostV1AutoRuns(context.Background()).CloudAutoStart(cloudAutoStart).Execute()
+	resp, r, err := apiClient.AutoAPI.PostAutoRuns(context.Background()).AutoStart(autoStart).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.CloudPostV1AutoRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AutoRuns`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.CloudPostV1AutoRuns`: %v\n", resp)
+	// response from `PostAutoRuns`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoRuns`: %v\n", resp)
 }
 ```
 
@@ -726,12 +726,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AutoRunsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutoRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudAutoStart** | [**CloudAutoStart**](CloudAutoStart.md) |  | 
+ **autoStart** | [**AutoStart**](AutoStart.md) |  | 
 
 ### Return type
 
@@ -739,7 +739,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

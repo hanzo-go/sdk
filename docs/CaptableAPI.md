@@ -4,45 +4,45 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1CaptableConvertiblesId**](CaptableAPI.md#CloudDeleteV1CaptableConvertiblesId) | **Delete** /v1/captable/convertibles/{id} | DeleteConvertible removes one of the caller org&#39;s convertible notes, taking its principal out of the cap table&#39;s unconverted-instrument totals.
-[**CloudDeleteV1CaptableOptionsId**](CaptableAPI.md#CloudDeleteV1CaptableOptionsId) | **Delete** /v1/captable/options/{id} | DeleteOption removes one of the caller org&#39;s option grants, taking its shares out of the cap table&#39;s granted-options and fully-diluted counts.
-[**CloudDeleteV1CaptableSafesId**](CaptableAPI.md#CloudDeleteV1CaptableSafesId) | **Delete** /v1/captable/safes/{id} | DeleteSafe removes one of the caller org&#39;s SAFEs, taking its capital out of the cap table&#39;s unconverted-instrument totals.
-[**CloudDeleteV1CaptableSharesId**](CaptableAPI.md#CloudDeleteV1CaptableSharesId) | **Delete** /v1/captable/shares/{id} | DeleteShare removes one of the caller org&#39;s share certificates, taking its shares out of the cap table&#39;s outstanding and fully-diluted counts.
-[**CloudDeleteV1CaptableStakeholdersId**](CaptableAPI.md#CloudDeleteV1CaptableStakeholdersId) | **Delete** /v1/captable/stakeholders/{id} | DeleteStakeholder removes one of the caller org&#39;s stakeholders.
-[**CloudGetV1CaptableCompany**](CaptableAPI.md#CloudGetV1CaptableCompany) | **Get** /v1/captable/company | GetCompany returns the caller org&#39;s cap-table company record.
-[**CloudGetV1CaptableConvertibles**](CaptableAPI.md#CloudGetV1CaptableConvertibles) | **Get** /v1/captable/convertibles | ListConvertibles returns the caller org&#39;s convertible notes, newest first.
-[**CloudGetV1CaptableEquityPlans**](CaptableAPI.md#CloudGetV1CaptableEquityPlans) | **Get** /v1/captable/equity-plans | ListEquityPlans returns the caller org&#39;s equity plans, newest first.
-[**CloudGetV1CaptableInvestments**](CaptableAPI.md#CloudGetV1CaptableInvestments) | **Get** /v1/captable/investments | ListInvestments returns the caller org&#39;s investments, newest first.
-[**CloudGetV1CaptableOptions**](CaptableAPI.md#CloudGetV1CaptableOptions) | **Get** /v1/captable/options | ListOptions returns the caller org&#39;s option grants, newest first.
-[**CloudGetV1CaptableRounds**](CaptableAPI.md#CloudGetV1CaptableRounds) | **Get** /v1/captable/rounds | ListRounds returns the caller org&#39;s fundraising rounds, newest first.
-[**CloudGetV1CaptableRoundsId**](CaptableAPI.md#CloudGetV1CaptableRoundsId) | **Get** /v1/captable/rounds/{id} | GetRound returns one of the caller org&#39;s fundraising rounds together with every investment written into it, oldest first.
-[**CloudGetV1CaptableSafes**](CaptableAPI.md#CloudGetV1CaptableSafes) | **Get** /v1/captable/safes | ListSafes returns the caller org&#39;s SAFEs, newest first.
-[**CloudGetV1CaptableShareClasses**](CaptableAPI.md#CloudGetV1CaptableShareClasses) | **Get** /v1/captable/share-classes | ListShareClasses returns the caller org&#39;s share classes, in creation order.
-[**CloudGetV1CaptableShares**](CaptableAPI.md#CloudGetV1CaptableShares) | **Get** /v1/captable/shares | ListShares returns the caller org&#39;s share certificates, newest first.
-[**CloudGetV1CaptableStakeholders**](CaptableAPI.md#CloudGetV1CaptableStakeholders) | **Get** /v1/captable/stakeholders | ListStakeholders returns the caller org&#39;s stakeholders, newest first.
-[**CloudGetV1CaptableSummary**](CaptableAPI.md#CloudGetV1CaptableSummary) | **Get** /v1/captable/summary | GetSummary computes the caller org&#39;s cap table.
-[**CloudPatchV1CaptableShareClassesById**](CaptableAPI.md#CloudPatchV1CaptableShareClassesById) | **Patch** /v1/captable/share-classes/{id} | 
-[**CloudPatchV1CaptableStakeholdersId**](CaptableAPI.md#CloudPatchV1CaptableStakeholdersId) | **Patch** /v1/captable/stakeholders/{id} | UpdateStakeholder changes one of the caller org&#39;s stakeholders.
-[**CloudPostV1CaptableConvertibles**](CaptableAPI.md#CloudPostV1CaptableConvertibles) | **Post** /v1/captable/convertibles | 
-[**CloudPostV1CaptableEquityPlans**](CaptableAPI.md#CloudPostV1CaptableEquityPlans) | **Post** /v1/captable/equity-plans | 
-[**CloudPostV1CaptableOptions**](CaptableAPI.md#CloudPostV1CaptableOptions) | **Post** /v1/captable/options | 
-[**CloudPostV1CaptableRounds**](CaptableAPI.md#CloudPostV1CaptableRounds) | **Post** /v1/captable/rounds | 
-[**CloudPostV1CaptableRoundsByIdInvestments**](CaptableAPI.md#CloudPostV1CaptableRoundsByIdInvestments) | **Post** /v1/captable/rounds/{id}/investments | 
-[**CloudPostV1CaptableRoundsIdClose**](CaptableAPI.md#CloudPostV1CaptableRoundsIdClose) | **Post** /v1/captable/rounds/{id}/close | CloseRound closes one of the caller org&#39;s fundraising rounds, recording the close date and moving its status to CLOSED.
-[**CloudPostV1CaptableSafes**](CaptableAPI.md#CloudPostV1CaptableSafes) | **Post** /v1/captable/safes | 
-[**CloudPostV1CaptableShareClasses**](CaptableAPI.md#CloudPostV1CaptableShareClasses) | **Post** /v1/captable/share-classes | 
-[**CloudPostV1CaptableShares**](CaptableAPI.md#CloudPostV1CaptableShares) | **Post** /v1/captable/shares | 
-[**CloudPostV1CaptableSharesTransfer**](CaptableAPI.md#CloudPostV1CaptableSharesTransfer) | **Post** /v1/captable/shares/transfer | 
-[**CloudPostV1CaptableStakeholders**](CaptableAPI.md#CloudPostV1CaptableStakeholders) | **Post** /v1/captable/stakeholders | 
-[**CloudPutV1CaptableCompany**](CaptableAPI.md#CloudPutV1CaptableCompany) | **Put** /v1/captable/company | UpdateCompany sets the caller org&#39;s company name and incorporation details.
+[**DeleteCaptableConvertiblesById**](CaptableAPI.md#DeleteCaptableConvertiblesById) | **Delete** /v1/captable/convertibles/{id} | Removes one of the caller org&#39;s convertible notes, taking its principal out of the cap table&#39;s unconverted-instrument totals.
+[**DeleteCaptableOptionsById**](CaptableAPI.md#DeleteCaptableOptionsById) | **Delete** /v1/captable/options/{id} | Removes one of the caller org&#39;s option grants, taking its shares out of the cap table&#39;s granted-options and fully-diluted counts.
+[**DeleteCaptableSafesById**](CaptableAPI.md#DeleteCaptableSafesById) | **Delete** /v1/captable/safes/{id} | Removes one of the caller org&#39;s SAFEs, taking its capital out of the cap table&#39;s unconverted-instrument totals.
+[**DeleteCaptableSharesById**](CaptableAPI.md#DeleteCaptableSharesById) | **Delete** /v1/captable/shares/{id} | Removes one of the caller org&#39;s share certificates, taking its shares out of the cap table&#39;s outstanding and fully-diluted counts.
+[**DeleteCaptableStakeholdersById**](CaptableAPI.md#DeleteCaptableStakeholdersById) | **Delete** /v1/captable/stakeholders/{id} | Removes one of the caller org&#39;s stakeholders.
+[**GetCaptableClasses**](CaptableAPI.md#GetCaptableClasses) | **Get** /v1/captable/classes | Returns the caller org&#39;s share classes, in creation order.
+[**GetCaptableCompany**](CaptableAPI.md#GetCaptableCompany) | **Get** /v1/captable/company | Returns the caller org&#39;s cap-table company record.
+[**GetCaptableConvertibles**](CaptableAPI.md#GetCaptableConvertibles) | **Get** /v1/captable/convertibles | Returns the caller org&#39;s convertible notes, newest first.
+[**GetCaptableInvestments**](CaptableAPI.md#GetCaptableInvestments) | **Get** /v1/captable/investments | Returns the caller org&#39;s investments, newest first.
+[**GetCaptableOptions**](CaptableAPI.md#GetCaptableOptions) | **Get** /v1/captable/options | Returns the caller org&#39;s option grants, newest first.
+[**GetCaptablePlans**](CaptableAPI.md#GetCaptablePlans) | **Get** /v1/captable/plans | Returns the caller org&#39;s equity plans, newest first.
+[**GetCaptableRounds**](CaptableAPI.md#GetCaptableRounds) | **Get** /v1/captable/rounds | Returns the caller org&#39;s fundraising rounds, newest first.
+[**GetCaptableRoundsById**](CaptableAPI.md#GetCaptableRoundsById) | **Get** /v1/captable/rounds/{id} | Returns one of the caller org&#39;s fundraising rounds together with every investment written into it, oldest first.
+[**GetCaptableSafes**](CaptableAPI.md#GetCaptableSafes) | **Get** /v1/captable/safes | Returns the caller org&#39;s SAFEs, newest first.
+[**GetCaptableShares**](CaptableAPI.md#GetCaptableShares) | **Get** /v1/captable/shares | Returns the caller org&#39;s share certificates, newest first.
+[**GetCaptableStakeholders**](CaptableAPI.md#GetCaptableStakeholders) | **Get** /v1/captable/stakeholders | Returns the caller org&#39;s stakeholders, newest first.
+[**GetCaptableSummary**](CaptableAPI.md#GetCaptableSummary) | **Get** /v1/captable/summary | Computes the caller org&#39;s cap table.
+[**PatchCaptableClassesById**](CaptableAPI.md#PatchCaptableClassesById) | **Patch** /v1/captable/classes/{id} | Amend a share class
+[**PatchCaptableStakeholdersById**](CaptableAPI.md#PatchCaptableStakeholdersById) | **Patch** /v1/captable/stakeholders/{id} | Changes one of the caller org&#39;s stakeholders.
+[**PostCaptableClasses**](CaptableAPI.md#PostCaptableClasses) | **Post** /v1/captable/classes | Define a share class
+[**PostCaptableConvertibles**](CaptableAPI.md#PostCaptableConvertibles) | **Post** /v1/captable/convertibles | Record a convertible note
+[**PostCaptableOptions**](CaptableAPI.md#PostCaptableOptions) | **Post** /v1/captable/options | Grant options from an equity plan
+[**PostCaptablePlans**](CaptableAPI.md#PostCaptablePlans) | **Post** /v1/captable/plans | Open an equity incentive plan
+[**PostCaptableRounds**](CaptableAPI.md#PostCaptableRounds) | **Post** /v1/captable/rounds | Open a funding round
+[**PostCaptableRoundsByIdClose**](CaptableAPI.md#PostCaptableRoundsByIdClose) | **Post** /v1/captable/rounds/{id}/close | Closes one of the caller org&#39;s fundraising rounds, recording the close date and moving its status to CLOSED.
+[**PostCaptableRoundsByIdInvestments**](CaptableAPI.md#PostCaptableRoundsByIdInvestments) | **Post** /v1/captable/rounds/{id}/investments | Record an investment into a round
+[**PostCaptableSafes**](CaptableAPI.md#PostCaptableSafes) | **Post** /v1/captable/safes | Record a SAFE
+[**PostCaptableShares**](CaptableAPI.md#PostCaptableShares) | **Post** /v1/captable/shares | Issue a share certificate
+[**PostCaptableSharesTransfer**](CaptableAPI.md#PostCaptableSharesTransfer) | **Post** /v1/captable/shares/transfer | Transfer shares to another stakeholder
+[**PostCaptableStakeholders**](CaptableAPI.md#PostCaptableStakeholders) | **Post** /v1/captable/stakeholders | Add stakeholders to the cap table
+[**PutCaptableCompany**](CaptableAPI.md#PutCaptableCompany) | **Put** /v1/captable/company | Sets the caller org&#39;s company name and incorporation details.
 
 
 
-## CloudDeleteV1CaptableConvertiblesId
+## DeleteCaptableConvertiblesById
 
-> CloudCaptableDeleted CloudDeleteV1CaptableConvertiblesId(ctx, id).Execute()
+> CaptableDeleted DeleteCaptableConvertiblesById(ctx, id).Execute()
 
-DeleteConvertible removes one of the caller org's convertible notes, taking its principal out of the cap table's unconverted-instrument totals.
+Removes one of the caller org's convertible notes, taking its principal out of the cap table's unconverted-instrument totals.
 
 
 
@@ -63,13 +63,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudDeleteV1CaptableConvertiblesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CaptableAPI.DeleteCaptableConvertiblesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudDeleteV1CaptableConvertiblesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableConvertiblesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CaptableConvertiblesId`: CloudCaptableDeleted
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudDeleteV1CaptableConvertiblesId`: %v\n", resp)
+	// response from `DeleteCaptableConvertiblesById`: CaptableDeleted
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableConvertiblesById`: %v\n", resp)
 }
 ```
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CaptableConvertiblesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCaptableConvertiblesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -92,11 +92,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCaptableDeleted**](CloudCaptableDeleted.md)
+[**CaptableDeleted**](CaptableDeleted.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -108,11 +108,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CaptableOptionsId
+## DeleteCaptableOptionsById
 
-> CloudCaptableDeleted CloudDeleteV1CaptableOptionsId(ctx, id).Execute()
+> CaptableDeleted DeleteCaptableOptionsById(ctx, id).Execute()
 
-DeleteOption removes one of the caller org's option grants, taking its shares out of the cap table's granted-options and fully-diluted counts.
+Removes one of the caller org's option grants, taking its shares out of the cap table's granted-options and fully-diluted counts.
 
 
 
@@ -133,13 +133,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudDeleteV1CaptableOptionsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CaptableAPI.DeleteCaptableOptionsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudDeleteV1CaptableOptionsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableOptionsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CaptableOptionsId`: CloudCaptableDeleted
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudDeleteV1CaptableOptionsId`: %v\n", resp)
+	// response from `DeleteCaptableOptionsById`: CaptableDeleted
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableOptionsById`: %v\n", resp)
 }
 ```
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CaptableOptionsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCaptableOptionsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -162,11 +162,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCaptableDeleted**](CloudCaptableDeleted.md)
+[**CaptableDeleted**](CaptableDeleted.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -178,11 +178,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CaptableSafesId
+## DeleteCaptableSafesById
 
-> CloudCaptableDeleted CloudDeleteV1CaptableSafesId(ctx, id).Execute()
+> CaptableDeleted DeleteCaptableSafesById(ctx, id).Execute()
 
-DeleteSafe removes one of the caller org's SAFEs, taking its capital out of the cap table's unconverted-instrument totals.
+Removes one of the caller org's SAFEs, taking its capital out of the cap table's unconverted-instrument totals.
 
 
 
@@ -203,13 +203,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudDeleteV1CaptableSafesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CaptableAPI.DeleteCaptableSafesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudDeleteV1CaptableSafesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableSafesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CaptableSafesId`: CloudCaptableDeleted
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudDeleteV1CaptableSafesId`: %v\n", resp)
+	// response from `DeleteCaptableSafesById`: CaptableDeleted
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableSafesById`: %v\n", resp)
 }
 ```
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CaptableSafesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCaptableSafesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -232,11 +232,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCaptableDeleted**](CloudCaptableDeleted.md)
+[**CaptableDeleted**](CaptableDeleted.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -248,11 +248,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CaptableSharesId
+## DeleteCaptableSharesById
 
-> CloudCaptableDeleted CloudDeleteV1CaptableSharesId(ctx, id).Execute()
+> CaptableDeleted DeleteCaptableSharesById(ctx, id).Execute()
 
-DeleteShare removes one of the caller org's share certificates, taking its shares out of the cap table's outstanding and fully-diluted counts.
+Removes one of the caller org's share certificates, taking its shares out of the cap table's outstanding and fully-diluted counts.
 
 
 
@@ -273,13 +273,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudDeleteV1CaptableSharesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CaptableAPI.DeleteCaptableSharesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudDeleteV1CaptableSharesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableSharesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CaptableSharesId`: CloudCaptableDeleted
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudDeleteV1CaptableSharesId`: %v\n", resp)
+	// response from `DeleteCaptableSharesById`: CaptableDeleted
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableSharesById`: %v\n", resp)
 }
 ```
 
@@ -293,7 +293,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CaptableSharesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCaptableSharesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -302,11 +302,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCaptableDeleted**](CloudCaptableDeleted.md)
+[**CaptableDeleted**](CaptableDeleted.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -318,11 +318,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CaptableStakeholdersId
+## DeleteCaptableStakeholdersById
 
-> CloudCaptableDeleted CloudDeleteV1CaptableStakeholdersId(ctx, id).Execute()
+> CaptableDeleted DeleteCaptableStakeholdersById(ctx, id).Execute()
 
-DeleteStakeholder removes one of the caller org's stakeholders.
+Removes one of the caller org's stakeholders.
 
 
 
@@ -343,13 +343,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudDeleteV1CaptableStakeholdersId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CaptableAPI.DeleteCaptableStakeholdersById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudDeleteV1CaptableStakeholdersId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableStakeholdersById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CaptableStakeholdersId`: CloudCaptableDeleted
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudDeleteV1CaptableStakeholdersId`: %v\n", resp)
+	// response from `DeleteCaptableStakeholdersById`: CaptableDeleted
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableStakeholdersById`: %v\n", resp)
 }
 ```
 
@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CaptableStakeholdersIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCaptableStakeholdersByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -372,11 +372,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCaptableDeleted**](CloudCaptableDeleted.md)
+[**CaptableDeleted**](CaptableDeleted.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -388,11 +388,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableCompany
+## GetCaptableClasses
 
-> CloudCaptableCompany CloudGetV1CaptableCompany(ctx).Execute()
+> []CaptableShareClass GetCaptableClasses(ctx).Execute()
 
-GetCompany returns the caller org's cap-table company record.
+Returns the caller org's share classes, in creation order.
 
 
 
@@ -412,13 +412,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableCompany(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableClasses(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableCompany``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableClasses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableCompany`: CloudCaptableCompany
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableCompany`: %v\n", resp)
+	// response from `GetCaptableClasses`: []CaptableShareClass
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableClasses`: %v\n", resp)
 }
 ```
 
@@ -428,16 +428,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableCompanyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableClassesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCaptableCompany**](CloudCaptableCompany.md)
+[**[]CaptableShareClass**](CaptableShareClass.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -449,11 +449,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableCompanyR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableConvertibles
+## GetCaptableCompany
 
-> CloudCaptableNotes CloudGetV1CaptableConvertibles(ctx).Execute()
+> CaptableCompany GetCaptableCompany(ctx).Execute()
 
-ListConvertibles returns the caller org's convertible notes, newest first.
+Returns the caller org's cap-table company record.
 
 
 
@@ -473,13 +473,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableConvertibles(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableCompany(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableConvertibles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableCompany``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableConvertibles`: CloudCaptableNotes
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableConvertibles`: %v\n", resp)
+	// response from `GetCaptableCompany`: CaptableCompany
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableCompany`: %v\n", resp)
 }
 ```
 
@@ -489,16 +489,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableConvertiblesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableCompanyRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCaptableNotes**](CloudCaptableNotes.md)
+[**CaptableCompany**](CaptableCompany.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -510,11 +510,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableConverti
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableEquityPlans
+## GetCaptableConvertibles
 
-> CloudCaptableEquityPlans CloudGetV1CaptableEquityPlans(ctx).Execute()
+> CaptableNotes GetCaptableConvertibles(ctx).Execute()
 
-ListEquityPlans returns the caller org's equity plans, newest first.
+Returns the caller org's convertible notes, newest first.
 
 
 
@@ -534,13 +534,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableEquityPlans(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableConvertibles(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableEquityPlans``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableConvertibles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableEquityPlans`: CloudCaptableEquityPlans
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableEquityPlans`: %v\n", resp)
+	// response from `GetCaptableConvertibles`: CaptableNotes
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableConvertibles`: %v\n", resp)
 }
 ```
 
@@ -550,16 +550,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableEquityPlansRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableConvertiblesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCaptableEquityPlans**](CloudCaptableEquityPlans.md)
+[**CaptableNotes**](CaptableNotes.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -571,11 +571,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableEquityPl
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableInvestments
+## GetCaptableInvestments
 
-> CloudCaptableInvestments CloudGetV1CaptableInvestments(ctx).Execute()
+> CaptableInvestments GetCaptableInvestments(ctx).Execute()
 
-ListInvestments returns the caller org's investments, newest first.
+Returns the caller org's investments, newest first.
 
 
 
@@ -595,13 +595,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableInvestments(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableInvestments(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableInvestments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableInvestments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableInvestments`: CloudCaptableInvestments
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableInvestments`: %v\n", resp)
+	// response from `GetCaptableInvestments`: CaptableInvestments
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableInvestments`: %v\n", resp)
 }
 ```
 
@@ -611,16 +611,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableInvestmentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableInvestmentsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCaptableInvestments**](CloudCaptableInvestments.md)
+[**CaptableInvestments**](CaptableInvestments.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -632,11 +632,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableInvestme
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableOptions
+## GetCaptableOptions
 
-> CloudCaptableOptions CloudGetV1CaptableOptions(ctx).Execute()
+> CaptableOptions GetCaptableOptions(ctx).Execute()
 
-ListOptions returns the caller org's option grants, newest first.
+Returns the caller org's option grants, newest first.
 
 
 
@@ -656,13 +656,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableOptions(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableOptions(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableOptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableOptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableOptions`: CloudCaptableOptions
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableOptions`: %v\n", resp)
+	// response from `GetCaptableOptions`: CaptableOptions
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableOptions`: %v\n", resp)
 }
 ```
 
@@ -672,16 +672,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableOptionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableOptionsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCaptableOptions**](CloudCaptableOptions.md)
+[**CaptableOptions**](CaptableOptions.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -693,11 +693,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableOptionsR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableRounds
+## GetCaptablePlans
 
-> CloudCaptableRounds CloudGetV1CaptableRounds(ctx).Execute()
+> CaptableEquityPlans GetCaptablePlans(ctx).Execute()
 
-ListRounds returns the caller org's fundraising rounds, newest first.
+Returns the caller org's equity plans, newest first.
 
 
 
@@ -717,13 +717,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableRounds(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptablePlans(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableRounds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptablePlans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableRounds`: CloudCaptableRounds
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableRounds`: %v\n", resp)
+	// response from `GetCaptablePlans`: CaptableEquityPlans
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptablePlans`: %v\n", resp)
 }
 ```
 
@@ -733,16 +733,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableRoundsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptablePlansRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCaptableRounds**](CloudCaptableRounds.md)
+[**CaptableEquityPlans**](CaptableEquityPlans.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -754,11 +754,72 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableRoundsRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableRoundsId
+## GetCaptableRounds
 
-> CloudCaptableRoundDetail CloudGetV1CaptableRoundsId(ctx, id).Execute()
+> CaptableRounds GetCaptableRounds(ctx).Execute()
 
-GetRound returns one of the caller org's fundraising rounds together with every investment written into it, oldest first.
+Returns the caller org's fundraising rounds, newest first.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CaptableAPI.GetCaptableRounds(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableRounds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCaptableRounds`: CaptableRounds
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableRounds`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCaptableRoundsRequest struct via the builder pattern
+
+
+### Return type
+
+[**CaptableRounds**](CaptableRounds.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCaptableRoundsById
+
+> CaptableRoundDetail GetCaptableRoundsById(ctx, id).Execute()
+
+Returns one of the caller org's fundraising rounds together with every investment written into it, oldest first.
 
 
 
@@ -779,13 +840,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableRoundsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableRoundsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableRoundsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableRoundsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableRoundsId`: CloudCaptableRoundDetail
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableRoundsId`: %v\n", resp)
+	// response from `GetCaptableRoundsById`: CaptableRoundDetail
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableRoundsById`: %v\n", resp)
 }
 ```
 
@@ -799,7 +860,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableRoundsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableRoundsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -808,11 +869,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCaptableRoundDetail**](CloudCaptableRoundDetail.md)
+[**CaptableRoundDetail**](CaptableRoundDetail.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -824,11 +885,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableSafes
+## GetCaptableSafes
 
-> CloudCaptableSafes CloudGetV1CaptableSafes(ctx).Execute()
+> CaptableSafes GetCaptableSafes(ctx).Execute()
 
-ListSafes returns the caller org's SAFEs, newest first.
+Returns the caller org's SAFEs, newest first.
 
 
 
@@ -848,13 +909,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableSafes(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableSafes(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableSafes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableSafes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableSafes`: CloudCaptableSafes
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableSafes`: %v\n", resp)
+	// response from `GetCaptableSafes`: CaptableSafes
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableSafes`: %v\n", resp)
 }
 ```
 
@@ -864,16 +925,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableSafesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableSafesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCaptableSafes**](CloudCaptableSafes.md)
+[**CaptableSafes**](CaptableSafes.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -885,11 +946,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableSafesReq
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableShareClasses
+## GetCaptableShares
 
-> []CloudCaptableShareClass CloudGetV1CaptableShareClasses(ctx).Execute()
+> CaptableShares GetCaptableShares(ctx).Execute()
 
-ListShareClasses returns the caller org's share classes, in creation order.
+Returns the caller org's share certificates, newest first.
 
 
 
@@ -909,13 +970,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableShareClasses(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableShares(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableShareClasses``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableShares``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableShareClasses`: []CloudCaptableShareClass
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableShareClasses`: %v\n", resp)
+	// response from `GetCaptableShares`: CaptableShares
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableShares`: %v\n", resp)
 }
 ```
 
@@ -925,16 +986,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableShareClassesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableSharesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]CloudCaptableShareClass**](CloudCaptableShareClass.md)
+[**CaptableShares**](CaptableShares.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -946,11 +1007,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableShareCla
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableShares
+## GetCaptableStakeholders
 
-> CloudCaptableShares CloudGetV1CaptableShares(ctx).Execute()
+> []CaptableStakeholder GetCaptableStakeholders(ctx).Execute()
 
-ListShares returns the caller org's share certificates, newest first.
+Returns the caller org's stakeholders, newest first.
 
 
 
@@ -970,13 +1031,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableShares(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableStakeholders(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableShares``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableStakeholders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableShares`: CloudCaptableShares
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableShares`: %v\n", resp)
+	// response from `GetCaptableStakeholders`: []CaptableStakeholder
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableStakeholders`: %v\n", resp)
 }
 ```
 
@@ -986,16 +1047,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableSharesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableStakeholdersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCaptableShares**](CloudCaptableShares.md)
+[**[]CaptableStakeholder**](CaptableStakeholder.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1007,11 +1068,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableSharesRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableStakeholders
+## GetCaptableSummary
 
-> []CloudCaptableStakeholder CloudGetV1CaptableStakeholders(ctx).Execute()
+> CaptableSummary GetCaptableSummary(ctx).Execute()
 
-ListStakeholders returns the caller org's stakeholders, newest first.
+Computes the caller org's cap table.
 
 
 
@@ -1031,13 +1092,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableStakeholders(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.GetCaptableSummary(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableStakeholders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CaptableStakeholders`: []CloudCaptableStakeholder
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableStakeholders`: %v\n", resp)
+	// response from `GetCaptableSummary`: CaptableSummary
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableSummary`: %v\n", resp)
 }
 ```
 
@@ -1047,16 +1108,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableStakeholdersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCaptableSummaryRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]CloudCaptableStakeholder**](CloudCaptableStakeholder.md)
+[**CaptableSummary**](CaptableSummary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1068,70 +1129,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CaptableStakehol
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CaptableSummary
+## PatchCaptableClassesById
 
-> CloudCaptableSummary CloudGetV1CaptableSummary(ctx).Execute()
+> PatchCaptableClassesById(ctx, id).Execute()
 
-GetSummary computes the caller org's cap table.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudGetV1CaptableSummary(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudGetV1CaptableSummary``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1CaptableSummary`: CloudCaptableSummary
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudGetV1CaptableSummary`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1CaptableSummaryRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudCaptableSummary**](CloudCaptableSummary.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPatchV1CaptableShareClassesById
-
-> CloudPatchV1CaptableShareClassesById(ctx, id).Execute()
+Amend a share class
 
 
 
@@ -1152,9 +1154,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPatchV1CaptableShareClassesById(context.Background(), id).Execute()
+	r, err := apiClient.CaptableAPI.PatchCaptableClassesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPatchV1CaptableShareClassesById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PatchCaptableClassesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1170,7 +1172,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1CaptableShareClassesByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchCaptableClassesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1183,7 +1185,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1195,11 +1197,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1CaptableStakeholdersId
+## PatchCaptableStakeholdersById
 
-> CloudCaptableUpdated CloudPatchV1CaptableStakeholdersId(ctx, id).CloudCaptableStakeholderPatch(cloudCaptableStakeholderPatch).Execute()
+> CaptableUpdated PatchCaptableStakeholdersById(ctx, id).CaptableStakeholderPatch(captableStakeholderPatch).Execute()
 
-UpdateStakeholder changes one of the caller org's stakeholders.
+Changes one of the caller org's stakeholders.
 
 
 
@@ -1217,17 +1219,17 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the stakeholder to update. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
-	cloudCaptableStakeholderPatch := *openapiclient.NewCloudCaptableStakeholderPatch() // CloudCaptableStakeholderPatch | 
+	captableStakeholderPatch := *openapiclient.NewCaptableStakeholderPatch() // CaptableStakeholderPatch | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudPatchV1CaptableStakeholdersId(context.Background(), id).CloudCaptableStakeholderPatch(cloudCaptableStakeholderPatch).Execute()
+	resp, r, err := apiClient.CaptableAPI.PatchCaptableStakeholdersById(context.Background(), id).CaptableStakeholderPatch(captableStakeholderPatch).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPatchV1CaptableStakeholdersId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PatchCaptableStakeholdersById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1CaptableStakeholdersId`: CloudCaptableUpdated
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudPatchV1CaptableStakeholdersId`: %v\n", resp)
+	// response from `PatchCaptableStakeholdersById`: CaptableUpdated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PatchCaptableStakeholdersById`: %v\n", resp)
 }
 ```
 
@@ -1241,21 +1243,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1CaptableStakeholdersIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchCaptableStakeholdersByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudCaptableStakeholderPatch** | [**CloudCaptableStakeholderPatch**](CloudCaptableStakeholderPatch.md) |  | 
+ **captableStakeholderPatch** | [**CaptableStakeholderPatch**](CaptableStakeholderPatch.md) |  | 
 
 ### Return type
 
-[**CloudCaptableUpdated**](CloudCaptableUpdated.md)
+[**CaptableUpdated**](CaptableUpdated.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1267,66 +1269,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CaptableConvertibles
+## PostCaptableClasses
 
-> CloudPostV1CaptableConvertibles(ctx).Execute()
+> PostCaptableClasses(ctx).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableConvertibles(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableConvertibles``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableConvertiblesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CaptableEquityPlans
-
-> CloudPostV1CaptableEquityPlans(ctx).Execute()
+Define a share class
 
 
 
@@ -1346,9 +1293,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableEquityPlans(context.Background()).Execute()
+	r, err := apiClient.CaptableAPI.PostCaptableClasses(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableEquityPlans``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableClasses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1360,7 +1307,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableEquityPlansRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCaptableClassesRequest struct via the builder pattern
 
 
 ### Return type
@@ -1369,7 +1316,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1CaptableEquityP
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1381,9 +1328,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CaptableEquityP
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CaptableOptions
+## PostCaptableConvertibles
 
-> CloudPostV1CaptableOptions(ctx).Execute()
+> PostCaptableConvertibles(ctx).Execute()
+
+Record a convertible note
 
 
 
@@ -1403,9 +1352,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableOptions(context.Background()).Execute()
+	r, err := apiClient.CaptableAPI.PostCaptableConvertibles(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableOptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableConvertibles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1417,7 +1366,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableOptionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCaptableConvertiblesRequest struct via the builder pattern
 
 
 ### Return type
@@ -1426,7 +1375,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1CaptableOptions
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1438,9 +1387,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CaptableOptions
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CaptableRounds
+## PostCaptableOptions
 
-> CloudPostV1CaptableRounds(ctx).Execute()
+> PostCaptableOptions(ctx).Execute()
+
+Grant options from an equity plan
 
 
 
@@ -1460,9 +1411,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableRounds(context.Background()).Execute()
+	r, err := apiClient.CaptableAPI.PostCaptableOptions(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableRounds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableOptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1474,7 +1425,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableRoundsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCaptableOptionsRequest struct via the builder pattern
 
 
 ### Return type
@@ -1483,7 +1434,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1CaptableRoundsR
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1495,9 +1446,201 @@ Other parameters are passed through a pointer to a apiCloudPostV1CaptableRoundsR
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CaptableRoundsByIdInvestments
+## PostCaptablePlans
 
-> CloudPostV1CaptableRoundsByIdInvestments(ctx, id).Execute()
+> PostCaptablePlans(ctx).Execute()
+
+Open an equity incentive plan
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CaptableAPI.PostCaptablePlans(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptablePlans``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCaptablePlansRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCaptableRounds
+
+> PostCaptableRounds(ctx).Execute()
+
+Open a funding round
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CaptableAPI.PostCaptableRounds(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableRounds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCaptableRoundsRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCaptableRoundsByIdClose
+
+> CaptableUpdated PostCaptableRoundsByIdClose(ctx, id).CaptableRoundCloseRequest(captableRoundCloseRequest).Execute()
+
+Closes one of the caller org's fundraising rounds, recording the close date and moving its status to CLOSED.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
+	captableRoundCloseRequest := *openapiclient.NewCaptableRoundCloseRequest() // CaptableRoundCloseRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CaptableAPI.PostCaptableRoundsByIdClose(context.Background(), id).CaptableRoundCloseRequest(captableRoundCloseRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableRoundsByIdClose``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCaptableRoundsByIdClose`: CaptableUpdated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableRoundsByIdClose`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCaptableRoundsByIdCloseRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **captableRoundCloseRequest** | [**CaptableRoundCloseRequest**](CaptableRoundCloseRequest.md) |  | 
+
+### Return type
+
+[**CaptableUpdated**](CaptableUpdated.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCaptableRoundsByIdInvestments
+
+> PostCaptableRoundsByIdInvestments(ctx, id).Execute()
+
+Record an investment into a round
 
 
 
@@ -1518,9 +1661,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableRoundsByIdInvestments(context.Background(), id).Execute()
+	r, err := apiClient.CaptableAPI.PostCaptableRoundsByIdInvestments(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableRoundsByIdInvestments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableRoundsByIdInvestments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1536,7 +1679,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableRoundsByIdInvestmentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCaptableRoundsByIdInvestmentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1549,7 +1692,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1561,11 +1704,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CaptableRoundsIdClose
+## PostCaptableSafes
 
-> CloudCaptableUpdated CloudPostV1CaptableRoundsIdClose(ctx, id).CloudCaptableRoundCloseRequest(cloudCaptableRoundCloseRequest).Execute()
+> PostCaptableSafes(ctx).Execute()
 
-CloseRound closes one of the caller org's fundraising rounds, recording the close date and moving its status to CLOSED.
+Record a SAFE
 
 
 
@@ -1582,397 +1725,276 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
-	cloudCaptableRoundCloseRequest := *openapiclient.NewCloudCaptableRoundCloseRequest() // CloudCaptableRoundCloseRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudPostV1CaptableRoundsIdClose(context.Background(), id).CloudCaptableRoundCloseRequest(cloudCaptableRoundCloseRequest).Execute()
+	r, err := apiClient.CaptableAPI.PostCaptableSafes(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableRoundsIdClose``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableSafes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CaptableRoundsIdClose`: CloudCaptableUpdated
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudPostV1CaptableRoundsIdClose`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCaptableSafesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCaptableShares
+
+> PostCaptableShares(ctx).Execute()
+
+Issue a share certificate
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CaptableAPI.PostCaptableShares(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableShares``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCaptableSharesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCaptableSharesTransfer
+
+> PostCaptableSharesTransfer(ctx).Execute()
+
+Transfer shares to another stakeholder
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CaptableAPI.PostCaptableSharesTransfer(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableSharesTransfer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCaptableSharesTransferRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCaptableStakeholders
+
+> PostCaptableStakeholders(ctx).Execute()
+
+Add stakeholders to the cap table
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CaptableAPI.PostCaptableStakeholders(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableStakeholders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCaptableStakeholdersRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutCaptableCompany
+
+> CaptableUpdated PutCaptableCompany(ctx).CaptableCompanyUpdate(captableCompanyUpdate).Execute()
+
+Sets the caller org's company name and incorporation details.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	captableCompanyUpdate := *openapiclient.NewCaptableCompanyUpdate() // CaptableCompanyUpdate | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CaptableAPI.PutCaptableCompany(context.Background()).CaptableCompanyUpdate(captableCompanyUpdate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PutCaptableCompany``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutCaptableCompany`: CaptableUpdated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PutCaptableCompany`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutCaptableCompanyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableRoundsIdCloseRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **cloudCaptableRoundCloseRequest** | [**CloudCaptableRoundCloseRequest**](CloudCaptableRoundCloseRequest.md) |  | 
+ **captableCompanyUpdate** | [**CaptableCompanyUpdate**](CaptableCompanyUpdate.md) |  | 
 
 ### Return type
 
-[**CloudCaptableUpdated**](CloudCaptableUpdated.md)
+[**CaptableUpdated**](CaptableUpdated.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CaptableSafes
-
-> CloudPostV1CaptableSafes(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableSafes(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableSafes``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableSafesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CaptableShareClasses
-
-> CloudPostV1CaptableShareClasses(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableShareClasses(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableShareClasses``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableShareClassesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CaptableShares
-
-> CloudPostV1CaptableShares(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableShares(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableShares``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableSharesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CaptableSharesTransfer
-
-> CloudPostV1CaptableSharesTransfer(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableSharesTransfer(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableSharesTransfer``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableSharesTransferRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CaptableStakeholders
-
-> CloudPostV1CaptableStakeholders(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.CloudPostV1CaptableStakeholders(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPostV1CaptableStakeholders``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CaptableStakeholdersRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPutV1CaptableCompany
-
-> CloudCaptableUpdated CloudPutV1CaptableCompany(ctx).CloudCaptableCompanyUpdate(cloudCaptableCompanyUpdate).Execute()
-
-UpdateCompany sets the caller org's company name and incorporation details.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudCaptableCompanyUpdate := *openapiclient.NewCloudCaptableCompanyUpdate() // CloudCaptableCompanyUpdate | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.CloudPutV1CaptableCompany(context.Background()).CloudCaptableCompanyUpdate(cloudCaptableCompanyUpdate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.CloudPutV1CaptableCompany``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPutV1CaptableCompany`: CloudCaptableUpdated
-	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.CloudPutV1CaptableCompany`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPutV1CaptableCompanyRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudCaptableCompanyUpdate** | [**CloudCaptableCompanyUpdate**](CloudCaptableCompanyUpdate.md) |  | 
-
-### Return type
-
-[**CloudCaptableUpdated**](CloudCaptableUpdated.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

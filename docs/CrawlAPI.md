@@ -4,13 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudPostV1Crawl**](CrawlAPI.md#CloudPostV1Crawl) | **Post** /v1/crawl | 
+[**ReadPage**](CrawlAPI.md#ReadPage) | **Post** /v1/crawl | Fetch one URL and read it back as markdown
 
 
 
-## CloudPostV1Crawl
+## ReadPage
 
-> CloudCrawlResult CloudPostV1Crawl(ctx).CloudCrawlRequest(cloudCrawlRequest).Execute()
+> CrawlResult ReadPage(ctx).CrawlRequest(crawlRequest).Execute()
+
+Fetch one URL and read it back as markdown
 
 
 
@@ -27,17 +29,17 @@ import (
 )
 
 func main() {
-	cloudCrawlRequest := *openapiclient.NewCloudCrawlRequest() // CloudCrawlRequest |  (optional)
+	crawlRequest := *openapiclient.NewCrawlRequest() // CrawlRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrawlAPI.CloudPostV1Crawl(context.Background()).CloudCrawlRequest(cloudCrawlRequest).Execute()
+	resp, r, err := apiClient.CrawlAPI.ReadPage(context.Background()).CrawlRequest(crawlRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrawlAPI.CloudPostV1Crawl``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrawlAPI.ReadPage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Crawl`: CloudCrawlResult
-	fmt.Fprintf(os.Stdout, "Response from `CrawlAPI.CloudPostV1Crawl`: %v\n", resp)
+	// response from `ReadPage`: CrawlResult
+	fmt.Fprintf(os.Stdout, "Response from `CrawlAPI.ReadPage`: %v\n", resp)
 }
 ```
 
@@ -47,20 +49,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CrawlRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiReadPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCrawlRequest** | [**CloudCrawlRequest**](CloudCrawlRequest.md) |  | 
+ **crawlRequest** | [**CrawlRequest**](CrawlRequest.md) |  | 
 
 ### Return type
 
-[**CloudCrawlResult**](CloudCrawlResult.md)
+[**CrawlResult**](CrawlResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

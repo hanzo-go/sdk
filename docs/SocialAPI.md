@@ -4,91 +4,27 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1SocialAccountsById**](SocialAPI.md#CloudDeleteV1SocialAccountsById) | **Delete** /v1/social/accounts/{id} | 
-[**CloudDeleteV1SocialPostsById**](SocialAPI.md#CloudDeleteV1SocialPostsById) | **Delete** /v1/social/posts/{id} | 
-[**CloudGetV1SocialAccounts**](SocialAPI.md#CloudGetV1SocialAccounts) | **Get** /v1/social/accounts | 
-[**CloudGetV1SocialAccountsById**](SocialAPI.md#CloudGetV1SocialAccountsById) | **Get** /v1/social/accounts/{id} | 
-[**CloudGetV1SocialPosts**](SocialAPI.md#CloudGetV1SocialPosts) | **Get** /v1/social/posts | 
-[**CloudGetV1SocialPostsById**](SocialAPI.md#CloudGetV1SocialPostsById) | **Get** /v1/social/posts/{id} | 
-[**CloudGetV1SocialProviders**](SocialAPI.md#CloudGetV1SocialProviders) | **Get** /v1/social/providers | 
-[**CloudGetV1SocialSummary**](SocialAPI.md#CloudGetV1SocialSummary) | **Get** /v1/social/summary | 
-[**CloudPostV1SocialAccounts**](SocialAPI.md#CloudPostV1SocialAccounts) | **Post** /v1/social/accounts | 
-[**CloudPostV1SocialPosts**](SocialAPI.md#CloudPostV1SocialPosts) | **Post** /v1/social/posts | 
-[**CloudPostV1SocialPostsByIdPublish**](SocialAPI.md#CloudPostV1SocialPostsByIdPublish) | **Post** /v1/social/posts/{id}/publish | 
-[**CloudPutV1SocialAccountsById**](SocialAPI.md#CloudPutV1SocialAccountsById) | **Put** /v1/social/accounts/{id} | 
-[**CloudPutV1SocialPostsById**](SocialAPI.md#CloudPutV1SocialPostsById) | **Put** /v1/social/posts/{id} | 
+[**DeleteSocialAccountsById**](SocialAPI.md#DeleteSocialAccountsById) | **Delete** /v1/social/accounts/{id} | Disconnect one account
+[**DeleteSocialPostsById**](SocialAPI.md#DeleteSocialPostsById) | **Delete** /v1/social/posts/{id} | Delete one post
+[**GetSocialAccounts**](SocialAPI.md#GetSocialAccounts) | **Get** /v1/social/accounts | List the social accounts connected to your org
+[**GetSocialAccountsById**](SocialAPI.md#GetSocialAccountsById) | **Get** /v1/social/accounts/{id} | Read one connected account
+[**GetSocialPosts**](SocialAPI.md#GetSocialPosts) | **Get** /v1/social/posts | List your org&#39;s posts
+[**GetSocialPostsById**](SocialAPI.md#GetSocialPostsById) | **Get** /v1/social/posts/{id} | Read one post
+[**GetSocialProviders**](SocialAPI.md#GetSocialProviders) | **Get** /v1/social/providers | Which networks this deployment can actually publish to
+[**GetSocialSummary**](SocialAPI.md#GetSocialSummary) | **Get** /v1/social/summary | Counts across your org&#39;s social presence
+[**PostSocialAccounts**](SocialAPI.md#PostSocialAccounts) | **Post** /v1/social/accounts | Connect a social account to your org
+[**PostSocialPosts**](SocialAPI.md#PostSocialPosts) | **Post** /v1/social/posts | Create a post, and publish it if it is already due
+[**PostSocialPostsByIdPublish**](SocialAPI.md#PostSocialPostsByIdPublish) | **Post** /v1/social/posts/{id}/publish | Publish one post now
+[**PutSocialAccountsById**](SocialAPI.md#PutSocialAccountsById) | **Put** /v1/social/accounts/{id} | Replace one connected account
+[**PutSocialPostsById**](SocialAPI.md#PutSocialPostsById) | **Put** /v1/social/posts/{id} | Replace one post
 
 
 
-## CloudDeleteV1SocialAccountsById
+## DeleteSocialAccountsById
 
-> CloudDeleteV1SocialAccountsById(ctx, id).Execute()
+> DeleteSocialAccountsById(ctx, id).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudDeleteV1SocialAccountsById(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudDeleteV1SocialAccountsById``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudDeleteV1SocialAccountsByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudDeleteV1SocialPostsById
-
-> CloudDeleteV1SocialPostsById(ctx, id).Execute()
+Disconnect one account
 
 
 
@@ -109,9 +45,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudDeleteV1SocialPostsById(context.Background(), id).Execute()
+	r, err := apiClient.SocialAPI.DeleteSocialAccountsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudDeleteV1SocialPostsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.DeleteSocialAccountsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -127,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1SocialPostsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteSocialAccountsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -140,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -152,9 +88,79 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1SocialAccounts
+## DeleteSocialPostsById
 
-> CloudGetV1SocialAccounts(ctx).Execute()
+> DeleteSocialPostsById(ctx, id).Execute()
+
+Delete one post
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SocialAPI.DeleteSocialPostsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.DeleteSocialPostsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteSocialPostsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSocialAccounts
+
+> GetSocialAccounts(ctx).Execute()
+
+List the social accounts connected to your org
 
 
 
@@ -174,9 +180,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudGetV1SocialAccounts(context.Background()).Execute()
+	r, err := apiClient.SocialAPI.GetSocialAccounts(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudGetV1SocialAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -188,7 +194,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SocialAccountsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSocialAccountsRequest struct via the builder pattern
 
 
 ### Return type
@@ -197,7 +203,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1SocialAccountsRe
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -209,9 +215,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1SocialAccountsRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1SocialAccountsById
+## GetSocialAccountsById
 
-> CloudGetV1SocialAccountsById(ctx, id).Execute()
+> GetSocialAccountsById(ctx, id).Execute()
+
+Read one connected account
 
 
 
@@ -232,9 +240,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudGetV1SocialAccountsById(context.Background(), id).Execute()
+	r, err := apiClient.SocialAPI.GetSocialAccountsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudGetV1SocialAccountsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialAccountsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -250,7 +258,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SocialAccountsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSocialAccountsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -263,7 +271,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -275,9 +283,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1SocialPosts
+## GetSocialPosts
 
-> CloudGetV1SocialPosts(ctx).Execute()
+> GetSocialPosts(ctx).Execute()
+
+List your org's posts
 
 
 
@@ -297,9 +307,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudGetV1SocialPosts(context.Background()).Execute()
+	r, err := apiClient.SocialAPI.GetSocialPosts(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudGetV1SocialPosts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialPosts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -311,7 +321,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SocialPostsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSocialPostsRequest struct via the builder pattern
 
 
 ### Return type
@@ -320,7 +330,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1SocialPostsReque
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -332,9 +342,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1SocialPostsReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1SocialPostsById
+## GetSocialPostsById
 
-> CloudGetV1SocialPostsById(ctx, id).Execute()
+> GetSocialPostsById(ctx, id).Execute()
+
+Read one post
 
 
 
@@ -355,9 +367,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudGetV1SocialPostsById(context.Background(), id).Execute()
+	r, err := apiClient.SocialAPI.GetSocialPostsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudGetV1SocialPostsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialPostsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -373,7 +385,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SocialPostsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSocialPostsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -386,7 +398,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -398,9 +410,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1SocialProviders
+## GetSocialProviders
 
-> CloudGetV1SocialProviders(ctx).Execute()
+> GetSocialProviders(ctx).Execute()
+
+Which networks this deployment can actually publish to
 
 
 
@@ -420,9 +434,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudGetV1SocialProviders(context.Background()).Execute()
+	r, err := apiClient.SocialAPI.GetSocialProviders(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudGetV1SocialProviders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialProviders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -434,7 +448,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SocialProvidersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSocialProvidersRequest struct via the builder pattern
 
 
 ### Return type
@@ -443,7 +457,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1SocialProvidersR
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -455,9 +469,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1SocialProvidersR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1SocialSummary
+## GetSocialSummary
 
-> CloudGetV1SocialSummary(ctx).Execute()
+> GetSocialSummary(ctx).Execute()
+
+Counts across your org's social presence
 
 
 
@@ -477,9 +493,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudGetV1SocialSummary(context.Background()).Execute()
+	r, err := apiClient.SocialAPI.GetSocialSummary(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudGetV1SocialSummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -491,7 +507,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SocialSummaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSocialSummaryRequest struct via the builder pattern
 
 
 ### Return type
@@ -500,7 +516,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1SocialSummaryReq
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -512,9 +528,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1SocialSummaryReq
 [[Back to README]](../README.md)
 
 
-## CloudPostV1SocialAccounts
+## PostSocialAccounts
 
-> CloudPostV1SocialAccounts(ctx).Execute()
+> PostSocialAccounts(ctx).Execute()
+
+Connect a social account to your org
 
 
 
@@ -534,9 +552,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudPostV1SocialAccounts(context.Background()).Execute()
+	r, err := apiClient.SocialAPI.PostSocialAccounts(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudPostV1SocialAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PostSocialAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -548,7 +566,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1SocialAccountsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostSocialAccountsRequest struct via the builder pattern
 
 
 ### Return type
@@ -557,7 +575,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1SocialAccountsR
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -569,9 +587,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1SocialAccountsR
 [[Back to README]](../README.md)
 
 
-## CloudPostV1SocialPosts
+## PostSocialPosts
 
-> CloudPostV1SocialPosts(ctx).Execute()
+> PostSocialPosts(ctx).Execute()
+
+Create a post, and publish it if it is already due
 
 
 
@@ -591,9 +611,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudPostV1SocialPosts(context.Background()).Execute()
+	r, err := apiClient.SocialAPI.PostSocialPosts(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudPostV1SocialPosts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PostSocialPosts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -605,7 +625,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1SocialPostsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostSocialPostsRequest struct via the builder pattern
 
 
 ### Return type
@@ -614,7 +634,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1SocialPostsRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -626,9 +646,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1SocialPostsRequ
 [[Back to README]](../README.md)
 
 
-## CloudPostV1SocialPostsByIdPublish
+## PostSocialPostsByIdPublish
 
-> CloudPostV1SocialPostsByIdPublish(ctx, id).Execute()
+> PostSocialPostsByIdPublish(ctx, id).Execute()
+
+Publish one post now
 
 
 
@@ -649,9 +671,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudPostV1SocialPostsByIdPublish(context.Background(), id).Execute()
+	r, err := apiClient.SocialAPI.PostSocialPostsByIdPublish(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudPostV1SocialPostsByIdPublish``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PostSocialPostsByIdPublish``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -667,7 +689,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1SocialPostsByIdPublishRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostSocialPostsByIdPublishRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -680,7 +702,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -692,9 +714,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1SocialAccountsById
+## PutSocialAccountsById
 
-> CloudPutV1SocialAccountsById(ctx, id).Execute()
+> PutSocialAccountsById(ctx, id).Execute()
+
+Replace one connected account
 
 
 
@@ -715,9 +739,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudPutV1SocialAccountsById(context.Background(), id).Execute()
+	r, err := apiClient.SocialAPI.PutSocialAccountsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudPutV1SocialAccountsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PutSocialAccountsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -733,7 +757,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1SocialAccountsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutSocialAccountsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -746,7 +770,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -758,9 +782,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1SocialPostsById
+## PutSocialPostsById
 
-> CloudPutV1SocialPostsById(ctx, id).Execute()
+> PutSocialPostsById(ctx, id).Execute()
+
+Replace one post
 
 
 
@@ -781,9 +807,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SocialAPI.CloudPutV1SocialPostsById(context.Background(), id).Execute()
+	r, err := apiClient.SocialAPI.PutSocialPostsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.CloudPutV1SocialPostsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PutSocialPostsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -799,7 +825,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1SocialPostsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutSocialPostsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -812,7 +838,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

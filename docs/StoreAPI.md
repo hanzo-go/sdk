@@ -4,59 +4,48 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1StoreByStoreid**](StoreAPI.md#CloudDeleteV1StoreByStoreid) | **Delete** /v1/store/{storeid} | 
-[**CloudDeleteV1StoreByStoreidListingByKey**](StoreAPI.md#CloudDeleteV1StoreByStoreidListingByKey) | **Delete** /v1/store/{storeid}/listing/{key} | 
-[**CloudGetV1Store**](StoreAPI.md#CloudGetV1Store) | **Get** /v1/store/ | 
-[**CloudGetV1StoreAccess**](StoreAPI.md#CloudGetV1StoreAccess) | **Get** /v1/store/access | 
-[**CloudGetV1StoreByStoreid**](StoreAPI.md#CloudGetV1StoreByStoreid) | **Get** /v1/store/{storeid} | 
-[**CloudGetV1StoreByStoreidBundleByKey**](StoreAPI.md#CloudGetV1StoreByStoreidBundleByKey) | **Get** /v1/store/{storeid}/bundle/{key} | 
-[**CloudGetV1StoreByStoreidListing**](StoreAPI.md#CloudGetV1StoreByStoreidListing) | **Get** /v1/store/{storeid}/listing | 
-[**CloudGetV1StoreByStoreidListingByKey**](StoreAPI.md#CloudGetV1StoreByStoreidListingByKey) | **Get** /v1/store/{storeid}/listing/{key} | 
-[**CloudGetV1StoreByStoreidProductByKey**](StoreAPI.md#CloudGetV1StoreByStoreidProductByKey) | **Get** /v1/store/{storeid}/product/{key} | 
-[**CloudGetV1StoreByStoreidVariantByKey**](StoreAPI.md#CloudGetV1StoreByStoreidVariantByKey) | **Get** /v1/store/{storeid}/variant/{key} | 
-[**CloudGetV1StoreCurrent**](StoreAPI.md#CloudGetV1StoreCurrent) | **Get** /v1/store/current | 
-[**CloudPatchV1StoreByStoreid**](StoreAPI.md#CloudPatchV1StoreByStoreid) | **Patch** /v1/store/{storeid} | 
-[**CloudPatchV1StoreByStoreidListingByKey**](StoreAPI.md#CloudPatchV1StoreByStoreidListingByKey) | **Patch** /v1/store/{storeid}/listing/{key} | 
-[**CloudPostV1Store**](StoreAPI.md#CloudPostV1Store) | **Post** /v1/store/ | 
-[**CloudPostV1StoreByStoreid**](StoreAPI.md#CloudPostV1StoreByStoreid) | **Post** /v1/store/{storeid} | 
-[**CloudPostV1StoreByStoreidAuthorize**](StoreAPI.md#CloudPostV1StoreByStoreidAuthorize) | **Post** /v1/store/{storeid}/authorize | 
-[**CloudPostV1StoreByStoreidAuthorizeByOrderid**](StoreAPI.md#CloudPostV1StoreByStoreidAuthorizeByOrderid) | **Post** /v1/store/{storeid}/authorize/{orderid} | 
-[**CloudPostV1StoreByStoreidCaptureByOrderid**](StoreAPI.md#CloudPostV1StoreByStoreidCaptureByOrderid) | **Post** /v1/store/{storeid}/capture/{orderid} | 
-[**CloudPostV1StoreByStoreidCharge**](StoreAPI.md#CloudPostV1StoreByStoreidCharge) | **Post** /v1/store/{storeid}/charge | 
-[**CloudPostV1StoreByStoreidCheckoutAuthorize**](StoreAPI.md#CloudPostV1StoreByStoreidCheckoutAuthorize) | **Post** /v1/store/{storeid}/checkout/authorize | 
-[**CloudPostV1StoreByStoreidCheckoutAuthorizeByOrderid**](StoreAPI.md#CloudPostV1StoreByStoreidCheckoutAuthorizeByOrderid) | **Post** /v1/store/{storeid}/checkout/authorize/{orderid} | 
-[**CloudPostV1StoreByStoreidCheckoutCaptureByOrderid**](StoreAPI.md#CloudPostV1StoreByStoreidCheckoutCaptureByOrderid) | **Post** /v1/store/{storeid}/checkout/capture/{orderid} | 
-[**CloudPostV1StoreByStoreidCheckoutCharge**](StoreAPI.md#CloudPostV1StoreByStoreidCheckoutCharge) | **Post** /v1/store/{storeid}/checkout/charge | 
-[**CloudPostV1StoreByStoreidCheckoutPaypalCancelByPaykey**](StoreAPI.md#CloudPostV1StoreByStoreidCheckoutPaypalCancelByPaykey) | **Post** /v1/store/{storeid}/checkout/paypal/cancel/{payKey} | 
-[**CloudPostV1StoreByStoreidCheckoutPaypalConfirmByPaykey**](StoreAPI.md#CloudPostV1StoreByStoreidCheckoutPaypalConfirmByPaykey) | **Post** /v1/store/{storeid}/checkout/paypal/confirm/{payKey} | 
-[**CloudPostV1StoreByStoreidCheckoutPaypalPay**](StoreAPI.md#CloudPostV1StoreByStoreidCheckoutPaypalPay) | **Post** /v1/store/{storeid}/checkout/paypal/pay | 
-[**CloudPostV1StoreByStoreidListingByKey**](StoreAPI.md#CloudPostV1StoreByStoreidListingByKey) | **Post** /v1/store/{storeid}/listing/{key} | 
-[**CloudPostV1StoreByStoreidPaypalCancelByPaykey**](StoreAPI.md#CloudPostV1StoreByStoreidPaypalCancelByPaykey) | **Post** /v1/store/{storeid}/paypal/cancel/{payKey} | 
-[**CloudPostV1StoreByStoreidPaypalConfirmByPaykey**](StoreAPI.md#CloudPostV1StoreByStoreidPaypalConfirmByPaykey) | **Post** /v1/store/{storeid}/paypal/confirm/{payKey} | 
-[**CloudPostV1StoreByStoreidPaypalPay**](StoreAPI.md#CloudPostV1StoreByStoreidPaypalPay) | **Post** /v1/store/{storeid}/paypal/pay | 
-[**CloudPostV1StoreByStoreidTrial**](StoreAPI.md#CloudPostV1StoreByStoreidTrial) | **Post** /v1/store/{storeid}/trial | 
-[**CloudPostV1StoreStorefrontToken**](StoreAPI.md#CloudPostV1StoreStorefrontToken) | **Post** /v1/store/storefront-token | 
-[**CloudPutV1StoreByStoreid**](StoreAPI.md#CloudPutV1StoreByStoreid) | **Put** /v1/store/{storeid} | 
-[**CloudPutV1StoreByStoreidListingByKey**](StoreAPI.md#CloudPutV1StoreByStoreidListingByKey) | **Put** /v1/store/{storeid}/listing/{key} | 
-[**CommerceCreateStore**](StoreAPI.md#CommerceCreateStore) | **Post** /v1/commerce/store | Create store
-[**CommerceCreateStoreListing**](StoreAPI.md#CommerceCreateStoreListing) | **Post** /v1/commerce/store/{storeid}/listing/{key} | Create store listing
-[**CommerceDeleteStoreListing**](StoreAPI.md#CommerceDeleteStoreListing) | **Delete** /v1/commerce/store/{storeid}/listing/{key} | Delete store listing
-[**CommerceGetStore**](StoreAPI.md#CommerceGetStore) | **Get** /v1/commerce/store/{storeid} | Get store
-[**CommerceGetStoreListing**](StoreAPI.md#CommerceGetStoreListing) | **Get** /v1/commerce/store/{storeid}/listing/{key} | Get store listing
-[**CommerceGetStoreProduct**](StoreAPI.md#CommerceGetStoreProduct) | **Get** /v1/commerce/store/{storeid}/product/{key} | Get store product
-[**CommerceGetStoreVariant**](StoreAPI.md#CommerceGetStoreVariant) | **Get** /v1/commerce/store/{storeid}/variant/{key} | Get store variant
-[**CommerceListStoreListings**](StoreAPI.md#CommerceListStoreListings) | **Get** /v1/commerce/store/{storeid}/listing | List store listings
-[**CommerceListStores**](StoreAPI.md#CommerceListStores) | **Get** /v1/commerce/store | List stores
-[**CommercePatchStoreListing**](StoreAPI.md#CommercePatchStoreListing) | **Patch** /v1/commerce/store/{storeid}/listing/{key} | Partially update store listing
-[**CommerceStoreAuthorize**](StoreAPI.md#CommerceStoreAuthorize) | **Post** /v1/commerce/store/{storeid}/checkout/authorize | Authorize payment via store
-[**CommerceStoreCharge**](StoreAPI.md#CommerceStoreCharge) | **Post** /v1/commerce/store/{storeid}/checkout/charge | Charge payment via store
-[**CommerceUpdateStoreListing**](StoreAPI.md#CommerceUpdateStoreListing) | **Put** /v1/commerce/store/{storeid}/listing/{key} | Update store listing
+[**DeleteStoreByStoreid**](StoreAPI.md#DeleteStoreByStoreid) | **Delete** /v1/store/{storeid} | Delete a storefront, keeping a recoverable copy
+[**DeleteStoreByStoreidListingByKey**](StoreAPI.md#DeleteStoreByStoreidListingByKey) | **Delete** /v1/store/{storeid}/listing/{key} | Remove a listing override
+[**GetStore**](StoreAPI.md#GetStore) | **Get** /v1/store/ | List your org&#39;s storefronts as a page
+[**GetStoreAccess**](StoreAPI.md#GetStoreAccess) | **Get** /v1/store/access | Whether a store is entitled to trade, and why
+[**GetStoreByStoreid**](StoreAPI.md#GetStoreByStoreid) | **Get** /v1/store/{storeid} | Fetch one storefront
+[**GetStoreByStoreidBundleByKey**](StoreAPI.md#GetStoreByStoreidBundleByKey) | **Get** /v1/store/{storeid}/bundle/{key} | Fetch a bundle as this storefront sells it
+[**GetStoreByStoreidListing**](StoreAPI.md#GetStoreByStoreidListing) | **Get** /v1/store/{storeid}/listing | The storefront&#39;s whole listing override map
+[**GetStoreByStoreidListingByKey**](StoreAPI.md#GetStoreByStoreidListingByKey) | **Get** /v1/store/{storeid}/listing/{key} | Fetch one listing override, by item id or by its slug or SKU
+[**GetStoreByStoreidProductByKey**](StoreAPI.md#GetStoreByStoreidProductByKey) | **Get** /v1/store/{storeid}/product/{key} | Fetch a product as this storefront sells it
+[**GetStoreByStoreidVariantByKey**](StoreAPI.md#GetStoreByStoreidVariantByKey) | **Get** /v1/store/{storeid}/variant/{key} | Fetch a variant as this storefront sells it
+[**GetStoreCurrent**](StoreAPI.md#GetStoreCurrent) | **Get** /v1/store/current | Resolve your org&#39;s active storefront without naming an id
+[**PatchStoreByStoreid**](StoreAPI.md#PatchStoreByStoreid) | **Patch** /v1/store/{storeid} | Change part of a storefront
+[**PatchStoreByStoreidListingByKey**](StoreAPI.md#PatchStoreByStoreidListingByKey) | **Patch** /v1/store/{storeid}/listing/{key} | Confirm a listing override exists and re-save the store
+[**PostStore**](StoreAPI.md#PostStore) | **Post** /v1/store/ | Create a storefront
+[**PostStoreByStoreid**](StoreAPI.md#PostStoreByStoreid) | **Post** /v1/store/{storeid} | Method-override tunnel for clients that cannot send PUT, PATCH or DELETE
+[**PostStoreByStoreidAuthorize**](StoreAPI.md#PostStoreByStoreidAuthorize) | **Post** /v1/store/{storeid}/authorize | Authorize a new order against a storefront, holding the funds without settling them
+[**PostStoreByStoreidAuthorizeByOrderid**](StoreAPI.md#PostStoreByStoreidAuthorizeByOrderid) | **Post** /v1/store/{storeid}/authorize/{orderid} | Authorize an order that already exists, holding the funds without settling them
+[**PostStoreByStoreidCaptureByOrderid**](StoreAPI.md#PostStoreByStoreidCaptureByOrderid) | **Post** /v1/store/{storeid}/capture/{orderid} | Capture a previously authorized order and settle the payment
+[**PostStoreByStoreidCharge**](StoreAPI.md#PostStoreByStoreidCharge) | **Post** /v1/store/{storeid}/charge | Authorize and capture a new order in one call
+[**PostStoreByStoreidCheckoutAuthorize**](StoreAPI.md#PostStoreByStoreidCheckoutAuthorize) | **Post** /v1/store/{storeid}/checkout/authorize | Authorize a new order against a storefront, holding the funds — the checkout spelling
+[**PostStoreByStoreidCheckoutAuthorizeByOrderid**](StoreAPI.md#PostStoreByStoreidCheckoutAuthorizeByOrderid) | **Post** /v1/store/{storeid}/checkout/authorize/{orderid} | Authorize an existing order, holding the funds — the checkout spelling
+[**PostStoreByStoreidCheckoutCaptureByOrderid**](StoreAPI.md#PostStoreByStoreidCheckoutCaptureByOrderid) | **Post** /v1/store/{storeid}/checkout/capture/{orderid} | Capture a previously authorized order and settle it — the checkout spelling
+[**PostStoreByStoreidCheckoutCharge**](StoreAPI.md#PostStoreByStoreidCheckoutCharge) | **Post** /v1/store/{storeid}/checkout/charge | Authorize and capture a new order in one call — the checkout spelling
+[**PostStoreByStoreidCheckoutPaypalCancelByPaykey**](StoreAPI.md#PostStoreByStoreidCheckoutPaypalCancelByPaykey) | **Post** /v1/store/{storeid}/checkout/paypal/cancel/{payKey} | PayPal cancel by pay key — refuses, exactly as the unprefixed address does
+[**PostStoreByStoreidCheckoutPaypalConfirmByPaykey**](StoreAPI.md#PostStoreByStoreidCheckoutPaypalConfirmByPaykey) | **Post** /v1/store/{storeid}/checkout/paypal/confirm/{payKey} | PayPal confirm by pay key — refuses, exactly as the unprefixed address does
+[**PostStoreByStoreidCheckoutPaypalPay**](StoreAPI.md#PostStoreByStoreidCheckoutPaypalPay) | **Post** /v1/store/{storeid}/checkout/paypal/pay | Start a PayPal authorization for a new order — the checkout spelling
+[**PostStoreByStoreidListingByKey**](StoreAPI.md#PostStoreByStoreidListingByKey) | **Post** /v1/store/{storeid}/listing/{key} | Add a listing override under a new key
+[**PostStoreByStoreidPaypalCancelByPaykey**](StoreAPI.md#PostStoreByStoreidPaypalCancelByPaykey) | **Post** /v1/store/{storeid}/paypal/cancel/{payKey} | PayPal cancel by pay key — refuses, because a pay key alone does not identify the order
+[**PostStoreByStoreidPaypalConfirmByPaykey**](StoreAPI.md#PostStoreByStoreidPaypalConfirmByPaykey) | **Post** /v1/store/{storeid}/paypal/confirm/{payKey} | PayPal confirm by pay key — refuses, because a pay key alone does not identify the order
+[**PostStoreByStoreidPaypalPay**](StoreAPI.md#PostStoreByStoreidPaypalPay) | **Post** /v1/store/{storeid}/paypal/pay | Start a PayPal authorization for a new order
+[**PostStoreByStoreidTrial**](StoreAPI.md#PostStoreByStoreidTrial) | **Post** /v1/store/{storeid}/trial | Start this store&#39;s no-card trial on the entry plan
+[**PostStoreToken**](StoreAPI.md#PostStoreToken) | **Post** /v1/store/token | Mint your org&#39;s least-privilege storefront read key
+[**PutStoreByStoreid**](StoreAPI.md#PutStoreByStoreid) | **Put** /v1/store/{storeid} | Replace a storefront outright
+[**PutStoreByStoreidListingByKey**](StoreAPI.md#PutStoreByStoreidListingByKey) | **Put** /v1/store/{storeid}/listing/{key} | Upsert a listing override
 
 
 
-## CloudDeleteV1StoreByStoreid
+## DeleteStoreByStoreid
 
-> CloudDeleteV1StoreByStoreid(ctx, storeid).Execute()
+> DeleteStoreByStoreid(ctx, storeid).Execute()
+
+Delete a storefront, keeping a recoverable copy
 
 
 
@@ -77,9 +66,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudDeleteV1StoreByStoreid(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.DeleteStoreByStoreid(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudDeleteV1StoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.DeleteStoreByStoreid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -95,7 +84,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1StoreByStoreidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteStoreByStoreidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -108,7 +97,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -120,9 +109,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1StoreByStoreidListingByKey
+## DeleteStoreByStoreidListingByKey
 
-> CloudDeleteV1StoreByStoreidListingByKey(ctx, storeid, key).Execute()
+> DeleteStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Remove a listing override
 
 
 
@@ -144,9 +135,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudDeleteV1StoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	r, err := apiClient.StoreAPI.DeleteStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudDeleteV1StoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.DeleteStoreByStoreidListingByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -163,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1StoreByStoreidListingByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteStoreByStoreidListingByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -177,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -189,9 +180,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Store
+## GetStore
 
-> CloudGetV1Store(ctx).Execute()
+> GetStore(ctx).Execute()
+
+List your org's storefronts as a page
 
 
 
@@ -211,9 +204,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1Store(context.Background()).Execute()
+	r, err := apiClient.StoreAPI.GetStore(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1Store``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -225,7 +218,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1StoreRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetStoreRequest struct via the builder pattern
 
 
 ### Return type
@@ -234,7 +227,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1StoreRequest str
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -246,9 +239,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1StoreRequest str
 [[Back to README]](../README.md)
 
 
-## CloudGetV1StoreAccess
+## GetStoreAccess
 
-> CloudGetV1StoreAccess(ctx).Execute()
+> GetStoreAccess(ctx).Execute()
+
+Whether a store is entitled to trade, and why
 
 
 
@@ -268,9 +263,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1StoreAccess(context.Background()).Execute()
+	r, err := apiClient.StoreAPI.GetStoreAccess(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1StoreAccess``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStoreAccess``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -282,7 +277,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1StoreAccessRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetStoreAccessRequest struct via the builder pattern
 
 
 ### Return type
@@ -291,7 +286,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1StoreAccessReque
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -303,9 +298,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1StoreAccessReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1StoreByStoreid
+## GetStoreByStoreid
 
-> CloudGetV1StoreByStoreid(ctx, storeid).Execute()
+> GetStoreByStoreid(ctx, storeid).Execute()
+
+Fetch one storefront
 
 
 
@@ -326,9 +323,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1StoreByStoreid(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.GetStoreByStoreid(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1StoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStoreByStoreid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -344,7 +341,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1StoreByStoreidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetStoreByStoreidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -357,7 +354,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -369,144 +366,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1StoreByStoreidBundleByKey
+## GetStoreByStoreidBundleByKey
 
-> CloudGetV1StoreByStoreidBundleByKey(ctx, storeid, key).Execute()
+> GetStoreByStoreidBundleByKey(ctx, storeid, key).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	key := "key_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1StoreByStoreidBundleByKey(context.Background(), storeid, key).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1StoreByStoreidBundleByKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-**key** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1StoreByStoreidBundleByKeyRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1StoreByStoreidListing
-
-> CloudGetV1StoreByStoreidListing(ctx, storeid).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1StoreByStoreidListing(context.Background(), storeid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1StoreByStoreidListing``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1StoreByStoreidListingRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1StoreByStoreidListingByKey
-
-> CloudGetV1StoreByStoreidListingByKey(ctx, storeid, key).Execute()
+Fetch a bundle as this storefront sells it
 
 
 
@@ -528,9 +392,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1StoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	r, err := apiClient.StoreAPI.GetStoreByStoreidBundleByKey(context.Background(), storeid, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1StoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStoreByStoreidBundleByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -547,7 +411,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1StoreByStoreidListingByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetStoreByStoreidBundleByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -561,7 +425,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -573,9 +437,79 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1StoreByStoreidProductByKey
+## GetStoreByStoreidListing
 
-> CloudGetV1StoreByStoreidProductByKey(ctx, storeid, key).Execute()
+> GetStoreByStoreidListing(ctx, storeid).Execute()
+
+The storefront's whole listing override map
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.StoreAPI.GetStoreByStoreidListing(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStoreByStoreidListing``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetStoreByStoreidListingRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetStoreByStoreidListingByKey
+
+> GetStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Fetch one listing override, by item id or by its slug or SKU
 
 
 
@@ -597,9 +531,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1StoreByStoreidProductByKey(context.Background(), storeid, key).Execute()
+	r, err := apiClient.StoreAPI.GetStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1StoreByStoreidProductByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStoreByStoreidListingByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -616,7 +550,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1StoreByStoreidProductByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetStoreByStoreidListingByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -630,7 +564,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -642,9 +576,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1StoreByStoreidVariantByKey
+## GetStoreByStoreidProductByKey
 
-> CloudGetV1StoreByStoreidVariantByKey(ctx, storeid, key).Execute()
+> GetStoreByStoreidProductByKey(ctx, storeid, key).Execute()
+
+Fetch a product as this storefront sells it
 
 
 
@@ -666,9 +602,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1StoreByStoreidVariantByKey(context.Background(), storeid, key).Execute()
+	r, err := apiClient.StoreAPI.GetStoreByStoreidProductByKey(context.Background(), storeid, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1StoreByStoreidVariantByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStoreByStoreidProductByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -685,7 +621,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1StoreByStoreidVariantByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetStoreByStoreidProductByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -699,7 +635,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -711,9 +647,82 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1StoreCurrent
+## GetStoreByStoreidVariantByKey
 
-> CloudGetV1StoreCurrent(ctx).Execute()
+> GetStoreByStoreidVariantByKey(ctx, storeid, key).Execute()
+
+Fetch a variant as this storefront sells it
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.StoreAPI.GetStoreByStoreidVariantByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStoreByStoreidVariantByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetStoreByStoreidVariantByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetStoreCurrent
+
+> GetStoreCurrent(ctx).Execute()
+
+Resolve your org's active storefront without naming an id
 
 
 
@@ -733,9 +742,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudGetV1StoreCurrent(context.Background()).Execute()
+	r, err := apiClient.StoreAPI.GetStoreCurrent(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudGetV1StoreCurrent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.GetStoreCurrent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -747,7 +756,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1StoreCurrentRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetStoreCurrentRequest struct via the builder pattern
 
 
 ### Return type
@@ -756,7 +765,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1StoreCurrentRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -768,9 +777,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1StoreCurrentRequ
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1StoreByStoreid
+## PatchStoreByStoreid
 
-> CloudPatchV1StoreByStoreid(ctx, storeid).Execute()
+> PatchStoreByStoreid(ctx, storeid).Execute()
+
+Change part of a storefront
 
 
 
@@ -791,9 +802,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPatchV1StoreByStoreid(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PatchStoreByStoreid(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPatchV1StoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PatchStoreByStoreid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -809,7 +820,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1StoreByStoreidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchStoreByStoreidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -822,7 +833,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -834,9 +845,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1StoreByStoreidListingByKey
+## PatchStoreByStoreidListingByKey
 
-> CloudPatchV1StoreByStoreidListingByKey(ctx, storeid, key).Execute()
+> PatchStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Confirm a listing override exists and re-save the store
 
 
 
@@ -858,9 +871,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPatchV1StoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	r, err := apiClient.StoreAPI.PatchStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPatchV1StoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PatchStoreByStoreidListingByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -877,7 +890,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1StoreByStoreidListingByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchStoreByStoreidListingByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -891,7 +904,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -903,9 +916,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Store
+## PostStore
 
-> CloudPostV1Store(ctx).Execute()
+> PostStore(ctx).Execute()
+
+Create a storefront
 
 
 
@@ -925,9 +940,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1Store(context.Background()).Execute()
+	r, err := apiClient.StoreAPI.PostStore(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1Store``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -939,7 +954,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreRequest struct via the builder pattern
 
 
 ### Return type
@@ -948,7 +963,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1StoreRequest st
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -960,9 +975,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1StoreRequest st
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreid
+## PostStoreByStoreid
 
-> CloudPostV1StoreByStoreid(ctx, storeid).Execute()
+> PostStoreByStoreid(ctx, storeid).Execute()
+
+Method-override tunnel for clients that cannot send PUT, PATCH or DELETE
 
 
 
@@ -983,9 +1000,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreid(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreid(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1001,7 +1018,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1014,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1026,9 +1043,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidAuthorize
+## PostStoreByStoreidAuthorize
 
-> CloudPostV1StoreByStoreidAuthorize(ctx, storeid).Execute()
+> PostStoreByStoreidAuthorize(ctx, storeid).Execute()
+
+Authorize a new order against a storefront, holding the funds without settling them
 
 
 
@@ -1049,9 +1068,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidAuthorize(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidAuthorize(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidAuthorize``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidAuthorize``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1067,7 +1086,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidAuthorizeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidAuthorizeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1080,7 +1099,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1092,9 +1111,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidAuthorizeByOrderid
+## PostStoreByStoreidAuthorizeByOrderid
 
-> CloudPostV1StoreByStoreidAuthorizeByOrderid(ctx, storeid, orderid).Execute()
+> PostStoreByStoreidAuthorizeByOrderid(ctx, storeid, orderid).Execute()
+
+Authorize an order that already exists, holding the funds without settling them
 
 
 
@@ -1116,9 +1137,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidAuthorizeByOrderid(context.Background(), storeid, orderid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidAuthorizeByOrderid(context.Background(), storeid, orderid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidAuthorizeByOrderid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidAuthorizeByOrderid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1135,7 +1156,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidAuthorizeByOrderidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidAuthorizeByOrderidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1149,7 +1170,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1161,9 +1182,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCaptureByOrderid
+## PostStoreByStoreidCaptureByOrderid
 
-> CloudPostV1StoreByStoreidCaptureByOrderid(ctx, storeid, orderid).Execute()
+> PostStoreByStoreidCaptureByOrderid(ctx, storeid, orderid).Execute()
+
+Capture a previously authorized order and settle the payment
 
 
 
@@ -1185,9 +1208,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCaptureByOrderid(context.Background(), storeid, orderid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCaptureByOrderid(context.Background(), storeid, orderid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCaptureByOrderid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCaptureByOrderid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1204,7 +1227,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidCaptureByOrderidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidCaptureByOrderidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1218,7 +1241,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1230,9 +1253,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCharge
+## PostStoreByStoreidCharge
 
-> CloudPostV1StoreByStoreidCharge(ctx, storeid).Execute()
+> PostStoreByStoreidCharge(ctx, storeid).Execute()
+
+Authorize and capture a new order in one call
 
 
 
@@ -1253,9 +1278,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCharge(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCharge(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCharge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCharge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1271,7 +1296,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidChargeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidChargeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1284,7 +1309,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1296,9 +1321,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCheckoutAuthorize
+## PostStoreByStoreidCheckoutAuthorize
 
-> CloudPostV1StoreByStoreidCheckoutAuthorize(ctx, storeid).Execute()
+> PostStoreByStoreidCheckoutAuthorize(ctx, storeid).Execute()
+
+Authorize a new order against a storefront, holding the funds — the checkout spelling
 
 
 
@@ -1319,9 +1346,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCheckoutAuthorize(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCheckoutAuthorize(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCheckoutAuthorize``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCheckoutAuthorize``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1337,7 +1364,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidCheckoutAuthorizeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidCheckoutAuthorizeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1350,7 +1377,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1362,9 +1389,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCheckoutAuthorizeByOrderid
+## PostStoreByStoreidCheckoutAuthorizeByOrderid
 
-> CloudPostV1StoreByStoreidCheckoutAuthorizeByOrderid(ctx, storeid, orderid).Execute()
+> PostStoreByStoreidCheckoutAuthorizeByOrderid(ctx, storeid, orderid).Execute()
+
+Authorize an existing order, holding the funds — the checkout spelling
 
 
 
@@ -1386,9 +1415,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCheckoutAuthorizeByOrderid(context.Background(), storeid, orderid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCheckoutAuthorizeByOrderid(context.Background(), storeid, orderid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCheckoutAuthorizeByOrderid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCheckoutAuthorizeByOrderid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1405,7 +1434,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidCheckoutAuthorizeByOrderidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidCheckoutAuthorizeByOrderidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1419,7 +1448,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1431,9 +1460,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCheckoutCaptureByOrderid
+## PostStoreByStoreidCheckoutCaptureByOrderid
 
-> CloudPostV1StoreByStoreidCheckoutCaptureByOrderid(ctx, storeid, orderid).Execute()
+> PostStoreByStoreidCheckoutCaptureByOrderid(ctx, storeid, orderid).Execute()
+
+Capture a previously authorized order and settle it — the checkout spelling
 
 
 
@@ -1455,9 +1486,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCheckoutCaptureByOrderid(context.Background(), storeid, orderid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCheckoutCaptureByOrderid(context.Background(), storeid, orderid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCheckoutCaptureByOrderid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCheckoutCaptureByOrderid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1474,7 +1505,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidCheckoutCaptureByOrderidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidCheckoutCaptureByOrderidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1488,7 +1519,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1500,9 +1531,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCheckoutCharge
+## PostStoreByStoreidCheckoutCharge
 
-> CloudPostV1StoreByStoreidCheckoutCharge(ctx, storeid).Execute()
+> PostStoreByStoreidCheckoutCharge(ctx, storeid).Execute()
+
+Authorize and capture a new order in one call — the checkout spelling
 
 
 
@@ -1523,9 +1556,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCheckoutCharge(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCheckoutCharge(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCheckoutCharge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCheckoutCharge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1541,7 +1574,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidCheckoutChargeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidCheckoutChargeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1554,7 +1587,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1566,9 +1599,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCheckoutPaypalCancelByPaykey
+## PostStoreByStoreidCheckoutPaypalCancelByPaykey
 
-> CloudPostV1StoreByStoreidCheckoutPaypalCancelByPaykey(ctx, storeid, payKey).Execute()
+> PostStoreByStoreidCheckoutPaypalCancelByPaykey(ctx, storeid, payKey).Execute()
+
+PayPal cancel by pay key — refuses, exactly as the unprefixed address does
 
 
 
@@ -1590,9 +1625,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCheckoutPaypalCancelByPaykey(context.Background(), storeid, payKey).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCheckoutPaypalCancelByPaykey(context.Background(), storeid, payKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCheckoutPaypalCancelByPaykey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCheckoutPaypalCancelByPaykey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1609,7 +1644,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidCheckoutPaypalCancelByPaykeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidCheckoutPaypalCancelByPaykeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1623,7 +1658,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1635,9 +1670,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCheckoutPaypalConfirmByPaykey
+## PostStoreByStoreidCheckoutPaypalConfirmByPaykey
 
-> CloudPostV1StoreByStoreidCheckoutPaypalConfirmByPaykey(ctx, storeid, payKey).Execute()
+> PostStoreByStoreidCheckoutPaypalConfirmByPaykey(ctx, storeid, payKey).Execute()
+
+PayPal confirm by pay key — refuses, exactly as the unprefixed address does
 
 
 
@@ -1659,9 +1696,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCheckoutPaypalConfirmByPaykey(context.Background(), storeid, payKey).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCheckoutPaypalConfirmByPaykey(context.Background(), storeid, payKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCheckoutPaypalConfirmByPaykey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCheckoutPaypalConfirmByPaykey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1678,7 +1715,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidCheckoutPaypalConfirmByPaykeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidCheckoutPaypalConfirmByPaykeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1692,7 +1729,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1704,9 +1741,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidCheckoutPaypalPay
+## PostStoreByStoreidCheckoutPaypalPay
 
-> CloudPostV1StoreByStoreidCheckoutPaypalPay(ctx, storeid).Execute()
+> PostStoreByStoreidCheckoutPaypalPay(ctx, storeid).Execute()
+
+Start a PayPal authorization for a new order — the checkout spelling
 
 
 
@@ -1727,9 +1766,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidCheckoutPaypalPay(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidCheckoutPaypalPay(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidCheckoutPaypalPay``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidCheckoutPaypalPay``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1745,7 +1784,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidCheckoutPaypalPayRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidCheckoutPaypalPayRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1758,7 +1797,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1770,9 +1809,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidListingByKey
+## PostStoreByStoreidListingByKey
 
-> CloudPostV1StoreByStoreidListingByKey(ctx, storeid, key).Execute()
+> PostStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Add a listing override under a new key
 
 
 
@@ -1794,9 +1835,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidListingByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1813,7 +1854,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidListingByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidListingByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1827,7 +1868,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1839,9 +1880,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidPaypalCancelByPaykey
+## PostStoreByStoreidPaypalCancelByPaykey
 
-> CloudPostV1StoreByStoreidPaypalCancelByPaykey(ctx, storeid, payKey).Execute()
+> PostStoreByStoreidPaypalCancelByPaykey(ctx, storeid, payKey).Execute()
+
+PayPal cancel by pay key — refuses, because a pay key alone does not identify the order
 
 
 
@@ -1863,9 +1906,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidPaypalCancelByPaykey(context.Background(), storeid, payKey).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidPaypalCancelByPaykey(context.Background(), storeid, payKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidPaypalCancelByPaykey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidPaypalCancelByPaykey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1882,7 +1925,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidPaypalCancelByPaykeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidPaypalCancelByPaykeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1896,7 +1939,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1908,9 +1951,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidPaypalConfirmByPaykey
+## PostStoreByStoreidPaypalConfirmByPaykey
 
-> CloudPostV1StoreByStoreidPaypalConfirmByPaykey(ctx, storeid, payKey).Execute()
+> PostStoreByStoreidPaypalConfirmByPaykey(ctx, storeid, payKey).Execute()
+
+PayPal confirm by pay key — refuses, because a pay key alone does not identify the order
 
 
 
@@ -1932,9 +1977,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidPaypalConfirmByPaykey(context.Background(), storeid, payKey).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidPaypalConfirmByPaykey(context.Background(), storeid, payKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidPaypalConfirmByPaykey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidPaypalConfirmByPaykey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1951,7 +1996,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidPaypalConfirmByPaykeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidPaypalConfirmByPaykeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1965,7 +2010,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1977,9 +2022,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidPaypalPay
+## PostStoreByStoreidPaypalPay
 
-> CloudPostV1StoreByStoreidPaypalPay(ctx, storeid).Execute()
+> PostStoreByStoreidPaypalPay(ctx, storeid).Execute()
+
+Start a PayPal authorization for a new order
 
 
 
@@ -2000,9 +2047,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidPaypalPay(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidPaypalPay(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidPaypalPay``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidPaypalPay``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2018,7 +2065,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidPaypalPayRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidPaypalPayRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2031,7 +2078,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2043,9 +2090,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreByStoreidTrial
+## PostStoreByStoreidTrial
 
-> CloudPostV1StoreByStoreidTrial(ctx, storeid).Execute()
+> PostStoreByStoreidTrial(ctx, storeid).Execute()
+
+Start this store's no-card trial on the entry plan
 
 
 
@@ -2066,9 +2115,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreByStoreidTrial(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PostStoreByStoreidTrial(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreByStoreidTrial``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreByStoreidTrial``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2084,7 +2133,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreByStoreidTrialRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreByStoreidTrialRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2097,7 +2146,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2109,9 +2158,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1StoreStorefrontToken
+## PostStoreToken
 
-> CloudPostV1StoreStorefrontToken(ctx).Execute()
+> PostStoreToken(ctx).Execute()
+
+Mint your org's least-privilege storefront read key
 
 
 
@@ -2131,9 +2182,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPostV1StoreStorefrontToken(context.Background()).Execute()
+	r, err := apiClient.StoreAPI.PostStoreToken(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPostV1StoreStorefrontToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PostStoreToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2145,7 +2196,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1StoreStorefrontTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostStoreTokenRequest struct via the builder pattern
 
 
 ### Return type
@@ -2154,7 +2205,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1StoreStorefront
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2166,9 +2217,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1StoreStorefront
 [[Back to README]](../README.md)
 
 
-## CloudPutV1StoreByStoreid
+## PutStoreByStoreid
 
-> CloudPutV1StoreByStoreid(ctx, storeid).Execute()
+> PutStoreByStoreid(ctx, storeid).Execute()
+
+Replace a storefront outright
 
 
 
@@ -2189,9 +2242,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPutV1StoreByStoreid(context.Background(), storeid).Execute()
+	r, err := apiClient.StoreAPI.PutStoreByStoreid(context.Background(), storeid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPutV1StoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PutStoreByStoreid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2207,7 +2260,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1StoreByStoreidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutStoreByStoreidRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2220,7 +2273,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2232,9 +2285,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1StoreByStoreidListingByKey
+## PutStoreByStoreidListingByKey
 
-> CloudPutV1StoreByStoreidListingByKey(ctx, storeid, key).Execute()
+> PutStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Upsert a listing override
 
 
 
@@ -2256,9 +2311,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CloudPutV1StoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	r, err := apiClient.StoreAPI.PutStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CloudPutV1StoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.PutStoreByStoreidListingByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2275,7 +2330,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1StoreByStoreidListingByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutStoreByStoreidListingByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2289,919 +2344,12 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceCreateStore
-
-> CommerceStore CommerceCreateStore(ctx).CommerceStore(commerceStore).Execute()
-
-Create store
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	commerceStore := *openapiclient.NewCommerceStore() // CommerceStore | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceCreateStore(context.Background()).CommerceStore(commerceStore).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceCreateStore``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceCreateStore`: CommerceStore
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceCreateStore`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceCreateStoreRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **commerceStore** | [**CommerceStore**](CommerceStore.md) |  | 
-
-### Return type
-
-[**CommerceStore**](CommerceStore.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceCreateStoreListing
-
-> CommerceListing CommerceCreateStoreListing(ctx, storeid, key).CommerceListing(commerceListing).Execute()
-
-Create store listing
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	key := "key_example" // string | 
-	commerceListing := *openapiclient.NewCommerceListing() // CommerceListing | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceCreateStoreListing(context.Background(), storeid, key).CommerceListing(commerceListing).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceCreateStoreListing``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceCreateStoreListing`: CommerceListing
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceCreateStoreListing`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-**key** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceCreateStoreListingRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **commerceListing** | [**CommerceListing**](CommerceListing.md) |  | 
-
-### Return type
-
-[**CommerceListing**](CommerceListing.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceDeleteStoreListing
-
-> CommerceDeleteStoreListing(ctx, storeid, key).Execute()
-
-Delete store listing
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	key := "key_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StoreAPI.CommerceDeleteStoreListing(context.Background(), storeid, key).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceDeleteStoreListing``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-**key** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceDeleteStoreListingRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceGetStore
-
-> CommerceStore CommerceGetStore(ctx, storeid).Execute()
-
-Get store
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceGetStore(context.Background(), storeid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceGetStore``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceGetStore`: CommerceStore
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceGetStore`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceGetStoreRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**CommerceStore**](CommerceStore.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceGetStoreListing
-
-> CommerceListing CommerceGetStoreListing(ctx, storeid, key).Execute()
-
-Get store listing
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	key := "key_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceGetStoreListing(context.Background(), storeid, key).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceGetStoreListing``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceGetStoreListing`: CommerceListing
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceGetStoreListing`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-**key** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceGetStoreListingRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**CommerceListing**](CommerceListing.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceGetStoreProduct
-
-> CommerceProduct CommerceGetStoreProduct(ctx, storeid, key).Execute()
-
-Get store product
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	key := "key_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceGetStoreProduct(context.Background(), storeid, key).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceGetStoreProduct``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceGetStoreProduct`: CommerceProduct
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceGetStoreProduct`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-**key** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceGetStoreProductRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**CommerceProduct**](CommerceProduct.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceGetStoreVariant
-
-> CommerceVariant CommerceGetStoreVariant(ctx, storeid, key).Execute()
-
-Get store variant
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	key := "key_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceGetStoreVariant(context.Background(), storeid, key).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceGetStoreVariant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceGetStoreVariant`: CommerceVariant
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceGetStoreVariant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-**key** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceGetStoreVariantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**CommerceVariant**](CommerceVariant.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceListStoreListings
-
-> []CommerceListing CommerceListStoreListings(ctx, storeid).Execute()
-
-List store listings
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceListStoreListings(context.Background(), storeid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceListStoreListings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceListStoreListings`: []CommerceListing
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceListStoreListings`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceListStoreListingsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**[]CommerceListing**](CommerceListing.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceListStores
-
-> CommercePaginatedStores CommerceListStores(ctx).Page(page).Display(display).Execute()
-
-List stores
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	page := int32(56) // int32 | Page number (1-indexed) (optional) (default to 1)
-	display := int32(56) // int32 | Number of items per page (optional) (default to 20)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceListStores(context.Background()).Page(page).Display(display).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceListStores``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceListStores`: CommercePaginatedStores
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceListStores`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceListStoresRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int32** | Page number (1-indexed) | [default to 1]
- **display** | **int32** | Number of items per page | [default to 20]
-
-### Return type
-
-[**CommercePaginatedStores**](CommercePaginatedStores.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommercePatchStoreListing
-
-> CommerceListing CommercePatchStoreListing(ctx, storeid, key).CommerceListing(commerceListing).Execute()
-
-Partially update store listing
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	key := "key_example" // string | 
-	commerceListing := *openapiclient.NewCommerceListing() // CommerceListing | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommercePatchStoreListing(context.Background(), storeid, key).CommerceListing(commerceListing).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommercePatchStoreListing``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommercePatchStoreListing`: CommerceListing
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommercePatchStoreListing`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-**key** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommercePatchStoreListingRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **commerceListing** | [**CommerceListing**](CommerceListing.md) |  | 
-
-### Return type
-
-[**CommerceListing**](CommerceListing.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceStoreAuthorize
-
-> CommerceOrder CommerceStoreAuthorize(ctx, storeid).CommerceCheckoutRequest(commerceCheckoutRequest).Execute()
-
-Authorize payment via store
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	commerceCheckoutRequest := *openapiclient.NewCommerceCheckoutRequest() // CommerceCheckoutRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceStoreAuthorize(context.Background(), storeid).CommerceCheckoutRequest(commerceCheckoutRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceStoreAuthorize``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceStoreAuthorize`: CommerceOrder
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceStoreAuthorize`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceStoreAuthorizeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **commerceCheckoutRequest** | [**CommerceCheckoutRequest**](CommerceCheckoutRequest.md) |  | 
-
-### Return type
-
-[**CommerceOrder**](CommerceOrder.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceStoreCharge
-
-> CommerceOrder CommerceStoreCharge(ctx, storeid).CommerceCheckoutRequest(commerceCheckoutRequest).Execute()
-
-Charge payment via store
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	commerceCheckoutRequest := *openapiclient.NewCommerceCheckoutRequest() // CommerceCheckoutRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceStoreCharge(context.Background(), storeid).CommerceCheckoutRequest(commerceCheckoutRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceStoreCharge``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceStoreCharge`: CommerceOrder
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceStoreCharge`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceStoreChargeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **commerceCheckoutRequest** | [**CommerceCheckoutRequest**](CommerceCheckoutRequest.md) |  | 
-
-### Return type
-
-[**CommerceOrder**](CommerceOrder.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceUpdateStoreListing
-
-> CommerceListing CommerceUpdateStoreListing(ctx, storeid, key).CommerceListing(commerceListing).Execute()
-
-Update store listing
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	storeid := "storeid_example" // string | 
-	key := "key_example" // string | 
-	commerceListing := *openapiclient.NewCommerceListing() // CommerceListing | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StoreAPI.CommerceUpdateStoreListing(context.Background(), storeid, key).CommerceListing(commerceListing).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StoreAPI.CommerceUpdateStoreListing``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceUpdateStoreListing`: CommerceListing
-	fmt.Fprintf(os.Stdout, "Response from `StoreAPI.CommerceUpdateStoreListing`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**storeid** | **string** |  | 
-**key** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceUpdateStoreListingRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **commerceListing** | [**CommerceListing**](CommerceListing.md) |  | 
-
-### Return type
-
-[**CommerceListing**](CommerceListing.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

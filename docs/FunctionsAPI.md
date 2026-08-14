@@ -4,31 +4,25 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1FunctionsByName**](FunctionsAPI.md#CloudDeleteV1FunctionsByName) | **Delete** /v1/functions/{name} | 
-[**CloudGetV1Functions**](FunctionsAPI.md#CloudGetV1Functions) | **Get** /v1/functions | 
-[**CloudGetV1FunctionsByName**](FunctionsAPI.md#CloudGetV1FunctionsByName) | **Get** /v1/functions/{name} | 
-[**CloudGetV1FunctionsByNameInvocations**](FunctionsAPI.md#CloudGetV1FunctionsByNameInvocations) | **Get** /v1/functions/{name}/invocations | 
-[**CloudGetV1FunctionsByNameLogs**](FunctionsAPI.md#CloudGetV1FunctionsByNameLogs) | **Get** /v1/functions/{name}/logs | 
-[**CloudGetV1FunctionsDeployments**](FunctionsAPI.md#CloudGetV1FunctionsDeployments) | **Get** /v1/functions/deployments | 
-[**CloudGetV1FunctionsMetrics**](FunctionsAPI.md#CloudGetV1FunctionsMetrics) | **Get** /v1/functions/metrics | 
-[**CloudGetV1FunctionsSecrets**](FunctionsAPI.md#CloudGetV1FunctionsSecrets) | **Get** /v1/functions/secrets | 
-[**CloudGetV1FunctionsTriggers**](FunctionsAPI.md#CloudGetV1FunctionsTriggers) | **Get** /v1/functions/triggers | 
-[**CloudPostV1Functions**](FunctionsAPI.md#CloudPostV1Functions) | **Post** /v1/functions | 
-[**CloudPostV1FunctionsByNameInvoke**](FunctionsAPI.md#CloudPostV1FunctionsByNameInvoke) | **Post** /v1/functions/{name}/invoke | 
-[**EdgeCreateFunction**](FunctionsAPI.md#EdgeCreateFunction) | **Post** /v1/edge/functions | Create function
-[**EdgeDeleteFunction**](FunctionsAPI.md#EdgeDeleteFunction) | **Delete** /v1/edge/functions/{slug} | Delete function
-[**EdgeDeployFunction**](FunctionsAPI.md#EdgeDeployFunction) | **Post** /v1/edge/functions/{slug}/deploy | Deploy function
-[**EdgeGetFunction**](FunctionsAPI.md#EdgeGetFunction) | **Get** /v1/edge/functions/{slug} | Get function
-[**EdgeGetFunctionMetrics**](FunctionsAPI.md#EdgeGetFunctionMetrics) | **Get** /v1/edge/functions/{slug}/metrics | Get function metrics
-[**EdgeInvokeFunction**](FunctionsAPI.md#EdgeInvokeFunction) | **Post** /v1/edge/functions/{slug}/invoke | Invoke function
-[**EdgeListFunctions**](FunctionsAPI.md#EdgeListFunctions) | **Get** /v1/edge/functions | List functions
-[**EdgeUpdateFunction**](FunctionsAPI.md#EdgeUpdateFunction) | **Put** /v1/edge/functions/{slug} | Update function
+[**DeleteFunctionsByName**](FunctionsAPI.md#DeleteFunctionsByName) | **Delete** /v1/functions/{name} | Removes one of the caller org&#39;s functions and answers 204.
+[**GetFunctions**](FunctionsAPI.md#GetFunctions) | **Get** /v1/functions | Is every serverless function the caller&#39;s org has published, each with its real 7-day rollup.
+[**GetFunctionsByName**](FunctionsAPI.md#GetFunctionsByName) | **Get** /v1/functions/{name} | Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
+[**GetFunctionsByNameInvocations**](FunctionsAPI.md#GetFunctionsByNameInvocations) | **Get** /v1/functions/{name}/invocations | Is one function&#39;s past runs, newest first — each with its status, HTTP code, method, time and duration.
+[**GetFunctionsByNameLogs**](FunctionsAPI.md#GetFunctionsByNameLogs) | **Get** /v1/functions/{name}/logs | Is the output of a function&#39;s most recent run — its error text when that run failed, else what it printed.
+[**GetFunctionsDeployments**](FunctionsAPI.md#GetFunctionsDeployments) | **Get** /v1/functions/deployments | Is what is live right now — each function&#39;s current record IS its live deployment, so this is the deployment inventory.
+[**GetFunctionsMetrics**](FunctionsAPI.md#GetFunctionsMetrics) | **Get** /v1/functions/metrics | Is the org&#39;s serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
+[**GetFunctionsSecrets**](FunctionsAPI.md#GetFunctionsSecrets) | **Get** /v1/functions/secrets | Is the NAMES of the secrets the caller org&#39;s functions mount.
+[**GetFunctionsTriggers**](FunctionsAPI.md#GetFunctionsTriggers) | **Get** /v1/functions/triggers | Is what calls the caller org&#39;s functions — one row per function.
+[**PostFunctions**](FunctionsAPI.md#PostFunctions) | **Post** /v1/functions | Publishes a serverless function under the caller&#39;s org and answers 201 with it.
+[**PostFunctionsByNameInvoke**](FunctionsAPI.md#PostFunctionsByNameInvoke) | **Post** /v1/functions/{name}/invoke | Runs a function and records a REAL invocation.
 
 
 
-## CloudDeleteV1FunctionsByName
+## DeleteFunctionsByName
 
-> CloudDeleteV1FunctionsByName(ctx, name).Execute()
+> map[string]interface{} DeleteFunctionsByName(ctx, name).Execute()
+
+Removes one of the caller org's functions and answers 204.
 
 
 
@@ -45,15 +39,17 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | 
+	name := "name_example" // string | Name is the function the URL names.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudDeleteV1FunctionsByName(context.Background(), name).Execute()
+	resp, r, err := apiClient.FunctionsAPI.DeleteFunctionsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudDeleteV1FunctionsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.DeleteFunctionsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteFunctionsByName`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.DeleteFunctionsByName`: %v\n", resp)
 }
 ```
 
@@ -63,11 +59,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | Name is the function the URL names. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1FunctionsByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteFunctionsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -76,25 +72,27 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+**map[string]interface{}**
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Functions
+## GetFunctions
 
-> CloudGetV1Functions(ctx).Execute()
+> FnList GetFunctions(ctx).Execute()
+
+Is every serverless function the caller's org has published, each with its real 7-day rollup.
 
 
 
@@ -114,11 +112,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudGetV1Functions(context.Background()).Execute()
+	resp, r, err := apiClient.FunctionsAPI.GetFunctions(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudGetV1Functions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.GetFunctions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetFunctions`: FnList
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.GetFunctions`: %v\n", resp)
 }
 ```
 
@@ -128,30 +128,32 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FunctionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFunctionsRequest struct via the builder pattern
 
 
 ### Return type
 
- (empty response body)
+[**FnList**](FnList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FunctionsByName
+## GetFunctionsByName
 
-> CloudGetV1FunctionsByName(ctx, name).Execute()
+> FunctionDetail GetFunctionsByName(ctx, name).Execute()
+
+Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
 
 
 
@@ -168,15 +170,17 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | 
+	name := "name_example" // string | Name is the function the URL names.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudGetV1FunctionsByName(context.Background(), name).Execute()
+	resp, r, err := apiClient.FunctionsAPI.GetFunctionsByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudGetV1FunctionsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.GetFunctionsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetFunctionsByName`: FunctionDetail
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.GetFunctionsByName`: %v\n", resp)
 }
 ```
 
@@ -186,11 +190,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | Name is the function the URL names. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FunctionsByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFunctionsByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -199,25 +203,27 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**FunctionDetail**](FunctionDetail.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FunctionsByNameInvocations
+## GetFunctionsByNameInvocations
 
-> CloudGetV1FunctionsByNameInvocations(ctx, name).Execute()
+> InvocationList GetFunctionsByNameInvocations(ctx, name).Limit(limit).Execute()
+
+Is one function's past runs, newest first — each with its status, HTTP code, method, time and duration.
 
 
 
@@ -234,81 +240,18 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | 
+	name := "name_example" // string | Name is the function the URL names.
+	limit := int32(56) // int32 | Limit caps the page, defaulting to 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudGetV1FunctionsByNameInvocations(context.Background(), name).Execute()
+	resp, r, err := apiClient.FunctionsAPI.GetFunctionsByNameInvocations(context.Background(), name).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudGetV1FunctionsByNameInvocations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.GetFunctionsByNameInvocations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FunctionsByNameInvocationsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FunctionsByNameLogs
-
-> CloudGetV1FunctionsByNameLogs(ctx, name).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudGetV1FunctionsByNameLogs(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudGetV1FunctionsByNameLogs``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	// response from `GetFunctionsByNameInvocations`: InvocationList
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.GetFunctionsByNameInvocations`: %v\n", resp)
 }
 ```
 
@@ -318,38 +261,41 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | Name is the function the URL names. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FunctionsByNameLogsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFunctionsByNameInvocationsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **limit** | **int32** | Limit caps the page, defaulting to 100. | 
 
 ### Return type
 
- (empty response body)
+[**InvocationList**](InvocationList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FunctionsDeployments
+## GetFunctionsByNameLogs
 
-> CloudGetV1FunctionsDeployments(ctx).Execute()
+> LogLines GetFunctionsByNameLogs(ctx, name).Execute()
+
+Is the output of a function's most recent run — its error text when that run failed, else what it printed.
 
 
 
@@ -366,300 +312,17 @@ import (
 )
 
 func main() {
+	name := "name_example" // string | Name is the function the URL names.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudGetV1FunctionsDeployments(context.Background()).Execute()
+	resp, r, err := apiClient.FunctionsAPI.GetFunctionsByNameLogs(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudGetV1FunctionsDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.GetFunctionsByNameLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FunctionsDeploymentsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FunctionsMetrics
-
-> CloudGetV1FunctionsMetrics(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudGetV1FunctionsMetrics(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudGetV1FunctionsMetrics``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FunctionsMetricsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FunctionsSecrets
-
-> CloudGetV1FunctionsSecrets(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudGetV1FunctionsSecrets(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudGetV1FunctionsSecrets``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FunctionsSecretsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FunctionsTriggers
-
-> CloudGetV1FunctionsTriggers(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudGetV1FunctionsTriggers(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudGetV1FunctionsTriggers``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FunctionsTriggersRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1Functions
-
-> CloudPostV1Functions(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudPostV1Functions(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudPostV1Functions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1FunctionsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1FunctionsByNameInvoke
-
-> CloudPostV1FunctionsByNameInvoke(ctx, name).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "name_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.CloudPostV1FunctionsByNameInvoke(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CloudPostV1FunctionsByNameInvoke``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	// response from `GetFunctionsByNameLogs`: LogLines
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.GetFunctionsByNameLogs`: %v\n", resp)
 }
 ```
 
@@ -669,11 +332,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | Name is the function the URL names. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FunctionsByNameInvokeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFunctionsByNameLogsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -682,27 +345,29 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**LogLines**](LogLines.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## EdgeCreateFunction
+## GetFunctionsDeployments
 
-> EdgeFunction EdgeCreateFunction(ctx).EdgeFunctionCreate(edgeFunctionCreate).Execute()
+> FnList GetFunctionsDeployments(ctx).Execute()
 
-Create function
+Is what is live right now — each function's current record IS its live deployment, so this is the deployment inventory.
+
+
 
 ### Example
 
@@ -717,17 +382,78 @@ import (
 )
 
 func main() {
-	edgeFunctionCreate := *openapiclient.NewEdgeFunctionCreate("Slug_example", "Name_example") // EdgeFunctionCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.EdgeCreateFunction(context.Background()).EdgeFunctionCreate(edgeFunctionCreate).Execute()
+	resp, r, err := apiClient.FunctionsAPI.GetFunctionsDeployments(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.EdgeCreateFunction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.GetFunctionsDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `EdgeCreateFunction`: EdgeFunction
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.EdgeCreateFunction`: %v\n", resp)
+	// response from `GetFunctionsDeployments`: FnList
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.GetFunctionsDeployments`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFunctionsDeploymentsRequest struct via the builder pattern
+
+
+### Return type
+
+[**FnList**](FnList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFunctionsMetrics
+
+> Usage GetFunctionsMetrics(ctx).Range_(range_).Execute()
+
+Is the org's serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	range_ := "range__example" // string | Range is 1H, 6H, 24H (the default), 7D or 30D. Anything else falls back to 24H rather than failing. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.GetFunctionsMetrics(context.Background()).Range_(range_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.GetFunctionsMetrics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFunctionsMetrics`: Usage
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.GetFunctionsMetrics`: %v\n", resp)
 }
 ```
 
@@ -737,20 +463,208 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiEdgeCreateFunctionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFunctionsMetricsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **edgeFunctionCreate** | [**EdgeFunctionCreate**](EdgeFunctionCreate.md) |  | 
+ **range_** | **string** | Range is 1H, 6H, 24H (the default), 7D or 30D. Anything else falls back to 24H rather than failing. | 
 
 ### Return type
 
-[**EdgeFunction**](EdgeFunction.md)
+[**Usage**](Usage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFunctionsSecrets
+
+> SecretList GetFunctionsSecrets(ctx).Execute()
+
+Is the NAMES of the secrets the caller org's functions mount.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.GetFunctionsSecrets(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.GetFunctionsSecrets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFunctionsSecrets`: SecretList
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.GetFunctionsSecrets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFunctionsSecretsRequest struct via the builder pattern
+
+
+### Return type
+
+[**SecretList**](SecretList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFunctionsTriggers
+
+> TriggerList GetFunctionsTriggers(ctx).Execute()
+
+Is what calls the caller org's functions — one row per function.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.GetFunctionsTriggers(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.GetFunctionsTriggers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFunctionsTriggers`: TriggerList
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.GetFunctionsTriggers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFunctionsTriggersRequest struct via the builder pattern
+
+
+### Return type
+
+[**TriggerList**](TriggerList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostFunctions
+
+> FunctionView PostFunctions(ctx).Definition(definition).Execute()
+
+Publishes a serverless function under the caller's org and answers 201 with it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	definition := *openapiclient.NewDefinition("Name_example") // Definition | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.PostFunctions(context.Background()).Definition(definition).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.PostFunctions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostFunctions`: FunctionView
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.PostFunctions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostFunctionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **definition** | [**Definition**](Definition.md) |  | 
+
+### Return type
+
+[**FunctionView**](FunctionView.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 
@@ -762,11 +676,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## EdgeDeleteFunction
+## PostFunctionsByNameInvoke
 
-> map[string]interface{} EdgeDeleteFunction(ctx, slug).Execute()
+> InvocationView PostFunctionsByNameInvoke(ctx, name).InvokeReq(invokeReq).Execute()
 
-Delete function
+Runs a function and records a REAL invocation.
+
+
 
 ### Example
 
@@ -781,17 +697,18 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
+	name := "name_example" // string | 
+	invokeReq := *openapiclient.NewInvokeReq() // InvokeReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.EdgeDeleteFunction(context.Background(), slug).Execute()
+	resp, r, err := apiClient.FunctionsAPI.PostFunctionsByNameInvoke(context.Background(), name).InvokeReq(invokeReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.EdgeDeleteFunction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.PostFunctionsByNameInvoke``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `EdgeDeleteFunction`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.EdgeDeleteFunction`: %v\n", resp)
+	// response from `PostFunctionsByNameInvoke`: InvocationView
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.PostFunctionsByNameInvoke`: %v\n", resp)
 }
 ```
 
@@ -801,449 +718,25 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**name** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiEdgeDeleteFunctionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFunctionsByNameInvokeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **invokeReq** | [**InvokeReq**](InvokeReq.md) |  | 
 
 ### Return type
 
-**map[string]interface{}**
+[**InvocationView**](InvocationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## EdgeDeployFunction
-
-> EdgeFunction EdgeDeployFunction(ctx, slug).Body(body).Execute()
-
-Deploy function
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-	body := os.NewFile(1234, "some_file") // *os.File | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.EdgeDeployFunction(context.Background(), slug).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.EdgeDeployFunction``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `EdgeDeployFunction`: EdgeFunction
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.EdgeDeployFunction`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEdgeDeployFunctionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **body** | ***os.File** |  | 
-
-### Return type
-
-[**EdgeFunction**](EdgeFunction.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/octet-stream, multipart/form-data
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## EdgeGetFunction
-
-> EdgeFunction EdgeGetFunction(ctx, slug).Execute()
-
-Get function
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.EdgeGetFunction(context.Background(), slug).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.EdgeGetFunction``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `EdgeGetFunction`: EdgeFunction
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.EdgeGetFunction`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEdgeGetFunctionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**EdgeFunction**](EdgeFunction.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## EdgeGetFunctionMetrics
-
-> []EdgeFunctionMetrics EdgeGetFunctionMetrics(ctx, slug).From(from).To(to).Granularity(granularity).Execute()
-
-Get function metrics
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-    "time"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-	from := time.Now() // time.Time |  (optional)
-	to := time.Now() // time.Time |  (optional)
-	granularity := "granularity_example" // string |  (optional) (default to "hour")
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.EdgeGetFunctionMetrics(context.Background(), slug).From(from).To(to).Granularity(granularity).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.EdgeGetFunctionMetrics``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `EdgeGetFunctionMetrics`: []EdgeFunctionMetrics
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.EdgeGetFunctionMetrics`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEdgeGetFunctionMetricsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **from** | **time.Time** |  | 
- **to** | **time.Time** |  | 
- **granularity** | **string** |  | [default to &quot;hour&quot;]
-
-### Return type
-
-[**[]EdgeFunctionMetrics**](EdgeFunctionMetrics.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## EdgeInvokeFunction
-
-> map[string]interface{} EdgeInvokeFunction(ctx, slug).RequestBody(requestBody).Execute()
-
-Invoke function
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.EdgeInvokeFunction(context.Background(), slug).RequestBody(requestBody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.EdgeInvokeFunction``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `EdgeInvokeFunction`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.EdgeInvokeFunction`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEdgeInvokeFunctionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **requestBody** | **map[string]interface{}** |  | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json, text/plain
-- **Accept**: application/json, text/plain, text/event-stream
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## EdgeListFunctions
-
-> []EdgeFunction EdgeListFunctions(ctx).Page(page).PageSize(pageSize).Status(status).Execute()
-
-List functions
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	page := int32(56) // int32 |  (optional) (default to 1)
-	pageSize := int32(56) // int32 |  (optional) (default to 20)
-	status := "status_example" // string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.EdgeListFunctions(context.Background()).Page(page).PageSize(pageSize).Status(status).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.EdgeListFunctions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `EdgeListFunctions`: []EdgeFunction
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.EdgeListFunctions`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEdgeListFunctionsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
- **pageSize** | **int32** |  | [default to 20]
- **status** | **string** |  | 
-
-### Return type
-
-[**[]EdgeFunction**](EdgeFunction.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## EdgeUpdateFunction
-
-> EdgeFunction EdgeUpdateFunction(ctx, slug).EdgeFunctionUpdate(edgeFunctionUpdate).Execute()
-
-Update function
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-	edgeFunctionUpdate := *openapiclient.NewEdgeFunctionUpdate() // EdgeFunctionUpdate | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.EdgeUpdateFunction(context.Background(), slug).EdgeFunctionUpdate(edgeFunctionUpdate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.EdgeUpdateFunction``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `EdgeUpdateFunction`: EdgeFunction
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.EdgeUpdateFunction`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEdgeUpdateFunctionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **edgeFunctionUpdate** | [**EdgeFunctionUpdate**](EdgeFunctionUpdate.md) |  | 
-
-### Return type
-
-[**EdgeFunction**](EdgeFunction.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

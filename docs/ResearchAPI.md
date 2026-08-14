@@ -4,22 +4,22 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1ResearchArtifacts**](ResearchAPI.md#CloudGetV1ResearchArtifacts) | **Get** /v1/research/artifacts | ListResearchArtifacts returns the caller org&#39;s research-diary feed newest-first — the snapshots and reports tied to its runs, as metadata and content addresses; the bytes themselves are fetched by hash.
-[**CloudGetV1ResearchArtifactsBySha256**](ResearchAPI.md#CloudGetV1ResearchArtifactsBySha256) | **Get** /v1/research/artifacts/{sha256} | 
-[**CloudGetV1ResearchExperiments**](ResearchAPI.md#CloudGetV1ResearchExperiments) | **Get** /v1/research/experiments | ListExperiments returns the caller org&#39;s CANONICAL experiments — the deterministic deduped view over the versioned history.
-[**CloudGetV1ResearchProjects**](ResearchAPI.md#CloudGetV1ResearchProjects) | **Get** /v1/research/projects | ListResearchProjects returns every research project in the caller&#39;s org with its real totals — canonical and retained side by side — which is the ops board&#39;s \&quot;every project + real totals\&quot; view.
-[**CloudGetV1ResearchTotals**](ResearchAPI.md#CloudGetV1ResearchTotals) | **Get** /v1/research/totals | GetResearchTotals returns the caller org&#39;s headline aggregate plus a per-kind breakdown — the observatory&#39;s poll target.
-[**CloudPostV1ResearchArtifacts**](ResearchAPI.md#CloudPostV1ResearchArtifacts) | **Post** /v1/research/artifacts | RecordResearchArtifact records one research-diary artifact — a board snapshot or a generated report — CONTENT-ADDRESSED inside the trust boundary.
-[**CloudPostV1ResearchExperiments**](ResearchAPI.md#CloudPostV1ResearchExperiments) | **Post** /v1/research/experiments | IngestExperiments appends one batch of experiment and attempt versions to the caller org&#39;s evidence store, idempotently by content, then rolls it up to the analytics plane best-effort.
-[**CloudPostV1ResearchGrants**](ResearchAPI.md#CloudPostV1ResearchGrants) | **Post** /v1/research/grants | GrantResearchVisibility records the SEPARATE authorization an upload never implies: a record&#39;s visibility (private, org or public) and, for a run, its training and commons-publication consent.
+[**GetResearchArtifacts**](ResearchAPI.md#GetResearchArtifacts) | **Get** /v1/research/artifacts | Returns the caller org&#39;s research-diary feed newest-first — the snapshots and reports tied to its runs, as metadata and content addresses; the bytes themselves are fetched by hash.
+[**GetResearchArtifactsBySha256**](ResearchAPI.md#GetResearchArtifactsBySha256) | **Get** /v1/research/artifacts/{sha256} | Fetch one recorded artifact&#39;s bytes by its content hash.
+[**GetResearchExperiments**](ResearchAPI.md#GetResearchExperiments) | **Get** /v1/research/experiments | Returns the caller org&#39;s CANONICAL experiments — the deterministic deduped view over the versioned history.
+[**GetResearchProjects**](ResearchAPI.md#GetResearchProjects) | **Get** /v1/research/projects | Returns every research project in the caller&#39;s org with its real totals — canonical and retained side by side — which is the ops board&#39;s \&quot;every project + real totals\&quot; view.
+[**GetResearchTotals**](ResearchAPI.md#GetResearchTotals) | **Get** /v1/research/totals | Returns the caller org&#39;s headline aggregate plus a per-kind breakdown — the observatory&#39;s poll target.
+[**PostResearchArtifacts**](ResearchAPI.md#PostResearchArtifacts) | **Post** /v1/research/artifacts | Records one research-diary artifact — a board snapshot or a generated report — CONTENT-ADDRESSED inside the trust boundary.
+[**PostResearchExperiments**](ResearchAPI.md#PostResearchExperiments) | **Post** /v1/research/experiments | Appends one batch of experiment and attempt versions to the caller org&#39;s evidence store, idempotently by content, then rolls it up to the analytics plane best-effort.
+[**PostResearchGrants**](ResearchAPI.md#PostResearchGrants) | **Post** /v1/research/grants | Records the SEPARATE authorization an upload never implies: a record&#39;s visibility (private, org or public) and, for a run, its training and commons-publication consent.
 
 
 
-## CloudGetV1ResearchArtifacts
+## GetResearchArtifacts
 
-> CloudArtifactsOut CloudGetV1ResearchArtifacts(ctx).Project(project).Run(run).Since(since).Execute()
+> ArtifactsOut GetResearchArtifacts(ctx).Project(project).Run(run).Since(since).Execute()
 
-ListResearchArtifacts returns the caller org's research-diary feed newest-first — the snapshots and reports tied to its runs, as metadata and content addresses; the bytes themselves are fetched by hash.
+Returns the caller org's research-diary feed newest-first — the snapshots and reports tied to its runs, as metadata and content addresses; the bytes themselves are fetched by hash.
 
 
 
@@ -42,13 +42,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResearchAPI.CloudGetV1ResearchArtifacts(context.Background()).Project(project).Run(run).Since(since).Execute()
+	resp, r, err := apiClient.ResearchAPI.GetResearchArtifacts(context.Background()).Project(project).Run(run).Since(since).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.CloudGetV1ResearchArtifacts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.GetResearchArtifacts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ResearchArtifacts`: CloudArtifactsOut
-	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.CloudGetV1ResearchArtifacts`: %v\n", resp)
+	// response from `GetResearchArtifacts`: ArtifactsOut
+	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.GetResearchArtifacts`: %v\n", resp)
 }
 ```
 
@@ -58,7 +58,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ResearchArtifactsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetResearchArtifactsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -69,11 +69,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudArtifactsOut**](CloudArtifactsOut.md)
+[**ArtifactsOut**](ArtifactsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -85,9 +85,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ResearchArtifactsBySha256
+## GetResearchArtifactsBySha256
 
-> CloudGetV1ResearchArtifactsBySha256(ctx, sha256).Execute()
+> GetResearchArtifactsBySha256(ctx, sha256).Execute()
+
+Fetch one recorded artifact's bytes by its content hash.
 
 
 
@@ -108,9 +110,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ResearchAPI.CloudGetV1ResearchArtifactsBySha256(context.Background(), sha256).Execute()
+	r, err := apiClient.ResearchAPI.GetResearchArtifactsBySha256(context.Background(), sha256).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.CloudGetV1ResearchArtifactsBySha256``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.GetResearchArtifactsBySha256``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -126,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ResearchArtifactsBySha256Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetResearchArtifactsBySha256Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -139,7 +141,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -151,11 +153,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ResearchExperiments
+## GetResearchExperiments
 
-> CloudExperimentsOut CloudGetV1ResearchExperiments(ctx).Project(project).Kind(kind).Execute()
+> ExperimentsOut GetResearchExperiments(ctx).Project(project).Kind(kind).Execute()
 
-ListExperiments returns the caller org's CANONICAL experiments — the deterministic deduped view over the versioned history.
+Returns the caller org's CANONICAL experiments — the deterministic deduped view over the versioned history.
 
 
 
@@ -177,13 +179,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResearchAPI.CloudGetV1ResearchExperiments(context.Background()).Project(project).Kind(kind).Execute()
+	resp, r, err := apiClient.ResearchAPI.GetResearchExperiments(context.Background()).Project(project).Kind(kind).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.CloudGetV1ResearchExperiments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.GetResearchExperiments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ResearchExperiments`: CloudExperimentsOut
-	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.CloudGetV1ResearchExperiments`: %v\n", resp)
+	// response from `GetResearchExperiments`: ExperimentsOut
+	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.GetResearchExperiments`: %v\n", resp)
 }
 ```
 
@@ -193,7 +195,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ResearchExperimentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetResearchExperimentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -203,11 +205,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudExperimentsOut**](CloudExperimentsOut.md)
+[**ExperimentsOut**](ExperimentsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -219,11 +221,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ResearchProjects
+## GetResearchProjects
 
-> CloudProjectsOut CloudGetV1ResearchProjects(ctx).Execute()
+> ProjectsOut GetResearchProjects(ctx).Execute()
 
-ListResearchProjects returns every research project in the caller's org with its real totals — canonical and retained side by side — which is the ops board's \"every project + real totals\" view.
+Returns every research project in the caller's org with its real totals — canonical and retained side by side — which is the ops board's \"every project + real totals\" view.
 
 
 
@@ -243,13 +245,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResearchAPI.CloudGetV1ResearchProjects(context.Background()).Execute()
+	resp, r, err := apiClient.ResearchAPI.GetResearchProjects(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.CloudGetV1ResearchProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.GetResearchProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ResearchProjects`: CloudProjectsOut
-	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.CloudGetV1ResearchProjects`: %v\n", resp)
+	// response from `GetResearchProjects`: ProjectsOut
+	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.GetResearchProjects`: %v\n", resp)
 }
 ```
 
@@ -259,16 +261,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ResearchProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetResearchProjectsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudProjectsOut**](CloudProjectsOut.md)
+[**ProjectsOut**](ProjectsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -280,11 +282,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1ResearchProjects
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ResearchTotals
+## GetResearchTotals
 
-> CloudResearchTotals CloudGetV1ResearchTotals(ctx).Project(project).Execute()
+> ResearchTotals GetResearchTotals(ctx).Project(project).Execute()
 
-GetResearchTotals returns the caller org's headline aggregate plus a per-kind breakdown — the observatory's poll target.
+Returns the caller org's headline aggregate plus a per-kind breakdown — the observatory's poll target.
 
 
 
@@ -305,13 +307,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResearchAPI.CloudGetV1ResearchTotals(context.Background()).Project(project).Execute()
+	resp, r, err := apiClient.ResearchAPI.GetResearchTotals(context.Background()).Project(project).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.CloudGetV1ResearchTotals``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.GetResearchTotals``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ResearchTotals`: CloudResearchTotals
-	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.CloudGetV1ResearchTotals`: %v\n", resp)
+	// response from `GetResearchTotals`: ResearchTotals
+	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.GetResearchTotals`: %v\n", resp)
 }
 ```
 
@@ -321,7 +323,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ResearchTotalsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetResearchTotalsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -330,11 +332,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudResearchTotals**](CloudResearchTotals.md)
+[**ResearchTotals**](ResearchTotals.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -346,11 +348,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ResearchArtifacts
+## PostResearchArtifacts
 
-> CloudArtifactOut CloudPostV1ResearchArtifacts(ctx).CloudArtifact(cloudArtifact).Execute()
+> ArtifactOut PostResearchArtifacts(ctx).ResearchArtifact(researchArtifact).Execute()
 
-RecordResearchArtifact records one research-diary artifact — a board snapshot or a generated report — CONTENT-ADDRESSED inside the trust boundary.
+Records one research-diary artifact — a board snapshot or a generated report — CONTENT-ADDRESSED inside the trust boundary.
 
 
 
@@ -367,17 +369,17 @@ import (
 )
 
 func main() {
-	cloudArtifact := *openapiclient.NewCloudArtifact() // CloudArtifact | 
+	researchArtifact := *openapiclient.NewResearchArtifact() // ResearchArtifact | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResearchAPI.CloudPostV1ResearchArtifacts(context.Background()).CloudArtifact(cloudArtifact).Execute()
+	resp, r, err := apiClient.ResearchAPI.PostResearchArtifacts(context.Background()).ResearchArtifact(researchArtifact).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.CloudPostV1ResearchArtifacts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.PostResearchArtifacts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ResearchArtifacts`: CloudArtifactOut
-	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.CloudPostV1ResearchArtifacts`: %v\n", resp)
+	// response from `PostResearchArtifacts`: ArtifactOut
+	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.PostResearchArtifacts`: %v\n", resp)
 }
 ```
 
@@ -387,20 +389,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ResearchArtifactsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostResearchArtifactsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudArtifact** | [**CloudArtifact**](CloudArtifact.md) |  | 
+ **researchArtifact** | [**ResearchArtifact**](ResearchArtifact.md) |  | 
 
 ### Return type
 
-[**CloudArtifactOut**](CloudArtifactOut.md)
+[**ArtifactOut**](ArtifactOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -412,11 +414,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ResearchExperiments
+## PostResearchExperiments
 
-> CloudIngestOut CloudPostV1ResearchExperiments(ctx).CloudIngestRequest(cloudIngestRequest).Execute()
+> IngestOut PostResearchExperiments(ctx).IngestRequest(ingestRequest).Execute()
 
-IngestExperiments appends one batch of experiment and attempt versions to the caller org's evidence store, idempotently by content, then rolls it up to the analytics plane best-effort.
+Appends one batch of experiment and attempt versions to the caller org's evidence store, idempotently by content, then rolls it up to the analytics plane best-effort.
 
 
 
@@ -433,17 +435,17 @@ import (
 )
 
 func main() {
-	cloudIngestRequest := *openapiclient.NewCloudIngestRequest() // CloudIngestRequest | 
+	ingestRequest := *openapiclient.NewIngestRequest() // IngestRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResearchAPI.CloudPostV1ResearchExperiments(context.Background()).CloudIngestRequest(cloudIngestRequest).Execute()
+	resp, r, err := apiClient.ResearchAPI.PostResearchExperiments(context.Background()).IngestRequest(ingestRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.CloudPostV1ResearchExperiments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.PostResearchExperiments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ResearchExperiments`: CloudIngestOut
-	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.CloudPostV1ResearchExperiments`: %v\n", resp)
+	// response from `PostResearchExperiments`: IngestOut
+	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.PostResearchExperiments`: %v\n", resp)
 }
 ```
 
@@ -453,20 +455,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ResearchExperimentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostResearchExperimentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudIngestRequest** | [**CloudIngestRequest**](CloudIngestRequest.md) |  | 
+ **ingestRequest** | [**IngestRequest**](IngestRequest.md) |  | 
 
 ### Return type
 
-[**CloudIngestOut**](CloudIngestOut.md)
+[**IngestOut**](IngestOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -478,11 +480,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ResearchGrants
+## PostResearchGrants
 
-> CloudGrantOut CloudPostV1ResearchGrants(ctx).CloudGrantRequest(cloudGrantRequest).Execute()
+> GrantOut PostResearchGrants(ctx).GrantRequest(grantRequest).Execute()
 
-GrantResearchVisibility records the SEPARATE authorization an upload never implies: a record's visibility (private, org or public) and, for a run, its training and commons-publication consent.
+Records the SEPARATE authorization an upload never implies: a record's visibility (private, org or public) and, for a run, its training and commons-publication consent.
 
 
 
@@ -499,17 +501,17 @@ import (
 )
 
 func main() {
-	cloudGrantRequest := *openapiclient.NewCloudGrantRequest() // CloudGrantRequest | 
+	grantRequest := *openapiclient.NewGrantRequest() // GrantRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResearchAPI.CloudPostV1ResearchGrants(context.Background()).CloudGrantRequest(cloudGrantRequest).Execute()
+	resp, r, err := apiClient.ResearchAPI.PostResearchGrants(context.Background()).GrantRequest(grantRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.CloudPostV1ResearchGrants``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResearchAPI.PostResearchGrants``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ResearchGrants`: CloudGrantOut
-	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.CloudPostV1ResearchGrants`: %v\n", resp)
+	// response from `PostResearchGrants`: GrantOut
+	fmt.Fprintf(os.Stdout, "Response from `ResearchAPI.PostResearchGrants`: %v\n", resp)
 }
 ```
 
@@ -519,20 +521,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ResearchGrantsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostResearchGrantsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudGrantRequest** | [**CloudGrantRequest**](CloudGrantRequest.md) |  | 
+ **grantRequest** | [**GrantRequest**](GrantRequest.md) |  | 
 
 ### Return type
 
-[**CloudGrantOut**](CloudGrantOut.md)
+[**GrantOut**](GrantOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

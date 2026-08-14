@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1KvName**](KvAPI.md#CloudDeleteV1KvName) | **Delete** /v1/kv/{name} | DropKV deprovisions one Hanzo KV store.
-[**CloudGetV1Kv**](KvAPI.md#CloudGetV1Kv) | **Get** /v1/kv | ListKV lists the caller org&#39;s Hanzo KV stores.
-[**CloudGetV1KvName**](KvAPI.md#CloudGetV1KvName) | **Get** /v1/kv/{name} | GetKV returns one Hanzo KV store&#39;s metadata.
-[**CloudPostV1Kv**](KvAPI.md#CloudPostV1Kv) | **Post** /v1/kv | 
+[**DeleteKvByName**](KvAPI.md#DeleteKvByName) | **Delete** /v1/kv/{name} | DropKV deprovisions one Hanzo KV store.
+[**GetKv**](KvAPI.md#GetKv) | **Get** /v1/kv | ListKV lists the caller org&#39;s Hanzo KV stores.
+[**GetKvByName**](KvAPI.md#GetKvByName) | **Get** /v1/kv/{name} | GetKV returns one Hanzo KV store&#39;s metadata.
+[**PostKv**](KvAPI.md#PostKv) | **Post** /v1/kv | Provision a key-value store for your org
 
 
 
-## CloudDeleteV1KvName
+## DeleteKvByName
 
-> CloudDeleteV1KvName(ctx, name).Execute()
+> DeleteKvByName(ctx, name).Execute()
 
 DropKV deprovisions one Hanzo KV store.
 
@@ -36,9 +36,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KvAPI.CloudDeleteV1KvName(context.Background(), name).Execute()
+	r, err := apiClient.KvAPI.DeleteKvByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.CloudDeleteV1KvName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.DeleteKvByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1KvNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteKvByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -79,9 +79,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Kv
+## GetKv
 
-> []CloudProvisionedSummary CloudGetV1Kv(ctx).Execute()
+> []ProvisionedSummary GetKv(ctx).Execute()
 
 ListKV lists the caller org's Hanzo KV stores.
 
@@ -103,13 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KvAPI.CloudGetV1Kv(context.Background()).Execute()
+	resp, r, err := apiClient.KvAPI.GetKv(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.CloudGetV1Kv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.GetKv``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Kv`: []CloudProvisionedSummary
-	fmt.Fprintf(os.Stdout, "Response from `KvAPI.CloudGetV1Kv`: %v\n", resp)
+	// response from `GetKv`: []ProvisionedSummary
+	fmt.Fprintf(os.Stdout, "Response from `KvAPI.GetKv`: %v\n", resp)
 }
 ```
 
@@ -119,16 +119,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1KvRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetKvRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]CloudProvisionedSummary**](CloudProvisionedSummary.md)
+[**[]ProvisionedSummary**](ProvisionedSummary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -140,9 +140,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1KvRequest struct
 [[Back to README]](../README.md)
 
 
-## CloudGetV1KvName
+## GetKvByName
 
-> CloudProvisionedResource CloudGetV1KvName(ctx, name).Execute()
+> ProvisionedResource GetKvByName(ctx, name).Execute()
 
 GetKV returns one Hanzo KV store's metadata.
 
@@ -165,13 +165,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KvAPI.CloudGetV1KvName(context.Background(), name).Execute()
+	resp, r, err := apiClient.KvAPI.GetKvByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.CloudGetV1KvName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.GetKvByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1KvName`: CloudProvisionedResource
-	fmt.Fprintf(os.Stdout, "Response from `KvAPI.CloudGetV1KvName`: %v\n", resp)
+	// response from `GetKvByName`: ProvisionedResource
+	fmt.Fprintf(os.Stdout, "Response from `KvAPI.GetKvByName`: %v\n", resp)
 }
 ```
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1KvNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetKvByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -194,11 +194,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudProvisionedResource**](CloudProvisionedResource.md)
+[**ProvisionedResource**](ProvisionedResource.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -210,9 +210,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Kv
+## PostKv
 
-> CloudProvisionResult CloudPostV1Kv(ctx).CloudProvisionRequest(cloudProvisionRequest).Execute()
+> ProvisionResult PostKv(ctx).ProvisionRequest(provisionRequest).Execute()
+
+Provision a key-value store for your org
 
 
 
@@ -229,17 +231,17 @@ import (
 )
 
 func main() {
-	cloudProvisionRequest := *openapiclient.NewCloudProvisionRequest() // CloudProvisionRequest |  (optional)
+	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KvAPI.CloudPostV1Kv(context.Background()).CloudProvisionRequest(cloudProvisionRequest).Execute()
+	resp, r, err := apiClient.KvAPI.PostKv(context.Background()).ProvisionRequest(provisionRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.CloudPostV1Kv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.PostKv``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Kv`: CloudProvisionResult
-	fmt.Fprintf(os.Stdout, "Response from `KvAPI.CloudPostV1Kv`: %v\n", resp)
+	// response from `PostKv`: ProvisionResult
+	fmt.Fprintf(os.Stdout, "Response from `KvAPI.PostKv`: %v\n", resp)
 }
 ```
 
@@ -249,20 +251,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1KvRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostKvRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudProvisionRequest** | [**CloudProvisionRequest**](CloudProvisionRequest.md) |  | 
+ **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
 
 ### Return type
 
-[**CloudProvisionResult**](CloudProvisionResult.md)
+[**ProvisionResult**](ProvisionResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

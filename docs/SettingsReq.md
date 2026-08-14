@@ -1,0 +1,108 @@
+# SettingsReq
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Config** | Pointer to **map[string]map[string]interface{}** | Config is the product&#39;s non-secret configuration, stored verbatim. Bounded at 64 KiB once serialized. Omit it to store an empty object. | [optional] 
+**Product** | Pointer to **string** | Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims. | [optional] 
+**Secrets** | Pointer to **map[string]string** | Secrets are the secret fields, by name. Each VALUE is sealed into KMS and never reaches this deployment&#39;s database; a value that is empty or equal to the mask the read path returns means \&quot;unchanged\&quot; and is skipped, so a console round-trip cannot blank a stored secret. A key must match ^[a-z0-9][a-z0-9._-]{0,62}$, a value is bounded at 8 KiB, and an org may hold at most 64 secret fields per product. | [optional] 
+
+## Methods
+
+### NewSettingsReq
+
+`func NewSettingsReq() *SettingsReq`
+
+NewSettingsReq instantiates a new SettingsReq object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewSettingsReqWithDefaults
+
+`func NewSettingsReqWithDefaults() *SettingsReq`
+
+NewSettingsReqWithDefaults instantiates a new SettingsReq object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetConfig
+
+`func (o *SettingsReq) GetConfig() map[string]map[string]interface{}`
+
+GetConfig returns the Config field if non-nil, zero value otherwise.
+
+### GetConfigOk
+
+`func (o *SettingsReq) GetConfigOk() (*map[string]map[string]interface{}, bool)`
+
+GetConfigOk returns a tuple with the Config field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfig
+
+`func (o *SettingsReq) SetConfig(v map[string]map[string]interface{})`
+
+SetConfig sets Config field to given value.
+
+### HasConfig
+
+`func (o *SettingsReq) HasConfig() bool`
+
+HasConfig returns a boolean if a field has been set.
+
+### GetProduct
+
+`func (o *SettingsReq) GetProduct() string`
+
+GetProduct returns the Product field if non-nil, zero value otherwise.
+
+### GetProductOk
+
+`func (o *SettingsReq) GetProductOk() (*string, bool)`
+
+GetProductOk returns a tuple with the Product field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProduct
+
+`func (o *SettingsReq) SetProduct(v string)`
+
+SetProduct sets Product field to given value.
+
+### HasProduct
+
+`func (o *SettingsReq) HasProduct() bool`
+
+HasProduct returns a boolean if a field has been set.
+
+### GetSecrets
+
+`func (o *SettingsReq) GetSecrets() map[string]string`
+
+GetSecrets returns the Secrets field if non-nil, zero value otherwise.
+
+### GetSecretsOk
+
+`func (o *SettingsReq) GetSecretsOk() (*map[string]string, bool)`
+
+GetSecretsOk returns a tuple with the Secrets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecrets
+
+`func (o *SettingsReq) SetSecrets(v map[string]string)`
+
+SetSecrets sets Secrets field to given value.
+
+### HasSecrets
+
+`func (o *SettingsReq) HasSecrets() bool`
+
+HasSecrets returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

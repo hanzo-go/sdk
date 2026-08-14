@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Blueprint**](BlueprintAPI.md#CloudGetV1Blueprint) | **Get** /v1/blueprint | Returns every deployable blueprint with its service count and estimated monthly compute cost.
-[**CloudGetV1BlueprintHealth**](BlueprintAPI.md#CloudGetV1BlueprintHealth) | **Get** /v1/blueprint/health | Reports blueprint liveness and echoes the compute rate card in force.
-[**CloudGetV1BlueprintSbom**](BlueprintAPI.md#CloudGetV1BlueprintSbom) | **Get** /v1/blueprint/sbom | 
+[**GetBlueprint**](BlueprintAPI.md#GetBlueprint) | **Get** /v1/blueprint | Returns every deployable blueprint with its service count and estimated monthly compute cost.
+[**GetBlueprintHealth**](BlueprintAPI.md#GetBlueprintHealth) | **Get** /v1/blueprint/health | Reports blueprint liveness and echoes the compute rate card in force.
+[**GetBlueprintSbom**](BlueprintAPI.md#GetBlueprintSbom) | **Get** /v1/blueprint/sbom | A blueprint&#39;s bill of images and what running it costs
 
 
 
-## CloudGetV1Blueprint
+## GetBlueprint
 
-> CloudBlueprintIndex CloudGetV1Blueprint(ctx).Execute()
+> BlueprintIndex GetBlueprint(ctx).Execute()
 
 Returns every deployable blueprint with its service count and estimated monthly compute cost.
 
@@ -34,13 +34,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BlueprintAPI.CloudGetV1Blueprint(context.Background()).Execute()
+	resp, r, err := apiClient.BlueprintAPI.GetBlueprint(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintAPI.CloudGetV1Blueprint``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintAPI.GetBlueprint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Blueprint`: CloudBlueprintIndex
-	fmt.Fprintf(os.Stdout, "Response from `BlueprintAPI.CloudGetV1Blueprint`: %v\n", resp)
+	// response from `GetBlueprint`: BlueprintIndex
+	fmt.Fprintf(os.Stdout, "Response from `BlueprintAPI.GetBlueprint`: %v\n", resp)
 }
 ```
 
@@ -50,16 +50,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BlueprintRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBlueprintRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudBlueprintIndex**](CloudBlueprintIndex.md)
+[**BlueprintIndex**](BlueprintIndex.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -71,9 +71,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1BlueprintRequest
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BlueprintHealth
+## GetBlueprintHealth
 
-> CloudBlueprintHealth CloudGetV1BlueprintHealth(ctx).Execute()
+> BlueprintHealth GetBlueprintHealth(ctx).Execute()
 
 Reports blueprint liveness and echoes the compute rate card in force.
 
@@ -95,13 +95,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BlueprintAPI.CloudGetV1BlueprintHealth(context.Background()).Execute()
+	resp, r, err := apiClient.BlueprintAPI.GetBlueprintHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintAPI.CloudGetV1BlueprintHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintAPI.GetBlueprintHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1BlueprintHealth`: CloudBlueprintHealth
-	fmt.Fprintf(os.Stdout, "Response from `BlueprintAPI.CloudGetV1BlueprintHealth`: %v\n", resp)
+	// response from `GetBlueprintHealth`: BlueprintHealth
+	fmt.Fprintf(os.Stdout, "Response from `BlueprintAPI.GetBlueprintHealth`: %v\n", resp)
 }
 ```
 
@@ -111,16 +111,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BlueprintHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBlueprintHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudBlueprintHealth**](CloudBlueprintHealth.md)
+[**BlueprintHealth**](BlueprintHealth.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -132,9 +132,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1BlueprintHealthR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1BlueprintSbom
+## GetBlueprintSbom
 
-> CloudGetV1BlueprintSbom(ctx).Execute()
+> GetBlueprintSbom(ctx).Execute()
+
+A blueprint's bill of images and what running it costs
 
 
 
@@ -154,9 +156,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BlueprintAPI.CloudGetV1BlueprintSbom(context.Background()).Execute()
+	r, err := apiClient.BlueprintAPI.GetBlueprintSbom(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintAPI.CloudGetV1BlueprintSbom``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintAPI.GetBlueprintSbom``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -168,7 +170,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BlueprintSbomRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBlueprintSbomRequest struct via the builder pattern
 
 
 ### Return type
@@ -177,7 +179,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1BlueprintSbomReq
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

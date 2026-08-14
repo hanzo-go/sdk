@@ -4,22 +4,22 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Tools**](ToolsAPI.md#CloudGetV1Tools) | **Get** /v1/tools | ListTools lists every tool the caller&#39;s org and project can reach, from every source, each flagged with whether it is activated.
-[**CloudGetV1ToolsActivation**](ToolsAPI.md#CloudGetV1ToolsActivation) | **Get** /v1/tools/activation | GetActivation reports which tools are switched on for the caller&#39;s org and project.
-[**CloudGetV1ToolsCatalog**](ToolsAPI.md#CloudGetV1ToolsCatalog) | **Get** /v1/tools/catalog | ListCatalog lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
-[**CloudGetV1ToolsCatalogId**](ToolsAPI.md#CloudGetV1ToolsCatalogId) | **Get** /v1/tools/catalog/{id} | GetListing returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
-[**CloudPatchV1ToolsCatalogId**](ToolsAPI.md#CloudPatchV1ToolsCatalogId) | **Patch** /v1/tools/catalog/{id} | CurateListing sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
-[**CloudPostV1ToolsCall**](ToolsAPI.md#CloudPostV1ToolsCall) | **Post** /v1/tools/call | CallTool runs one of the caller&#39;s activated tools and answers with its output.
-[**CloudPostV1ToolsCatalogSync**](ToolsAPI.md#CloudPostV1ToolsCatalogSync) | **Post** /v1/tools/catalog/sync | SyncCatalog pulls the public MCP registry into our canonical copy and reports what changed.
-[**CloudPutV1ToolsActivation**](ToolsAPI.md#CloudPutV1ToolsActivation) | **Put** /v1/tools/activation | PutActivation switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
+[**GetTools**](ToolsAPI.md#GetTools) | **Get** /v1/tools | Lists every tool the caller&#39;s org and project can reach, from every source, each flagged with whether it is activated.
+[**GetToolsActivation**](ToolsAPI.md#GetToolsActivation) | **Get** /v1/tools/activation | Reports which tools are switched on for the caller&#39;s org and project.
+[**GetToolsCatalog**](ToolsAPI.md#GetToolsCatalog) | **Get** /v1/tools/catalog | Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
+[**GetToolsCatalogById**](ToolsAPI.md#GetToolsCatalogById) | **Get** /v1/tools/catalog/{id} | Returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
+[**PatchToolsCatalogById**](ToolsAPI.md#PatchToolsCatalogById) | **Patch** /v1/tools/catalog/{id} | Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
+[**PostToolsCall**](ToolsAPI.md#PostToolsCall) | **Post** /v1/tools/call | Runs one of the caller&#39;s activated tools and answers with its output.
+[**PostToolsCatalogSync**](ToolsAPI.md#PostToolsCatalogSync) | **Post** /v1/tools/catalog/sync | Pulls the public MCP registry into our canonical copy and reports what changed.
+[**PutToolsActivation**](ToolsAPI.md#PutToolsActivation) | **Put** /v1/tools/activation | Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
 
 
 
-## CloudGetV1Tools
+## GetTools
 
-> CloudToolList CloudGetV1Tools(ctx).Source(source).Activated(activated).Execute()
+> ToolList GetTools(ctx).Source(source).Activated(activated).Execute()
 
-ListTools lists every tool the caller's org and project can reach, from every source, each flagged with whether it is activated.
+Lists every tool the caller's org and project can reach, from every source, each flagged with whether it is activated.
 
 
 
@@ -41,13 +41,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.CloudGetV1Tools(context.Background()).Source(source).Activated(activated).Execute()
+	resp, r, err := apiClient.ToolsAPI.GetTools(context.Background()).Source(source).Activated(activated).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.CloudGetV1Tools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetTools``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Tools`: CloudToolList
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.CloudGetV1Tools`: %v\n", resp)
+	// response from `GetTools`: ToolList
+	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetTools`: %v\n", resp)
 }
 ```
 
@@ -57,7 +57,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ToolsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -67,11 +67,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudToolList**](CloudToolList.md)
+[**ToolList**](ToolList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -83,11 +83,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ToolsActivation
+## GetToolsActivation
 
-> CloudActivationSet CloudGetV1ToolsActivation(ctx).Execute()
+> ActivationSet GetToolsActivation(ctx).Execute()
 
-GetActivation reports which tools are switched on for the caller's org and project.
+Reports which tools are switched on for the caller's org and project.
 
 
 
@@ -107,13 +107,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.CloudGetV1ToolsActivation(context.Background()).Execute()
+	resp, r, err := apiClient.ToolsAPI.GetToolsActivation(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.CloudGetV1ToolsActivation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsActivation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ToolsActivation`: CloudActivationSet
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.CloudGetV1ToolsActivation`: %v\n", resp)
+	// response from `GetToolsActivation`: ActivationSet
+	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsActivation`: %v\n", resp)
 }
 ```
 
@@ -123,16 +123,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ToolsActivationRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolsActivationRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudActivationSet**](CloudActivationSet.md)
+[**ActivationSet**](ActivationSet.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -144,11 +144,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1ToolsActivationR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ToolsCatalog
+## GetToolsCatalog
 
-> CloudMcpCatalog CloudGetV1ToolsCatalog(ctx).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
+> McpCatalog GetToolsCatalog(ctx).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
 
-ListCatalog lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
+Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
 
 
 
@@ -173,13 +173,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.CloudGetV1ToolsCatalog(context.Background()).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.ToolsAPI.GetToolsCatalog(context.Background()).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.CloudGetV1ToolsCatalog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsCatalog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ToolsCatalog`: CloudMcpCatalog
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.CloudGetV1ToolsCatalog`: %v\n", resp)
+	// response from `GetToolsCatalog`: McpCatalog
+	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsCatalog`: %v\n", resp)
 }
 ```
 
@@ -189,7 +189,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ToolsCatalogRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolsCatalogRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -202,11 +202,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudMcpCatalog**](CloudMcpCatalog.md)
+[**McpCatalog**](McpCatalog.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -218,11 +218,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ToolsCatalogId
+## GetToolsCatalogById
 
-> CloudMCPListing CloudGetV1ToolsCatalogId(ctx, id).Execute()
+> MCPListing GetToolsCatalogById(ctx, id).Execute()
 
-GetListing returns one catalog entry in full: the publisher's description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
+Returns one catalog entry in full: the publisher's description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
 
 
 
@@ -243,13 +243,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.CloudGetV1ToolsCatalogId(context.Background(), id).Execute()
+	resp, r, err := apiClient.ToolsAPI.GetToolsCatalogById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.CloudGetV1ToolsCatalogId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.GetToolsCatalogById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1ToolsCatalogId`: CloudMCPListing
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.CloudGetV1ToolsCatalogId`: %v\n", resp)
+	// response from `GetToolsCatalogById`: MCPListing
+	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.GetToolsCatalogById`: %v\n", resp)
 }
 ```
 
@@ -263,7 +263,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ToolsCatalogIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetToolsCatalogByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -272,11 +272,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudMCPListing**](CloudMCPListing.md)
+[**MCPListing**](MCPListing.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -288,11 +288,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1ToolsCatalogId
+## PatchToolsCatalogById
 
-> CloudMCPListing CloudPatchV1ToolsCatalogId(ctx, id).CloudCurateReq(cloudCurateReq).Execute()
+> MCPListing PatchToolsCatalogById(ctx, id).CurateReq(curateReq).Execute()
 
-CurateListing sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
+Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
 
 
 
@@ -310,17 +310,17 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the listing to curate, from the path.
-	cloudCurateReq := *openapiclient.NewCloudCurateReq() // CloudCurateReq | 
+	curateReq := *openapiclient.NewCurateReq() // CurateReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.CloudPatchV1ToolsCatalogId(context.Background(), id).CloudCurateReq(cloudCurateReq).Execute()
+	resp, r, err := apiClient.ToolsAPI.PatchToolsCatalogById(context.Background(), id).CurateReq(curateReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.CloudPatchV1ToolsCatalogId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PatchToolsCatalogById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1ToolsCatalogId`: CloudMCPListing
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.CloudPatchV1ToolsCatalogId`: %v\n", resp)
+	// response from `PatchToolsCatalogById`: MCPListing
+	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PatchToolsCatalogById`: %v\n", resp)
 }
 ```
 
@@ -334,21 +334,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1ToolsCatalogIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchToolsCatalogByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudCurateReq** | [**CloudCurateReq**](CloudCurateReq.md) |  | 
+ **curateReq** | [**CurateReq**](CurateReq.md) |  | 
 
 ### Return type
 
-[**CloudMCPListing**](CloudMCPListing.md)
+[**MCPListing**](MCPListing.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -360,11 +360,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ToolsCall
+## PostToolsCall
 
-> CloudToolResult CloudPostV1ToolsCall(ctx).CloudToolCall(cloudToolCall).Execute()
+> ToolResult PostToolsCall(ctx).ToolCall(toolCall).Execute()
 
-CallTool runs one of the caller's activated tools and answers with its output.
+Runs one of the caller's activated tools and answers with its output.
 
 
 
@@ -381,17 +381,17 @@ import (
 )
 
 func main() {
-	cloudToolCall := *openapiclient.NewCloudToolCall() // CloudToolCall | 
+	toolCall := *openapiclient.NewToolCall() // ToolCall | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.CloudPostV1ToolsCall(context.Background()).CloudToolCall(cloudToolCall).Execute()
+	resp, r, err := apiClient.ToolsAPI.PostToolsCall(context.Background()).ToolCall(toolCall).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.CloudPostV1ToolsCall``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PostToolsCall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ToolsCall`: CloudToolResult
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.CloudPostV1ToolsCall`: %v\n", resp)
+	// response from `PostToolsCall`: ToolResult
+	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PostToolsCall`: %v\n", resp)
 }
 ```
 
@@ -401,20 +401,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ToolsCallRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostToolsCallRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudToolCall** | [**CloudToolCall**](CloudToolCall.md) |  | 
+ **toolCall** | [**ToolCall**](ToolCall.md) |  | 
 
 ### Return type
 
-[**CloudToolResult**](CloudToolResult.md)
+[**ToolResult**](ToolResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -426,11 +426,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ToolsCatalogSync
+## PostToolsCatalogSync
 
-> CloudMcpCatalogSync CloudPostV1ToolsCatalogSync(ctx).Execute()
+> McpCatalogSync PostToolsCatalogSync(ctx).Execute()
 
-SyncCatalog pulls the public MCP registry into our canonical copy and reports what changed.
+Pulls the public MCP registry into our canonical copy and reports what changed.
 
 
 
@@ -450,13 +450,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.CloudPostV1ToolsCatalogSync(context.Background()).Execute()
+	resp, r, err := apiClient.ToolsAPI.PostToolsCatalogSync(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.CloudPostV1ToolsCatalogSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PostToolsCatalogSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ToolsCatalogSync`: CloudMcpCatalogSync
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.CloudPostV1ToolsCatalogSync`: %v\n", resp)
+	// response from `PostToolsCatalogSync`: McpCatalogSync
+	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PostToolsCatalogSync`: %v\n", resp)
 }
 ```
 
@@ -466,16 +466,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ToolsCatalogSyncRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostToolsCatalogSyncRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudMcpCatalogSync**](CloudMcpCatalogSync.md)
+[**McpCatalogSync**](McpCatalogSync.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -487,11 +487,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1ToolsCatalogSyn
 [[Back to README]](../README.md)
 
 
-## CloudPutV1ToolsActivation
+## PutToolsActivation
 
-> CloudActivationSet CloudPutV1ToolsActivation(ctx).CloudActivationReq(cloudActivationReq).Execute()
+> ActivationSet PutToolsActivation(ctx).ActivationReq(activationReq).Execute()
 
-PutActivation switches tools on and off for the caller's org and project, and answers with the resulting activated set.
+Switches tools on and off for the caller's org and project, and answers with the resulting activated set.
 
 
 
@@ -508,17 +508,17 @@ import (
 )
 
 func main() {
-	cloudActivationReq := *openapiclient.NewCloudActivationReq() // CloudActivationReq | 
+	activationReq := *openapiclient.NewActivationReq() // ActivationReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolsAPI.CloudPutV1ToolsActivation(context.Background()).CloudActivationReq(cloudActivationReq).Execute()
+	resp, r, err := apiClient.ToolsAPI.PutToolsActivation(context.Background()).ActivationReq(activationReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.CloudPutV1ToolsActivation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolsAPI.PutToolsActivation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1ToolsActivation`: CloudActivationSet
-	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.CloudPutV1ToolsActivation`: %v\n", resp)
+	// response from `PutToolsActivation`: ActivationSet
+	fmt.Fprintf(os.Stdout, "Response from `ToolsAPI.PutToolsActivation`: %v\n", resp)
 }
 ```
 
@@ -528,20 +528,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1ToolsActivationRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutToolsActivationRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudActivationReq** | [**CloudActivationReq**](CloudActivationReq.md) |  | 
+ **activationReq** | [**ActivationReq**](ActivationReq.md) |  | 
 
 ### Return type
 
-[**CloudActivationSet**](CloudActivationSet.md)
+[**ActivationSet**](ActivationSet.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

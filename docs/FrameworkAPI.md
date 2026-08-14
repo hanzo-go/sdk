@@ -4,31 +4,31 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1FrameworkDoctypeName**](FrameworkAPI.md#CloudDeleteV1FrameworkDoctypeName) | **Delete** /v1/framework/{doctype}/{name} | Removes one document, after its on_trash hooks agree.
-[**CloudDeleteV1FrameworkDoctypesName**](FrameworkAPI.md#CloudDeleteV1FrameworkDoctypesName) | **Delete** /v1/framework/doctypes/{name} | Removes a DocType and every document stored under it.
-[**CloudDeleteV1FrameworkRolesUserRole**](FrameworkAPI.md#CloudDeleteV1FrameworkRolesUserRole) | **Delete** /v1/framework/roles/{user}/{role} | Removes one (user, role) grant in the caller&#39;s org.
-[**CloudGetV1FrameworkDoctype**](FrameworkAPI.md#CloudGetV1FrameworkDoctype) | **Get** /v1/framework/{doctype} | Returns the caller org&#39;s documents of one DocType, filtered, ordered and projected by the query.
-[**CloudGetV1FrameworkDoctypeName**](FrameworkAPI.md#CloudGetV1FrameworkDoctypeName) | **Get** /v1/framework/{doctype}/{name} | Returns one document by name, with Password fields redacted.
-[**CloudGetV1FrameworkDoctypes**](FrameworkAPI.md#CloudGetV1FrameworkDoctypes) | **Get** /v1/framework/doctypes | Returns every DocType defined in the caller&#39;s org.
-[**CloudGetV1FrameworkDoctypesName**](FrameworkAPI.md#CloudGetV1FrameworkDoctypesName) | **Get** /v1/framework/doctypes/{name} | Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
-[**CloudGetV1FrameworkModules**](FrameworkAPI.md#CloudGetV1FrameworkModules) | **Get** /v1/framework/modules | Returns every app lane compiled into this deployment and the DocTypes each one installs.
-[**CloudGetV1FrameworkModulesModule**](FrameworkAPI.md#CloudGetV1FrameworkModulesModule) | **Get** /v1/framework/modules/{module} | Returns one app lane&#39;s install state for the caller&#39;s org: the DocTypes the lane declares, and which of them already exist in the org.
-[**CloudGetV1FrameworkRoles**](FrameworkAPI.md#CloudGetV1FrameworkRoles) | **Get** /v1/framework/roles | Returns every (user, role) assignment in the caller&#39;s org.
-[**CloudGetV1FrameworkSummary**](FrameworkAPI.md#CloudGetV1FrameworkSummary) | **Get** /v1/framework/summary | Reports how much of the DocType surface the caller&#39;s org uses: how many DocTypes it has defined, and how many documents exist across them.
-[**CloudPostV1FrameworkByDoctype**](FrameworkAPI.md#CloudPostV1FrameworkByDoctype) | **Post** /v1/framework/{doctype} | 
-[**CloudPostV1FrameworkDoctypeNameCancel**](FrameworkAPI.md#CloudPostV1FrameworkDoctypeNameCancel) | **Post** /v1/framework/{doctype}/{name}/cancel | Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
-[**CloudPostV1FrameworkDoctypeNameSubmit**](FrameworkAPI.md#CloudPostV1FrameworkDoctypeNameSubmit) | **Post** /v1/framework/{doctype}/{name}/submit | Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
-[**CloudPostV1FrameworkDoctypes**](FrameworkAPI.md#CloudPostV1FrameworkDoctypes) | **Post** /v1/framework/doctypes | Defines a DocType in the caller&#39;s org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
-[**CloudPostV1FrameworkModulesModuleInstall**](FrameworkAPI.md#CloudPostV1FrameworkModulesModuleInstall) | **Post** /v1/framework/modules/{module}/install | Creates an app lane&#39;s DocTypes in the caller&#39;s org.
-[**CloudPostV1FrameworkRoles**](FrameworkAPI.md#CloudPostV1FrameworkRoles) | **Post** /v1/framework/roles | Grants one user one role in the caller&#39;s org — how a member gains rights on a DocType, since permissions name roles and never users.
-[**CloudPutV1FrameworkByDoctypeByName**](FrameworkAPI.md#CloudPutV1FrameworkByDoctypeByName) | **Put** /v1/framework/{doctype}/{name} | 
-[**CloudPutV1FrameworkDoctypesName**](FrameworkAPI.md#CloudPutV1FrameworkDoctypesName) | **Put** /v1/framework/doctypes/{name} | Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
+[**DeleteFrameworkByDoctypeByName**](FrameworkAPI.md#DeleteFrameworkByDoctypeByName) | **Delete** /v1/framework/{doctype}/{name} | Removes one document, after its on_trash hooks agree.
+[**DeleteFrameworkDoctypesByName**](FrameworkAPI.md#DeleteFrameworkDoctypesByName) | **Delete** /v1/framework/doctypes/{name} | Removes a DocType and every document stored under it.
+[**DeleteFrameworkRolesByUserByRole**](FrameworkAPI.md#DeleteFrameworkRolesByUserByRole) | **Delete** /v1/framework/roles/{user}/{role} | Removes one (user, role) grant in the caller&#39;s org.
+[**GetFrameworkByDoctype**](FrameworkAPI.md#GetFrameworkByDoctype) | **Get** /v1/framework/{doctype} | Returns the caller org&#39;s documents of one DocType, filtered, ordered and projected by the query.
+[**GetFrameworkByDoctypeByName**](FrameworkAPI.md#GetFrameworkByDoctypeByName) | **Get** /v1/framework/{doctype}/{name} | Returns one document by name, with Password fields redacted.
+[**GetFrameworkDoctypes**](FrameworkAPI.md#GetFrameworkDoctypes) | **Get** /v1/framework/doctypes | Returns every DocType defined in the caller&#39;s org.
+[**GetFrameworkDoctypesByName**](FrameworkAPI.md#GetFrameworkDoctypesByName) | **Get** /v1/framework/doctypes/{name} | Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
+[**GetFrameworkModules**](FrameworkAPI.md#GetFrameworkModules) | **Get** /v1/framework/modules | Returns every app lane compiled into this deployment and the DocTypes each one installs.
+[**GetFrameworkModulesByModule**](FrameworkAPI.md#GetFrameworkModulesByModule) | **Get** /v1/framework/modules/{module} | Returns one app lane&#39;s install state for the caller&#39;s org: the DocTypes the lane declares, and which of them already exist in the org.
+[**GetFrameworkRoles**](FrameworkAPI.md#GetFrameworkRoles) | **Get** /v1/framework/roles | Returns every (user, role) assignment in the caller&#39;s org.
+[**GetFrameworkSummary**](FrameworkAPI.md#GetFrameworkSummary) | **Get** /v1/framework/summary | Reports how much of the DocType surface the caller&#39;s org uses: how many DocTypes it has defined, and how many documents exist across them.
+[**PostFrameworkByDoctype**](FrameworkAPI.md#PostFrameworkByDoctype) | **Post** /v1/framework/{doctype} | Create one document of a DocType, from that DocType&#39;s own fields.
+[**PostFrameworkByDoctypeByNameCancel**](FrameworkAPI.md#PostFrameworkByDoctypeByNameCancel) | **Post** /v1/framework/{doctype}/{name}/cancel | Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
+[**PostFrameworkByDoctypeByNameSubmit**](FrameworkAPI.md#PostFrameworkByDoctypeByNameSubmit) | **Post** /v1/framework/{doctype}/{name}/submit | Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
+[**PostFrameworkDoctypes**](FrameworkAPI.md#PostFrameworkDoctypes) | **Post** /v1/framework/doctypes | Defines a DocType in the caller&#39;s org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
+[**PostFrameworkModulesByModuleInstall**](FrameworkAPI.md#PostFrameworkModulesByModuleInstall) | **Post** /v1/framework/modules/{module}/install | Creates an app lane&#39;s DocTypes in the caller&#39;s org.
+[**PostFrameworkRoles**](FrameworkAPI.md#PostFrameworkRoles) | **Post** /v1/framework/roles | Grants one user one role in the caller&#39;s org — how a member gains rights on a DocType, since permissions name roles and never users.
+[**PutFrameworkByDoctypeByName**](FrameworkAPI.md#PutFrameworkByDoctypeByName) | **Put** /v1/framework/{doctype}/{name} | Replace a draft document&#39;s field data wholesale.
+[**PutFrameworkDoctypesByName**](FrameworkAPI.md#PutFrameworkDoctypesByName) | **Put** /v1/framework/doctypes/{name} | Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
 
 
 
-## CloudDeleteV1FrameworkDoctypeName
+## DeleteFrameworkByDoctypeByName
 
-> CloudDeleteV1FrameworkDoctypeName(ctx, doctype, name).Execute()
+> DeleteFrameworkByDoctypeByName(ctx, doctype, name).Execute()
 
 Removes one document, after its on_trash hooks agree.
 
@@ -52,9 +52,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FrameworkAPI.CloudDeleteV1FrameworkDoctypeName(context.Background(), doctype, name).Execute()
+	r, err := apiClient.FrameworkAPI.DeleteFrameworkByDoctypeByName(context.Background(), doctype, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudDeleteV1FrameworkDoctypeName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.DeleteFrameworkByDoctypeByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1FrameworkDoctypeNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteFrameworkByDoctypeByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -97,9 +97,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1FrameworkDoctypesName
+## DeleteFrameworkDoctypesByName
 
-> CloudDeleteV1FrameworkDoctypesName(ctx, name).Execute()
+> DeleteFrameworkDoctypesByName(ctx, name).Execute()
 
 Removes a DocType and every document stored under it.
 
@@ -122,9 +122,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FrameworkAPI.CloudDeleteV1FrameworkDoctypesName(context.Background(), name).Execute()
+	r, err := apiClient.FrameworkAPI.DeleteFrameworkDoctypesByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudDeleteV1FrameworkDoctypesName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.DeleteFrameworkDoctypesByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1FrameworkDoctypesNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteFrameworkDoctypesByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -165,9 +165,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1FrameworkRolesUserRole
+## DeleteFrameworkRolesByUserByRole
 
-> CloudDeleteV1FrameworkRolesUserRole(ctx, user, role).Execute()
+> DeleteFrameworkRolesByUserByRole(ctx, user, role).Execute()
 
 Removes one (user, role) grant in the caller's org.
 
@@ -191,9 +191,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FrameworkAPI.CloudDeleteV1FrameworkRolesUserRole(context.Background(), user, role).Execute()
+	r, err := apiClient.FrameworkAPI.DeleteFrameworkRolesByUserByRole(context.Background(), user, role).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudDeleteV1FrameworkRolesUserRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.DeleteFrameworkRolesByUserByRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1FrameworkRolesUserRoleRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteFrameworkRolesByUserByRoleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -236,9 +236,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FrameworkDoctype
+## GetFrameworkByDoctype
 
-> CloudDocumentList CloudGetV1FrameworkDoctype(ctx, doctype).Filters(filters).Fields(fields).OrderBy(orderBy).Limit(limit).Execute()
+> DocumentList GetFrameworkByDoctype(ctx, doctype).Filters(filters).Fields(fields).OrderBy(orderBy).Limit(limit).Execute()
 
 Returns the caller org's documents of one DocType, filtered, ordered and projected by the query.
 
@@ -265,13 +265,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudGetV1FrameworkDoctype(context.Background(), doctype).Filters(filters).Fields(fields).OrderBy(orderBy).Limit(limit).Execute()
+	resp, r, err := apiClient.FrameworkAPI.GetFrameworkByDoctype(context.Background(), doctype).Filters(filters).Fields(fields).OrderBy(orderBy).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudGetV1FrameworkDoctype``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkByDoctype``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FrameworkDoctype`: CloudDocumentList
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudGetV1FrameworkDoctype`: %v\n", resp)
+	// response from `GetFrameworkByDoctype`: DocumentList
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkByDoctype`: %v\n", resp)
 }
 ```
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FrameworkDoctypeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFrameworkByDoctypeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -298,11 +298,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDocumentList**](CloudDocumentList.md)
+[**DocumentList**](DocumentList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -314,9 +314,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FrameworkDoctypeName
+## GetFrameworkByDoctypeByName
 
-> map[string]map[string]interface{} CloudGetV1FrameworkDoctypeName(ctx, doctype, name).Execute()
+> map[string]map[string]interface{} GetFrameworkByDoctypeByName(ctx, doctype, name).Execute()
 
 Returns one document by name, with Password fields redacted.
 
@@ -340,13 +340,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudGetV1FrameworkDoctypeName(context.Background(), doctype, name).Execute()
+	resp, r, err := apiClient.FrameworkAPI.GetFrameworkByDoctypeByName(context.Background(), doctype, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudGetV1FrameworkDoctypeName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkByDoctypeByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FrameworkDoctypeName`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudGetV1FrameworkDoctypeName`: %v\n", resp)
+	// response from `GetFrameworkByDoctypeByName`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkByDoctypeByName`: %v\n", resp)
 }
 ```
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FrameworkDoctypeNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFrameworkByDoctypeByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -375,7 +375,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -387,9 +387,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FrameworkDoctypes
+## GetFrameworkDoctypes
 
-> CloudDocTypeList CloudGetV1FrameworkDoctypes(ctx).Execute()
+> DocTypeList GetFrameworkDoctypes(ctx).Execute()
 
 Returns every DocType defined in the caller's org.
 
@@ -411,13 +411,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudGetV1FrameworkDoctypes(context.Background()).Execute()
+	resp, r, err := apiClient.FrameworkAPI.GetFrameworkDoctypes(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudGetV1FrameworkDoctypes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkDoctypes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FrameworkDoctypes`: CloudDocTypeList
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudGetV1FrameworkDoctypes`: %v\n", resp)
+	// response from `GetFrameworkDoctypes`: DocTypeList
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkDoctypes`: %v\n", resp)
 }
 ```
 
@@ -427,16 +427,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FrameworkDoctypesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFrameworkDoctypesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudDocTypeList**](CloudDocTypeList.md)
+[**DocTypeList**](DocTypeList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -448,9 +448,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1FrameworkDoctype
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FrameworkDoctypesName
+## GetFrameworkDoctypesByName
 
-> CloudDocType CloudGetV1FrameworkDoctypesName(ctx, name).Execute()
+> DocType GetFrameworkDoctypesByName(ctx, name).Execute()
 
 Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
 
@@ -473,13 +473,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudGetV1FrameworkDoctypesName(context.Background(), name).Execute()
+	resp, r, err := apiClient.FrameworkAPI.GetFrameworkDoctypesByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudGetV1FrameworkDoctypesName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkDoctypesByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FrameworkDoctypesName`: CloudDocType
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudGetV1FrameworkDoctypesName`: %v\n", resp)
+	// response from `GetFrameworkDoctypesByName`: DocType
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkDoctypesByName`: %v\n", resp)
 }
 ```
 
@@ -493,7 +493,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FrameworkDoctypesNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFrameworkDoctypesByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -502,11 +502,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDocType**](CloudDocType.md)
+[**DocType**](DocType.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -518,9 +518,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FrameworkModules
+## GetFrameworkModules
 
-> CloudModuleList CloudGetV1FrameworkModules(ctx).Execute()
+> ModuleList GetFrameworkModules(ctx).Execute()
 
 Returns every app lane compiled into this deployment and the DocTypes each one installs.
 
@@ -542,13 +542,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudGetV1FrameworkModules(context.Background()).Execute()
+	resp, r, err := apiClient.FrameworkAPI.GetFrameworkModules(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudGetV1FrameworkModules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkModules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FrameworkModules`: CloudModuleList
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudGetV1FrameworkModules`: %v\n", resp)
+	// response from `GetFrameworkModules`: ModuleList
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkModules`: %v\n", resp)
 }
 ```
 
@@ -558,16 +558,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FrameworkModulesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFrameworkModulesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudModuleList**](CloudModuleList.md)
+[**ModuleList**](ModuleList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -579,9 +579,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1FrameworkModules
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FrameworkModulesModule
+## GetFrameworkModulesByModule
 
-> CloudModuleState CloudGetV1FrameworkModulesModule(ctx, module).Execute()
+> ModuleState GetFrameworkModulesByModule(ctx, module).Execute()
 
 Returns one app lane's install state for the caller's org: the DocTypes the lane declares, and which of them already exist in the org.
 
@@ -604,13 +604,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudGetV1FrameworkModulesModule(context.Background(), module).Execute()
+	resp, r, err := apiClient.FrameworkAPI.GetFrameworkModulesByModule(context.Background(), module).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudGetV1FrameworkModulesModule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkModulesByModule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FrameworkModulesModule`: CloudModuleState
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudGetV1FrameworkModulesModule`: %v\n", resp)
+	// response from `GetFrameworkModulesByModule`: ModuleState
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkModulesByModule`: %v\n", resp)
 }
 ```
 
@@ -624,7 +624,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FrameworkModulesModuleRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFrameworkModulesByModuleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -633,11 +633,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudModuleState**](CloudModuleState.md)
+[**ModuleState**](ModuleState.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -649,9 +649,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FrameworkRoles
+## GetFrameworkRoles
 
-> CloudRoleList CloudGetV1FrameworkRoles(ctx).Execute()
+> RoleList GetFrameworkRoles(ctx).Execute()
 
 Returns every (user, role) assignment in the caller's org.
 
@@ -673,13 +673,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudGetV1FrameworkRoles(context.Background()).Execute()
+	resp, r, err := apiClient.FrameworkAPI.GetFrameworkRoles(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudGetV1FrameworkRoles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkRoles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FrameworkRoles`: CloudRoleList
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudGetV1FrameworkRoles`: %v\n", resp)
+	// response from `GetFrameworkRoles`: RoleList
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkRoles`: %v\n", resp)
 }
 ```
 
@@ -689,16 +689,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FrameworkRolesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFrameworkRolesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudRoleList**](CloudRoleList.md)
+[**RoleList**](RoleList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -710,9 +710,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1FrameworkRolesRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FrameworkSummary
+## GetFrameworkSummary
 
-> CloudSummaryView CloudGetV1FrameworkSummary(ctx).Execute()
+> SummaryView GetFrameworkSummary(ctx).Execute()
 
 Reports how much of the DocType surface the caller's org uses: how many DocTypes it has defined, and how many documents exist across them.
 
@@ -734,13 +734,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudGetV1FrameworkSummary(context.Background()).Execute()
+	resp, r, err := apiClient.FrameworkAPI.GetFrameworkSummary(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudGetV1FrameworkSummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FrameworkSummary`: CloudSummaryView
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudGetV1FrameworkSummary`: %v\n", resp)
+	// response from `GetFrameworkSummary`: SummaryView
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkSummary`: %v\n", resp)
 }
 ```
 
@@ -750,16 +750,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FrameworkSummaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFrameworkSummaryRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudSummaryView**](CloudSummaryView.md)
+[**SummaryView**](SummaryView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -771,9 +771,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1FrameworkSummary
 [[Back to README]](../README.md)
 
 
-## CloudPostV1FrameworkByDoctype
+## PostFrameworkByDoctype
 
-> CloudPostV1FrameworkByDoctype(ctx, doctype).Execute()
+> PostFrameworkByDoctype(ctx, doctype).Execute()
+
+Create one document of a DocType, from that DocType's own fields.
 
 
 
@@ -794,9 +796,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FrameworkAPI.CloudPostV1FrameworkByDoctype(context.Background(), doctype).Execute()
+	r, err := apiClient.FrameworkAPI.PostFrameworkByDoctype(context.Background(), doctype).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudPostV1FrameworkByDoctype``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkByDoctype``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -812,7 +814,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FrameworkByDoctypeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFrameworkByDoctypeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -825,7 +827,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -837,9 +839,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1FrameworkDoctypeNameCancel
+## PostFrameworkByDoctypeByNameCancel
 
-> map[string]map[string]interface{} CloudPostV1FrameworkDoctypeNameCancel(ctx, doctype, name).Execute()
+> map[string]map[string]interface{} PostFrameworkByDoctypeByNameCancel(ctx, doctype, name).Execute()
 
 Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
 
@@ -863,13 +865,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudPostV1FrameworkDoctypeNameCancel(context.Background(), doctype, name).Execute()
+	resp, r, err := apiClient.FrameworkAPI.PostFrameworkByDoctypeByNameCancel(context.Background(), doctype, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudPostV1FrameworkDoctypeNameCancel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkByDoctypeByNameCancel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1FrameworkDoctypeNameCancel`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudPostV1FrameworkDoctypeNameCancel`: %v\n", resp)
+	// response from `PostFrameworkByDoctypeByNameCancel`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkByDoctypeByNameCancel`: %v\n", resp)
 }
 ```
 
@@ -884,7 +886,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FrameworkDoctypeNameCancelRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFrameworkByDoctypeByNameCancelRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -898,7 +900,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -910,9 +912,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1FrameworkDoctypeNameSubmit
+## PostFrameworkByDoctypeByNameSubmit
 
-> map[string]map[string]interface{} CloudPostV1FrameworkDoctypeNameSubmit(ctx, doctype, name).Execute()
+> map[string]map[string]interface{} PostFrameworkByDoctypeByNameSubmit(ctx, doctype, name).Execute()
 
 Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
 
@@ -936,13 +938,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudPostV1FrameworkDoctypeNameSubmit(context.Background(), doctype, name).Execute()
+	resp, r, err := apiClient.FrameworkAPI.PostFrameworkByDoctypeByNameSubmit(context.Background(), doctype, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudPostV1FrameworkDoctypeNameSubmit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkByDoctypeByNameSubmit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1FrameworkDoctypeNameSubmit`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudPostV1FrameworkDoctypeNameSubmit`: %v\n", resp)
+	// response from `PostFrameworkByDoctypeByNameSubmit`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkByDoctypeByNameSubmit`: %v\n", resp)
 }
 ```
 
@@ -957,7 +959,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FrameworkDoctypeNameSubmitRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFrameworkByDoctypeByNameSubmitRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -971,7 +973,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -983,9 +985,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1FrameworkDoctypes
+## PostFrameworkDoctypes
 
-> CloudDocType CloudPostV1FrameworkDoctypes(ctx).CloudDocType(cloudDocType).Execute()
+> DocType PostFrameworkDoctypes(ctx).DocType(docType).Execute()
 
 Defines a DocType in the caller's org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
 
@@ -1004,17 +1006,17 @@ import (
 )
 
 func main() {
-	cloudDocType := *openapiclient.NewCloudDocType() // CloudDocType | 
+	docType := *openapiclient.NewDocType() // DocType | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudPostV1FrameworkDoctypes(context.Background()).CloudDocType(cloudDocType).Execute()
+	resp, r, err := apiClient.FrameworkAPI.PostFrameworkDoctypes(context.Background()).DocType(docType).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudPostV1FrameworkDoctypes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkDoctypes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1FrameworkDoctypes`: CloudDocType
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudPostV1FrameworkDoctypes`: %v\n", resp)
+	// response from `PostFrameworkDoctypes`: DocType
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkDoctypes`: %v\n", resp)
 }
 ```
 
@@ -1024,20 +1026,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FrameworkDoctypesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFrameworkDoctypesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudDocType** | [**CloudDocType**](CloudDocType.md) |  | 
+ **docType** | [**DocType**](DocType.md) |  | 
 
 ### Return type
 
-[**CloudDocType**](CloudDocType.md)
+[**DocType**](DocType.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1049,9 +1051,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1FrameworkModulesModuleInstall
+## PostFrameworkModulesByModuleInstall
 
-> CloudInstall CloudPostV1FrameworkModulesModuleInstall(ctx, module).Execute()
+> Install PostFrameworkModulesByModuleInstall(ctx, module).Execute()
 
 Creates an app lane's DocTypes in the caller's org.
 
@@ -1074,13 +1076,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudPostV1FrameworkModulesModuleInstall(context.Background(), module).Execute()
+	resp, r, err := apiClient.FrameworkAPI.PostFrameworkModulesByModuleInstall(context.Background(), module).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudPostV1FrameworkModulesModuleInstall``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkModulesByModuleInstall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1FrameworkModulesModuleInstall`: CloudInstall
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudPostV1FrameworkModulesModuleInstall`: %v\n", resp)
+	// response from `PostFrameworkModulesByModuleInstall`: Install
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkModulesByModuleInstall`: %v\n", resp)
 }
 ```
 
@@ -1094,7 +1096,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FrameworkModulesModuleInstallRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFrameworkModulesByModuleInstallRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1103,11 +1105,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudInstall**](CloudInstall.md)
+[**Install**](Install.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1119,9 +1121,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1FrameworkRoles
+## PostFrameworkRoles
 
-> CloudRole CloudPostV1FrameworkRoles(ctx).CloudRole(cloudRole).Execute()
+> RoleAssignment PostFrameworkRoles(ctx).RoleAssignment(roleAssignment).Execute()
 
 Grants one user one role in the caller's org — how a member gains rights on a DocType, since permissions name roles and never users.
 
@@ -1140,17 +1142,17 @@ import (
 )
 
 func main() {
-	cloudRole := *openapiclient.NewCloudRole() // CloudRole | 
+	roleAssignment := *openapiclient.NewRoleAssignment() // RoleAssignment | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudPostV1FrameworkRoles(context.Background()).CloudRole(cloudRole).Execute()
+	resp, r, err := apiClient.FrameworkAPI.PostFrameworkRoles(context.Background()).RoleAssignment(roleAssignment).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudPostV1FrameworkRoles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkRoles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1FrameworkRoles`: CloudRole
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudPostV1FrameworkRoles`: %v\n", resp)
+	// response from `PostFrameworkRoles`: RoleAssignment
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkRoles`: %v\n", resp)
 }
 ```
 
@@ -1160,20 +1162,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FrameworkRolesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFrameworkRolesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudRole** | [**CloudRole**](CloudRole.md) |  | 
+ **roleAssignment** | [**RoleAssignment**](RoleAssignment.md) |  | 
 
 ### Return type
 
-[**CloudRole**](CloudRole.md)
+[**RoleAssignment**](RoleAssignment.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1185,9 +1187,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1FrameworkByDoctypeByName
+## PutFrameworkByDoctypeByName
 
-> CloudPutV1FrameworkByDoctypeByName(ctx, doctype, name).Execute()
+> PutFrameworkByDoctypeByName(ctx, doctype, name).Execute()
+
+Replace a draft document's field data wholesale.
 
 
 
@@ -1209,9 +1213,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FrameworkAPI.CloudPutV1FrameworkByDoctypeByName(context.Background(), doctype, name).Execute()
+	r, err := apiClient.FrameworkAPI.PutFrameworkByDoctypeByName(context.Background(), doctype, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudPutV1FrameworkByDoctypeByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PutFrameworkByDoctypeByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1228,7 +1232,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1FrameworkByDoctypeByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutFrameworkByDoctypeByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1242,7 +1246,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1254,9 +1258,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1FrameworkDoctypesName
+## PutFrameworkDoctypesByName
 
-> CloudDocType CloudPutV1FrameworkDoctypesName(ctx, name).CloudDocType(cloudDocType).Execute()
+> DocType PutFrameworkDoctypesByName(ctx, name).DocType(docType).Execute()
 
 Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
 
@@ -1276,17 +1280,17 @@ import (
 
 func main() {
 	name := "Task" // string | 
-	cloudDocType := *openapiclient.NewCloudDocType() // CloudDocType | 
+	docType := *openapiclient.NewDocType() // DocType | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.CloudPutV1FrameworkDoctypesName(context.Background(), name).CloudDocType(cloudDocType).Execute()
+	resp, r, err := apiClient.FrameworkAPI.PutFrameworkDoctypesByName(context.Background(), name).DocType(docType).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.CloudPutV1FrameworkDoctypesName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PutFrameworkDoctypesByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1FrameworkDoctypesName`: CloudDocType
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.CloudPutV1FrameworkDoctypesName`: %v\n", resp)
+	// response from `PutFrameworkDoctypesByName`: DocType
+	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PutFrameworkDoctypesByName`: %v\n", resp)
 }
 ```
 
@@ -1300,21 +1304,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1FrameworkDoctypesNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutFrameworkDoctypesByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudDocType** | [**CloudDocType**](CloudDocType.md) |  | 
+ **docType** | [**DocType**](DocType.md) |  | 
 
 ### Return type
 
-[**CloudDocType**](CloudDocType.md)
+[**DocType**](DocType.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

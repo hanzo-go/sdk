@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Errors**](ErrorsAPI.md#CloudGetV1Errors) | **Get** /v1/errors | Errors returns the caller org&#39;s most recently captured errors, newest first.
+[**GetErrors**](ErrorsAPI.md#GetErrors) | **Get** /v1/errors | Errors returns the caller org&#39;s most recently captured errors, newest first.
 
 
 
-## CloudGetV1Errors
+## GetErrors
 
-> CloudErrorList CloudGetV1Errors(ctx).Limit(limit).Execute()
+> ErrorList GetErrors(ctx).Limit(limit).Execute()
 
 Errors returns the caller org's most recently captured errors, newest first.
 
@@ -33,13 +33,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ErrorsAPI.CloudGetV1Errors(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.ErrorsAPI.GetErrors(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ErrorsAPI.CloudGetV1Errors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ErrorsAPI.GetErrors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Errors`: CloudErrorList
-	fmt.Fprintf(os.Stdout, "Response from `ErrorsAPI.CloudGetV1Errors`: %v\n", resp)
+	// response from `GetErrors`: ErrorList
+	fmt.Fprintf(os.Stdout, "Response from `ErrorsAPI.GetErrors`: %v\n", resp)
 }
 ```
 
@@ -49,7 +49,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ErrorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetErrorsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -58,11 +58,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudErrorList**](CloudErrorList.md)
+[**ErrorList**](ErrorList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

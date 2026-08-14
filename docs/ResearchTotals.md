@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Project** | Pointer to **string** |  | [optional] 
-**Projects** | Pointer to **int32** |  | [optional] 
-**Experiments** | Pointer to **int32** | canonical | [optional] 
-**ExperimentsRetained** | Pointer to **int32** |  | [optional] 
 **Attempts** | Pointer to **int32** | canonical | [optional] 
 **AttemptsRetained** | Pointer to **int32** |  | [optional] 
-**Models** | Pointer to **int32** |  | [optional] 
 **Benchmarks** | Pointer to **int32** |  | [optional] 
+**ByKind** | Pointer to [**[]KindTotal**](KindTotal.md) |  | [optional] 
 **CostUsd** | Pointer to **float32** |  | [optional] 
-**ByKind** | Pointer to [**[]ResearchKindTotal**](ResearchKindTotal.md) |  | [optional] 
+**Experiments** | Pointer to **int32** | canonical | [optional] 
+**ExperimentsRetained** | Pointer to **int32** |  | [optional] 
+**Models** | Pointer to **int32** |  | [optional] 
+**Project** | Pointer to **string** |  | [optional] 
+**Projects** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -33,106 +33,6 @@ will change when the set of required properties is changed
 NewResearchTotalsWithDefaults instantiates a new ResearchTotals object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetProject
-
-`func (o *ResearchTotals) GetProject() string`
-
-GetProject returns the Project field if non-nil, zero value otherwise.
-
-### GetProjectOk
-
-`func (o *ResearchTotals) GetProjectOk() (*string, bool)`
-
-GetProjectOk returns a tuple with the Project field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProject
-
-`func (o *ResearchTotals) SetProject(v string)`
-
-SetProject sets Project field to given value.
-
-### HasProject
-
-`func (o *ResearchTotals) HasProject() bool`
-
-HasProject returns a boolean if a field has been set.
-
-### GetProjects
-
-`func (o *ResearchTotals) GetProjects() int32`
-
-GetProjects returns the Projects field if non-nil, zero value otherwise.
-
-### GetProjectsOk
-
-`func (o *ResearchTotals) GetProjectsOk() (*int32, bool)`
-
-GetProjectsOk returns a tuple with the Projects field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProjects
-
-`func (o *ResearchTotals) SetProjects(v int32)`
-
-SetProjects sets Projects field to given value.
-
-### HasProjects
-
-`func (o *ResearchTotals) HasProjects() bool`
-
-HasProjects returns a boolean if a field has been set.
-
-### GetExperiments
-
-`func (o *ResearchTotals) GetExperiments() int32`
-
-GetExperiments returns the Experiments field if non-nil, zero value otherwise.
-
-### GetExperimentsOk
-
-`func (o *ResearchTotals) GetExperimentsOk() (*int32, bool)`
-
-GetExperimentsOk returns a tuple with the Experiments field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExperiments
-
-`func (o *ResearchTotals) SetExperiments(v int32)`
-
-SetExperiments sets Experiments field to given value.
-
-### HasExperiments
-
-`func (o *ResearchTotals) HasExperiments() bool`
-
-HasExperiments returns a boolean if a field has been set.
-
-### GetExperimentsRetained
-
-`func (o *ResearchTotals) GetExperimentsRetained() int32`
-
-GetExperimentsRetained returns the ExperimentsRetained field if non-nil, zero value otherwise.
-
-### GetExperimentsRetainedOk
-
-`func (o *ResearchTotals) GetExperimentsRetainedOk() (*int32, bool)`
-
-GetExperimentsRetainedOk returns a tuple with the ExperimentsRetained field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExperimentsRetained
-
-`func (o *ResearchTotals) SetExperimentsRetained(v int32)`
-
-SetExperimentsRetained sets ExperimentsRetained field to given value.
-
-### HasExperimentsRetained
-
-`func (o *ResearchTotals) HasExperimentsRetained() bool`
-
-HasExperimentsRetained returns a boolean if a field has been set.
 
 ### GetAttempts
 
@@ -184,31 +84,6 @@ SetAttemptsRetained sets AttemptsRetained field to given value.
 
 HasAttemptsRetained returns a boolean if a field has been set.
 
-### GetModels
-
-`func (o *ResearchTotals) GetModels() int32`
-
-GetModels returns the Models field if non-nil, zero value otherwise.
-
-### GetModelsOk
-
-`func (o *ResearchTotals) GetModelsOk() (*int32, bool)`
-
-GetModelsOk returns a tuple with the Models field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetModels
-
-`func (o *ResearchTotals) SetModels(v int32)`
-
-SetModels sets Models field to given value.
-
-### HasModels
-
-`func (o *ResearchTotals) HasModels() bool`
-
-HasModels returns a boolean if a field has been set.
-
 ### GetBenchmarks
 
 `func (o *ResearchTotals) GetBenchmarks() int32`
@@ -233,6 +108,31 @@ SetBenchmarks sets Benchmarks field to given value.
 `func (o *ResearchTotals) HasBenchmarks() bool`
 
 HasBenchmarks returns a boolean if a field has been set.
+
+### GetByKind
+
+`func (o *ResearchTotals) GetByKind() []KindTotal`
+
+GetByKind returns the ByKind field if non-nil, zero value otherwise.
+
+### GetByKindOk
+
+`func (o *ResearchTotals) GetByKindOk() (*[]KindTotal, bool)`
+
+GetByKindOk returns a tuple with the ByKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetByKind
+
+`func (o *ResearchTotals) SetByKind(v []KindTotal)`
+
+SetByKind sets ByKind field to given value.
+
+### HasByKind
+
+`func (o *ResearchTotals) HasByKind() bool`
+
+HasByKind returns a boolean if a field has been set.
 
 ### GetCostUsd
 
@@ -259,30 +159,130 @@ SetCostUsd sets CostUsd field to given value.
 
 HasCostUsd returns a boolean if a field has been set.
 
-### GetByKind
+### GetExperiments
 
-`func (o *ResearchTotals) GetByKind() []ResearchKindTotal`
+`func (o *ResearchTotals) GetExperiments() int32`
 
-GetByKind returns the ByKind field if non-nil, zero value otherwise.
+GetExperiments returns the Experiments field if non-nil, zero value otherwise.
 
-### GetByKindOk
+### GetExperimentsOk
 
-`func (o *ResearchTotals) GetByKindOk() (*[]ResearchKindTotal, bool)`
+`func (o *ResearchTotals) GetExperimentsOk() (*int32, bool)`
 
-GetByKindOk returns a tuple with the ByKind field if it's non-nil, zero value otherwise
+GetExperimentsOk returns a tuple with the Experiments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetByKind
+### SetExperiments
 
-`func (o *ResearchTotals) SetByKind(v []ResearchKindTotal)`
+`func (o *ResearchTotals) SetExperiments(v int32)`
 
-SetByKind sets ByKind field to given value.
+SetExperiments sets Experiments field to given value.
 
-### HasByKind
+### HasExperiments
 
-`func (o *ResearchTotals) HasByKind() bool`
+`func (o *ResearchTotals) HasExperiments() bool`
 
-HasByKind returns a boolean if a field has been set.
+HasExperiments returns a boolean if a field has been set.
+
+### GetExperimentsRetained
+
+`func (o *ResearchTotals) GetExperimentsRetained() int32`
+
+GetExperimentsRetained returns the ExperimentsRetained field if non-nil, zero value otherwise.
+
+### GetExperimentsRetainedOk
+
+`func (o *ResearchTotals) GetExperimentsRetainedOk() (*int32, bool)`
+
+GetExperimentsRetainedOk returns a tuple with the ExperimentsRetained field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperimentsRetained
+
+`func (o *ResearchTotals) SetExperimentsRetained(v int32)`
+
+SetExperimentsRetained sets ExperimentsRetained field to given value.
+
+### HasExperimentsRetained
+
+`func (o *ResearchTotals) HasExperimentsRetained() bool`
+
+HasExperimentsRetained returns a boolean if a field has been set.
+
+### GetModels
+
+`func (o *ResearchTotals) GetModels() int32`
+
+GetModels returns the Models field if non-nil, zero value otherwise.
+
+### GetModelsOk
+
+`func (o *ResearchTotals) GetModelsOk() (*int32, bool)`
+
+GetModelsOk returns a tuple with the Models field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModels
+
+`func (o *ResearchTotals) SetModels(v int32)`
+
+SetModels sets Models field to given value.
+
+### HasModels
+
+`func (o *ResearchTotals) HasModels() bool`
+
+HasModels returns a boolean if a field has been set.
+
+### GetProject
+
+`func (o *ResearchTotals) GetProject() string`
+
+GetProject returns the Project field if non-nil, zero value otherwise.
+
+### GetProjectOk
+
+`func (o *ResearchTotals) GetProjectOk() (*string, bool)`
+
+GetProjectOk returns a tuple with the Project field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProject
+
+`func (o *ResearchTotals) SetProject(v string)`
+
+SetProject sets Project field to given value.
+
+### HasProject
+
+`func (o *ResearchTotals) HasProject() bool`
+
+HasProject returns a boolean if a field has been set.
+
+### GetProjects
+
+`func (o *ResearchTotals) GetProjects() int32`
+
+GetProjects returns the Projects field if non-nil, zero value otherwise.
+
+### GetProjectsOk
+
+`func (o *ResearchTotals) GetProjectsOk() (*int32, bool)`
+
+GetProjectsOk returns a tuple with the Projects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProjects
+
+`func (o *ResearchTotals) SetProjects(v int32)`
+
+SetProjects sets Projects field to given value.
+
+### HasProjects
+
+`func (o *ResearchTotals) HasProjects() bool`
+
+HasProjects returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

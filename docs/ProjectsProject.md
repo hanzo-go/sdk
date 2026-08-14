@@ -4,27 +4,37 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Org** | **string** |  | 
-**Slug** | **string** |  | 
-**Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**Repo** | [**ProjectsRepoRef**](ProjectsRepoRef.md) |  | 
-**Framework** | **string** | Build hint. | 
-**Status** | **string** | Project lifecycle status. | 
-**LiveUrl** | Pointer to **string** | Canonical live URL, https://&lt;slug&gt;.&lt;apex&gt;. Set once deployed. | [optional] 
-**Bucket** | Pointer to **string** | S3-origin bucket holding the site. | [optional] 
+**Analytics** | Pointer to **bool** | Analytics is the wired-by-default web-analytics flag (default true). It is the value the app&#39;s static-builder reads as deployment.analytics to inject the beacon. Space is the project&#39;s Base data space (\&quot;&lt;org&gt;/&lt;slug&gt;\&quot;) a deployed site posts form/forum/data submissions to under /v1/base. | [optional] 
+**Bucket** | Pointer to **string** |  | [optional] 
+**CacheControl** | Pointer to **string** | Cache is the site&#39;s edge-cache state: the HTML/document Cache-Control policy in effect (TTL) and the last edge-purge time, so a console can show freshness. | [optional] 
+**CreatedAt** | Pointer to **int32** |  | [optional] 
 **CurrentDeploymentId** | Pointer to **string** |  | [optional] 
-**CacheControl** | Pointer to **string** | Per-project HTML/document Cache-Control policy applied at the S3 origin. | [optional] 
-**LastPurgeAt** | Pointer to **int64** | Unix time (seconds) of the last edge cache-tag purge. | [optional] 
-**CreatedAt** | **int64** |  | 
-**UpdatedAt** | **int64** |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**ForkedFrom** | Pointer to **string** | ForkedFrom is the parent this project was forked from (\&quot;&lt;org&gt;/&lt;slug&gt;\&quot; of a published project, or a catalog template slug) — the attribution edge a gallery credits. | [optional] 
+**Framework** | Pointer to **string** |  | [optional] 
+**Hidden** | Pointer to **bool** |  | [optional] 
+**HiddenReason** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**Key** | Pointer to **string** | Key is the project&#39;s publishable ingest key, minted at create. It is the value the injected beacon carries and the ONE thing that attributes this site&#39;s events; the static-builder reads it beside analytics.  Publishable means it belongs in a page&#39;s source: it names a write scope and mints no principal, so it is returned in full rather than masked. Masking it would only mean every caller needed a second endpoint to get the thing the page already ships. | [optional] 
+**LastPurgeAt** | Pointer to **int32** |  | [optional] 
+**License** | Pointer to **string** |  | [optional] 
+**LiveUrl** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Org** | Pointer to **string** |  | [optional] 
+**Repo** | Pointer to [**ProjectsRepo**](ProjectsRepo.md) |  | [optional] 
+**Slug** | Pointer to **string** |  | [optional] 
+**Space** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** |  | [optional] 
+**Tags** | Pointer to **map[string]string** | Tags is the site&#39;s browser tag config: platform slug → non-secret pixel id (GA measurement, Meta pixel, …) — what track.js injects and the server CAPI reads, per site. Omitted when none are set. The API SECRET is never here (KMS). | [optional] 
+**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**Upstream** | Pointer to **string** | Upstream/License credit the third-party work this project was published from, and the terms it carries. Omitted when nothing is declared: an absent credit means \&quot;nobody has said\&quot;, not \&quot;there is nothing to say\&quot;. | [optional] 
+**Visibility** | Pointer to **string** | Visibility is \&quot;public\&quot; or \&quot;private\&quot;, and Hidden reports platform moderation. Both are always present (never omitempty) so a consumer can tell a real answer from \&quot;this API is too old to say\&quot; — and so a console never renders a project as public because a field was missing.  Authorship is deliberately absent: it is Org, above. | [optional] 
 
 ## Methods
 
 ### NewProjectsProject
 
-`func NewProjectsProject(id string, org string, slug string, name string, repo ProjectsRepoRef, framework string, status string, createdAt int64, updatedAt int64, ) *ProjectsProject`
+`func NewProjectsProject() *ProjectsProject`
 
 NewProjectsProject instantiates a new ProjectsProject object
 This constructor will assign default values to properties that have it defined,
@@ -39,195 +49,30 @@ NewProjectsProjectWithDefaults instantiates a new ProjectsProject object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetAnalytics
 
-`func (o *ProjectsProject) GetId() string`
+`func (o *ProjectsProject) GetAnalytics() bool`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetAnalytics returns the Analytics field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetAnalyticsOk
 
-`func (o *ProjectsProject) GetIdOk() (*string, bool)`
+`func (o *ProjectsProject) GetAnalyticsOk() (*bool, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetAnalyticsOk returns a tuple with the Analytics field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetAnalytics
 
-`func (o *ProjectsProject) SetId(v string)`
+`func (o *ProjectsProject) SetAnalytics(v bool)`
 
-SetId sets Id field to given value.
+SetAnalytics sets Analytics field to given value.
 
+### HasAnalytics
 
-### GetOrg
+`func (o *ProjectsProject) HasAnalytics() bool`
 
-`func (o *ProjectsProject) GetOrg() string`
-
-GetOrg returns the Org field if non-nil, zero value otherwise.
-
-### GetOrgOk
-
-`func (o *ProjectsProject) GetOrgOk() (*string, bool)`
-
-GetOrgOk returns a tuple with the Org field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrg
-
-`func (o *ProjectsProject) SetOrg(v string)`
-
-SetOrg sets Org field to given value.
-
-
-### GetSlug
-
-`func (o *ProjectsProject) GetSlug() string`
-
-GetSlug returns the Slug field if non-nil, zero value otherwise.
-
-### GetSlugOk
-
-`func (o *ProjectsProject) GetSlugOk() (*string, bool)`
-
-GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSlug
-
-`func (o *ProjectsProject) SetSlug(v string)`
-
-SetSlug sets Slug field to given value.
-
-
-### GetName
-
-`func (o *ProjectsProject) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *ProjectsProject) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *ProjectsProject) SetName(v string)`
-
-SetName sets Name field to given value.
-
-
-### GetDescription
-
-`func (o *ProjectsProject) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *ProjectsProject) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *ProjectsProject) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-### HasDescription
-
-`func (o *ProjectsProject) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
-
-### GetRepo
-
-`func (o *ProjectsProject) GetRepo() ProjectsRepoRef`
-
-GetRepo returns the Repo field if non-nil, zero value otherwise.
-
-### GetRepoOk
-
-`func (o *ProjectsProject) GetRepoOk() (*ProjectsRepoRef, bool)`
-
-GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRepo
-
-`func (o *ProjectsProject) SetRepo(v ProjectsRepoRef)`
-
-SetRepo sets Repo field to given value.
-
-
-### GetFramework
-
-`func (o *ProjectsProject) GetFramework() string`
-
-GetFramework returns the Framework field if non-nil, zero value otherwise.
-
-### GetFrameworkOk
-
-`func (o *ProjectsProject) GetFrameworkOk() (*string, bool)`
-
-GetFrameworkOk returns a tuple with the Framework field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFramework
-
-`func (o *ProjectsProject) SetFramework(v string)`
-
-SetFramework sets Framework field to given value.
-
-
-### GetStatus
-
-`func (o *ProjectsProject) GetStatus() string`
-
-GetStatus returns the Status field if non-nil, zero value otherwise.
-
-### GetStatusOk
-
-`func (o *ProjectsProject) GetStatusOk() (*string, bool)`
-
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatus
-
-`func (o *ProjectsProject) SetStatus(v string)`
-
-SetStatus sets Status field to given value.
-
-
-### GetLiveUrl
-
-`func (o *ProjectsProject) GetLiveUrl() string`
-
-GetLiveUrl returns the LiveUrl field if non-nil, zero value otherwise.
-
-### GetLiveUrlOk
-
-`func (o *ProjectsProject) GetLiveUrlOk() (*string, bool)`
-
-GetLiveUrlOk returns a tuple with the LiveUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLiveUrl
-
-`func (o *ProjectsProject) SetLiveUrl(v string)`
-
-SetLiveUrl sets LiveUrl field to given value.
-
-### HasLiveUrl
-
-`func (o *ProjectsProject) HasLiveUrl() bool`
-
-HasLiveUrl returns a boolean if a field has been set.
+HasAnalytics returns a boolean if a field has been set.
 
 ### GetBucket
 
@@ -254,31 +99,6 @@ SetBucket sets Bucket field to given value.
 
 HasBucket returns a boolean if a field has been set.
 
-### GetCurrentDeploymentId
-
-`func (o *ProjectsProject) GetCurrentDeploymentId() string`
-
-GetCurrentDeploymentId returns the CurrentDeploymentId field if non-nil, zero value otherwise.
-
-### GetCurrentDeploymentIdOk
-
-`func (o *ProjectsProject) GetCurrentDeploymentIdOk() (*string, bool)`
-
-GetCurrentDeploymentIdOk returns a tuple with the CurrentDeploymentId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCurrentDeploymentId
-
-`func (o *ProjectsProject) SetCurrentDeploymentId(v string)`
-
-SetCurrentDeploymentId sets CurrentDeploymentId field to given value.
-
-### HasCurrentDeploymentId
-
-`func (o *ProjectsProject) HasCurrentDeploymentId() bool`
-
-HasCurrentDeploymentId returns a boolean if a field has been set.
-
 ### GetCacheControl
 
 `func (o *ProjectsProject) GetCacheControl() string`
@@ -304,22 +124,247 @@ SetCacheControl sets CacheControl field to given value.
 
 HasCacheControl returns a boolean if a field has been set.
 
+### GetCreatedAt
+
+`func (o *ProjectsProject) GetCreatedAt() int32`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *ProjectsProject) GetCreatedAtOk() (*int32, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *ProjectsProject) SetCreatedAt(v int32)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *ProjectsProject) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetCurrentDeploymentId
+
+`func (o *ProjectsProject) GetCurrentDeploymentId() string`
+
+GetCurrentDeploymentId returns the CurrentDeploymentId field if non-nil, zero value otherwise.
+
+### GetCurrentDeploymentIdOk
+
+`func (o *ProjectsProject) GetCurrentDeploymentIdOk() (*string, bool)`
+
+GetCurrentDeploymentIdOk returns a tuple with the CurrentDeploymentId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCurrentDeploymentId
+
+`func (o *ProjectsProject) SetCurrentDeploymentId(v string)`
+
+SetCurrentDeploymentId sets CurrentDeploymentId field to given value.
+
+### HasCurrentDeploymentId
+
+`func (o *ProjectsProject) HasCurrentDeploymentId() bool`
+
+HasCurrentDeploymentId returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *ProjectsProject) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *ProjectsProject) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *ProjectsProject) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *ProjectsProject) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetForkedFrom
+
+`func (o *ProjectsProject) GetForkedFrom() string`
+
+GetForkedFrom returns the ForkedFrom field if non-nil, zero value otherwise.
+
+### GetForkedFromOk
+
+`func (o *ProjectsProject) GetForkedFromOk() (*string, bool)`
+
+GetForkedFromOk returns a tuple with the ForkedFrom field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForkedFrom
+
+`func (o *ProjectsProject) SetForkedFrom(v string)`
+
+SetForkedFrom sets ForkedFrom field to given value.
+
+### HasForkedFrom
+
+`func (o *ProjectsProject) HasForkedFrom() bool`
+
+HasForkedFrom returns a boolean if a field has been set.
+
+### GetFramework
+
+`func (o *ProjectsProject) GetFramework() string`
+
+GetFramework returns the Framework field if non-nil, zero value otherwise.
+
+### GetFrameworkOk
+
+`func (o *ProjectsProject) GetFrameworkOk() (*string, bool)`
+
+GetFrameworkOk returns a tuple with the Framework field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFramework
+
+`func (o *ProjectsProject) SetFramework(v string)`
+
+SetFramework sets Framework field to given value.
+
+### HasFramework
+
+`func (o *ProjectsProject) HasFramework() bool`
+
+HasFramework returns a boolean if a field has been set.
+
+### GetHidden
+
+`func (o *ProjectsProject) GetHidden() bool`
+
+GetHidden returns the Hidden field if non-nil, zero value otherwise.
+
+### GetHiddenOk
+
+`func (o *ProjectsProject) GetHiddenOk() (*bool, bool)`
+
+GetHiddenOk returns a tuple with the Hidden field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHidden
+
+`func (o *ProjectsProject) SetHidden(v bool)`
+
+SetHidden sets Hidden field to given value.
+
+### HasHidden
+
+`func (o *ProjectsProject) HasHidden() bool`
+
+HasHidden returns a boolean if a field has been set.
+
+### GetHiddenReason
+
+`func (o *ProjectsProject) GetHiddenReason() string`
+
+GetHiddenReason returns the HiddenReason field if non-nil, zero value otherwise.
+
+### GetHiddenReasonOk
+
+`func (o *ProjectsProject) GetHiddenReasonOk() (*string, bool)`
+
+GetHiddenReasonOk returns a tuple with the HiddenReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHiddenReason
+
+`func (o *ProjectsProject) SetHiddenReason(v string)`
+
+SetHiddenReason sets HiddenReason field to given value.
+
+### HasHiddenReason
+
+`func (o *ProjectsProject) HasHiddenReason() bool`
+
+HasHiddenReason returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *ProjectsProject) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ProjectsProject) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ProjectsProject) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ProjectsProject) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetKey
+
+`func (o *ProjectsProject) GetKey() string`
+
+GetKey returns the Key field if non-nil, zero value otherwise.
+
+### GetKeyOk
+
+`func (o *ProjectsProject) GetKeyOk() (*string, bool)`
+
+GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKey
+
+`func (o *ProjectsProject) SetKey(v string)`
+
+SetKey sets Key field to given value.
+
+### HasKey
+
+`func (o *ProjectsProject) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
+
 ### GetLastPurgeAt
 
-`func (o *ProjectsProject) GetLastPurgeAt() int64`
+`func (o *ProjectsProject) GetLastPurgeAt() int32`
 
 GetLastPurgeAt returns the LastPurgeAt field if non-nil, zero value otherwise.
 
 ### GetLastPurgeAtOk
 
-`func (o *ProjectsProject) GetLastPurgeAtOk() (*int64, bool)`
+`func (o *ProjectsProject) GetLastPurgeAtOk() (*int32, bool)`
 
 GetLastPurgeAtOk returns a tuple with the LastPurgeAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastPurgeAt
 
-`func (o *ProjectsProject) SetLastPurgeAt(v int64)`
+`func (o *ProjectsProject) SetLastPurgeAt(v int32)`
 
 SetLastPurgeAt sets LastPurgeAt field to given value.
 
@@ -329,45 +374,305 @@ SetLastPurgeAt sets LastPurgeAt field to given value.
 
 HasLastPurgeAt returns a boolean if a field has been set.
 
-### GetCreatedAt
+### GetLicense
 
-`func (o *ProjectsProject) GetCreatedAt() int64`
+`func (o *ProjectsProject) GetLicense() string`
 
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+GetLicense returns the License field if non-nil, zero value otherwise.
 
-### GetCreatedAtOk
+### GetLicenseOk
 
-`func (o *ProjectsProject) GetCreatedAtOk() (*int64, bool)`
+`func (o *ProjectsProject) GetLicenseOk() (*string, bool)`
 
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+GetLicenseOk returns a tuple with the License field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreatedAt
+### SetLicense
 
-`func (o *ProjectsProject) SetCreatedAt(v int64)`
+`func (o *ProjectsProject) SetLicense(v string)`
 
-SetCreatedAt sets CreatedAt field to given value.
+SetLicense sets License field to given value.
 
+### HasLicense
+
+`func (o *ProjectsProject) HasLicense() bool`
+
+HasLicense returns a boolean if a field has been set.
+
+### GetLiveUrl
+
+`func (o *ProjectsProject) GetLiveUrl() string`
+
+GetLiveUrl returns the LiveUrl field if non-nil, zero value otherwise.
+
+### GetLiveUrlOk
+
+`func (o *ProjectsProject) GetLiveUrlOk() (*string, bool)`
+
+GetLiveUrlOk returns a tuple with the LiveUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLiveUrl
+
+`func (o *ProjectsProject) SetLiveUrl(v string)`
+
+SetLiveUrl sets LiveUrl field to given value.
+
+### HasLiveUrl
+
+`func (o *ProjectsProject) HasLiveUrl() bool`
+
+HasLiveUrl returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *ProjectsProject) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *ProjectsProject) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *ProjectsProject) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *ProjectsProject) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetOrg
+
+`func (o *ProjectsProject) GetOrg() string`
+
+GetOrg returns the Org field if non-nil, zero value otherwise.
+
+### GetOrgOk
+
+`func (o *ProjectsProject) GetOrgOk() (*string, bool)`
+
+GetOrgOk returns a tuple with the Org field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrg
+
+`func (o *ProjectsProject) SetOrg(v string)`
+
+SetOrg sets Org field to given value.
+
+### HasOrg
+
+`func (o *ProjectsProject) HasOrg() bool`
+
+HasOrg returns a boolean if a field has been set.
+
+### GetRepo
+
+`func (o *ProjectsProject) GetRepo() ProjectsRepo`
+
+GetRepo returns the Repo field if non-nil, zero value otherwise.
+
+### GetRepoOk
+
+`func (o *ProjectsProject) GetRepoOk() (*ProjectsRepo, bool)`
+
+GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRepo
+
+`func (o *ProjectsProject) SetRepo(v ProjectsRepo)`
+
+SetRepo sets Repo field to given value.
+
+### HasRepo
+
+`func (o *ProjectsProject) HasRepo() bool`
+
+HasRepo returns a boolean if a field has been set.
+
+### GetSlug
+
+`func (o *ProjectsProject) GetSlug() string`
+
+GetSlug returns the Slug field if non-nil, zero value otherwise.
+
+### GetSlugOk
+
+`func (o *ProjectsProject) GetSlugOk() (*string, bool)`
+
+GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSlug
+
+`func (o *ProjectsProject) SetSlug(v string)`
+
+SetSlug sets Slug field to given value.
+
+### HasSlug
+
+`func (o *ProjectsProject) HasSlug() bool`
+
+HasSlug returns a boolean if a field has been set.
+
+### GetSpace
+
+`func (o *ProjectsProject) GetSpace() string`
+
+GetSpace returns the Space field if non-nil, zero value otherwise.
+
+### GetSpaceOk
+
+`func (o *ProjectsProject) GetSpaceOk() (*string, bool)`
+
+GetSpaceOk returns a tuple with the Space field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSpace
+
+`func (o *ProjectsProject) SetSpace(v string)`
+
+SetSpace sets Space field to given value.
+
+### HasSpace
+
+`func (o *ProjectsProject) HasSpace() bool`
+
+HasSpace returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *ProjectsProject) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *ProjectsProject) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *ProjectsProject) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *ProjectsProject) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *ProjectsProject) GetTags() map[string]string`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *ProjectsProject) GetTagsOk() (*map[string]string, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *ProjectsProject) SetTags(v map[string]string)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *ProjectsProject) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
-`func (o *ProjectsProject) GetUpdatedAt() int64`
+`func (o *ProjectsProject) GetUpdatedAt() int32`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *ProjectsProject) GetUpdatedAtOk() (*int64, bool)`
+`func (o *ProjectsProject) GetUpdatedAtOk() (*int32, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *ProjectsProject) SetUpdatedAt(v int64)`
+`func (o *ProjectsProject) SetUpdatedAt(v int32)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+### HasUpdatedAt
+
+`func (o *ProjectsProject) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
+
+### GetUpstream
+
+`func (o *ProjectsProject) GetUpstream() string`
+
+GetUpstream returns the Upstream field if non-nil, zero value otherwise.
+
+### GetUpstreamOk
+
+`func (o *ProjectsProject) GetUpstreamOk() (*string, bool)`
+
+GetUpstreamOk returns a tuple with the Upstream field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpstream
+
+`func (o *ProjectsProject) SetUpstream(v string)`
+
+SetUpstream sets Upstream field to given value.
+
+### HasUpstream
+
+`func (o *ProjectsProject) HasUpstream() bool`
+
+HasUpstream returns a boolean if a field has been set.
+
+### GetVisibility
+
+`func (o *ProjectsProject) GetVisibility() string`
+
+GetVisibility returns the Visibility field if non-nil, zero value otherwise.
+
+### GetVisibilityOk
+
+`func (o *ProjectsProject) GetVisibilityOk() (*string, bool)`
+
+GetVisibilityOk returns a tuple with the Visibility field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVisibility
+
+`func (o *ProjectsProject) SetVisibility(v string)`
+
+SetVisibility sets Visibility field to given value.
+
+### HasVisibility
+
+`func (o *ProjectsProject) HasVisibility() bool`
+
+HasVisibility returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

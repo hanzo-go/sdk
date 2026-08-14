@@ -4,28 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1WebhooksId**](WebhooksAPI.md#CloudDeleteV1WebhooksId) | **Delete** /v1/webhooks/{id} | Removes one of the caller org&#39;s webhook endpoints and answers 204 with no body.
-[**CloudGetV1Webhooks**](WebhooksAPI.md#CloudGetV1Webhooks) | **Get** /v1/webhooks | Returns every webhook endpoint the caller&#39;s org has registered, newest first, each with its 7-day delivery and failure counts.
-[**CloudGetV1WebhooksId**](WebhooksAPI.md#CloudGetV1WebhooksId) | **Get** /v1/webhooks/{id} | Returns one of the caller org&#39;s webhook endpoints with its 7-day delivery and failure counts, signing secret redacted.
-[**CloudGetV1WebhooksIdDeliveries**](WebhooksAPI.md#CloudGetV1WebhooksIdDeliveries) | **Get** /v1/webhooks/{id}/deliveries | Returns one endpoint&#39;s per-attempt delivery log, newest first — the record of what was sent, what the subscriber answered, and how long it took.
-[**CloudPostV1Webhooks**](WebhooksAPI.md#CloudPostV1Webhooks) | **Post** /v1/webhooks | Registers a new webhook subscription for the caller&#39;s org and answers 201 with the endpoint INCLUDING its freshly minted signing secret.
-[**CloudPostV1WebhooksIdRotateSecret**](WebhooksAPI.md#CloudPostV1WebhooksIdRotateSecret) | **Post** /v1/webhooks/{id}/rotate-secret | Mints a NEW HMAC signing secret for the endpoint and answers the endpoint WITH it — the only other response besides create that ever carries a secret.
-[**CloudPostV1WebhooksIdTest**](WebhooksAPI.md#CloudPostV1WebhooksIdTest) | **Post** /v1/webhooks/{id}/test | Sends ONE signed test event to the endpoint right now and answers the outcome inline, so the console can show whether the subscriber is reachable without waiting for real traffic.
-[**CloudPutV1WebhooksId**](WebhooksAPI.md#CloudPutV1WebhooksId) | **Put** /v1/webhooks/{id} | Replaces the editable fields of one of the caller org&#39;s endpoints — url, events, status and description — and answers the stored row with its secret redacted.
-[**IamApiControllerAddWebhook**](WebhooksAPI.md#IamApiControllerAddWebhook) | **Post** /v1/iam/webhooks | Api Controller Add Webhook
-[**IamApiControllerDeleteWebhook**](WebhooksAPI.md#IamApiControllerDeleteWebhook) | **Delete** /v1/iam/webhooks/{id} | Api Controller Delete Webhook
-[**IamApiControllerGetWebhook**](WebhooksAPI.md#IamApiControllerGetWebhook) | **Get** /v1/iam/webhooks/{id} | Api Controller Get Webhook
-[**IamApiControllerGetWebhooks**](WebhooksAPI.md#IamApiControllerGetWebhooks) | **Get** /v1/iam/webhooks | Api Controller Get Webhooks
-[**IamApiControllerUpdateWebhook**](WebhooksAPI.md#IamApiControllerUpdateWebhook) | **Put** /v1/iam/webhooks/{id} | Api Controller Update Webhook
-[**SearchDeleteWebhooks**](WebhooksAPI.md#SearchDeleteWebhooks) | **Delete** /v1/search/webhooks | Delete all webhooks
-[**SearchGetWebhooks**](WebhooksAPI.md#SearchGetWebhooks) | **Get** /v1/search/webhooks | Get webhook configuration
-[**SearchUpdateWebhooks**](WebhooksAPI.md#SearchUpdateWebhooks) | **Patch** /v1/search/webhooks | Update webhook configuration
+[**DeleteWebhooksById**](WebhooksAPI.md#DeleteWebhooksById) | **Delete** /v1/webhooks/{id} | Removes one of the caller org&#39;s webhook endpoints and answers 204 with no body.
+[**GetWebhooks**](WebhooksAPI.md#GetWebhooks) | **Get** /v1/webhooks | Returns every webhook endpoint the caller&#39;s org has registered, newest first, each with its 7-day delivery and failure counts.
+[**GetWebhooksById**](WebhooksAPI.md#GetWebhooksById) | **Get** /v1/webhooks/{id} | Returns one of the caller org&#39;s webhook endpoints with its 7-day delivery and failure counts, signing secret redacted.
+[**GetWebhooksByIdDeliveries**](WebhooksAPI.md#GetWebhooksByIdDeliveries) | **Get** /v1/webhooks/{id}/deliveries | Returns one endpoint&#39;s per-attempt delivery log, newest first — the record of what was sent, what the subscriber answered, and how long it took.
+[**PostWebhooks**](WebhooksAPI.md#PostWebhooks) | **Post** /v1/webhooks | Registers a new webhook subscription for the caller&#39;s org and answers 201 with the endpoint INCLUDING its freshly minted signing secret.
+[**PostWebhooksByIdSecret**](WebhooksAPI.md#PostWebhooksByIdSecret) | **Post** /v1/webhooks/{id}/secret | Mints a NEW HMAC signing secret for the endpoint and answers the endpoint WITH it — the only other response besides create that ever carries a secret.
+[**PostWebhooksByIdTest**](WebhooksAPI.md#PostWebhooksByIdTest) | **Post** /v1/webhooks/{id}/test | Sends ONE signed test event to the endpoint right now and answers the outcome inline, so the console can show whether the subscriber is reachable without waiting for real traffic.
+[**PutWebhooksById**](WebhooksAPI.md#PutWebhooksById) | **Put** /v1/webhooks/{id} | Replaces the editable fields of one of the caller org&#39;s endpoints — url, events, status and description — and answers the stored row with its secret redacted.
 
 
 
-## CloudDeleteV1WebhooksId
+## DeleteWebhooksById
 
-> CloudDeleteV1WebhooksId(ctx, id).Execute()
+> DeleteWebhooksById(ctx, id).Execute()
 
 Removes one of the caller org's webhook endpoints and answers 204 with no body.
 
@@ -48,9 +40,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebhooksAPI.CloudDeleteV1WebhooksId(context.Background(), id).Execute()
+	r, err := apiClient.WebhooksAPI.DeleteWebhooksById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.CloudDeleteV1WebhooksId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.DeleteWebhooksById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -66,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1WebhooksIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteWebhooksByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -79,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -91,9 +83,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Webhooks
+## GetWebhooks
 
-> CloudEndpointList CloudGetV1Webhooks(ctx).Execute()
+> EndpointList GetWebhooks(ctx).Execute()
 
 Returns every webhook endpoint the caller's org has registered, newest first, each with its 7-day delivery and failure counts.
 
@@ -115,13 +107,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.CloudGetV1Webhooks(context.Background()).Execute()
+	resp, r, err := apiClient.WebhooksAPI.GetWebhooks(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.CloudGetV1Webhooks``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.GetWebhooks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Webhooks`: CloudEndpointList
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.CloudGetV1Webhooks`: %v\n", resp)
+	// response from `GetWebhooks`: EndpointList
+	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.GetWebhooks`: %v\n", resp)
 }
 ```
 
@@ -131,16 +123,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1WebhooksRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetWebhooksRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudEndpointList**](CloudEndpointList.md)
+[**EndpointList**](EndpointList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -152,9 +144,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1WebhooksRequest 
 [[Back to README]](../README.md)
 
 
-## CloudGetV1WebhooksId
+## GetWebhooksById
 
-> CloudEndpoint CloudGetV1WebhooksId(ctx, id).Execute()
+> Endpoint GetWebhooksById(ctx, id).Execute()
 
 Returns one of the caller org's webhook endpoints with its 7-day delivery and failure counts, signing secret redacted.
 
@@ -177,13 +169,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.CloudGetV1WebhooksId(context.Background(), id).Execute()
+	resp, r, err := apiClient.WebhooksAPI.GetWebhooksById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.CloudGetV1WebhooksId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.GetWebhooksById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1WebhooksId`: CloudEndpoint
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.CloudGetV1WebhooksId`: %v\n", resp)
+	// response from `GetWebhooksById`: Endpoint
+	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.GetWebhooksById`: %v\n", resp)
 }
 ```
 
@@ -197,7 +189,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1WebhooksIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetWebhooksByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -206,11 +198,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudEndpoint**](CloudEndpoint.md)
+[**Endpoint**](Endpoint.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -222,9 +214,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1WebhooksIdDeliveries
+## GetWebhooksByIdDeliveries
 
-> CloudDeliveryList CloudGetV1WebhooksIdDeliveries(ctx, id).Limit(limit).Status(status).Execute()
+> DeliveryList GetWebhooksByIdDeliveries(ctx, id).Limit(limit).Status(status).Execute()
 
 Returns one endpoint's per-attempt delivery log, newest first — the record of what was sent, what the subscriber answered, and how long it took.
 
@@ -249,13 +241,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.CloudGetV1WebhooksIdDeliveries(context.Background(), id).Limit(limit).Status(status).Execute()
+	resp, r, err := apiClient.WebhooksAPI.GetWebhooksByIdDeliveries(context.Background(), id).Limit(limit).Status(status).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.CloudGetV1WebhooksIdDeliveries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.GetWebhooksByIdDeliveries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1WebhooksIdDeliveries`: CloudDeliveryList
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.CloudGetV1WebhooksIdDeliveries`: %v\n", resp)
+	// response from `GetWebhooksByIdDeliveries`: DeliveryList
+	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.GetWebhooksByIdDeliveries`: %v\n", resp)
 }
 ```
 
@@ -269,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1WebhooksIdDeliveriesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetWebhooksByIdDeliveriesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -280,11 +272,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDeliveryList**](CloudDeliveryList.md)
+[**DeliveryList**](DeliveryList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -296,9 +288,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Webhooks
+## PostWebhooks
 
-> CloudEndpoint CloudPostV1Webhooks(ctx).CloudCreateEndpointIn(cloudCreateEndpointIn).Execute()
+> Endpoint PostWebhooks(ctx).CreateEndpointIn(createEndpointIn).Execute()
 
 Registers a new webhook subscription for the caller's org and answers 201 with the endpoint INCLUDING its freshly minted signing secret.
 
@@ -317,17 +309,17 @@ import (
 )
 
 func main() {
-	cloudCreateEndpointIn := *openapiclient.NewCloudCreateEndpointIn() // CloudCreateEndpointIn | 
+	createEndpointIn := *openapiclient.NewCreateEndpointIn() // CreateEndpointIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.CloudPostV1Webhooks(context.Background()).CloudCreateEndpointIn(cloudCreateEndpointIn).Execute()
+	resp, r, err := apiClient.WebhooksAPI.PostWebhooks(context.Background()).CreateEndpointIn(createEndpointIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.CloudPostV1Webhooks``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.PostWebhooks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Webhooks`: CloudEndpoint
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.CloudPostV1Webhooks`: %v\n", resp)
+	// response from `PostWebhooks`: Endpoint
+	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.PostWebhooks`: %v\n", resp)
 }
 ```
 
@@ -337,20 +329,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1WebhooksRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostWebhooksRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCreateEndpointIn** | [**CloudCreateEndpointIn**](CloudCreateEndpointIn.md) |  | 
+ **createEndpointIn** | [**CreateEndpointIn**](CreateEndpointIn.md) |  | 
 
 ### Return type
 
-[**CloudEndpoint**](CloudEndpoint.md)
+[**Endpoint**](Endpoint.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -362,9 +354,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1WebhooksIdRotateSecret
+## PostWebhooksByIdSecret
 
-> CloudEndpoint CloudPostV1WebhooksIdRotateSecret(ctx, id).Execute()
+> Endpoint PostWebhooksByIdSecret(ctx, id).Execute()
 
 Mints a NEW HMAC signing secret for the endpoint and answers the endpoint WITH it — the only other response besides create that ever carries a secret.
 
@@ -387,13 +379,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.CloudPostV1WebhooksIdRotateSecret(context.Background(), id).Execute()
+	resp, r, err := apiClient.WebhooksAPI.PostWebhooksByIdSecret(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.CloudPostV1WebhooksIdRotateSecret``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.PostWebhooksByIdSecret``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1WebhooksIdRotateSecret`: CloudEndpoint
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.CloudPostV1WebhooksIdRotateSecret`: %v\n", resp)
+	// response from `PostWebhooksByIdSecret`: Endpoint
+	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.PostWebhooksByIdSecret`: %v\n", resp)
 }
 ```
 
@@ -407,7 +399,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1WebhooksIdRotateSecretRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostWebhooksByIdSecretRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -416,11 +408,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudEndpoint**](CloudEndpoint.md)
+[**Endpoint**](Endpoint.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -432,9 +424,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1WebhooksIdTest
+## PostWebhooksByIdTest
 
-> CloudTestResult CloudPostV1WebhooksIdTest(ctx, id).Execute()
+> TestResult PostWebhooksByIdTest(ctx, id).Execute()
 
 Sends ONE signed test event to the endpoint right now and answers the outcome inline, so the console can show whether the subscriber is reachable without waiting for real traffic.
 
@@ -457,13 +449,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.CloudPostV1WebhooksIdTest(context.Background(), id).Execute()
+	resp, r, err := apiClient.WebhooksAPI.PostWebhooksByIdTest(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.CloudPostV1WebhooksIdTest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.PostWebhooksByIdTest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1WebhooksIdTest`: CloudTestResult
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.CloudPostV1WebhooksIdTest`: %v\n", resp)
+	// response from `PostWebhooksByIdTest`: TestResult
+	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.PostWebhooksByIdTest`: %v\n", resp)
 }
 ```
 
@@ -477,7 +469,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1WebhooksIdTestRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostWebhooksByIdTestRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -486,11 +478,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTestResult**](CloudTestResult.md)
+[**TestResult**](TestResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -502,9 +494,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1WebhooksId
+## PutWebhooksById
 
-> CloudEndpoint CloudPutV1WebhooksId(ctx, id).CloudUpdateEndpointIn(cloudUpdateEndpointIn).Execute()
+> Endpoint PutWebhooksById(ctx, id).UpdateEndpointIn(updateEndpointIn).Execute()
 
 Replaces the editable fields of one of the caller org's endpoints — url, events, status and description — and answers the stored row with its secret redacted.
 
@@ -524,17 +516,17 @@ import (
 
 func main() {
 	id := "wh_9f8c1d2e" // string | 
-	cloudUpdateEndpointIn := *openapiclient.NewCloudUpdateEndpointIn() // CloudUpdateEndpointIn | 
+	updateEndpointIn := *openapiclient.NewUpdateEndpointIn() // UpdateEndpointIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.CloudPutV1WebhooksId(context.Background(), id).CloudUpdateEndpointIn(cloudUpdateEndpointIn).Execute()
+	resp, r, err := apiClient.WebhooksAPI.PutWebhooksById(context.Background(), id).UpdateEndpointIn(updateEndpointIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.CloudPutV1WebhooksId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.PutWebhooksById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1WebhooksId`: CloudEndpoint
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.CloudPutV1WebhooksId`: %v\n", resp)
+	// response from `PutWebhooksById`: Endpoint
+	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.PutWebhooksById`: %v\n", resp)
 }
 ```
 
@@ -548,549 +540,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1WebhooksIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutWebhooksByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudUpdateEndpointIn** | [**CloudUpdateEndpointIn**](CloudUpdateEndpointIn.md) |  | 
+ **updateEndpointIn** | [**UpdateEndpointIn**](UpdateEndpointIn.md) |  | 
 
 ### Return type
 
-[**CloudEndpoint**](CloudEndpoint.md)
+[**Endpoint**](Endpoint.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## IamApiControllerAddWebhook
-
-> IamControllersResponse IamApiControllerAddWebhook(ctx).IamObjectWebhook(iamObjectWebhook).Execute()
-
-Api Controller Add Webhook
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	iamObjectWebhook := *openapiclient.NewIamObjectWebhook() // IamObjectWebhook | The details of the webhook
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.IamApiControllerAddWebhook(context.Background()).IamObjectWebhook(iamObjectWebhook).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.IamApiControllerAddWebhook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `IamApiControllerAddWebhook`: IamControllersResponse
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.IamApiControllerAddWebhook`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiIamApiControllerAddWebhookRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **iamObjectWebhook** | [**IamObjectWebhook**](IamObjectWebhook.md) | The details of the webhook | 
-
-### Return type
-
-[**IamControllersResponse**](IamControllersResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## IamApiControllerDeleteWebhook
-
-> IamControllersResponse IamApiControllerDeleteWebhook(ctx, id).IamObjectWebhook(iamObjectWebhook).Execute()
-
-Api Controller Delete Webhook
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | Resource identifier (owner/name)
-	iamObjectWebhook := *openapiclient.NewIamObjectWebhook() // IamObjectWebhook | The details of the webhook
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.IamApiControllerDeleteWebhook(context.Background(), id).IamObjectWebhook(iamObjectWebhook).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.IamApiControllerDeleteWebhook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `IamApiControllerDeleteWebhook`: IamControllersResponse
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.IamApiControllerDeleteWebhook`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | Resource identifier (owner/name) | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiIamApiControllerDeleteWebhookRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **iamObjectWebhook** | [**IamObjectWebhook**](IamObjectWebhook.md) | The details of the webhook | 
-
-### Return type
-
-[**IamControllersResponse**](IamControllersResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## IamApiControllerGetWebhook
-
-> IamObjectWebhook IamApiControllerGetWebhook(ctx, id).Execute()
-
-Api Controller Get Webhook
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The id ( owner/name ) of the webhook (default to "built-in/admin")
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.IamApiControllerGetWebhook(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.IamApiControllerGetWebhook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `IamApiControllerGetWebhook`: IamObjectWebhook
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.IamApiControllerGetWebhook`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The id ( owner/name ) of the webhook | [default to &quot;built-in/admin&quot;]
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiIamApiControllerGetWebhookRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**IamObjectWebhook**](IamObjectWebhook.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## IamApiControllerGetWebhooks
-
-> []IamObjectWebhook IamApiControllerGetWebhooks(ctx).Owner(owner).Execute()
-
-Api Controller Get Webhooks
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	owner := "owner_example" // string | The owner of webhooks (default to "built-in/admin")
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.IamApiControllerGetWebhooks(context.Background()).Owner(owner).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.IamApiControllerGetWebhooks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `IamApiControllerGetWebhooks`: []IamObjectWebhook
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.IamApiControllerGetWebhooks`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiIamApiControllerGetWebhooksRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **owner** | **string** | The owner of webhooks | [default to &quot;built-in/admin&quot;]
-
-### Return type
-
-[**[]IamObjectWebhook**](IamObjectWebhook.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## IamApiControllerUpdateWebhook
-
-> IamControllersResponse IamApiControllerUpdateWebhook(ctx, id).IamObjectWebhook(iamObjectWebhook).Execute()
-
-Api Controller Update Webhook
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The id ( owner/name ) of the webhook (default to "built-in/admin")
-	iamObjectWebhook := *openapiclient.NewIamObjectWebhook() // IamObjectWebhook | The details of the webhook
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.IamApiControllerUpdateWebhook(context.Background(), id).IamObjectWebhook(iamObjectWebhook).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.IamApiControllerUpdateWebhook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `IamApiControllerUpdateWebhook`: IamControllersResponse
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.IamApiControllerUpdateWebhook`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The id ( owner/name ) of the webhook | [default to &quot;built-in/admin&quot;]
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiIamApiControllerUpdateWebhookRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **iamObjectWebhook** | [**IamObjectWebhook**](IamObjectWebhook.md) | The details of the webhook | 
-
-### Return type
-
-[**IamControllersResponse**](IamControllersResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchDeleteWebhooks
-
-> map[string]SearchWebhookResultsValue SearchDeleteWebhooks(ctx).Execute()
-
-Delete all webhooks
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.SearchDeleteWebhooks(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.SearchDeleteWebhooks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchDeleteWebhooks`: map[string]SearchWebhookResultsValue
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.SearchDeleteWebhooks`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchDeleteWebhooksRequest struct via the builder pattern
-
-
-### Return type
-
-[**map[string]SearchWebhookResultsValue**](SearchWebhookResultsValue.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchGetWebhooks
-
-> map[string]SearchWebhookResultsValue SearchGetWebhooks(ctx).Execute()
-
-Get webhook configuration
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.SearchGetWebhooks(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.SearchGetWebhooks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchGetWebhooks`: map[string]SearchWebhookResultsValue
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.SearchGetWebhooks`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchGetWebhooksRequest struct via the builder pattern
-
-
-### Return type
-
-[**map[string]SearchWebhookResultsValue**](SearchWebhookResultsValue.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchUpdateWebhooks
-
-> map[string]SearchWebhookResultsValue SearchUpdateWebhooks(ctx).RequestBody(requestBody).Execute()
-
-Update webhook configuration
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	requestBody := map[string]SearchWebhookSettingsValue{"key": *openapiclient.NewSearchWebhookSettingsValue()} // map[string]SearchWebhookSettingsValue | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhooksAPI.SearchUpdateWebhooks(context.Background()).RequestBody(requestBody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebhooksAPI.SearchUpdateWebhooks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchUpdateWebhooks`: map[string]SearchWebhookResultsValue
-	fmt.Fprintf(os.Stdout, "Response from `WebhooksAPI.SearchUpdateWebhooks`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchUpdateWebhooksRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **requestBody** | [**map[string]SearchWebhookSettingsValue**](SearchWebhookSettingsValue.md) |  | 
-
-### Return type
-
-[**map[string]SearchWebhookResultsValue**](SearchWebhookResultsValue.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

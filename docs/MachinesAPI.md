@@ -4,20 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudBindMachineAgent**](MachinesAPI.md#CloudBindMachineAgent) | **Put** /v1/machines/{id}/agent | Binds a cloud Agent to one of the caller org&#39;s machines: the machine is recorded as running that Agent&#39;s @hanzo/bot runtime.
-[**CloudDeleteMachine**](MachinesAPI.md#CloudDeleteMachine) | **Delete** /v1/machines/{id} | Terminates one of the caller org&#39;s machines.
-[**CloudGetMachine**](MachinesAPI.md#CloudGetMachine) | **Get** /v1/machines/{id} | Returns one of the caller org&#39;s machines by its org-scoped name.
-[**CloudGetMachineAgent**](MachinesAPI.md#CloudGetMachineAgent) | **Get** /v1/machines/{id}/agent | Returns the agent binding of one of the caller org&#39;s machines, or 404 when the machine runs no bot runtime.
-[**CloudListMachineAgents**](MachinesAPI.md#CloudListMachineAgents) | **Get** /v1/machines/agents | Returns every agent↔machine binding in the caller&#39;s org — which machines are running which cloud Agent, with vm&#39;s own reconciled status.
-[**CloudListMachines**](MachinesAPI.md#CloudListMachines) | **Get** /v1/machines | Returns every machine the caller&#39;s org has — Visor&#39;s registry, the live DigitalOcean droplets and the DOKS worker nodes (deduped into one union), plus the BYO machines that dialed in via &#x60;hanzo link&#x60; (provider \&quot;byo\&quot;).
-[**CloudPostV1Machines**](MachinesAPI.md#CloudPostV1Machines) | **Post** /v1/machines | 
-[**CloudUnbindMachineAgent**](MachinesAPI.md#CloudUnbindMachineAgent) | **Delete** /v1/machines/{id}/agent | Detaches the agent runtime from one of the caller org&#39;s machines.
+[**BindMachineAgent**](MachinesAPI.md#BindMachineAgent) | **Put** /v1/machines/{id}/agent | Binds a cloud Agent to one of the caller org&#39;s machines: the machine is recorded as running that Agent&#39;s @hanzo/bot runtime.
+[**DeleteMachine**](MachinesAPI.md#DeleteMachine) | **Delete** /v1/machines/{id} | Terminates one of the caller org&#39;s machines.
+[**GetMachine**](MachinesAPI.md#GetMachine) | **Get** /v1/machines/{id} | Returns one of the caller org&#39;s machines by its org-scoped name.
+[**GetMachineAgent**](MachinesAPI.md#GetMachineAgent) | **Get** /v1/machines/{id}/agent | Returns the agent binding of one of the caller org&#39;s machines, or 404 when the machine runs no bot runtime.
+[**ListMachineAgents**](MachinesAPI.md#ListMachineAgents) | **Get** /v1/machines/agents | Returns every agent↔machine binding in the caller&#39;s org — which machines are running which cloud Agent, with vm&#39;s own reconciled status.
+[**ListMachines**](MachinesAPI.md#ListMachines) | **Get** /v1/machines | Returns every machine the caller&#39;s org has — Visor&#39;s registry, the live DigitalOcean droplets and the DOKS worker nodes (deduped into one union), plus the BYO machines that dialed in via &#x60;hanzo link&#x60; (provider \&quot;byo\&quot;).
+[**PostMachines**](MachinesAPI.md#PostMachines) | **Post** /v1/machines | Launch a metered machine for your org, or price one first with dryRun
+[**UnbindMachineAgent**](MachinesAPI.md#UnbindMachineAgent) | **Delete** /v1/machines/{id}/agent | Detaches the agent runtime from one of the caller org&#39;s machines.
 
 
 
-## CloudBindMachineAgent
+## BindMachineAgent
 
-> CloudAgentBinding CloudBindMachineAgent(ctx, id).CloudBindAgentReq(cloudBindAgentReq).Execute()
+> AgentBinding BindMachineAgent(ctx, id).BindAgentReq(bindAgentReq).Execute()
 
 Binds a cloud Agent to one of the caller org's machines: the machine is recorded as running that Agent's @hanzo/bot runtime.
 
@@ -37,17 +37,17 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the machine to bind, from the URL path.
-	cloudBindAgentReq := *openapiclient.NewCloudBindAgentReq() // CloudBindAgentReq | 
+	bindAgentReq := *openapiclient.NewBindAgentReq() // BindAgentReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MachinesAPI.CloudBindMachineAgent(context.Background(), id).CloudBindAgentReq(cloudBindAgentReq).Execute()
+	resp, r, err := apiClient.MachinesAPI.BindMachineAgent(context.Background(), id).BindAgentReq(bindAgentReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.CloudBindMachineAgent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.BindMachineAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudBindMachineAgent`: CloudAgentBinding
-	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.CloudBindMachineAgent`: %v\n", resp)
+	// response from `BindMachineAgent`: AgentBinding
+	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.BindMachineAgent`: %v\n", resp)
 }
 ```
 
@@ -61,21 +61,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudBindMachineAgentRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBindMachineAgentRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudBindAgentReq** | [**CloudBindAgentReq**](CloudBindAgentReq.md) |  | 
+ **bindAgentReq** | [**BindAgentReq**](BindAgentReq.md) |  | 
 
 ### Return type
 
-[**CloudAgentBinding**](CloudAgentBinding.md)
+[**AgentBinding**](AgentBinding.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -87,9 +87,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteMachine
+## DeleteMachine
 
-> CloudDeleteMachine(ctx, id).Execute()
+> DeleteMachine(ctx, id).Execute()
 
 Terminates one of the caller org's machines.
 
@@ -112,9 +112,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MachinesAPI.CloudDeleteMachine(context.Background(), id).Execute()
+	r, err := apiClient.MachinesAPI.DeleteMachine(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.CloudDeleteMachine``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.DeleteMachine``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteMachineRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMachineRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -155,9 +155,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetMachine
+## GetMachine
 
-> CloudMachineView CloudGetMachine(ctx, id).Execute()
+> MachineView GetMachine(ctx, id).Execute()
 
 Returns one of the caller org's machines by its org-scoped name.
 
@@ -180,13 +180,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MachinesAPI.CloudGetMachine(context.Background(), id).Execute()
+	resp, r, err := apiClient.MachinesAPI.GetMachine(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.CloudGetMachine``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.GetMachine``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetMachine`: CloudMachineView
-	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.CloudGetMachine`: %v\n", resp)
+	// response from `GetMachine`: MachineView
+	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.GetMachine`: %v\n", resp)
 }
 ```
 
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetMachineRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMachineRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -209,11 +209,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudMachineView**](CloudMachineView.md)
+[**MachineView**](MachineView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -225,9 +225,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetMachineAgent
+## GetMachineAgent
 
-> CloudAgentBinding CloudGetMachineAgent(ctx, id).Execute()
+> AgentBinding GetMachineAgent(ctx, id).Execute()
 
 Returns the agent binding of one of the caller org's machines, or 404 when the machine runs no bot runtime.
 
@@ -250,13 +250,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MachinesAPI.CloudGetMachineAgent(context.Background(), id).Execute()
+	resp, r, err := apiClient.MachinesAPI.GetMachineAgent(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.CloudGetMachineAgent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.GetMachineAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetMachineAgent`: CloudAgentBinding
-	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.CloudGetMachineAgent`: %v\n", resp)
+	// response from `GetMachineAgent`: AgentBinding
+	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.GetMachineAgent`: %v\n", resp)
 }
 ```
 
@@ -270,7 +270,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetMachineAgentRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMachineAgentRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -279,11 +279,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAgentBinding**](CloudAgentBinding.md)
+[**AgentBinding**](AgentBinding.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -295,9 +295,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudListMachineAgents
+## ListMachineAgents
 
-> CloudBindingList CloudListMachineAgents(ctx).Execute()
+> BindingList ListMachineAgents(ctx).Execute()
 
 Returns every agent↔machine binding in the caller's org — which machines are running which cloud Agent, with vm's own reconciled status.
 
@@ -319,13 +319,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MachinesAPI.CloudListMachineAgents(context.Background()).Execute()
+	resp, r, err := apiClient.MachinesAPI.ListMachineAgents(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.CloudListMachineAgents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.ListMachineAgents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListMachineAgents`: CloudBindingList
-	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.CloudListMachineAgents`: %v\n", resp)
+	// response from `ListMachineAgents`: BindingList
+	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.ListMachineAgents`: %v\n", resp)
 }
 ```
 
@@ -335,16 +335,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListMachineAgentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListMachineAgentsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudBindingList**](CloudBindingList.md)
+[**BindingList**](BindingList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -356,9 +356,9 @@ Other parameters are passed through a pointer to a apiCloudListMachineAgentsRequ
 [[Back to README]](../README.md)
 
 
-## CloudListMachines
+## ListMachines
 
-> CloudMachineList CloudListMachines(ctx).Execute()
+> MachineList ListMachines(ctx).Execute()
 
 Returns every machine the caller's org has — Visor's registry, the live DigitalOcean droplets and the DOKS worker nodes (deduped into one union), plus the BYO machines that dialed in via `hanzo link` (provider \"byo\").
 
@@ -380,13 +380,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MachinesAPI.CloudListMachines(context.Background()).Execute()
+	resp, r, err := apiClient.MachinesAPI.ListMachines(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.CloudListMachines``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.ListMachines``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListMachines`: CloudMachineList
-	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.CloudListMachines`: %v\n", resp)
+	// response from `ListMachines`: MachineList
+	fmt.Fprintf(os.Stdout, "Response from `MachinesAPI.ListMachines`: %v\n", resp)
 }
 ```
 
@@ -396,16 +396,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListMachinesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListMachinesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudMachineList**](CloudMachineList.md)
+[**MachineList**](MachineList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -417,9 +417,11 @@ Other parameters are passed through a pointer to a apiCloudListMachinesRequest s
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Machines
+## PostMachines
 
-> CloudPostV1Machines(ctx).Execute()
+> PostMachines(ctx).Execute()
+
+Launch a metered machine for your org, or price one first with dryRun
 
 
 
@@ -439,9 +441,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MachinesAPI.CloudPostV1Machines(context.Background()).Execute()
+	r, err := apiClient.MachinesAPI.PostMachines(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.CloudPostV1Machines``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.PostMachines``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -453,7 +455,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MachinesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMachinesRequest struct via the builder pattern
 
 
 ### Return type
@@ -462,7 +464,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1MachinesRequest
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -474,9 +476,9 @@ Other parameters are passed through a pointer to a apiCloudPostV1MachinesRequest
 [[Back to README]](../README.md)
 
 
-## CloudUnbindMachineAgent
+## UnbindMachineAgent
 
-> CloudUnbindMachineAgent(ctx, id).Execute()
+> UnbindMachineAgent(ctx, id).Execute()
 
 Detaches the agent runtime from one of the caller org's machines.
 
@@ -499,9 +501,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MachinesAPI.CloudUnbindMachineAgent(context.Background(), id).Execute()
+	r, err := apiClient.MachinesAPI.UnbindMachineAgent(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.CloudUnbindMachineAgent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MachinesAPI.UnbindMachineAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -517,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudUnbindMachineAgentRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUnbindMachineAgentRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -530,7 +532,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

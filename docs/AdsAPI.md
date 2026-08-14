@@ -4,19 +4,19 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1AdsCampaignsId**](AdsAPI.md#CloudDeleteV1AdsCampaignsId) | **Delete** /v1/ads/campaigns/{id} | Removes one of the caller org&#39;s campaigns and answers 204 with no body.
-[**CloudGetV1AdsCampaigns**](AdsAPI.md#CloudGetV1AdsCampaigns) | **Get** /v1/ads/campaigns | Returns the caller org&#39;s ad campaigns, most recently updated first, optionally narrowed to one lifecycle status.
-[**CloudGetV1AdsCampaignsId**](AdsAPI.md#CloudGetV1AdsCampaignsId) | **Get** /v1/ads/campaigns/{id} | Returns one of the caller org&#39;s campaigns.
-[**CloudGetV1AdsSummary**](AdsAPI.md#CloudGetV1AdsSummary) | **Get** /v1/ads/summary | Rolls the caller org&#39;s ad campaigns up into four numbers: how many campaigns exist, how many are active, and the summed budget and spend across all of them.
-[**CloudPostV1AdsCampaigns**](AdsAPI.md#CloudPostV1AdsCampaigns) | **Post** /v1/ads/campaigns | Registers a new ad campaign for the caller&#39;s org and answers 201 with the stored row.
-[**CloudPostV1AdsCampaignsByIdLaunch**](AdsAPI.md#CloudPostV1AdsCampaignsByIdLaunch) | **Post** /v1/ads/campaigns/{id}/launch | 
-[**CloudPutV1AdsCampaignsId**](AdsAPI.md#CloudPutV1AdsCampaignsId) | **Put** /v1/ads/campaigns/{id} | Replaces the user-owned fields of one of the caller org&#39;s campaigns and answers the stored row.
+[**DeleteAdsCampaignsById**](AdsAPI.md#DeleteAdsCampaignsById) | **Delete** /v1/ads/campaigns/{id} | Removes one of the caller org&#39;s campaigns and answers 204 with no body.
+[**GetAdsCampaigns**](AdsAPI.md#GetAdsCampaigns) | **Get** /v1/ads/campaigns | Returns the caller org&#39;s ad campaigns, most recently updated first, optionally narrowed to one lifecycle status.
+[**GetAdsCampaignsById**](AdsAPI.md#GetAdsCampaignsById) | **Get** /v1/ads/campaigns/{id} | Returns one of the caller org&#39;s campaigns.
+[**GetAdsSummary**](AdsAPI.md#GetAdsSummary) | **Get** /v1/ads/summary | Rolls the caller org&#39;s ad campaigns up into four numbers: how many campaigns exist, how many are active, and the summed budget and spend across all of them.
+[**PostAdsCampaigns**](AdsAPI.md#PostAdsCampaigns) | **Post** /v1/ads/campaigns | Registers a new ad campaign for the caller&#39;s org and answers 201 with the stored row.
+[**PostAdsCampaignsByIdLaunch**](AdsAPI.md#PostAdsCampaignsByIdLaunch) | **Post** /v1/ads/campaigns/{id}/launch | Run one of your stored campaigns on its ad network
+[**PutAdsCampaignsById**](AdsAPI.md#PutAdsCampaignsById) | **Put** /v1/ads/campaigns/{id} | Replaces the user-owned fields of one of the caller org&#39;s campaigns and answers the stored row.
 
 
 
-## CloudDeleteV1AdsCampaignsId
+## DeleteAdsCampaignsById
 
-> CloudDeleteV1AdsCampaignsId(ctx, id).Execute()
+> DeleteAdsCampaignsById(ctx, id).Execute()
 
 Removes one of the caller org's campaigns and answers 204 with no body.
 
@@ -39,9 +39,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AdsAPI.CloudDeleteV1AdsCampaignsId(context.Background(), id).Execute()
+	r, err := apiClient.AdsAPI.DeleteAdsCampaignsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.CloudDeleteV1AdsCampaignsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.DeleteAdsCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1AdsCampaignsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteAdsCampaignsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -82,9 +82,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AdsCampaigns
+## GetAdsCampaigns
 
-> CloudCampaignList CloudGetV1AdsCampaigns(ctx).Status(status).Limit(limit).Execute()
+> CampaignList GetAdsCampaigns(ctx).Status(status).Limit(limit).Execute()
 
 Returns the caller org's ad campaigns, most recently updated first, optionally narrowed to one lifecycle status.
 
@@ -108,13 +108,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdsAPI.CloudGetV1AdsCampaigns(context.Background()).Status(status).Limit(limit).Execute()
+	resp, r, err := apiClient.AdsAPI.GetAdsCampaigns(context.Background()).Status(status).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.CloudGetV1AdsCampaigns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.GetAdsCampaigns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AdsCampaigns`: CloudCampaignList
-	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.CloudGetV1AdsCampaigns`: %v\n", resp)
+	// response from `GetAdsCampaigns`: CampaignList
+	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.GetAdsCampaigns`: %v\n", resp)
 }
 ```
 
@@ -124,7 +124,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AdsCampaignsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAdsCampaignsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -134,11 +134,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCampaignList**](CloudCampaignList.md)
+[**CampaignList**](CampaignList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -150,9 +150,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AdsCampaignsId
+## GetAdsCampaignsById
 
-> CloudAdCampaign CloudGetV1AdsCampaignsId(ctx, id).Execute()
+> AdCampaign GetAdsCampaignsById(ctx, id).Execute()
 
 Returns one of the caller org's campaigns.
 
@@ -175,13 +175,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdsAPI.CloudGetV1AdsCampaignsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.AdsAPI.GetAdsCampaignsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.CloudGetV1AdsCampaignsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.GetAdsCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AdsCampaignsId`: CloudAdCampaign
-	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.CloudGetV1AdsCampaignsId`: %v\n", resp)
+	// response from `GetAdsCampaignsById`: AdCampaign
+	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.GetAdsCampaignsById`: %v\n", resp)
 }
 ```
 
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AdsCampaignsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAdsCampaignsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -204,11 +204,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAdCampaign**](CloudAdCampaign.md)
+[**AdCampaign**](AdCampaign.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -220,9 +220,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AdsSummary
+## GetAdsSummary
 
-> CloudAdSummary CloudGetV1AdsSummary(ctx).Execute()
+> AdSummary GetAdsSummary(ctx).Execute()
 
 Rolls the caller org's ad campaigns up into four numbers: how many campaigns exist, how many are active, and the summed budget and spend across all of them.
 
@@ -244,13 +244,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdsAPI.CloudGetV1AdsSummary(context.Background()).Execute()
+	resp, r, err := apiClient.AdsAPI.GetAdsSummary(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.CloudGetV1AdsSummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.GetAdsSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AdsSummary`: CloudAdSummary
-	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.CloudGetV1AdsSummary`: %v\n", resp)
+	// response from `GetAdsSummary`: AdSummary
+	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.GetAdsSummary`: %v\n", resp)
 }
 ```
 
@@ -260,16 +260,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AdsSummaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAdsSummaryRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudAdSummary**](CloudAdSummary.md)
+[**AdSummary**](AdSummary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -281,9 +281,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1AdsSummaryReques
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AdsCampaigns
+## PostAdsCampaigns
 
-> CloudAdCampaign CloudPostV1AdsCampaigns(ctx).CloudCampaignInput(cloudCampaignInput).Execute()
+> AdCampaign PostAdsCampaigns(ctx).CampaignInput(campaignInput).Execute()
 
 Registers a new ad campaign for the caller's org and answers 201 with the stored row.
 
@@ -302,17 +302,17 @@ import (
 )
 
 func main() {
-	cloudCampaignInput := *openapiclient.NewCloudCampaignInput() // CloudCampaignInput | 
+	campaignInput := *openapiclient.NewCampaignInput() // CampaignInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdsAPI.CloudPostV1AdsCampaigns(context.Background()).CloudCampaignInput(cloudCampaignInput).Execute()
+	resp, r, err := apiClient.AdsAPI.PostAdsCampaigns(context.Background()).CampaignInput(campaignInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.CloudPostV1AdsCampaigns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.PostAdsCampaigns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AdsCampaigns`: CloudAdCampaign
-	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.CloudPostV1AdsCampaigns`: %v\n", resp)
+	// response from `PostAdsCampaigns`: AdCampaign
+	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.PostAdsCampaigns`: %v\n", resp)
 }
 ```
 
@@ -322,20 +322,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AdsCampaignsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAdsCampaignsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCampaignInput** | [**CloudCampaignInput**](CloudCampaignInput.md) |  | 
+ **campaignInput** | [**CampaignInput**](CampaignInput.md) |  | 
 
 ### Return type
 
-[**CloudAdCampaign**](CloudAdCampaign.md)
+[**AdCampaign**](AdCampaign.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -347,9 +347,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AdsCampaignsByIdLaunch
+## PostAdsCampaignsByIdLaunch
 
-> CloudPostV1AdsCampaignsByIdLaunch(ctx, id).Execute()
+> PostAdsCampaignsByIdLaunch(ctx, id).Execute()
+
+Run one of your stored campaigns on its ad network
 
 
 
@@ -370,9 +372,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AdsAPI.CloudPostV1AdsCampaignsByIdLaunch(context.Background(), id).Execute()
+	r, err := apiClient.AdsAPI.PostAdsCampaignsByIdLaunch(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.CloudPostV1AdsCampaignsByIdLaunch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.PostAdsCampaignsByIdLaunch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -388,7 +390,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AdsCampaignsByIdLaunchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAdsCampaignsByIdLaunchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -401,7 +403,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -413,9 +415,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1AdsCampaignsId
+## PutAdsCampaignsById
 
-> CloudAdCampaign CloudPutV1AdsCampaignsId(ctx, id).CloudUpdateCampaignIn(cloudUpdateCampaignIn).Execute()
+> AdCampaign PutAdsCampaignsById(ctx, id).UpdateCampaignIn(updateCampaignIn).Execute()
 
 Replaces the user-owned fields of one of the caller org's campaigns and answers the stored row.
 
@@ -435,17 +437,17 @@ import (
 
 func main() {
 	id := "camp_2f9c1d" // string | 
-	cloudUpdateCampaignIn := *openapiclient.NewCloudUpdateCampaignIn() // CloudUpdateCampaignIn | 
+	updateCampaignIn := *openapiclient.NewUpdateCampaignIn() // UpdateCampaignIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdsAPI.CloudPutV1AdsCampaignsId(context.Background(), id).CloudUpdateCampaignIn(cloudUpdateCampaignIn).Execute()
+	resp, r, err := apiClient.AdsAPI.PutAdsCampaignsById(context.Background(), id).UpdateCampaignIn(updateCampaignIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.CloudPutV1AdsCampaignsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdsAPI.PutAdsCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1AdsCampaignsId`: CloudAdCampaign
-	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.CloudPutV1AdsCampaignsId`: %v\n", resp)
+	// response from `PutAdsCampaignsById`: AdCampaign
+	fmt.Fprintf(os.Stdout, "Response from `AdsAPI.PutAdsCampaignsById`: %v\n", resp)
 }
 ```
 
@@ -459,21 +461,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1AdsCampaignsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutAdsCampaignsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudUpdateCampaignIn** | [**CloudUpdateCampaignIn**](CloudUpdateCampaignIn.md) |  | 
+ **updateCampaignIn** | [**UpdateCampaignIn**](UpdateCampaignIn.md) |  | 
 
 ### Return type
 
-[**CloudAdCampaign**](CloudAdCampaign.md)
+[**AdCampaign**](AdCampaign.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

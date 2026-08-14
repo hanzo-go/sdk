@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Referrals**](ReferralsAPI.md#CloudGetV1Referrals) | **Get** /v1/referrals | Returns the caller&#39;s referral code, share link and the referrals they have made.
-[**CloudPostV1ReferralsClaim**](ReferralsAPI.md#CloudPostV1ReferralsClaim) | **Post** /v1/referrals/claim | Records that the caller&#39;s org signed up through a referral code.
+[**GetReferrals**](ReferralsAPI.md#GetReferrals) | **Get** /v1/referrals | Returns the caller&#39;s referral code, share link and the referrals they have made.
+[**PostReferralsClaim**](ReferralsAPI.md#PostReferralsClaim) | **Post** /v1/referrals/claim | Records that the caller&#39;s org signed up through a referral code.
 
 
 
-## CloudGetV1Referrals
+## GetReferrals
 
-> CloudMyReferrals CloudGetV1Referrals(ctx).Execute()
+> MyReferrals GetReferrals(ctx).Execute()
 
 Returns the caller's referral code, share link and the referrals they have made.
 
@@ -33,13 +33,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReferralsAPI.CloudGetV1Referrals(context.Background()).Execute()
+	resp, r, err := apiClient.ReferralsAPI.GetReferrals(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ReferralsAPI.CloudGetV1Referrals``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ReferralsAPI.GetReferrals``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Referrals`: CloudMyReferrals
-	fmt.Fprintf(os.Stdout, "Response from `ReferralsAPI.CloudGetV1Referrals`: %v\n", resp)
+	// response from `GetReferrals`: MyReferrals
+	fmt.Fprintf(os.Stdout, "Response from `ReferralsAPI.GetReferrals`: %v\n", resp)
 }
 ```
 
@@ -49,16 +49,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ReferralsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetReferralsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudMyReferrals**](CloudMyReferrals.md)
+[**MyReferrals**](MyReferrals.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -70,9 +70,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1ReferralsRequest
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ReferralsClaim
+## PostReferralsClaim
 
-> CloudClaimView CloudPostV1ReferralsClaim(ctx).CloudClaimRequest(cloudClaimRequest).Execute()
+> ClaimView PostReferralsClaim(ctx).ClaimRequest(claimRequest).Execute()
 
 Records that the caller's org signed up through a referral code.
 
@@ -91,17 +91,17 @@ import (
 )
 
 func main() {
-	cloudClaimRequest := *openapiclient.NewCloudClaimRequest() // CloudClaimRequest | 
+	claimRequest := *openapiclient.NewClaimRequest() // ClaimRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReferralsAPI.CloudPostV1ReferralsClaim(context.Background()).CloudClaimRequest(cloudClaimRequest).Execute()
+	resp, r, err := apiClient.ReferralsAPI.PostReferralsClaim(context.Background()).ClaimRequest(claimRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ReferralsAPI.CloudPostV1ReferralsClaim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ReferralsAPI.PostReferralsClaim``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1ReferralsClaim`: CloudClaimView
-	fmt.Fprintf(os.Stdout, "Response from `ReferralsAPI.CloudPostV1ReferralsClaim`: %v\n", resp)
+	// response from `PostReferralsClaim`: ClaimView
+	fmt.Fprintf(os.Stdout, "Response from `ReferralsAPI.PostReferralsClaim`: %v\n", resp)
 }
 ```
 
@@ -111,20 +111,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ReferralsClaimRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostReferralsClaimRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudClaimRequest** | [**CloudClaimRequest**](CloudClaimRequest.md) |  | 
+ **claimRequest** | [**ClaimRequest**](ClaimRequest.md) |  | 
 
 ### Return type
 
-[**CloudClaimView**](CloudClaimView.md)
+[**ClaimView**](ClaimView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

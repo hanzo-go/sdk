@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1PluginsAuthoredId**](PluginsAPI.md#CloudDeleteV1PluginsAuthoredId) | **Delete** /v1/plugins/authored/{id} | DeleteAuthoredPlugin removes one of the caller org&#39;s built plugins, so the runtime can no longer load it.
-[**CloudGetV1Plugins**](PluginsAPI.md#CloudGetV1Plugins) | **Get** /v1/plugins | ListPlugins reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
-[**CloudGetV1PluginsAuthored**](PluginsAPI.md#CloudGetV1PluginsAuthored) | **Get** /v1/plugins/authored | ListAuthoredPlugins lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
-[**CloudPostV1PluginsBuild**](PluginsAPI.md#CloudPostV1PluginsBuild) | **Post** /v1/plugins/build | 
+[**DeletePluginsAuthoredById**](PluginsAPI.md#DeletePluginsAuthoredById) | **Delete** /v1/plugins/authored/{id} | Removes one of the caller org&#39;s built plugins, so the runtime can no longer load it.
+[**GetPlugins**](PluginsAPI.md#GetPlugins) | **Get** /v1/plugins | Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
+[**GetPluginsAuthored**](PluginsAPI.md#GetPluginsAuthored) | **Get** /v1/plugins/authored | Lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
+[**PostPluginsBuild**](PluginsAPI.md#PostPluginsBuild) | **Post** /v1/plugins/build | Build a plugin for your org from TypeScript, or from an API spec a model writes it from
 
 
 
-## CloudDeleteV1PluginsAuthoredId
+## DeletePluginsAuthoredById
 
-> CloudPluginDeleted CloudDeleteV1PluginsAuthoredId(ctx, id).Execute()
+> PluginDeleted DeletePluginsAuthoredById(ctx, id).Execute()
 
-DeleteAuthoredPlugin removes one of the caller org's built plugins, so the runtime can no longer load it.
+Removes one of the caller org's built plugins, so the runtime can no longer load it.
 
 
 
@@ -36,13 +36,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.CloudDeleteV1PluginsAuthoredId(context.Background(), id).Execute()
+	resp, r, err := apiClient.PluginsAPI.DeletePluginsAuthoredById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.CloudDeleteV1PluginsAuthoredId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.DeletePluginsAuthoredById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1PluginsAuthoredId`: CloudPluginDeleted
-	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.CloudDeleteV1PluginsAuthoredId`: %v\n", resp)
+	// response from `DeletePluginsAuthoredById`: PluginDeleted
+	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.DeletePluginsAuthoredById`: %v\n", resp)
 }
 ```
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1PluginsAuthoredIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeletePluginsAuthoredByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -65,11 +65,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudPluginDeleted**](CloudPluginDeleted.md)
+[**PluginDeleted**](PluginDeleted.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -81,11 +81,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Plugins
+## GetPlugins
 
-> CloudPluginMountList CloudGetV1Plugins(ctx).All(all).Execute()
+> PluginMountList GetPlugins(ctx).All(all).Execute()
 
-ListPlugins reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
+Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
 
 
 
@@ -106,13 +106,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.CloudGetV1Plugins(context.Background()).All(all).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPlugins(context.Background()).All(all).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.CloudGetV1Plugins``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPlugins``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Plugins`: CloudPluginMountList
-	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.CloudGetV1Plugins`: %v\n", resp)
+	// response from `GetPlugins`: PluginMountList
+	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.GetPlugins`: %v\n", resp)
 }
 ```
 
@@ -122,7 +122,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PluginsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPluginsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -131,11 +131,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudPluginMountList**](CloudPluginMountList.md)
+[**PluginMountList**](PluginMountList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -147,11 +147,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1PluginsAuthored
+## GetPluginsAuthored
 
-> CloudAuthoredPluginList CloudGetV1PluginsAuthored(ctx).Execute()
+> AuthoredPluginList GetPluginsAuthored(ctx).Execute()
 
-ListAuthoredPlugins lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
+Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
 
 
 
@@ -171,13 +171,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.CloudGetV1PluginsAuthored(context.Background()).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPluginsAuthored(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.CloudGetV1PluginsAuthored``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPluginsAuthored``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1PluginsAuthored`: CloudAuthoredPluginList
-	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.CloudGetV1PluginsAuthored`: %v\n", resp)
+	// response from `GetPluginsAuthored`: AuthoredPluginList
+	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.GetPluginsAuthored`: %v\n", resp)
 }
 ```
 
@@ -187,16 +187,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1PluginsAuthoredRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPluginsAuthoredRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudAuthoredPluginList**](CloudAuthoredPluginList.md)
+[**AuthoredPluginList**](AuthoredPluginList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -208,9 +208,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1PluginsAuthoredR
 [[Back to README]](../README.md)
 
 
-## CloudPostV1PluginsBuild
+## PostPluginsBuild
 
-> CloudBuildOut CloudPostV1PluginsBuild(ctx).CloudBuildRequest(cloudBuildRequest).Execute()
+> BuildOut PostPluginsBuild(ctx).BuildRequest(buildRequest).Execute()
+
+Build a plugin for your org from TypeScript, or from an API spec a model writes it from
 
 
 
@@ -227,17 +229,17 @@ import (
 )
 
 func main() {
-	cloudBuildRequest := *openapiclient.NewCloudBuildRequest() // CloudBuildRequest |  (optional)
+	buildRequest := *openapiclient.NewBuildRequest() // BuildRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.CloudPostV1PluginsBuild(context.Background()).CloudBuildRequest(cloudBuildRequest).Execute()
+	resp, r, err := apiClient.PluginsAPI.PostPluginsBuild(context.Background()).BuildRequest(buildRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.CloudPostV1PluginsBuild``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.PostPluginsBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1PluginsBuild`: CloudBuildOut
-	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.CloudPostV1PluginsBuild`: %v\n", resp)
+	// response from `PostPluginsBuild`: BuildOut
+	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.PostPluginsBuild`: %v\n", resp)
 }
 ```
 
@@ -247,20 +249,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1PluginsBuildRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostPluginsBuildRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudBuildRequest** | [**CloudBuildRequest**](CloudBuildRequest.md) |  | 
+ **buildRequest** | [**BuildRequest**](BuildRequest.md) |  | 
 
 ### Return type
 
-[**CloudBuildOut**](CloudBuildOut.md)
+[**BuildOut**](BuildOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

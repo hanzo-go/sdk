@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Product** | Pointer to **string** |  | [optional] 
-**Range** | Pointer to [**CloudMetricsResponseRange**](CloudMetricsResponseRange.md) |  | [optional] 
+**Range** | Pointer to [**O11yAvailabilityResponseRange**](O11yAvailabilityResponseRange.md) |  | [optional] 
 **Series** | Pointer to [**O11yMetricsResponseSeries**](O11yMetricsResponseSeries.md) |  | [optional] 
-**Usage** | Pointer to [**O11yMetricsResponseUsage**](O11yMetricsResponseUsage.md) |  | [optional] 
 **Summary** | Pointer to [**O11yMetricsResponseSummary**](O11yMetricsResponseSummary.md) |  | [optional] 
+**Usage** | Pointer to [**O11yMetricsResponseUsage**](O11yMetricsResponseUsage.md) |  | [optional] 
 
 ## Methods
 
@@ -56,20 +56,20 @@ HasProduct returns a boolean if a field has been set.
 
 ### GetRange
 
-`func (o *O11yMetricsResponse) GetRange() CloudMetricsResponseRange`
+`func (o *O11yMetricsResponse) GetRange() O11yAvailabilityResponseRange`
 
 GetRange returns the Range field if non-nil, zero value otherwise.
 
 ### GetRangeOk
 
-`func (o *O11yMetricsResponse) GetRangeOk() (*CloudMetricsResponseRange, bool)`
+`func (o *O11yMetricsResponse) GetRangeOk() (*O11yAvailabilityResponseRange, bool)`
 
 GetRangeOk returns a tuple with the Range field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRange
 
-`func (o *O11yMetricsResponse) SetRange(v CloudMetricsResponseRange)`
+`func (o *O11yMetricsResponse) SetRange(v O11yAvailabilityResponseRange)`
 
 SetRange sets Range field to given value.
 
@@ -104,31 +104,6 @@ SetSeries sets Series field to given value.
 
 HasSeries returns a boolean if a field has been set.
 
-### GetUsage
-
-`func (o *O11yMetricsResponse) GetUsage() O11yMetricsResponseUsage`
-
-GetUsage returns the Usage field if non-nil, zero value otherwise.
-
-### GetUsageOk
-
-`func (o *O11yMetricsResponse) GetUsageOk() (*O11yMetricsResponseUsage, bool)`
-
-GetUsageOk returns a tuple with the Usage field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUsage
-
-`func (o *O11yMetricsResponse) SetUsage(v O11yMetricsResponseUsage)`
-
-SetUsage sets Usage field to given value.
-
-### HasUsage
-
-`func (o *O11yMetricsResponse) HasUsage() bool`
-
-HasUsage returns a boolean if a field has been set.
-
 ### GetSummary
 
 `func (o *O11yMetricsResponse) GetSummary() O11yMetricsResponseSummary`
@@ -153,6 +128,31 @@ SetSummary sets Summary field to given value.
 `func (o *O11yMetricsResponse) HasSummary() bool`
 
 HasSummary returns a boolean if a field has been set.
+
+### GetUsage
+
+`func (o *O11yMetricsResponse) GetUsage() O11yMetricsResponseUsage`
+
+GetUsage returns the Usage field if non-nil, zero value otherwise.
+
+### GetUsageOk
+
+`func (o *O11yMetricsResponse) GetUsageOk() (*O11yMetricsResponseUsage, bool)`
+
+GetUsageOk returns a tuple with the Usage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsage
+
+`func (o *O11yMetricsResponse) SetUsage(v O11yMetricsResponseUsage)`
+
+SetUsage sets Usage field to given value.
+
+### HasUsage
+
+`func (o *O11yMetricsResponse) HasUsage() bool`
+
+HasUsage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

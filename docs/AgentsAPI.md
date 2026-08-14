@@ -4,45 +4,46 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1AgentsRef**](AgentsAPI.md#CloudDeleteV1AgentsRef) | **Delete** /v1/agents/{ref} | DeleteAgent removes an agent and every run recorded against it.
-[**CloudDeleteV1AgentsTargetsId**](AgentsAPI.md#CloudDeleteV1AgentsTargetsId) | **Delete** /v1/agents/targets/{id} | DeleteTarget deregisters one machine.
-[**CloudGetV1Agents**](AgentsAPI.md#CloudGetV1Agents) | **Get** /v1/agents | ListAgents returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
-[**CloudGetV1AgentsActivity**](AgentsAPI.md#CloudGetV1AgentsActivity) | **Get** /v1/agents/activity | AgentActivity serves the org-wide recent-activity feed.
-[**CloudGetV1AgentsBuilds**](AgentsAPI.md#CloudGetV1AgentsBuilds) | **Get** /v1/agents/builds | ListBuilds returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
-[**CloudGetV1AgentsBuildsOrgProject**](AgentsAPI.md#CloudGetV1AgentsBuildsOrgProject) | **Get** /v1/agents/builds/{org}/{project} | ReadBuild returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
-[**CloudGetV1AgentsMetrics**](AgentsAPI.md#CloudGetV1AgentsMetrics) | **Get** /v1/agents/metrics | AgentMetrics serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
-[**CloudGetV1AgentsRef**](AgentsAPI.md#CloudGetV1AgentsRef) | **Get** /v1/agents/{ref} | GetAgent returns one agent with its system prompt and its 20 most recent runs.
-[**CloudGetV1AgentsRefRuns**](AgentsAPI.md#CloudGetV1AgentsRefRuns) | **Get** /v1/agents/{ref}/runs | ListAgentRuns returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
-[**CloudGetV1AgentsSessions**](AgentsAPI.md#CloudGetV1AgentsSessions) | **Get** /v1/agents/sessions | ListSessions returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
-[**CloudGetV1AgentsSessionsId**](AgentsAPI.md#CloudGetV1AgentsSessionsId) | **Get** /v1/agents/sessions/{id} | GetSession returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
-[**CloudGetV1AgentsSessionsIdControl**](AgentsAPI.md#CloudGetV1AgentsSessionsIdControl) | **Get** /v1/agents/sessions/{id}/control | DrainSessionControl returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
-[**CloudGetV1AgentsSessionsIdTree**](AgentsAPI.md#CloudGetV1AgentsSessionsIdTree) | **Get** /v1/agents/sessions/{id}/tree | SessionTree returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
-[**CloudGetV1AgentsSessionsStream**](AgentsAPI.md#CloudGetV1AgentsSessionsStream) | **Get** /v1/agents/sessions/stream | 
-[**CloudGetV1AgentsTargets**](AgentsAPI.md#CloudGetV1AgentsTargets) | **Get** /v1/agents/targets | ListTargets returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
-[**CloudGetV1AgentsTargetsId**](AgentsAPI.md#CloudGetV1AgentsTargetsId) | **Get** /v1/agents/targets/{id} | GetTarget returns one registered machine, with its live session load.
-[**CloudPatchV1AgentsRef**](AgentsAPI.md#CloudPatchV1AgentsRef) | **Patch** /v1/agents/{ref} | UpdateAgent changes an agent in place.
-[**CloudPatchV1AgentsSessionsId**](AgentsAPI.md#CloudPatchV1AgentsSessionsId) | **Patch** /v1/agents/sessions/{id} | PatchSession updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
-[**CloudPatchV1AgentsTargetsId**](AgentsAPI.md#CloudPatchV1AgentsTargetsId) | **Patch** /v1/agents/targets/{id} | PatchTarget updates one machine in place.
-[**CloudPostV1Agents**](AgentsAPI.md#CloudPostV1Agents) | **Post** /v1/agents | CreateAgent defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
-[**CloudPostV1AgentsByRefRun**](AgentsAPI.md#CloudPostV1AgentsByRefRun) | **Post** /v1/agents/{ref}/run | 
-[**CloudPostV1AgentsSessions**](AgentsAPI.md#CloudPostV1AgentsSessions) | **Post** /v1/agents/sessions | RegisterSession opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
-[**CloudPostV1AgentsSessionsByIdEvents**](AgentsAPI.md#CloudPostV1AgentsSessionsByIdEvents) | **Post** /v1/agents/sessions/{id}/events | 
-[**CloudPostV1AgentsSessionsByIdMessage**](AgentsAPI.md#CloudPostV1AgentsSessionsByIdMessage) | **Post** /v1/agents/sessions/{id}/message | 
-[**CloudPostV1AgentsSessionsByIdPause**](AgentsAPI.md#CloudPostV1AgentsSessionsByIdPause) | **Post** /v1/agents/sessions/{id}/pause | 
-[**CloudPostV1AgentsSessionsByIdResume**](AgentsAPI.md#CloudPostV1AgentsSessionsByIdResume) | **Post** /v1/agents/sessions/{id}/resume | 
-[**CloudPostV1AgentsSessionsByIdStop**](AgentsAPI.md#CloudPostV1AgentsSessionsByIdStop) | **Post** /v1/agents/sessions/{id}/stop | 
-[**CloudPostV1AgentsTargets**](AgentsAPI.md#CloudPostV1AgentsTargets) | **Post** /v1/agents/targets | RegisterTarget registers a machine as an agent target, or re-links one that is already registered.
-[**CloudPostV1AgentsTargetsIdClaim**](AgentsAPI.md#CloudPostV1AgentsTargetsIdClaim) | **Post** /v1/agents/targets/{id}/claim | ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
-[**CloudPostV1AgentsTargetsIdClaimKey**](AgentsAPI.md#CloudPostV1AgentsTargetsIdClaimKey) | **Post** /v1/agents/targets/{id}/claim-key | MintTargetClaimKey mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
-[**CloudPostV1AgentsTargetsIdRunsRunIdReport**](AgentsAPI.md#CloudPostV1AgentsTargetsIdRunsRunIdReport) | **Post** /v1/agents/targets/{id}/runs/{runId}/report | ReportRoutedRun completes a claimed run: it delivers the terminal result to the run&#39;s durable owner, which is what lets that workflow finish.
+[**DeleteAgentsByRef**](AgentsAPI.md#DeleteAgentsByRef) | **Delete** /v1/agents/{ref} | Removes an agent and every run recorded against it.
+[**DeleteAgentsTargetsById**](AgentsAPI.md#DeleteAgentsTargetsById) | **Delete** /v1/agents/targets/{id} | Deregisters one machine.
+[**GetAgents**](AgentsAPI.md#GetAgents) | **Get** /v1/agents | Returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
+[**GetAgentsActivity**](AgentsAPI.md#GetAgentsActivity) | **Get** /v1/agents/activity | Serves the org-wide recent-activity feed.
+[**GetAgentsBuilds**](AgentsAPI.md#GetAgentsBuilds) | **Get** /v1/agents/builds | Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
+[**GetAgentsBuildsByOrgByProject**](AgentsAPI.md#GetAgentsBuildsByOrgByProject) | **Get** /v1/agents/builds/{org}/{project} | Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
+[**GetAgentsByRef**](AgentsAPI.md#GetAgentsByRef) | **Get** /v1/agents/{ref} | Returns one agent with its system prompt and its 20 most recent runs.
+[**GetAgentsByRefRuns**](AgentsAPI.md#GetAgentsByRefRuns) | **Get** /v1/agents/{ref}/runs | Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
+[**GetAgentsMetrics**](AgentsAPI.md#GetAgentsMetrics) | **Get** /v1/agents/metrics | Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
+[**GetAgentsRuns**](AgentsAPI.md#GetAgentsRuns) | **Get** /v1/agents/runs | Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
+[**GetAgentsSessions**](AgentsAPI.md#GetAgentsSessions) | **Get** /v1/agents/sessions | Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
+[**GetAgentsSessionsById**](AgentsAPI.md#GetAgentsSessionsById) | **Get** /v1/agents/sessions/{id} | Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
+[**GetAgentsSessionsByIdControl**](AgentsAPI.md#GetAgentsSessionsByIdControl) | **Get** /v1/agents/sessions/{id}/control | Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
+[**GetAgentsSessionsByIdTree**](AgentsAPI.md#GetAgentsSessionsByIdTree) | **Get** /v1/agents/sessions/{id}/tree | Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
+[**GetAgentsSessionsStream**](AgentsAPI.md#GetAgentsSessionsStream) | **Get** /v1/agents/sessions/stream | Live session and event updates for the caller&#39;s org, as Server-Sent Events.
+[**GetAgentsTargets**](AgentsAPI.md#GetAgentsTargets) | **Get** /v1/agents/targets | Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
+[**GetAgentsTargetsById**](AgentsAPI.md#GetAgentsTargetsById) | **Get** /v1/agents/targets/{id} | Returns one registered machine, with its live session load.
+[**PatchAgentsByRef**](AgentsAPI.md#PatchAgentsByRef) | **Patch** /v1/agents/{ref} | Changes an agent in place.
+[**PatchAgentsSessionsById**](AgentsAPI.md#PatchAgentsSessionsById) | **Patch** /v1/agents/sessions/{id} | Updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
+[**PatchAgentsTargetsById**](AgentsAPI.md#PatchAgentsTargetsById) | **Patch** /v1/agents/targets/{id} | Updates one machine in place.
+[**PostAgents**](AgentsAPI.md#PostAgents) | **Post** /v1/agents | Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
+[**PostAgentsByRefRun**](AgentsAPI.md#PostAgentsByRefRun) | **Post** /v1/agents/{ref}/run | Run one of your org&#39;s agents and get the recorded run back.
+[**PostAgentsSessions**](AgentsAPI.md#PostAgentsSessions) | **Post** /v1/agents/sessions | Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
+[**PostAgentsSessionsByIdEvents**](AgentsAPI.md#PostAgentsSessionsByIdEvents) | **Post** /v1/agents/sessions/{id}/events | Append one turn to a session&#39;s ordered log.
+[**PostAgentsSessionsByIdMessage**](AgentsAPI.md#PostAgentsSessionsByIdMessage) | **Post** /v1/agents/sessions/{id}/message | Send text into a running session.
+[**PostAgentsSessionsByIdPause**](AgentsAPI.md#PostAgentsSessionsByIdPause) | **Post** /v1/agents/sessions/{id}/pause | Ask a running session to pause.
+[**PostAgentsSessionsByIdResume**](AgentsAPI.md#PostAgentsSessionsByIdResume) | **Post** /v1/agents/sessions/{id}/resume | Ask a paused session to carry on.
+[**PostAgentsSessionsByIdStop**](AgentsAPI.md#PostAgentsSessionsByIdStop) | **Post** /v1/agents/sessions/{id}/stop | Ask a session to stop for good.
+[**PostAgentsTargets**](AgentsAPI.md#PostAgentsTargets) | **Post** /v1/agents/targets | Registers a machine as an agent target, or re-links one that is already registered.
+[**PostAgentsTargetsByIdClaim**](AgentsAPI.md#PostAgentsTargetsByIdClaim) | **Post** /v1/agents/targets/{id}/claim | ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
+[**PostAgentsTargetsByIdKey**](AgentsAPI.md#PostAgentsTargetsByIdKey) | **Post** /v1/agents/targets/{id}/key | Mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
+[**PostAgentsTargetsByIdRunsByRunidReport**](AgentsAPI.md#PostAgentsTargetsByIdRunsByRunidReport) | **Post** /v1/agents/targets/{id}/runs/{runId}/report | Completes a claimed run: it delivers the terminal result to the run&#39;s durable owner, which is what lets that workflow finish.
 
 
 
-## CloudDeleteV1AgentsRef
+## DeleteAgentsByRef
 
-> CloudDeleteV1AgentsRef(ctx, ref).Execute()
+> DeleteAgentsByRef(ctx, ref).Execute()
 
-DeleteAgent removes an agent and every run recorded against it.
+Removes an agent and every run recorded against it.
 
 
 
@@ -63,9 +64,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.CloudDeleteV1AgentsRef(context.Background(), ref).Execute()
+	r, err := apiClient.AgentsAPI.DeleteAgentsByRef(context.Background(), ref).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudDeleteV1AgentsRef``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.DeleteAgentsByRef``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -81,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1AgentsRefRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteAgentsByRefRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -94,7 +95,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -106,11 +107,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1AgentsTargetsId
+## DeleteAgentsTargetsById
 
-> CloudTargetDeleted CloudDeleteV1AgentsTargetsId(ctx, id).Execute()
+> TargetDeleted DeleteAgentsTargetsById(ctx, id).Execute()
 
-DeleteTarget deregisters one machine.
+Deregisters one machine.
 
 
 
@@ -131,13 +132,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudDeleteV1AgentsTargetsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.DeleteAgentsTargetsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudDeleteV1AgentsTargetsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.DeleteAgentsTargetsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1AgentsTargetsId`: CloudTargetDeleted
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudDeleteV1AgentsTargetsId`: %v\n", resp)
+	// response from `DeleteAgentsTargetsById`: TargetDeleted
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.DeleteAgentsTargetsById`: %v\n", resp)
 }
 ```
 
@@ -151,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1AgentsTargetsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteAgentsTargetsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -160,11 +161,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTargetDeleted**](CloudTargetDeleted.md)
+[**TargetDeleted**](TargetDeleted.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -176,11 +177,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Agents
+## GetAgents
 
-> CloudAgentList CloudGetV1Agents(ctx).Execute()
+> AgentList GetAgents(ctx).Execute()
 
-ListAgents returns every agent defined in the caller's org, each with the number of runs recorded against it.
+Returns every agent defined in the caller's org, each with the number of runs recorded against it.
 
 
 
@@ -200,13 +201,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1Agents(context.Background()).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgents(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1Agents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Agents`: CloudAgentList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1Agents`: %v\n", resp)
+	// response from `GetAgents`: AgentList
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgents`: %v\n", resp)
 }
 ```
 
@@ -216,16 +217,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudAgentList**](CloudAgentList.md)
+[**AgentList**](AgentList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -237,11 +238,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentsRequest st
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsActivity
+## GetAgentsActivity
 
-> CloudActivityFeed CloudGetV1AgentsActivity(ctx).Execute()
+> ActivityFeed GetAgentsActivity(ctx).Execute()
 
-AgentActivity serves the org-wide recent-activity feed.
+Serves the org-wide recent-activity feed.
 
 
 
@@ -261,13 +262,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsActivity(context.Background()).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsActivity(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsActivity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsActivity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsActivity`: CloudActivityFeed
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsActivity`: %v\n", resp)
+	// response from `GetAgentsActivity`: ActivityFeed
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsActivity`: %v\n", resp)
 }
 ```
 
@@ -277,16 +278,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsActivityRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsActivityRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudActivityFeed**](CloudActivityFeed.md)
+[**ActivityFeed**](ActivityFeed.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -298,11 +299,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentsActivityRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsBuilds
+## GetAgentsBuilds
 
-> CloudBuildList CloudGetV1AgentsBuilds(ctx).Limit(limit).Execute()
+> BuildList GetAgentsBuilds(ctx).Limit(limit).Execute()
 
-ListBuilds returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
+Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
 
 
 
@@ -323,13 +324,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsBuilds(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsBuilds(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsBuilds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsBuilds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsBuilds`: CloudBuildList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsBuilds`: %v\n", resp)
+	// response from `GetAgentsBuilds`: BuildList
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsBuilds`: %v\n", resp)
 }
 ```
 
@@ -339,7 +340,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsBuildsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsBuildsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -348,11 +349,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudBuildList**](CloudBuildList.md)
+[**BuildList**](BuildList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -364,11 +365,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsBuildsOrgProject
+## GetAgentsBuildsByOrgByProject
 
-> CloudBuildView CloudGetV1AgentsBuildsOrgProject(ctx, org, project).Execute()
+> BuildView GetAgentsBuildsByOrgByProject(ctx, org, project).Execute()
 
-ReadBuild returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact `git log` that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
+Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact `git log` that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
 
 
 
@@ -390,13 +391,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsBuildsOrgProject(context.Background(), org, project).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsBuildsByOrgByProject(context.Background(), org, project).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsBuildsOrgProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsBuildsByOrgByProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsBuildsOrgProject`: CloudBuildView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsBuildsOrgProject`: %v\n", resp)
+	// response from `GetAgentsBuildsByOrgByProject`: BuildView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsBuildsByOrgByProject`: %v\n", resp)
 }
 ```
 
@@ -411,7 +412,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsBuildsOrgProjectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsBuildsByOrgByProjectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -421,11 +422,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudBuildView**](CloudBuildView.md)
+[**BuildView**](BuildView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -437,77 +438,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsMetrics
+## GetAgentsByRef
 
-> CloudMetricsView CloudGetV1AgentsMetrics(ctx).Range_(range_).Execute()
+> AgentDetail GetAgentsByRef(ctx, ref).Execute()
 
-AgentMetrics serves the invocations-over-time histogram for the org's Agents dashboard.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	range_ := "7D" // string | Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsMetrics(context.Background()).Range_(range_).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsMetrics``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1AgentsMetrics`: CloudMetricsView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsMetrics`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsMetricsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **range_** | **string** | Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. | 
-
-### Return type
-
-[**CloudMetricsView**](CloudMetricsView.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1AgentsRef
-
-> CloudAgentDetail CloudGetV1AgentsRef(ctx, ref).Execute()
-
-GetAgent returns one agent with its system prompt and its 20 most recent runs.
+Returns one agent with its system prompt and its 20 most recent runs.
 
 
 
@@ -528,13 +463,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsRef(context.Background(), ref).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsByRef(context.Background(), ref).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsRef``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsByRef``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsRef`: CloudAgentDetail
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsRef`: %v\n", resp)
+	// response from `GetAgentsByRef`: AgentDetail
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsByRef`: %v\n", resp)
 }
 ```
 
@@ -548,7 +483,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsRefRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsByRefRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -557,11 +492,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAgentDetail**](CloudAgentDetail.md)
+[**AgentDetail**](AgentDetail.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -573,11 +508,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsRefRuns
+## GetAgentsByRefRuns
 
-> CloudRunList CloudGetV1AgentsRefRuns(ctx, ref).Limit(limit).Execute()
+> RunList GetAgentsByRefRuns(ctx, ref).Limit(limit).Execute()
 
-ListAgentRuns returns one agent's execution history, newest first — each run's input, its output or its error, and how long it took.
+Returns one agent's execution history, newest first — each run's input, its output or its error, and how long it took.
 
 
 
@@ -599,13 +534,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsRefRuns(context.Background(), ref).Limit(limit).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsByRefRuns(context.Background(), ref).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsRefRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsByRefRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsRefRuns`: CloudRunList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsRefRuns`: %v\n", resp)
+	// response from `GetAgentsByRefRuns`: RunList
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsByRefRuns`: %v\n", resp)
 }
 ```
 
@@ -619,7 +554,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsRefRunsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsByRefRunsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -629,11 +564,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRunList**](CloudRunList.md)
+[**RunList**](RunList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -645,11 +580,145 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsSessions
+## GetAgentsMetrics
 
-> CloudSessionList CloudGetV1AgentsSessions(ctx).Root(root).Parent(parent).Status(status).Project(project).Limit(limit).Execute()
+> MetricsView GetAgentsMetrics(ctx).Range_(range_).Execute()
 
-ListSessions returns the caller org's live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
+Serves the invocations-over-time histogram for the org's Agents dashboard.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	range_ := "7D" // string | Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentsAPI.GetAgentsMetrics(context.Background()).Range_(range_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsMetrics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAgentsMetrics`: MetricsView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsMetrics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentsMetricsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **range_** | **string** | Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. | 
+
+### Return type
+
+[**MetricsView**](MetricsView.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAgentsRuns
+
+> RunList GetAgentsRuns(ctx).Limit(limit).Status(status).Execute()
+
+Returns the org's agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	limit := int32(20) // int32 | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
+	status := "error" // string | Status keeps only runs with this outcome (\"ok\" or \"error\"). Empty keeps both. It is the filter an operator reaches for first — \"show me what broke\" — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentsAPI.GetAgentsRuns(context.Background()).Limit(limit).Status(status).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAgentsRuns`: RunList
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsRuns`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentsRunsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int32** | Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. | 
+ **status** | **string** | Status keeps only runs with this outcome (\&quot;ok\&quot; or \&quot;error\&quot;). Empty keeps both. It is the filter an operator reaches for first — \&quot;show me what broke\&quot; — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. | 
+
+### Return type
+
+[**RunList**](RunList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAgentsSessions
+
+> SessionList GetAgentsSessions(ctx).Root(root).Parent(parent).Status(status).Project(project).Limit(limit).Execute()
+
+Returns the caller org's live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
 
 
 
@@ -674,13 +743,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsSessions(context.Background()).Root(root).Parent(parent).Status(status).Project(project).Limit(limit).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsSessions(context.Background()).Root(root).Parent(parent).Status(status).Project(project).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsSessions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsSessions`: CloudSessionList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsSessions`: %v\n", resp)
+	// response from `GetAgentsSessions`: SessionList
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessions`: %v\n", resp)
 }
 ```
 
@@ -690,7 +759,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsSessionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsSessionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -703,11 +772,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSessionList**](CloudSessionList.md)
+[**SessionList**](SessionList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -719,11 +788,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsSessionsId
+## GetAgentsSessionsById
 
-> CloudSessionDetail CloudGetV1AgentsSessionsId(ctx, id).Execute()
+> SessionDetail GetAgentsSessionsById(ctx, id).Execute()
 
-GetSession returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
+Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
 
 
 
@@ -744,13 +813,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsSessionsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsSessionsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsSessionsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsSessionsId`: CloudSessionDetail
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsSessionsId`: %v\n", resp)
+	// response from `GetAgentsSessionsById`: SessionDetail
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessionsById`: %v\n", resp)
 }
 ```
 
@@ -764,7 +833,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsSessionsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -773,11 +842,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSessionDetail**](CloudSessionDetail.md)
+[**SessionDetail**](SessionDetail.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -789,11 +858,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsSessionsIdControl
+## GetAgentsSessionsByIdControl
 
-> CloudControlDrain CloudGetV1AgentsSessionsIdControl(ctx, id).After(after).Execute()
+> ControlDrain GetAgentsSessionsByIdControl(ctx, id).After(after).Execute()
 
-DrainSessionControl returns the steering commands (pause/resume/stop/message) recorded against the caller's own session that are newer than the cursor, oldest first, with the cursor to poll from next.
+Returns the steering commands (pause/resume/stop/message) recorded against the caller's own session that are newer than the cursor, oldest first, with the cursor to poll from next.
 
 
 
@@ -815,13 +884,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsSessionsIdControl(context.Background(), id).After(after).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsSessionsByIdControl(context.Background(), id).After(after).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsSessionsIdControl``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsByIdControl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsSessionsIdControl`: CloudControlDrain
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsSessionsIdControl`: %v\n", resp)
+	// response from `GetAgentsSessionsByIdControl`: ControlDrain
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessionsByIdControl`: %v\n", resp)
 }
 ```
 
@@ -835,7 +904,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsSessionsIdControlRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdControlRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -845,11 +914,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudControlDrain**](CloudControlDrain.md)
+[**ControlDrain**](ControlDrain.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -861,11 +930,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsSessionsIdTree
+## GetAgentsSessionsByIdTree
 
-> CloudTreeNode CloudGetV1AgentsSessionsIdTree(ctx, id).Execute()
+> TreeNode GetAgentsSessionsByIdTree(ctx, id).Execute()
 
-SessionTree returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
+Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
 
 
 
@@ -886,13 +955,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsSessionsIdTree(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsSessionsByIdTree(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsSessionsIdTree``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsByIdTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsSessionsIdTree`: CloudTreeNode
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsSessionsIdTree`: %v\n", resp)
+	// response from `GetAgentsSessionsByIdTree`: TreeNode
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessionsByIdTree`: %v\n", resp)
 }
 ```
 
@@ -906,7 +975,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsSessionsIdTreeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdTreeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -915,11 +984,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTreeNode**](CloudTreeNode.md)
+[**TreeNode**](TreeNode.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -931,9 +1000,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsSessionsStream
+## GetAgentsSessionsStream
 
-> CloudGetV1AgentsSessionsStream(ctx).Execute()
+> GetAgentsSessionsStream(ctx).Execute()
+
+Live session and event updates for the caller's org, as Server-Sent Events.
 
 
 
@@ -953,9 +1024,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.CloudGetV1AgentsSessionsStream(context.Background()).Execute()
+	r, err := apiClient.AgentsAPI.GetAgentsSessionsStream(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsSessionsStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsStream``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -967,7 +1038,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsSessionsStreamRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsSessionsStreamRequest struct via the builder pattern
 
 
 ### Return type
@@ -976,7 +1047,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentsSessionsSt
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -988,11 +1059,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentsSessionsSt
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsTargets
+## GetAgentsTargets
 
-> CloudTargetList CloudGetV1AgentsTargets(ctx).Execute()
+> TargetList GetAgentsTargets(ctx).Execute()
 
-ListTargets returns every machine registered to the caller's org, newest first, each with its live session load.
+Returns every machine registered to the caller's org, newest first, each with its live session load.
 
 
 
@@ -1012,13 +1083,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsTargets(context.Background()).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsTargets(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsTargets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsTargets`: CloudTargetList
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsTargets`: %v\n", resp)
+	// response from `GetAgentsTargets`: TargetList
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsTargets`: %v\n", resp)
 }
 ```
 
@@ -1028,16 +1099,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsTargetsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsTargetsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudTargetList**](CloudTargetList.md)
+[**TargetList**](TargetList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1049,11 +1120,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentsTargetsReq
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentsTargetsId
+## GetAgentsTargetsById
 
-> CloudTargetView CloudGetV1AgentsTargetsId(ctx, id).Execute()
+> TargetView GetAgentsTargetsById(ctx, id).Execute()
 
-GetTarget returns one registered machine, with its live session load.
+Returns one registered machine, with its live session load.
 
 
 
@@ -1074,13 +1145,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudGetV1AgentsTargetsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsTargetsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudGetV1AgentsTargetsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsTargetsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AgentsTargetsId`: CloudTargetView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudGetV1AgentsTargetsId`: %v\n", resp)
+	// response from `GetAgentsTargetsById`: TargetView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsTargetsById`: %v\n", resp)
 }
 ```
 
@@ -1094,7 +1165,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentsTargetsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentsTargetsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1103,11 +1174,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTargetView**](CloudTargetView.md)
+[**TargetView**](TargetView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1119,11 +1190,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1AgentsRef
+## PatchAgentsByRef
 
-> CloudAgentView CloudPatchV1AgentsRef(ctx, ref).CloudUpdateAgentIn(cloudUpdateAgentIn).Execute()
+> AgentView PatchAgentsByRef(ctx, ref).UpdateAgentIn(updateAgentIn).Execute()
 
-UpdateAgent changes an agent in place.
+Changes an agent in place.
 
 
 
@@ -1141,17 +1212,17 @@ import (
 
 func main() {
 	ref := "helper" // string | Ref is the agent to update — its public id or org-unique name, from the path.
-	cloudUpdateAgentIn := *openapiclient.NewCloudUpdateAgentIn() // CloudUpdateAgentIn | 
+	updateAgentIn := *openapiclient.NewUpdateAgentIn() // UpdateAgentIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPatchV1AgentsRef(context.Background(), ref).CloudUpdateAgentIn(cloudUpdateAgentIn).Execute()
+	resp, r, err := apiClient.AgentsAPI.PatchAgentsByRef(context.Background(), ref).UpdateAgentIn(updateAgentIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPatchV1AgentsRef``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PatchAgentsByRef``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1AgentsRef`: CloudAgentView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPatchV1AgentsRef`: %v\n", resp)
+	// response from `PatchAgentsByRef`: AgentView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PatchAgentsByRef`: %v\n", resp)
 }
 ```
 
@@ -1165,21 +1236,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1AgentsRefRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchAgentsByRefRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudUpdateAgentIn** | [**CloudUpdateAgentIn**](CloudUpdateAgentIn.md) |  | 
+ **updateAgentIn** | [**UpdateAgentIn**](UpdateAgentIn.md) |  | 
 
 ### Return type
 
-[**CloudAgentView**](CloudAgentView.md)
+[**AgentView**](AgentView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1191,11 +1262,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1AgentsSessionsId
+## PatchAgentsSessionsById
 
-> CloudSessionView CloudPatchV1AgentsSessionsId(ctx, id).CloudPatchSessionIn(cloudPatchSessionIn).Execute()
+> SessionView PatchAgentsSessionsById(ctx, id).PatchSessionIn(patchSessionIn).Execute()
 
-PatchSession updates a session's surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build's story is public.
+Updates a session's surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build's story is public.
 
 
 
@@ -1213,17 +1284,17 @@ import (
 
 func main() {
 	id := "sess_1" // string | ID is the session to update, from the path.
-	cloudPatchSessionIn := *openapiclient.NewCloudPatchSessionIn() // CloudPatchSessionIn | 
+	patchSessionIn := *openapiclient.NewPatchSessionIn() // PatchSessionIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPatchV1AgentsSessionsId(context.Background(), id).CloudPatchSessionIn(cloudPatchSessionIn).Execute()
+	resp, r, err := apiClient.AgentsAPI.PatchAgentsSessionsById(context.Background(), id).PatchSessionIn(patchSessionIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPatchV1AgentsSessionsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PatchAgentsSessionsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1AgentsSessionsId`: CloudSessionView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPatchV1AgentsSessionsId`: %v\n", resp)
+	// response from `PatchAgentsSessionsById`: SessionView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PatchAgentsSessionsById`: %v\n", resp)
 }
 ```
 
@@ -1237,21 +1308,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1AgentsSessionsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchAgentsSessionsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPatchSessionIn** | [**CloudPatchSessionIn**](CloudPatchSessionIn.md) |  | 
+ **patchSessionIn** | [**PatchSessionIn**](PatchSessionIn.md) |  | 
 
 ### Return type
 
-[**CloudSessionView**](CloudSessionView.md)
+[**SessionView**](SessionView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1263,11 +1334,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1AgentsTargetsId
+## PatchAgentsTargetsById
 
-> CloudTargetView CloudPatchV1AgentsTargetsId(ctx, id).CloudPatchTargetIn(cloudPatchTargetIn).Execute()
+> TargetView PatchAgentsTargetsById(ctx, id).PatchTargetIn(patchTargetIn).Execute()
 
-PatchTarget updates one machine in place.
+Updates one machine in place.
 
 
 
@@ -1285,17 +1356,17 @@ import (
 
 func main() {
 	id := "tgt_1" // string | ID is the target to update, from the path.
-	cloudPatchTargetIn := *openapiclient.NewCloudPatchTargetIn() // CloudPatchTargetIn | 
+	patchTargetIn := *openapiclient.NewPatchTargetIn() // PatchTargetIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPatchV1AgentsTargetsId(context.Background(), id).CloudPatchTargetIn(cloudPatchTargetIn).Execute()
+	resp, r, err := apiClient.AgentsAPI.PatchAgentsTargetsById(context.Background(), id).PatchTargetIn(patchTargetIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPatchV1AgentsTargetsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PatchAgentsTargetsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1AgentsTargetsId`: CloudTargetView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPatchV1AgentsTargetsId`: %v\n", resp)
+	// response from `PatchAgentsTargetsById`: TargetView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PatchAgentsTargetsById`: %v\n", resp)
 }
 ```
 
@@ -1309,21 +1380,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1AgentsTargetsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchAgentsTargetsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPatchTargetIn** | [**CloudPatchTargetIn**](CloudPatchTargetIn.md) |  | 
+ **patchTargetIn** | [**PatchTargetIn**](PatchTargetIn.md) |  | 
 
 ### Return type
 
-[**CloudTargetView**](CloudTargetView.md)
+[**TargetView**](TargetView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1335,11 +1406,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Agents
+## PostAgents
 
-> CloudAgentView CloudPostV1Agents(ctx).CloudCreateAgentIn(cloudCreateAgentIn).Execute()
+> AgentView PostAgents(ctx).CreateAgentIn(createAgentIn).Execute()
 
-CreateAgent defines an agent in the caller's org: a model, a system prompt (instructions) and a set of tool names.
+Defines an agent in the caller's org: a model, a system prompt (instructions) and a set of tool names.
 
 
 
@@ -1356,17 +1427,17 @@ import (
 )
 
 func main() {
-	cloudCreateAgentIn := *openapiclient.NewCloudCreateAgentIn() // CloudCreateAgentIn | 
+	createAgentIn := *openapiclient.NewCreateAgentIn() // CreateAgentIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPostV1Agents(context.Background()).CloudCreateAgentIn(cloudCreateAgentIn).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgents(context.Background()).CreateAgentIn(createAgentIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1Agents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Agents`: CloudAgentView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPostV1Agents`: %v\n", resp)
+	// response from `PostAgents`: AgentView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgents`: %v\n", resp)
 }
 ```
 
@@ -1376,20 +1447,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCreateAgentIn** | [**CloudCreateAgentIn**](CloudCreateAgentIn.md) |  | 
+ **createAgentIn** | [**CreateAgentIn**](CreateAgentIn.md) |  | 
 
 ### Return type
 
-[**CloudAgentView**](CloudAgentView.md)
+[**AgentView**](AgentView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1401,9 +1472,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsByRefRun
+## PostAgentsByRefRun
 
-> CloudPostV1AgentsByRefRun(ctx, ref).Execute()
+> PostAgentsByRefRun(ctx, ref).Execute()
+
+Run one of your org's agents and get the recorded run back.
 
 
 
@@ -1424,9 +1497,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.CloudPostV1AgentsByRefRun(context.Background(), ref).Execute()
+	r, err := apiClient.AgentsAPI.PostAgentsByRefRun(context.Background(), ref).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsByRefRun``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsByRefRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1442,7 +1515,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsByRefRunRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsByRefRunRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1455,7 +1528,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1467,11 +1540,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsSessions
+## PostAgentsSessions
 
-> CloudSessionView CloudPostV1AgentsSessions(ctx).CloudRegisterReq(cloudRegisterReq).Execute()
+> SessionView PostAgentsSessions(ctx).RegisterReq(registerReq).Execute()
 
-RegisterSession opens a live agent session in the caller's org — the row every surface (the CLI's outer agent, hanzo.bot, the console, chat) hangs its activity off.
+Opens a live agent session in the caller's org — the row every surface (the CLI's outer agent, hanzo.bot, the console, chat) hangs its activity off.
 
 
 
@@ -1488,17 +1561,17 @@ import (
 )
 
 func main() {
-	cloudRegisterReq := *openapiclient.NewCloudRegisterReq() // CloudRegisterReq | 
+	registerReq := *openapiclient.NewRegisterReq() // RegisterReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPostV1AgentsSessions(context.Background()).CloudRegisterReq(cloudRegisterReq).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsSessions(context.Background()).RegisterReq(registerReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsSessions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AgentsSessions`: CloudSessionView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPostV1AgentsSessions`: %v\n", resp)
+	// response from `PostAgentsSessions`: SessionView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessions`: %v\n", resp)
 }
 ```
 
@@ -1508,20 +1581,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsSessionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsSessionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudRegisterReq** | [**CloudRegisterReq**](CloudRegisterReq.md) |  | 
+ **registerReq** | [**RegisterReq**](RegisterReq.md) |  | 
 
 ### Return type
 
-[**CloudSessionView**](CloudSessionView.md)
+[**SessionView**](SessionView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1533,75 +1606,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsSessionsByIdEvents
+## PostAgentsSessionsByIdEvents
 
-> CloudPostV1AgentsSessionsByIdEvents(ctx, id).Execute()
+> PostAgentsSessionsByIdEvents(ctx, id).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.CloudPostV1AgentsSessionsByIdEvents(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsSessionsByIdEvents``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsSessionsByIdEventsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1AgentsSessionsByIdMessage
-
-> CloudPostV1AgentsSessionsByIdMessage(ctx, id).Execute()
+Append one turn to a session's ordered log.
 
 
 
@@ -1622,9 +1631,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.CloudPostV1AgentsSessionsByIdMessage(context.Background(), id).Execute()
+	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdEvents(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsSessionsByIdMessage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1640,7 +1649,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsSessionsByIdMessageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdEventsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1653,7 +1662,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1665,9 +1674,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsSessionsByIdPause
+## PostAgentsSessionsByIdMessage
 
-> CloudPostV1AgentsSessionsByIdPause(ctx, id).Execute()
+> PostAgentsSessionsByIdMessage(ctx, id).Execute()
+
+Send text into a running session.
 
 
 
@@ -1688,9 +1699,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.CloudPostV1AgentsSessionsByIdPause(context.Background(), id).Execute()
+	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdMessage(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsSessionsByIdPause``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdMessage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1706,7 +1717,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsSessionsByIdPauseRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdMessageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1719,7 +1730,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1731,9 +1742,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsSessionsByIdResume
+## PostAgentsSessionsByIdPause
 
-> CloudPostV1AgentsSessionsByIdResume(ctx, id).Execute()
+> PostAgentsSessionsByIdPause(ctx, id).Execute()
+
+Ask a running session to pause.
 
 
 
@@ -1754,9 +1767,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.CloudPostV1AgentsSessionsByIdResume(context.Background(), id).Execute()
+	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdPause(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsSessionsByIdResume``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdPause``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1772,7 +1785,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsSessionsByIdResumeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdPauseRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1785,7 +1798,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1797,9 +1810,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsSessionsByIdStop
+## PostAgentsSessionsByIdResume
 
-> CloudPostV1AgentsSessionsByIdStop(ctx, id).Execute()
+> PostAgentsSessionsByIdResume(ctx, id).Execute()
+
+Ask a paused session to carry on.
 
 
 
@@ -1820,9 +1835,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.CloudPostV1AgentsSessionsByIdStop(context.Background(), id).Execute()
+	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdResume(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsSessionsByIdStop``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdResume``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1838,7 +1853,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsSessionsByIdStopRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdResumeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1851,7 +1866,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1863,11 +1878,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsTargets
+## PostAgentsSessionsByIdStop
 
-> CloudTargetView CloudPostV1AgentsTargets(ctx).CloudTargetReq(cloudTargetReq).Execute()
+> PostAgentsSessionsByIdStop(ctx, id).Execute()
 
-RegisterTarget registers a machine as an agent target, or re-links one that is already registered.
+Ask a session to stop for good.
 
 
 
@@ -1884,17 +1899,85 @@ import (
 )
 
 func main() {
-	cloudTargetReq := *openapiclient.NewCloudTargetReq() // CloudTargetReq | 
+	id := "id_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPostV1AgentsTargets(context.Background()).CloudTargetReq(cloudTargetReq).Execute()
+	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdStop(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdStop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AgentsTargets`: CloudTargetView
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPostV1AgentsTargets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdStopRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAgentsTargets
+
+> TargetView PostAgentsTargets(ctx).TargetReq(targetReq).Execute()
+
+Registers a machine as an agent target, or re-links one that is already registered.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	targetReq := *openapiclient.NewTargetReq() // TargetReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentsAPI.PostAgentsTargets(context.Background()).TargetReq(targetReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAgentsTargets`: TargetView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsTargets`: %v\n", resp)
 }
 ```
 
@@ -1904,20 +1987,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsTargetsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsTargetsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudTargetReq** | [**CloudTargetReq**](CloudTargetReq.md) |  | 
+ **targetReq** | [**TargetReq**](TargetReq.md) |  | 
 
 ### Return type
 
-[**CloudTargetView**](CloudTargetView.md)
+[**TargetView**](TargetView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1929,9 +2012,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsTargetsIdClaim
+## PostAgentsTargetsByIdClaim
 
-> CloudRoutedRunOut CloudPostV1AgentsTargetsIdClaim(ctx, id).Execute()
+> RoutedRunOut PostAgentsTargetsByIdClaim(ctx, id).Execute()
 
 ClaimRoutedRun is the machine's long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
 
@@ -1954,13 +2037,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPostV1AgentsTargetsIdClaim(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsTargetsByIdClaim(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsTargetsIdClaim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsTargetsByIdClaim``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AgentsTargetsIdClaim`: CloudRoutedRunOut
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPostV1AgentsTargetsIdClaim`: %v\n", resp)
+	// response from `PostAgentsTargetsByIdClaim`: RoutedRunOut
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsTargetsByIdClaim`: %v\n", resp)
 }
 ```
 
@@ -1974,7 +2057,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsTargetsIdClaimRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsTargetsByIdClaimRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1983,11 +2066,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRoutedRunOut**](CloudRoutedRunOut.md)
+[**RoutedRunOut**](RoutedRunOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1999,11 +2082,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsTargetsIdClaimKey
+## PostAgentsTargetsByIdKey
 
-> CloudClaimKeyOut CloudPostV1AgentsTargetsIdClaimKey(ctx, id).Execute()
+> ClaimKeyOut PostAgentsTargetsByIdKey(ctx, id).Execute()
 
-MintTargetClaimKey mints (or rotates) the claim key a `hanzo code --serve` daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
+Mints (or rotates) the claim key a `hanzo code --serve` daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
 
 
 
@@ -2024,13 +2107,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPostV1AgentsTargetsIdClaimKey(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsTargetsByIdKey(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsTargetsIdClaimKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsTargetsByIdKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AgentsTargetsIdClaimKey`: CloudClaimKeyOut
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPostV1AgentsTargetsIdClaimKey`: %v\n", resp)
+	// response from `PostAgentsTargetsByIdKey`: ClaimKeyOut
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsTargetsByIdKey`: %v\n", resp)
 }
 ```
 
@@ -2044,7 +2127,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsTargetsIdClaimKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsTargetsByIdKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2053,11 +2136,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudClaimKeyOut**](CloudClaimKeyOut.md)
+[**ClaimKeyOut**](ClaimKeyOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2069,11 +2152,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AgentsTargetsIdRunsRunIdReport
+## PostAgentsTargetsByIdRunsByRunidReport
 
-> CloudReportOut CloudPostV1AgentsTargetsIdRunsRunIdReport(ctx, id, runId).CloudReportRunIn(cloudReportRunIn).Execute()
+> ReportOut PostAgentsTargetsByIdRunsByRunidReport(ctx, id, runId).ReportRunIn(reportRunIn).Execute()
 
-ReportRoutedRun completes a claimed run: it delivers the terminal result to the run's durable owner, which is what lets that workflow finish.
+Completes a claimed run: it delivers the terminal result to the run's durable owner, which is what lets that workflow finish.
 
 
 
@@ -2092,17 +2175,17 @@ import (
 func main() {
 	id := "tgt_1" // string | ID is the machine reporting, from the path.
 	runId := "run_1" // string | RunID is the routed run being completed, from the path.
-	cloudReportRunIn := *openapiclient.NewCloudReportRunIn() // CloudReportRunIn | 
+	reportRunIn := *openapiclient.NewReportRunIn() // ReportRunIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.CloudPostV1AgentsTargetsIdRunsRunIdReport(context.Background(), id, runId).CloudReportRunIn(cloudReportRunIn).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsTargetsByIdRunsByRunidReport(context.Background(), id, runId).ReportRunIn(reportRunIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.CloudPostV1AgentsTargetsIdRunsRunIdReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsTargetsByIdRunsByRunidReport``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AgentsTargetsIdRunsRunIdReport`: CloudReportOut
-	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.CloudPostV1AgentsTargetsIdRunsRunIdReport`: %v\n", resp)
+	// response from `PostAgentsTargetsByIdRunsByRunidReport`: ReportOut
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsTargetsByIdRunsByRunidReport`: %v\n", resp)
 }
 ```
 
@@ -2117,22 +2200,22 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentsTargetsIdRunsRunIdReportRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentsTargetsByIdRunsByRunidReportRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **cloudReportRunIn** | [**CloudReportRunIn**](CloudReportRunIn.md) |  | 
+ **reportRunIn** | [**ReportRunIn**](ReportRunIn.md) |  | 
 
 ### Return type
 
-[**CloudReportOut**](CloudReportOut.md)
+[**ReportOut**](ReportOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

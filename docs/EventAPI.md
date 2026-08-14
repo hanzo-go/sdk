@@ -4,15 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudPostV1Event**](EventAPI.md#CloudPostV1Event) | **Post** /v1/event | 
-[**CloudPostV1EventByProjectEnvelope**](EventAPI.md#CloudPostV1EventByProjectEnvelope) | **Post** /v1/event/{project}/envelope | 
-[**CloudPostV1EventByProjectStore**](EventAPI.md#CloudPostV1EventByProjectStore) | **Post** /v1/event/{project}/store | 
+[**PostEvent**](EventAPI.md#PostEvent) | **Post** /v1/event | Capture product events into your org&#39;s warehouse
+[**PostEventByProjectEnvelope**](EventAPI.md#PostEventByProjectEnvelope) | **Post** /v1/event/{project}/envelope | Sentry SDK envelope ingest — errors and traces from an unmodified Sentry client
+[**PostEventByProjectStore**](EventAPI.md#PostEventByProjectStore) | **Post** /v1/event/{project}/store | Sentry SDK store ingest — the legacy single-event wire
 
 
 
-## CloudPostV1Event
+## PostEvent
 
-> CloudCaptureResult CloudPostV1Event(ctx).CloudPostV1EventRequest(cloudPostV1EventRequest).Execute()
+> CaptureResult PostEvent(ctx).PostEventRequest(postEventRequest).Execute()
+
+Capture product events into your org's warehouse
 
 
 
@@ -29,17 +31,17 @@ import (
 )
 
 func main() {
-	cloudPostV1EventRequest := openapiclient.cloud_post_v1_event_request{CloudCaptureBatch: openapiclient.NewCloudCaptureBatch()} // CloudPostV1EventRequest |  (optional)
+	postEventRequest := openapiclient.post_event_request{CaptureBatch: openapiclient.NewCaptureBatch()} // PostEventRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.CloudPostV1Event(context.Background()).CloudPostV1EventRequest(cloudPostV1EventRequest).Execute()
+	resp, r, err := apiClient.EventAPI.PostEvent(context.Background()).PostEventRequest(postEventRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.CloudPostV1Event``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.PostEvent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Event`: CloudCaptureResult
-	fmt.Fprintf(os.Stdout, "Response from `EventAPI.CloudPostV1Event`: %v\n", resp)
+	// response from `PostEvent`: CaptureResult
+	fmt.Fprintf(os.Stdout, "Response from `EventAPI.PostEvent`: %v\n", resp)
 }
 ```
 
@@ -49,20 +51,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1EventRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostEventRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudPostV1EventRequest** | [**CloudPostV1EventRequest**](CloudPostV1EventRequest.md) |  | 
+ **postEventRequest** | [**PostEventRequest**](PostEventRequest.md) |  | 
 
 ### Return type
 
-[**CloudCaptureResult**](CloudCaptureResult.md)
+[**CaptureResult**](CaptureResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -74,9 +76,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1EventByProjectEnvelope
+## PostEventByProjectEnvelope
 
-> CloudPostV1EventByProjectEnvelope(ctx, project).Body(body).Execute()
+> PostEventByProjectEnvelope(ctx, project).Body(body).Execute()
+
+Sentry SDK envelope ingest — errors and traces from an unmodified Sentry client
 
 
 
@@ -98,9 +102,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EventAPI.CloudPostV1EventByProjectEnvelope(context.Background(), project).Body(body).Execute()
+	r, err := apiClient.EventAPI.PostEventByProjectEnvelope(context.Background(), project).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.CloudPostV1EventByProjectEnvelope``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.PostEventByProjectEnvelope``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -116,7 +120,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1EventByProjectEnvelopeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostEventByProjectEnvelopeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -130,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -142,9 +146,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1EventByProjectStore
+## PostEventByProjectStore
 
-> CloudPostV1EventByProjectStore(ctx, project).Body(body).Execute()
+> PostEventByProjectStore(ctx, project).Body(body).Execute()
+
+Sentry SDK store ingest — the legacy single-event wire
 
 
 
@@ -166,9 +172,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EventAPI.CloudPostV1EventByProjectStore(context.Background(), project).Body(body).Execute()
+	r, err := apiClient.EventAPI.PostEventByProjectStore(context.Background(), project).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.CloudPostV1EventByProjectStore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.PostEventByProjectStore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -184,7 +190,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1EventByProjectStoreRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostEventByProjectStoreRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -198,7 +204,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,23 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**SearchAddOrReplaceDocuments**](DocumentsAPI.md#SearchAddOrReplaceDocuments) | **Post** /v1/search/indexes/{indexUid}/documents | Add or replace documents
-[**SearchAddOrUpdateDocuments**](DocumentsAPI.md#SearchAddOrUpdateDocuments) | **Put** /v1/search/indexes/{indexUid}/documents | Add or update documents (partial)
-[**SearchDeleteAllDocuments**](DocumentsAPI.md#SearchDeleteAllDocuments) | **Delete** /v1/search/indexes/{indexUid}/documents | Delete all documents in the index
-[**SearchDeleteDocument**](DocumentsAPI.md#SearchDeleteDocument) | **Delete** /v1/search/indexes/{indexUid}/documents/{documentId} | Delete a single document
-[**SearchDeleteDocumentsBatch**](DocumentsAPI.md#SearchDeleteDocumentsBatch) | **Post** /v1/search/indexes/{indexUid}/documents/delete-batch | Delete documents by IDs
-[**SearchDeleteDocumentsByFilter**](DocumentsAPI.md#SearchDeleteDocumentsByFilter) | **Post** /v1/search/indexes/{indexUid}/documents/delete | Delete documents by filter
-[**SearchEditDocumentsByFunction**](DocumentsAPI.md#SearchEditDocumentsByFunction) | **Post** /v1/search/indexes/{indexUid}/documents/edit | Edit documents using a function
-[**SearchGetDocument**](DocumentsAPI.md#SearchGetDocument) | **Get** /v1/search/indexes/{indexUid}/documents/{documentId} | Get a single document
-[**SearchGetDocuments**](DocumentsAPI.md#SearchGetDocuments) | **Get** /v1/search/indexes/{indexUid}/documents | Browse documents
+[**DeleteDocuments**](DocumentsAPI.md#DeleteDocuments) | **Delete** /v1/documents | Handles DELETE /v1/documents — a JSON array of file_ids.
+[**GetDocumentsByFileIdContext**](DocumentsAPI.md#GetDocumentsByFileIdContext) | **Get** /v1/documents/{file_id}/context | Handles GET /v1/documents/:file_id/context — every chunk of a file, as LangChain Documents (used when RAG_USE_FULL_CONTEXT is on).
 
 
 
-## SearchAddOrReplaceDocuments
+## DeleteDocuments
 
-> SearchSummarizedTaskView SearchAddOrReplaceDocuments(ctx, indexUid).RequestBody(requestBody).PrimaryKey(primaryKey).Execute()
+> DeleteDocuments(ctx).Execute()
 
-Add or replace documents
+Handles DELETE /v1/documents — a JSON array of file_ids.
+
+
 
 ### Example
 
@@ -35,204 +30,51 @@ import (
 )
 
 func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-	requestBody := []map[string]interface{}{map[string]interface{}(123)} // []map[string]interface{} | 
-	primaryKey := "primaryKey_example" // string | Primary key field name (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchAddOrReplaceDocuments(context.Background(), indexUid).RequestBody(requestBody).PrimaryKey(primaryKey).Execute()
+	r, err := apiClient.DocumentsAPI.DeleteDocuments(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchAddOrReplaceDocuments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.DeleteDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchAddOrReplaceDocuments`: SearchSummarizedTaskView
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchAddOrReplaceDocuments`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSearchAddOrReplaceDocumentsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **requestBody** | **[]map[string]interface{}** |  | 
- **primaryKey** | **string** | Primary key field name | 
-
-### Return type
-
-[**SearchSummarizedTaskView**](SearchSummarizedTaskView.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json, application/x-ndjson
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchAddOrUpdateDocuments
-
-> SearchSummarizedTaskView SearchAddOrUpdateDocuments(ctx, indexUid).RequestBody(requestBody).PrimaryKey(primaryKey).Execute()
-
-Add or update documents (partial)
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-	requestBody := []map[string]interface{}{map[string]interface{}(123)} // []map[string]interface{} | 
-	primaryKey := "primaryKey_example" // string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchAddOrUpdateDocuments(context.Background(), indexUid).RequestBody(requestBody).PrimaryKey(primaryKey).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchAddOrUpdateDocuments``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchAddOrUpdateDocuments`: SearchSummarizedTaskView
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchAddOrUpdateDocuments`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchAddOrUpdateDocumentsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **requestBody** | **[]map[string]interface{}** |  | 
- **primaryKey** | **string** |  | 
-
-### Return type
-
-[**SearchSummarizedTaskView**](SearchSummarizedTaskView.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json, application/x-ndjson
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchDeleteAllDocuments
-
-> SearchSummarizedTaskView SearchDeleteAllDocuments(ctx, indexUid).Execute()
-
-Delete all documents in the index
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchDeleteAllDocuments(context.Background(), indexUid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchDeleteAllDocuments``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchDeleteAllDocuments`: SearchSummarizedTaskView
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchDeleteAllDocuments`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchDeleteAllDocumentsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Other parameters are passed through a pointer to a apiDeleteDocumentsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**SearchSummarizedTaskView**](SearchSummarizedTaskView.md)
+ (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## SearchDeleteDocument
+## GetDocumentsByFileIdContext
 
-> SearchSummarizedTaskView SearchDeleteDocument(ctx, indexUid, documentId).Execute()
+> GetDocumentsByFileIdContext(ctx).Execute()
 
-Delete a single document
+Handles GET /v1/documents/:file_id/context — every chunk of a file, as LangChain Documents (used when RAG_USE_FULL_CONTEXT is on).
+
+
 
 ### Example
 
@@ -247,411 +89,38 @@ import (
 )
 
 func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-	documentId := "documentId_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchDeleteDocument(context.Background(), indexUid, documentId).Execute()
+	r, err := apiClient.DocumentsAPI.GetDocumentsByFileIdContext(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchDeleteDocument``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.GetDocumentsByFileIdContext``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchDeleteDocument`: SearchSummarizedTaskView
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchDeleteDocument`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
-**documentId** | **string** |  | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSearchDeleteDocumentRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+Other parameters are passed through a pointer to a apiGetDocumentsByFileIdContextRequest struct via the builder pattern
 
 
 ### Return type
 
-[**SearchSummarizedTaskView**](SearchSummarizedTaskView.md)
+ (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchDeleteDocumentsBatch
-
-> SearchSummarizedTaskView SearchDeleteDocumentsBatch(ctx, indexUid).RequestBody(requestBody).Execute()
-
-Delete documents by IDs
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-	requestBody := []string{"Property_example"} // []string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchDeleteDocumentsBatch(context.Background(), indexUid).RequestBody(requestBody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchDeleteDocumentsBatch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchDeleteDocumentsBatch`: SearchSummarizedTaskView
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchDeleteDocumentsBatch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchDeleteDocumentsBatchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **requestBody** | **[]string** |  | 
-
-### Return type
-
-[**SearchSummarizedTaskView**](SearchSummarizedTaskView.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchDeleteDocumentsByFilter
-
-> SearchSummarizedTaskView SearchDeleteDocumentsByFilter(ctx, indexUid).SearchDeleteDocumentsByFilterRequest(searchDeleteDocumentsByFilterRequest).Execute()
-
-Delete documents by filter
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-	searchDeleteDocumentsByFilterRequest := *openapiclient.NewSearchDeleteDocumentsByFilterRequest(openapiclient.search_deleteDocumentsByFilter_request_filter{ArrayOfString: new([]string)}) // SearchDeleteDocumentsByFilterRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchDeleteDocumentsByFilter(context.Background(), indexUid).SearchDeleteDocumentsByFilterRequest(searchDeleteDocumentsByFilterRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchDeleteDocumentsByFilter``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchDeleteDocumentsByFilter`: SearchSummarizedTaskView
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchDeleteDocumentsByFilter`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchDeleteDocumentsByFilterRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **searchDeleteDocumentsByFilterRequest** | [**SearchDeleteDocumentsByFilterRequest**](SearchDeleteDocumentsByFilterRequest.md) |  | 
-
-### Return type
-
-[**SearchSummarizedTaskView**](SearchSummarizedTaskView.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchEditDocumentsByFunction
-
-> SearchSummarizedTaskView SearchEditDocumentsByFunction(ctx, indexUid).SearchEditDocumentsByFunctionRequest(searchEditDocumentsByFunctionRequest).Execute()
-
-Edit documents using a function
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-	searchEditDocumentsByFunctionRequest := *openapiclient.NewSearchEditDocumentsByFunctionRequest("Function_example") // SearchEditDocumentsByFunctionRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchEditDocumentsByFunction(context.Background(), indexUid).SearchEditDocumentsByFunctionRequest(searchEditDocumentsByFunctionRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchEditDocumentsByFunction``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchEditDocumentsByFunction`: SearchSummarizedTaskView
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchEditDocumentsByFunction`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchEditDocumentsByFunctionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **searchEditDocumentsByFunctionRequest** | [**SearchEditDocumentsByFunctionRequest**](SearchEditDocumentsByFunctionRequest.md) |  | 
-
-### Return type
-
-[**SearchSummarizedTaskView**](SearchSummarizedTaskView.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchGetDocument
-
-> map[string]interface{} SearchGetDocument(ctx, indexUid, documentId).Fields(fields).Execute()
-
-Get a single document
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-	documentId := "documentId_example" // string | 
-	fields := "fields_example" // string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchGetDocument(context.Background(), indexUid, documentId).Fields(fields).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchGetDocument``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchGetDocument`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchGetDocument`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
-**documentId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchGetDocumentRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **fields** | **string** |  | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchGetDocuments
-
-> SearchPaginatedDocuments SearchGetDocuments(ctx, indexUid).Offset(offset).Limit(limit).Fields(fields).Filter(filter).Execute()
-
-Browse documents
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	indexUid := "indexUid_example" // string | Unique index identifier
-	offset := int32(56) // int32 |  (optional) (default to 0)
-	limit := int32(56) // int32 |  (optional) (default to 20)
-	fields := "fields_example" // string | Comma-separated fields to return (optional)
-	filter := "filter_example" // string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocumentsAPI.SearchGetDocuments(context.Background(), indexUid).Offset(offset).Limit(limit).Fields(fields).Filter(filter).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.SearchGetDocuments``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchGetDocuments`: SearchPaginatedDocuments
-	fmt.Fprintf(os.Stdout, "Response from `DocumentsAPI.SearchGetDocuments`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**indexUid** | **string** | Unique index identifier | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchGetDocumentsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **offset** | **int32** |  | [default to 0]
- **limit** | **int32** |  | [default to 20]
- **fields** | **string** | Comma-separated fields to return | 
- **filter** | **string** |  | 
-
-### Return type
-
-[**SearchPaginatedDocuments**](SearchPaginatedDocuments.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

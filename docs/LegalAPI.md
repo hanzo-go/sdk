@@ -4,25 +4,25 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1LegalDocuments**](LegalAPI.md#CloudGetV1LegalDocuments) | **Get** /v1/legal/documents | ListLegalDocuments returns the org&#39;s generated documents, newest first, WITHOUT their rendered content — fetch one document to read its body.
-[**CloudGetV1LegalDocumentsId**](LegalAPI.md#CloudGetV1LegalDocumentsId) | **Get** /v1/legal/documents/{id} | GetLegalDocument returns one of the org&#39;s documents WITH its rendered body.
-[**CloudGetV1LegalFilings**](LegalAPI.md#CloudGetV1LegalFilings) | **Get** /v1/legal/filings | ListLegalFilings returns the org&#39;s filing records, newest first — which documents were filed where, through which provider, and what the filing&#39;s honest status is.
-[**CloudGetV1LegalHealth**](LegalAPI.md#CloudGetV1LegalHealth) | **Get** /v1/legal/health | LegalHealth reports that the legal subsystem is serving and how many built-in templates its catalog carries.
-[**CloudGetV1LegalTemplates**](LegalAPI.md#CloudGetV1LegalTemplates) | **Get** /v1/legal/templates | ListLegalTemplates returns the org&#39;s effective template catalog: every built-in template, with any the org has overridden replaced by its own latest version.
-[**CloudGetV1LegalTemplatesId**](LegalAPI.md#CloudGetV1LegalTemplatesId) | **Get** /v1/legal/templates/{id} | GetLegalTemplate returns one template resolved for the caller&#39;s org — the org&#39;s own override if it has saved one, else the built-in — with its full text/template body and its declared merge fields.
-[**CloudPostV1LegalDocuments**](LegalAPI.md#CloudPostV1LegalDocuments) | **Post** /v1/legal/documents | GenerateLegalDocument renders a document from a template and the caller&#39;s own merge data, seals it in the org&#39;s store, and returns it with its rendered body.
-[**CloudPostV1LegalDocumentsByIdSignComplete**](LegalAPI.md#CloudPostV1LegalDocumentsByIdSignComplete) | **Post** /v1/legal/documents/{id}/sign/complete | 
-[**CloudPostV1LegalDocumentsIdSign**](LegalAPI.md#CloudPostV1LegalDocumentsIdSign) | **Post** /v1/legal/documents/{id}/sign | RequestLegalSignature opens an e-signature request over one document and moves it to out_for_signature, returning the provider&#39;s reference for the request.
-[**CloudPostV1LegalFilings**](LegalAPI.md#CloudPostV1LegalFilings) | **Post** /v1/legal/filings | CreateLegalFiling records a filing of one or more of the org&#39;s documents with a state or agency, and returns the tracking record.
-[**CloudPutV1LegalTemplatesId**](LegalAPI.md#CloudPutV1LegalTemplatesId) | **Put** /v1/legal/templates/{id} | SaveLegalTemplateOverride saves the org&#39;s own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
+[**GetLegalDocuments**](LegalAPI.md#GetLegalDocuments) | **Get** /v1/legal/documents | Returns the org&#39;s generated documents, newest first, WITHOUT their rendered content — fetch one document to read its body.
+[**GetLegalDocumentsById**](LegalAPI.md#GetLegalDocumentsById) | **Get** /v1/legal/documents/{id} | Returns one of the org&#39;s documents WITH its rendered body.
+[**GetLegalFilings**](LegalAPI.md#GetLegalFilings) | **Get** /v1/legal/filings | Returns the org&#39;s filing records, newest first — which documents were filed where, through which provider, and what the filing&#39;s honest status is.
+[**GetLegalHealth**](LegalAPI.md#GetLegalHealth) | **Get** /v1/legal/health | Reports that the legal subsystem is serving and how many built-in templates its catalog carries.
+[**GetLegalTemplates**](LegalAPI.md#GetLegalTemplates) | **Get** /v1/legal/templates | Returns the org&#39;s effective template catalog: every built-in template, with any the org has overridden replaced by its own latest version.
+[**GetLegalTemplatesById**](LegalAPI.md#GetLegalTemplatesById) | **Get** /v1/legal/templates/{id} | Returns one template resolved for the caller&#39;s org — the org&#39;s own override if it has saved one, else the built-in — with its full text/template body and its declared merge fields.
+[**PostLegalDocuments**](LegalAPI.md#PostLegalDocuments) | **Post** /v1/legal/documents | Renders a document from a template and the caller&#39;s own merge data, seals it in the org&#39;s store, and returns it with its rendered body.
+[**PostLegalDocumentsByIdSign**](LegalAPI.md#PostLegalDocumentsByIdSign) | **Post** /v1/legal/documents/{id}/sign | Opens an e-signature request over one document and moves it to out_for_signature, returning the provider&#39;s reference for the request.
+[**PostLegalDocumentsByIdSignComplete**](LegalAPI.md#PostLegalDocumentsByIdSignComplete) | **Post** /v1/legal/documents/{id}/sign/complete | Record that a generated document&#39;s signature request completed
+[**PostLegalFilings**](LegalAPI.md#PostLegalFilings) | **Post** /v1/legal/filings | Records a filing of one or more of the org&#39;s documents with a state or agency, and returns the tracking record.
+[**PutLegalTemplatesById**](LegalAPI.md#PutLegalTemplatesById) | **Put** /v1/legal/templates/{id} | Saves the org&#39;s own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
 
 
 
-## CloudGetV1LegalDocuments
+## GetLegalDocuments
 
-> CloudDocumentPage CloudGetV1LegalDocuments(ctx).Limit(limit).Execute()
+> DocumentPage GetLegalDocuments(ctx).Limit(limit).Execute()
 
-ListLegalDocuments returns the org's generated documents, newest first, WITHOUT their rendered content — fetch one document to read its body.
+Returns the org's generated documents, newest first, WITHOUT their rendered content — fetch one document to read its body.
 
 
 
@@ -43,13 +43,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudGetV1LegalDocuments(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.LegalAPI.GetLegalDocuments(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudGetV1LegalDocuments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1LegalDocuments`: CloudDocumentPage
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudGetV1LegalDocuments`: %v\n", resp)
+	// response from `GetLegalDocuments`: DocumentPage
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalDocuments`: %v\n", resp)
 }
 ```
 
@@ -59,7 +59,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1LegalDocumentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetLegalDocumentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -68,11 +68,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDocumentPage**](CloudDocumentPage.md)
+[**DocumentPage**](DocumentPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -84,11 +84,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1LegalDocumentsId
+## GetLegalDocumentsById
 
-> CloudDocumentReply CloudGetV1LegalDocumentsId(ctx, id).Execute()
+> DocumentReply GetLegalDocumentsById(ctx, id).Execute()
 
-GetLegalDocument returns one of the org's documents WITH its rendered body.
+Returns one of the org's documents WITH its rendered body.
 
 
 
@@ -109,13 +109,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudGetV1LegalDocumentsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.LegalAPI.GetLegalDocumentsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudGetV1LegalDocumentsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalDocumentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1LegalDocumentsId`: CloudDocumentReply
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudGetV1LegalDocumentsId`: %v\n", resp)
+	// response from `GetLegalDocumentsById`: DocumentReply
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalDocumentsById`: %v\n", resp)
 }
 ```
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1LegalDocumentsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetLegalDocumentsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -138,11 +138,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDocumentReply**](CloudDocumentReply.md)
+[**DocumentReply**](DocumentReply.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -154,11 +154,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1LegalFilings
+## GetLegalFilings
 
-> CloudFilingPage CloudGetV1LegalFilings(ctx).Limit(limit).Execute()
+> FilingPage GetLegalFilings(ctx).Limit(limit).Execute()
 
-ListLegalFilings returns the org's filing records, newest first — which documents were filed where, through which provider, and what the filing's honest status is.
+Returns the org's filing records, newest first — which documents were filed where, through which provider, and what the filing's honest status is.
 
 
 
@@ -179,13 +179,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudGetV1LegalFilings(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.LegalAPI.GetLegalFilings(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudGetV1LegalFilings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalFilings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1LegalFilings`: CloudFilingPage
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudGetV1LegalFilings`: %v\n", resp)
+	// response from `GetLegalFilings`: FilingPage
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalFilings`: %v\n", resp)
 }
 ```
 
@@ -195,7 +195,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1LegalFilingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetLegalFilingsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -204,11 +204,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudFilingPage**](CloudFilingPage.md)
+[**FilingPage**](FilingPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -220,11 +220,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1LegalHealth
+## GetLegalHealth
 
-> CloudLegalHealth CloudGetV1LegalHealth(ctx).Execute()
+> LegalHealth GetLegalHealth(ctx).Execute()
 
-LegalHealth reports that the legal subsystem is serving and how many built-in templates its catalog carries.
+Reports that the legal subsystem is serving and how many built-in templates its catalog carries.
 
 
 
@@ -244,13 +244,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudGetV1LegalHealth(context.Background()).Execute()
+	resp, r, err := apiClient.LegalAPI.GetLegalHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudGetV1LegalHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1LegalHealth`: CloudLegalHealth
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudGetV1LegalHealth`: %v\n", resp)
+	// response from `GetLegalHealth`: LegalHealth
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalHealth`: %v\n", resp)
 }
 ```
 
@@ -260,16 +260,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1LegalHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetLegalHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudLegalHealth**](CloudLegalHealth.md)
+[**LegalHealth**](LegalHealth.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -281,11 +281,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1LegalHealthReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1LegalTemplates
+## GetLegalTemplates
 
-> CloudTemplateCatalog CloudGetV1LegalTemplates(ctx).Execute()
+> TemplateCatalog GetLegalTemplates(ctx).Execute()
 
-ListLegalTemplates returns the org's effective template catalog: every built-in template, with any the org has overridden replaced by its own latest version.
+Returns the org's effective template catalog: every built-in template, with any the org has overridden replaced by its own latest version.
 
 
 
@@ -305,13 +305,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudGetV1LegalTemplates(context.Background()).Execute()
+	resp, r, err := apiClient.LegalAPI.GetLegalTemplates(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudGetV1LegalTemplates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalTemplates``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1LegalTemplates`: CloudTemplateCatalog
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudGetV1LegalTemplates`: %v\n", resp)
+	// response from `GetLegalTemplates`: TemplateCatalog
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalTemplates`: %v\n", resp)
 }
 ```
 
@@ -321,16 +321,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1LegalTemplatesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetLegalTemplatesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudTemplateCatalog**](CloudTemplateCatalog.md)
+[**TemplateCatalog**](TemplateCatalog.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -342,11 +342,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1LegalTemplatesRe
 [[Back to README]](../README.md)
 
 
-## CloudGetV1LegalTemplatesId
+## GetLegalTemplatesById
 
-> CloudTemplateReply CloudGetV1LegalTemplatesId(ctx, id).Execute()
+> TemplateReply GetLegalTemplatesById(ctx, id).Execute()
 
-GetLegalTemplate returns one template resolved for the caller's org — the org's own override if it has saved one, else the built-in — with its full text/template body and its declared merge fields.
+Returns one template resolved for the caller's org — the org's own override if it has saved one, else the built-in — with its full text/template body and its declared merge fields.
 
 
 
@@ -367,13 +367,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudGetV1LegalTemplatesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.LegalAPI.GetLegalTemplatesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudGetV1LegalTemplatesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalTemplatesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1LegalTemplatesId`: CloudTemplateReply
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudGetV1LegalTemplatesId`: %v\n", resp)
+	// response from `GetLegalTemplatesById`: TemplateReply
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalTemplatesById`: %v\n", resp)
 }
 ```
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1LegalTemplatesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetLegalTemplatesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -396,11 +396,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTemplateReply**](CloudTemplateReply.md)
+[**TemplateReply**](TemplateReply.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -412,11 +412,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1LegalDocuments
+## PostLegalDocuments
 
-> CloudDocumentReply CloudPostV1LegalDocuments(ctx).CloudGenerateRequest(cloudGenerateRequest).Execute()
+> DocumentReply PostLegalDocuments(ctx).GenerateRequest(generateRequest).Execute()
 
-GenerateLegalDocument renders a document from a template and the caller's own merge data, seals it in the org's store, and returns it with its rendered body.
+Renders a document from a template and the caller's own merge data, seals it in the org's store, and returns it with its rendered body.
 
 
 
@@ -433,17 +433,17 @@ import (
 )
 
 func main() {
-	cloudGenerateRequest := *openapiclient.NewCloudGenerateRequest() // CloudGenerateRequest | 
+	generateRequest := *openapiclient.NewGenerateRequest() // GenerateRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudPostV1LegalDocuments(context.Background()).CloudGenerateRequest(cloudGenerateRequest).Execute()
+	resp, r, err := apiClient.LegalAPI.PostLegalDocuments(context.Background()).GenerateRequest(generateRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudPostV1LegalDocuments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PostLegalDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1LegalDocuments`: CloudDocumentReply
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudPostV1LegalDocuments`: %v\n", resp)
+	// response from `PostLegalDocuments`: DocumentReply
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.PostLegalDocuments`: %v\n", resp)
 }
 ```
 
@@ -453,20 +453,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1LegalDocumentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostLegalDocumentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudGenerateRequest** | [**CloudGenerateRequest**](CloudGenerateRequest.md) |  | 
+ **generateRequest** | [**GenerateRequest**](GenerateRequest.md) |  | 
 
 ### Return type
 
-[**CloudDocumentReply**](CloudDocumentReply.md)
+[**DocumentReply**](DocumentReply.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -478,9 +478,83 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1LegalDocumentsByIdSignComplete
+## PostLegalDocumentsByIdSign
 
-> CloudPostV1LegalDocumentsByIdSignComplete(ctx, id).Execute()
+> SignReply PostLegalDocumentsByIdSign(ctx, id).SignRequest(signRequest).Execute()
+
+Opens an e-signature request over one document and moves it to out_for_signature, returning the provider's reference for the request.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "doc_1f…" // string | ID is the document to send for signature, from the path.
+	signRequest := *openapiclient.NewSignRequest() // SignRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LegalAPI.PostLegalDocumentsByIdSign(context.Background(), id).SignRequest(signRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PostLegalDocumentsByIdSign``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostLegalDocumentsByIdSign`: SignReply
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.PostLegalDocumentsByIdSign`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the document to send for signature, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostLegalDocumentsByIdSignRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **signRequest** | [**SignRequest**](SignRequest.md) |  | 
+
+### Return type
+
+[**SignReply**](SignReply.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostLegalDocumentsByIdSignComplete
+
+> PostLegalDocumentsByIdSignComplete(ctx, id).Execute()
+
+Record that a generated document's signature request completed
 
 
 
@@ -501,9 +575,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.LegalAPI.CloudPostV1LegalDocumentsByIdSignComplete(context.Background(), id).Execute()
+	r, err := apiClient.LegalAPI.PostLegalDocumentsByIdSignComplete(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudPostV1LegalDocumentsByIdSignComplete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PostLegalDocumentsByIdSignComplete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -519,7 +593,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1LegalDocumentsByIdSignCompleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostLegalDocumentsByIdSignCompleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -532,7 +606,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -544,83 +618,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1LegalDocumentsIdSign
+## PostLegalFilings
 
-> CloudSignReply CloudPostV1LegalDocumentsIdSign(ctx, id).CloudSignRequest(cloudSignRequest).Execute()
+> FilingReply PostLegalFilings(ctx).FilingRequest(filingRequest).Execute()
 
-RequestLegalSignature opens an e-signature request over one document and moves it to out_for_signature, returning the provider's reference for the request.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	id := "doc_1f…" // string | ID is the document to send for signature, from the path.
-	cloudSignRequest := *openapiclient.NewCloudSignRequest() // CloudSignRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudPostV1LegalDocumentsIdSign(context.Background(), id).CloudSignRequest(cloudSignRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudPostV1LegalDocumentsIdSign``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1LegalDocumentsIdSign`: CloudSignReply
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudPostV1LegalDocumentsIdSign`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the document to send for signature, from the path. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1LegalDocumentsIdSignRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **cloudSignRequest** | [**CloudSignRequest**](CloudSignRequest.md) |  | 
-
-### Return type
-
-[**CloudSignReply**](CloudSignReply.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1LegalFilings
-
-> CloudFilingReply CloudPostV1LegalFilings(ctx).CloudFilingRequest(cloudFilingRequest).Execute()
-
-CreateLegalFiling records a filing of one or more of the org's documents with a state or agency, and returns the tracking record.
+Records a filing of one or more of the org's documents with a state or agency, and returns the tracking record.
 
 
 
@@ -637,17 +639,17 @@ import (
 )
 
 func main() {
-	cloudFilingRequest := *openapiclient.NewCloudFilingRequest() // CloudFilingRequest | 
+	filingRequest := *openapiclient.NewFilingRequest() // FilingRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudPostV1LegalFilings(context.Background()).CloudFilingRequest(cloudFilingRequest).Execute()
+	resp, r, err := apiClient.LegalAPI.PostLegalFilings(context.Background()).FilingRequest(filingRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudPostV1LegalFilings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PostLegalFilings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1LegalFilings`: CloudFilingReply
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudPostV1LegalFilings`: %v\n", resp)
+	// response from `PostLegalFilings`: FilingReply
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.PostLegalFilings`: %v\n", resp)
 }
 ```
 
@@ -657,20 +659,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1LegalFilingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostLegalFilingsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudFilingRequest** | [**CloudFilingRequest**](CloudFilingRequest.md) |  | 
+ **filingRequest** | [**FilingRequest**](FilingRequest.md) |  | 
 
 ### Return type
 
-[**CloudFilingReply**](CloudFilingReply.md)
+[**FilingReply**](FilingReply.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -682,11 +684,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1LegalTemplatesId
+## PutLegalTemplatesById
 
-> CloudTemplateReply CloudPutV1LegalTemplatesId(ctx, id).CloudTemplateOverride(cloudTemplateOverride).Execute()
+> TemplateReply PutLegalTemplatesById(ctx, id).TemplateOverride(templateOverride).Execute()
 
-SaveLegalTemplateOverride saves the org's own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
+Saves the org's own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
 
 
 
@@ -704,17 +706,17 @@ import (
 
 func main() {
 	id := "nda" // string | ID is the template to override, from the path. Overriding a built-in id inherits that built-in's category, title and counsel-review posture.
-	cloudTemplateOverride := *openapiclient.NewCloudTemplateOverride() // CloudTemplateOverride | 
+	templateOverride := *openapiclient.NewTemplateOverride() // TemplateOverride | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.CloudPutV1LegalTemplatesId(context.Background(), id).CloudTemplateOverride(cloudTemplateOverride).Execute()
+	resp, r, err := apiClient.LegalAPI.PutLegalTemplatesById(context.Background(), id).TemplateOverride(templateOverride).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.CloudPutV1LegalTemplatesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PutLegalTemplatesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1LegalTemplatesId`: CloudTemplateReply
-	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.CloudPutV1LegalTemplatesId`: %v\n", resp)
+	// response from `PutLegalTemplatesById`: TemplateReply
+	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.PutLegalTemplatesById`: %v\n", resp)
 }
 ```
 
@@ -728,21 +730,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1LegalTemplatesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutLegalTemplatesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudTemplateOverride** | [**CloudTemplateOverride**](CloudTemplateOverride.md) |  | 
+ **templateOverride** | [**TemplateOverride**](TemplateOverride.md) |  | 
 
 ### Return type
 
-[**CloudTemplateReply**](CloudTemplateReply.md)
+[**TemplateReply**](TemplateReply.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -1,0 +1,56 @@
+# IndexersOut
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Indexers** | Pointer to [**[]IndexerView**](IndexerView.md) | Indexers is one row per reachable chain indexer, or an empty list when the indexer is unreachable — never a fabricated row. | [optional] 
+
+## Methods
+
+### NewIndexersOut
+
+`func NewIndexersOut() *IndexersOut`
+
+NewIndexersOut instantiates a new IndexersOut object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewIndexersOutWithDefaults
+
+`func NewIndexersOutWithDefaults() *IndexersOut`
+
+NewIndexersOutWithDefaults instantiates a new IndexersOut object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetIndexers
+
+`func (o *IndexersOut) GetIndexers() []IndexerView`
+
+GetIndexers returns the Indexers field if non-nil, zero value otherwise.
+
+### GetIndexersOk
+
+`func (o *IndexersOut) GetIndexersOk() (*[]IndexerView, bool)`
+
+GetIndexersOk returns a tuple with the Indexers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIndexers
+
+`func (o *IndexersOut) SetIndexers(v []IndexerView)`
+
+SetIndexers sets Indexers field to given value.
+
+### HasIndexers
+
+`func (o *IndexersOut) HasIndexers() bool`
+
+HasIndexers returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

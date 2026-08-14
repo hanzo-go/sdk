@@ -4,20 +4,22 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1CatalogEntriesByWildcard1**](CatalogAPI.md#CloudDeleteV1CatalogEntriesByWildcard1) | **Delete** /v1/catalog/entries/{wildcard1} | 
-[**CloudGetV1Catalog**](CatalogAPI.md#CloudGetV1Catalog) | **Get** /v1/catalog | Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
-[**CloudGetV1CatalogEntries**](CatalogAPI.md#CloudGetV1CatalogEntries) | **Get** /v1/catalog/entries | 
-[**CloudPostV1CatalogEntries**](CatalogAPI.md#CloudPostV1CatalogEntries) | **Post** /v1/catalog/entries | 
-[**CloudPostV1CatalogModels**](CatalogAPI.md#CloudPostV1CatalogModels) | **Post** /v1/catalog/models | 
-[**CloudPostV1CatalogModelsRefresh**](CatalogAPI.md#CloudPostV1CatalogModelsRefresh) | **Post** /v1/catalog/models/refresh | 
-[**CloudPostV1CatalogSeed**](CatalogAPI.md#CloudPostV1CatalogSeed) | **Post** /v1/catalog/seed | 
-[**CloudPutV1CatalogEntriesByWildcard1**](CatalogAPI.md#CloudPutV1CatalogEntriesByWildcard1) | **Put** /v1/catalog/entries/{wildcard1} | 
+[**DeleteCatalogEntriesByWildcard1**](CatalogAPI.md#DeleteCatalogEntriesByWildcard1) | **Delete** /v1/catalog/entries/{wildcard1} | Remove a catalog entry
+[**GetCatalog**](CatalogAPI.md#GetCatalog) | **Get** /v1/catalog | Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
+[**GetCatalogEntries**](CatalogAPI.md#GetCatalogEntries) | **Get** /v1/catalog/entries | The raw catalog entries, including the unpublished ones
+[**PostCatalogEntries**](CatalogAPI.md#PostCatalogEntries) | **Post** /v1/catalog/entries | Add a catalog entry
+[**PostCatalogModels**](CatalogAPI.md#PostCatalogModels) | **Post** /v1/catalog/models | Land a syncer&#39;s view of the model catalog: upstream costs and machine facts
+[**PostCatalogModelsRefresh**](CatalogAPI.md#PostCatalogModelsRefresh) | **Post** /v1/catalog/models/refresh | Refresh the model catalog by reading the upstream provider
+[**PostCatalogSeed**](CatalogAPI.md#PostCatalogSeed) | **Post** /v1/catalog/seed | Seed the embedded catalog, without disturbing edits already made
+[**PutCatalogEntriesByWildcard1**](CatalogAPI.md#PutCatalogEntriesByWildcard1) | **Put** /v1/catalog/entries/{wildcard1} | Replace a catalog entry, keeping its slug
 
 
 
-## CloudDeleteV1CatalogEntriesByWildcard1
+## DeleteCatalogEntriesByWildcard1
 
-> CloudDeleteV1CatalogEntriesByWildcard1(ctx, wildcard1).Execute()
+> DeleteCatalogEntriesByWildcard1(ctx, wildcard1).Execute()
+
+Remove a catalog entry
 
 
 
@@ -38,9 +40,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CatalogAPI.CloudDeleteV1CatalogEntriesByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.CatalogAPI.DeleteCatalogEntriesByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.CloudDeleteV1CatalogEntriesByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.DeleteCatalogEntriesByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -56,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CatalogEntriesByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCatalogEntriesByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -69,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -81,9 +83,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Catalog
+## GetCatalog
 
-> CloudCatalogPage CloudGetV1Catalog(ctx).Q(q).Org(org).Kind(kind).Origin(origin).Archetype(archetype).Language(language).Template(template).Forkable(forkable).Limit(limit).Offset(offset).Execute()
+> CatalogPage GetCatalog(ctx).Q(q).Org(org).Kind(kind).Origin(origin).Archetype(archetype).Language(language).Template(template).Forkable(forkable).Limit(limit).Offset(offset).Execute()
 
 Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
 
@@ -115,13 +117,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CatalogAPI.CloudGetV1Catalog(context.Background()).Q(q).Org(org).Kind(kind).Origin(origin).Archetype(archetype).Language(language).Template(template).Forkable(forkable).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.CatalogAPI.GetCatalog(context.Background()).Q(q).Org(org).Kind(kind).Origin(origin).Archetype(archetype).Language(language).Template(template).Forkable(forkable).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.CloudGetV1Catalog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.GetCatalog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Catalog`: CloudCatalogPage
-	fmt.Fprintf(os.Stdout, "Response from `CatalogAPI.CloudGetV1Catalog`: %v\n", resp)
+	// response from `GetCatalog`: CatalogPage
+	fmt.Fprintf(os.Stdout, "Response from `CatalogAPI.GetCatalog`: %v\n", resp)
 }
 ```
 
@@ -131,7 +133,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CatalogRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCatalogRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -149,11 +151,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCatalogPage**](CloudCatalogPage.md)
+[**CatalogPage**](CatalogPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -165,66 +167,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CatalogEntries
+## GetCatalogEntries
 
-> CloudGetV1CatalogEntries(ctx).Execute()
+> GetCatalogEntries(ctx).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CatalogAPI.CloudGetV1CatalogEntries(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.CloudGetV1CatalogEntries``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1CatalogEntriesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CatalogEntries
-
-> CloudPostV1CatalogEntries(ctx).Execute()
+The raw catalog entries, including the unpublished ones
 
 
 
@@ -244,9 +191,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CatalogAPI.CloudPostV1CatalogEntries(context.Background()).Execute()
+	r, err := apiClient.CatalogAPI.GetCatalogEntries(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.CloudPostV1CatalogEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.GetCatalogEntries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -258,7 +205,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CatalogEntriesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCatalogEntriesRequest struct via the builder pattern
 
 
 ### Return type
@@ -267,7 +214,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1CatalogEntriesR
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -279,9 +226,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CatalogEntriesR
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CatalogModels
+## PostCatalogEntries
 
-> CloudPostV1CatalogModels(ctx).Execute()
+> PostCatalogEntries(ctx).Execute()
+
+Add a catalog entry
 
 
 
@@ -301,9 +250,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CatalogAPI.CloudPostV1CatalogModels(context.Background()).Execute()
+	r, err := apiClient.CatalogAPI.PostCatalogEntries(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.CloudPostV1CatalogModels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.PostCatalogEntries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -315,7 +264,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CatalogModelsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCatalogEntriesRequest struct via the builder pattern
 
 
 ### Return type
@@ -324,7 +273,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1CatalogModelsRe
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -336,9 +285,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CatalogModelsRe
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CatalogModelsRefresh
+## PostCatalogModels
 
-> CloudPostV1CatalogModelsRefresh(ctx).Execute()
+> PostCatalogModels(ctx).Execute()
+
+Land a syncer's view of the model catalog: upstream costs and machine facts
 
 
 
@@ -358,9 +309,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CatalogAPI.CloudPostV1CatalogModelsRefresh(context.Background()).Execute()
+	r, err := apiClient.CatalogAPI.PostCatalogModels(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.CloudPostV1CatalogModelsRefresh``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.PostCatalogModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -372,7 +323,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CatalogModelsRefreshRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCatalogModelsRequest struct via the builder pattern
 
 
 ### Return type
@@ -381,7 +332,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1CatalogModelsRe
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -393,9 +344,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CatalogModelsRe
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CatalogSeed
+## PostCatalogModelsRefresh
 
-> CloudPostV1CatalogSeed(ctx).Execute()
+> PostCatalogModelsRefresh(ctx).Execute()
+
+Refresh the model catalog by reading the upstream provider
 
 
 
@@ -415,9 +368,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CatalogAPI.CloudPostV1CatalogSeed(context.Background()).Execute()
+	r, err := apiClient.CatalogAPI.PostCatalogModelsRefresh(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.CloudPostV1CatalogSeed``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.PostCatalogModelsRefresh``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -429,7 +382,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CatalogSeedRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCatalogModelsRefreshRequest struct via the builder pattern
 
 
 ### Return type
@@ -438,7 +391,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1CatalogSeedRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -450,9 +403,70 @@ Other parameters are passed through a pointer to a apiCloudPostV1CatalogSeedRequ
 [[Back to README]](../README.md)
 
 
-## CloudPutV1CatalogEntriesByWildcard1
+## PostCatalogSeed
 
-> CloudPutV1CatalogEntriesByWildcard1(ctx, wildcard1).Execute()
+> PostCatalogSeed(ctx).Execute()
+
+Seed the embedded catalog, without disturbing edits already made
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CatalogAPI.PostCatalogSeed(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.PostCatalogSeed``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCatalogSeedRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutCatalogEntriesByWildcard1
+
+> PutCatalogEntriesByWildcard1(ctx, wildcard1).Execute()
+
+Replace a catalog entry, keeping its slug
 
 
 
@@ -473,9 +487,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CatalogAPI.CloudPutV1CatalogEntriesByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.CatalogAPI.PutCatalogEntriesByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.CloudPutV1CatalogEntriesByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.PutCatalogEntriesByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -491,7 +505,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1CatalogEntriesByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCatalogEntriesByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -504,7 +518,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

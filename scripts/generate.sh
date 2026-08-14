@@ -95,10 +95,51 @@ OUT="$STAGE/gen"
 # What keeps a bad document out is not the validator, it is `go build ./...` —
 # the whole generated package plus the six example flows, in hanzo.yml's test:
 # block. A malformed document fails there with a file and a line.
+#
+# --name-mappings and --model-name-mappings rename what Go sees. They never
+# touch the wire: the generator keeps the document's key as the field's json
+# tag, so every one of these still marshals under its original name. Each
+# mapped name occurs in exactly ONE schema of the document, measured, so a
+# global mapping reaches nothing but the schema that needs it.
+#
+# Every value is spelled EXPORTED, and that is load-bearing. The Go generator
+# takes a mapped name verbatim where python and kotlin re-case theirs, so a
+# camel value lands a lowercase field on the struct: unexported, invisible to
+# a caller, and skipped by encoding/json in both directions. It compiles, and
+# it drops the value it was written to preserve.
+#
+# Go emits Get<F>, Get<F>Ok, Has<F> and Set<F> beside every field, and that
+# convention collides with the document three times:
+#
+#   o11y.PodOnboarding declares eight `has<Label>Name` presence flags beside
+#   the labels themselves, so the FIELD HasClusterName and the METHOD
+#   HasClusterName that ClusterName generates are the same name. Three of the
+#   eight collide today; all eight take the `<label>NamePresent` spelling,
+#   because they are one family with one meaning ("the label is present", in
+#   the document's own words) and splitting their spelling by which sibling
+#   happens to exist would leave the next sibling to break the build.
+#
+#   o11y.PostableProfile does the same once, has_existing_observability_tool
+#   beside existing_observability_tool.
+#
+#   o11y.GettableAgentCheckIn carries two spellings of two fields —
+#   integration_config with integrationConfig, removed_at with removedAt —
+#   published together so older AWS agents keep working. Both spellings
+#   Pascal-case to one Go field. The snake one is the legacy wire and takes the
+#   suffix; python and kotlin correct the same pair the same way.
+#
+# The document also has a schema called `Config`: the MQ stream configuration,
+# POST /v1/mq/streams' body and Stream.config. Its constructor is NewConfig,
+# which is already hanzo.go's — the hand-written seam that builds an
+# authenticated Configuration. `StreamConfig` says which config it is, and is
+# the only bare Config in a document where every other one is qualified
+# (TLSConfig, iam.config, o11y.DiscordConfig).
 java -jar "$JAR" generate \
   -i "$SPEC_JSON" -g go \
   --skip-validate-spec \
   --additional-properties=packageName=hanzoai,withGoMod=false,structPrefix=true,enumClassPrefix=true \
+  --name-mappings hasClusterName=ClusterNamePresent,hasCronjobName=CronjobNamePresent,hasDaemonsetName=DaemonsetNamePresent,hasDeploymentName=DeploymentNamePresent,hasJobName=JobNamePresent,hasNamespaceName=NamespaceNamePresent,hasNodeName=NodeNamePresent,hasStatefulsetName=StatefulsetNamePresent,has_existing_observability_tool=ExistingObservabilityToolPresent,integration_config=IntegrationConfigLegacy,removed_at=RemovedAtLegacy \
+  --model-name-mappings Config=StreamConfig \
   --git-user-id=hanzoai --git-repo-id=go-sdk \
   -o "$OUT"
 
@@ -117,9 +158,18 @@ if [ "$check" = 1 ]; then
     b="$(basename "$f")"
     if ! cmp -s "$f" "$b"; then echo "DRIFTED: $b"; rc=1; fi
   done
+  # A file the generator OWNED and no longer emits — a renamed or dropped
+  # operation's leftovers. The committed manifest is what says it was owned, and
+  # asking it is the difference between this check and a check that cannot pass:
+  # hanzo.go and hanzo_test.go are root *.go files the generator never wrote, so
+  # comparing the two directories alone reports the hand-written seam as drift
+  # on every run.
   for f in ./*.go; do
     b="$(basename "$f")"
-    [ -f "$OUT/$b" ] || { echo "DRIFTED: $b is committed and the document does not project it"; rc=1; }
+    [ -f "$OUT/$b" ] && continue
+    grep -qxF "$b" .openapi-generator/FILES || continue
+    echo "DRIFTED: $b is committed and the document no longer projects it"
+    rc=1
   done
   [ "$rc" = 0 ] && echo "clean: the module root is what the document projects"
   exit "$rc"

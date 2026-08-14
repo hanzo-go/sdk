@@ -4,19 +4,19 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteBot**](ComputeAPI.md#CloudDeleteBot) | **Delete** /v1/compute/bots/{id} | Tears down both halves of a bot: it unbinds the agent (best-effort — a bot with no binding still deletes), then terminates the machine.
-[**CloudGetBot**](ComputeAPI.md#CloudGetBot) | **Get** /v1/compute/bots/{id} | Returns one of the caller org&#39;s bot machines with its agent binding.
-[**CloudGetV1ComputeRegions**](ComputeAPI.md#CloudGetV1ComputeRegions) | **Get** /v1/compute/regions | 
-[**CloudGetV1ComputeSizes**](ComputeAPI.md#CloudGetV1ComputeSizes) | **Get** /v1/compute/sizes | 
-[**CloudListBots**](ComputeAPI.md#CloudListBots) | **Get** /v1/compute/bots | Returns the caller org&#39;s bot machines — the kind&#x3D;bot machines — each joined with the agent binding that says which cloud Agent it runs.
-[**CloudPostV1ComputeBotsByIdByAction**](ComputeAPI.md#CloudPostV1ComputeBotsByIdByAction) | **Post** /v1/compute/bots/{id}/{action} | 
-[**CloudPostV1ComputeBotsLaunch**](ComputeAPI.md#CloudPostV1ComputeBotsLaunch) | **Post** /v1/compute/bots/launch | 
+[**DeleteBot**](ComputeAPI.md#DeleteBot) | **Delete** /v1/compute/bots/{id} | Tears down both halves of a bot: it unbinds the agent (best-effort — a bot with no binding still deletes), then terminates the machine.
+[**GetBot**](ComputeAPI.md#GetBot) | **Get** /v1/compute/bots/{id} | Returns one of the caller org&#39;s bot machines with its agent binding.
+[**GetComputeRegions**](ComputeAPI.md#GetComputeRegions) | **Get** /v1/compute/regions | The regions a machine or GPU can be launched into
+[**GetComputeSizes**](ComputeAPI.md#GetComputeSizes) | **Get** /v1/compute/sizes | The machine and GPU sizes that can be launched
+[**ListBots**](ComputeAPI.md#ListBots) | **Get** /v1/compute/bots | Returns the caller org&#39;s bot machines — the kind&#x3D;bot machines — each joined with the agent binding that says which cloud Agent it runs.
+[**PostComputeBotsByIdByAction**](ComputeAPI.md#PostComputeBotsByIdByAction) | **Post** /v1/compute/bots/{id}/{action} | Message a bot, or stop it, by naming the action in the path
+[**PostComputeBotsLaunch**](ComputeAPI.md#PostComputeBotsLaunch) | **Post** /v1/compute/bots/launch | Launch a bot machine — an agent plus the machine that runs it — or price one
 
 
 
-## CloudDeleteBot
+## DeleteBot
 
-> CloudDeleteBot(ctx, id).Execute()
+> DeleteBot(ctx, id).Execute()
 
 Tears down both halves of a bot: it unbinds the agent (best-effort — a bot with no binding still deletes), then terminates the machine.
 
@@ -39,9 +39,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ComputeAPI.CloudDeleteBot(context.Background(), id).Execute()
+	r, err := apiClient.ComputeAPI.DeleteBot(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CloudDeleteBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.DeleteBot``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteBotRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteBotRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -82,9 +82,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetBot
+## GetBot
 
-> CloudBotView CloudGetBot(ctx, id).Execute()
+> BotView GetBot(ctx, id).Execute()
 
 Returns one of the caller org's bot machines with its agent binding.
 
@@ -107,13 +107,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.CloudGetBot(context.Background(), id).Execute()
+	resp, r, err := apiClient.ComputeAPI.GetBot(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CloudGetBot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.GetBot``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetBot`: CloudBotView
-	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.CloudGetBot`: %v\n", resp)
+	// response from `GetBot`: BotView
+	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.GetBot`: %v\n", resp)
 }
 ```
 
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetBotRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBotRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -136,11 +136,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudBotView**](CloudBotView.md)
+[**BotView**](BotView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -152,66 +152,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ComputeRegions
+## GetComputeRegions
 
-> CloudGetV1ComputeRegions(ctx).Execute()
+> GetComputeRegions(ctx).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ComputeAPI.CloudGetV1ComputeRegions(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CloudGetV1ComputeRegions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1ComputeRegionsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1ComputeSizes
-
-> CloudGetV1ComputeSizes(ctx).Execute()
+The regions a machine or GPU can be launched into
 
 
 
@@ -231,9 +176,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ComputeAPI.CloudGetV1ComputeSizes(context.Background()).Execute()
+	r, err := apiClient.ComputeAPI.GetComputeRegions(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CloudGetV1ComputeSizes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.GetComputeRegions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -245,7 +190,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ComputeSizesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetComputeRegionsRequest struct via the builder pattern
 
 
 ### Return type
@@ -254,7 +199,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1ComputeSizesRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -266,9 +211,68 @@ Other parameters are passed through a pointer to a apiCloudGetV1ComputeSizesRequ
 [[Back to README]](../README.md)
 
 
-## CloudListBots
+## GetComputeSizes
 
-> CloudBotList CloudListBots(ctx).Execute()
+> GetComputeSizes(ctx).Execute()
+
+The machine and GPU sizes that can be launched
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ComputeAPI.GetComputeSizes(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.GetComputeSizes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetComputeSizesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListBots
+
+> BotList ListBots(ctx).Execute()
 
 Returns the caller org's bot machines — the kind=bot machines — each joined with the agent binding that says which cloud Agent it runs.
 
@@ -290,13 +294,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.CloudListBots(context.Background()).Execute()
+	resp, r, err := apiClient.ComputeAPI.ListBots(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CloudListBots``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListBots``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListBots`: CloudBotList
-	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.CloudListBots`: %v\n", resp)
+	// response from `ListBots`: BotList
+	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListBots`: %v\n", resp)
 }
 ```
 
@@ -306,16 +310,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListBotsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListBotsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudBotList**](CloudBotList.md)
+[**BotList**](BotList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -327,9 +331,11 @@ Other parameters are passed through a pointer to a apiCloudListBotsRequest struc
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ComputeBotsByIdByAction
+## PostComputeBotsByIdByAction
 
-> CloudPostV1ComputeBotsByIdByAction(ctx, id, action).Execute()
+> PostComputeBotsByIdByAction(ctx, id, action).Execute()
+
+Message a bot, or stop it, by naming the action in the path
 
 
 
@@ -351,9 +357,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ComputeAPI.CloudPostV1ComputeBotsByIdByAction(context.Background(), id, action).Execute()
+	r, err := apiClient.ComputeAPI.PostComputeBotsByIdByAction(context.Background(), id, action).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CloudPostV1ComputeBotsByIdByAction``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.PostComputeBotsByIdByAction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -370,7 +376,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ComputeBotsByIdByActionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostComputeBotsByIdByActionRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -384,7 +390,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -396,9 +402,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ComputeBotsLaunch
+## PostComputeBotsLaunch
 
-> CloudPostV1ComputeBotsLaunch(ctx).Execute()
+> PostComputeBotsLaunch(ctx).Execute()
+
+Launch a bot machine — an agent plus the machine that runs it — or price one
 
 
 
@@ -418,9 +426,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ComputeAPI.CloudPostV1ComputeBotsLaunch(context.Background()).Execute()
+	r, err := apiClient.ComputeAPI.PostComputeBotsLaunch(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CloudPostV1ComputeBotsLaunch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.PostComputeBotsLaunch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -432,7 +440,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ComputeBotsLaunchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostComputeBotsLaunchRequest struct via the builder pattern
 
 
 ### Return type
@@ -441,7 +449,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1ComputeBotsLaun
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

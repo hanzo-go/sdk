@@ -4,31 +4,31 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1TeamAccountCookie**](TeamAPI.md#CloudDeleteV1TeamAccountCookie) | **Delete** /v1/team/account/cookie | ClearCookie signs this browser out of team by expiring the HttpOnly account-token cookie the OAuth callback set.
-[**CloudDeleteV1TeamFilesWorkspaceFilename**](TeamAPI.md#CloudDeleteV1TeamFilesWorkspaceFilename) | **Delete** /v1/team/files/{workspace}/{filename} | DeleteBlob removes one blob from a workspace&#39;s file store.
-[**CloudGetV1TeamAccountAuthByProvider**](TeamAPI.md#CloudGetV1TeamAccountAuthByProvider) | **Get** /v1/team/account/auth/{provider} | 
-[**CloudGetV1TeamAccountAuthByProviderCallback**](TeamAPI.md#CloudGetV1TeamAccountAuthByProviderCallback) | **Get** /v1/team/account/auth/{provider}/callback | 
-[**CloudGetV1TeamAccountProviders**](TeamAPI.md#CloudGetV1TeamAccountProviders) | **Get** /v1/team/account/providers | ListProviders returns the identity providers this deployment starts a login with.
-[**CloudGetV1TeamBillingPlan**](TeamAPI.md#CloudGetV1TeamBillingPlan) | **Get** /v1/team/billing/plan | ReadPlan returns the plan and seat counts for the caller&#39;s OWN org, resolved from the VERIFIED team session token — never a client header.
-[**CloudGetV1TeamBillingUi**](TeamAPI.md#CloudGetV1TeamBillingUi) | **Get** /v1/team/billing/ui | 
-[**CloudGetV1TeamBillingUiByWildcard1**](TeamAPI.md#CloudGetV1TeamBillingUiByWildcard1) | **Get** /v1/team/billing/ui/{wildcard1} | 
-[**CloudGetV1TeamBots**](TeamAPI.md#CloudGetV1TeamBots) | **Get** /v1/team/bots | ListBots returns the caller org&#39;s bot members — the org&#39;s agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
-[**CloudGetV1TeamFilesByWorkspaceByFilename**](TeamAPI.md#CloudGetV1TeamFilesByWorkspaceByFilename) | **Get** /v1/team/files/{workspace}/{filename} | 
-[**CloudGetV1TeamTransactorApiV1Statistics**](TeamAPI.md#CloudGetV1TeamTransactorApiV1Statistics) | **Get** /v1/team/transactor/api/v1/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s token names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
-[**CloudGetV1TeamTransactorByToken**](TeamAPI.md#CloudGetV1TeamTransactorByToken) | **Get** /v1/team/transactor/{token} | 
-[**CloudGetV1TeamTransactorStatistics**](TeamAPI.md#CloudGetV1TeamTransactorStatistics) | **Get** /v1/team/transactor/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s token names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
-[**CloudPostV1TeamAccount**](TeamAPI.md#CloudPostV1TeamAccount) | **Post** /v1/team/account | 
-[**CloudPostV1TeamBotsSync**](TeamAPI.md#CloudPostV1TeamBotsSync) | **Post** /v1/team/bots/sync | SyncBots re-projects the caller org&#39;s agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
-[**CloudPostV1TeamFilesByWorkspace**](TeamAPI.md#CloudPostV1TeamFilesByWorkspace) | **Post** /v1/team/files/{workspace} | 
-[**CloudPutV1TeamAccountCookie**](TeamAPI.md#CloudPutV1TeamAccountCookie) | **Put** /v1/team/account/cookie | 
+[**DeleteTeamAccountCookie**](TeamAPI.md#DeleteTeamAccountCookie) | **Delete** /v1/team/account/cookie | Signs this browser out of team by expiring the HttpOnly account-token cookie the OAuth callback set.
+[**DeleteTeamFilesByWorkspaceByFilename**](TeamAPI.md#DeleteTeamFilesByWorkspaceByFilename) | **Delete** /v1/team/files/{workspace}/{filename} | Removes one blob from a workspace&#39;s file store.
+[**GetTeamAccountAuthByProvider**](TeamAPI.md#GetTeamAccountAuthByProvider) | **Get** /v1/team/account/auth/{provider} | Start a sign-in at hanzo.id
+[**GetTeamAccountAuthByProviderCallback**](TeamAPI.md#GetTeamAccountAuthByProviderCallback) | **Get** /v1/team/account/auth/{provider}/callback | Complete a sign-in and hand the browser its session
+[**GetTeamAccountProviders**](TeamAPI.md#GetTeamAccountProviders) | **Get** /v1/team/account/providers | Returns the identity providers this deployment starts a login with.
+[**GetTeamBillingPlan**](TeamAPI.md#GetTeamBillingPlan) | **Get** /v1/team/billing/plan | Returns the plan and seat counts for the caller&#39;s OWN org, resolved from the VERIFIED team session token — never a client header.
+[**GetTeamBillingUi**](TeamAPI.md#GetTeamBillingUi) | **Get** /v1/team/billing/ui | Open the wallet page
+[**GetTeamBillingUiByWildcard1**](TeamAPI.md#GetTeamBillingUiByWildcard1) | **Get** /v1/team/billing/ui/{wildcard1} | Load an asset of the wallet page
+[**GetTeamBots**](TeamAPI.md#GetTeamBots) | **Get** /v1/team/bots | Returns the caller org&#39;s bot members — the org&#39;s agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+[**GetTeamFilesByWorkspaceByFilename**](TeamAPI.md#GetTeamFilesByWorkspaceByFilename) | **Get** /v1/team/files/{workspace}/{filename} | Download a workspace file
+[**GetTeamTransactorApiV1Statistics**](TeamAPI.md#GetTeamTransactorApiV1Statistics) | **Get** /v1/team/transactor/api/v1/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
+[**GetTeamTransactorByToken**](TeamAPI.md#GetTeamTransactorByToken) | **Get** /v1/team/transactor/{token} | Open the workspace data-plane socket
+[**GetTeamTransactorStatistics**](TeamAPI.md#GetTeamTransactorStatistics) | **Get** /v1/team/transactor/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
+[**PostTeamAccount**](TeamAPI.md#PostTeamAccount) | **Post** /v1/team/account | Read the caller&#39;s account and switch workspace
+[**PostTeamBotsSync**](TeamAPI.md#PostTeamBotsSync) | **Post** /v1/team/bots/sync | SyncBots re-projects the caller org&#39;s agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
+[**PostTeamFilesByWorkspace**](TeamAPI.md#PostTeamFilesByWorkspace) | **Post** /v1/team/files/{workspace} | Upload a file into a workspace
+[**PutTeamAccountCookie**](TeamAPI.md#PutTeamAccountCookie) | **Put** /v1/team/account/cookie | Store the session token as this browser&#39;s cookie
 
 
 
-## CloudDeleteV1TeamAccountCookie
+## DeleteTeamAccountCookie
 
-> CloudCookieAck CloudDeleteV1TeamAccountCookie(ctx).Execute()
+> CookieAck DeleteTeamAccountCookie(ctx).Execute()
 
-ClearCookie signs this browser out of team by expiring the HttpOnly account-token cookie the OAuth callback set.
+Signs this browser out of team by expiring the HttpOnly account-token cookie the OAuth callback set.
 
 
 
@@ -48,13 +48,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.CloudDeleteV1TeamAccountCookie(context.Background()).Execute()
+	resp, r, err := apiClient.TeamAPI.DeleteTeamAccountCookie(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudDeleteV1TeamAccountCookie``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.DeleteTeamAccountCookie``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1TeamAccountCookie`: CloudCookieAck
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.CloudDeleteV1TeamAccountCookie`: %v\n", resp)
+	// response from `DeleteTeamAccountCookie`: CookieAck
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.DeleteTeamAccountCookie`: %v\n", resp)
 }
 ```
 
@@ -64,16 +64,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1TeamAccountCookieRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteTeamAccountCookieRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCookieAck**](CloudCookieAck.md)
+[**CookieAck**](CookieAck.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -85,11 +85,11 @@ Other parameters are passed through a pointer to a apiCloudDeleteV1TeamAccountCo
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1TeamFilesWorkspaceFilename
+## DeleteTeamFilesByWorkspaceByFilename
 
-> CloudDeleteV1TeamFilesWorkspaceFilename(ctx, workspace, filename).File(file).Execute()
+> DeleteTeamFilesByWorkspaceByFilename(ctx, workspace, filename).File(file).Execute()
 
-DeleteBlob removes one blob from a workspace's file store.
+Removes one blob from a workspace's file store.
 
 
 
@@ -112,9 +112,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudDeleteV1TeamFilesWorkspaceFilename(context.Background(), workspace, filename).File(file).Execute()
+	r, err := apiClient.TeamAPI.DeleteTeamFilesByWorkspaceByFilename(context.Background(), workspace, filename).File(file).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudDeleteV1TeamFilesWorkspaceFilename``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.DeleteTeamFilesByWorkspaceByFilename``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1TeamFilesWorkspaceFilenameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteTeamFilesByWorkspaceByFilenameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -158,9 +158,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamAccountAuthByProvider
+## GetTeamAccountAuthByProvider
 
-> CloudGetV1TeamAccountAuthByProvider(ctx, provider).Execute()
+> GetTeamAccountAuthByProvider(ctx, provider).Execute()
+
+Start a sign-in at hanzo.id
 
 
 
@@ -181,9 +183,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudGetV1TeamAccountAuthByProvider(context.Background(), provider).Execute()
+	r, err := apiClient.TeamAPI.GetTeamAccountAuthByProvider(context.Background(), provider).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamAccountAuthByProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamAccountAuthByProvider``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -199,7 +201,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamAccountAuthByProviderRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamAccountAuthByProviderRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -212,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -224,9 +226,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamAccountAuthByProviderCallback
+## GetTeamAccountAuthByProviderCallback
 
-> CloudGetV1TeamAccountAuthByProviderCallback(ctx, provider).Execute()
+> GetTeamAccountAuthByProviderCallback(ctx, provider).Execute()
+
+Complete a sign-in and hand the browser its session
 
 
 
@@ -247,9 +251,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudGetV1TeamAccountAuthByProviderCallback(context.Background(), provider).Execute()
+	r, err := apiClient.TeamAPI.GetTeamAccountAuthByProviderCallback(context.Background(), provider).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamAccountAuthByProviderCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamAccountAuthByProviderCallback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -265,7 +269,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamAccountAuthByProviderCallbackRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamAccountAuthByProviderCallbackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -278,7 +282,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -290,11 +294,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamAccountProviders
+## GetTeamAccountProviders
 
-> []CloudProviderInfo CloudGetV1TeamAccountProviders(ctx).Execute()
+> []ProviderInfo GetTeamAccountProviders(ctx).Execute()
 
-ListProviders returns the identity providers this deployment starts a login with.
+Returns the identity providers this deployment starts a login with.
 
 
 
@@ -314,13 +318,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.CloudGetV1TeamAccountProviders(context.Background()).Execute()
+	resp, r, err := apiClient.TeamAPI.GetTeamAccountProviders(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamAccountProviders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamAccountProviders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1TeamAccountProviders`: []CloudProviderInfo
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.CloudGetV1TeamAccountProviders`: %v\n", resp)
+	// response from `GetTeamAccountProviders`: []ProviderInfo
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamAccountProviders`: %v\n", resp)
 }
 ```
 
@@ -330,16 +334,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamAccountProvidersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamAccountProvidersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]CloudProviderInfo**](CloudProviderInfo.md)
+[**[]ProviderInfo**](ProviderInfo.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -351,11 +355,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1TeamAccountProvi
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamBillingPlan
+## GetTeamBillingPlan
 
-> CloudPlanInfo CloudGetV1TeamBillingPlan(ctx).Execute()
+> PlanInfo GetTeamBillingPlan(ctx).Execute()
 
-ReadPlan returns the plan and seat counts for the caller's OWN org, resolved from the VERIFIED team session token — never a client header.
+Returns the plan and seat counts for the caller's OWN org, resolved from the VERIFIED team session token — never a client header.
 
 
 
@@ -375,13 +379,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.CloudGetV1TeamBillingPlan(context.Background()).Execute()
+	resp, r, err := apiClient.TeamAPI.GetTeamBillingPlan(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamBillingPlan``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamBillingPlan``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1TeamBillingPlan`: CloudPlanInfo
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.CloudGetV1TeamBillingPlan`: %v\n", resp)
+	// response from `GetTeamBillingPlan`: PlanInfo
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamBillingPlan`: %v\n", resp)
 }
 ```
 
@@ -391,16 +395,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamBillingPlanRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamBillingPlanRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPlanInfo**](CloudPlanInfo.md)
+[**PlanInfo**](PlanInfo.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -412,9 +416,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1TeamBillingPlanR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamBillingUi
+## GetTeamBillingUi
 
-> CloudGetV1TeamBillingUi(ctx).Execute()
+> GetTeamBillingUi(ctx).Execute()
+
+Open the wallet page
 
 
 
@@ -434,9 +440,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudGetV1TeamBillingUi(context.Background()).Execute()
+	r, err := apiClient.TeamAPI.GetTeamBillingUi(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamBillingUi``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamBillingUi``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -448,7 +454,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamBillingUiRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamBillingUiRequest struct via the builder pattern
 
 
 ### Return type
@@ -457,7 +463,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1TeamBillingUiReq
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -469,9 +475,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1TeamBillingUiReq
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamBillingUiByWildcard1
+## GetTeamBillingUiByWildcard1
 
-> CloudGetV1TeamBillingUiByWildcard1(ctx, wildcard1).Execute()
+> GetTeamBillingUiByWildcard1(ctx, wildcard1).Execute()
+
+Load an asset of the wallet page
 
 
 
@@ -492,9 +500,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudGetV1TeamBillingUiByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.TeamAPI.GetTeamBillingUiByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamBillingUiByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamBillingUiByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -510,7 +518,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamBillingUiByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamBillingUiByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -523,7 +531,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -535,11 +543,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamBots
+## GetTeamBots
 
-> CloudBotRoster CloudGetV1TeamBots(ctx).Execute()
+> BotRoster GetTeamBots(ctx).Execute()
 
-ListBots returns the caller org's bot members — the org's agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+Returns the caller org's bot members — the org's agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
 
 
 
@@ -559,13 +567,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.CloudGetV1TeamBots(context.Background()).Execute()
+	resp, r, err := apiClient.TeamAPI.GetTeamBots(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamBots``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamBots``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1TeamBots`: CloudBotRoster
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.CloudGetV1TeamBots`: %v\n", resp)
+	// response from `GetTeamBots`: BotRoster
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamBots`: %v\n", resp)
 }
 ```
 
@@ -575,16 +583,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamBotsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamBotsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudBotRoster**](CloudBotRoster.md)
+[**BotRoster**](BotRoster.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -596,9 +604,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1TeamBotsRequest 
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamFilesByWorkspaceByFilename
+## GetTeamFilesByWorkspaceByFilename
 
-> CloudGetV1TeamFilesByWorkspaceByFilename(ctx, workspace, filename).Execute()
+> GetTeamFilesByWorkspaceByFilename(ctx, workspace, filename).Execute()
+
+Download a workspace file
 
 
 
@@ -620,9 +630,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudGetV1TeamFilesByWorkspaceByFilename(context.Background(), workspace, filename).Execute()
+	r, err := apiClient.TeamAPI.GetTeamFilesByWorkspaceByFilename(context.Background(), workspace, filename).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamFilesByWorkspaceByFilename``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamFilesByWorkspaceByFilename``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -639,7 +649,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamFilesByWorkspaceByFilenameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamFilesByWorkspaceByFilenameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -653,7 +663,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -665,11 +675,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamTransactorApiV1Statistics
+## GetTeamTransactorApiV1Statistics
 
-> CloudStatsOut CloudGetV1TeamTransactorApiV1Statistics(ctx).Token(token).Execute()
+> StatsOut GetTeamTransactorApiV1Statistics(ctx).Token(token).Execute()
 
-Statistics returns the transactor's live sessions for the workspace the caller's token names — the endpoint the front's workspace switcher and server panel poll on the transactor base.
+Statistics returns the transactor's live sessions for the workspace the caller's credential names — the endpoint the front's workspace switcher and server panel poll on the transactor base.
 
 
 
@@ -690,13 +700,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.CloudGetV1TeamTransactorApiV1Statistics(context.Background()).Token(token).Execute()
+	resp, r, err := apiClient.TeamAPI.GetTeamTransactorApiV1Statistics(context.Background()).Token(token).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamTransactorApiV1Statistics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamTransactorApiV1Statistics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1TeamTransactorApiV1Statistics`: CloudStatsOut
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.CloudGetV1TeamTransactorApiV1Statistics`: %v\n", resp)
+	// response from `GetTeamTransactorApiV1Statistics`: StatsOut
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamTransactorApiV1Statistics`: %v\n", resp)
 }
 ```
 
@@ -706,7 +716,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamTransactorApiV1StatisticsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamTransactorApiV1StatisticsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -715,11 +725,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudStatsOut**](CloudStatsOut.md)
+[**StatsOut**](StatsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -731,9 +741,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamTransactorByToken
+## GetTeamTransactorByToken
 
-> CloudGetV1TeamTransactorByToken(ctx, token).Execute()
+> GetTeamTransactorByToken(ctx, token).Execute()
+
+Open the workspace data-plane socket
 
 
 
@@ -754,9 +766,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudGetV1TeamTransactorByToken(context.Background(), token).Execute()
+	r, err := apiClient.TeamAPI.GetTeamTransactorByToken(context.Background(), token).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamTransactorByToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamTransactorByToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -772,7 +784,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamTransactorByTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamTransactorByTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -785,7 +797,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -797,11 +809,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1TeamTransactorStatistics
+## GetTeamTransactorStatistics
 
-> CloudStatsOut CloudGetV1TeamTransactorStatistics(ctx).Token(token).Execute()
+> StatsOut GetTeamTransactorStatistics(ctx).Token(token).Execute()
 
-Statistics returns the transactor's live sessions for the workspace the caller's token names — the endpoint the front's workspace switcher and server panel poll on the transactor base.
+Statistics returns the transactor's live sessions for the workspace the caller's credential names — the endpoint the front's workspace switcher and server panel poll on the transactor base.
 
 
 
@@ -822,13 +834,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.CloudGetV1TeamTransactorStatistics(context.Background()).Token(token).Execute()
+	resp, r, err := apiClient.TeamAPI.GetTeamTransactorStatistics(context.Background()).Token(token).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudGetV1TeamTransactorStatistics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamTransactorStatistics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1TeamTransactorStatistics`: CloudStatsOut
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.CloudGetV1TeamTransactorStatistics`: %v\n", resp)
+	// response from `GetTeamTransactorStatistics`: StatsOut
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamTransactorStatistics`: %v\n", resp)
 }
 ```
 
@@ -838,7 +850,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1TeamTransactorStatisticsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamTransactorStatisticsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -847,11 +859,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudStatsOut**](CloudStatsOut.md)
+[**StatsOut**](StatsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -863,9 +875,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1TeamAccount
+## PostTeamAccount
 
-> CloudPostV1TeamAccount(ctx).Execute()
+> PostTeamAccount(ctx).Execute()
+
+Read the caller's account and switch workspace
 
 
 
@@ -885,9 +899,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudPostV1TeamAccount(context.Background()).Execute()
+	r, err := apiClient.TeamAPI.PostTeamAccount(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudPostV1TeamAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -899,7 +913,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1TeamAccountRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostTeamAccountRequest struct via the builder pattern
 
 
 ### Return type
@@ -908,7 +922,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1TeamAccountRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -920,9 +934,9 @@ Other parameters are passed through a pointer to a apiCloudPostV1TeamAccountRequ
 [[Back to README]](../README.md)
 
 
-## CloudPostV1TeamBotsSync
+## PostTeamBotsSync
 
-> CloudBotSync CloudPostV1TeamBotsSync(ctx).Execute()
+> BotSync PostTeamBotsSync(ctx).Execute()
 
 SyncBots re-projects the caller org's agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
 
@@ -944,13 +958,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.CloudPostV1TeamBotsSync(context.Background()).Execute()
+	resp, r, err := apiClient.TeamAPI.PostTeamBotsSync(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudPostV1TeamBotsSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamBotsSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1TeamBotsSync`: CloudBotSync
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.CloudPostV1TeamBotsSync`: %v\n", resp)
+	// response from `PostTeamBotsSync`: BotSync
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamBotsSync`: %v\n", resp)
 }
 ```
 
@@ -960,16 +974,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1TeamBotsSyncRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostTeamBotsSyncRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudBotSync**](CloudBotSync.md)
+[**BotSync**](BotSync.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -981,9 +995,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1TeamBotsSyncReq
 [[Back to README]](../README.md)
 
 
-## CloudPostV1TeamFilesByWorkspace
+## PostTeamFilesByWorkspace
 
-> CloudPostV1TeamFilesByWorkspace(ctx, workspace).Execute()
+> PostTeamFilesByWorkspace(ctx, workspace).Execute()
+
+Upload a file into a workspace
 
 
 
@@ -1004,9 +1020,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudPostV1TeamFilesByWorkspace(context.Background(), workspace).Execute()
+	r, err := apiClient.TeamAPI.PostTeamFilesByWorkspace(context.Background(), workspace).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudPostV1TeamFilesByWorkspace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamFilesByWorkspace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1022,7 +1038,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1TeamFilesByWorkspaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostTeamFilesByWorkspaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1035,7 +1051,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1047,9 +1063,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1TeamAccountCookie
+## PutTeamAccountCookie
 
-> CloudPutV1TeamAccountCookie(ctx).Execute()
+> PutTeamAccountCookie(ctx).Execute()
+
+Store the session token as this browser's cookie
 
 
 
@@ -1069,9 +1087,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.CloudPutV1TeamAccountCookie(context.Background()).Execute()
+	r, err := apiClient.TeamAPI.PutTeamAccountCookie(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CloudPutV1TeamAccountCookie``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PutTeamAccountCookie``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1083,7 +1101,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1TeamAccountCookieRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutTeamAccountCookieRequest struct via the builder pattern
 
 
 ### Return type
@@ -1092,7 +1110,7 @@ Other parameters are passed through a pointer to a apiCloudPutV1TeamAccountCooki
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

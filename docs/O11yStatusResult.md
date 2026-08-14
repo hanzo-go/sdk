@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Product** | Pointer to **string** |  | [optional] 
-**Up** | Pointer to **bool** |  | [optional] 
-**LatencyMs** | Pointer to **int64** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
+**CheckedAt** | Pointer to **string** |  | [optional] 
 **Deployments** | Pointer to [**[]O11yDeployment**](O11yDeployment.md) |  | [optional] 
-**CheckedAt** | Pointer to **time.Time** |  | [optional] 
+**LatencyMs** | Pointer to **int32** |  | [optional] 
+**Product** | Pointer to **string** |  | [optional] 
+**Source** | Pointer to **string** |  | [optional] 
+**Up** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -30,105 +30,30 @@ NewO11yStatusResultWithDefaults instantiates a new O11yStatusResult object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetProduct
+### GetCheckedAt
 
-`func (o *O11yStatusResult) GetProduct() string`
+`func (o *O11yStatusResult) GetCheckedAt() string`
 
-GetProduct returns the Product field if non-nil, zero value otherwise.
+GetCheckedAt returns the CheckedAt field if non-nil, zero value otherwise.
 
-### GetProductOk
+### GetCheckedAtOk
 
-`func (o *O11yStatusResult) GetProductOk() (*string, bool)`
+`func (o *O11yStatusResult) GetCheckedAtOk() (*string, bool)`
 
-GetProductOk returns a tuple with the Product field if it's non-nil, zero value otherwise
+GetCheckedAtOk returns a tuple with the CheckedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetProduct
+### SetCheckedAt
 
-`func (o *O11yStatusResult) SetProduct(v string)`
+`func (o *O11yStatusResult) SetCheckedAt(v string)`
 
-SetProduct sets Product field to given value.
+SetCheckedAt sets CheckedAt field to given value.
 
-### HasProduct
+### HasCheckedAt
 
-`func (o *O11yStatusResult) HasProduct() bool`
+`func (o *O11yStatusResult) HasCheckedAt() bool`
 
-HasProduct returns a boolean if a field has been set.
-
-### GetUp
-
-`func (o *O11yStatusResult) GetUp() bool`
-
-GetUp returns the Up field if non-nil, zero value otherwise.
-
-### GetUpOk
-
-`func (o *O11yStatusResult) GetUpOk() (*bool, bool)`
-
-GetUpOk returns a tuple with the Up field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUp
-
-`func (o *O11yStatusResult) SetUp(v bool)`
-
-SetUp sets Up field to given value.
-
-### HasUp
-
-`func (o *O11yStatusResult) HasUp() bool`
-
-HasUp returns a boolean if a field has been set.
-
-### GetLatencyMs
-
-`func (o *O11yStatusResult) GetLatencyMs() int64`
-
-GetLatencyMs returns the LatencyMs field if non-nil, zero value otherwise.
-
-### GetLatencyMsOk
-
-`func (o *O11yStatusResult) GetLatencyMsOk() (*int64, bool)`
-
-GetLatencyMsOk returns a tuple with the LatencyMs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLatencyMs
-
-`func (o *O11yStatusResult) SetLatencyMs(v int64)`
-
-SetLatencyMs sets LatencyMs field to given value.
-
-### HasLatencyMs
-
-`func (o *O11yStatusResult) HasLatencyMs() bool`
-
-HasLatencyMs returns a boolean if a field has been set.
-
-### GetSource
-
-`func (o *O11yStatusResult) GetSource() string`
-
-GetSource returns the Source field if non-nil, zero value otherwise.
-
-### GetSourceOk
-
-`func (o *O11yStatusResult) GetSourceOk() (*string, bool)`
-
-GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSource
-
-`func (o *O11yStatusResult) SetSource(v string)`
-
-SetSource sets Source field to given value.
-
-### HasSource
-
-`func (o *O11yStatusResult) HasSource() bool`
-
-HasSource returns a boolean if a field has been set.
+HasCheckedAt returns a boolean if a field has been set.
 
 ### GetDeployments
 
@@ -155,30 +80,105 @@ SetDeployments sets Deployments field to given value.
 
 HasDeployments returns a boolean if a field has been set.
 
-### GetCheckedAt
+### GetLatencyMs
 
-`func (o *O11yStatusResult) GetCheckedAt() time.Time`
+`func (o *O11yStatusResult) GetLatencyMs() int32`
 
-GetCheckedAt returns the CheckedAt field if non-nil, zero value otherwise.
+GetLatencyMs returns the LatencyMs field if non-nil, zero value otherwise.
 
-### GetCheckedAtOk
+### GetLatencyMsOk
 
-`func (o *O11yStatusResult) GetCheckedAtOk() (*time.Time, bool)`
+`func (o *O11yStatusResult) GetLatencyMsOk() (*int32, bool)`
 
-GetCheckedAtOk returns a tuple with the CheckedAt field if it's non-nil, zero value otherwise
+GetLatencyMsOk returns a tuple with the LatencyMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCheckedAt
+### SetLatencyMs
 
-`func (o *O11yStatusResult) SetCheckedAt(v time.Time)`
+`func (o *O11yStatusResult) SetLatencyMs(v int32)`
 
-SetCheckedAt sets CheckedAt field to given value.
+SetLatencyMs sets LatencyMs field to given value.
 
-### HasCheckedAt
+### HasLatencyMs
 
-`func (o *O11yStatusResult) HasCheckedAt() bool`
+`func (o *O11yStatusResult) HasLatencyMs() bool`
 
-HasCheckedAt returns a boolean if a field has been set.
+HasLatencyMs returns a boolean if a field has been set.
+
+### GetProduct
+
+`func (o *O11yStatusResult) GetProduct() string`
+
+GetProduct returns the Product field if non-nil, zero value otherwise.
+
+### GetProductOk
+
+`func (o *O11yStatusResult) GetProductOk() (*string, bool)`
+
+GetProductOk returns a tuple with the Product field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProduct
+
+`func (o *O11yStatusResult) SetProduct(v string)`
+
+SetProduct sets Product field to given value.
+
+### HasProduct
+
+`func (o *O11yStatusResult) HasProduct() bool`
+
+HasProduct returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *O11yStatusResult) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *O11yStatusResult) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *O11yStatusResult) SetSource(v string)`
+
+SetSource sets Source field to given value.
+
+### HasSource
+
+`func (o *O11yStatusResult) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
+
+### GetUp
+
+`func (o *O11yStatusResult) GetUp() bool`
+
+GetUp returns the Up field if non-nil, zero value otherwise.
+
+### GetUpOk
+
+`func (o *O11yStatusResult) GetUpOk() (*bool, bool)`
+
+GetUpOk returns a tuple with the Up field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUp
+
+`func (o *O11yStatusResult) SetUp(v bool)`
+
+SetUp sets Up field to given value.
+
+### HasUp
+
+`func (o *O11yStatusResult) HasUp() bool`
+
+HasUp returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

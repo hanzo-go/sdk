@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1EngineModel**](EngineAPI.md#CloudGetV1EngineModel) | **Get** /v1/engine/model | Model reads one model&#39;s load state — loaded, unloading, or not_found, as the engine itself reports it.
-[**CloudGetV1EngineModels**](EngineAPI.md#CloudGetV1EngineModels) | **Get** /v1/engine/models | Models lists the models the engine serves, each with its load state — the server&#39;s own model table (its OpenAI-style list envelope, load status included), relayed verbatim.
-[**CloudGetV1EngineStatus**](EngineAPI.md#CloudGetV1EngineStatus) | **Get** /v1/engine/status | Status reports whether the engine deployment is reachable and which build revision it runs — an honest lens for \&quot;is the serving runtime up\&quot;, never a fabricated ok.
-[**CloudGetV1EngineSystem**](EngineAPI.md#CloudGetV1EngineSystem) | **Get** /v1/engine/system | System reads the engine host&#39;s inventory: OS, CPU, memory, every accelerator device with its VRAM and compute capability, and the build&#39;s capabilities (CUDA/Metal/flash-attention) — the real hardware under the serving runtime, relayed verbatim.
+[**EngineModel**](EngineAPI.md#EngineModel) | **Get** /v1/engine/model | Read one model&#39;s load state on the serving runtime
+[**EngineModels**](EngineAPI.md#EngineModels) | **Get** /v1/engine/models | List the models the serving runtime holds, with each one&#39;s load state
+[**EngineStatus**](EngineAPI.md#EngineStatus) | **Get** /v1/engine/status | Whether the serving runtime is reachable, and which build it runs
+[**EngineSystem**](EngineAPI.md#EngineSystem) | **Get** /v1/engine/system | The serving host&#39;s own inventory: devices, memory and build capabilities
 
 
 
-## CloudGetV1EngineModel
+## EngineModel
 
-> interface{} CloudGetV1EngineModel(ctx).Model(model).Execute()
+> interface{} EngineModel(ctx).Model(model).Execute()
 
-Model reads one model's load state — loaded, unloading, or not_found, as the engine itself reports it.
+Read one model's load state on the serving runtime
 
 
 
@@ -36,13 +36,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EngineAPI.CloudGetV1EngineModel(context.Background()).Model(model).Execute()
+	resp, r, err := apiClient.EngineAPI.EngineModel(context.Background()).Model(model).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.CloudGetV1EngineModel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.EngineModel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1EngineModel`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.CloudGetV1EngineModel`: %v\n", resp)
+	// response from `EngineModel`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.EngineModel`: %v\n", resp)
 }
 ```
 
@@ -52,7 +52,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1EngineModelRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiEngineModelRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -77,11 +77,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1EngineModels
+## EngineModels
 
-> interface{} CloudGetV1EngineModels(ctx).Execute()
+> interface{} EngineModels(ctx).Execute()
 
-Models lists the models the engine serves, each with its load state — the server's own model table (its OpenAI-style list envelope, load status included), relayed verbatim.
+List the models the serving runtime holds, with each one's load state
 
 
 
@@ -101,13 +101,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EngineAPI.CloudGetV1EngineModels(context.Background()).Execute()
+	resp, r, err := apiClient.EngineAPI.EngineModels(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.CloudGetV1EngineModels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.EngineModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1EngineModels`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.CloudGetV1EngineModels`: %v\n", resp)
+	// response from `EngineModels`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.EngineModels`: %v\n", resp)
 }
 ```
 
@@ -117,7 +117,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1EngineModelsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiEngineModelsRequest struct via the builder pattern
 
 
 ### Return type
@@ -126,7 +126,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1EngineModelsRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -138,11 +138,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1EngineModelsRequ
 [[Back to README]](../README.md)
 
 
-## CloudGetV1EngineStatus
+## EngineStatus
 
-> CloudEngineStatus CloudGetV1EngineStatus(ctx).Execute()
+> EngineStatus EngineStatus(ctx).Execute()
 
-Status reports whether the engine deployment is reachable and which build revision it runs — an honest lens for \"is the serving runtime up\", never a fabricated ok.
+Whether the serving runtime is reachable, and which build it runs
 
 
 
@@ -162,13 +162,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EngineAPI.CloudGetV1EngineStatus(context.Background()).Execute()
+	resp, r, err := apiClient.EngineAPI.EngineStatus(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.CloudGetV1EngineStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.EngineStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1EngineStatus`: CloudEngineStatus
-	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.CloudGetV1EngineStatus`: %v\n", resp)
+	// response from `EngineStatus`: EngineStatus
+	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.EngineStatus`: %v\n", resp)
 }
 ```
 
@@ -178,16 +178,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1EngineStatusRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiEngineStatusRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudEngineStatus**](CloudEngineStatus.md)
+[**EngineStatus**](EngineStatus.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -199,11 +199,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1EngineStatusRequ
 [[Back to README]](../README.md)
 
 
-## CloudGetV1EngineSystem
+## EngineSystem
 
-> interface{} CloudGetV1EngineSystem(ctx).Execute()
+> interface{} EngineSystem(ctx).Execute()
 
-System reads the engine host's inventory: OS, CPU, memory, every accelerator device with its VRAM and compute capability, and the build's capabilities (CUDA/Metal/flash-attention) — the real hardware under the serving runtime, relayed verbatim.
+The serving host's own inventory: devices, memory and build capabilities
 
 
 
@@ -223,13 +223,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EngineAPI.CloudGetV1EngineSystem(context.Background()).Execute()
+	resp, r, err := apiClient.EngineAPI.EngineSystem(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.CloudGetV1EngineSystem``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.EngineSystem``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1EngineSystem`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.CloudGetV1EngineSystem`: %v\n", resp)
+	// response from `EngineSystem`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.EngineSystem`: %v\n", resp)
 }
 ```
 
@@ -239,7 +239,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1EngineSystemRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiEngineSystemRequest struct via the builder pattern
 
 
 ### Return type
@@ -248,7 +248,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1EngineSystemRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

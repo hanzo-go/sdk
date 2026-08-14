@@ -4,34 +4,34 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Company**](CompanyAPI.md#CloudGetV1Company) | **Get** /v1/company | Get returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
-[**CloudGetV1CompanyRegister**](CompanyAPI.md#CloudGetV1CompanyRegister) | **Get** /v1/company/register | ListRegister returns the platform&#39;s whole formation register, newest activity first — every org&#39;s formation, not the caller&#39;s.
-[**CloudGetV1CompanyRegisterSummary**](CompanyAPI.md#CloudGetV1CompanyRegisterSummary) | **Get** /v1/company/register/summary | SummarizeRegister counts the platform&#39;s formations by stage — the register&#39;s shape in one read, so a queue that is growing is visible as a number rather than inferred by paging the list.
-[**CloudGetV1CompanyReview**](CompanyAPI.md#CloudGetV1CompanyReview) | **Get** /v1/company/review | ReviewQueue reports the founders whose KYC is not yet settled, oldest formation first, so the queue drains in the order founders have been waiting.
-[**CloudPostV1Company**](CompanyAPI.md#CloudPostV1Company) | **Post** /v1/company | Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
-[**CloudPostV1CompanyAdvance**](CompanyAPI.md#CloudPostV1CompanyAdvance) | **Post** /v1/company/advance | Advance runs the ONE guarded transition of the formation machine.
-[**CloudPostV1CompanyDocuments**](CompanyAPI.md#CloudPostV1CompanyDocuments) | **Post** /v1/company/documents | GenerateDocuments renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing seam.
-[**CloudPostV1CompanyEsign**](CompanyAPI.md#CloudPostV1CompanyEsign) | **Post** /v1/company/esign | RequestEsign sends the generated formation documents for signature by every founder and records the provider&#39;s reference on the formation.
-[**CloudPostV1CompanyEsignComplete**](CompanyAPI.md#CloudPostV1CompanyEsignComplete) | **Post** /v1/company/esign/complete | CompleteEsign records whether the formation documents have been signed.
-[**CloudPostV1CompanyFounders**](CompanyAPI.md#CloudPostV1CompanyFounders) | **Post** /v1/company/founders | SetFounders replaces the formation&#39;s founders.
-[**CloudPostV1CompanyFundraiseDeck**](CompanyAPI.md#CloudPostV1CompanyFundraiseDeck) | **Post** /v1/company/fundraise/deck | 
-[**CloudPostV1CompanyFundraiseRound**](CompanyAPI.md#CloudPostV1CompanyFundraiseRound) | **Post** /v1/company/fundraise/round | RecordRound records a fundraising round on the org&#39;s canonical cap table.
-[**CloudPostV1CompanyFundraiseSafe**](CompanyAPI.md#CloudPostV1CompanyFundraiseSafe) | **Post** /v1/company/fundraise/safe | RequestSafe raises an e-signature request over documents already in the org&#39;s data room — a SAFE, a convertible note, or any other fundraising paper.
-[**CloudPostV1CompanyGenesis**](CompanyAPI.md#CloudPostV1CompanyGenesis) | **Post** /v1/company/genesis | RecordGenesis seeds the canonical cap table with the founding allocation (stakeholders, a common share class, issued shares) and anchors the deterministic equity-genesis root on-chain.
-[**CloudPostV1CompanyImportCaptable**](CompanyAPI.md#CloudPostV1CompanyImportCaptable) | **Post** /v1/company/import/captable | ImportCapTable reads an existing company&#39;s cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
-[**CloudPostV1CompanyImportDocuments**](CompanyAPI.md#CloudPostV1CompanyImportDocuments) | **Post** /v1/company/import/documents | ImportDocuments ingests an existing company&#39;s corporate documents from a Google Drive folder into the org&#39;s data room.
-[**CloudPostV1CompanyKyc**](CompanyAPI.md#CloudPostV1CompanyKyc) | **Post** /v1/company/kyc | StartKYC opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
-[**CloudPostV1CompanyKycDecision**](CompanyAPI.md#CloudPostV1CompanyKycDecision) | **Post** /v1/company/kyc/decision | DecideKYC records a privileged reviewer&#39;s MANUAL decision on a founder&#39;s KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
-[**CloudPostV1CompanyKycRefresh**](CompanyAPI.md#CloudPostV1CompanyKycRefresh) | **Post** /v1/company/kyc/refresh | RefreshKYC reconciles each pending founder&#39;s KYC with the WIRED provider — the PULL path to a provider-reported terminal status.
-[**CloudPostV1CompanyPayment**](CompanyAPI.md#CloudPostV1CompanyPayment) | **Post** /v1/company/payment | 
-[**CloudPostV1CompanySkip**](CompanyAPI.md#CloudPostV1CompanySkip) | **Post** /v1/company/skip | Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
-[**CloudPutV1CompanyStructure**](CompanyAPI.md#CloudPutV1CompanyStructure) | **Put** /v1/company/structure | SetStructure records the entity kind, the state of formation and the proposed name.
+[**GetCompany**](CompanyAPI.md#GetCompany) | **Get** /v1/company | Get returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
+[**GetCompanyRegister**](CompanyAPI.md#GetCompanyRegister) | **Get** /v1/company/register | Returns the platform&#39;s whole formation register, newest activity first — every org&#39;s formation, not the caller&#39;s.
+[**GetCompanyRegisterSummary**](CompanyAPI.md#GetCompanyRegisterSummary) | **Get** /v1/company/register/summary | Counts the platform&#39;s formations by stage — the register&#39;s shape in one read, so a queue that is growing is visible as a number rather than inferred by paging the list.
+[**GetCompanyReview**](CompanyAPI.md#GetCompanyReview) | **Get** /v1/company/review | Reports the founders whose KYC is not yet settled, oldest formation first, so the queue drains in the order founders have been waiting.
+[**PostCompany**](CompanyAPI.md#PostCompany) | **Post** /v1/company | Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
+[**PostCompanyAdvance**](CompanyAPI.md#PostCompanyAdvance) | **Post** /v1/company/advance | Advance runs the ONE guarded transition of the formation machine.
+[**PostCompanyDocuments**](CompanyAPI.md#PostCompanyDocuments) | **Post** /v1/company/documents | Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing seam.
+[**PostCompanyEsign**](CompanyAPI.md#PostCompanyEsign) | **Post** /v1/company/esign | Sends the generated formation documents for signature by every founder and records the provider&#39;s reference on the formation.
+[**PostCompanyEsignComplete**](CompanyAPI.md#PostCompanyEsignComplete) | **Post** /v1/company/esign/complete | Records whether the formation documents have been signed.
+[**PostCompanyFounders**](CompanyAPI.md#PostCompanyFounders) | **Post** /v1/company/founders | Replaces the formation&#39;s founders.
+[**PostCompanyFundraiseDeck**](CompanyAPI.md#PostCompanyFundraiseDeck) | **Post** /v1/company/fundraise/deck | Share a pitch deck in the org&#39;s data room
+[**PostCompanyFundraiseRound**](CompanyAPI.md#PostCompanyFundraiseRound) | **Post** /v1/company/fundraise/round | Records a fundraising round on the org&#39;s canonical cap table.
+[**PostCompanyFundraiseSafe**](CompanyAPI.md#PostCompanyFundraiseSafe) | **Post** /v1/company/fundraise/safe | Raises an e-signature request over documents already in the org&#39;s data room — a SAFE, a convertible note, or any other fundraising paper.
+[**PostCompanyGenesis**](CompanyAPI.md#PostCompanyGenesis) | **Post** /v1/company/genesis | Seeds the canonical cap table with the founding allocation (stakeholders, a common share class, issued shares) and anchors the deterministic equity-genesis root on-chain.
+[**PostCompanyImportCaptable**](CompanyAPI.md#PostCompanyImportCaptable) | **Post** /v1/company/import/captable | Reads an existing company&#39;s cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
+[**PostCompanyImportDocuments**](CompanyAPI.md#PostCompanyImportDocuments) | **Post** /v1/company/import/documents | Ingests an existing company&#39;s corporate documents from a Google Drive folder into the org&#39;s data room.
+[**PostCompanyKyc**](CompanyAPI.md#PostCompanyKyc) | **Post** /v1/company/kyc | StartKYC opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
+[**PostCompanyKycDecision**](CompanyAPI.md#PostCompanyKycDecision) | **Post** /v1/company/kyc/decision | DecideKYC records a privileged reviewer&#39;s MANUAL decision on a founder&#39;s KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
+[**PostCompanyKycRefresh**](CompanyAPI.md#PostCompanyKycRefresh) | **Post** /v1/company/kyc/refresh | RefreshKYC reconciles each pending founder&#39;s KYC with the WIRED provider — the PULL path to a provider-reported terminal status.
+[**PostCompanyPayment**](CompanyAPI.md#PostCompanyPayment) | **Post** /v1/company/payment | Charge the one-time formation fee and mark the formation paid
+[**PostCompanySkip**](CompanyAPI.md#PostCompanySkip) | **Post** /v1/company/skip | Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+[**PutCompanyStructure**](CompanyAPI.md#PutCompanyStructure) | **Put** /v1/company/structure | Records the entity kind, the state of formation and the proposed name.
 
 
 
-## CloudGetV1Company
+## GetCompany
 
-> CloudFormationView CloudGetV1Company(ctx).Execute()
+> FormationView GetCompany(ctx).Execute()
 
 Get returns the caller org's formation and the stages reachable from it, or 404 when the org has not begun one.
 
@@ -53,13 +53,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudGetV1Company(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.GetCompany(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudGetV1Company``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.GetCompany``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Company`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudGetV1Company`: %v\n", resp)
+	// response from `GetCompany`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.GetCompany`: %v\n", resp)
 }
 ```
 
@@ -69,16 +69,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CompanyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCompanyRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -90,11 +90,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CompanyRequest s
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CompanyRegister
+## GetCompanyRegister
 
-> CloudRegisterPage CloudGetV1CompanyRegister(ctx).Stage(stage).Structure(structure).Limit(limit).Offset(offset).Execute()
+> RegisterPage GetCompanyRegister(ctx).Stage(stage).Structure(structure).Limit(limit).Offset(offset).Execute()
 
-ListRegister returns the platform's whole formation register, newest activity first — every org's formation, not the caller's.
+Returns the platform's whole formation register, newest activity first — every org's formation, not the caller's.
 
 
 
@@ -118,13 +118,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudGetV1CompanyRegister(context.Background()).Stage(stage).Structure(structure).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.CompanyAPI.GetCompanyRegister(context.Background()).Stage(stage).Structure(structure).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudGetV1CompanyRegister``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.GetCompanyRegister``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CompanyRegister`: CloudRegisterPage
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudGetV1CompanyRegister`: %v\n", resp)
+	// response from `GetCompanyRegister`: RegisterPage
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.GetCompanyRegister`: %v\n", resp)
 }
 ```
 
@@ -134,7 +134,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CompanyRegisterRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCompanyRegisterRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -146,11 +146,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRegisterPage**](CloudRegisterPage.md)
+[**RegisterPage**](RegisterPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -162,11 +162,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CompanyRegisterSummary
+## GetCompanyRegisterSummary
 
-> CloudRegisterCounts CloudGetV1CompanyRegisterSummary(ctx).Execute()
+> RegisterCounts GetCompanyRegisterSummary(ctx).Execute()
 
-SummarizeRegister counts the platform's formations by stage — the register's shape in one read, so a queue that is growing is visible as a number rather than inferred by paging the list.
+Counts the platform's formations by stage — the register's shape in one read, so a queue that is growing is visible as a number rather than inferred by paging the list.
 
 
 
@@ -186,13 +186,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudGetV1CompanyRegisterSummary(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.GetCompanyRegisterSummary(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudGetV1CompanyRegisterSummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.GetCompanyRegisterSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CompanyRegisterSummary`: CloudRegisterCounts
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudGetV1CompanyRegisterSummary`: %v\n", resp)
+	// response from `GetCompanyRegisterSummary`: RegisterCounts
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.GetCompanyRegisterSummary`: %v\n", resp)
 }
 ```
 
@@ -202,16 +202,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CompanyRegisterSummaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCompanyRegisterSummaryRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudRegisterCounts**](CloudRegisterCounts.md)
+[**RegisterCounts**](RegisterCounts.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -223,11 +223,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CompanyRegisterS
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CompanyReview
+## GetCompanyReview
 
-> CloudReviewQueue CloudGetV1CompanyReview(ctx).Limit(limit).Execute()
+> ReviewQueue GetCompanyReview(ctx).Limit(limit).Execute()
 
-ReviewQueue reports the founders whose KYC is not yet settled, oldest formation first, so the queue drains in the order founders have been waiting.
+Reports the founders whose KYC is not yet settled, oldest formation first, so the queue drains in the order founders have been waiting.
 
 
 
@@ -248,13 +248,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudGetV1CompanyReview(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.CompanyAPI.GetCompanyReview(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudGetV1CompanyReview``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.GetCompanyReview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CompanyReview`: CloudReviewQueue
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudGetV1CompanyReview`: %v\n", resp)
+	// response from `GetCompanyReview`: ReviewQueue
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.GetCompanyReview`: %v\n", resp)
 }
 ```
 
@@ -264,7 +264,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CompanyReviewRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCompanyReviewRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -273,11 +273,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudReviewQueue**](CloudReviewQueue.md)
+[**ReviewQueue**](ReviewQueue.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -289,9 +289,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Company
+## PostCompany
 
-> CloudFormationView CloudPostV1Company(ctx).CloudBeginIn(cloudBeginIn).Execute()
+> FormationView PostCompany(ctx).BeginIn(beginIn).Execute()
 
 Begin starts the org's one formation and returns it with the stages reachable from it.
 
@@ -310,17 +310,17 @@ import (
 )
 
 func main() {
-	cloudBeginIn := *openapiclient.NewCloudBeginIn() // CloudBeginIn | 
+	beginIn := *openapiclient.NewBeginIn() // BeginIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1Company(context.Background()).CloudBeginIn(cloudBeginIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompany(context.Background()).BeginIn(beginIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1Company``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompany``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Company`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1Company`: %v\n", resp)
+	// response from `PostCompany`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompany`: %v\n", resp)
 }
 ```
 
@@ -330,20 +330,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudBeginIn** | [**CloudBeginIn**](CloudBeginIn.md) |  | 
+ **beginIn** | [**BeginIn**](BeginIn.md) |  | 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -355,9 +355,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyAdvance
+## PostCompanyAdvance
 
-> CloudFormationView CloudPostV1CompanyAdvance(ctx).CloudAdvanceIn(cloudAdvanceIn).Execute()
+> FormationView PostCompanyAdvance(ctx).AdvanceIn(advanceIn).Execute()
 
 Advance runs the ONE guarded transition of the formation machine.
 
@@ -376,17 +376,17 @@ import (
 )
 
 func main() {
-	cloudAdvanceIn := *openapiclient.NewCloudAdvanceIn() // CloudAdvanceIn | 
+	advanceIn := *openapiclient.NewAdvanceIn() // AdvanceIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyAdvance(context.Background()).CloudAdvanceIn(cloudAdvanceIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyAdvance(context.Background()).AdvanceIn(advanceIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyAdvance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyAdvance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyAdvance`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyAdvance`: %v\n", resp)
+	// response from `PostCompanyAdvance`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyAdvance`: %v\n", resp)
 }
 ```
 
@@ -396,20 +396,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyAdvanceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyAdvanceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudAdvanceIn** | [**CloudAdvanceIn**](CloudAdvanceIn.md) |  | 
+ **advanceIn** | [**AdvanceIn**](AdvanceIn.md) |  | 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -421,11 +421,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyDocuments
+## PostCompanyDocuments
 
-> CloudFormationView CloudPostV1CompanyDocuments(ctx).Execute()
+> FormationView PostCompanyDocuments(ctx).Execute()
 
-GenerateDocuments renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing seam.
+Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing seam.
 
 
 
@@ -445,13 +445,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyDocuments(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyDocuments(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyDocuments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyDocuments`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyDocuments`: %v\n", resp)
+	// response from `PostCompanyDocuments`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyDocuments`: %v\n", resp)
 }
 ```
 
@@ -461,16 +461,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyDocumentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyDocumentsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -482,11 +482,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CompanyDocument
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyEsign
+## PostCompanyEsign
 
-> CloudEsignOut CloudPostV1CompanyEsign(ctx).Execute()
+> EsignOut PostCompanyEsign(ctx).Execute()
 
-RequestEsign sends the generated formation documents for signature by every founder and records the provider's reference on the formation.
+Sends the generated formation documents for signature by every founder and records the provider's reference on the formation.
 
 
 
@@ -506,13 +506,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyEsign(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyEsign(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyEsign``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyEsign``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyEsign`: CloudEsignOut
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyEsign`: %v\n", resp)
+	// response from `PostCompanyEsign`: EsignOut
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyEsign`: %v\n", resp)
 }
 ```
 
@@ -522,16 +522,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyEsignRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyEsignRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudEsignOut**](CloudEsignOut.md)
+[**EsignOut**](EsignOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -543,77 +543,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CompanyEsignReq
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyEsignComplete
+## PostCompanyEsignComplete
 
-> CloudFormationView CloudPostV1CompanyEsignComplete(ctx).CloudEsignCompleteIn(cloudEsignCompleteIn).Execute()
+> FormationView PostCompanyEsignComplete(ctx).EsignCompleteIn(esignCompleteIn).Execute()
 
-CompleteEsign records whether the formation documents have been signed.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudEsignCompleteIn := *openapiclient.NewCloudEsignCompleteIn() // CloudEsignCompleteIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyEsignComplete(context.Background()).CloudEsignCompleteIn(cloudEsignCompleteIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyEsignComplete``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1CompanyEsignComplete`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyEsignComplete`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyEsignCompleteRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudEsignCompleteIn** | [**CloudEsignCompleteIn**](CloudEsignCompleteIn.md) |  | 
-
-### Return type
-
-[**CloudFormationView**](CloudFormationView.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CompanyFounders
-
-> CloudFormationView CloudPostV1CompanyFounders(ctx).CloudFoundersIn(cloudFoundersIn).Execute()
-
-SetFounders replaces the formation's founders.
+Records whether the formation documents have been signed.
 
 
 
@@ -630,17 +564,17 @@ import (
 )
 
 func main() {
-	cloudFoundersIn := *openapiclient.NewCloudFoundersIn() // CloudFoundersIn | 
+	esignCompleteIn := *openapiclient.NewEsignCompleteIn() // EsignCompleteIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyFounders(context.Background()).CloudFoundersIn(cloudFoundersIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyEsignComplete(context.Background()).EsignCompleteIn(esignCompleteIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyFounders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyEsignComplete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyFounders`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyFounders`: %v\n", resp)
+	// response from `PostCompanyEsignComplete`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyEsignComplete`: %v\n", resp)
 }
 ```
 
@@ -650,20 +584,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyFoundersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyEsignCompleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudFoundersIn** | [**CloudFoundersIn**](CloudFoundersIn.md) |  | 
+ **esignCompleteIn** | [**EsignCompleteIn**](EsignCompleteIn.md) |  | 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -675,9 +609,77 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyFundraiseDeck
+## PostCompanyFounders
 
-> CloudDeckOut CloudPostV1CompanyFundraiseDeck(ctx).Body(body).Execute()
+> FormationView PostCompanyFounders(ctx).FoundersIn(foundersIn).Execute()
+
+Replaces the formation's founders.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	foundersIn := *openapiclient.NewFoundersIn() // FoundersIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CompanyAPI.PostCompanyFounders(context.Background()).FoundersIn(foundersIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyFounders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCompanyFounders`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyFounders`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCompanyFoundersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **foundersIn** | [**FoundersIn**](FoundersIn.md) |  | 
+
+### Return type
+
+[**FormationView**](FormationView.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCompanyFundraiseDeck
+
+> DeckOut PostCompanyFundraiseDeck(ctx).Body(body).Execute()
+
+Share a pitch deck in the org's data room
 
 
 
@@ -698,13 +700,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyFundraiseDeck(context.Background()).Body(body).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyFundraiseDeck(context.Background()).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyFundraiseDeck``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyFundraiseDeck``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyFundraiseDeck`: CloudDeckOut
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyFundraiseDeck`: %v\n", resp)
+	// response from `PostCompanyFundraiseDeck`: DeckOut
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyFundraiseDeck`: %v\n", resp)
 }
 ```
 
@@ -714,7 +716,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyFundraiseDeckRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyFundraiseDeckRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -723,11 +725,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDeckOut**](CloudDeckOut.md)
+[**DeckOut**](DeckOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -739,11 +741,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyFundraiseRound
+## PostCompanyFundraiseRound
 
-> CloudRoundOut CloudPostV1CompanyFundraiseRound(ctx).CloudRoundInput(cloudRoundInput).Execute()
+> RoundOut PostCompanyFundraiseRound(ctx).RoundInput(roundInput).Execute()
 
-RecordRound records a fundraising round on the org's canonical cap table.
+Records a fundraising round on the org's canonical cap table.
 
 
 
@@ -760,17 +762,17 @@ import (
 )
 
 func main() {
-	cloudRoundInput := *openapiclient.NewCloudRoundInput() // CloudRoundInput | 
+	roundInput := *openapiclient.NewRoundInput() // RoundInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyFundraiseRound(context.Background()).CloudRoundInput(cloudRoundInput).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyFundraiseRound(context.Background()).RoundInput(roundInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyFundraiseRound``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyFundraiseRound``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyFundraiseRound`: CloudRoundOut
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyFundraiseRound`: %v\n", resp)
+	// response from `PostCompanyFundraiseRound`: RoundOut
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyFundraiseRound`: %v\n", resp)
 }
 ```
 
@@ -780,20 +782,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyFundraiseRoundRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyFundraiseRoundRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudRoundInput** | [**CloudRoundInput**](CloudRoundInput.md) |  | 
+ **roundInput** | [**RoundInput**](RoundInput.md) |  | 
 
 ### Return type
 
-[**CloudRoundOut**](CloudRoundOut.md)
+[**RoundOut**](RoundOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -805,11 +807,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyFundraiseSafe
+## PostCompanyFundraiseSafe
 
-> CloudSafeOut CloudPostV1CompanyFundraiseSafe(ctx).CloudSafeIn(cloudSafeIn).Execute()
+> SafeOut PostCompanyFundraiseSafe(ctx).SafeIn(safeIn).Execute()
 
-RequestSafe raises an e-signature request over documents already in the org's data room — a SAFE, a convertible note, or any other fundraising paper.
+Raises an e-signature request over documents already in the org's data room — a SAFE, a convertible note, or any other fundraising paper.
 
 
 
@@ -826,17 +828,17 @@ import (
 )
 
 func main() {
-	cloudSafeIn := *openapiclient.NewCloudSafeIn() // CloudSafeIn | 
+	safeIn := *openapiclient.NewSafeIn() // SafeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyFundraiseSafe(context.Background()).CloudSafeIn(cloudSafeIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyFundraiseSafe(context.Background()).SafeIn(safeIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyFundraiseSafe``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyFundraiseSafe``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyFundraiseSafe`: CloudSafeOut
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyFundraiseSafe`: %v\n", resp)
+	// response from `PostCompanyFundraiseSafe`: SafeOut
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyFundraiseSafe`: %v\n", resp)
 }
 ```
 
@@ -846,20 +848,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyFundraiseSafeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyFundraiseSafeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudSafeIn** | [**CloudSafeIn**](CloudSafeIn.md) |  | 
+ **safeIn** | [**SafeIn**](SafeIn.md) |  | 
 
 ### Return type
 
-[**CloudSafeOut**](CloudSafeOut.md)
+[**SafeOut**](SafeOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -871,11 +873,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyGenesis
+## PostCompanyGenesis
 
-> CloudFormationView CloudPostV1CompanyGenesis(ctx).Execute()
+> FormationView PostCompanyGenesis(ctx).Execute()
 
-RecordGenesis seeds the canonical cap table with the founding allocation (stakeholders, a common share class, issued shares) and anchors the deterministic equity-genesis root on-chain.
+Seeds the canonical cap table with the founding allocation (stakeholders, a common share class, issued shares) and anchors the deterministic equity-genesis root on-chain.
 
 
 
@@ -895,13 +897,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyGenesis(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyGenesis(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyGenesis``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyGenesis``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyGenesis`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyGenesis`: %v\n", resp)
+	// response from `PostCompanyGenesis`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyGenesis`: %v\n", resp)
 }
 ```
 
@@ -911,16 +913,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyGenesisRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyGenesisRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -932,77 +934,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CompanyGenesisR
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyImportCaptable
+## PostCompanyImportCaptable
 
-> CloudImportCapTableOut CloudPostV1CompanyImportCaptable(ctx).CloudImportCapTableIn(cloudImportCapTableIn).Execute()
+> ImportCapTableOut PostCompanyImportCaptable(ctx).ImportCapTableIn(importCapTableIn).Execute()
 
-ImportCapTable reads an existing company's cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudImportCapTableIn := *openapiclient.NewCloudImportCapTableIn() // CloudImportCapTableIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyImportCaptable(context.Background()).CloudImportCapTableIn(cloudImportCapTableIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyImportCaptable``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1CompanyImportCaptable`: CloudImportCapTableOut
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyImportCaptable`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyImportCaptableRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudImportCapTableIn** | [**CloudImportCapTableIn**](CloudImportCapTableIn.md) |  | 
-
-### Return type
-
-[**CloudImportCapTableOut**](CloudImportCapTableOut.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CompanyImportDocuments
-
-> CloudImportDocumentsOut CloudPostV1CompanyImportDocuments(ctx).CloudImportDocumentsIn(cloudImportDocumentsIn).Execute()
-
-ImportDocuments ingests an existing company's corporate documents from a Google Drive folder into the org's data room.
+Reads an existing company's cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
 
 
 
@@ -1019,17 +955,17 @@ import (
 )
 
 func main() {
-	cloudImportDocumentsIn := *openapiclient.NewCloudImportDocumentsIn() // CloudImportDocumentsIn | 
+	importCapTableIn := *openapiclient.NewImportCapTableIn() // ImportCapTableIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyImportDocuments(context.Background()).CloudImportDocumentsIn(cloudImportDocumentsIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyImportCaptable(context.Background()).ImportCapTableIn(importCapTableIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyImportDocuments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyImportCaptable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyImportDocuments`: CloudImportDocumentsOut
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyImportDocuments`: %v\n", resp)
+	// response from `PostCompanyImportCaptable`: ImportCapTableOut
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyImportCaptable`: %v\n", resp)
 }
 ```
 
@@ -1039,20 +975,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyImportDocumentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyImportCaptableRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudImportDocumentsIn** | [**CloudImportDocumentsIn**](CloudImportDocumentsIn.md) |  | 
+ **importCapTableIn** | [**ImportCapTableIn**](ImportCapTableIn.md) |  | 
 
 ### Return type
 
-[**CloudImportDocumentsOut**](CloudImportDocumentsOut.md)
+[**ImportCapTableOut**](ImportCapTableOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1064,9 +1000,75 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyKyc
+## PostCompanyImportDocuments
 
-> CloudKycStartOut CloudPostV1CompanyKyc(ctx).Execute()
+> ImportDocumentsOut PostCompanyImportDocuments(ctx).ImportDocumentsIn(importDocumentsIn).Execute()
+
+Ingests an existing company's corporate documents from a Google Drive folder into the org's data room.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	importDocumentsIn := *openapiclient.NewImportDocumentsIn() // ImportDocumentsIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CompanyAPI.PostCompanyImportDocuments(context.Background()).ImportDocumentsIn(importDocumentsIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyImportDocuments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCompanyImportDocuments`: ImportDocumentsOut
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyImportDocuments`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCompanyImportDocumentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **importDocumentsIn** | [**ImportDocumentsIn**](ImportDocumentsIn.md) |  | 
+
+### Return type
+
+[**ImportDocumentsOut**](ImportDocumentsOut.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCompanyKyc
+
+> KycStartOut PostCompanyKyc(ctx).Execute()
 
 StartKYC opens an identity-verification session for every founder with the wired provider and records each session's reference on the formation.
 
@@ -1088,13 +1090,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyKyc(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyKyc(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyKyc``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyKyc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyKyc`: CloudKycStartOut
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyKyc`: %v\n", resp)
+	// response from `PostCompanyKyc`: KycStartOut
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyKyc`: %v\n", resp)
 }
 ```
 
@@ -1104,16 +1106,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyKycRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyKycRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudKycStartOut**](CloudKycStartOut.md)
+[**KycStartOut**](KycStartOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1125,9 +1127,9 @@ Other parameters are passed through a pointer to a apiCloudPostV1CompanyKycReque
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyKycDecision
+## PostCompanyKycDecision
 
-> CloudFormationView CloudPostV1CompanyKycDecision(ctx).CloudDecisionIn(cloudDecisionIn).Execute()
+> FormationView PostCompanyKycDecision(ctx).DecisionIn(decisionIn).Execute()
 
 DecideKYC records a privileged reviewer's MANUAL decision on a founder's KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
 
@@ -1146,17 +1148,17 @@ import (
 )
 
 func main() {
-	cloudDecisionIn := *openapiclient.NewCloudDecisionIn() // CloudDecisionIn | 
+	decisionIn := *openapiclient.NewDecisionIn() // DecisionIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyKycDecision(context.Background()).CloudDecisionIn(cloudDecisionIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyKycDecision(context.Background()).DecisionIn(decisionIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyKycDecision``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyKycDecision``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyKycDecision`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyKycDecision`: %v\n", resp)
+	// response from `PostCompanyKycDecision`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyKycDecision`: %v\n", resp)
 }
 ```
 
@@ -1166,20 +1168,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyKycDecisionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyKycDecisionRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudDecisionIn** | [**CloudDecisionIn**](CloudDecisionIn.md) |  | 
+ **decisionIn** | [**DecisionIn**](DecisionIn.md) |  | 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1191,9 +1193,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyKycRefresh
+## PostCompanyKycRefresh
 
-> CloudKycRefreshOut CloudPostV1CompanyKycRefresh(ctx).Execute()
+> KycRefreshOut PostCompanyKycRefresh(ctx).Execute()
 
 RefreshKYC reconciles each pending founder's KYC with the WIRED provider — the PULL path to a provider-reported terminal status.
 
@@ -1215,13 +1217,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyKycRefresh(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyKycRefresh(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyKycRefresh``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyKycRefresh``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyKycRefresh`: CloudKycRefreshOut
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyKycRefresh`: %v\n", resp)
+	// response from `PostCompanyKycRefresh`: KycRefreshOut
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyKycRefresh`: %v\n", resp)
 }
 ```
 
@@ -1231,16 +1233,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyKycRefreshRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyKycRefreshRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudKycRefreshOut**](CloudKycRefreshOut.md)
+[**KycRefreshOut**](KycRefreshOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1252,9 +1254,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CompanyKycRefre
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanyPayment
+## PostCompanyPayment
 
-> CloudFormationView CloudPostV1CompanyPayment(ctx).Execute()
+> FormationView PostCompanyPayment(ctx).Execute()
+
+Charge the one-time formation fee and mark the formation paid
 
 
 
@@ -1274,13 +1278,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanyPayment(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyPayment(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanyPayment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyPayment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanyPayment`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanyPayment`: %v\n", resp)
+	// response from `PostCompanyPayment`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyPayment`: %v\n", resp)
 }
 ```
 
@@ -1290,16 +1294,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanyPaymentRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanyPaymentRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1311,9 +1315,9 @@ Other parameters are passed through a pointer to a apiCloudPostV1CompanyPaymentR
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CompanySkip
+## PostCompanySkip
 
-> CloudFormationView CloudPostV1CompanySkip(ctx).Execute()
+> FormationView PostCompanySkip(ctx).Execute()
 
 Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
 
@@ -1335,13 +1339,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPostV1CompanySkip(context.Background()).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanySkip(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPostV1CompanySkip``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanySkip``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CompanySkip`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPostV1CompanySkip`: %v\n", resp)
+	// response from `PostCompanySkip`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanySkip`: %v\n", resp)
 }
 ```
 
@@ -1351,16 +1355,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CompanySkipRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCompanySkipRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1372,11 +1376,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CompanySkipRequ
 [[Back to README]](../README.md)
 
 
-## CloudPutV1CompanyStructure
+## PutCompanyStructure
 
-> CloudFormationView CloudPutV1CompanyStructure(ctx).CloudStructureIn(cloudStructureIn).Execute()
+> FormationView PutCompanyStructure(ctx).StructureIn(structureIn).Execute()
 
-SetStructure records the entity kind, the state of formation and the proposed name.
+Records the entity kind, the state of formation and the proposed name.
 
 
 
@@ -1393,17 +1397,17 @@ import (
 )
 
 func main() {
-	cloudStructureIn := *openapiclient.NewCloudStructureIn() // CloudStructureIn | 
+	structureIn := *openapiclient.NewStructureIn() // StructureIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.CloudPutV1CompanyStructure(context.Background()).CloudStructureIn(cloudStructureIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PutCompanyStructure(context.Background()).StructureIn(structureIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.CloudPutV1CompanyStructure``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PutCompanyStructure``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1CompanyStructure`: CloudFormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.CloudPutV1CompanyStructure`: %v\n", resp)
+	// response from `PutCompanyStructure`: FormationView
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PutCompanyStructure`: %v\n", resp)
 }
 ```
 
@@ -1413,20 +1417,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1CompanyStructureRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCompanyStructureRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudStructureIn** | [**CloudStructureIn**](CloudStructureIn.md) |  | 
+ **structureIn** | [**StructureIn**](StructureIn.md) |  | 
 
 ### Return type
 
-[**CloudFormationView**](CloudFormationView.md)
+[**FormationView**](FormationView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

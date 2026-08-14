@@ -4,13 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudPostV1Run**](RunAPI.md#CloudPostV1Run) | **Post** /v1/run | 
+[**PostRun**](RunAPI.md#PostRun) | **Post** /v1/run | Runs a container image and gives back a URL.
 
 
 
-## CloudPostV1Run
+## PostRun
 
-> CloudRunView CloudPostV1Run(ctx).CloudRunReq(cloudRunReq).Execute()
+> RunView PostRun(ctx).RunReq(runReq).Execute()
+
+Runs a container image and gives back a URL.
 
 
 
@@ -27,17 +29,17 @@ import (
 )
 
 func main() {
-	cloudRunReq := *openapiclient.NewCloudRunReq() // CloudRunReq |  (optional)
+	runReq := *openapiclient.NewRunReq() // RunReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RunAPI.CloudPostV1Run(context.Background()).CloudRunReq(cloudRunReq).Execute()
+	resp, r, err := apiClient.RunAPI.PostRun(context.Background()).RunReq(runReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RunAPI.CloudPostV1Run``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RunAPI.PostRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Run`: CloudRunView
-	fmt.Fprintf(os.Stdout, "Response from `RunAPI.CloudPostV1Run`: %v\n", resp)
+	// response from `PostRun`: RunView
+	fmt.Fprintf(os.Stdout, "Response from `RunAPI.PostRun`: %v\n", resp)
 }
 ```
 
@@ -47,20 +49,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1RunRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostRunRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudRunReq** | [**CloudRunReq**](CloudRunReq.md) |  | 
+ **runReq** | [**RunReq**](RunReq.md) |  | 
 
 ### Return type
 
-[**CloudRunView**](CloudRunView.md)
+[**RunView**](RunView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

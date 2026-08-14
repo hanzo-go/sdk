@@ -4,48 +4,47 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1MarketingAudiencesId**](MarketingAPI.md#CloudDeleteV1MarketingAudiencesId) | **Delete** /v1/marketing/audiences/{id} | Removes one of the caller org&#39;s audiences and answers 204.
-[**CloudDeleteV1MarketingCalendarId**](MarketingAPI.md#CloudDeleteV1MarketingCalendarId) | **Delete** /v1/marketing/calendar/{id} | Removes one of the caller org&#39;s posts and answers 204.
-[**CloudDeleteV1MarketingCampaignsId**](MarketingAPI.md#CloudDeleteV1MarketingCampaignsId) | **Delete** /v1/marketing/campaigns/{id} | Removes one of the caller org&#39;s campaigns and answers 204.
-[**CloudDeleteV1MarketingSuppressions**](MarketingAPI.md#CloudDeleteV1MarketingSuppressions) | **Delete** /v1/marketing/suppressions | Re-subscribes an address on one channel and answers 204.
-[**CloudGetV1MarketingAudiences**](MarketingAPI.md#CloudGetV1MarketingAudiences) | **Get** /v1/marketing/audiences | Returns the org&#39;s saved audiences, most recently updated first.
-[**CloudGetV1MarketingAudiencesId**](MarketingAPI.md#CloudGetV1MarketingAudiencesId) | **Get** /v1/marketing/audiences/{id} | Returns one of the caller org&#39;s saved audiences.
-[**CloudGetV1MarketingAudiencesIdPreview**](MarketingAPI.md#CloudGetV1MarketingAudiencesIdPreview) | **Get** /v1/marketing/audiences/{id}/preview | Evaluates the cohort LIVE — the same resolution an enrollment would run — and reports how big it is and how many real mailboxes it reaches.
-[**CloudGetV1MarketingCalendar**](MarketingAPI.md#CloudGetV1MarketingCalendar) | **Get** /v1/marketing/calendar | Returns the org&#39;s calendar, soonest scheduled first, optionally narrowed to one status.
-[**CloudGetV1MarketingCalendarId**](MarketingAPI.md#CloudGetV1MarketingCalendarId) | **Get** /v1/marketing/calendar/{id} | Returns one of the caller org&#39;s posts, including the exact error behind a failed publish.
-[**CloudGetV1MarketingCampaigns**](MarketingAPI.md#CloudGetV1MarketingCampaigns) | **Get** /v1/marketing/campaigns | Returns the org&#39;s campaigns, most recently updated first, optionally narrowed to one lifecycle status.
-[**CloudGetV1MarketingCampaignsId**](MarketingAPI.md#CloudGetV1MarketingCampaignsId) | **Get** /v1/marketing/campaigns/{id} | Returns one of the caller org&#39;s campaigns.
-[**CloudGetV1MarketingPromos**](MarketingAPI.md#CloudGetV1MarketingPromos) | **Get** /v1/marketing/promos | Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap.
-[**CloudGetV1MarketingPromosCodeEligibility**](MarketingAPI.md#CloudGetV1MarketingPromosCodeEligibility) | **Get** /v1/marketing/promos/{code}/eligibility | Prices a promo against a plan and seat count.
-[**CloudGetV1MarketingPromosCodeRedemption**](MarketingAPI.md#CloudGetV1MarketingPromosCodeRedemption) | **Get** /v1/marketing/promos/{code}/redemption | Returns the caller org&#39;s OWN redemption of a promo — an org-scoped read, so it can never surface another tenant&#39;s.
-[**CloudGetV1MarketingSequences**](MarketingAPI.md#CloudGetV1MarketingSequences) | **Get** /v1/marketing/sequences | Returns the org&#39;s drip sequences, most recently updated first.
-[**CloudGetV1MarketingSequencesId**](MarketingAPI.md#CloudGetV1MarketingSequencesId) | **Get** /v1/marketing/sequences/{id} | Returns one of the caller org&#39;s sequences together with its steps in send order.
-[**CloudGetV1MarketingSequencesIdEnrollments**](MarketingAPI.md#CloudGetV1MarketingSequencesIdEnrollments) | **Get** /v1/marketing/sequences/{id}/enrollments | Returns who is walking one sequence, most recently enrolled first, with each walk&#39;s current step and next due time.
-[**CloudGetV1MarketingSequencesIdSteps**](MarketingAPI.md#CloudGetV1MarketingSequencesIdSteps) | **Get** /v1/marketing/sequences/{id}/steps | Returns one sequence&#39;s steps in send order.
-[**CloudGetV1MarketingSummary**](MarketingAPI.md#CloudGetV1MarketingSummary) | **Get** /v1/marketing/summary | Rolls up the caller org&#39;s campaigns: how many there are, how many are active, and the summed budget and spend in cents.
-[**CloudGetV1MarketingSuppressions**](MarketingAPI.md#CloudGetV1MarketingSuppressions) | **Get** /v1/marketing/suppressions | Returns the org&#39;s opt-out list, newest first — everyone the send gate will refuse to deliver to.
-[**CloudGetV1MarketingUnsubscribe**](MarketingAPI.md#CloudGetV1MarketingUnsubscribe) | **Get** /v1/marketing/unsubscribe | Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
-[**CloudPostV1MarketingAudiences**](MarketingAPI.md#CloudPostV1MarketingAudiences) | **Post** /v1/marketing/audiences | Saves a cohort filter for the caller&#39;s org.
-[**CloudPostV1MarketingCalendar**](MarketingAPI.md#CloudPostV1MarketingCalendar) | **Post** /v1/marketing/calendar | Adds a post to the content calendar.
-[**CloudPostV1MarketingCalendarIdPublish**](MarketingAPI.md#CloudPostV1MarketingCalendarIdPublish) | **Post** /v1/marketing/calendar/{id}/publish | Publishes a post NOW, synchronously, whatever its schedule.
-[**CloudPostV1MarketingCampaigns**](MarketingAPI.md#CloudPostV1MarketingCampaigns) | **Post** /v1/marketing/campaigns | Registers a campaign in the caller&#39;s org.
-[**CloudPostV1MarketingCampaignsIdSchedule**](MarketingAPI.md#CloudPostV1MarketingCampaignsIdSchedule) | **Post** /v1/marketing/campaigns/{id}/schedule | Sets a campaign&#39;s send time and moves it to \&quot;scheduled\&quot;.
-[**CloudPostV1MarketingPromosCodeRedeem**](MarketingAPI.md#CloudPostV1MarketingPromosCodeRedeem) | **Post** /v1/marketing/promos/{code}/redeem | Redeems the promo for the caller&#39;s org, crediting the discount value to its wallet through the finance ledger.
-[**CloudPostV1MarketingSequences**](MarketingAPI.md#CloudPostV1MarketingSequences) | **Post** /v1/marketing/sequences | Registers a drip sequence in the caller&#39;s org.
-[**CloudPostV1MarketingSequencesIdEnroll**](MarketingAPI.md#CloudPostV1MarketingSequencesIdEnroll) | **Post** /v1/marketing/sequences/{id}/enroll | Adds one contact or a whole audience to a sequence and schedules the first step for each.
-[**CloudPostV1MarketingSequencesIdEnrollmentsEidCancel**](MarketingAPI.md#CloudPostV1MarketingSequencesIdEnrollmentsEidCancel) | **Post** /v1/marketing/sequences/{id}/enrollments/{eid}/cancel | Stops one walk mid-sequence and answers 204: no further step is sent, and steps already delivered are not recalled.
-[**CloudPostV1MarketingSequencesIdStatus**](MarketingAPI.md#CloudPostV1MarketingSequencesIdStatus) | **Post** /v1/marketing/sequences/{id}/status | Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
-[**CloudPostV1MarketingSequencesIdSteps**](MarketingAPI.md#CloudPostV1MarketingSequencesIdSteps) | **Post** /v1/marketing/sequences/{id}/steps | Appends a message to the END of a sequence: the new step&#39;s idx is one past the last, so steps arrive in the order they are added.
-[**CloudPostV1MarketingSuppressions**](MarketingAPI.md#CloudPostV1MarketingSuppressions) | **Post** /v1/marketing/suppressions | Records an opt-out for the org (admin / self-service management).
-[**CloudPutV1MarketingCalendarId**](MarketingAPI.md#CloudPutV1MarketingCalendarId) | **Put** /v1/marketing/calendar/{id} | Replaces a post&#39;s editable fields.
-[**CloudPutV1MarketingCampaignsId**](MarketingAPI.md#CloudPutV1MarketingCampaignsId) | **Put** /v1/marketing/campaigns/{id} | Replaces a campaign&#39;s editable fields.
-[**CommerceCreateMarketingCampaign**](MarketingAPI.md#CommerceCreateMarketingCampaign) | **Post** /v1/commerce/marketing | Create marketing campaign
+[**DeleteMarketingAudiencesById**](MarketingAPI.md#DeleteMarketingAudiencesById) | **Delete** /v1/marketing/audiences/{id} | Removes one of the caller org&#39;s audiences and answers 204.
+[**DeleteMarketingCalendarById**](MarketingAPI.md#DeleteMarketingCalendarById) | **Delete** /v1/marketing/calendar/{id} | Removes one of the caller org&#39;s posts and answers 204.
+[**DeleteMarketingCampaignsById**](MarketingAPI.md#DeleteMarketingCampaignsById) | **Delete** /v1/marketing/campaigns/{id} | Removes one of the caller org&#39;s campaigns and answers 204.
+[**DeleteMarketingSuppressions**](MarketingAPI.md#DeleteMarketingSuppressions) | **Delete** /v1/marketing/suppressions | Re-subscribes an address on one channel and answers 204.
+[**GetMarketingAudiences**](MarketingAPI.md#GetMarketingAudiences) | **Get** /v1/marketing/audiences | Returns the org&#39;s saved audiences, most recently updated first.
+[**GetMarketingAudiencesById**](MarketingAPI.md#GetMarketingAudiencesById) | **Get** /v1/marketing/audiences/{id} | Returns one of the caller org&#39;s saved audiences.
+[**GetMarketingAudiencesByIdPreview**](MarketingAPI.md#GetMarketingAudiencesByIdPreview) | **Get** /v1/marketing/audiences/{id}/preview | Evaluates the cohort LIVE — the same resolution an enrollment would run — and reports how big it is and how many real mailboxes it reaches.
+[**GetMarketingCalendar**](MarketingAPI.md#GetMarketingCalendar) | **Get** /v1/marketing/calendar | Returns the org&#39;s calendar, soonest scheduled first, optionally narrowed to one status.
+[**GetMarketingCalendarById**](MarketingAPI.md#GetMarketingCalendarById) | **Get** /v1/marketing/calendar/{id} | Returns one of the caller org&#39;s posts, including the exact error behind a failed publish.
+[**GetMarketingCampaigns**](MarketingAPI.md#GetMarketingCampaigns) | **Get** /v1/marketing/campaigns | Returns the org&#39;s campaigns, most recently updated first, optionally narrowed to one lifecycle status.
+[**GetMarketingCampaignsById**](MarketingAPI.md#GetMarketingCampaignsById) | **Get** /v1/marketing/campaigns/{id} | Returns one of the caller org&#39;s campaigns.
+[**GetMarketingPromos**](MarketingAPI.md#GetMarketingPromos) | **Get** /v1/marketing/promos | Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap.
+[**GetMarketingPromosByCodeEligibility**](MarketingAPI.md#GetMarketingPromosByCodeEligibility) | **Get** /v1/marketing/promos/{code}/eligibility | Prices a promo against a plan and seat count.
+[**GetMarketingPromosByCodeRedemption**](MarketingAPI.md#GetMarketingPromosByCodeRedemption) | **Get** /v1/marketing/promos/{code}/redemption | Returns the caller org&#39;s OWN redemption of a promo — an org-scoped read, so it can never surface another tenant&#39;s.
+[**GetMarketingSequences**](MarketingAPI.md#GetMarketingSequences) | **Get** /v1/marketing/sequences | Returns the org&#39;s drip sequences, most recently updated first.
+[**GetMarketingSequencesById**](MarketingAPI.md#GetMarketingSequencesById) | **Get** /v1/marketing/sequences/{id} | Returns one of the caller org&#39;s sequences together with its steps in send order.
+[**GetMarketingSequencesByIdEnrollments**](MarketingAPI.md#GetMarketingSequencesByIdEnrollments) | **Get** /v1/marketing/sequences/{id}/enrollments | Returns who is walking one sequence, most recently enrolled first, with each walk&#39;s current step and next due time.
+[**GetMarketingSequencesByIdSteps**](MarketingAPI.md#GetMarketingSequencesByIdSteps) | **Get** /v1/marketing/sequences/{id}/steps | Returns one sequence&#39;s steps in send order.
+[**GetMarketingSummary**](MarketingAPI.md#GetMarketingSummary) | **Get** /v1/marketing/summary | Rolls up the caller org&#39;s campaigns: how many there are, how many are active, and the summed budget and spend in cents.
+[**GetMarketingSuppressions**](MarketingAPI.md#GetMarketingSuppressions) | **Get** /v1/marketing/suppressions | Returns the org&#39;s opt-out list, newest first — everyone the send gate will refuse to deliver to.
+[**GetMarketingUnsubscribe**](MarketingAPI.md#GetMarketingUnsubscribe) | **Get** /v1/marketing/unsubscribe | Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
+[**PostMarketingAudiences**](MarketingAPI.md#PostMarketingAudiences) | **Post** /v1/marketing/audiences | Saves a cohort filter for the caller&#39;s org.
+[**PostMarketingCalendar**](MarketingAPI.md#PostMarketingCalendar) | **Post** /v1/marketing/calendar | Adds a post to the content calendar.
+[**PostMarketingCalendarByIdPublish**](MarketingAPI.md#PostMarketingCalendarByIdPublish) | **Post** /v1/marketing/calendar/{id}/publish | Publishes a post NOW, synchronously, whatever its schedule.
+[**PostMarketingCampaigns**](MarketingAPI.md#PostMarketingCampaigns) | **Post** /v1/marketing/campaigns | Registers a campaign in the caller&#39;s org.
+[**PostMarketingCampaignsByIdSchedule**](MarketingAPI.md#PostMarketingCampaignsByIdSchedule) | **Post** /v1/marketing/campaigns/{id}/schedule | Sets a campaign&#39;s send time and moves it to \&quot;scheduled\&quot;.
+[**PostMarketingPromosByCodeRedeem**](MarketingAPI.md#PostMarketingPromosByCodeRedeem) | **Post** /v1/marketing/promos/{code}/redeem | Records the caller org&#39;s claim on a promo.
+[**PostMarketingSequences**](MarketingAPI.md#PostMarketingSequences) | **Post** /v1/marketing/sequences | Registers a drip sequence in the caller&#39;s org.
+[**PostMarketingSequencesByIdEnroll**](MarketingAPI.md#PostMarketingSequencesByIdEnroll) | **Post** /v1/marketing/sequences/{id}/enroll | Adds one contact or a whole audience to a sequence and schedules the first step for each.
+[**PostMarketingSequencesByIdEnrollmentsByEidCancel**](MarketingAPI.md#PostMarketingSequencesByIdEnrollmentsByEidCancel) | **Post** /v1/marketing/sequences/{id}/enrollments/{eid}/cancel | Stops one walk mid-sequence and answers 204: no further step is sent, and steps already delivered are not recalled.
+[**PostMarketingSequencesByIdStatus**](MarketingAPI.md#PostMarketingSequencesByIdStatus) | **Post** /v1/marketing/sequences/{id}/status | Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
+[**PostMarketingSequencesByIdSteps**](MarketingAPI.md#PostMarketingSequencesByIdSteps) | **Post** /v1/marketing/sequences/{id}/steps | Appends a message to the END of a sequence: the new step&#39;s idx is one past the last, so steps arrive in the order they are added.
+[**PostMarketingSuppressions**](MarketingAPI.md#PostMarketingSuppressions) | **Post** /v1/marketing/suppressions | Records an opt-out for the org (admin / self-service management).
+[**PutMarketingCalendarById**](MarketingAPI.md#PutMarketingCalendarById) | **Put** /v1/marketing/calendar/{id} | Replaces a post&#39;s editable fields.
+[**PutMarketingCampaignsById**](MarketingAPI.md#PutMarketingCampaignsById) | **Put** /v1/marketing/campaigns/{id} | Replaces a campaign&#39;s editable fields.
 
 
 
-## CloudDeleteV1MarketingAudiencesId
+## DeleteMarketingAudiencesById
 
-> CloudDeleteV1MarketingAudiencesId(ctx, id).Execute()
+> DeleteMarketingAudiencesById(ctx, id).Execute()
 
 Removes one of the caller org's audiences and answers 204.
 
@@ -68,9 +67,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MarketingAPI.CloudDeleteV1MarketingAudiencesId(context.Background(), id).Execute()
+	r, err := apiClient.MarketingAPI.DeleteMarketingAudiencesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudDeleteV1MarketingAudiencesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingAudiencesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -86,7 +85,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MarketingAudiencesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMarketingAudiencesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -99,7 +98,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -111,9 +110,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1MarketingCalendarId
+## DeleteMarketingCalendarById
 
-> CloudDeleteV1MarketingCalendarId(ctx, id).Execute()
+> DeleteMarketingCalendarById(ctx, id).Execute()
 
 Removes one of the caller org's posts and answers 204.
 
@@ -136,9 +135,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MarketingAPI.CloudDeleteV1MarketingCalendarId(context.Background(), id).Execute()
+	r, err := apiClient.MarketingAPI.DeleteMarketingCalendarById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudDeleteV1MarketingCalendarId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingCalendarById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -154,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MarketingCalendarIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMarketingCalendarByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -167,7 +166,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -179,9 +178,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1MarketingCampaignsId
+## DeleteMarketingCampaignsById
 
-> CloudDeleteV1MarketingCampaignsId(ctx, id).Execute()
+> DeleteMarketingCampaignsById(ctx, id).Execute()
 
 Removes one of the caller org's campaigns and answers 204.
 
@@ -204,9 +203,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MarketingAPI.CloudDeleteV1MarketingCampaignsId(context.Background(), id).Execute()
+	r, err := apiClient.MarketingAPI.DeleteMarketingCampaignsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudDeleteV1MarketingCampaignsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -222,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MarketingCampaignsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMarketingCampaignsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -235,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -247,9 +246,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1MarketingSuppressions
+## DeleteMarketingSuppressions
 
-> CloudDeleteV1MarketingSuppressions(ctx).Channel(channel).Address(address).Reason(reason).CreatedAt(createdAt).Execute()
+> DeleteMarketingSuppressions(ctx).Channel(channel).Address(address).Reason(reason).CreatedAt(createdAt).Execute()
 
 Re-subscribes an address on one channel and answers 204.
 
@@ -275,9 +274,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MarketingAPI.CloudDeleteV1MarketingSuppressions(context.Background()).Channel(channel).Address(address).Reason(reason).CreatedAt(createdAt).Execute()
+	r, err := apiClient.MarketingAPI.DeleteMarketingSuppressions(context.Background()).Channel(channel).Address(address).Reason(reason).CreatedAt(createdAt).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudDeleteV1MarketingSuppressions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.DeleteMarketingSuppressions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -289,7 +288,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MarketingSuppressionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMarketingSuppressionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -305,7 +304,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -317,9 +316,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingAudiences
+## GetMarketingAudiences
 
-> CloudAudienceList CloudGetV1MarketingAudiences(ctx).Limit(limit).Execute()
+> AudienceList GetMarketingAudiences(ctx).Limit(limit).Execute()
 
 Returns the org's saved audiences, most recently updated first.
 
@@ -342,13 +341,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingAudiences(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingAudiences(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingAudiences``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingAudiences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingAudiences`: CloudAudienceList
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingAudiences`: %v\n", resp)
+	// response from `GetMarketingAudiences`: AudienceList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingAudiences`: %v\n", resp)
 }
 ```
 
@@ -358,7 +357,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingAudiencesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingAudiencesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -367,11 +366,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAudienceList**](CloudAudienceList.md)
+[**AudienceList**](AudienceList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -383,9 +382,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingAudiencesId
+## GetMarketingAudiencesById
 
-> CloudAudience CloudGetV1MarketingAudiencesId(ctx, id).Execute()
+> Audience GetMarketingAudiencesById(ctx, id).Execute()
 
 Returns one of the caller org's saved audiences.
 
@@ -408,13 +407,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingAudiencesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingAudiencesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingAudiencesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingAudiencesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingAudiencesId`: CloudAudience
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingAudiencesId`: %v\n", resp)
+	// response from `GetMarketingAudiencesById`: Audience
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingAudiencesById`: %v\n", resp)
 }
 ```
 
@@ -428,7 +427,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingAudiencesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingAudiencesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -437,11 +436,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAudience**](CloudAudience.md)
+[**Audience**](Audience.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -453,9 +452,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingAudiencesIdPreview
+## GetMarketingAudiencesByIdPreview
 
-> CloudAudiencePreview CloudGetV1MarketingAudiencesIdPreview(ctx, id).Execute()
+> AudiencePreview GetMarketingAudiencesByIdPreview(ctx, id).Execute()
 
 Evaluates the cohort LIVE — the same resolution an enrollment would run — and reports how big it is and how many real mailboxes it reaches.
 
@@ -478,13 +477,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingAudiencesIdPreview(context.Background(), id).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingAudiencesByIdPreview(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingAudiencesIdPreview``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingAudiencesByIdPreview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingAudiencesIdPreview`: CloudAudiencePreview
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingAudiencesIdPreview`: %v\n", resp)
+	// response from `GetMarketingAudiencesByIdPreview`: AudiencePreview
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingAudiencesByIdPreview`: %v\n", resp)
 }
 ```
 
@@ -498,7 +497,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingAudiencesIdPreviewRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingAudiencesByIdPreviewRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -507,11 +506,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAudiencePreview**](CloudAudiencePreview.md)
+[**AudiencePreview**](AudiencePreview.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -523,9 +522,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingCalendar
+## GetMarketingCalendar
 
-> CloudPostList CloudGetV1MarketingCalendar(ctx).Status(status).Limit(limit).Execute()
+> PostList GetMarketingCalendar(ctx).Status(status).Limit(limit).Execute()
 
 Returns the org's calendar, soonest scheduled first, optionally narrowed to one status.
 
@@ -549,13 +548,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingCalendar(context.Background()).Status(status).Limit(limit).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingCalendar(context.Background()).Status(status).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingCalendar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingCalendar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingCalendar`: CloudPostList
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingCalendar`: %v\n", resp)
+	// response from `GetMarketingCalendar`: PostList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingCalendar`: %v\n", resp)
 }
 ```
 
@@ -565,7 +564,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingCalendarRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingCalendarRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -575,11 +574,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudPostList**](CloudPostList.md)
+[**PostList**](PostList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -591,9 +590,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingCalendarId
+## GetMarketingCalendarById
 
-> CloudCalendarPost CloudGetV1MarketingCalendarId(ctx, id).Execute()
+> CalendarPost GetMarketingCalendarById(ctx, id).Execute()
 
 Returns one of the caller org's posts, including the exact error behind a failed publish.
 
@@ -616,13 +615,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingCalendarId(context.Background(), id).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingCalendarById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingCalendarId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingCalendarById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingCalendarId`: CloudCalendarPost
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingCalendarId`: %v\n", resp)
+	// response from `GetMarketingCalendarById`: CalendarPost
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingCalendarById`: %v\n", resp)
 }
 ```
 
@@ -636,7 +635,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingCalendarIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingCalendarByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -645,11 +644,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCalendarPost**](CloudCalendarPost.md)
+[**CalendarPost**](CalendarPost.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -661,9 +660,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingCampaigns
+## GetMarketingCampaigns
 
-> CloudCampaignList CloudGetV1MarketingCampaigns(ctx).Status(status).Limit(limit).Execute()
+> CampaignList GetMarketingCampaigns(ctx).Status(status).Limit(limit).Execute()
 
 Returns the org's campaigns, most recently updated first, optionally narrowed to one lifecycle status.
 
@@ -687,13 +686,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingCampaigns(context.Background()).Status(status).Limit(limit).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingCampaigns(context.Background()).Status(status).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingCampaigns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingCampaigns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingCampaigns`: CloudCampaignList
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingCampaigns`: %v\n", resp)
+	// response from `GetMarketingCampaigns`: CampaignList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingCampaigns`: %v\n", resp)
 }
 ```
 
@@ -703,7 +702,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingCampaignsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingCampaignsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -713,11 +712,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCampaignList**](CloudCampaignList.md)
+[**CampaignList**](CampaignList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -729,9 +728,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingCampaignsId
+## GetMarketingCampaignsById
 
-> CloudCampaign CloudGetV1MarketingCampaignsId(ctx, id).Execute()
+> Campaign GetMarketingCampaignsById(ctx, id).Execute()
 
 Returns one of the caller org's campaigns.
 
@@ -754,13 +753,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingCampaignsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingCampaignsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingCampaignsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingCampaignsId`: CloudCampaign
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingCampaignsId`: %v\n", resp)
+	// response from `GetMarketingCampaignsById`: Campaign
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingCampaignsById`: %v\n", resp)
 }
 ```
 
@@ -774,7 +773,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingCampaignsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingCampaignsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -783,11 +782,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCampaign**](CloudCampaign.md)
+[**Campaign**](Campaign.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -799,9 +798,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingPromos
+## GetMarketingPromos
 
-> CloudPromoList CloudGetV1MarketingPromos(ctx).Execute()
+> PromoList GetMarketingPromos(ctx).Execute()
 
 Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap.
 
@@ -823,13 +822,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingPromos(context.Background()).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingPromos(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingPromos``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingPromos``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingPromos`: CloudPromoList
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingPromos`: %v\n", resp)
+	// response from `GetMarketingPromos`: PromoList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingPromos`: %v\n", resp)
 }
 ```
 
@@ -839,16 +838,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingPromosRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingPromosRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudPromoList**](CloudPromoList.md)
+[**PromoList**](PromoList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -860,9 +859,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1MarketingPromosR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingPromosCodeEligibility
+## GetMarketingPromosByCodeEligibility
 
-> CloudQuote CloudGetV1MarketingPromosCodeEligibility(ctx, code).Plan(plan).Seats(seats).Execute()
+> Quote GetMarketingPromosByCodeEligibility(ctx, code).Plan(plan).Seats(seats).Execute()
 
 Prices a promo against a plan and seat count.
 
@@ -887,13 +886,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingPromosCodeEligibility(context.Background(), code).Plan(plan).Seats(seats).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingPromosByCodeEligibility(context.Background(), code).Plan(plan).Seats(seats).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingPromosCodeEligibility``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingPromosByCodeEligibility``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingPromosCodeEligibility`: CloudQuote
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingPromosCodeEligibility`: %v\n", resp)
+	// response from `GetMarketingPromosByCodeEligibility`: Quote
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingPromosByCodeEligibility`: %v\n", resp)
 }
 ```
 
@@ -907,7 +906,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingPromosCodeEligibilityRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingPromosByCodeEligibilityRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -918,11 +917,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudQuote**](CloudQuote.md)
+[**Quote**](Quote.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -934,9 +933,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingPromosCodeRedemption
+## GetMarketingPromosByCodeRedemption
 
-> CloudRedemption CloudGetV1MarketingPromosCodeRedemption(ctx, code).Execute()
+> Redemption GetMarketingPromosByCodeRedemption(ctx, code).Execute()
 
 Returns the caller org's OWN redemption of a promo — an org-scoped read, so it can never surface another tenant's.
 
@@ -959,13 +958,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingPromosCodeRedemption(context.Background(), code).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingPromosByCodeRedemption(context.Background(), code).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingPromosCodeRedemption``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingPromosByCodeRedemption``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingPromosCodeRedemption`: CloudRedemption
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingPromosCodeRedemption`: %v\n", resp)
+	// response from `GetMarketingPromosByCodeRedemption`: Redemption
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingPromosByCodeRedemption`: %v\n", resp)
 }
 ```
 
@@ -979,7 +978,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingPromosCodeRedemptionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingPromosByCodeRedemptionRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -988,11 +987,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRedemption**](CloudRedemption.md)
+[**Redemption**](Redemption.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1004,9 +1003,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingSequences
+## GetMarketingSequences
 
-> CloudSequenceList CloudGetV1MarketingSequences(ctx).Limit(limit).Execute()
+> SequenceList GetMarketingSequences(ctx).Limit(limit).Execute()
 
 Returns the org's drip sequences, most recently updated first.
 
@@ -1029,13 +1028,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingSequences(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingSequences(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingSequences``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSequences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingSequences`: CloudSequenceList
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingSequences`: %v\n", resp)
+	// response from `GetMarketingSequences`: SequenceList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSequences`: %v\n", resp)
 }
 ```
 
@@ -1045,7 +1044,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingSequencesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingSequencesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1054,11 +1053,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSequenceList**](CloudSequenceList.md)
+[**SequenceList**](SequenceList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1070,9 +1069,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingSequencesId
+## GetMarketingSequencesById
 
-> CloudSequenceView CloudGetV1MarketingSequencesId(ctx, id).Execute()
+> SequenceView GetMarketingSequencesById(ctx, id).Execute()
 
 Returns one of the caller org's sequences together with its steps in send order.
 
@@ -1095,13 +1094,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingSequencesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingSequencesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingSequencesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSequencesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingSequencesId`: CloudSequenceView
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingSequencesId`: %v\n", resp)
+	// response from `GetMarketingSequencesById`: SequenceView
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSequencesById`: %v\n", resp)
 }
 ```
 
@@ -1115,7 +1114,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingSequencesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingSequencesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1124,11 +1123,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSequenceView**](CloudSequenceView.md)
+[**SequenceView**](SequenceView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1140,9 +1139,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingSequencesIdEnrollments
+## GetMarketingSequencesByIdEnrollments
 
-> CloudEnrollmentList CloudGetV1MarketingSequencesIdEnrollments(ctx, id).Limit(limit).Execute()
+> EnrollmentList GetMarketingSequencesByIdEnrollments(ctx, id).Limit(limit).Execute()
 
 Returns who is walking one sequence, most recently enrolled first, with each walk's current step and next due time.
 
@@ -1166,13 +1165,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingSequencesIdEnrollments(context.Background(), id).Limit(limit).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingSequencesByIdEnrollments(context.Background(), id).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingSequencesIdEnrollments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSequencesByIdEnrollments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingSequencesIdEnrollments`: CloudEnrollmentList
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingSequencesIdEnrollments`: %v\n", resp)
+	// response from `GetMarketingSequencesByIdEnrollments`: EnrollmentList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSequencesByIdEnrollments`: %v\n", resp)
 }
 ```
 
@@ -1186,7 +1185,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingSequencesIdEnrollmentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingSequencesByIdEnrollmentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1196,11 +1195,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudEnrollmentList**](CloudEnrollmentList.md)
+[**EnrollmentList**](EnrollmentList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1212,9 +1211,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingSequencesIdSteps
+## GetMarketingSequencesByIdSteps
 
-> CloudStepList CloudGetV1MarketingSequencesIdSteps(ctx, id).Execute()
+> StepList GetMarketingSequencesByIdSteps(ctx, id).Execute()
 
 Returns one sequence's steps in send order.
 
@@ -1237,13 +1236,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingSequencesIdSteps(context.Background(), id).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingSequencesByIdSteps(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingSequencesIdSteps``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSequencesByIdSteps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingSequencesIdSteps`: CloudStepList
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingSequencesIdSteps`: %v\n", resp)
+	// response from `GetMarketingSequencesByIdSteps`: StepList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSequencesByIdSteps`: %v\n", resp)
 }
 ```
 
@@ -1257,7 +1256,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingSequencesIdStepsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingSequencesByIdStepsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1266,11 +1265,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudStepList**](CloudStepList.md)
+[**StepList**](StepList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1282,9 +1281,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingSummary
+## GetMarketingSummary
 
-> CloudSummary CloudGetV1MarketingSummary(ctx).Execute()
+> Summary GetMarketingSummary(ctx).Execute()
 
 Rolls up the caller org's campaigns: how many there are, how many are active, and the summed budget and spend in cents.
 
@@ -1306,13 +1305,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingSummary(context.Background()).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingSummary(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingSummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingSummary`: CloudSummary
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingSummary`: %v\n", resp)
+	// response from `GetMarketingSummary`: Summary
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSummary`: %v\n", resp)
 }
 ```
 
@@ -1322,16 +1321,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingSummaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingSummaryRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudSummary**](CloudSummary.md)
+[**Summary**](Summary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1343,9 +1342,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1MarketingSummary
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingSuppressions
+## GetMarketingSuppressions
 
-> CloudSuppressionList CloudGetV1MarketingSuppressions(ctx).Limit(limit).Execute()
+> SuppressionList GetMarketingSuppressions(ctx).Limit(limit).Execute()
 
 Returns the org's opt-out list, newest first — everyone the send gate will refuse to deliver to.
 
@@ -1368,13 +1367,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingSuppressions(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingSuppressions(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingSuppressions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSuppressions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingSuppressions`: CloudSuppressionList
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingSuppressions`: %v\n", resp)
+	// response from `GetMarketingSuppressions`: SuppressionList
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSuppressions`: %v\n", resp)
 }
 ```
 
@@ -1384,7 +1383,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingSuppressionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingSuppressionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1393,11 +1392,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSuppressionList**](CloudSuppressionList.md)
+[**SuppressionList**](SuppressionList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1409,9 +1408,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketingUnsubscribe
+## GetMarketingUnsubscribe
 
-> CloudUnsubscribed CloudGetV1MarketingUnsubscribe(ctx).Org(org).Channel(channel).Address(address).Token(token).Execute()
+> Unsubscribed GetMarketingUnsubscribe(ctx).Org(org).Channel(channel).Address(address).Token(token).Execute()
 
 Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
 
@@ -1437,13 +1436,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudGetV1MarketingUnsubscribe(context.Background()).Org(org).Channel(channel).Address(address).Token(token).Execute()
+	resp, r, err := apiClient.MarketingAPI.GetMarketingUnsubscribe(context.Background()).Org(org).Channel(channel).Address(address).Token(token).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudGetV1MarketingUnsubscribe``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingUnsubscribe``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketingUnsubscribe`: CloudUnsubscribed
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudGetV1MarketingUnsubscribe`: %v\n", resp)
+	// response from `GetMarketingUnsubscribe`: Unsubscribed
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingUnsubscribe`: %v\n", resp)
 }
 ```
 
@@ -1453,7 +1452,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketingUnsubscribeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingUnsubscribeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1465,11 +1464,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudUnsubscribed**](CloudUnsubscribed.md)
+[**Unsubscribed**](Unsubscribed.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1481,9 +1480,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingAudiences
+## PostMarketingAudiences
 
-> CloudAudience CloudPostV1MarketingAudiences(ctx).CloudAudience(cloudAudience).Execute()
+> Audience PostMarketingAudiences(ctx).Audience(audience).Execute()
 
 Saves a cohort filter for the caller's org.
 
@@ -1502,17 +1501,17 @@ import (
 )
 
 func main() {
-	cloudAudience := *openapiclient.NewCloudAudience() // CloudAudience | 
+	audience := *openapiclient.NewAudience() // Audience | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingAudiences(context.Background()).CloudAudience(cloudAudience).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingAudiences(context.Background()).Audience(audience).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingAudiences``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingAudiences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingAudiences`: CloudAudience
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingAudiences`: %v\n", resp)
+	// response from `PostMarketingAudiences`: Audience
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingAudiences`: %v\n", resp)
 }
 ```
 
@@ -1522,20 +1521,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingAudiencesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingAudiencesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudAudience** | [**CloudAudience**](CloudAudience.md) |  | 
+ **audience** | [**Audience**](Audience.md) |  | 
 
 ### Return type
 
-[**CloudAudience**](CloudAudience.md)
+[**Audience**](Audience.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1547,9 +1546,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingCalendar
+## PostMarketingCalendar
 
-> CloudCalendarPost CloudPostV1MarketingCalendar(ctx).CloudCalendarPost(cloudCalendarPost).Execute()
+> CalendarPost PostMarketingCalendar(ctx).CalendarPost(calendarPost).Execute()
 
 Adds a post to the content calendar.
 
@@ -1568,17 +1567,17 @@ import (
 )
 
 func main() {
-	cloudCalendarPost := *openapiclient.NewCloudCalendarPost() // CloudCalendarPost | 
+	calendarPost := *openapiclient.NewCalendarPost() // CalendarPost | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingCalendar(context.Background()).CloudCalendarPost(cloudCalendarPost).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingCalendar(context.Background()).CalendarPost(calendarPost).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingCalendar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingCalendar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingCalendar`: CloudCalendarPost
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingCalendar`: %v\n", resp)
+	// response from `PostMarketingCalendar`: CalendarPost
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingCalendar`: %v\n", resp)
 }
 ```
 
@@ -1588,20 +1587,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingCalendarRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingCalendarRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCalendarPost** | [**CloudCalendarPost**](CloudCalendarPost.md) |  | 
+ **calendarPost** | [**CalendarPost**](CalendarPost.md) |  | 
 
 ### Return type
 
-[**CloudCalendarPost**](CloudCalendarPost.md)
+[**CalendarPost**](CalendarPost.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1613,9 +1612,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingCalendarIdPublish
+## PostMarketingCalendarByIdPublish
 
-> CloudCalendarPost CloudPostV1MarketingCalendarIdPublish(ctx, id).Execute()
+> CalendarPost PostMarketingCalendarByIdPublish(ctx, id).Execute()
 
 Publishes a post NOW, synchronously, whatever its schedule.
 
@@ -1638,13 +1637,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingCalendarIdPublish(context.Background(), id).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingCalendarByIdPublish(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingCalendarIdPublish``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingCalendarByIdPublish``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingCalendarIdPublish`: CloudCalendarPost
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingCalendarIdPublish`: %v\n", resp)
+	// response from `PostMarketingCalendarByIdPublish`: CalendarPost
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingCalendarByIdPublish`: %v\n", resp)
 }
 ```
 
@@ -1658,7 +1657,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingCalendarIdPublishRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingCalendarByIdPublishRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1667,11 +1666,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCalendarPost**](CloudCalendarPost.md)
+[**CalendarPost**](CalendarPost.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1683,9 +1682,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingCampaigns
+## PostMarketingCampaigns
 
-> CloudCampaign CloudPostV1MarketingCampaigns(ctx).CloudCampaign(cloudCampaign).Execute()
+> Campaign PostMarketingCampaigns(ctx).Campaign(campaign).Execute()
 
 Registers a campaign in the caller's org.
 
@@ -1704,17 +1703,17 @@ import (
 )
 
 func main() {
-	cloudCampaign := *openapiclient.NewCloudCampaign() // CloudCampaign | 
+	campaign := *openapiclient.NewCampaign() // Campaign | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingCampaigns(context.Background()).CloudCampaign(cloudCampaign).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingCampaigns(context.Background()).Campaign(campaign).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingCampaigns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingCampaigns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingCampaigns`: CloudCampaign
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingCampaigns`: %v\n", resp)
+	// response from `PostMarketingCampaigns`: Campaign
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingCampaigns`: %v\n", resp)
 }
 ```
 
@@ -1724,20 +1723,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingCampaignsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingCampaignsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCampaign** | [**CloudCampaign**](CloudCampaign.md) |  | 
+ **campaign** | [**Campaign**](Campaign.md) |  | 
 
 ### Return type
 
-[**CloudCampaign**](CloudCampaign.md)
+[**Campaign**](Campaign.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1749,9 +1748,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingCampaignsIdSchedule
+## PostMarketingCampaignsByIdSchedule
 
-> CloudCampaign CloudPostV1MarketingCampaignsIdSchedule(ctx, id).CloudScheduleInput(cloudScheduleInput).Execute()
+> Campaign PostMarketingCampaignsByIdSchedule(ctx, id).ScheduleInput(scheduleInput).Execute()
 
 Sets a campaign's send time and moves it to \"scheduled\".
 
@@ -1771,17 +1770,17 @@ import (
 
 func main() {
 	id := "camp_9f2a1c7d4e8b0a6f3d2c5b1e7a9f4c60" // string | ID is the campaign id from the path.
-	cloudScheduleInput := *openapiclient.NewCloudScheduleInput() // CloudScheduleInput | 
+	scheduleInput := *openapiclient.NewScheduleInput() // ScheduleInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingCampaignsIdSchedule(context.Background(), id).CloudScheduleInput(cloudScheduleInput).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingCampaignsByIdSchedule(context.Background(), id).ScheduleInput(scheduleInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingCampaignsIdSchedule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingCampaignsByIdSchedule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingCampaignsIdSchedule`: CloudCampaign
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingCampaignsIdSchedule`: %v\n", resp)
+	// response from `PostMarketingCampaignsByIdSchedule`: Campaign
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingCampaignsByIdSchedule`: %v\n", resp)
 }
 ```
 
@@ -1795,21 +1794,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingCampaignsIdScheduleRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingCampaignsByIdScheduleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudScheduleInput** | [**CloudScheduleInput**](CloudScheduleInput.md) |  | 
+ **scheduleInput** | [**ScheduleInput**](ScheduleInput.md) |  | 
 
 ### Return type
 
-[**CloudCampaign**](CloudCampaign.md)
+[**Campaign**](Campaign.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1821,11 +1820,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingPromosCodeRedeem
+## PostMarketingPromosByCodeRedeem
 
-> CloudRedeemResult CloudPostV1MarketingPromosCodeRedeem(ctx, code).CloudRedeemInput(cloudRedeemInput).Execute()
+> RedeemResult PostMarketingPromosByCodeRedeem(ctx, code).RedeemInput(redeemInput).Execute()
 
-Redeems the promo for the caller's org, crediting the discount value to its wallet through the finance ledger.
+Records the caller org's claim on a promo.
 
 
 
@@ -1843,17 +1842,17 @@ import (
 
 func main() {
 	code := "first1000" // string | Code is the promo code from the path.
-	cloudRedeemInput := *openapiclient.NewCloudRedeemInput() // CloudRedeemInput | 
+	redeemInput := *openapiclient.NewRedeemInput() // RedeemInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingPromosCodeRedeem(context.Background(), code).CloudRedeemInput(cloudRedeemInput).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingPromosByCodeRedeem(context.Background(), code).RedeemInput(redeemInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingPromosCodeRedeem``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingPromosByCodeRedeem``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingPromosCodeRedeem`: CloudRedeemResult
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingPromosCodeRedeem`: %v\n", resp)
+	// response from `PostMarketingPromosByCodeRedeem`: RedeemResult
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingPromosByCodeRedeem`: %v\n", resp)
 }
 ```
 
@@ -1867,21 +1866,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingPromosCodeRedeemRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingPromosByCodeRedeemRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudRedeemInput** | [**CloudRedeemInput**](CloudRedeemInput.md) |  | 
+ **redeemInput** | [**RedeemInput**](RedeemInput.md) |  | 
 
 ### Return type
 
-[**CloudRedeemResult**](CloudRedeemResult.md)
+[**RedeemResult**](RedeemResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1893,9 +1892,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingSequences
+## PostMarketingSequences
 
-> CloudSequence CloudPostV1MarketingSequences(ctx).CloudSequence(cloudSequence).Execute()
+> Sequence PostMarketingSequences(ctx).Sequence(sequence).Execute()
 
 Registers a drip sequence in the caller's org.
 
@@ -1914,17 +1913,17 @@ import (
 )
 
 func main() {
-	cloudSequence := *openapiclient.NewCloudSequence() // CloudSequence | 
+	sequence := *openapiclient.NewSequence() // Sequence | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingSequences(context.Background()).CloudSequence(cloudSequence).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSequences(context.Background()).Sequence(sequence).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingSequences``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingSequences`: CloudSequence
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingSequences`: %v\n", resp)
+	// response from `PostMarketingSequences`: Sequence
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSequences`: %v\n", resp)
 }
 ```
 
@@ -1934,20 +1933,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingSequencesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingSequencesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudSequence** | [**CloudSequence**](CloudSequence.md) |  | 
+ **sequence** | [**Sequence**](Sequence.md) |  | 
 
 ### Return type
 
-[**CloudSequence**](CloudSequence.md)
+[**Sequence**](Sequence.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1959,9 +1958,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingSequencesIdEnroll
+## PostMarketingSequencesByIdEnroll
 
-> CloudEnrollResult CloudPostV1MarketingSequencesIdEnroll(ctx, id).CloudEnrollInput(cloudEnrollInput).Execute()
+> EnrollResult PostMarketingSequencesByIdEnroll(ctx, id).EnrollInput(enrollInput).Execute()
 
 Adds one contact or a whole audience to a sequence and schedules the first step for each.
 
@@ -1981,17 +1980,17 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the sequence id from the path.
-	cloudEnrollInput := *openapiclient.NewCloudEnrollInput() // CloudEnrollInput | 
+	enrollInput := *openapiclient.NewEnrollInput() // EnrollInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingSequencesIdEnroll(context.Background(), id).CloudEnrollInput(cloudEnrollInput).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdEnroll(context.Background(), id).EnrollInput(enrollInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingSequencesIdEnroll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequencesByIdEnroll``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingSequencesIdEnroll`: CloudEnrollResult
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingSequencesIdEnroll`: %v\n", resp)
+	// response from `PostMarketingSequencesByIdEnroll`: EnrollResult
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSequencesByIdEnroll`: %v\n", resp)
 }
 ```
 
@@ -2005,21 +2004,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingSequencesIdEnrollRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingSequencesByIdEnrollRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudEnrollInput** | [**CloudEnrollInput**](CloudEnrollInput.md) |  | 
+ **enrollInput** | [**EnrollInput**](EnrollInput.md) |  | 
 
 ### Return type
 
-[**CloudEnrollResult**](CloudEnrollResult.md)
+[**EnrollResult**](EnrollResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2031,9 +2030,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingSequencesIdEnrollmentsEidCancel
+## PostMarketingSequencesByIdEnrollmentsByEidCancel
 
-> CloudPostV1MarketingSequencesIdEnrollmentsEidCancel(ctx, id, eid).Execute()
+> PostMarketingSequencesByIdEnrollmentsByEidCancel(ctx, id, eid).Execute()
 
 Stops one walk mid-sequence and answers 204: no further step is sent, and steps already delivered are not recalled.
 
@@ -2057,9 +2056,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MarketingAPI.CloudPostV1MarketingSequencesIdEnrollmentsEidCancel(context.Background(), id, eid).Execute()
+	r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdEnrollmentsByEidCancel(context.Background(), id, eid).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingSequencesIdEnrollmentsEidCancel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequencesByIdEnrollmentsByEidCancel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2076,7 +2075,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingSequencesIdEnrollmentsEidCancelRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingSequencesByIdEnrollmentsByEidCancelRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2090,7 +2089,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2102,9 +2101,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingSequencesIdStatus
+## PostMarketingSequencesByIdStatus
 
-> CloudSequenceStatus CloudPostV1MarketingSequencesIdStatus(ctx, id).CloudSequenceStatus(cloudSequenceStatus).Execute()
+> SequenceStatus PostMarketingSequencesByIdStatus(ctx, id).SequenceStatus(sequenceStatus).Execute()
 
 Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
 
@@ -2124,17 +2123,17 @@ import (
 
 func main() {
 	id := "seq_7b3e5a1c9d024f68b0a3e7c5d9f1a248" // string | ID is the sequence id from the path.
-	cloudSequenceStatus := *openapiclient.NewCloudSequenceStatus() // CloudSequenceStatus | 
+	sequenceStatus := *openapiclient.NewSequenceStatus() // SequenceStatus | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingSequencesIdStatus(context.Background(), id).CloudSequenceStatus(cloudSequenceStatus).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdStatus(context.Background(), id).SequenceStatus(sequenceStatus).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingSequencesIdStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequencesByIdStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingSequencesIdStatus`: CloudSequenceStatus
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingSequencesIdStatus`: %v\n", resp)
+	// response from `PostMarketingSequencesByIdStatus`: SequenceStatus
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSequencesByIdStatus`: %v\n", resp)
 }
 ```
 
@@ -2148,21 +2147,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingSequencesIdStatusRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingSequencesByIdStatusRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudSequenceStatus** | [**CloudSequenceStatus**](CloudSequenceStatus.md) |  | 
+ **sequenceStatus** | [**SequenceStatus**](SequenceStatus.md) |  | 
 
 ### Return type
 
-[**CloudSequenceStatus**](CloudSequenceStatus.md)
+[**SequenceStatus**](SequenceStatus.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2174,9 +2173,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingSequencesIdSteps
+## PostMarketingSequencesByIdSteps
 
-> CloudStep CloudPostV1MarketingSequencesIdSteps(ctx, id).CloudStepInput(cloudStepInput).Execute()
+> Step PostMarketingSequencesByIdSteps(ctx, id).StepInput(stepInput).Execute()
 
 Appends a message to the END of a sequence: the new step's idx is one past the last, so steps arrive in the order they are added.
 
@@ -2196,17 +2195,17 @@ import (
 
 func main() {
 	id := "id_example" // string | SequenceID is the sequence id from the path (the route's :id).
-	cloudStepInput := *openapiclient.NewCloudStepInput() // CloudStepInput | 
+	stepInput := *openapiclient.NewStepInput() // StepInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingSequencesIdSteps(context.Background(), id).CloudStepInput(cloudStepInput).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdSteps(context.Background(), id).StepInput(stepInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingSequencesIdSteps``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequencesByIdSteps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingSequencesIdSteps`: CloudStep
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingSequencesIdSteps`: %v\n", resp)
+	// response from `PostMarketingSequencesByIdSteps`: Step
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSequencesByIdSteps`: %v\n", resp)
 }
 ```
 
@@ -2220,21 +2219,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingSequencesIdStepsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingSequencesByIdStepsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudStepInput** | [**CloudStepInput**](CloudStepInput.md) |  | 
+ **stepInput** | [**StepInput**](StepInput.md) |  | 
 
 ### Return type
 
-[**CloudStep**](CloudStep.md)
+[**Step**](Step.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2246,9 +2245,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketingSuppressions
+## PostMarketingSuppressions
 
-> CloudSuppression CloudPostV1MarketingSuppressions(ctx).CloudSuppression(cloudSuppression).Execute()
+> Suppression PostMarketingSuppressions(ctx).Suppression(suppression).Execute()
 
 Records an opt-out for the org (admin / self-service management).
 
@@ -2267,17 +2266,17 @@ import (
 )
 
 func main() {
-	cloudSuppression := *openapiclient.NewCloudSuppression() // CloudSuppression | 
+	suppression := *openapiclient.NewSuppression() // Suppression | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPostV1MarketingSuppressions(context.Background()).CloudSuppression(cloudSuppression).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSuppressions(context.Background()).Suppression(suppression).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPostV1MarketingSuppressions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSuppressions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketingSuppressions`: CloudSuppression
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPostV1MarketingSuppressions`: %v\n", resp)
+	// response from `PostMarketingSuppressions`: Suppression
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSuppressions`: %v\n", resp)
 }
 ```
 
@@ -2287,20 +2286,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketingSuppressionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingSuppressionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudSuppression** | [**CloudSuppression**](CloudSuppression.md) |  | 
+ **suppression** | [**Suppression**](Suppression.md) |  | 
 
 ### Return type
 
-[**CloudSuppression**](CloudSuppression.md)
+[**Suppression**](Suppression.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2312,9 +2311,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1MarketingCalendarId
+## PutMarketingCalendarById
 
-> CloudCalendarPost CloudPutV1MarketingCalendarId(ctx, id).CloudCalendarPost(cloudCalendarPost).Execute()
+> CalendarPost PutMarketingCalendarById(ctx, id).CalendarPost(calendarPost).Execute()
 
 Replaces a post's editable fields.
 
@@ -2334,17 +2333,17 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the server-assigned post id (\"cal_\" + 128 random bits).
-	cloudCalendarPost := *openapiclient.NewCloudCalendarPost() // CloudCalendarPost | 
+	calendarPost := *openapiclient.NewCalendarPost() // CalendarPost | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPutV1MarketingCalendarId(context.Background(), id).CloudCalendarPost(cloudCalendarPost).Execute()
+	resp, r, err := apiClient.MarketingAPI.PutMarketingCalendarById(context.Background(), id).CalendarPost(calendarPost).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPutV1MarketingCalendarId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingCalendarById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1MarketingCalendarId`: CloudCalendarPost
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPutV1MarketingCalendarId`: %v\n", resp)
+	// response from `PutMarketingCalendarById`: CalendarPost
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PutMarketingCalendarById`: %v\n", resp)
 }
 ```
 
@@ -2358,21 +2357,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1MarketingCalendarIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutMarketingCalendarByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudCalendarPost** | [**CloudCalendarPost**](CloudCalendarPost.md) |  | 
+ **calendarPost** | [**CalendarPost**](CalendarPost.md) |  | 
 
 ### Return type
 
-[**CloudCalendarPost**](CloudCalendarPost.md)
+[**CalendarPost**](CalendarPost.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2384,9 +2383,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1MarketingCampaignsId
+## PutMarketingCampaignsById
 
-> CloudCampaign CloudPutV1MarketingCampaignsId(ctx, id).CloudCampaign(cloudCampaign).Execute()
+> Campaign PutMarketingCampaignsById(ctx, id).Campaign(campaign).Execute()
 
 Replaces a campaign's editable fields.
 
@@ -2406,17 +2405,17 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the server-assigned campaign id (\"camp_\" + 128 random bits).
-	cloudCampaign := *openapiclient.NewCloudCampaign() // CloudCampaign | 
+	campaign := *openapiclient.NewCampaign() // Campaign | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CloudPutV1MarketingCampaignsId(context.Background(), id).CloudCampaign(cloudCampaign).Execute()
+	resp, r, err := apiClient.MarketingAPI.PutMarketingCampaignsById(context.Background(), id).Campaign(campaign).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CloudPutV1MarketingCampaignsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1MarketingCampaignsId`: CloudCampaign
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CloudPutV1MarketingCampaignsId`: %v\n", resp)
+	// response from `PutMarketingCampaignsById`: Campaign
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PutMarketingCampaignsById`: %v\n", resp)
 }
 ```
 
@@ -2430,85 +2429,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1MarketingCampaignsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutMarketingCampaignsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudCampaign** | [**CloudCampaign**](CloudCampaign.md) |  | 
+ **campaign** | [**Campaign**](Campaign.md) |  | 
 
 ### Return type
 
-[**CloudCampaign**](CloudCampaign.md)
+[**Campaign**](Campaign.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceCreateMarketingCampaign
-
-> map[string]interface{} CommerceCreateMarketingCampaign(ctx).Body(body).Execute()
-
-Create marketing campaign
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	body := map[string]interface{}{ ... } // map[string]interface{} | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.CommerceCreateMarketingCampaign(context.Background()).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.CommerceCreateMarketingCampaign``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceCreateMarketingCampaign`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.CommerceCreateMarketingCampaign`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceCreateMarketingCampaignRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **map[string]interface{}** |  | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

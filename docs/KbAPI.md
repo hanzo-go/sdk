@@ -4,23 +4,23 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1KbConnectorsProvider**](KbAPI.md#CloudDeleteV1KbConnectorsProvider) | **Delete** /v1/kb/connectors/{provider} | DisconnectConnector revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider&#39;s points from the org&#39;s vector namespace, and marks the connector disconnected.
-[**CloudGetV1KbConnectors**](KbAPI.md#CloudGetV1KbConnectors) | **Get** /v1/kb/connectors | ListConnectors returns every supported knowledge connector with THIS org&#39;s connection state and the REAL number of documents each has ingested into the org&#39;s store.
-[**CloudGetV1KbConnectorsCatalog**](KbAPI.md#CloudGetV1KbConnectorsCatalog) | **Get** /v1/kb/connectors/catalog | ListConnectorCatalog returns the ONE catalog of everything a caller can connect: every first-party connector and every long-tail one, in a single list sorted by provider.
-[**CloudGetV1KbConnectorsProviderCallback**](KbAPI.md#CloudGetV1KbConnectorsProviderCallback) | **Get** /v1/kb/connectors/{provider}/callback | CompleteConnectorOAuth finishes an OAuth connection: it exchanges the provider&#39;s code for a token, seals that token in KMS, and records the connection.
-[**CloudGetV1KbConnectorsProviderConnect**](KbAPI.md#CloudGetV1KbConnectorsProviderConnect) | **Get** /v1/kb/connectors/{provider}/connect | StartConnectorOAuth returns the provider authorize URL the console opens to connect this org&#39;s account.
-[**CloudGetV1KbGraph**](KbAPI.md#CloudGetV1KbGraph) | **Get** /v1/kb/graph | GetKnowledgeGraph returns the caller org&#39;s knowledge as a node/edge graph shaped for a force-directed renderer: pages, memories and synced sources as nodes; the page parent tree, the wikilinks between pages, and each source&#39;s connector provenance as edges.
-[**CloudPostV1KbConnectorsProviderSync**](KbAPI.md#CloudPostV1KbConnectorsProviderSync) | **Post** /v1/kb/connectors/{provider}/sync | SyncConnector pulls the provider&#39;s documents for the caller&#39;s org and files them as knowledge sources, which the store&#39;s own hook then indexes — so a synced document is retrievable exactly like a hand-written page.
-[**CloudPostV1KbImport**](KbAPI.md#CloudPostV1KbImport) | **Post** /v1/kb/import | 
-[**CloudPostV1KbSearch**](KbAPI.md#CloudPostV1KbSearch) | **Post** /v1/kb/search | SearchKnowledge runs a semantic search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
+[**DeleteKbConnectorsByProvider**](KbAPI.md#DeleteKbConnectorsByProvider) | **Delete** /v1/kb/connectors/{provider} | Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider&#39;s points from the org&#39;s vector namespace, and marks the connector disconnected.
+[**GetKbConnectors**](KbAPI.md#GetKbConnectors) | **Get** /v1/kb/connectors | Returns every supported knowledge connector with THIS org&#39;s connection state and the REAL number of documents each has ingested into the org&#39;s store.
+[**GetKbConnectorsByProviderCallback**](KbAPI.md#GetKbConnectorsByProviderCallback) | **Get** /v1/kb/connectors/{provider}/callback | CompleteConnectorOAuth finishes an OAuth connection: it exchanges the provider&#39;s code for a token, seals that token in KMS, and records the connection.
+[**GetKbConnectorsByProviderConnect**](KbAPI.md#GetKbConnectorsByProviderConnect) | **Get** /v1/kb/connectors/{provider}/connect | StartConnectorOAuth returns the provider authorize URL the console opens to connect this org&#39;s account.
+[**GetKbConnectorsCatalog**](KbAPI.md#GetKbConnectorsCatalog) | **Get** /v1/kb/connectors/catalog | Returns the ONE catalog of everything a caller can connect: every first-party connector and every long-tail one, in a single list sorted by provider.
+[**GetKbGraph**](KbAPI.md#GetKbGraph) | **Get** /v1/kb/graph | Returns the caller org&#39;s knowledge as a node/edge graph shaped for a force-directed renderer: pages, memories and synced sources as nodes; the page parent tree, the wikilinks between pages, and each source&#39;s connector provenance as edges.
+[**PostKbConnectorsByProviderSync**](KbAPI.md#PostKbConnectorsByProviderSync) | **Post** /v1/kb/connectors/{provider}/sync | Pulls the provider&#39;s documents for the caller&#39;s org and files them as knowledge sources, which the store&#39;s own hook then indexes — so a synced document is retrievable exactly like a hand-written page.
+[**PostKbImport**](KbAPI.md#PostKbImport) | **Post** /v1/kb/import | Import an Obsidian, Notion, Roam or Evernote export into the org&#39;s knowledge base
+[**PostKbSearch**](KbAPI.md#PostKbSearch) | **Post** /v1/kb/search | Runs a semantic search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
 
 
 
-## CloudDeleteV1KbConnectorsProvider
+## DeleteKbConnectorsByProvider
 
-> CloudConnectionOut CloudDeleteV1KbConnectorsProvider(ctx, provider).Execute()
+> ConnectionOut DeleteKbConnectorsByProvider(ctx, provider).Execute()
 
-DisconnectConnector revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider's points from the org's vector namespace, and marks the connector disconnected.
+Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider's points from the org's vector namespace, and marks the connector disconnected.
 
 
 
@@ -41,13 +41,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KbAPI.CloudDeleteV1KbConnectorsProvider(context.Background(), provider).Execute()
+	resp, r, err := apiClient.KbAPI.DeleteKbConnectorsByProvider(context.Background(), provider).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudDeleteV1KbConnectorsProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.DeleteKbConnectorsByProvider``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1KbConnectorsProvider`: CloudConnectionOut
-	fmt.Fprintf(os.Stdout, "Response from `KbAPI.CloudDeleteV1KbConnectorsProvider`: %v\n", resp)
+	// response from `DeleteKbConnectorsByProvider`: ConnectionOut
+	fmt.Fprintf(os.Stdout, "Response from `KbAPI.DeleteKbConnectorsByProvider`: %v\n", resp)
 }
 ```
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1KbConnectorsProviderRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteKbConnectorsByProviderRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -70,11 +70,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudConnectionOut**](CloudConnectionOut.md)
+[**ConnectionOut**](ConnectionOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -86,11 +86,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1KbConnectors
+## GetKbConnectors
 
-> CloudKbConnectorsOut CloudGetV1KbConnectors(ctx).Execute()
+> KbConnectorsOut GetKbConnectors(ctx).Execute()
 
-ListConnectors returns every supported knowledge connector with THIS org's connection state and the REAL number of documents each has ingested into the org's store.
+Returns every supported knowledge connector with THIS org's connection state and the REAL number of documents each has ingested into the org's store.
 
 
 
@@ -110,13 +110,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KbAPI.CloudGetV1KbConnectors(context.Background()).Execute()
+	resp, r, err := apiClient.KbAPI.GetKbConnectors(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudGetV1KbConnectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.GetKbConnectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1KbConnectors`: CloudKbConnectorsOut
-	fmt.Fprintf(os.Stdout, "Response from `KbAPI.CloudGetV1KbConnectors`: %v\n", resp)
+	// response from `GetKbConnectors`: KbConnectorsOut
+	fmt.Fprintf(os.Stdout, "Response from `KbAPI.GetKbConnectors`: %v\n", resp)
 }
 ```
 
@@ -126,16 +126,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1KbConnectorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetKbConnectorsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudKbConnectorsOut**](CloudKbConnectorsOut.md)
+[**KbConnectorsOut**](KbConnectorsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -147,70 +147,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1KbConnectorsRequ
 [[Back to README]](../README.md)
 
 
-## CloudGetV1KbConnectorsCatalog
+## GetKbConnectorsByProviderCallback
 
-> CloudCatalogOut CloudGetV1KbConnectorsCatalog(ctx).Execute()
-
-ListConnectorCatalog returns the ONE catalog of everything a caller can connect: every first-party connector and every long-tail one, in a single list sorted by provider.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KbAPI.CloudGetV1KbConnectorsCatalog(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudGetV1KbConnectorsCatalog``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1KbConnectorsCatalog`: CloudCatalogOut
-	fmt.Fprintf(os.Stdout, "Response from `KbAPI.CloudGetV1KbConnectorsCatalog`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1KbConnectorsCatalogRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudCatalogOut**](CloudCatalogOut.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1KbConnectorsProviderCallback
-
-> CloudConnectionOut CloudGetV1KbConnectorsProviderCallback(ctx, provider).Code(code).State(state).Error_(error_).Execute()
+> ConnectionOut GetKbConnectorsByProviderCallback(ctx, provider).Code(code).State(state).Error_(error_).Execute()
 
 CompleteConnectorOAuth finishes an OAuth connection: it exchanges the provider's code for a token, seals that token in KMS, and records the connection.
 
@@ -236,13 +175,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KbAPI.CloudGetV1KbConnectorsProviderCallback(context.Background(), provider).Code(code).State(state).Error_(error_).Execute()
+	resp, r, err := apiClient.KbAPI.GetKbConnectorsByProviderCallback(context.Background(), provider).Code(code).State(state).Error_(error_).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudGetV1KbConnectorsProviderCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.GetKbConnectorsByProviderCallback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1KbConnectorsProviderCallback`: CloudConnectionOut
-	fmt.Fprintf(os.Stdout, "Response from `KbAPI.CloudGetV1KbConnectorsProviderCallback`: %v\n", resp)
+	// response from `GetKbConnectorsByProviderCallback`: ConnectionOut
+	fmt.Fprintf(os.Stdout, "Response from `KbAPI.GetKbConnectorsByProviderCallback`: %v\n", resp)
 }
 ```
 
@@ -256,7 +195,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1KbConnectorsProviderCallbackRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetKbConnectorsByProviderCallbackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -268,11 +207,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudConnectionOut**](CloudConnectionOut.md)
+[**ConnectionOut**](ConnectionOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -284,9 +223,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1KbConnectorsProviderConnect
+## GetKbConnectorsByProviderConnect
 
-> CloudKbAuthorizeOut CloudGetV1KbConnectorsProviderConnect(ctx, provider).Execute()
+> KbAuthorizeOut GetKbConnectorsByProviderConnect(ctx, provider).Execute()
 
 StartConnectorOAuth returns the provider authorize URL the console opens to connect this org's account.
 
@@ -309,13 +248,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KbAPI.CloudGetV1KbConnectorsProviderConnect(context.Background(), provider).Execute()
+	resp, r, err := apiClient.KbAPI.GetKbConnectorsByProviderConnect(context.Background(), provider).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudGetV1KbConnectorsProviderConnect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.GetKbConnectorsByProviderConnect``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1KbConnectorsProviderConnect`: CloudKbAuthorizeOut
-	fmt.Fprintf(os.Stdout, "Response from `KbAPI.CloudGetV1KbConnectorsProviderConnect`: %v\n", resp)
+	// response from `GetKbConnectorsByProviderConnect`: KbAuthorizeOut
+	fmt.Fprintf(os.Stdout, "Response from `KbAPI.GetKbConnectorsByProviderConnect`: %v\n", resp)
 }
 ```
 
@@ -329,7 +268,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1KbConnectorsProviderConnectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetKbConnectorsByProviderConnectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -338,11 +277,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudKbAuthorizeOut**](CloudKbAuthorizeOut.md)
+[**KbAuthorizeOut**](KbAuthorizeOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -354,11 +293,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1KbGraph
+## GetKbConnectorsCatalog
 
-> CloudGraphOut CloudGetV1KbGraph(ctx).Project(project).Execute()
+> CatalogOut GetKbConnectorsCatalog(ctx).Execute()
 
-GetKnowledgeGraph returns the caller org's knowledge as a node/edge graph shaped for a force-directed renderer: pages, memories and synced sources as nodes; the page parent tree, the wikilinks between pages, and each source's connector provenance as edges.
+Returns the ONE catalog of everything a caller can connect: every first-party connector and every long-tail one, in a single list sorted by provider.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KbAPI.GetKbConnectorsCatalog(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.GetKbConnectorsCatalog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetKbConnectorsCatalog`: CatalogOut
+	fmt.Fprintf(os.Stdout, "Response from `KbAPI.GetKbConnectorsCatalog`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetKbConnectorsCatalogRequest struct via the builder pattern
+
+
+### Return type
+
+[**CatalogOut**](CatalogOut.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetKbGraph
+
+> GraphOut GetKbGraph(ctx).Project(project).Execute()
+
+Returns the caller org's knowledge as a node/edge graph shaped for a force-directed renderer: pages, memories and synced sources as nodes; the page parent tree, the wikilinks between pages, and each source's connector provenance as edges.
 
 
 
@@ -379,13 +379,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KbAPI.CloudGetV1KbGraph(context.Background()).Project(project).Execute()
+	resp, r, err := apiClient.KbAPI.GetKbGraph(context.Background()).Project(project).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudGetV1KbGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.GetKbGraph``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1KbGraph`: CloudGraphOut
-	fmt.Fprintf(os.Stdout, "Response from `KbAPI.CloudGetV1KbGraph`: %v\n", resp)
+	// response from `GetKbGraph`: GraphOut
+	fmt.Fprintf(os.Stdout, "Response from `KbAPI.GetKbGraph`: %v\n", resp)
 }
 ```
 
@@ -395,7 +395,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1KbGraphRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetKbGraphRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -404,11 +404,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudGraphOut**](CloudGraphOut.md)
+[**GraphOut**](GraphOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -420,11 +420,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1KbConnectorsProviderSync
+## PostKbConnectorsByProviderSync
 
-> CloudKbSyncOut CloudPostV1KbConnectorsProviderSync(ctx, provider).Execute()
+> KbSyncOut PostKbConnectorsByProviderSync(ctx, provider).Execute()
 
-SyncConnector pulls the provider's documents for the caller's org and files them as knowledge sources, which the store's own hook then indexes — so a synced document is retrievable exactly like a hand-written page.
+Pulls the provider's documents for the caller's org and files them as knowledge sources, which the store's own hook then indexes — so a synced document is retrievable exactly like a hand-written page.
 
 
 
@@ -445,13 +445,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KbAPI.CloudPostV1KbConnectorsProviderSync(context.Background(), provider).Execute()
+	resp, r, err := apiClient.KbAPI.PostKbConnectorsByProviderSync(context.Background(), provider).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudPostV1KbConnectorsProviderSync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.PostKbConnectorsByProviderSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1KbConnectorsProviderSync`: CloudKbSyncOut
-	fmt.Fprintf(os.Stdout, "Response from `KbAPI.CloudPostV1KbConnectorsProviderSync`: %v\n", resp)
+	// response from `PostKbConnectorsByProviderSync`: KbSyncOut
+	fmt.Fprintf(os.Stdout, "Response from `KbAPI.PostKbConnectorsByProviderSync`: %v\n", resp)
 }
 ```
 
@@ -465,7 +465,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1KbConnectorsProviderSyncRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostKbConnectorsByProviderSyncRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -474,11 +474,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudKbSyncOut**](CloudKbSyncOut.md)
+[**KbSyncOut**](KbSyncOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -490,9 +490,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1KbImport
+## PostKbImport
 
-> CloudPostV1KbImport(ctx).Execute()
+> PostKbImport(ctx).Execute()
+
+Import an Obsidian, Notion, Roam or Evernote export into the org's knowledge base
 
 
 
@@ -512,9 +514,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KbAPI.CloudPostV1KbImport(context.Background()).Execute()
+	r, err := apiClient.KbAPI.PostKbImport(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudPostV1KbImport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.PostKbImport``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -526,7 +528,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1KbImportRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostKbImportRequest struct via the builder pattern
 
 
 ### Return type
@@ -535,7 +537,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1KbImportRequest
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -547,11 +549,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1KbImportRequest
 [[Back to README]](../README.md)
 
 
-## CloudPostV1KbSearch
+## PostKbSearch
 
-> CloudSearchOut CloudPostV1KbSearch(ctx).CloudSearchIn(cloudSearchIn).Execute()
+> SearchOut PostKbSearch(ctx).SearchIn(searchIn).Execute()
 
-SearchKnowledge runs a semantic search over the caller org's own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
+Runs a semantic search over the caller org's own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
 
 
 
@@ -568,17 +570,17 @@ import (
 )
 
 func main() {
-	cloudSearchIn := *openapiclient.NewCloudSearchIn() // CloudSearchIn | 
+	searchIn := *openapiclient.NewSearchIn() // SearchIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KbAPI.CloudPostV1KbSearch(context.Background()).CloudSearchIn(cloudSearchIn).Execute()
+	resp, r, err := apiClient.KbAPI.PostKbSearch(context.Background()).SearchIn(searchIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.CloudPostV1KbSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KbAPI.PostKbSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1KbSearch`: CloudSearchOut
-	fmt.Fprintf(os.Stdout, "Response from `KbAPI.CloudPostV1KbSearch`: %v\n", resp)
+	// response from `PostKbSearch`: SearchOut
+	fmt.Fprintf(os.Stdout, "Response from `KbAPI.PostKbSearch`: %v\n", resp)
 }
 ```
 
@@ -588,20 +590,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1KbSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostKbSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudSearchIn** | [**CloudSearchIn**](CloudSearchIn.md) |  | 
+ **searchIn** | [**SearchIn**](SearchIn.md) |  | 
 
 ### Return type
 
-[**CloudSearchOut**](CloudSearchOut.md)
+[**SearchOut**](SearchOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

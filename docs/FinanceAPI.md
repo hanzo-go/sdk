@@ -4,22 +4,22 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1FinanceAccounts**](FinanceAPI.md#CloudGetV1FinanceAccounts) | **Get** /v1/finance/accounts | ListFinanceAccounts returns the ledger accounts the caller may see, with their balances.
-[**CloudGetV1FinanceBalance**](FinanceAPI.md#CloudGetV1FinanceBalance) | **Get** /v1/finance/balance | 
-[**CloudGetV1FinanceCredits**](FinanceAPI.md#CloudGetV1FinanceCredits) | **Get** /v1/finance/credits | 
-[**CloudGetV1FinanceInvoices**](FinanceAPI.md#CloudGetV1FinanceInvoices) | **Get** /v1/finance/invoices | 
-[**CloudGetV1FinanceLedger**](FinanceAPI.md#CloudGetV1FinanceLedger) | **Get** /v1/finance/ledger | 
-[**CloudGetV1FinancePaymentMethods**](FinanceAPI.md#CloudGetV1FinancePaymentMethods) | **Get** /v1/finance/payment-methods | 
-[**CloudGetV1FinanceTreasury**](FinanceAPI.md#CloudGetV1FinanceTreasury) | **Get** /v1/finance/treasury | GetTreasury returns the reserve fund&#39;s health and the current revenue-share policy for any validated caller.
-[**CloudGetV1FinanceUsage**](FinanceAPI.md#CloudGetV1FinanceUsage) | **Get** /v1/finance/usage | 
+[**GetFinanceAccounts**](FinanceAPI.md#GetFinanceAccounts) | **Get** /v1/finance/accounts | Returns the ledger accounts the caller may see, with their balances.
+[**GetFinanceBalance**](FinanceAPI.md#GetFinanceBalance) | **Get** /v1/finance/balance | Answers the org&#39;s spendable prepaid balance typed for the finance surfaces: &#x60;availableCents&#x60;, &#x60;pendingCents&#x60;, &#x60;dueCents&#x60; and the &#x60;asOf&#x60; instant it was read.
+[**GetFinanceCredits**](FinanceAPI.md#GetFinanceCredits) | **Get** /v1/finance/credits | Answers the money PUT IN to the org&#39;s wallet — each staff grant, promo and settled top-up as a positive row with its id, label, cents and grant time.
+[**GetFinanceInvoices**](FinanceAPI.md#GetFinanceInvoices) | **Get** /v1/finance/invoices | Answers an empty typed array, always.
+[**GetFinanceLedger**](FinanceAPI.md#GetFinanceLedger) | **Get** /v1/finance/ledger | Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;) and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
+[**GetFinancePaymentMethods**](FinanceAPI.md#GetFinancePaymentMethods) | **Get** /v1/finance/payment-methods | Answers the masked card descriptors for the caller&#39;s resolved WALLET — id, brand, last four, expiry, default flag — reshaped into the finance contract.
+[**GetFinanceTreasury**](FinanceAPI.md#GetFinanceTreasury) | **Get** /v1/finance/treasury | Returns the reserve fund&#39;s health and the current revenue-share policy for any validated caller.
+[**GetFinanceUsage**](FinanceAPI.md#GetFinanceUsage) | **Get** /v1/finance/usage | Answers metered spend inside &#x60;range&#x3D;&#x60;: the window total, a time series to plot, and one line per usage TAG.
 
 
 
-## CloudGetV1FinanceAccounts
+## GetFinanceAccounts
 
-> CloudAccountsOut CloudGetV1FinanceAccounts(ctx).Scope(scope).Org(org).Execute()
+> AccountsOut GetFinanceAccounts(ctx).Scope(scope).Org(org).Execute()
 
-ListFinanceAccounts returns the ledger accounts the caller may see, with their balances.
+Returns the ledger accounts the caller may see, with their balances.
 
 
 
@@ -41,13 +41,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FinanceAPI.CloudGetV1FinanceAccounts(context.Background()).Scope(scope).Org(org).Execute()
+	resp, r, err := apiClient.FinanceAPI.GetFinanceAccounts(context.Background()).Scope(scope).Org(org).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.CloudGetV1FinanceAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.GetFinanceAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FinanceAccounts`: CloudAccountsOut
-	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.CloudGetV1FinanceAccounts`: %v\n", resp)
+	// response from `GetFinanceAccounts`: AccountsOut
+	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.GetFinanceAccounts`: %v\n", resp)
 }
 ```
 
@@ -57,7 +57,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FinanceAccountsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFinanceAccountsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -67,11 +67,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudAccountsOut**](CloudAccountsOut.md)
+[**AccountsOut**](AccountsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -83,66 +83,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FinanceBalance
+## GetFinanceBalance
 
-> CloudGetV1FinanceBalance(ctx).Execute()
+> FinanceBalanceView GetFinanceBalance(ctx).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FinanceAPI.CloudGetV1FinanceBalance(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.CloudGetV1FinanceBalance``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FinanceBalanceRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FinanceCredits
-
-> CloudGetV1FinanceCredits(ctx).Execute()
+Answers the org's spendable prepaid balance typed for the finance surfaces: `availableCents`, `pendingCents`, `dueCents` and the `asOf` instant it was read.
 
 
 
@@ -162,11 +107,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FinanceAPI.CloudGetV1FinanceCredits(context.Background()).Execute()
+	resp, r, err := apiClient.FinanceAPI.GetFinanceBalance(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.CloudGetV1FinanceCredits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.GetFinanceBalance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetFinanceBalance`: FinanceBalanceView
+	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.GetFinanceBalance`: %v\n", resp)
 }
 ```
 
@@ -176,248 +123,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FinanceCreditsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFinanceBalanceRequest struct via the builder pattern
 
 
 ### Return type
 
- (empty response body)
+[**FinanceBalanceView**](FinanceBalanceView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FinanceInvoices
-
-> CloudGetV1FinanceInvoices(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FinanceAPI.CloudGetV1FinanceInvoices(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.CloudGetV1FinanceInvoices``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FinanceInvoicesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FinanceLedger
-
-> CloudGetV1FinanceLedger(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FinanceAPI.CloudGetV1FinanceLedger(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.CloudGetV1FinanceLedger``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FinanceLedgerRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FinancePaymentMethods
-
-> CloudGetV1FinancePaymentMethods(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FinanceAPI.CloudGetV1FinancePaymentMethods(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.CloudGetV1FinancePaymentMethods``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FinancePaymentMethodsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1FinanceTreasury
-
-> CloudTreasuryReport CloudGetV1FinanceTreasury(ctx).Execute()
-
-GetTreasury returns the reserve fund's health and the current revenue-share policy for any validated caller.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FinanceAPI.CloudGetV1FinanceTreasury(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.CloudGetV1FinanceTreasury``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudGetV1FinanceTreasury`: CloudTreasuryReport
-	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.CloudGetV1FinanceTreasury`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1FinanceTreasuryRequest struct via the builder pattern
-
-
-### Return type
-
-[**CloudTreasuryReport**](CloudTreasuryReport.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -429,9 +144,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1FinanceTreasuryR
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FinanceUsage
+## GetFinanceCredits
 
-> CloudGetV1FinanceUsage(ctx).Execute()
+> []FinanceCredit GetFinanceCredits(ctx).Execute()
+
+Answers the money PUT IN to the org's wallet — each staff grant, promo and settled top-up as a positive row with its id, label, cents and grant time.
 
 
 
@@ -451,11 +168,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FinanceAPI.CloudGetV1FinanceUsage(context.Background()).Execute()
+	resp, r, err := apiClient.FinanceAPI.GetFinanceCredits(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.CloudGetV1FinanceUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.GetFinanceCredits``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetFinanceCredits`: []FinanceCredit
+	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.GetFinanceCredits`: %v\n", resp)
 }
 ```
 
@@ -465,21 +184,336 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FinanceUsageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFinanceCreditsRequest struct via the builder pattern
 
 
 ### Return type
 
- (empty response body)
+[**[]FinanceCredit**](FinanceCredit.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFinanceInvoices
+
+> []FinanceInvoice GetFinanceInvoices(ctx).Execute()
+
+Answers an empty typed array, always.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FinanceAPI.GetFinanceInvoices(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.GetFinanceInvoices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinanceInvoices`: []FinanceInvoice
+	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.GetFinanceInvoices`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFinanceInvoicesRequest struct via the builder pattern
+
+
+### Return type
+
+[**[]FinanceInvoice**](FinanceInvoice.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFinanceLedger
+
+> []FinanceLedgerEntry GetFinanceLedger(ctx).Range_(range_).Execute()
+
+Answers the org's own postings inside `range=`, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`) and every other posting DEBITS it (negative, account `usage:<org>`), described by its notes or its tags.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	range_ := "30d" // string | Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FinanceAPI.GetFinanceLedger(context.Background()).Range_(range_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.GetFinanceLedger``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinanceLedger`: []FinanceLedgerEntry
+	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.GetFinanceLedger`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFinanceLedgerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **range_** | **string** | Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing. | 
+
+### Return type
+
+[**[]FinanceLedgerEntry**](FinanceLedgerEntry.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFinancePaymentMethods
+
+> []FinancePaymentMethod GetFinancePaymentMethods(ctx).Execute()
+
+Answers the masked card descriptors for the caller's resolved WALLET — id, brand, last four, expiry, default flag — reshaped into the finance contract.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FinanceAPI.GetFinancePaymentMethods(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.GetFinancePaymentMethods``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancePaymentMethods`: []FinancePaymentMethod
+	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.GetFinancePaymentMethods`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFinancePaymentMethodsRequest struct via the builder pattern
+
+
+### Return type
+
+[**[]FinancePaymentMethod**](FinancePaymentMethod.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFinanceTreasury
+
+> TreasuryReport GetFinanceTreasury(ctx).Execute()
+
+Returns the reserve fund's health and the current revenue-share policy for any validated caller.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FinanceAPI.GetFinanceTreasury(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.GetFinanceTreasury``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinanceTreasury`: TreasuryReport
+	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.GetFinanceTreasury`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFinanceTreasuryRequest struct via the builder pattern
+
+
+### Return type
+
+[**TreasuryReport**](TreasuryReport.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFinanceUsage
+
+> FinanceUsageView GetFinanceUsage(ctx).Range_(range_).Execute()
+
+Answers metered spend inside `range=`: the window total, a time series to plot, and one line per usage TAG.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	range_ := "24h" // string | Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FinanceAPI.GetFinanceUsage(context.Background()).Range_(range_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FinanceAPI.GetFinanceUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinanceUsage`: FinanceUsageView
+	fmt.Fprintf(os.Stdout, "Response from `FinanceAPI.GetFinanceUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFinanceUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **range_** | **string** | Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing. | 
+
+### Return type
+
+[**FinanceUsageView**](FinanceUsageView.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

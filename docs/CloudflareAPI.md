@@ -4,47 +4,47 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1CloudflareD1DatabasesDatabase**](CloudflareAPI.md#CloudDeleteV1CloudflareD1DatabasesDatabase) | **Delete** /v1/cloudflare/d1/databases/{database} | D1DatabaseDelete deletes a D1 database and everything stored in it.
-[**CloudDeleteV1CloudflareKvNamespacesNamespace**](CloudflareAPI.md#CloudDeleteV1CloudflareKvNamespacesNamespace) | **Delete** /v1/cloudflare/kv/namespaces/{namespace} | KVNamespaceDelete deletes a Workers KV namespace and every key in it.
-[**CloudDeleteV1CloudflareKvNamespacesNamespaceValuesKey**](CloudflareAPI.md#CloudDeleteV1CloudflareKvNamespacesNamespaceValuesKey) | **Delete** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | KVValueDelete removes one key from a Workers KV namespace.
-[**CloudDeleteV1CloudflarePagesProjectsProject**](CloudflareAPI.md#CloudDeleteV1CloudflarePagesProjectsProject) | **Delete** /v1/cloudflare/pages/projects/{project} | PagesDelete deletes a Cloudflare Pages project, and with it every deployment it has ever made.
-[**CloudDeleteV1CloudflarePagesProjectsProjectDomainsDomain**](CloudflareAPI.md#CloudDeleteV1CloudflarePagesProjectsProjectDomainsDomain) | **Delete** /v1/cloudflare/pages/projects/{project}/domains/{domain} | PagesDomainDelete detaches a custom domain from a Cloudflare Pages project.
-[**CloudDeleteV1CloudflareR2BucketsBucket**](CloudflareAPI.md#CloudDeleteV1CloudflareR2BucketsBucket) | **Delete** /v1/cloudflare/r2/buckets/{bucket} | R2BucketDelete deletes an R2 bucket.
-[**CloudDeleteV1CloudflareWorkersScriptsScript**](CloudflareAPI.md#CloudDeleteV1CloudflareWorkersScriptsScript) | **Delete** /v1/cloudflare/workers/scripts/{script} | WorkersScriptDelete removes a Worker script from the org&#39;s Cloudflare account.
-[**CloudDeleteV1CloudflareWorkersZonesZoneRoutesRoute**](CloudflareAPI.md#CloudDeleteV1CloudflareWorkersZonesZoneRoutesRoute) | **Delete** /v1/cloudflare/workers/zones/{zone}/routes/{route} | WorkersRouteDelete unbinds a Worker route, so its pattern stops dispatching to a script.
-[**CloudGetV1CloudflareD1Databases**](CloudflareAPI.md#CloudGetV1CloudflareD1Databases) | **Get** /v1/cloudflare/d1/databases | D1DatabaseList lists the D1 databases on the org&#39;s Cloudflare account.
-[**CloudGetV1CloudflareKvNamespaces**](CloudflareAPI.md#CloudGetV1CloudflareKvNamespaces) | **Get** /v1/cloudflare/kv/namespaces | KVNamespaceList lists the Workers KV namespaces on the org&#39;s Cloudflare account.
-[**CloudGetV1CloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#CloudGetV1CloudflareKvNamespacesByNamespaceValuesByKey) | **Get** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | 
-[**CloudGetV1CloudflarePagesProjects**](CloudflareAPI.md#CloudGetV1CloudflarePagesProjects) | **Get** /v1/cloudflare/pages/projects | PagesList lists the org&#39;s Cloudflare Pages projects.
-[**CloudGetV1CloudflarePagesProjectsProject**](CloudflareAPI.md#CloudGetV1CloudflarePagesProjectsProject) | **Get** /v1/cloudflare/pages/projects/{project} | PagesGet reads one Cloudflare Pages project — its build config, deployment configs and latest deployment.
-[**CloudGetV1CloudflareR2Buckets**](CloudflareAPI.md#CloudGetV1CloudflareR2Buckets) | **Get** /v1/cloudflare/r2/buckets | R2BucketList lists the R2 buckets on the org&#39;s Cloudflare account.
-[**CloudGetV1CloudflareWorkersScripts**](CloudflareAPI.md#CloudGetV1CloudflareWorkersScripts) | **Get** /v1/cloudflare/workers/scripts | WorkersScriptList lists the Worker scripts on the org&#39;s Cloudflare account.
-[**CloudGetV1CloudflareWorkersSubdomain**](CloudflareAPI.md#CloudGetV1CloudflareWorkersSubdomain) | **Get** /v1/cloudflare/workers/subdomain | WorkersSubdomainGet reads the org account&#39;s workers.dev subdomain — the name under which every subdomain-enabled script is served.
-[**CloudGetV1CloudflareWorkersZonesZoneRoutes**](CloudflareAPI.md#CloudGetV1CloudflareWorkersZonesZoneRoutes) | **Get** /v1/cloudflare/workers/zones/{zone}/routes | WorkersRouteList lists the Worker routes bound within one zone — the URL patterns that dispatch to a script.
-[**CloudGetV1CloudflareZones**](CloudflareAPI.md#CloudGetV1CloudflareZones) | **Get** /v1/cloudflare/zones | ZonesList lists the Cloudflare zones the org&#39;s connected API token can see, paged and filtered by the query parameters Cloudflare itself accepts.
-[**CloudGetV1CloudflareZonesZone**](CloudflareAPI.md#CloudGetV1CloudflareZonesZone) | **Get** /v1/cloudflare/zones/{zone} | ZoneGet reads one Cloudflare zone the org&#39;s token can see.
-[**CloudGetV1CloudflareZonesZoneAnalytics**](CloudflareAPI.md#CloudGetV1CloudflareZonesZoneAnalytics) | **Get** /v1/cloudflare/zones/{zone}/analytics | ZoneAnalytics reads a zone&#39;s Cloudflare traffic dashboard — requests, bandwidth, threats and pageviews over the since/until window.
-[**CloudPostV1CloudflareAiRunByWildcard1**](CloudflareAPI.md#CloudPostV1CloudflareAiRunByWildcard1) | **Post** /v1/cloudflare/ai/run/{wildcard1} | 
-[**CloudPostV1CloudflareD1Databases**](CloudflareAPI.md#CloudPostV1CloudflareD1Databases) | **Post** /v1/cloudflare/d1/databases | D1DatabaseCreate creates a D1 database on the org&#39;s Cloudflare account.
-[**CloudPostV1CloudflareD1DatabasesByDatabaseQuery**](CloudflareAPI.md#CloudPostV1CloudflareD1DatabasesByDatabaseQuery) | **Post** /v1/cloudflare/d1/databases/{database}/query | 
-[**CloudPostV1CloudflareKvNamespaces**](CloudflareAPI.md#CloudPostV1CloudflareKvNamespaces) | **Post** /v1/cloudflare/kv/namespaces | KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
-[**CloudPostV1CloudflarePagesProjects**](CloudflareAPI.md#CloudPostV1CloudflarePagesProjects) | **Post** /v1/cloudflare/pages/projects | PagesCreate creates a Cloudflare Pages project on the org&#39;s account.
-[**CloudPostV1CloudflarePagesProjectsByProjectDeployments**](CloudflareAPI.md#CloudPostV1CloudflarePagesProjectsByProjectDeployments) | **Post** /v1/cloudflare/pages/projects/{project}/deployments | 
-[**CloudPostV1CloudflarePagesProjectsProjectDomains**](CloudflareAPI.md#CloudPostV1CloudflarePagesProjectsProjectDomains) | **Post** /v1/cloudflare/pages/projects/{project}/domains | PagesDomainAdd attaches a custom domain to a Cloudflare Pages project.
-[**CloudPostV1CloudflareR2Buckets**](CloudflareAPI.md#CloudPostV1CloudflareR2Buckets) | **Post** /v1/cloudflare/r2/buckets | R2BucketCreate creates an R2 bucket on the org&#39;s Cloudflare account.
-[**CloudPostV1CloudflareWorkersScriptsScriptSubdomain**](CloudflareAPI.md#CloudPostV1CloudflareWorkersScriptsScriptSubdomain) | **Post** /v1/cloudflare/workers/scripts/{script}/subdomain | WorkersScriptSubdomainSet publishes or withdraws one Worker script on the account&#39;s workers.dev subdomain.
-[**CloudPostV1CloudflareWorkersZonesZoneRoutes**](CloudflareAPI.md#CloudPostV1CloudflareWorkersZonesZoneRoutes) | **Post** /v1/cloudflare/workers/zones/{zone}/routes | WorkersRouteCreate binds a URL pattern in a zone to a Worker script.
-[**CloudPostV1CloudflareZonesZonePurge**](CloudflareAPI.md#CloudPostV1CloudflareZonesZonePurge) | **Post** /v1/cloudflare/zones/{zone}/purge | ZonePurge drops a zone&#39;s Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
-[**CloudPutV1CloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#CloudPutV1CloudflareKvNamespacesByNamespaceValuesByKey) | **Put** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | 
-[**CloudPutV1CloudflareWorkersScriptsByScript**](CloudflareAPI.md#CloudPutV1CloudflareWorkersScriptsByScript) | **Put** /v1/cloudflare/workers/scripts/{script} | 
+[**DeleteCloudflareD1DatabasesByDatabase**](CloudflareAPI.md#DeleteCloudflareD1DatabasesByDatabase) | **Delete** /v1/cloudflare/d1/databases/{database} | Deletes a D1 database and everything stored in it.
+[**DeleteCloudflareKvNamespacesByNamespace**](CloudflareAPI.md#DeleteCloudflareKvNamespacesByNamespace) | **Delete** /v1/cloudflare/kv/namespaces/{namespace} | KVNamespaceDelete deletes a Workers KV namespace and every key in it.
+[**DeleteCloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#DeleteCloudflareKvNamespacesByNamespaceValuesByKey) | **Delete** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | KVValueDelete removes one key from a Workers KV namespace.
+[**DeleteCloudflarePagesProjectsByProject**](CloudflareAPI.md#DeleteCloudflarePagesProjectsByProject) | **Delete** /v1/cloudflare/pages/projects/{project} | Deletes a Cloudflare Pages project, and with it every deployment it has ever made.
+[**DeleteCloudflarePagesProjectsByProjectDomainsByDomain**](CloudflareAPI.md#DeleteCloudflarePagesProjectsByProjectDomainsByDomain) | **Delete** /v1/cloudflare/pages/projects/{project}/domains/{domain} | Detaches a custom domain from a Cloudflare Pages project.
+[**DeleteCloudflareR2BucketsByBucket**](CloudflareAPI.md#DeleteCloudflareR2BucketsByBucket) | **Delete** /v1/cloudflare/r2/buckets/{bucket} | Deletes an R2 bucket.
+[**DeleteCloudflareWorkersScriptsByScript**](CloudflareAPI.md#DeleteCloudflareWorkersScriptsByScript) | **Delete** /v1/cloudflare/workers/scripts/{script} | Removes a Worker script from the org&#39;s Cloudflare account.
+[**DeleteCloudflareWorkersZonesByZoneRoutesByRoute**](CloudflareAPI.md#DeleteCloudflareWorkersZonesByZoneRoutesByRoute) | **Delete** /v1/cloudflare/workers/zones/{zone}/routes/{route} | Unbinds a Worker route, so its pattern stops dispatching to a script.
+[**GetCloudflareD1Databases**](CloudflareAPI.md#GetCloudflareD1Databases) | **Get** /v1/cloudflare/d1/databases | Lists the D1 databases on the org&#39;s Cloudflare account.
+[**GetCloudflareKvNamespaces**](CloudflareAPI.md#GetCloudflareKvNamespaces) | **Get** /v1/cloudflare/kv/namespaces | KVNamespaceList lists the Workers KV namespaces on the org&#39;s Cloudflare account.
+[**GetCloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#GetCloudflareKvNamespacesByNamespaceValuesByKey) | **Get** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | Read a Workers KV value as its stored bytes
+[**GetCloudflarePagesProjects**](CloudflareAPI.md#GetCloudflarePagesProjects) | **Get** /v1/cloudflare/pages/projects | Lists the org&#39;s Cloudflare Pages projects.
+[**GetCloudflarePagesProjectsByProject**](CloudflareAPI.md#GetCloudflarePagesProjectsByProject) | **Get** /v1/cloudflare/pages/projects/{project} | Reads one Cloudflare Pages project — its build config, deployment configs and latest deployment.
+[**GetCloudflareR2Buckets**](CloudflareAPI.md#GetCloudflareR2Buckets) | **Get** /v1/cloudflare/r2/buckets | Lists the R2 buckets on the org&#39;s Cloudflare account.
+[**GetCloudflareWorkersScripts**](CloudflareAPI.md#GetCloudflareWorkersScripts) | **Get** /v1/cloudflare/workers/scripts | Lists the Worker scripts on the org&#39;s Cloudflare account.
+[**GetCloudflareWorkersSubdomain**](CloudflareAPI.md#GetCloudflareWorkersSubdomain) | **Get** /v1/cloudflare/workers/subdomain | Reads the org account&#39;s workers.dev subdomain — the name under which every subdomain-enabled script is served.
+[**GetCloudflareWorkersZonesByZoneRoutes**](CloudflareAPI.md#GetCloudflareWorkersZonesByZoneRoutes) | **Get** /v1/cloudflare/workers/zones/{zone}/routes | Lists the Worker routes bound within one zone — the URL patterns that dispatch to a script.
+[**GetCloudflareZones**](CloudflareAPI.md#GetCloudflareZones) | **Get** /v1/cloudflare/zones | Lists the Cloudflare zones the org&#39;s connected API token can see, paged and filtered by the query parameters Cloudflare itself accepts.
+[**GetCloudflareZonesByZone**](CloudflareAPI.md#GetCloudflareZonesByZone) | **Get** /v1/cloudflare/zones/{zone} | Reads one Cloudflare zone the org&#39;s token can see.
+[**GetCloudflareZonesByZoneAnalytics**](CloudflareAPI.md#GetCloudflareZonesByZoneAnalytics) | **Get** /v1/cloudflare/zones/{zone}/analytics | Reads a zone&#39;s Cloudflare traffic dashboard — requests, bandwidth, threats and pageviews over the since/until window.
+[**PostCloudflareAiRunByWildcard1**](CloudflareAPI.md#PostCloudflareAiRunByWildcard1) | **Post** /v1/cloudflare/ai/run/{wildcard1} | Run a Cloudflare Workers AI model and get its output back
+[**PostCloudflareD1Databases**](CloudflareAPI.md#PostCloudflareD1Databases) | **Post** /v1/cloudflare/d1/databases | Creates a D1 database on the org&#39;s Cloudflare account.
+[**PostCloudflareD1DatabasesByDatabaseQuery**](CloudflareAPI.md#PostCloudflareD1DatabasesByDatabaseQuery) | **Post** /v1/cloudflare/d1/databases/{database}/query | Run a SQL statement against a D1 database
+[**PostCloudflareKvNamespaces**](CloudflareAPI.md#PostCloudflareKvNamespaces) | **Post** /v1/cloudflare/kv/namespaces | KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
+[**PostCloudflarePagesProjects**](CloudflareAPI.md#PostCloudflarePagesProjects) | **Post** /v1/cloudflare/pages/projects | Creates a Cloudflare Pages project on the org&#39;s account.
+[**PostCloudflarePagesProjectsByProjectDeployments**](CloudflareAPI.md#PostCloudflarePagesProjectsByProjectDeployments) | **Post** /v1/cloudflare/pages/projects/{project}/deployments | Trigger a new Pages deployment for a project
+[**PostCloudflarePagesProjectsByProjectDomains**](CloudflareAPI.md#PostCloudflarePagesProjectsByProjectDomains) | **Post** /v1/cloudflare/pages/projects/{project}/domains | Attaches a custom domain to a Cloudflare Pages project.
+[**PostCloudflareR2Buckets**](CloudflareAPI.md#PostCloudflareR2Buckets) | **Post** /v1/cloudflare/r2/buckets | Creates an R2 bucket on the org&#39;s Cloudflare account.
+[**PostCloudflareWorkersScriptsByScriptSubdomain**](CloudflareAPI.md#PostCloudflareWorkersScriptsByScriptSubdomain) | **Post** /v1/cloudflare/workers/scripts/{script}/subdomain | Publishes or withdraws one Worker script on the account&#39;s workers.dev subdomain.
+[**PostCloudflareWorkersZonesByZoneRoutes**](CloudflareAPI.md#PostCloudflareWorkersZonesByZoneRoutes) | **Post** /v1/cloudflare/workers/zones/{zone}/routes | Binds a URL pattern in a zone to a Worker script.
+[**PostCloudflareZonesByZonePurge**](CloudflareAPI.md#PostCloudflareZonesByZonePurge) | **Post** /v1/cloudflare/zones/{zone}/purge | Drops a zone&#39;s Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
+[**PutCloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#PutCloudflareKvNamespacesByNamespaceValuesByKey) | **Put** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | Write a Workers KV value from the request body
+[**PutCloudflareWorkersScriptsByScript**](CloudflareAPI.md#PutCloudflareWorkersScriptsByScript) | **Put** /v1/cloudflare/workers/scripts/{script} | Upload or replace a module Worker script
 
 
 
-## CloudDeleteV1CloudflareD1DatabasesDatabase
+## DeleteCloudflareD1DatabasesByDatabase
 
-> interface{} CloudDeleteV1CloudflareD1DatabasesDatabase(ctx, database).Execute()
+> interface{} DeleteCloudflareD1DatabasesByDatabase(ctx, database).Execute()
 
-D1DatabaseDelete deletes a D1 database and everything stored in it.
+Deletes a D1 database and everything stored in it.
 
 
 
@@ -65,13 +65,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudDeleteV1CloudflareD1DatabasesDatabase(context.Background(), database).Execute()
+	resp, r, err := apiClient.CloudflareAPI.DeleteCloudflareD1DatabasesByDatabase(context.Background(), database).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudDeleteV1CloudflareD1DatabasesDatabase``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.DeleteCloudflareD1DatabasesByDatabase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CloudflareD1DatabasesDatabase`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudDeleteV1CloudflareD1DatabasesDatabase`: %v\n", resp)
+	// response from `DeleteCloudflareD1DatabasesByDatabase`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.DeleteCloudflareD1DatabasesByDatabase`: %v\n", resp)
 }
 ```
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CloudflareD1DatabasesDatabaseRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCloudflareD1DatabasesByDatabaseRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -110,9 +110,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CloudflareKvNamespacesNamespace
+## DeleteCloudflareKvNamespacesByNamespace
 
-> interface{} CloudDeleteV1CloudflareKvNamespacesNamespace(ctx, namespace).Execute()
+> interface{} DeleteCloudflareKvNamespacesByNamespace(ctx, namespace).Execute()
 
 KVNamespaceDelete deletes a Workers KV namespace and every key in it.
 
@@ -135,13 +135,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudDeleteV1CloudflareKvNamespacesNamespace(context.Background(), namespace).Execute()
+	resp, r, err := apiClient.CloudflareAPI.DeleteCloudflareKvNamespacesByNamespace(context.Background(), namespace).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudDeleteV1CloudflareKvNamespacesNamespace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.DeleteCloudflareKvNamespacesByNamespace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CloudflareKvNamespacesNamespace`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudDeleteV1CloudflareKvNamespacesNamespace`: %v\n", resp)
+	// response from `DeleteCloudflareKvNamespacesByNamespace`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.DeleteCloudflareKvNamespacesByNamespace`: %v\n", resp)
 }
 ```
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CloudflareKvNamespacesNamespaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCloudflareKvNamespacesByNamespaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -180,9 +180,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CloudflareKvNamespacesNamespaceValuesKey
+## DeleteCloudflareKvNamespacesByNamespaceValuesByKey
 
-> interface{} CloudDeleteV1CloudflareKvNamespacesNamespaceValuesKey(ctx, namespace, key).Execute()
+> interface{} DeleteCloudflareKvNamespacesByNamespaceValuesByKey(ctx, namespace, key).Execute()
 
 KVValueDelete removes one key from a Workers KV namespace.
 
@@ -206,13 +206,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudDeleteV1CloudflareKvNamespacesNamespaceValuesKey(context.Background(), namespace, key).Execute()
+	resp, r, err := apiClient.CloudflareAPI.DeleteCloudflareKvNamespacesByNamespaceValuesByKey(context.Background(), namespace, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudDeleteV1CloudflareKvNamespacesNamespaceValuesKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.DeleteCloudflareKvNamespacesByNamespaceValuesByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CloudflareKvNamespacesNamespaceValuesKey`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudDeleteV1CloudflareKvNamespacesNamespaceValuesKey`: %v\n", resp)
+	// response from `DeleteCloudflareKvNamespacesByNamespaceValuesByKey`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.DeleteCloudflareKvNamespacesByNamespaceValuesByKey`: %v\n", resp)
 }
 ```
 
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CloudflareKvNamespacesNamespaceValuesKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCloudflareKvNamespacesByNamespaceValuesByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -253,11 +253,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CloudflarePagesProjectsProject
+## DeleteCloudflarePagesProjectsByProject
 
-> interface{} CloudDeleteV1CloudflarePagesProjectsProject(ctx, project).Execute()
+> interface{} DeleteCloudflarePagesProjectsByProject(ctx, project).Execute()
 
-PagesDelete deletes a Cloudflare Pages project, and with it every deployment it has ever made.
+Deletes a Cloudflare Pages project, and with it every deployment it has ever made.
 
 
 
@@ -278,13 +278,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudDeleteV1CloudflarePagesProjectsProject(context.Background(), project).Execute()
+	resp, r, err := apiClient.CloudflareAPI.DeleteCloudflarePagesProjectsByProject(context.Background(), project).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudDeleteV1CloudflarePagesProjectsProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.DeleteCloudflarePagesProjectsByProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CloudflarePagesProjectsProject`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudDeleteV1CloudflarePagesProjectsProject`: %v\n", resp)
+	// response from `DeleteCloudflarePagesProjectsByProject`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.DeleteCloudflarePagesProjectsByProject`: %v\n", resp)
 }
 ```
 
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CloudflarePagesProjectsProjectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCloudflarePagesProjectsByProjectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -323,11 +323,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CloudflarePagesProjectsProjectDomainsDomain
+## DeleteCloudflarePagesProjectsByProjectDomainsByDomain
 
-> interface{} CloudDeleteV1CloudflarePagesProjectsProjectDomainsDomain(ctx, project, domain).Execute()
+> interface{} DeleteCloudflarePagesProjectsByProjectDomainsByDomain(ctx, project, domain).Execute()
 
-PagesDomainDelete detaches a custom domain from a Cloudflare Pages project.
+Detaches a custom domain from a Cloudflare Pages project.
 
 
 
@@ -349,13 +349,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudDeleteV1CloudflarePagesProjectsProjectDomainsDomain(context.Background(), project, domain).Execute()
+	resp, r, err := apiClient.CloudflareAPI.DeleteCloudflarePagesProjectsByProjectDomainsByDomain(context.Background(), project, domain).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudDeleteV1CloudflarePagesProjectsProjectDomainsDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.DeleteCloudflarePagesProjectsByProjectDomainsByDomain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CloudflarePagesProjectsProjectDomainsDomain`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudDeleteV1CloudflarePagesProjectsProjectDomainsDomain`: %v\n", resp)
+	// response from `DeleteCloudflarePagesProjectsByProjectDomainsByDomain`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.DeleteCloudflarePagesProjectsByProjectDomainsByDomain`: %v\n", resp)
 }
 ```
 
@@ -370,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CloudflarePagesProjectsProjectDomainsDomainRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCloudflarePagesProjectsByProjectDomainsByDomainRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -384,7 +384,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -396,11 +396,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CloudflareR2BucketsBucket
+## DeleteCloudflareR2BucketsByBucket
 
-> interface{} CloudDeleteV1CloudflareR2BucketsBucket(ctx, bucket).Execute()
+> interface{} DeleteCloudflareR2BucketsByBucket(ctx, bucket).Execute()
 
-R2BucketDelete deletes an R2 bucket.
+Deletes an R2 bucket.
 
 
 
@@ -421,13 +421,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudDeleteV1CloudflareR2BucketsBucket(context.Background(), bucket).Execute()
+	resp, r, err := apiClient.CloudflareAPI.DeleteCloudflareR2BucketsByBucket(context.Background(), bucket).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudDeleteV1CloudflareR2BucketsBucket``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.DeleteCloudflareR2BucketsByBucket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CloudflareR2BucketsBucket`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudDeleteV1CloudflareR2BucketsBucket`: %v\n", resp)
+	// response from `DeleteCloudflareR2BucketsByBucket`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.DeleteCloudflareR2BucketsByBucket`: %v\n", resp)
 }
 ```
 
@@ -441,7 +441,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CloudflareR2BucketsBucketRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCloudflareR2BucketsByBucketRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -454,7 +454,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -466,11 +466,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CloudflareWorkersScriptsScript
+## DeleteCloudflareWorkersScriptsByScript
 
-> interface{} CloudDeleteV1CloudflareWorkersScriptsScript(ctx, script).Execute()
+> interface{} DeleteCloudflareWorkersScriptsByScript(ctx, script).Execute()
 
-WorkersScriptDelete removes a Worker script from the org's Cloudflare account.
+Removes a Worker script from the org's Cloudflare account.
 
 
 
@@ -491,13 +491,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudDeleteV1CloudflareWorkersScriptsScript(context.Background(), script).Execute()
+	resp, r, err := apiClient.CloudflareAPI.DeleteCloudflareWorkersScriptsByScript(context.Background(), script).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudDeleteV1CloudflareWorkersScriptsScript``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.DeleteCloudflareWorkersScriptsByScript``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CloudflareWorkersScriptsScript`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudDeleteV1CloudflareWorkersScriptsScript`: %v\n", resp)
+	// response from `DeleteCloudflareWorkersScriptsByScript`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.DeleteCloudflareWorkersScriptsByScript`: %v\n", resp)
 }
 ```
 
@@ -511,7 +511,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CloudflareWorkersScriptsScriptRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCloudflareWorkersScriptsByScriptRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -524,7 +524,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -536,11 +536,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CloudflareWorkersZonesZoneRoutesRoute
+## DeleteCloudflareWorkersZonesByZoneRoutesByRoute
 
-> interface{} CloudDeleteV1CloudflareWorkersZonesZoneRoutesRoute(ctx, zone, route).Execute()
+> interface{} DeleteCloudflareWorkersZonesByZoneRoutesByRoute(ctx, zone, route).Execute()
 
-WorkersRouteDelete unbinds a Worker route, so its pattern stops dispatching to a script.
+Unbinds a Worker route, so its pattern stops dispatching to a script.
 
 
 
@@ -562,13 +562,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudDeleteV1CloudflareWorkersZonesZoneRoutesRoute(context.Background(), zone, route).Execute()
+	resp, r, err := apiClient.CloudflareAPI.DeleteCloudflareWorkersZonesByZoneRoutesByRoute(context.Background(), zone, route).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudDeleteV1CloudflareWorkersZonesZoneRoutesRoute``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.DeleteCloudflareWorkersZonesByZoneRoutesByRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1CloudflareWorkersZonesZoneRoutesRoute`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudDeleteV1CloudflareWorkersZonesZoneRoutesRoute`: %v\n", resp)
+	// response from `DeleteCloudflareWorkersZonesByZoneRoutesByRoute`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.DeleteCloudflareWorkersZonesByZoneRoutesByRoute`: %v\n", resp)
 }
 ```
 
@@ -583,7 +583,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CloudflareWorkersZonesZoneRoutesRouteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCloudflareWorkersZonesByZoneRoutesByRouteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -597,7 +597,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -609,11 +609,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareD1Databases
+## GetCloudflareD1Databases
 
-> interface{} CloudGetV1CloudflareD1Databases(ctx).Page(page).PerPage(perPage).Name(name).Execute()
+> interface{} GetCloudflareD1Databases(ctx).Page(page).PerPage(perPage).Name(name).Execute()
 
-D1DatabaseList lists the D1 databases on the org's Cloudflare account.
+Lists the D1 databases on the org's Cloudflare account.
 
 
 
@@ -636,13 +636,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareD1Databases(context.Background()).Page(page).PerPage(perPage).Name(name).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareD1Databases(context.Background()).Page(page).PerPage(perPage).Name(name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareD1Databases``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareD1Databases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareD1Databases`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareD1Databases`: %v\n", resp)
+	// response from `GetCloudflareD1Databases`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareD1Databases`: %v\n", resp)
 }
 ```
 
@@ -652,7 +652,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareD1DatabasesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareD1DatabasesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -667,7 +667,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -679,9 +679,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareKvNamespaces
+## GetCloudflareKvNamespaces
 
-> interface{} CloudGetV1CloudflareKvNamespaces(ctx).Page(page).PerPage(perPage).Order(order).Direction(direction).Execute()
+> interface{} GetCloudflareKvNamespaces(ctx).Page(page).PerPage(perPage).Order(order).Direction(direction).Execute()
 
 KVNamespaceList lists the Workers KV namespaces on the org's Cloudflare account.
 
@@ -707,13 +707,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareKvNamespaces(context.Background()).Page(page).PerPage(perPage).Order(order).Direction(direction).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareKvNamespaces(context.Background()).Page(page).PerPage(perPage).Order(order).Direction(direction).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareKvNamespaces``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareKvNamespaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareKvNamespaces`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareKvNamespaces`: %v\n", resp)
+	// response from `GetCloudflareKvNamespaces`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareKvNamespaces`: %v\n", resp)
 }
 ```
 
@@ -723,7 +723,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareKvNamespacesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareKvNamespacesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -739,7 +739,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -751,9 +751,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareKvNamespacesByNamespaceValuesByKey
+## GetCloudflareKvNamespacesByNamespaceValuesByKey
 
-> CloudGetV1CloudflareKvNamespacesByNamespaceValuesByKey(ctx, namespace, key).Execute()
+> GetCloudflareKvNamespacesByNamespaceValuesByKey(ctx, namespace, key).Execute()
+
+Read a Workers KV value as its stored bytes
 
 
 
@@ -775,9 +777,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareKvNamespacesByNamespaceValuesByKey(context.Background(), namespace, key).Execute()
+	r, err := apiClient.CloudflareAPI.GetCloudflareKvNamespacesByNamespaceValuesByKey(context.Background(), namespace, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareKvNamespacesByNamespaceValuesByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareKvNamespacesByNamespaceValuesByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -794,7 +796,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareKvNamespacesByNamespaceValuesByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareKvNamespacesByNamespaceValuesByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -808,7 +810,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -820,11 +822,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflarePagesProjects
+## GetCloudflarePagesProjects
 
-> interface{} CloudGetV1CloudflarePagesProjects(ctx).Execute()
+> interface{} GetCloudflarePagesProjects(ctx).Execute()
 
-PagesList lists the org's Cloudflare Pages projects.
+Lists the org's Cloudflare Pages projects.
 
 
 
@@ -844,13 +846,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflarePagesProjects(context.Background()).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflarePagesProjects(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflarePagesProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflarePagesProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflarePagesProjects`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflarePagesProjects`: %v\n", resp)
+	// response from `GetCloudflarePagesProjects`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflarePagesProjects`: %v\n", resp)
 }
 ```
 
@@ -860,7 +862,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflarePagesProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflarePagesProjectsRequest struct via the builder pattern
 
 
 ### Return type
@@ -869,7 +871,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1CloudflarePagesP
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -881,11 +883,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CloudflarePagesP
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflarePagesProjectsProject
+## GetCloudflarePagesProjectsByProject
 
-> interface{} CloudGetV1CloudflarePagesProjectsProject(ctx, project).Execute()
+> interface{} GetCloudflarePagesProjectsByProject(ctx, project).Execute()
 
-PagesGet reads one Cloudflare Pages project — its build config, deployment configs and latest deployment.
+Reads one Cloudflare Pages project — its build config, deployment configs and latest deployment.
 
 
 
@@ -906,13 +908,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflarePagesProjectsProject(context.Background(), project).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflarePagesProjectsByProject(context.Background(), project).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflarePagesProjectsProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflarePagesProjectsByProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflarePagesProjectsProject`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflarePagesProjectsProject`: %v\n", resp)
+	// response from `GetCloudflarePagesProjectsByProject`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflarePagesProjectsByProject`: %v\n", resp)
 }
 ```
 
@@ -926,7 +928,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflarePagesProjectsProjectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflarePagesProjectsByProjectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -939,7 +941,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -951,11 +953,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareR2Buckets
+## GetCloudflareR2Buckets
 
-> interface{} CloudGetV1CloudflareR2Buckets(ctx).PerPage(perPage).Cursor(cursor).NameContains(nameContains).Order(order).Direction(direction).Execute()
+> interface{} GetCloudflareR2Buckets(ctx).PerPage(perPage).Cursor(cursor).NameContains(nameContains).Order(order).Direction(direction).Execute()
 
-R2BucketList lists the R2 buckets on the org's Cloudflare account.
+Lists the R2 buckets on the org's Cloudflare account.
 
 
 
@@ -980,13 +982,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareR2Buckets(context.Background()).PerPage(perPage).Cursor(cursor).NameContains(nameContains).Order(order).Direction(direction).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareR2Buckets(context.Background()).PerPage(perPage).Cursor(cursor).NameContains(nameContains).Order(order).Direction(direction).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareR2Buckets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareR2Buckets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareR2Buckets`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareR2Buckets`: %v\n", resp)
+	// response from `GetCloudflareR2Buckets`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareR2Buckets`: %v\n", resp)
 }
 ```
 
@@ -996,7 +998,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareR2BucketsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareR2BucketsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1013,7 +1015,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1025,11 +1027,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareWorkersScripts
+## GetCloudflareWorkersScripts
 
-> interface{} CloudGetV1CloudflareWorkersScripts(ctx).Execute()
+> interface{} GetCloudflareWorkersScripts(ctx).Execute()
 
-WorkersScriptList lists the Worker scripts on the org's Cloudflare account.
+Lists the Worker scripts on the org's Cloudflare account.
 
 
 
@@ -1049,13 +1051,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareWorkersScripts(context.Background()).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareWorkersScripts(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareWorkersScripts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareWorkersScripts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareWorkersScripts`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareWorkersScripts`: %v\n", resp)
+	// response from `GetCloudflareWorkersScripts`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareWorkersScripts`: %v\n", resp)
 }
 ```
 
@@ -1065,7 +1067,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareWorkersScriptsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareWorkersScriptsRequest struct via the builder pattern
 
 
 ### Return type
@@ -1074,7 +1076,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1CloudflareWorker
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1086,11 +1088,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CloudflareWorker
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareWorkersSubdomain
+## GetCloudflareWorkersSubdomain
 
-> interface{} CloudGetV1CloudflareWorkersSubdomain(ctx).Execute()
+> interface{} GetCloudflareWorkersSubdomain(ctx).Execute()
 
-WorkersSubdomainGet reads the org account's workers.dev subdomain — the name under which every subdomain-enabled script is served.
+Reads the org account's workers.dev subdomain — the name under which every subdomain-enabled script is served.
 
 
 
@@ -1110,13 +1112,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareWorkersSubdomain(context.Background()).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareWorkersSubdomain(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareWorkersSubdomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareWorkersSubdomain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareWorkersSubdomain`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareWorkersSubdomain`: %v\n", resp)
+	// response from `GetCloudflareWorkersSubdomain`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareWorkersSubdomain`: %v\n", resp)
 }
 ```
 
@@ -1126,7 +1128,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareWorkersSubdomainRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareWorkersSubdomainRequest struct via the builder pattern
 
 
 ### Return type
@@ -1135,7 +1137,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1CloudflareWorker
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1147,11 +1149,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CloudflareWorker
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareWorkersZonesZoneRoutes
+## GetCloudflareWorkersZonesByZoneRoutes
 
-> interface{} CloudGetV1CloudflareWorkersZonesZoneRoutes(ctx, zone).Execute()
+> interface{} GetCloudflareWorkersZonesByZoneRoutes(ctx, zone).Execute()
 
-WorkersRouteList lists the Worker routes bound within one zone — the URL patterns that dispatch to a script.
+Lists the Worker routes bound within one zone — the URL patterns that dispatch to a script.
 
 
 
@@ -1172,13 +1174,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareWorkersZonesZoneRoutes(context.Background(), zone).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareWorkersZonesByZoneRoutes(context.Background(), zone).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareWorkersZonesZoneRoutes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareWorkersZonesByZoneRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareWorkersZonesZoneRoutes`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareWorkersZonesZoneRoutes`: %v\n", resp)
+	// response from `GetCloudflareWorkersZonesByZoneRoutes`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareWorkersZonesByZoneRoutes`: %v\n", resp)
 }
 ```
 
@@ -1192,7 +1194,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareWorkersZonesZoneRoutesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareWorkersZonesByZoneRoutesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1205,7 +1207,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1217,11 +1219,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareZones
+## GetCloudflareZones
 
-> interface{} CloudGetV1CloudflareZones(ctx).Page(page).PerPage(perPage).Name(name).Status(status).Order(order).Direction(direction).Execute()
+> interface{} GetCloudflareZones(ctx).Page(page).PerPage(perPage).Name(name).Status(status).Order(order).Direction(direction).Execute()
 
-ZonesList lists the Cloudflare zones the org's connected API token can see, paged and filtered by the query parameters Cloudflare itself accepts.
+Lists the Cloudflare zones the org's connected API token can see, paged and filtered by the query parameters Cloudflare itself accepts.
 
 
 
@@ -1247,13 +1249,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareZones(context.Background()).Page(page).PerPage(perPage).Name(name).Status(status).Order(order).Direction(direction).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareZones(context.Background()).Page(page).PerPage(perPage).Name(name).Status(status).Order(order).Direction(direction).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareZones``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareZones``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareZones`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareZones`: %v\n", resp)
+	// response from `GetCloudflareZones`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareZones`: %v\n", resp)
 }
 ```
 
@@ -1263,7 +1265,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareZonesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareZonesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1281,7 +1283,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1293,11 +1295,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareZonesZone
+## GetCloudflareZonesByZone
 
-> interface{} CloudGetV1CloudflareZonesZone(ctx, zone).Execute()
+> interface{} GetCloudflareZonesByZone(ctx, zone).Execute()
 
-ZoneGet reads one Cloudflare zone the org's token can see.
+Reads one Cloudflare zone the org's token can see.
 
 
 
@@ -1318,13 +1320,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareZonesZone(context.Background(), zone).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareZonesByZone(context.Background(), zone).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareZonesZone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareZonesByZone``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareZonesZone`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareZonesZone`: %v\n", resp)
+	// response from `GetCloudflareZonesByZone`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareZonesByZone`: %v\n", resp)
 }
 ```
 
@@ -1338,7 +1340,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareZonesZoneRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareZonesByZoneRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1351,7 +1353,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1363,11 +1365,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CloudflareZonesZoneAnalytics
+## GetCloudflareZonesByZoneAnalytics
 
-> interface{} CloudGetV1CloudflareZonesZoneAnalytics(ctx, zone).Since(since).Until(until).Continuous(continuous).Execute()
+> interface{} GetCloudflareZonesByZoneAnalytics(ctx, zone).Since(since).Until(until).Continuous(continuous).Execute()
 
-ZoneAnalytics reads a zone's Cloudflare traffic dashboard — requests, bandwidth, threats and pageviews over the since/until window.
+Reads a zone's Cloudflare traffic dashboard — requests, bandwidth, threats and pageviews over the since/until window.
 
 
 
@@ -1391,13 +1393,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudGetV1CloudflareZonesZoneAnalytics(context.Background(), zone).Since(since).Until(until).Continuous(continuous).Execute()
+	resp, r, err := apiClient.CloudflareAPI.GetCloudflareZonesByZoneAnalytics(context.Background(), zone).Since(since).Until(until).Continuous(continuous).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudGetV1CloudflareZonesZoneAnalytics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.GetCloudflareZonesByZoneAnalytics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CloudflareZonesZoneAnalytics`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudGetV1CloudflareZonesZoneAnalytics`: %v\n", resp)
+	// response from `GetCloudflareZonesByZoneAnalytics`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.GetCloudflareZonesByZoneAnalytics`: %v\n", resp)
 }
 ```
 
@@ -1411,7 +1413,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CloudflareZonesZoneAnalyticsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCloudflareZonesByZoneAnalyticsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1427,7 +1429,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1439,9 +1441,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflareAiRunByWildcard1
+## PostCloudflareAiRunByWildcard1
 
-> CloudPostV1CloudflareAiRunByWildcard1(ctx, wildcard1).Execute()
+> PostCloudflareAiRunByWildcard1(ctx, wildcard1).Execute()
+
+Run a Cloudflare Workers AI model and get its output back
 
 
 
@@ -1462,9 +1466,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CloudflareAPI.CloudPostV1CloudflareAiRunByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.CloudflareAPI.PostCloudflareAiRunByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflareAiRunByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareAiRunByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1480,7 +1484,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflareAiRunByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflareAiRunByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1493,7 +1497,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1505,11 +1509,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflareD1Databases
+## PostCloudflareD1Databases
 
-> interface{} CloudPostV1CloudflareD1Databases(ctx).CloudDatabaseCreateIn(cloudDatabaseCreateIn).Execute()
+> interface{} PostCloudflareD1Databases(ctx).DatabaseCreateIn(databaseCreateIn).Execute()
 
-D1DatabaseCreate creates a D1 database on the org's Cloudflare account.
+Creates a D1 database on the org's Cloudflare account.
 
 
 
@@ -1526,17 +1530,17 @@ import (
 )
 
 func main() {
-	cloudDatabaseCreateIn := *openapiclient.NewCloudDatabaseCreateIn() // CloudDatabaseCreateIn | 
+	databaseCreateIn := *openapiclient.NewDatabaseCreateIn() // DatabaseCreateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflareD1Databases(context.Background()).CloudDatabaseCreateIn(cloudDatabaseCreateIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareD1Databases(context.Background()).DatabaseCreateIn(databaseCreateIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflareD1Databases``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareD1Databases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflareD1Databases`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflareD1Databases`: %v\n", resp)
+	// response from `PostCloudflareD1Databases`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflareD1Databases`: %v\n", resp)
 }
 ```
 
@@ -1546,12 +1550,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflareD1DatabasesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflareD1DatabasesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudDatabaseCreateIn** | [**CloudDatabaseCreateIn**](CloudDatabaseCreateIn.md) |  | 
+ **databaseCreateIn** | [**DatabaseCreateIn**](DatabaseCreateIn.md) |  | 
 
 ### Return type
 
@@ -1559,7 +1563,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1571,9 +1575,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflareD1DatabasesByDatabaseQuery
+## PostCloudflareD1DatabasesByDatabaseQuery
 
-> interface{} CloudPostV1CloudflareD1DatabasesByDatabaseQuery(ctx, database).CloudD1Query(cloudD1Query).Execute()
+> interface{} PostCloudflareD1DatabasesByDatabaseQuery(ctx, database).D1Query(d1Query).Execute()
+
+Run a SQL statement against a D1 database
 
 
 
@@ -1591,17 +1597,17 @@ import (
 
 func main() {
 	database := "database_example" // string | 
-	cloudD1Query := *openapiclient.NewCloudD1Query() // CloudD1Query |  (optional)
+	d1Query := *openapiclient.NewD1Query() // D1Query |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflareD1DatabasesByDatabaseQuery(context.Background(), database).CloudD1Query(cloudD1Query).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareD1DatabasesByDatabaseQuery(context.Background(), database).D1Query(d1Query).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflareD1DatabasesByDatabaseQuery``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareD1DatabasesByDatabaseQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflareD1DatabasesByDatabaseQuery`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflareD1DatabasesByDatabaseQuery`: %v\n", resp)
+	// response from `PostCloudflareD1DatabasesByDatabaseQuery`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflareD1DatabasesByDatabaseQuery`: %v\n", resp)
 }
 ```
 
@@ -1615,13 +1621,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflareD1DatabasesByDatabaseQueryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflareD1DatabasesByDatabaseQueryRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudD1Query** | [**CloudD1Query**](CloudD1Query.md) |  | 
+ **d1Query** | [**D1Query**](D1Query.md) |  | 
 
 ### Return type
 
@@ -1629,7 +1635,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1641,9 +1647,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflareKvNamespaces
+## PostCloudflareKvNamespaces
 
-> interface{} CloudPostV1CloudflareKvNamespaces(ctx).CloudNamespaceCreateIn(cloudNamespaceCreateIn).Execute()
+> interface{} PostCloudflareKvNamespaces(ctx).NamespaceCreateIn(namespaceCreateIn).Execute()
 
 KVNamespaceCreate creates a Workers KV namespace on the org's Cloudflare account.
 
@@ -1662,17 +1668,17 @@ import (
 )
 
 func main() {
-	cloudNamespaceCreateIn := *openapiclient.NewCloudNamespaceCreateIn() // CloudNamespaceCreateIn | 
+	namespaceCreateIn := *openapiclient.NewNamespaceCreateIn() // NamespaceCreateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflareKvNamespaces(context.Background()).CloudNamespaceCreateIn(cloudNamespaceCreateIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareKvNamespaces(context.Background()).NamespaceCreateIn(namespaceCreateIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflareKvNamespaces``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareKvNamespaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflareKvNamespaces`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflareKvNamespaces`: %v\n", resp)
+	// response from `PostCloudflareKvNamespaces`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflareKvNamespaces`: %v\n", resp)
 }
 ```
 
@@ -1682,12 +1688,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflareKvNamespacesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflareKvNamespacesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudNamespaceCreateIn** | [**CloudNamespaceCreateIn**](CloudNamespaceCreateIn.md) |  | 
+ **namespaceCreateIn** | [**NamespaceCreateIn**](NamespaceCreateIn.md) |  | 
 
 ### Return type
 
@@ -1695,7 +1701,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1707,11 +1713,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflarePagesProjects
+## PostCloudflarePagesProjects
 
-> interface{} CloudPostV1CloudflarePagesProjects(ctx).CloudPagesProjectCreate(cloudPagesProjectCreate).Execute()
+> interface{} PostCloudflarePagesProjects(ctx).PagesProjectCreate(pagesProjectCreate).Execute()
 
-PagesCreate creates a Cloudflare Pages project on the org's account.
+Creates a Cloudflare Pages project on the org's account.
 
 
 
@@ -1728,17 +1734,17 @@ import (
 )
 
 func main() {
-	cloudPagesProjectCreate := *openapiclient.NewCloudPagesProjectCreate() // CloudPagesProjectCreate | 
+	pagesProjectCreate := *openapiclient.NewPagesProjectCreate() // PagesProjectCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflarePagesProjects(context.Background()).CloudPagesProjectCreate(cloudPagesProjectCreate).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflarePagesProjects(context.Background()).PagesProjectCreate(pagesProjectCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflarePagesProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflarePagesProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflarePagesProjects`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflarePagesProjects`: %v\n", resp)
+	// response from `PostCloudflarePagesProjects`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflarePagesProjects`: %v\n", resp)
 }
 ```
 
@@ -1748,12 +1754,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflarePagesProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflarePagesProjectsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudPagesProjectCreate** | [**CloudPagesProjectCreate**](CloudPagesProjectCreate.md) |  | 
+ **pagesProjectCreate** | [**PagesProjectCreate**](PagesProjectCreate.md) |  | 
 
 ### Return type
 
@@ -1761,7 +1767,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1773,9 +1779,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflarePagesProjectsByProjectDeployments
+## PostCloudflarePagesProjectsByProjectDeployments
 
-> interface{} CloudPostV1CloudflarePagesProjectsByProjectDeployments(ctx, project).CloudPagesDeploy(cloudPagesDeploy).Execute()
+> interface{} PostCloudflarePagesProjectsByProjectDeployments(ctx, project).PagesDeploy(pagesDeploy).Execute()
+
+Trigger a new Pages deployment for a project
 
 
 
@@ -1793,17 +1801,17 @@ import (
 
 func main() {
 	project := "project_example" // string | 
-	cloudPagesDeploy := *openapiclient.NewCloudPagesDeploy() // CloudPagesDeploy |  (optional)
+	pagesDeploy := *openapiclient.NewPagesDeploy() // PagesDeploy |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflarePagesProjectsByProjectDeployments(context.Background(), project).CloudPagesDeploy(cloudPagesDeploy).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflarePagesProjectsByProjectDeployments(context.Background(), project).PagesDeploy(pagesDeploy).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflarePagesProjectsByProjectDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflarePagesProjectsByProjectDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflarePagesProjectsByProjectDeployments`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflarePagesProjectsByProjectDeployments`: %v\n", resp)
+	// response from `PostCloudflarePagesProjectsByProjectDeployments`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflarePagesProjectsByProjectDeployments`: %v\n", resp)
 }
 ```
 
@@ -1817,13 +1825,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflarePagesProjectsByProjectDeploymentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflarePagesProjectsByProjectDeploymentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPagesDeploy** | [**CloudPagesDeploy**](CloudPagesDeploy.md) |  | 
+ **pagesDeploy** | [**PagesDeploy**](PagesDeploy.md) |  | 
 
 ### Return type
 
@@ -1831,7 +1839,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1843,11 +1851,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflarePagesProjectsProjectDomains
+## PostCloudflarePagesProjectsByProjectDomains
 
-> interface{} CloudPostV1CloudflarePagesProjectsProjectDomains(ctx, project).CloudDomainAddIn(cloudDomainAddIn).Execute()
+> interface{} PostCloudflarePagesProjectsByProjectDomains(ctx, project).DomainAddIn(domainAddIn).Execute()
 
-PagesDomainAdd attaches a custom domain to a Cloudflare Pages project.
+Attaches a custom domain to a Cloudflare Pages project.
 
 
 
@@ -1865,17 +1873,17 @@ import (
 
 func main() {
 	project := "marketing-site" // string | Project is the Pages project name, from the path.
-	cloudDomainAddIn := *openapiclient.NewCloudDomainAddIn() // CloudDomainAddIn | 
+	domainAddIn := *openapiclient.NewDomainAddIn() // DomainAddIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflarePagesProjectsProjectDomains(context.Background(), project).CloudDomainAddIn(cloudDomainAddIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflarePagesProjectsByProjectDomains(context.Background(), project).DomainAddIn(domainAddIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflarePagesProjectsProjectDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflarePagesProjectsByProjectDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflarePagesProjectsProjectDomains`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflarePagesProjectsProjectDomains`: %v\n", resp)
+	// response from `PostCloudflarePagesProjectsByProjectDomains`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflarePagesProjectsByProjectDomains`: %v\n", resp)
 }
 ```
 
@@ -1889,13 +1897,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflarePagesProjectsProjectDomainsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflarePagesProjectsByProjectDomainsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudDomainAddIn** | [**CloudDomainAddIn**](CloudDomainAddIn.md) |  | 
+ **domainAddIn** | [**DomainAddIn**](DomainAddIn.md) |  | 
 
 ### Return type
 
@@ -1903,7 +1911,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1915,11 +1923,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflareR2Buckets
+## PostCloudflareR2Buckets
 
-> interface{} CloudPostV1CloudflareR2Buckets(ctx).CloudBucketCreateIn(cloudBucketCreateIn).Execute()
+> interface{} PostCloudflareR2Buckets(ctx).BucketCreateIn(bucketCreateIn).Execute()
 
-R2BucketCreate creates an R2 bucket on the org's Cloudflare account.
+Creates an R2 bucket on the org's Cloudflare account.
 
 
 
@@ -1936,17 +1944,17 @@ import (
 )
 
 func main() {
-	cloudBucketCreateIn := *openapiclient.NewCloudBucketCreateIn() // CloudBucketCreateIn | 
+	bucketCreateIn := *openapiclient.NewBucketCreateIn() // BucketCreateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflareR2Buckets(context.Background()).CloudBucketCreateIn(cloudBucketCreateIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareR2Buckets(context.Background()).BucketCreateIn(bucketCreateIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflareR2Buckets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareR2Buckets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflareR2Buckets`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflareR2Buckets`: %v\n", resp)
+	// response from `PostCloudflareR2Buckets`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflareR2Buckets`: %v\n", resp)
 }
 ```
 
@@ -1956,12 +1964,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflareR2BucketsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflareR2BucketsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudBucketCreateIn** | [**CloudBucketCreateIn**](CloudBucketCreateIn.md) |  | 
+ **bucketCreateIn** | [**BucketCreateIn**](BucketCreateIn.md) |  | 
 
 ### Return type
 
@@ -1969,7 +1977,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1981,11 +1989,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflareWorkersScriptsScriptSubdomain
+## PostCloudflareWorkersScriptsByScriptSubdomain
 
-> interface{} CloudPostV1CloudflareWorkersScriptsScriptSubdomain(ctx, script).CloudSubdomainSetIn(cloudSubdomainSetIn).Execute()
+> interface{} PostCloudflareWorkersScriptsByScriptSubdomain(ctx, script).SubdomainSetIn(subdomainSetIn).Execute()
 
-WorkersScriptSubdomainSet publishes or withdraws one Worker script on the account's workers.dev subdomain.
+Publishes or withdraws one Worker script on the account's workers.dev subdomain.
 
 
 
@@ -2003,17 +2011,17 @@ import (
 
 func main() {
 	script := "edge-router" // string | Script is the Worker script name, from the path.
-	cloudSubdomainSetIn := *openapiclient.NewCloudSubdomainSetIn() // CloudSubdomainSetIn | 
+	subdomainSetIn := *openapiclient.NewSubdomainSetIn() // SubdomainSetIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflareWorkersScriptsScriptSubdomain(context.Background(), script).CloudSubdomainSetIn(cloudSubdomainSetIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareWorkersScriptsByScriptSubdomain(context.Background(), script).SubdomainSetIn(subdomainSetIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflareWorkersScriptsScriptSubdomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareWorkersScriptsByScriptSubdomain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflareWorkersScriptsScriptSubdomain`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflareWorkersScriptsScriptSubdomain`: %v\n", resp)
+	// response from `PostCloudflareWorkersScriptsByScriptSubdomain`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflareWorkersScriptsByScriptSubdomain`: %v\n", resp)
 }
 ```
 
@@ -2027,13 +2035,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflareWorkersScriptsScriptSubdomainRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflareWorkersScriptsByScriptSubdomainRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudSubdomainSetIn** | [**CloudSubdomainSetIn**](CloudSubdomainSetIn.md) |  | 
+ **subdomainSetIn** | [**SubdomainSetIn**](SubdomainSetIn.md) |  | 
 
 ### Return type
 
@@ -2041,7 +2049,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2053,11 +2061,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflareWorkersZonesZoneRoutes
+## PostCloudflareWorkersZonesByZoneRoutes
 
-> interface{} CloudPostV1CloudflareWorkersZonesZoneRoutes(ctx, zone).CloudRouteCreateIn(cloudRouteCreateIn).Execute()
+> interface{} PostCloudflareWorkersZonesByZoneRoutes(ctx, zone).RouteCreateIn(routeCreateIn).Execute()
 
-WorkersRouteCreate binds a URL pattern in a zone to a Worker script.
+Binds a URL pattern in a zone to a Worker script.
 
 
 
@@ -2075,17 +2083,17 @@ import (
 
 func main() {
 	zone := "0123456789abcdef0123456789abcdef" // string | Zone is the 32-hex Cloudflare zone id, from the path.
-	cloudRouteCreateIn := *openapiclient.NewCloudRouteCreateIn() // CloudRouteCreateIn | 
+	routeCreateIn := *openapiclient.NewRouteCreateIn() // RouteCreateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflareWorkersZonesZoneRoutes(context.Background(), zone).CloudRouteCreateIn(cloudRouteCreateIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareWorkersZonesByZoneRoutes(context.Background(), zone).RouteCreateIn(routeCreateIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflareWorkersZonesZoneRoutes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareWorkersZonesByZoneRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflareWorkersZonesZoneRoutes`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflareWorkersZonesZoneRoutes`: %v\n", resp)
+	// response from `PostCloudflareWorkersZonesByZoneRoutes`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflareWorkersZonesByZoneRoutes`: %v\n", resp)
 }
 ```
 
@@ -2099,13 +2107,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflareWorkersZonesZoneRoutesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflareWorkersZonesByZoneRoutesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudRouteCreateIn** | [**CloudRouteCreateIn**](CloudRouteCreateIn.md) |  | 
+ **routeCreateIn** | [**RouteCreateIn**](RouteCreateIn.md) |  | 
 
 ### Return type
 
@@ -2113,7 +2121,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2125,11 +2133,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CloudflareZonesZonePurge
+## PostCloudflareZonesByZonePurge
 
-> interface{} CloudPostV1CloudflareZonesZonePurge(ctx, zone).CloudPurgeIn(cloudPurgeIn).Execute()
+> interface{} PostCloudflareZonesByZonePurge(ctx, zone).PurgeIn(purgeIn).Execute()
 
-ZonePurge drops a zone's Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
+Drops a zone's Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
 
 
 
@@ -2147,17 +2155,17 @@ import (
 
 func main() {
 	zone := "0123456789abcdef0123456789abcdef" // string | Zone is the 32-hex Cloudflare zone id, from the path.
-	cloudPurgeIn := *openapiclient.NewCloudPurgeIn() // CloudPurgeIn | 
+	purgeIn := *openapiclient.NewPurgeIn() // PurgeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPostV1CloudflareZonesZonePurge(context.Background(), zone).CloudPurgeIn(cloudPurgeIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareZonesByZonePurge(context.Background(), zone).PurgeIn(purgeIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPostV1CloudflareZonesZonePurge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareZonesByZonePurge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CloudflareZonesZonePurge`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPostV1CloudflareZonesZonePurge`: %v\n", resp)
+	// response from `PostCloudflareZonesByZonePurge`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PostCloudflareZonesByZonePurge`: %v\n", resp)
 }
 ```
 
@@ -2171,13 +2179,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CloudflareZonesZonePurgeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCloudflareZonesByZonePurgeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPurgeIn** | [**CloudPurgeIn**](CloudPurgeIn.md) |  | 
+ **purgeIn** | [**PurgeIn**](PurgeIn.md) |  | 
 
 ### Return type
 
@@ -2185,7 +2193,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2197,9 +2205,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1CloudflareKvNamespacesByNamespaceValuesByKey
+## PutCloudflareKvNamespacesByNamespaceValuesByKey
 
-> CloudPutV1CloudflareKvNamespacesByNamespaceValuesByKey(ctx, namespace, key).Execute()
+> PutCloudflareKvNamespacesByNamespaceValuesByKey(ctx, namespace, key).Execute()
+
+Write a Workers KV value from the request body
 
 
 
@@ -2221,9 +2231,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CloudflareAPI.CloudPutV1CloudflareKvNamespacesByNamespaceValuesByKey(context.Background(), namespace, key).Execute()
+	r, err := apiClient.CloudflareAPI.PutCloudflareKvNamespacesByNamespaceValuesByKey(context.Background(), namespace, key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPutV1CloudflareKvNamespacesByNamespaceValuesByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PutCloudflareKvNamespacesByNamespaceValuesByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2240,7 +2250,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1CloudflareKvNamespacesByNamespaceValuesByKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCloudflareKvNamespacesByNamespaceValuesByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2254,7 +2264,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2266,9 +2276,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1CloudflareWorkersScriptsByScript
+## PutCloudflareWorkersScriptsByScript
 
-> interface{} CloudPutV1CloudflareWorkersScriptsByScript(ctx, script).CloudWorkerScriptPut(cloudWorkerScriptPut).Execute()
+> interface{} PutCloudflareWorkersScriptsByScript(ctx, script).WorkerScriptPut(workerScriptPut).Execute()
+
+Upload or replace a module Worker script
 
 
 
@@ -2286,17 +2298,17 @@ import (
 
 func main() {
 	script := "script_example" // string | 
-	cloudWorkerScriptPut := *openapiclient.NewCloudWorkerScriptPut() // CloudWorkerScriptPut |  (optional)
+	workerScriptPut := *openapiclient.NewWorkerScriptPut() // WorkerScriptPut |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.CloudPutV1CloudflareWorkersScriptsByScript(context.Background(), script).CloudWorkerScriptPut(cloudWorkerScriptPut).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PutCloudflareWorkersScriptsByScript(context.Background(), script).WorkerScriptPut(workerScriptPut).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.CloudPutV1CloudflareWorkersScriptsByScript``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PutCloudflareWorkersScriptsByScript``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1CloudflareWorkersScriptsByScript`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.CloudPutV1CloudflareWorkersScriptsByScript`: %v\n", resp)
+	// response from `PutCloudflareWorkersScriptsByScript`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `CloudflareAPI.PutCloudflareWorkersScriptsByScript`: %v\n", resp)
 }
 ```
 
@@ -2310,13 +2322,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1CloudflareWorkersScriptsByScriptRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCloudflareWorkersScriptsByScriptRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudWorkerScriptPut** | [**CloudWorkerScriptPut**](CloudWorkerScriptPut.md) |  | 
+ **workerScriptPut** | [**WorkerScriptPut**](WorkerScriptPut.md) |  | 
 
 ### Return type
 
@@ -2324,7 +2336,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

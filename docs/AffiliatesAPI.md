@@ -4,26 +4,24 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Affiliates**](AffiliatesAPI.md#CloudGetV1Affiliates) | **Get** /v1/affiliates | 
-[**CloudGetV1AffiliatesLeaderboard**](AffiliatesAPI.md#CloudGetV1AffiliatesLeaderboard) | **Get** /v1/affiliates/leaderboard | 
-[**CloudGetV1AffiliatesMe**](AffiliatesAPI.md#CloudGetV1AffiliatesMe) | **Get** /v1/affiliates/me | 
-[**CloudGetV1AffiliatesMeEarnings**](AffiliatesAPI.md#CloudGetV1AffiliatesMeEarnings) | **Get** /v1/affiliates/me/earnings | 
-[**CloudGetV1AffiliatesMeLinks**](AffiliatesAPI.md#CloudGetV1AffiliatesMeLinks) | **Get** /v1/affiliates/me/links | 
-[**CloudPostV1AffiliatesApply**](AffiliatesAPI.md#CloudPostV1AffiliatesApply) | **Post** /v1/affiliates/apply | 
-[**CloudPostV1AffiliatesAttribute**](AffiliatesAPI.md#CloudPostV1AffiliatesAttribute) | **Post** /v1/affiliates/attribute | 
-[**CloudPostV1AffiliatesClick**](AffiliatesAPI.md#CloudPostV1AffiliatesClick) | **Post** /v1/affiliates/click | 
-[**CloudPostV1AffiliatesMeHandle**](AffiliatesAPI.md#CloudPostV1AffiliatesMeHandle) | **Post** /v1/affiliates/me/handle | 
-[**CloudPostV1AffiliatesMeLinks**](AffiliatesAPI.md#CloudPostV1AffiliatesMeLinks) | **Post** /v1/affiliates/me/links | 
-[**CommerceConnectAffiliate**](AffiliatesAPI.md#CommerceConnectAffiliate) | **Get** /v1/commerce/affiliate/{affiliateid}/connect | Connect affiliate
-[**CommerceCreateAffiliate**](AffiliatesAPI.md#CommerceCreateAffiliate) | **Post** /v1/commerce/affiliate | Create affiliate
-[**CommerceGetAffiliate**](AffiliatesAPI.md#CommerceGetAffiliate) | **Get** /v1/commerce/affiliate/{affiliateid} | Get affiliate
-[**CommerceListAffiliates**](AffiliatesAPI.md#CommerceListAffiliates) | **Get** /v1/commerce/affiliate | List affiliates
+[**GetAffiliates**](AffiliatesAPI.md#GetAffiliates) | **Get** /v1/affiliates | Answers the caller org&#39;s OWN affiliate standing: status, referral code and share link, commission rate, how many orgs it has referred, and its lifetime accrued, still-pending and already-paid commission in integer cents, with its payout history.
+[**GetAffiliatesLeaderboard**](AffiliatesAPI.md#GetAffiliatesLeaderboard) | **Get** /v1/affiliates/leaderboard | Answers the top affiliates by lifetime accrued commission, shown by OPT-IN HANDLE with aggregate figures only, plus the caller&#39;s own exact rank.
+[**GetAffiliatesMe**](AffiliatesAPI.md#GetAffiliatesMe) | **Get** /v1/affiliates/me | Answers the richer self-view: the same lifetime accrued, pending and paid commission and payout history, plus the caller&#39;s downline broken out by upline LEVEL — direct, second, third — each with the rate paid at that level and how many orgs sit there.
+[**GetAffiliatesMeEarnings**](AffiliatesAPI.md#GetAffiliatesMeEarnings) | **Get** /v1/affiliates/me/earnings | Answers the caller&#39;s own commission ledger: per period, the margin it earned against and the commission taken from that margin; and per referred org, that referral&#39;s aggregate contribution.
+[**GetAffiliatesMeLinks**](AffiliatesAPI.md#GetAffiliatesMeLinks) | **Get** /v1/affiliates/me/links | Answers the caller&#39;s share links, each with its URL and its funnel: clicks tracked, signups — orgs attributed with that code — and conversions, meaning how many of those signups have actually produced commission.
+[**PostAffiliatesApply**](AffiliatesAPI.md#PostAffiliatesApply) | **Post** /v1/affiliates/apply | Enrolls the caller&#39;s OWN org as an affiliate at status &#x60;applied&#x60;, optionally requesting a vanity code, and answers the record — 201 on the first apply, 200 with &#x60;created:false&#x60; afterwards.
+[**PostAffiliatesAttribute**](AffiliatesAPI.md#PostAffiliatesAttribute) | **Post** /v1/affiliates/attribute | Records the first-touch edge every later commission is computed from: the caller&#39;s org was referred by the affiliate that owns this code.
+[**PostAffiliatesClick**](AffiliatesAPI.md#PostAffiliatesClick) | **Post** /v1/affiliates/click | Counts a click on a share link.
+[**PostAffiliatesMeHandle**](AffiliatesAPI.md#PostAffiliatesMeHandle) | **Post** /v1/affiliates/me/handle | Sets the caller&#39;s public leaderboard display name, or clears it.
+[**PostAffiliatesMeLinks**](AffiliatesAPI.md#PostAffiliatesMeLinks) | **Post** /v1/affiliates/me/links | Mints a new share link for the caller&#39;s own affiliate and answers it with its full URL, 201.
 
 
 
-## CloudGetV1Affiliates
+## GetAffiliates
 
-> CloudGetV1Affiliates(ctx).Execute()
+> AffiliateStanding GetAffiliates(ctx).Execute()
+
+Answers the caller org's OWN affiliate standing: status, referral code and share link, commission rate, how many orgs it has referred, and its lifetime accrued, still-pending and already-paid commission in integer cents, with its payout history.
 
 
 
@@ -43,11 +41,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudGetV1Affiliates(context.Background()).Execute()
+	resp, r, err := apiClient.AffiliatesAPI.GetAffiliates(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudGetV1Affiliates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.GetAffiliates``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetAffiliates`: AffiliateStanding
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.GetAffiliates`: %v\n", resp)
 }
 ```
 
@@ -57,597 +57,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AffiliatesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAffiliatesRequest struct via the builder pattern
 
 
 ### Return type
 
- (empty response body)
+[**AffiliateStanding**](AffiliateStanding.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1AffiliatesLeaderboard
-
-> CloudGetV1AffiliatesLeaderboard(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudGetV1AffiliatesLeaderboard(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudGetV1AffiliatesLeaderboard``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1AffiliatesLeaderboardRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1AffiliatesMe
-
-> CloudGetV1AffiliatesMe(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudGetV1AffiliatesMe(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudGetV1AffiliatesMe``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1AffiliatesMeRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1AffiliatesMeEarnings
-
-> CloudGetV1AffiliatesMeEarnings(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudGetV1AffiliatesMeEarnings(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudGetV1AffiliatesMeEarnings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1AffiliatesMeEarningsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudGetV1AffiliatesMeLinks
-
-> CloudGetV1AffiliatesMeLinks(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudGetV1AffiliatesMeLinks(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudGetV1AffiliatesMeLinks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudGetV1AffiliatesMeLinksRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1AffiliatesApply
-
-> CloudPostV1AffiliatesApply(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudPostV1AffiliatesApply(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudPostV1AffiliatesApply``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1AffiliatesApplyRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1AffiliatesAttribute
-
-> CloudPostV1AffiliatesAttribute(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudPostV1AffiliatesAttribute(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudPostV1AffiliatesAttribute``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1AffiliatesAttributeRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1AffiliatesClick
-
-> CloudPostV1AffiliatesClick(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudPostV1AffiliatesClick(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudPostV1AffiliatesClick``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1AffiliatesClickRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1AffiliatesMeHandle
-
-> CloudPostV1AffiliatesMeHandle(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudPostV1AffiliatesMeHandle(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudPostV1AffiliatesMeHandle``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1AffiliatesMeHandleRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1AffiliatesMeLinks
-
-> CloudPostV1AffiliatesMeLinks(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AffiliatesAPI.CloudPostV1AffiliatesMeLinks(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CloudPostV1AffiliatesMeLinks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1AffiliatesMeLinksRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CommerceConnectAffiliate
-
-> map[string]interface{} CommerceConnectAffiliate(ctx, affiliateid).Execute()
-
-Connect affiliate
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	affiliateid := "affiliateid_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliatesAPI.CommerceConnectAffiliate(context.Background(), affiliateid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CommerceConnectAffiliate``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CommerceConnectAffiliate`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.CommerceConnectAffiliate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**affiliateid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCommerceConnectAffiliateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -659,11 +78,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CommerceCreateAffiliate
+## GetAffiliatesLeaderboard
 
-> CommerceAffiliate CommerceCreateAffiliate(ctx).CommerceAffiliate(commerceAffiliate).Execute()
+> AffiliateBoard GetAffiliatesLeaderboard(ctx).Execute()
 
-Create affiliate
+Answers the top affiliates by lifetime accrued commission, shown by OPT-IN HANDLE with aggregate figures only, plus the caller's own exact rank.
+
+
 
 ### Example
 
@@ -678,17 +99,261 @@ import (
 )
 
 func main() {
-	commerceAffiliate := *openapiclient.NewCommerceAffiliate() // CommerceAffiliate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliatesAPI.CommerceCreateAffiliate(context.Background()).CommerceAffiliate(commerceAffiliate).Execute()
+	resp, r, err := apiClient.AffiliatesAPI.GetAffiliatesLeaderboard(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CommerceCreateAffiliate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.GetAffiliatesLeaderboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CommerceCreateAffiliate`: CommerceAffiliate
-	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.CommerceCreateAffiliate`: %v\n", resp)
+	// response from `GetAffiliatesLeaderboard`: AffiliateBoard
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.GetAffiliatesLeaderboard`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAffiliatesLeaderboardRequest struct via the builder pattern
+
+
+### Return type
+
+[**AffiliateBoard**](AffiliateBoard.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAffiliatesMe
+
+> AffiliateSelf GetAffiliatesMe(ctx).Execute()
+
+Answers the richer self-view: the same lifetime accrued, pending and paid commission and payout history, plus the caller's downline broken out by upline LEVEL — direct, second, third — each with the rate paid at that level and how many orgs sit there.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AffiliatesAPI.GetAffiliatesMe(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.GetAffiliatesMe``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAffiliatesMe`: AffiliateSelf
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.GetAffiliatesMe`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAffiliatesMeRequest struct via the builder pattern
+
+
+### Return type
+
+[**AffiliateSelf**](AffiliateSelf.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAffiliatesMeEarnings
+
+> AffiliateEarnings GetAffiliatesMeEarnings(ctx).Execute()
+
+Answers the caller's own commission ledger: per period, the margin it earned against and the commission taken from that margin; and per referred org, that referral's aggregate contribution.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AffiliatesAPI.GetAffiliatesMeEarnings(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.GetAffiliatesMeEarnings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAffiliatesMeEarnings`: AffiliateEarnings
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.GetAffiliatesMeEarnings`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAffiliatesMeEarningsRequest struct via the builder pattern
+
+
+### Return type
+
+[**AffiliateEarnings**](AffiliateEarnings.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAffiliatesMeLinks
+
+> AffiliateLinks GetAffiliatesMeLinks(ctx).Execute()
+
+Answers the caller's share links, each with its URL and its funnel: clicks tracked, signups — orgs attributed with that code — and conversions, meaning how many of those signups have actually produced commission.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AffiliatesAPI.GetAffiliatesMeLinks(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.GetAffiliatesMeLinks``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAffiliatesMeLinks`: AffiliateLinks
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.GetAffiliatesMeLinks`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAffiliatesMeLinksRequest struct via the builder pattern
+
+
+### Return type
+
+[**AffiliateLinks**](AffiliateLinks.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAffiliatesApply
+
+> Application PostAffiliatesApply(ctx).ApplyRequest(applyRequest).Execute()
+
+Enrolls the caller's OWN org as an affiliate at status `applied`, optionally requesting a vanity code, and answers the record — 201 on the first apply, 200 with `created:false` afterwards.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	applyRequest := *openapiclient.NewApplyRequest() // ApplyRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AffiliatesAPI.PostAffiliatesApply(context.Background()).ApplyRequest(applyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.PostAffiliatesApply``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAffiliatesApply`: Application
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.PostAffiliatesApply`: %v\n", resp)
 }
 ```
 
@@ -698,20 +363,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCommerceCreateAffiliateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAffiliatesApplyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **commerceAffiliate** | [**CommerceAffiliate**](CommerceAffiliate.md) |  | 
+ **applyRequest** | [**ApplyRequest**](ApplyRequest.md) |  | 
 
 ### Return type
 
-[**CommerceAffiliate**](CommerceAffiliate.md)
+[**Application**](Application.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -723,11 +388,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CommerceGetAffiliate
+## PostAffiliatesAttribute
 
-> CommerceAffiliate CommerceGetAffiliate(ctx, affiliateid).Execute()
+> Attribution PostAffiliatesAttribute(ctx).AttributeRequest(attributeRequest).Execute()
 
-Get affiliate
+Records the first-touch edge every later commission is computed from: the caller's org was referred by the affiliate that owns this code.
+
+
 
 ### Example
 
@@ -742,48 +409,44 @@ import (
 )
 
 func main() {
-	affiliateid := "affiliateid_example" // string | 
+	attributeRequest := *openapiclient.NewAttributeRequest() // AttributeRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliatesAPI.CommerceGetAffiliate(context.Background(), affiliateid).Execute()
+	resp, r, err := apiClient.AffiliatesAPI.PostAffiliatesAttribute(context.Background()).AttributeRequest(attributeRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CommerceGetAffiliate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.PostAffiliatesAttribute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CommerceGetAffiliate`: CommerceAffiliate
-	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.CommerceGetAffiliate`: %v\n", resp)
+	// response from `PostAffiliatesAttribute`: Attribution
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.PostAffiliatesAttribute`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**affiliateid** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCommerceGetAffiliateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAffiliatesAttributeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
+ **attributeRequest** | [**AttributeRequest**](AttributeRequest.md) |  | 
 
 ### Return type
 
-[**CommerceAffiliate**](CommerceAffiliate.md)
+[**Attribution**](Attribution.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -791,11 +454,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CommerceListAffiliates
+## PostAffiliatesClick
 
-> CommercePaginatedAffiliates CommerceListAffiliates(ctx).Page(page).Display(display).Execute()
+> ClickCount PostAffiliatesClick(ctx).ClickRequest(clickRequest).Execute()
 
-List affiliates
+Counts a click on a share link.
+
+
 
 ### Example
 
@@ -810,18 +475,17 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | Page number (1-indexed) (optional) (default to 1)
-	display := int32(56) // int32 | Number of items per page (optional) (default to 20)
+	clickRequest := *openapiclient.NewClickRequest() // ClickRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliatesAPI.CommerceListAffiliates(context.Background()).Page(page).Display(display).Execute()
+	resp, r, err := apiClient.AffiliatesAPI.PostAffiliatesClick(context.Background()).ClickRequest(clickRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.CommerceListAffiliates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.PostAffiliatesClick``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CommerceListAffiliates`: CommercePaginatedAffiliates
-	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.CommerceListAffiliates`: %v\n", resp)
+	// response from `PostAffiliatesClick`: ClickCount
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.PostAffiliatesClick`: %v\n", resp)
 }
 ```
 
@@ -831,25 +495,156 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCommerceListAffiliatesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAffiliatesClickRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | Page number (1-indexed) | [default to 1]
- **display** | **int32** | Number of items per page | [default to 20]
+ **clickRequest** | [**ClickRequest**](ClickRequest.md) |  | 
 
 ### Return type
 
-[**CommercePaginatedAffiliates**](CommercePaginatedAffiliates.md)
+[**ClickCount**](ClickCount.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAffiliatesMeHandle
+
+> HandleSet PostAffiliatesMeHandle(ctx).HandleRequest(handleRequest).Execute()
+
+Sets the caller's public leaderboard display name, or clears it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	handleRequest := *openapiclient.NewHandleRequest() // HandleRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AffiliatesAPI.PostAffiliatesMeHandle(context.Background()).HandleRequest(handleRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.PostAffiliatesMeHandle``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAffiliatesMeHandle`: HandleSet
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.PostAffiliatesMeHandle`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAffiliatesMeHandleRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **handleRequest** | [**HandleRequest**](HandleRequest.md) |  | 
+
+### Return type
+
+[**HandleSet**](HandleSet.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAffiliatesMeLinks
+
+> LinkMint PostAffiliatesMeLinks(ctx).CreateLinkRequest(createLinkRequest).Execute()
+
+Mints a new share link for the caller's own affiliate and answers it with its full URL, 201.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	createLinkRequest := *openapiclient.NewCreateLinkRequest() // CreateLinkRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AffiliatesAPI.PostAffiliatesMeLinks(context.Background()).CreateLinkRequest(createLinkRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AffiliatesAPI.PostAffiliatesMeLinks``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAffiliatesMeLinks`: LinkMint
+	fmt.Fprintf(os.Stdout, "Response from `AffiliatesAPI.PostAffiliatesMeLinks`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAffiliatesMeLinksRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createLinkRequest** | [**CreateLinkRequest**](CreateLinkRequest.md) |  | 
+
+### Return type
+
+[**LinkMint**](LinkMint.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

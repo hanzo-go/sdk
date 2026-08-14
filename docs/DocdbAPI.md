@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1DocdbName**](DocdbAPI.md#CloudDeleteV1DocdbName) | **Delete** /v1/docdb/{name} | DropDocDB deprovisions one Hanzo DocDB database.
-[**CloudGetV1Docdb**](DocdbAPI.md#CloudGetV1Docdb) | **Get** /v1/docdb | ListDocDB lists the caller org&#39;s Hanzo DocDB document databases.
-[**CloudGetV1DocdbName**](DocdbAPI.md#CloudGetV1DocdbName) | **Get** /v1/docdb/{name} | GetDocDB returns one Hanzo DocDB database&#39;s metadata.
-[**CloudPostV1Docdb**](DocdbAPI.md#CloudPostV1Docdb) | **Post** /v1/docdb | 
+[**DeleteDocdbByName**](DocdbAPI.md#DeleteDocdbByName) | **Delete** /v1/docdb/{name} | DropDocDB deprovisions one Hanzo DocDB database.
+[**GetDocdb**](DocdbAPI.md#GetDocdb) | **Get** /v1/docdb | ListDocDB lists the caller org&#39;s Hanzo DocDB document databases.
+[**GetDocdbByName**](DocdbAPI.md#GetDocdbByName) | **Get** /v1/docdb/{name} | GetDocDB returns one Hanzo DocDB database&#39;s metadata.
+[**PostDocdb**](DocdbAPI.md#PostDocdb) | **Post** /v1/docdb | Provision a document database for your org
 
 
 
-## CloudDeleteV1DocdbName
+## DeleteDocdbByName
 
-> CloudDeleteV1DocdbName(ctx, name).Execute()
+> DeleteDocdbByName(ctx, name).Execute()
 
 DropDocDB deprovisions one Hanzo DocDB database.
 
@@ -36,9 +36,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DocdbAPI.CloudDeleteV1DocdbName(context.Background(), name).Execute()
+	r, err := apiClient.DocdbAPI.DeleteDocdbByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocdbAPI.CloudDeleteV1DocdbName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DocdbAPI.DeleteDocdbByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1DocdbNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteDocdbByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -79,9 +79,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Docdb
+## GetDocdb
 
-> []CloudProvisionedSummary CloudGetV1Docdb(ctx).Execute()
+> []ProvisionedSummary GetDocdb(ctx).Execute()
 
 ListDocDB lists the caller org's Hanzo DocDB document databases.
 
@@ -103,13 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocdbAPI.CloudGetV1Docdb(context.Background()).Execute()
+	resp, r, err := apiClient.DocdbAPI.GetDocdb(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocdbAPI.CloudGetV1Docdb``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DocdbAPI.GetDocdb``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Docdb`: []CloudProvisionedSummary
-	fmt.Fprintf(os.Stdout, "Response from `DocdbAPI.CloudGetV1Docdb`: %v\n", resp)
+	// response from `GetDocdb`: []ProvisionedSummary
+	fmt.Fprintf(os.Stdout, "Response from `DocdbAPI.GetDocdb`: %v\n", resp)
 }
 ```
 
@@ -119,16 +119,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DocdbRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDocdbRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]CloudProvisionedSummary**](CloudProvisionedSummary.md)
+[**[]ProvisionedSummary**](ProvisionedSummary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -140,9 +140,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1DocdbRequest str
 [[Back to README]](../README.md)
 
 
-## CloudGetV1DocdbName
+## GetDocdbByName
 
-> CloudProvisionedResource CloudGetV1DocdbName(ctx, name).Execute()
+> ProvisionedResource GetDocdbByName(ctx, name).Execute()
 
 GetDocDB returns one Hanzo DocDB database's metadata.
 
@@ -165,13 +165,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocdbAPI.CloudGetV1DocdbName(context.Background(), name).Execute()
+	resp, r, err := apiClient.DocdbAPI.GetDocdbByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocdbAPI.CloudGetV1DocdbName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DocdbAPI.GetDocdbByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1DocdbName`: CloudProvisionedResource
-	fmt.Fprintf(os.Stdout, "Response from `DocdbAPI.CloudGetV1DocdbName`: %v\n", resp)
+	// response from `GetDocdbByName`: ProvisionedResource
+	fmt.Fprintf(os.Stdout, "Response from `DocdbAPI.GetDocdbByName`: %v\n", resp)
 }
 ```
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1DocdbNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetDocdbByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -194,11 +194,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudProvisionedResource**](CloudProvisionedResource.md)
+[**ProvisionedResource**](ProvisionedResource.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -210,9 +210,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Docdb
+## PostDocdb
 
-> CloudProvisionResult CloudPostV1Docdb(ctx).CloudProvisionRequest(cloudProvisionRequest).Execute()
+> ProvisionResult PostDocdb(ctx).ProvisionRequest(provisionRequest).Execute()
+
+Provision a document database for your org
 
 
 
@@ -229,17 +231,17 @@ import (
 )
 
 func main() {
-	cloudProvisionRequest := *openapiclient.NewCloudProvisionRequest() // CloudProvisionRequest |  (optional)
+	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DocdbAPI.CloudPostV1Docdb(context.Background()).CloudProvisionRequest(cloudProvisionRequest).Execute()
+	resp, r, err := apiClient.DocdbAPI.PostDocdb(context.Background()).ProvisionRequest(provisionRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DocdbAPI.CloudPostV1Docdb``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DocdbAPI.PostDocdb``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Docdb`: CloudProvisionResult
-	fmt.Fprintf(os.Stdout, "Response from `DocdbAPI.CloudPostV1Docdb`: %v\n", resp)
+	// response from `PostDocdb`: ProvisionResult
+	fmt.Fprintf(os.Stdout, "Response from `DocdbAPI.PostDocdb`: %v\n", resp)
 }
 ```
 
@@ -249,20 +251,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1DocdbRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostDocdbRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudProvisionRequest** | [**CloudProvisionRequest**](CloudProvisionRequest.md) |  | 
+ **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
 
 ### Return type
 
-[**CloudProvisionResult**](CloudProvisionResult.md)
+[**ProvisionResult**](ProvisionResult.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,15 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1AuthzHealth**](AuthzAPI.md#CloudGetV1AuthzHealth) | **Get** /v1/authz/health | 
-[**CloudGetV1AuthzReadyz**](AuthzAPI.md#CloudGetV1AuthzReadyz) | **Get** /v1/authz/readyz | 
-[**CloudPostV1AuthzCheck**](AuthzAPI.md#CloudPostV1AuthzCheck) | **Post** /v1/authz/check | 
+[**GetAuthzHealth**](AuthzAPI.md#GetAuthzHealth) | **Get** /v1/authz/health | Liveness of the policy engine
+[**GetAuthzReadyz**](AuthzAPI.md#GetAuthzReadyz) | **Get** /v1/authz/readyz | Readiness of the policy engine
+[**PostAuthzCheck**](AuthzAPI.md#PostAuthzCheck) | **Post** /v1/authz/check | Ask whether a subject may act on an object
 
 
 
-## CloudGetV1AuthzHealth
+## GetAuthzHealth
 
-> CloudGetV1AuthzHealth(ctx).Execute()
+> GetAuthzHealth(ctx).Execute()
+
+Liveness of the policy engine
 
 
 
@@ -32,9 +34,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AuthzAPI.CloudGetV1AuthzHealth(context.Background()).Execute()
+	r, err := apiClient.AuthzAPI.GetAuthzHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthzAPI.CloudGetV1AuthzHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthzAPI.GetAuthzHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -46,7 +48,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AuthzHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAuthzHealthRequest struct via the builder pattern
 
 
 ### Return type
@@ -55,7 +57,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1AuthzHealthReque
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -67,9 +69,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AuthzHealthReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AuthzReadyz
+## GetAuthzReadyz
 
-> CloudGetV1AuthzReadyz(ctx).Execute()
+> GetAuthzReadyz(ctx).Execute()
+
+Readiness of the policy engine
 
 
 
@@ -89,9 +93,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AuthzAPI.CloudGetV1AuthzReadyz(context.Background()).Execute()
+	r, err := apiClient.AuthzAPI.GetAuthzReadyz(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthzAPI.CloudGetV1AuthzReadyz``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthzAPI.GetAuthzReadyz``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -103,7 +107,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AuthzReadyzRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAuthzReadyzRequest struct via the builder pattern
 
 
 ### Return type
@@ -112,7 +116,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1AuthzReadyzReque
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -124,9 +128,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AuthzReadyzReque
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AuthzCheck
+## PostAuthzCheck
 
-> CloudPostV1AuthzCheck(ctx).Execute()
+> PostAuthzCheck(ctx).Execute()
+
+Ask whether a subject may act on an object
 
 
 
@@ -146,9 +152,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AuthzAPI.CloudPostV1AuthzCheck(context.Background()).Execute()
+	r, err := apiClient.AuthzAPI.PostAuthzCheck(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthzAPI.CloudPostV1AuthzCheck``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthzAPI.PostAuthzCheck``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -160,7 +166,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AuthzCheckRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAuthzCheckRequest struct via the builder pattern
 
 
 ### Return type
@@ -169,7 +175,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1AuthzCheckReque
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

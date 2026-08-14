@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1HelpArticles**](HelpAPI.md#CloudGetV1HelpArticles) | **Get** /v1/help/articles | Returns the public knowledge base: the help center&#39;s Published, publicly-visible articles as cards.
-[**CloudGetV1HelpArticlesSlug**](HelpAPI.md#CloudGetV1HelpArticlesSlug) | **Get** /v1/help/articles/{slug} | Returns one public article by slug, with its body.
-[**CloudGetV1HelpCategories**](HelpAPI.md#CloudGetV1HelpCategories) | **Get** /v1/help/categories | Returns the knowledge-base sections for the public center&#39;s navigation — but ONLY the sections that front at least one Published, public article, so an internal (agent-only) category name or description never leaks.
-[**CloudPostV1HelpTickets**](HelpAPI.md#CloudPostV1HelpTickets) | **Post** /v1/help/tickets | Files a customer support ticket into the public help center.
+[**GetHelpArticles**](HelpAPI.md#GetHelpArticles) | **Get** /v1/help/articles | Returns the public knowledge base: the help center&#39;s Published, publicly-visible articles as cards.
+[**GetHelpArticlesBySlug**](HelpAPI.md#GetHelpArticlesBySlug) | **Get** /v1/help/articles/{slug} | Returns one public article by slug, with its body.
+[**GetHelpCategories**](HelpAPI.md#GetHelpCategories) | **Get** /v1/help/categories | Returns the knowledge-base sections for the public center&#39;s navigation — but ONLY the sections that front at least one Published, public article, so an internal (agent-only) category name or description never leaks.
+[**PostHelpTickets**](HelpAPI.md#PostHelpTickets) | **Post** /v1/help/tickets | Files a customer support ticket into the public help center.
 
 
 
-## CloudGetV1HelpArticles
+## GetHelpArticles
 
-> CloudHelpArticleList CloudGetV1HelpArticles(ctx).Category(category).Limit(limit).Execute()
+> HelpArticleList GetHelpArticles(ctx).Category(category).Limit(limit).Execute()
 
 Returns the public knowledge base: the help center's Published, publicly-visible articles as cards.
 
@@ -37,13 +37,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HelpAPI.CloudGetV1HelpArticles(context.Background()).Category(category).Limit(limit).Execute()
+	resp, r, err := apiClient.HelpAPI.GetHelpArticles(context.Background()).Category(category).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.CloudGetV1HelpArticles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.GetHelpArticles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1HelpArticles`: CloudHelpArticleList
-	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.CloudGetV1HelpArticles`: %v\n", resp)
+	// response from `GetHelpArticles`: HelpArticleList
+	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.GetHelpArticles`: %v\n", resp)
 }
 ```
 
@@ -53,7 +53,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1HelpArticlesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetHelpArticlesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -63,11 +63,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudHelpArticleList**](CloudHelpArticleList.md)
+[**HelpArticleList**](HelpArticleList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -79,9 +79,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1HelpArticlesSlug
+## GetHelpArticlesBySlug
 
-> CloudHelpArticle CloudGetV1HelpArticlesSlug(ctx, slug).Execute()
+> HelpArticle GetHelpArticlesBySlug(ctx, slug).Execute()
 
 Returns one public article by slug, with its body.
 
@@ -104,13 +104,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HelpAPI.CloudGetV1HelpArticlesSlug(context.Background(), slug).Execute()
+	resp, r, err := apiClient.HelpAPI.GetHelpArticlesBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.CloudGetV1HelpArticlesSlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.GetHelpArticlesBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1HelpArticlesSlug`: CloudHelpArticle
-	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.CloudGetV1HelpArticlesSlug`: %v\n", resp)
+	// response from `GetHelpArticlesBySlug`: HelpArticle
+	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.GetHelpArticlesBySlug`: %v\n", resp)
 }
 ```
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1HelpArticlesSlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetHelpArticlesBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -133,11 +133,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudHelpArticle**](CloudHelpArticle.md)
+[**HelpArticle**](HelpArticle.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -149,9 +149,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1HelpCategories
+## GetHelpCategories
 
-> CloudHelpCategoryList CloudGetV1HelpCategories(ctx).Execute()
+> HelpCategoryList GetHelpCategories(ctx).Execute()
 
 Returns the knowledge-base sections for the public center's navigation — but ONLY the sections that front at least one Published, public article, so an internal (agent-only) category name or description never leaks.
 
@@ -173,13 +173,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HelpAPI.CloudGetV1HelpCategories(context.Background()).Execute()
+	resp, r, err := apiClient.HelpAPI.GetHelpCategories(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.CloudGetV1HelpCategories``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.GetHelpCategories``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1HelpCategories`: CloudHelpCategoryList
-	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.CloudGetV1HelpCategories`: %v\n", resp)
+	// response from `GetHelpCategories`: HelpCategoryList
+	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.GetHelpCategories`: %v\n", resp)
 }
 ```
 
@@ -189,16 +189,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1HelpCategoriesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetHelpCategoriesRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudHelpCategoryList**](CloudHelpCategoryList.md)
+[**HelpCategoryList**](HelpCategoryList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -210,9 +210,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1HelpCategoriesRe
 [[Back to README]](../README.md)
 
 
-## CloudPostV1HelpTickets
+## PostHelpTickets
 
-> CloudHelpTicketFiled CloudPostV1HelpTickets(ctx).CloudHelpTicketIntake(cloudHelpTicketIntake).Execute()
+> HelpTicketFiled PostHelpTickets(ctx).HelpTicketIntake(helpTicketIntake).Execute()
 
 Files a customer support ticket into the public help center.
 
@@ -231,17 +231,17 @@ import (
 )
 
 func main() {
-	cloudHelpTicketIntake := *openapiclient.NewCloudHelpTicketIntake() // CloudHelpTicketIntake | 
+	helpTicketIntake := *openapiclient.NewHelpTicketIntake() // HelpTicketIntake | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HelpAPI.CloudPostV1HelpTickets(context.Background()).CloudHelpTicketIntake(cloudHelpTicketIntake).Execute()
+	resp, r, err := apiClient.HelpAPI.PostHelpTickets(context.Background()).HelpTicketIntake(helpTicketIntake).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.CloudPostV1HelpTickets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.PostHelpTickets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1HelpTickets`: CloudHelpTicketFiled
-	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.CloudPostV1HelpTickets`: %v\n", resp)
+	// response from `PostHelpTickets`: HelpTicketFiled
+	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.PostHelpTickets`: %v\n", resp)
 }
 ```
 
@@ -251,20 +251,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1HelpTicketsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostHelpTicketsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudHelpTicketIntake** | [**CloudHelpTicketIntake**](CloudHelpTicketIntake.md) |  | 
+ **helpTicketIntake** | [**HelpTicketIntake**](HelpTicketIntake.md) |  | 
 
 ### Return type
 
-[**CloudHelpTicketFiled**](CloudHelpTicketFiled.md)
+[**HelpTicketFiled**](HelpTicketFiled.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

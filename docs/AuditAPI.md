@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Audit**](AuditAPI.md#CloudGetV1Audit) | **Get** /v1/audit | List reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+[**GetAudit**](AuditAPI.md#GetAudit) | **Get** /v1/audit | List reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
 
 
 
-## CloudGetV1Audit
+## GetAudit
 
-> CloudTrailPage CloudGetV1Audit(ctx).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
+> TrailPage GetAudit(ctx).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
 
 List reads the caller's OWN org audit trail, newest first, with the total the filter matched so a console can page it.
 
@@ -41,13 +41,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuditAPI.CloudGetV1Audit(context.Background()).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
+	resp, r, err := apiClient.AuditAPI.GetAudit(context.Background()).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuditAPI.CloudGetV1Audit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuditAPI.GetAudit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Audit`: CloudTrailPage
-	fmt.Fprintf(os.Stdout, "Response from `AuditAPI.CloudGetV1Audit`: %v\n", resp)
+	// response from `GetAudit`: TrailPage
+	fmt.Fprintf(os.Stdout, "Response from `AuditAPI.GetAudit`: %v\n", resp)
 }
 ```
 
@@ -57,7 +57,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AuditRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAuditRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -74,11 +74,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTrailPage**](CloudTrailPage.md)
+[**TrailPage**](TrailPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

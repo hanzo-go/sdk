@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1MarketplaceListingsId**](MarketplaceAPI.md#CloudDeleteV1MarketplaceListingsId) | **Delete** /v1/marketplace/listings/{id} | Unpublish withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
-[**CloudGetV1Marketplace**](MarketplaceAPI.md#CloudGetV1Marketplace) | **Get** /v1/marketplace | Discover lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
-[**CloudGetV1MarketplaceListings**](MarketplaceAPI.md#CloudGetV1MarketplaceListings) | **Get** /v1/marketplace/listings | ListListings returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy.
-[**CloudPostV1MarketplaceInstall**](MarketplaceAPI.md#CloudPostV1MarketplaceInstall) | **Post** /v1/marketplace/install | Install activates one tool for the caller&#39;s own org and project.
-[**CloudPostV1MarketplaceListings**](MarketplaceAPI.md#CloudPostV1MarketplaceListings) | **Post** /v1/marketplace/listings | Publish offers one tool on the marketplace, optionally monetized.
-[**CloudPostV1MarketplaceUninstall**](MarketplaceAPI.md#CloudPostV1MarketplaceUninstall) | **Post** /v1/marketplace/uninstall | Uninstall deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
+[**DeleteMarketplaceListingsById**](MarketplaceAPI.md#DeleteMarketplaceListingsById) | **Delete** /v1/marketplace/listings/{id} | Unpublish withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
+[**GetMarketplace**](MarketplaceAPI.md#GetMarketplace) | **Get** /v1/marketplace | Discover lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
+[**GetMarketplaceListings**](MarketplaceAPI.md#GetMarketplaceListings) | **Get** /v1/marketplace/listings | Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy.
+[**PostMarketplaceInstall**](MarketplaceAPI.md#PostMarketplaceInstall) | **Post** /v1/marketplace/install | Install activates one tool for the caller&#39;s own org and project.
+[**PostMarketplaceListings**](MarketplaceAPI.md#PostMarketplaceListings) | **Post** /v1/marketplace/listings | Publish offers one tool on the marketplace, optionally monetized.
+[**PostMarketplaceUninstall**](MarketplaceAPI.md#PostMarketplaceUninstall) | **Post** /v1/marketplace/uninstall | Uninstall deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
 
 
 
-## CloudDeleteV1MarketplaceListingsId
+## DeleteMarketplaceListingsById
 
-> CloudDeleteV1MarketplaceListingsId(ctx, id).Execute()
+> DeleteMarketplaceListingsById(ctx, id).Execute()
 
 Unpublish withdraws one of the caller org's listings from the marketplace and answers 204.
 
@@ -38,9 +38,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MarketplaceAPI.CloudDeleteV1MarketplaceListingsId(context.Background(), id).Execute()
+	r, err := apiClient.MarketplaceAPI.DeleteMarketplaceListingsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.CloudDeleteV1MarketplaceListingsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.DeleteMarketplaceListingsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1MarketplaceListingsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMarketplaceListingsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -81,9 +81,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Marketplace
+## GetMarketplace
 
-> CloudMarketCatalog CloudGetV1Marketplace(ctx).Execute()
+> MarketCatalog GetMarketplace(ctx).Execute()
 
 Discover lists every tool and agent the caller can reach in their own org and project, enriched with any public listing's title, category and price, and with installed=true on the ones already activated for that scope.
 
@@ -105,13 +105,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketplaceAPI.CloudGetV1Marketplace(context.Background()).Execute()
+	resp, r, err := apiClient.MarketplaceAPI.GetMarketplace(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.CloudGetV1Marketplace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.GetMarketplace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Marketplace`: CloudMarketCatalog
-	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.CloudGetV1Marketplace`: %v\n", resp)
+	// response from `GetMarketplace`: MarketCatalog
+	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.GetMarketplace`: %v\n", resp)
 }
 ```
 
@@ -121,16 +121,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketplaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketplaceRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudMarketCatalog**](CloudMarketCatalog.md)
+[**MarketCatalog**](MarketCatalog.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -142,11 +142,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1MarketplaceReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1MarketplaceListings
+## GetMarketplaceListings
 
-> CloudListingPage CloudGetV1MarketplaceListings(ctx).Execute()
+> ListingPage GetMarketplaceListings(ctx).Execute()
 
-ListListings returns the listings the caller's own org has published — what this org is offering, not what it can buy.
+Returns the listings the caller's own org has published — what this org is offering, not what it can buy.
 
 
 
@@ -166,13 +166,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketplaceAPI.CloudGetV1MarketplaceListings(context.Background()).Execute()
+	resp, r, err := apiClient.MarketplaceAPI.GetMarketplaceListings(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.CloudGetV1MarketplaceListings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.GetMarketplaceListings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1MarketplaceListings`: CloudListingPage
-	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.CloudGetV1MarketplaceListings`: %v\n", resp)
+	// response from `GetMarketplaceListings`: ListingPage
+	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.GetMarketplaceListings`: %v\n", resp)
 }
 ```
 
@@ -182,16 +182,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1MarketplaceListingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketplaceListingsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudListingPage**](CloudListingPage.md)
+[**ListingPage**](ListingPage.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -203,9 +203,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1MarketplaceListi
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketplaceInstall
+## PostMarketplaceInstall
 
-> CloudInstallState CloudPostV1MarketplaceInstall(ctx).CloudInstallReq(cloudInstallReq).Execute()
+> InstallState PostMarketplaceInstall(ctx).InstallReq(installReq).Execute()
 
 Install activates one tool for the caller's own org and project.
 
@@ -224,17 +224,17 @@ import (
 )
 
 func main() {
-	cloudInstallReq := *openapiclient.NewCloudInstallReq() // CloudInstallReq | 
+	installReq := *openapiclient.NewInstallReq() // InstallReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketplaceAPI.CloudPostV1MarketplaceInstall(context.Background()).CloudInstallReq(cloudInstallReq).Execute()
+	resp, r, err := apiClient.MarketplaceAPI.PostMarketplaceInstall(context.Background()).InstallReq(installReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.CloudPostV1MarketplaceInstall``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.PostMarketplaceInstall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketplaceInstall`: CloudInstallState
-	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.CloudPostV1MarketplaceInstall`: %v\n", resp)
+	// response from `PostMarketplaceInstall`: InstallState
+	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.PostMarketplaceInstall`: %v\n", resp)
 }
 ```
 
@@ -244,20 +244,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketplaceInstallRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketplaceInstallRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudInstallReq** | [**CloudInstallReq**](CloudInstallReq.md) |  | 
+ **installReq** | [**InstallReq**](InstallReq.md) |  | 
 
 ### Return type
 
-[**CloudInstallState**](CloudInstallState.md)
+[**InstallState**](InstallState.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -269,9 +269,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketplaceListings
+## PostMarketplaceListings
 
-> CloudListing CloudPostV1MarketplaceListings(ctx).CloudPublishReq(cloudPublishReq).Execute()
+> Listing PostMarketplaceListings(ctx).PublishReq(publishReq).Execute()
 
 Publish offers one tool on the marketplace, optionally monetized.
 
@@ -290,17 +290,17 @@ import (
 )
 
 func main() {
-	cloudPublishReq := *openapiclient.NewCloudPublishReq() // CloudPublishReq | 
+	publishReq := *openapiclient.NewPublishReq() // PublishReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketplaceAPI.CloudPostV1MarketplaceListings(context.Background()).CloudPublishReq(cloudPublishReq).Execute()
+	resp, r, err := apiClient.MarketplaceAPI.PostMarketplaceListings(context.Background()).PublishReq(publishReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.CloudPostV1MarketplaceListings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.PostMarketplaceListings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketplaceListings`: CloudListing
-	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.CloudPostV1MarketplaceListings`: %v\n", resp)
+	// response from `PostMarketplaceListings`: Listing
+	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.PostMarketplaceListings`: %v\n", resp)
 }
 ```
 
@@ -310,20 +310,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketplaceListingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketplaceListingsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudPublishReq** | [**CloudPublishReq**](CloudPublishReq.md) |  | 
+ **publishReq** | [**PublishReq**](PublishReq.md) |  | 
 
 ### Return type
 
-[**CloudListing**](CloudListing.md)
+[**Listing**](Listing.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -335,9 +335,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1MarketplaceUninstall
+## PostMarketplaceUninstall
 
-> CloudInstallState CloudPostV1MarketplaceUninstall(ctx).CloudInstallReq(cloudInstallReq).Execute()
+> InstallState PostMarketplaceUninstall(ctx).InstallReq(installReq).Execute()
 
 Uninstall deactivates one tool for the caller's own org and project, so it stops being dispatchable there.
 
@@ -356,17 +356,17 @@ import (
 )
 
 func main() {
-	cloudInstallReq := *openapiclient.NewCloudInstallReq() // CloudInstallReq | 
+	installReq := *openapiclient.NewInstallReq() // InstallReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketplaceAPI.CloudPostV1MarketplaceUninstall(context.Background()).CloudInstallReq(cloudInstallReq).Execute()
+	resp, r, err := apiClient.MarketplaceAPI.PostMarketplaceUninstall(context.Background()).InstallReq(installReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.CloudPostV1MarketplaceUninstall``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketplaceAPI.PostMarketplaceUninstall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1MarketplaceUninstall`: CloudInstallState
-	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.CloudPostV1MarketplaceUninstall`: %v\n", resp)
+	// response from `PostMarketplaceUninstall`: InstallState
+	fmt.Fprintf(os.Stdout, "Response from `MarketplaceAPI.PostMarketplaceUninstall`: %v\n", resp)
 }
 ```
 
@@ -376,20 +376,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1MarketplaceUninstallRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketplaceUninstallRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudInstallReq** | [**CloudInstallReq**](CloudInstallReq.md) |  | 
+ **installReq** | [**InstallReq**](InstallReq.md) |  | 
 
 ### Return type
 
-[**CloudInstallState**](CloudInstallState.md)
+[**InstallState**](InstallState.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

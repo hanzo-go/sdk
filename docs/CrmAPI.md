@@ -4,34 +4,34 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1CrmCompaniesId**](CrmAPI.md#CloudDeleteV1CrmCompaniesId) | **Delete** /v1/crm/companies/{id} | DeleteCompany removes one of the caller org&#39;s companies and answers 204.
-[**CloudDeleteV1CrmContactsId**](CrmAPI.md#CloudDeleteV1CrmContactsId) | **Delete** /v1/crm/contacts/{id} | DeleteContact removes one of the caller org&#39;s contacts and answers 204.
-[**CloudDeleteV1CrmOpportunitiesId**](CrmAPI.md#CloudDeleteV1CrmOpportunitiesId) | **Delete** /v1/crm/opportunities/{id} | DeleteOpportunity removes one of the caller org&#39;s deals and answers 204.
-[**CloudGetV1CrmApplications**](CrmAPI.md#CloudGetV1CrmApplications) | **Get** /v1/crm/applications | ListApplications returns the org&#39;s Startup Program applications, newest first.
-[**CloudGetV1CrmApplicationsId**](CrmAPI.md#CloudGetV1CrmApplicationsId) | **Get** /v1/crm/applications/{id} | GetApplication returns one Startup Program application with its AI screen and stage history.
-[**CloudGetV1CrmCompanies**](CrmAPI.md#CloudGetV1CrmCompanies) | **Get** /v1/crm/companies | ListCompanies returns the caller org&#39;s companies, most recently updated first.
-[**CloudGetV1CrmCompaniesId**](CrmAPI.md#CloudGetV1CrmCompaniesId) | **Get** /v1/crm/companies/{id} | GetCompany returns one of the caller org&#39;s companies.
-[**CloudGetV1CrmContacts**](CrmAPI.md#CloudGetV1CrmContacts) | **Get** /v1/crm/contacts | ListContacts returns the caller org&#39;s contacts, most recently updated first.
-[**CloudGetV1CrmContactsId**](CrmAPI.md#CloudGetV1CrmContactsId) | **Get** /v1/crm/contacts/{id} | GetContact returns one of the caller org&#39;s contacts.
-[**CloudGetV1CrmOpportunities**](CrmAPI.md#CloudGetV1CrmOpportunities) | **Get** /v1/crm/opportunities | ListOpportunities returns the caller org&#39;s deals, most recently updated first.
-[**CloudGetV1CrmOpportunitiesId**](CrmAPI.md#CloudGetV1CrmOpportunitiesId) | **Get** /v1/crm/opportunities/{id} | GetOpportunity returns one of the caller org&#39;s deals.
-[**CloudGetV1CrmSummary**](CrmAPI.md#CloudGetV1CrmSummary) | **Get** /v1/crm/summary | Summary counts the caller org&#39;s CRM records: companies, contacts, opportunities.
-[**CloudPatchV1CrmApplicationsId**](CrmAPI.md#CloudPatchV1CrmApplicationsId) | **Patch** /v1/crm/applications/{id} | PatchApplication moves one Startup Program application through the pipeline.
-[**CloudPostV1CrmApplications**](CrmAPI.md#CloudPostV1CrmApplications) | **Post** /v1/crm/applications | 
-[**CloudPostV1CrmCompanies**](CrmAPI.md#CloudPostV1CrmCompanies) | **Post** /v1/crm/companies | CreateCompany adds a company to the caller&#39;s org and answers 201 with the stored record.
-[**CloudPostV1CrmContacts**](CrmAPI.md#CloudPostV1CrmContacts) | **Post** /v1/crm/contacts | CreateContact adds a person to the caller&#39;s org and answers 201 with the stored record.
-[**CloudPostV1CrmOpportunities**](CrmAPI.md#CloudPostV1CrmOpportunities) | **Post** /v1/crm/opportunities | CreateOpportunity adds a deal to the caller&#39;s org and answers 201 with the stored record.
-[**CloudPutV1CrmCompaniesId**](CrmAPI.md#CloudPutV1CrmCompaniesId) | **Put** /v1/crm/companies/{id} | UpdateCompany replaces one of the caller org&#39;s companies.
-[**CloudPutV1CrmContactsId**](CrmAPI.md#CloudPutV1CrmContactsId) | **Put** /v1/crm/contacts/{id} | UpdateContact replaces one of the caller org&#39;s contacts.
-[**CloudPutV1CrmOpportunitiesId**](CrmAPI.md#CloudPutV1CrmOpportunitiesId) | **Put** /v1/crm/opportunities/{id} | UpdateOpportunity replaces one of the caller org&#39;s deals.
+[**DeleteCrmCompaniesById**](CrmAPI.md#DeleteCrmCompaniesById) | **Delete** /v1/crm/companies/{id} | Removes one of the caller org&#39;s companies and answers 204.
+[**DeleteCrmContactsById**](CrmAPI.md#DeleteCrmContactsById) | **Delete** /v1/crm/contacts/{id} | Removes one of the caller org&#39;s contacts and answers 204.
+[**DeleteCrmOpportunitiesById**](CrmAPI.md#DeleteCrmOpportunitiesById) | **Delete** /v1/crm/opportunities/{id} | Removes one of the caller org&#39;s deals and answers 204.
+[**GetCrmApplications**](CrmAPI.md#GetCrmApplications) | **Get** /v1/crm/applications | Returns the org&#39;s Startup Program applications, newest first.
+[**GetCrmApplicationsById**](CrmAPI.md#GetCrmApplicationsById) | **Get** /v1/crm/applications/{id} | Returns one Startup Program application with its AI screen and stage history.
+[**GetCrmCompanies**](CrmAPI.md#GetCrmCompanies) | **Get** /v1/crm/companies | Returns the caller org&#39;s companies, most recently updated first.
+[**GetCrmCompaniesById**](CrmAPI.md#GetCrmCompaniesById) | **Get** /v1/crm/companies/{id} | Returns one of the caller org&#39;s companies.
+[**GetCrmContacts**](CrmAPI.md#GetCrmContacts) | **Get** /v1/crm/contacts | Returns the caller org&#39;s contacts, most recently updated first.
+[**GetCrmContactsById**](CrmAPI.md#GetCrmContactsById) | **Get** /v1/crm/contacts/{id} | Returns one of the caller org&#39;s contacts.
+[**GetCrmOpportunities**](CrmAPI.md#GetCrmOpportunities) | **Get** /v1/crm/opportunities | Returns the caller org&#39;s deals, most recently updated first.
+[**GetCrmOpportunitiesById**](CrmAPI.md#GetCrmOpportunitiesById) | **Get** /v1/crm/opportunities/{id} | Returns one of the caller org&#39;s deals.
+[**GetCrmSummary**](CrmAPI.md#GetCrmSummary) | **Get** /v1/crm/summary | Summary counts the caller org&#39;s CRM records: companies, contacts, opportunities.
+[**PatchCrmApplicationsById**](CrmAPI.md#PatchCrmApplicationsById) | **Patch** /v1/crm/applications/{id} | Moves one Startup Program application through the pipeline.
+[**PostCrmApplications**](CrmAPI.md#PostCrmApplications) | **Post** /v1/crm/applications | Apply to the Startup Program from the public form
+[**PostCrmCompanies**](CrmAPI.md#PostCrmCompanies) | **Post** /v1/crm/companies | Adds a company to the caller&#39;s org and answers 201 with the stored record.
+[**PostCrmContacts**](CrmAPI.md#PostCrmContacts) | **Post** /v1/crm/contacts | Adds a person to the caller&#39;s org and answers 201 with the stored record.
+[**PostCrmOpportunities**](CrmAPI.md#PostCrmOpportunities) | **Post** /v1/crm/opportunities | Adds a deal to the caller&#39;s org and answers 201 with the stored record.
+[**PutCrmCompaniesById**](CrmAPI.md#PutCrmCompaniesById) | **Put** /v1/crm/companies/{id} | Replaces one of the caller org&#39;s companies.
+[**PutCrmContactsById**](CrmAPI.md#PutCrmContactsById) | **Put** /v1/crm/contacts/{id} | Replaces one of the caller org&#39;s contacts.
+[**PutCrmOpportunitiesById**](CrmAPI.md#PutCrmOpportunitiesById) | **Put** /v1/crm/opportunities/{id} | Replaces one of the caller org&#39;s deals.
 
 
 
-## CloudDeleteV1CrmCompaniesId
+## DeleteCrmCompaniesById
 
-> CloudDeleteV1CrmCompaniesId(ctx, id).Execute()
+> DeleteCrmCompaniesById(ctx, id).Execute()
 
-DeleteCompany removes one of the caller org's companies and answers 204.
+Removes one of the caller org's companies and answers 204.
 
 
 
@@ -52,9 +52,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CrmAPI.CloudDeleteV1CrmCompaniesId(context.Background(), id).Execute()
+	r, err := apiClient.CrmAPI.DeleteCrmCompaniesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudDeleteV1CrmCompaniesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.DeleteCrmCompaniesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CrmCompaniesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCrmCompaniesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -95,11 +95,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CrmContactsId
+## DeleteCrmContactsById
 
-> CloudDeleteV1CrmContactsId(ctx, id).Execute()
+> DeleteCrmContactsById(ctx, id).Execute()
 
-DeleteContact removes one of the caller org's contacts and answers 204.
+Removes one of the caller org's contacts and answers 204.
 
 
 
@@ -120,9 +120,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CrmAPI.CloudDeleteV1CrmContactsId(context.Background(), id).Execute()
+	r, err := apiClient.CrmAPI.DeleteCrmContactsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudDeleteV1CrmContactsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.DeleteCrmContactsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CrmContactsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCrmContactsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -163,11 +163,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1CrmOpportunitiesId
+## DeleteCrmOpportunitiesById
 
-> CloudDeleteV1CrmOpportunitiesId(ctx, id).Execute()
+> DeleteCrmOpportunitiesById(ctx, id).Execute()
 
-DeleteOpportunity removes one of the caller org's deals and answers 204.
+Removes one of the caller org's deals and answers 204.
 
 
 
@@ -188,9 +188,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CrmAPI.CloudDeleteV1CrmOpportunitiesId(context.Background(), id).Execute()
+	r, err := apiClient.CrmAPI.DeleteCrmOpportunitiesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudDeleteV1CrmOpportunitiesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.DeleteCrmOpportunitiesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1CrmOpportunitiesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCrmOpportunitiesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -231,11 +231,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmApplications
+## GetCrmApplications
 
-> CloudApplicationList CloudGetV1CrmApplications(ctx).Stage(stage).Limit(limit).Execute()
+> ApplicationList GetCrmApplications(ctx).Stage(stage).Limit(limit).Execute()
 
-ListApplications returns the org's Startup Program applications, newest first.
+Returns the org's Startup Program applications, newest first.
 
 
 
@@ -257,13 +257,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmApplications(context.Background()).Stage(stage).Limit(limit).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmApplications(context.Background()).Stage(stage).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmApplications``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmApplications`: CloudApplicationList
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmApplications`: %v\n", resp)
+	// response from `GetCrmApplications`: ApplicationList
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmApplications`: %v\n", resp)
 }
 ```
 
@@ -273,7 +273,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmApplicationsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmApplicationsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -283,11 +283,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudApplicationList**](CloudApplicationList.md)
+[**ApplicationList**](ApplicationList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -299,11 +299,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmApplicationsId
+## GetCrmApplicationsById
 
-> CloudApplication CloudGetV1CrmApplicationsId(ctx, id).Execute()
+> ProgramApplication GetCrmApplicationsById(ctx, id).Execute()
 
-GetApplication returns one Startup Program application with its AI screen and stage history.
+Returns one Startup Program application with its AI screen and stage history.
 
 
 
@@ -324,13 +324,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmApplicationsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmApplicationsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmApplicationsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmApplicationsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmApplicationsId`: CloudApplication
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmApplicationsId`: %v\n", resp)
+	// response from `GetCrmApplicationsById`: ProgramApplication
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmApplicationsById`: %v\n", resp)
 }
 ```
 
@@ -344,7 +344,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmApplicationsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmApplicationsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -353,11 +353,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudApplication**](CloudApplication.md)
+[**ProgramApplication**](ProgramApplication.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -369,11 +369,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmCompanies
+## GetCrmCompanies
 
-> CloudCompanyList CloudGetV1CrmCompanies(ctx).Limit(limit).Execute()
+> CompanyList GetCrmCompanies(ctx).Limit(limit).Execute()
 
-ListCompanies returns the caller org's companies, most recently updated first.
+Returns the caller org's companies, most recently updated first.
 
 
 
@@ -394,13 +394,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmCompanies(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmCompanies(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmCompanies``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmCompanies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmCompanies`: CloudCompanyList
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmCompanies`: %v\n", resp)
+	// response from `GetCrmCompanies`: CompanyList
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmCompanies`: %v\n", resp)
 }
 ```
 
@@ -410,7 +410,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmCompaniesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmCompaniesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -419,11 +419,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCompanyList**](CloudCompanyList.md)
+[**CompanyList**](CompanyList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -435,11 +435,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmCompaniesId
+## GetCrmCompaniesById
 
-> CloudCompany CloudGetV1CrmCompaniesId(ctx, id).Execute()
+> Company GetCrmCompaniesById(ctx, id).Execute()
 
-GetCompany returns one of the caller org's companies.
+Returns one of the caller org's companies.
 
 
 
@@ -460,13 +460,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmCompaniesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmCompaniesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmCompaniesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmCompaniesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmCompaniesId`: CloudCompany
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmCompaniesId`: %v\n", resp)
+	// response from `GetCrmCompaniesById`: Company
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmCompaniesById`: %v\n", resp)
 }
 ```
 
@@ -480,7 +480,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmCompaniesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmCompaniesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -489,11 +489,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCompany**](CloudCompany.md)
+[**Company**](Company.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -505,11 +505,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmContacts
+## GetCrmContacts
 
-> CloudContactList CloudGetV1CrmContacts(ctx).CompanyId(companyId).Limit(limit).Execute()
+> ContactList GetCrmContacts(ctx).CompanyId(companyId).Limit(limit).Execute()
 
-ListContacts returns the caller org's contacts, most recently updated first.
+Returns the caller org's contacts, most recently updated first.
 
 
 
@@ -531,13 +531,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmContacts(context.Background()).CompanyId(companyId).Limit(limit).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmContacts(context.Background()).CompanyId(companyId).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmContacts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmContacts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmContacts`: CloudContactList
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmContacts`: %v\n", resp)
+	// response from `GetCrmContacts`: ContactList
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmContacts`: %v\n", resp)
 }
 ```
 
@@ -547,7 +547,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmContactsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmContactsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -557,11 +557,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudContactList**](CloudContactList.md)
+[**ContactList**](ContactList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -573,11 +573,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmContactsId
+## GetCrmContactsById
 
-> CloudContact CloudGetV1CrmContactsId(ctx, id).Execute()
+> Contact GetCrmContactsById(ctx, id).Execute()
 
-GetContact returns one of the caller org's contacts.
+Returns one of the caller org's contacts.
 
 
 
@@ -598,13 +598,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmContactsId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmContactsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmContactsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmContactsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmContactsId`: CloudContact
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmContactsId`: %v\n", resp)
+	// response from `GetCrmContactsById`: Contact
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmContactsById`: %v\n", resp)
 }
 ```
 
@@ -618,7 +618,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmContactsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmContactsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -627,11 +627,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudContact**](CloudContact.md)
+[**Contact**](Contact.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -643,11 +643,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmOpportunities
+## GetCrmOpportunities
 
-> CloudOppList CloudGetV1CrmOpportunities(ctx).Stage(stage).Limit(limit).Execute()
+> OppList GetCrmOpportunities(ctx).Stage(stage).Limit(limit).Execute()
 
-ListOpportunities returns the caller org's deals, most recently updated first.
+Returns the caller org's deals, most recently updated first.
 
 
 
@@ -669,13 +669,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmOpportunities(context.Background()).Stage(stage).Limit(limit).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmOpportunities(context.Background()).Stage(stage).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmOpportunities``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmOpportunities``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmOpportunities`: CloudOppList
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmOpportunities`: %v\n", resp)
+	// response from `GetCrmOpportunities`: OppList
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmOpportunities`: %v\n", resp)
 }
 ```
 
@@ -685,7 +685,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmOpportunitiesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmOpportunitiesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -695,11 +695,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudOppList**](CloudOppList.md)
+[**OppList**](OppList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -711,11 +711,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmOpportunitiesId
+## GetCrmOpportunitiesById
 
-> CloudOpportunity CloudGetV1CrmOpportunitiesId(ctx, id).Execute()
+> Opportunity GetCrmOpportunitiesById(ctx, id).Execute()
 
-GetOpportunity returns one of the caller org's deals.
+Returns one of the caller org's deals.
 
 
 
@@ -736,13 +736,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmOpportunitiesId(context.Background(), id).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmOpportunitiesById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmOpportunitiesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmOpportunitiesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmOpportunitiesId`: CloudOpportunity
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmOpportunitiesId`: %v\n", resp)
+	// response from `GetCrmOpportunitiesById`: Opportunity
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmOpportunitiesById`: %v\n", resp)
 }
 ```
 
@@ -756,7 +756,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmOpportunitiesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmOpportunitiesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -765,11 +765,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudOpportunity**](CloudOpportunity.md)
+[**Opportunity**](Opportunity.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -781,9 +781,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1CrmSummary
+## GetCrmSummary
 
-> CloudCrmSummary CloudGetV1CrmSummary(ctx).Execute()
+> CrmSummary GetCrmSummary(ctx).Execute()
 
 Summary counts the caller org's CRM records: companies, contacts, opportunities.
 
@@ -805,13 +805,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudGetV1CrmSummary(context.Background()).Execute()
+	resp, r, err := apiClient.CrmAPI.GetCrmSummary(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudGetV1CrmSummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.GetCrmSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1CrmSummary`: CloudCrmSummary
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudGetV1CrmSummary`: %v\n", resp)
+	// response from `GetCrmSummary`: CrmSummary
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.GetCrmSummary`: %v\n", resp)
 }
 ```
 
@@ -821,16 +821,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1CrmSummaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCrmSummaryRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudCrmSummary**](CloudCrmSummary.md)
+[**CrmSummary**](CrmSummary.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -842,11 +842,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1CrmSummaryReques
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1CrmApplicationsId
+## PatchCrmApplicationsById
 
-> CloudApplication CloudPatchV1CrmApplicationsId(ctx, id).CloudPatchApplicationIn(cloudPatchApplicationIn).Execute()
+> ProgramApplication PatchCrmApplicationsById(ctx, id).PatchApplicationIn(patchApplicationIn).Execute()
 
-PatchApplication moves one Startup Program application through the pipeline.
+Moves one Startup Program application through the pipeline.
 
 
 
@@ -864,17 +864,17 @@ import (
 
 func main() {
 	id := "appl_1" // string | ID is the application to move, from the path.
-	cloudPatchApplicationIn := *openapiclient.NewCloudPatchApplicationIn() // CloudPatchApplicationIn | 
+	patchApplicationIn := *openapiclient.NewPatchApplicationIn() // PatchApplicationIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudPatchV1CrmApplicationsId(context.Background(), id).CloudPatchApplicationIn(cloudPatchApplicationIn).Execute()
+	resp, r, err := apiClient.CrmAPI.PatchCrmApplicationsById(context.Background(), id).PatchApplicationIn(patchApplicationIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudPatchV1CrmApplicationsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.PatchCrmApplicationsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1CrmApplicationsId`: CloudApplication
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudPatchV1CrmApplicationsId`: %v\n", resp)
+	// response from `PatchCrmApplicationsById`: ProgramApplication
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.PatchCrmApplicationsById`: %v\n", resp)
 }
 ```
 
@@ -888,21 +888,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1CrmApplicationsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchCrmApplicationsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPatchApplicationIn** | [**CloudPatchApplicationIn**](CloudPatchApplicationIn.md) |  | 
+ **patchApplicationIn** | [**PatchApplicationIn**](PatchApplicationIn.md) |  | 
 
 ### Return type
 
-[**CloudApplication**](CloudApplication.md)
+[**ProgramApplication**](ProgramApplication.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -914,9 +914,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CrmApplications
+## PostCrmApplications
 
-> CloudPostV1CrmApplications(ctx).Execute()
+> PostCrmApplications(ctx).Execute()
+
+Apply to the Startup Program from the public form
 
 
 
@@ -936,9 +938,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CrmAPI.CloudPostV1CrmApplications(context.Background()).Execute()
+	r, err := apiClient.CrmAPI.PostCrmApplications(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudPostV1CrmApplications``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.PostCrmApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -950,7 +952,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CrmApplicationsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmApplicationsRequest struct via the builder pattern
 
 
 ### Return type
@@ -959,7 +961,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1CrmApplications
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -971,77 +973,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1CrmApplications
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CrmCompanies
+## PostCrmCompanies
 
-> CloudCompany CloudPostV1CrmCompanies(ctx).CloudCompanyReq(cloudCompanyReq).Execute()
+> Company PostCrmCompanies(ctx).CompanyReq(companyReq).Execute()
 
-CreateCompany adds a company to the caller's org and answers 201 with the stored record.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudCompanyReq := *openapiclient.NewCloudCompanyReq() // CloudCompanyReq | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudPostV1CrmCompanies(context.Background()).CloudCompanyReq(cloudCompanyReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudPostV1CrmCompanies``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1CrmCompanies`: CloudCompany
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudPostV1CrmCompanies`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1CrmCompaniesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudCompanyReq** | [**CloudCompanyReq**](CloudCompanyReq.md) |  | 
-
-### Return type
-
-[**CloudCompany**](CloudCompany.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1CrmContacts
-
-> CloudContact CloudPostV1CrmContacts(ctx).CloudContactReq(cloudContactReq).Execute()
-
-CreateContact adds a person to the caller's org and answers 201 with the stored record.
+Adds a company to the caller's org and answers 201 with the stored record.
 
 
 
@@ -1058,17 +994,17 @@ import (
 )
 
 func main() {
-	cloudContactReq := *openapiclient.NewCloudContactReq() // CloudContactReq | 
+	companyReq := *openapiclient.NewCompanyReq() // CompanyReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudPostV1CrmContacts(context.Background()).CloudContactReq(cloudContactReq).Execute()
+	resp, r, err := apiClient.CrmAPI.PostCrmCompanies(context.Background()).CompanyReq(companyReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudPostV1CrmContacts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.PostCrmCompanies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CrmContacts`: CloudContact
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudPostV1CrmContacts`: %v\n", resp)
+	// response from `PostCrmCompanies`: Company
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.PostCrmCompanies`: %v\n", resp)
 }
 ```
 
@@ -1078,20 +1014,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CrmContactsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmCompaniesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudContactReq** | [**CloudContactReq**](CloudContactReq.md) |  | 
+ **companyReq** | [**CompanyReq**](CompanyReq.md) |  | 
 
 ### Return type
 
-[**CloudContact**](CloudContact.md)
+[**Company**](Company.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1103,11 +1039,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1CrmOpportunities
+## PostCrmContacts
 
-> CloudOpportunity CloudPostV1CrmOpportunities(ctx).CloudOppReq(cloudOppReq).Execute()
+> Contact PostCrmContacts(ctx).ContactReq(contactReq).Execute()
 
-CreateOpportunity adds a deal to the caller's org and answers 201 with the stored record.
+Adds a person to the caller's org and answers 201 with the stored record.
 
 
 
@@ -1124,17 +1060,17 @@ import (
 )
 
 func main() {
-	cloudOppReq := *openapiclient.NewCloudOppReq() // CloudOppReq | 
+	contactReq := *openapiclient.NewContactReq() // ContactReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudPostV1CrmOpportunities(context.Background()).CloudOppReq(cloudOppReq).Execute()
+	resp, r, err := apiClient.CrmAPI.PostCrmContacts(context.Background()).ContactReq(contactReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudPostV1CrmOpportunities``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.PostCrmContacts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1CrmOpportunities`: CloudOpportunity
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudPostV1CrmOpportunities`: %v\n", resp)
+	// response from `PostCrmContacts`: Contact
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.PostCrmContacts`: %v\n", resp)
 }
 ```
 
@@ -1144,20 +1080,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1CrmOpportunitiesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmContactsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudOppReq** | [**CloudOppReq**](CloudOppReq.md) |  | 
+ **contactReq** | [**ContactReq**](ContactReq.md) |  | 
 
 ### Return type
 
-[**CloudOpportunity**](CloudOpportunity.md)
+[**Contact**](Contact.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1169,11 +1105,77 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1CrmCompaniesId
+## PostCrmOpportunities
 
-> CloudCompany CloudPutV1CrmCompaniesId(ctx, id).CloudCompanyReq(cloudCompanyReq).Execute()
+> Opportunity PostCrmOpportunities(ctx).OppReq(oppReq).Execute()
 
-UpdateCompany replaces one of the caller org's companies.
+Adds a deal to the caller's org and answers 201 with the stored record.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	oppReq := *openapiclient.NewOppReq() // OppReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CrmAPI.PostCrmOpportunities(context.Background()).OppReq(oppReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.PostCrmOpportunities``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmOpportunities`: Opportunity
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.PostCrmOpportunities`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmOpportunitiesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **oppReq** | [**OppReq**](OppReq.md) |  | 
+
+### Return type
+
+[**Opportunity**](Opportunity.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutCrmCompaniesById
+
+> Company PutCrmCompaniesById(ctx, id).CompanyReq(companyReq).Execute()
+
+Replaces one of the caller org's companies.
 
 
 
@@ -1191,17 +1193,17 @@ import (
 
 func main() {
 	id := "comp_1" // string | ID names the company to update and comes from the path. A create ignores it: the server mints the id.
-	cloudCompanyReq := *openapiclient.NewCloudCompanyReq() // CloudCompanyReq | 
+	companyReq := *openapiclient.NewCompanyReq() // CompanyReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudPutV1CrmCompaniesId(context.Background(), id).CloudCompanyReq(cloudCompanyReq).Execute()
+	resp, r, err := apiClient.CrmAPI.PutCrmCompaniesById(context.Background(), id).CompanyReq(companyReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudPutV1CrmCompaniesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.PutCrmCompaniesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1CrmCompaniesId`: CloudCompany
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudPutV1CrmCompaniesId`: %v\n", resp)
+	// response from `PutCrmCompaniesById`: Company
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.PutCrmCompaniesById`: %v\n", resp)
 }
 ```
 
@@ -1215,21 +1217,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1CrmCompaniesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCrmCompaniesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudCompanyReq** | [**CloudCompanyReq**](CloudCompanyReq.md) |  | 
+ **companyReq** | [**CompanyReq**](CompanyReq.md) |  | 
 
 ### Return type
 
-[**CloudCompany**](CloudCompany.md)
+[**Company**](Company.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1241,11 +1243,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1CrmContactsId
+## PutCrmContactsById
 
-> CloudContact CloudPutV1CrmContactsId(ctx, id).CloudContactReq(cloudContactReq).Execute()
+> Contact PutCrmContactsById(ctx, id).ContactReq(contactReq).Execute()
 
-UpdateContact replaces one of the caller org's contacts.
+Replaces one of the caller org's contacts.
 
 
 
@@ -1263,17 +1265,17 @@ import (
 
 func main() {
 	id := "cont_1" // string | ID names the contact to update and comes from the path. A create ignores it: the server mints the id.
-	cloudContactReq := *openapiclient.NewCloudContactReq() // CloudContactReq | 
+	contactReq := *openapiclient.NewContactReq() // ContactReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudPutV1CrmContactsId(context.Background(), id).CloudContactReq(cloudContactReq).Execute()
+	resp, r, err := apiClient.CrmAPI.PutCrmContactsById(context.Background(), id).ContactReq(contactReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudPutV1CrmContactsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.PutCrmContactsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1CrmContactsId`: CloudContact
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudPutV1CrmContactsId`: %v\n", resp)
+	// response from `PutCrmContactsById`: Contact
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.PutCrmContactsById`: %v\n", resp)
 }
 ```
 
@@ -1287,21 +1289,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1CrmContactsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCrmContactsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudContactReq** | [**CloudContactReq**](CloudContactReq.md) |  | 
+ **contactReq** | [**ContactReq**](ContactReq.md) |  | 
 
 ### Return type
 
-[**CloudContact**](CloudContact.md)
+[**Contact**](Contact.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1313,11 +1315,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1CrmOpportunitiesId
+## PutCrmOpportunitiesById
 
-> CloudOpportunity CloudPutV1CrmOpportunitiesId(ctx, id).CloudOppReq(cloudOppReq).Execute()
+> Opportunity PutCrmOpportunitiesById(ctx, id).OppReq(oppReq).Execute()
 
-UpdateOpportunity replaces one of the caller org's deals.
+Replaces one of the caller org's deals.
 
 
 
@@ -1335,17 +1337,17 @@ import (
 
 func main() {
 	id := "oppo_1" // string | ID names the opportunity to update and comes from the path. A create ignores it: the server mints the id.
-	cloudOppReq := *openapiclient.NewCloudOppReq() // CloudOppReq | 
+	oppReq := *openapiclient.NewOppReq() // OppReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CrmAPI.CloudPutV1CrmOpportunitiesId(context.Background(), id).CloudOppReq(cloudOppReq).Execute()
+	resp, r, err := apiClient.CrmAPI.PutCrmOpportunitiesById(context.Background(), id).OppReq(oppReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.CloudPutV1CrmOpportunitiesId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CrmAPI.PutCrmOpportunitiesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1CrmOpportunitiesId`: CloudOpportunity
-	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.CloudPutV1CrmOpportunitiesId`: %v\n", resp)
+	// response from `PutCrmOpportunitiesById`: Opportunity
+	fmt.Fprintf(os.Stdout, "Response from `CrmAPI.PutCrmOpportunitiesById`: %v\n", resp)
 }
 ```
 
@@ -1359,21 +1361,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1CrmOpportunitiesIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCrmOpportunitiesByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudOppReq** | [**CloudOppReq**](CloudOppReq.md) |  | 
+ **oppReq** | [**OppReq**](OppReq.md) |  | 
 
 ### Return type
 
-[**CloudOpportunity**](CloudOpportunity.md)
+[**Opportunity**](Opportunity.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

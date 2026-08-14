@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudListGpuAlerts**](GpusAPI.md#CloudListGpuAlerts) | **Get** /v1/gpus/alerts | Is an HONEST empty surface: Visor exposes no GPU alert inventory, so this returns [] rather than fabricating alerts.
-[**CloudListGpus**](GpusAPI.md#CloudListGpus) | **Get** /v1/gpus | Returns one row per physical accelerator the caller&#39;s org has, derived from its real GPU machines (the size slug says how many cards a node holds) and from the accelerators BYO workers report through nvidia-smi.
+[**ListGpuAlerts**](GpusAPI.md#ListGpuAlerts) | **Get** /v1/gpus/alerts | Is an HONEST empty surface: Visor exposes no GPU alert inventory, so this returns [] rather than fabricating alerts.
+[**ListGpus**](GpusAPI.md#ListGpus) | **Get** /v1/gpus | Returns one row per physical accelerator the caller&#39;s org has, derived from its real GPU machines (the size slug says how many cards a node holds) and from the accelerators BYO workers report through nvidia-smi.
 
 
 
-## CloudListGpuAlerts
+## ListGpuAlerts
 
-> CloudGpuAlertList CloudListGpuAlerts(ctx).Execute()
+> GpuAlertList ListGpuAlerts(ctx).Execute()
 
 Is an HONEST empty surface: Visor exposes no GPU alert inventory, so this returns [] rather than fabricating alerts.
 
@@ -33,13 +33,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GpusAPI.CloudListGpuAlerts(context.Background()).Execute()
+	resp, r, err := apiClient.GpusAPI.ListGpuAlerts(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GpusAPI.CloudListGpuAlerts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GpusAPI.ListGpuAlerts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListGpuAlerts`: CloudGpuAlertList
-	fmt.Fprintf(os.Stdout, "Response from `GpusAPI.CloudListGpuAlerts`: %v\n", resp)
+	// response from `ListGpuAlerts`: GpuAlertList
+	fmt.Fprintf(os.Stdout, "Response from `GpusAPI.ListGpuAlerts`: %v\n", resp)
 }
 ```
 
@@ -49,16 +49,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListGpuAlertsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListGpuAlertsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudGpuAlertList**](CloudGpuAlertList.md)
+[**GpuAlertList**](GpuAlertList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -70,9 +70,9 @@ Other parameters are passed through a pointer to a apiCloudListGpuAlertsRequest 
 [[Back to README]](../README.md)
 
 
-## CloudListGpus
+## ListGpus
 
-> CloudGpuList CloudListGpus(ctx).Execute()
+> GpuList ListGpus(ctx).Execute()
 
 Returns one row per physical accelerator the caller's org has, derived from its real GPU machines (the size slug says how many cards a node holds) and from the accelerators BYO workers report through nvidia-smi.
 
@@ -94,13 +94,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GpusAPI.CloudListGpus(context.Background()).Execute()
+	resp, r, err := apiClient.GpusAPI.ListGpus(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GpusAPI.CloudListGpus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GpusAPI.ListGpus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListGpus`: CloudGpuList
-	fmt.Fprintf(os.Stdout, "Response from `GpusAPI.CloudListGpus`: %v\n", resp)
+	// response from `ListGpus`: GpuList
+	fmt.Fprintf(os.Stdout, "Response from `GpusAPI.ListGpus`: %v\n", resp)
 }
 ```
 
@@ -110,16 +110,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListGpusRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListGpusRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudGpuList**](CloudGpuList.md)
+[**GpuList**](GpuList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,48 +4,52 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1GitKeysId**](GitAPI.md#CloudDeleteV1GitKeysId) | **Delete** /v1/git/keys/{id} | Removes a registered SSH key, scoped to the caller&#39;s org: an org can only delete its own, and a key id it does not own is not found.
-[**CloudDeleteV1GitReposName**](GitAPI.md#CloudDeleteV1GitReposName) | **Delete** /v1/git/repos/{name} | Removes a repo&#39;s metadata and purges its storage.
-[**CloudDeleteV1GitReposNameMirrorsId**](GitAPI.md#CloudDeleteV1GitReposNameMirrorsId) | **Delete** /v1/git/repos/{name}/mirrors/{id} | Removes one outbound mirror target; later pushes stop being forwarded to it.
-[**CloudDeleteV1GitReposNameSubscriptionsId**](GitAPI.md#CloudDeleteV1GitReposNameSubscriptionsId) | **Delete** /v1/git/repos/{name}/subscriptions/{id} | Removes one Slack subscription from a repo; the notifier stops posting that repo&#39;s events to that channel.
-[**CloudGetV1GitByOrgByProjectByRepoInfoRefs**](GitAPI.md#CloudGetV1GitByOrgByProjectByRepoInfoRefs) | **Get** /v1/git/{org}/{project}/{repo}/info/refs | 
-[**CloudGetV1GitByOrgByRepoInfoRefs**](GitAPI.md#CloudGetV1GitByOrgByRepoInfoRefs) | **Get** /v1/git/{org}/{repo}/info/refs | 
-[**CloudGetV1GitKeys**](GitAPI.md#CloudGetV1GitKeys) | **Get** /v1/git/keys | Returns the SSH public keys registered to the caller&#39;s org — the keys that authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60;.
-[**CloudGetV1GitRepos**](GitAPI.md#CloudGetV1GitRepos) | **Get** /v1/git/repos | Returns the repos in the caller&#39;s scope, most recently updated first.
-[**CloudGetV1GitReposName**](GitAPI.md#CloudGetV1GitReposName) | **Get** /v1/git/repos/{name} | Returns one repo with its live ref state: every branch name and the resolved HEAD commit.
-[**CloudGetV1GitReposNameBlob**](GitAPI.md#CloudGetV1GitReposNameBlob) | **Get** /v1/git/repos/{name}/blob | Returns one file&#39;s bytes at one revision.
-[**CloudGetV1GitReposNameCommits**](GitAPI.md#CloudGetV1GitReposNameCommits) | **Get** /v1/git/repos/{name}/commits | Walks a ref&#39;s history newest first, or one path&#39;s history when a path is given.
-[**CloudGetV1GitReposNameFiles**](GitAPI.md#CloudGetV1GitReposNameFiles) | **Get** /v1/git/repos/{name}/files | Returns every file a glob selects at one revision, WITH its bytes and the revision they came from.
-[**CloudGetV1GitReposNameMirrors**](GitAPI.md#CloudGetV1GitReposNameMirrors) | **Get** /v1/git/repos/{name}/mirrors | Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
-[**CloudGetV1GitReposNameReadme**](GitAPI.md#CloudGetV1GitReposNameReadme) | **Get** /v1/git/repos/{name}/readme | Returns the README at the tree root as plain text — unrendered, so the caller decides how to present it.
-[**CloudGetV1GitReposNameRefs**](GitAPI.md#CloudGetV1GitReposNameRefs) | **Get** /v1/git/repos/{name}/refs | Lists a repo&#39;s branches, tags and default branch — what a branch picker needs in one call.
-[**CloudGetV1GitReposNameSubscriptions**](GitAPI.md#CloudGetV1GitReposNameSubscriptions) | **Get** /v1/git/repos/{name}/subscriptions | Returns a repo&#39;s Slack subscriptions — which channels the lifecycle notifier posts this repo&#39;s push and deploy events to.
-[**CloudGetV1GitReposNameTree**](GitAPI.md#CloudGetV1GitReposNameTree) | **Get** /v1/git/repos/{name}/tree | Lists the immediate children of one directory at one revision, directories before files.
-[**CloudGetV1GitUsage**](GitAPI.md#CloudGetV1GitUsage) | **Get** /v1/git/usage | Returns per-repo and total storage bytes for the caller&#39;s org — the queryable, per-tenant number commerce and o11y meter on.
-[**CloudPatchV1GitReposName**](GitAPI.md#CloudPatchV1GitReposName) | **Patch** /v1/git/repos/{name} | Flips a repo&#39;s public bit, the one mutable repo setting today.
-[**CloudPostV1GitByOrgByProjectByRepoGitReceivePack**](GitAPI.md#CloudPostV1GitByOrgByProjectByRepoGitReceivePack) | **Post** /v1/git/{org}/{project}/{repo}/git-receive-pack | 
-[**CloudPostV1GitByOrgByProjectByRepoGitUploadPack**](GitAPI.md#CloudPostV1GitByOrgByProjectByRepoGitUploadPack) | **Post** /v1/git/{org}/{project}/{repo}/git-upload-pack | 
-[**CloudPostV1GitByOrgByRepoGitReceivePack**](GitAPI.md#CloudPostV1GitByOrgByRepoGitReceivePack) | **Post** /v1/git/{org}/{repo}/git-receive-pack | 
-[**CloudPostV1GitByOrgByRepoGitUploadPack**](GitAPI.md#CloudPostV1GitByOrgByRepoGitUploadPack) | **Post** /v1/git/{org}/{repo}/git-upload-pack | 
-[**CloudPostV1GitKeys**](GitAPI.md#CloudPostV1GitKeys) | **Post** /v1/git/keys | Registers an SSH public key so it can authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60; for the caller&#39;s org.
-[**CloudPostV1GitRepos**](GitAPI.md#CloudPostV1GitRepos) | **Post** /v1/git/repos | Provisions an empty bare repository in the caller&#39;s scope and returns it with its clone URLs.
-[**CloudPostV1GitReposNameGc**](GitAPI.md#CloudPostV1GitReposNameGc) | **Post** /v1/git/repos/{name}/gc | Repacks a repo into one bitmapped pack and rewrites its commit-graph, so the next clone reuses the bitmap instead of walking the whole object graph.
-[**CloudPostV1GitReposNameMirror**](GitAPI.md#CloudPostV1GitReposNameMirror) | **Post** /v1/git/repos/{name}/mirror | Imports an external git repository into the caller&#39;s repo, provisioning it on first use.
-[**CloudPostV1GitReposNameMirrors**](GitAPI.md#CloudPostV1GitReposNameMirrors) | **Post** /v1/git/repos/{name}/mirrors | Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
-[**CloudPostV1GitReposNamePush**](GitAPI.md#CloudPostV1GitReposNamePush) | **Post** /v1/git/repos/{name}/push | Lands a set of files as one commit without a git client — the hanzo.app builder&#39;s push.
-[**CloudPostV1GitReposNameSubscriptions**](GitAPI.md#CloudPostV1GitReposNameSubscriptions) | **Post** /v1/git/repos/{name}/subscriptions | Binds a Slack channel to a repo, so the lifecycle notifier posts that repo&#39;s push and deploy events there.
-[**CloudPostV1GitWebhook**](GitAPI.md#CloudPostV1GitWebhook) | **Post** /v1/git/webhook | 
-[**CloudPostV1GitZapCreaterepo**](GitAPI.md#CloudPostV1GitZapCreaterepo) | **Post** /v1/git/zap/createRepo | 
-[**CloudPostV1GitZapDeleterepo**](GitAPI.md#CloudPostV1GitZapDeleterepo) | **Post** /v1/git/zap/deleteRepo | 
-[**CloudPostV1GitZapGetrepo**](GitAPI.md#CloudPostV1GitZapGetrepo) | **Post** /v1/git/zap/getRepo | 
-[**CloudPostV1GitZapListrepos**](GitAPI.md#CloudPostV1GitZapListrepos) | **Post** /v1/git/zap/listRepos | 
-[**CloudPostV1GitZapUsage**](GitAPI.md#CloudPostV1GitZapUsage) | **Post** /v1/git/zap/usage | 
+[**DeleteGitKeysById**](GitAPI.md#DeleteGitKeysById) | **Delete** /v1/git/keys/{id} | Removes a registered SSH key, scoped to the caller&#39;s org: an org can only delete its own, and a key id it does not own is not found.
+[**DeleteGitReposByName**](GitAPI.md#DeleteGitReposByName) | **Delete** /v1/git/repos/{name} | Removes a repo&#39;s metadata and purges its storage.
+[**DeleteGitReposByNameMirrorsById**](GitAPI.md#DeleteGitReposByNameMirrorsById) | **Delete** /v1/git/repos/{name}/mirrors/{id} | Removes one outbound mirror target; later pushes stop being forwarded to it.
+[**DeleteGitReposByNameSubscriptionsById**](GitAPI.md#DeleteGitReposByNameSubscriptionsById) | **Delete** /v1/git/repos/{name}/subscriptions/{id} | Removes one Slack subscription from a repo; the notifier stops posting that repo&#39;s events to that channel.
+[**GetGitByOrgByProjectByRepoInfoRefs**](GitAPI.md#GetGitByOrgByProjectByRepoInfoRefs) | **Get** /v1/git/{org}/{project}/{repo}/info/refs | Advertise a repository&#39;s refs to a git client
+[**GetGitByOrgByRepoInfoRefs**](GitAPI.md#GetGitByOrgByRepoInfoRefs) | **Get** /v1/git/{org}/{repo}/info/refs | Advertise a repository&#39;s refs to a git client
+[**GetGitKeys**](GitAPI.md#GetGitKeys) | **Get** /v1/git/keys | Returns the SSH public keys registered to the caller&#39;s org — the keys that authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60;.
+[**GetGitRepos**](GitAPI.md#GetGitRepos) | **Get** /v1/git/repos | Returns the repos in the caller&#39;s scope, most recently updated first.
+[**GetGitReposByName**](GitAPI.md#GetGitReposByName) | **Get** /v1/git/repos/{name} | Returns one repo with its live ref state: every branch name and the resolved HEAD commit.
+[**GetGitReposByNameBlob**](GitAPI.md#GetGitReposByNameBlob) | **Get** /v1/git/repos/{name}/blob | Returns one file&#39;s bytes at one revision.
+[**GetGitReposByNameCommits**](GitAPI.md#GetGitReposByNameCommits) | **Get** /v1/git/repos/{name}/commits | Walks a ref&#39;s history newest first, or one path&#39;s history when a path is given.
+[**GetGitReposByNameFiles**](GitAPI.md#GetGitReposByNameFiles) | **Get** /v1/git/repos/{name}/files | Returns every file a glob selects at one revision, WITH its bytes and the revision they came from.
+[**GetGitReposByNameMirrors**](GitAPI.md#GetGitReposByNameMirrors) | **Get** /v1/git/repos/{name}/mirrors | Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
+[**GetGitReposByNamePulls**](GitAPI.md#GetGitReposByNamePulls) | **Get** /v1/git/repos/{name}/pulls | Returns a repo&#39;s pull requests, newest number first — what is waiting to be reviewed, and what has already landed.
+[**GetGitReposByNamePullsByNumber**](GitAPI.md#GetGitReposByNamePullsByNumber) | **Get** /v1/git/repos/{name}/pulls/{number} | Returns one pull request by its per-repo number.
+[**GetGitReposByNameReadme**](GitAPI.md#GetGitReposByNameReadme) | **Get** /v1/git/repos/{name}/readme | Returns the README at the tree root as plain text — unrendered, so the caller decides how to present it.
+[**GetGitReposByNameRefs**](GitAPI.md#GetGitReposByNameRefs) | **Get** /v1/git/repos/{name}/refs | Lists a repo&#39;s branches, tags and default branch — what a branch picker needs in one call.
+[**GetGitReposByNameSubscriptions**](GitAPI.md#GetGitReposByNameSubscriptions) | **Get** /v1/git/repos/{name}/subscriptions | Returns a repo&#39;s Slack subscriptions — which channels the lifecycle notifier posts this repo&#39;s push and deploy events to.
+[**GetGitReposByNameTree**](GitAPI.md#GetGitReposByNameTree) | **Get** /v1/git/repos/{name}/tree | Lists the immediate children of one directory at one revision, directories before files.
+[**GetGitUsage**](GitAPI.md#GetGitUsage) | **Get** /v1/git/usage | Returns per-repo and total storage bytes for the caller&#39;s org — the queryable, per-tenant number commerce and o11y meter on.
+[**PatchGitReposByName**](GitAPI.md#PatchGitReposByName) | **Patch** /v1/git/repos/{name} | Flips a repo&#39;s public bit, the one mutable repo setting today.
+[**PostGitByOrgByProjectByRepoGitReceivePack**](GitAPI.md#PostGitByOrgByProjectByRepoGitReceivePack) | **Post** /v1/git/{org}/{project}/{repo}/git-receive-pack | Accept a push, and turn it into a build
+[**PostGitByOrgByProjectByRepoGitUploadPack**](GitAPI.md#PostGitByOrgByProjectByRepoGitUploadPack) | **Post** /v1/git/{org}/{project}/{repo}/git-upload-pack | Serve a clone or fetch
+[**PostGitByOrgByRepoGitReceivePack**](GitAPI.md#PostGitByOrgByRepoGitReceivePack) | **Post** /v1/git/{org}/{repo}/git-receive-pack | Accept a push, and turn it into a build
+[**PostGitByOrgByRepoGitUploadPack**](GitAPI.md#PostGitByOrgByRepoGitUploadPack) | **Post** /v1/git/{org}/{repo}/git-upload-pack | Serve a clone or fetch
+[**PostGitKeys**](GitAPI.md#PostGitKeys) | **Post** /v1/git/keys | Registers an SSH public key so it can authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60; for the caller&#39;s org.
+[**PostGitRepos**](GitAPI.md#PostGitRepos) | **Post** /v1/git/repos | Provisions an empty bare repository in the caller&#39;s scope and returns it with its clone URLs.
+[**PostGitReposByNameGc**](GitAPI.md#PostGitReposByNameGc) | **Post** /v1/git/repos/{name}/gc | Repacks a repo into one bitmapped pack and rewrites its commit-graph, so the next clone reuses the bitmap instead of walking the whole object graph.
+[**PostGitReposByNameMirror**](GitAPI.md#PostGitReposByNameMirror) | **Post** /v1/git/repos/{name}/mirror | Imports an external git repository into the caller&#39;s repo, provisioning it on first use.
+[**PostGitReposByNameMirrors**](GitAPI.md#PostGitReposByNameMirrors) | **Post** /v1/git/repos/{name}/mirrors | Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
+[**PostGitReposByNamePulls**](GitAPI.md#PostGitReposByNamePulls) | **Post** /v1/git/repos/{name}/pulls | Proposes a branch for merging and returns it with its number.
+[**PostGitReposByNamePullsByNumberMerge**](GitAPI.md#PostGitReposByNamePullsByNumberMerge) | **Post** /v1/git/repos/{name}/pulls/{number}/merge | Merges an open pull request by FAST-FORWARDING base to head, and answers the proposal in its merged state with the revision base now points at.
+[**PostGitReposByNamePush**](GitAPI.md#PostGitReposByNamePush) | **Post** /v1/git/repos/{name}/push | Lands a set of files as one commit without a git client — the hanzo.app builder&#39;s push.
+[**PostGitReposByNameSubscriptions**](GitAPI.md#PostGitReposByNameSubscriptions) | **Post** /v1/git/repos/{name}/subscriptions | Binds a Slack channel to a repo, so the lifecycle notifier posts that repo&#39;s push and deploy events there.
+[**PostGitWebhook**](GitAPI.md#PostGitWebhook) | **Post** /v1/git/webhook | Retired — forge pushes build via platform.hanzo.ai
+[**PostGitZapCreaterepo**](GitAPI.md#PostGitZapCreaterepo) | **Post** /v1/git/zap/createRepo | Create a repository over the ZAP transport
+[**PostGitZapDeleterepo**](GitAPI.md#PostGitZapDeleterepo) | **Post** /v1/git/zap/deleteRepo | Delete a repository over the ZAP transport
+[**PostGitZapGetrepo**](GitAPI.md#PostGitZapGetrepo) | **Post** /v1/git/zap/getRepo | Read one repository over the ZAP transport
+[**PostGitZapListrepos**](GitAPI.md#PostGitZapListrepos) | **Post** /v1/git/zap/listRepos | List your repositories over the ZAP transport
+[**PostGitZapUsage**](GitAPI.md#PostGitZapUsage) | **Post** /v1/git/zap/usage | Report your org&#39;s git storage footprint over the ZAP transport
 
 
 
-## CloudDeleteV1GitKeysId
+## DeleteGitKeysById
 
-> map[string]interface{} CloudDeleteV1GitKeysId(ctx, id).Execute()
+> DeleteGitKeysById(ctx, id).Execute()
 
 Removes a registered SSH key, scoped to the caller's org: an org can only delete its own, and a key id it does not own is not found.
 
@@ -68,13 +72,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudDeleteV1GitKeysId(context.Background(), id).Execute()
+	r, err := apiClient.GitAPI.DeleteGitKeysById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudDeleteV1GitKeysId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.DeleteGitKeysById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1GitKeysId`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudDeleteV1GitKeysId`: %v\n", resp)
 }
 ```
 
@@ -88,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1GitKeysIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteGitKeysByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -97,25 +99,25 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1GitReposName
+## DeleteGitReposByName
 
-> map[string]interface{} CloudDeleteV1GitReposName(ctx, name).Execute()
+> DeleteGitReposByName(ctx, name).Execute()
 
 Removes a repo's metadata and purges its storage.
 
@@ -138,13 +140,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudDeleteV1GitReposName(context.Background(), name).Execute()
+	r, err := apiClient.GitAPI.DeleteGitReposByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudDeleteV1GitReposName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.DeleteGitReposByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1GitReposName`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudDeleteV1GitReposName`: %v\n", resp)
 }
 ```
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1GitReposNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteGitReposByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -167,25 +167,25 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1GitReposNameMirrorsId
+## DeleteGitReposByNameMirrorsById
 
-> map[string]interface{} CloudDeleteV1GitReposNameMirrorsId(ctx, name, id).Execute()
+> DeleteGitReposByNameMirrorsById(ctx, name, id).Execute()
 
 Removes one outbound mirror target; later pushes stop being forwarded to it.
 
@@ -209,13 +209,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudDeleteV1GitReposNameMirrorsId(context.Background(), name, id).Execute()
+	r, err := apiClient.GitAPI.DeleteGitReposByNameMirrorsById(context.Background(), name, id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudDeleteV1GitReposNameMirrorsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.DeleteGitReposByNameMirrorsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1GitReposNameMirrorsId`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudDeleteV1GitReposNameMirrorsId`: %v\n", resp)
 }
 ```
 
@@ -230,7 +228,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1GitReposNameMirrorsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteGitReposByNameMirrorsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -240,25 +238,25 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1GitReposNameSubscriptionsId
+## DeleteGitReposByNameSubscriptionsById
 
-> map[string]interface{} CloudDeleteV1GitReposNameSubscriptionsId(ctx, name, id).Execute()
+> DeleteGitReposByNameSubscriptionsById(ctx, name, id).Execute()
 
 Removes one Slack subscription from a repo; the notifier stops posting that repo's events to that channel.
 
@@ -282,13 +280,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudDeleteV1GitReposNameSubscriptionsId(context.Background(), name, id).Execute()
+	r, err := apiClient.GitAPI.DeleteGitReposByNameSubscriptionsById(context.Background(), name, id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudDeleteV1GitReposNameSubscriptionsId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.DeleteGitReposByNameSubscriptionsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1GitReposNameSubscriptionsId`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudDeleteV1GitReposNameSubscriptionsId`: %v\n", resp)
 }
 ```
 
@@ -303,7 +299,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1GitReposNameSubscriptionsIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteGitReposByNameSubscriptionsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -313,25 +309,27 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitByOrgByProjectByRepoInfoRefs
+## GetGitByOrgByProjectByRepoInfoRefs
 
-> CloudGetV1GitByOrgByProjectByRepoInfoRefs(ctx, org, project, repo).Execute()
+> GetGitByOrgByProjectByRepoInfoRefs(ctx, org, project, repo).Execute()
+
+Advertise a repository's refs to a git client
 
 
 
@@ -354,9 +352,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudGetV1GitByOrgByProjectByRepoInfoRefs(context.Background(), org, project, repo).Execute()
+	r, err := apiClient.GitAPI.GetGitByOrgByProjectByRepoInfoRefs(context.Background(), org, project, repo).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitByOrgByProjectByRepoInfoRefs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitByOrgByProjectByRepoInfoRefs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -374,7 +372,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitByOrgByProjectByRepoInfoRefsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitByOrgByProjectByRepoInfoRefsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -389,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -401,9 +399,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitByOrgByRepoInfoRefs
+## GetGitByOrgByRepoInfoRefs
 
-> CloudGetV1GitByOrgByRepoInfoRefs(ctx, org, repo).Execute()
+> GetGitByOrgByRepoInfoRefs(ctx, org, repo).Execute()
+
+Advertise a repository's refs to a git client
 
 
 
@@ -425,9 +425,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudGetV1GitByOrgByRepoInfoRefs(context.Background(), org, repo).Execute()
+	r, err := apiClient.GitAPI.GetGitByOrgByRepoInfoRefs(context.Background(), org, repo).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitByOrgByRepoInfoRefs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitByOrgByRepoInfoRefs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -444,7 +444,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitByOrgByRepoInfoRefsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitByOrgByRepoInfoRefsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -470,9 +470,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitKeys
+## GetGitKeys
 
-> CloudKeyList CloudGetV1GitKeys(ctx).Execute()
+> KeyList GetGitKeys(ctx).Execute()
 
 Returns the SSH public keys registered to the caller's org — the keys that authenticate `git clone git@<host>:<org>/<repo>.git`.
 
@@ -494,13 +494,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitKeys(context.Background()).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitKeys(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitKeys`: CloudKeyList
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitKeys`: %v\n", resp)
+	// response from `GetGitKeys`: KeyList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitKeys`: %v\n", resp)
 }
 ```
 
@@ -510,16 +510,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitKeysRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitKeysRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudKeyList**](CloudKeyList.md)
+[**KeyList**](KeyList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -531,9 +531,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1GitKeysRequest s
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitRepos
+## GetGitRepos
 
-> CloudRepoList CloudGetV1GitRepos(ctx).Execute()
+> RepoList GetGitRepos(ctx).Execute()
 
 Returns the repos in the caller's scope, most recently updated first.
 
@@ -555,13 +555,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitRepos(context.Background()).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitRepos(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitRepos``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitRepos``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitRepos`: CloudRepoList
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitRepos`: %v\n", resp)
+	// response from `GetGitRepos`: RepoList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitRepos`: %v\n", resp)
 }
 ```
 
@@ -571,16 +571,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudRepoList**](CloudRepoList.md)
+[**RepoList**](RepoList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -592,9 +592,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1GitReposRequest 
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposName
+## GetGitReposByName
 
-> CloudRepoView CloudGetV1GitReposName(ctx, name).Execute()
+> RepoView GetGitReposByName(ctx, name).Execute()
 
 Returns one repo with its live ref state: every branch name and the resolved HEAD commit.
 
@@ -617,13 +617,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposName(context.Background(), name).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposName`: CloudRepoView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposName`: %v\n", resp)
+	// response from `GetGitReposByName`: RepoView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByName`: %v\n", resp)
 }
 ```
 
@@ -637,7 +637,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -646,11 +646,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRepoView**](CloudRepoView.md)
+[**RepoView**](RepoView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -662,9 +662,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposNameBlob
+## GetGitReposByNameBlob
 
-> CloudBlobJSON CloudGetV1GitReposNameBlob(ctx, name).Ref(ref).Path(path).Execute()
+> BlobJSON GetGitReposByNameBlob(ctx, name).Ref(ref).Path(path).Execute()
 
 Returns one file's bytes at one revision.
 
@@ -689,13 +689,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposNameBlob(context.Background(), name).Ref(ref).Path(path).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameBlob(context.Background(), name).Ref(ref).Path(path).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposNameBlob``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameBlob``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposNameBlob`: CloudBlobJSON
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposNameBlob`: %v\n", resp)
+	// response from `GetGitReposByNameBlob`: BlobJSON
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameBlob`: %v\n", resp)
 }
 ```
 
@@ -709,7 +709,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameBlobRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameBlobRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -720,11 +720,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudBlobJSON**](CloudBlobJSON.md)
+[**BlobJSON**](BlobJSON.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -736,9 +736,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposNameCommits
+## GetGitReposByNameCommits
 
-> CloudCommitsJSON CloudGetV1GitReposNameCommits(ctx, name).Ref(ref).Path(path).Limit(limit).Execute()
+> CommitsJSON GetGitReposByNameCommits(ctx, name).Ref(ref).Path(path).Limit(limit).Execute()
 
 Walks a ref's history newest first, or one path's history when a path is given.
 
@@ -764,13 +764,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposNameCommits(context.Background(), name).Ref(ref).Path(path).Limit(limit).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameCommits(context.Background(), name).Ref(ref).Path(path).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposNameCommits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameCommits``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposNameCommits`: CloudCommitsJSON
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposNameCommits`: %v\n", resp)
+	// response from `GetGitReposByNameCommits`: CommitsJSON
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameCommits`: %v\n", resp)
 }
 ```
 
@@ -784,7 +784,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameCommitsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameCommitsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -796,11 +796,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudCommitsJSON**](CloudCommitsJSON.md)
+[**CommitsJSON**](CommitsJSON.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -812,9 +812,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposNameFiles
+## GetGitReposByNameFiles
 
-> CloudFilesJSON CloudGetV1GitReposNameFiles(ctx, name).Ref(ref).Glob(glob).Execute()
+> FilesJSON GetGitReposByNameFiles(ctx, name).Ref(ref).Glob(glob).Execute()
 
 Returns every file a glob selects at one revision, WITH its bytes and the revision they came from.
 
@@ -839,13 +839,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposNameFiles(context.Background(), name).Ref(ref).Glob(glob).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameFiles(context.Background(), name).Ref(ref).Glob(glob).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposNameFiles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameFiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposNameFiles`: CloudFilesJSON
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposNameFiles`: %v\n", resp)
+	// response from `GetGitReposByNameFiles`: FilesJSON
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameFiles`: %v\n", resp)
 }
 ```
 
@@ -859,7 +859,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameFilesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameFilesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -870,11 +870,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudFilesJSON**](CloudFilesJSON.md)
+[**FilesJSON**](FilesJSON.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -886,9 +886,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposNameMirrors
+## GetGitReposByNameMirrors
 
-> CloudMirrorList CloudGetV1GitReposNameMirrors(ctx, name).Execute()
+> MirrorList GetGitReposByNameMirrors(ctx, name).Execute()
 
 Returns a repo's outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
 
@@ -911,13 +911,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposNameMirrors(context.Background(), name).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameMirrors(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposNameMirrors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameMirrors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposNameMirrors`: CloudMirrorList
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposNameMirrors`: %v\n", resp)
+	// response from `GetGitReposByNameMirrors`: MirrorList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameMirrors`: %v\n", resp)
 }
 ```
 
@@ -931,7 +931,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameMirrorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameMirrorsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -940,11 +940,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudMirrorList**](CloudMirrorList.md)
+[**MirrorList**](MirrorList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -956,9 +956,154 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposNameReadme
+## GetGitReposByNamePulls
 
-> CloudReadmeJSON CloudGetV1GitReposNameReadme(ctx, name).Ref(ref).Execute()
+> PullList GetGitReposByNamePulls(ctx, name).State(state).Execute()
+
+Returns a repo's pull requests, newest number first — what is waiting to be reviewed, and what has already landed.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "widgets" // string | Name is the repo, from the :name path segment.
+	state := "open" // string | State narrows the list to \"open\" or \"merged\". Omit it for every proposal. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitReposByNamePulls(context.Background(), name).State(state).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNamePulls``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitReposByNamePulls`: PullList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNamePulls`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the repo, from the :name path segment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitReposByNamePullsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **state** | **string** | State narrows the list to \&quot;open\&quot; or \&quot;merged\&quot;. Omit it for every proposal. | 
+
+### Return type
+
+[**PullList**](PullList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitReposByNamePullsByNumber
+
+> PullView GetGitReposByNamePullsByNumber(ctx, name, number).Execute()
+
+Returns one pull request by its per-repo number.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "widgets" // string | Name is the repo, from the :name path segment.
+	number := int32(4) // int32 | Number is the proposal's per-repo number, from the :number path segment.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitReposByNamePullsByNumber(context.Background(), name, number).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNamePullsByNumber``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitReposByNamePullsByNumber`: PullView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNamePullsByNumber`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the repo, from the :name path segment. | 
+**number** | **int32** | Number is the proposal&#39;s per-repo number, from the :number path segment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitReposByNamePullsByNumberRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**PullView**](PullView.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitReposByNameReadme
+
+> ReadmeJSON GetGitReposByNameReadme(ctx, name).Ref(ref).Execute()
 
 Returns the README at the tree root as plain text — unrendered, so the caller decides how to present it.
 
@@ -982,13 +1127,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposNameReadme(context.Background(), name).Ref(ref).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameReadme(context.Background(), name).Ref(ref).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposNameReadme``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameReadme``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposNameReadme`: CloudReadmeJSON
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposNameReadme`: %v\n", resp)
+	// response from `GetGitReposByNameReadme`: ReadmeJSON
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameReadme`: %v\n", resp)
 }
 ```
 
@@ -1002,7 +1147,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameReadmeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameReadmeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1012,11 +1157,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudReadmeJSON**](CloudReadmeJSON.md)
+[**ReadmeJSON**](ReadmeJSON.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1028,9 +1173,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposNameRefs
+## GetGitReposByNameRefs
 
-> CloudRefsJSON CloudGetV1GitReposNameRefs(ctx, name).Execute()
+> RefsJSON GetGitReposByNameRefs(ctx, name).Execute()
 
 Lists a repo's branches, tags and default branch — what a branch picker needs in one call.
 
@@ -1053,13 +1198,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposNameRefs(context.Background(), name).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameRefs(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposNameRefs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameRefs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposNameRefs`: CloudRefsJSON
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposNameRefs`: %v\n", resp)
+	// response from `GetGitReposByNameRefs`: RefsJSON
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameRefs`: %v\n", resp)
 }
 ```
 
@@ -1073,7 +1218,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameRefsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameRefsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1082,11 +1227,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudRefsJSON**](CloudRefsJSON.md)
+[**RefsJSON**](RefsJSON.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1098,9 +1243,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposNameSubscriptions
+## GetGitReposByNameSubscriptions
 
-> CloudSubscriptionList CloudGetV1GitReposNameSubscriptions(ctx, name).Execute()
+> SubscriptionList GetGitReposByNameSubscriptions(ctx, name).Execute()
 
 Returns a repo's Slack subscriptions — which channels the lifecycle notifier posts this repo's push and deploy events to.
 
@@ -1123,13 +1268,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposNameSubscriptions(context.Background(), name).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameSubscriptions(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposNameSubscriptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameSubscriptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposNameSubscriptions`: CloudSubscriptionList
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposNameSubscriptions`: %v\n", resp)
+	// response from `GetGitReposByNameSubscriptions`: SubscriptionList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameSubscriptions`: %v\n", resp)
 }
 ```
 
@@ -1143,7 +1288,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameSubscriptionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameSubscriptionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1152,11 +1297,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSubscriptionList**](CloudSubscriptionList.md)
+[**SubscriptionList**](SubscriptionList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1168,9 +1313,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitReposNameTree
+## GetGitReposByNameTree
 
-> CloudTreeJSON CloudGetV1GitReposNameTree(ctx, name).Ref(ref).Path(path).Execute()
+> TreeJSON GetGitReposByNameTree(ctx, name).Ref(ref).Path(path).Execute()
 
 Lists the immediate children of one directory at one revision, directories before files.
 
@@ -1195,13 +1340,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitReposNameTree(context.Background(), name).Ref(ref).Path(path).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitReposByNameTree(context.Background(), name).Ref(ref).Path(path).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitReposNameTree``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitReposNameTree`: CloudTreeJSON
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitReposNameTree`: %v\n", resp)
+	// response from `GetGitReposByNameTree`: TreeJSON
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameTree`: %v\n", resp)
 }
 ```
 
@@ -1215,7 +1360,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitReposNameTreeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitReposByNameTreeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1226,11 +1371,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudTreeJSON**](CloudTreeJSON.md)
+[**TreeJSON**](TreeJSON.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1242,9 +1387,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1GitUsage
+## GetGitUsage
 
-> CloudUsageView CloudGetV1GitUsage(ctx).Execute()
+> UsageView GetGitUsage(ctx).Execute()
 
 Returns per-repo and total storage bytes for the caller's org — the queryable, per-tenant number commerce and o11y meter on.
 
@@ -1266,13 +1411,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudGetV1GitUsage(context.Background()).Execute()
+	resp, r, err := apiClient.GitAPI.GetGitUsage(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudGetV1GitUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1GitUsage`: CloudUsageView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudGetV1GitUsage`: %v\n", resp)
+	// response from `GetGitUsage`: UsageView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitUsage`: %v\n", resp)
 }
 ```
 
@@ -1282,16 +1427,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1GitUsageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetGitUsageRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudUsageView**](CloudUsageView.md)
+[**UsageView**](UsageView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1303,9 +1448,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1GitUsageRequest 
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1GitReposName
+## PatchGitReposByName
 
-> CloudRepoView CloudPatchV1GitReposName(ctx, name).CloudPatchIn(cloudPatchIn).Execute()
+> RepoView PatchGitReposByName(ctx, name).PatchIn(patchIn).Execute()
 
 Flips a repo's public bit, the one mutable repo setting today.
 
@@ -1325,17 +1470,17 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo to update, from the :name path segment.
-	cloudPatchIn := *openapiclient.NewCloudPatchIn() // CloudPatchIn | 
+	patchIn := *openapiclient.NewPatchIn() // PatchIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudPatchV1GitReposName(context.Background(), name).CloudPatchIn(cloudPatchIn).Execute()
+	resp, r, err := apiClient.GitAPI.PatchGitReposByName(context.Background(), name).PatchIn(patchIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPatchV1GitReposName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PatchGitReposByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPatchV1GitReposName`: CloudRepoView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudPatchV1GitReposName`: %v\n", resp)
+	// response from `PatchGitReposByName`: RepoView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PatchGitReposByName`: %v\n", resp)
 }
 ```
 
@@ -1349,21 +1494,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1GitReposNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchGitReposByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPatchIn** | [**CloudPatchIn**](CloudPatchIn.md) |  | 
+ **patchIn** | [**PatchIn**](PatchIn.md) |  | 
 
 ### Return type
 
-[**CloudRepoView**](CloudRepoView.md)
+[**RepoView**](RepoView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1375,83 +1520,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitByOrgByProjectByRepoGitReceivePack
+## PostGitByOrgByProjectByRepoGitReceivePack
 
-> CloudPostV1GitByOrgByProjectByRepoGitReceivePack(ctx, org, project, repo).Body(body).Execute()
+> PostGitByOrgByProjectByRepoGitReceivePack(ctx, org, project, repo).Body(body).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	org := "org_example" // string | 
-	project := "project_example" // string | 
-	repo := "repo_example" // string | 
-	body := os.NewFile(1234, "some_file") // *os.File |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitByOrgByProjectByRepoGitReceivePack(context.Background(), org, project, repo).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitByOrgByProjectByRepoGitReceivePack``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**org** | **string** |  | 
-**project** | **string** |  | 
-**repo** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1GitByOrgByProjectByRepoGitReceivePackRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
- **body** | ***os.File** |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/octet-stream
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1GitByOrgByProjectByRepoGitUploadPack
-
-> CloudPostV1GitByOrgByProjectByRepoGitUploadPack(ctx, org, project, repo).Body(body).Execute()
+Accept a push, and turn it into a build
 
 
 
@@ -1475,9 +1548,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitByOrgByProjectByRepoGitUploadPack(context.Background(), org, project, repo).Body(body).Execute()
+	r, err := apiClient.GitAPI.PostGitByOrgByProjectByRepoGitReceivePack(context.Background(), org, project, repo).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitByOrgByProjectByRepoGitUploadPack``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitByOrgByProjectByRepoGitReceivePack``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1495,7 +1568,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitByOrgByProjectByRepoGitUploadPackRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitByOrgByProjectByRepoGitReceivePackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1511,7 +1584,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1523,9 +1596,87 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitByOrgByRepoGitReceivePack
+## PostGitByOrgByProjectByRepoGitUploadPack
 
-> CloudPostV1GitByOrgByRepoGitReceivePack(ctx, org, repo).Body(body).Execute()
+> PostGitByOrgByProjectByRepoGitUploadPack(ctx, org, project, repo).Body(body).Execute()
+
+Serve a clone or fetch
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	org := "org_example" // string | 
+	project := "project_example" // string | 
+	repo := "repo_example" // string | 
+	body := os.NewFile(1234, "some_file") // *os.File |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.PostGitByOrgByProjectByRepoGitUploadPack(context.Background(), org, project, repo).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitByOrgByProjectByRepoGitUploadPack``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**org** | **string** |  | 
+**project** | **string** |  | 
+**repo** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitByOrgByProjectByRepoGitUploadPackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **body** | ***os.File** |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/octet-stream
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitByOrgByRepoGitReceivePack
+
+> PostGitByOrgByRepoGitReceivePack(ctx, org, repo).Body(body).Execute()
+
+Accept a push, and turn it into a build
 
 
 
@@ -1548,9 +1699,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitByOrgByRepoGitReceivePack(context.Background(), org, repo).Body(body).Execute()
+	r, err := apiClient.GitAPI.PostGitByOrgByRepoGitReceivePack(context.Background(), org, repo).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitByOrgByRepoGitReceivePack``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitByOrgByRepoGitReceivePack``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1567,7 +1718,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitByOrgByRepoGitReceivePackRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitByOrgByRepoGitReceivePackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1582,7 +1733,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1594,9 +1745,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitByOrgByRepoGitUploadPack
+## PostGitByOrgByRepoGitUploadPack
 
-> CloudPostV1GitByOrgByRepoGitUploadPack(ctx, org, repo).Body(body).Execute()
+> PostGitByOrgByRepoGitUploadPack(ctx, org, repo).Body(body).Execute()
+
+Serve a clone or fetch
 
 
 
@@ -1619,9 +1772,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitByOrgByRepoGitUploadPack(context.Background(), org, repo).Body(body).Execute()
+	r, err := apiClient.GitAPI.PostGitByOrgByRepoGitUploadPack(context.Background(), org, repo).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitByOrgByRepoGitUploadPack``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitByOrgByRepoGitUploadPack``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -1638,7 +1791,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitByOrgByRepoGitUploadPackRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitByOrgByRepoGitUploadPackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1653,7 +1806,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1665,9 +1818,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitKeys
+## PostGitKeys
 
-> CloudKeyView CloudPostV1GitKeys(ctx).CloudRegisterKeyReq(cloudRegisterKeyReq).Execute()
+> KeyView PostGitKeys(ctx).RegisterKeyReq(registerKeyReq).Execute()
 
 Registers an SSH public key so it can authenticate `git clone git@<host>:<org>/<repo>.git` for the caller's org.
 
@@ -1686,17 +1839,17 @@ import (
 )
 
 func main() {
-	cloudRegisterKeyReq := *openapiclient.NewCloudRegisterKeyReq() // CloudRegisterKeyReq | 
+	registerKeyReq := *openapiclient.NewRegisterKeyReq() // RegisterKeyReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudPostV1GitKeys(context.Background()).CloudRegisterKeyReq(cloudRegisterKeyReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitKeys(context.Background()).RegisterKeyReq(registerKeyReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1GitKeys`: CloudKeyView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudPostV1GitKeys`: %v\n", resp)
+	// response from `PostGitKeys`: KeyView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitKeys`: %v\n", resp)
 }
 ```
 
@@ -1706,20 +1859,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitKeysRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitKeysRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudRegisterKeyReq** | [**CloudRegisterKeyReq**](CloudRegisterKeyReq.md) |  | 
+ **registerKeyReq** | [**RegisterKeyReq**](RegisterKeyReq.md) |  | 
 
 ### Return type
 
-[**CloudKeyView**](CloudKeyView.md)
+[**KeyView**](KeyView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1731,9 +1884,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitRepos
+## PostGitRepos
 
-> CloudRepoView CloudPostV1GitRepos(ctx).CloudCreateReq(cloudCreateReq).Execute()
+> RepoView PostGitRepos(ctx).CreateReq(createReq).Execute()
 
 Provisions an empty bare repository in the caller's scope and returns it with its clone URLs.
 
@@ -1752,17 +1905,17 @@ import (
 )
 
 func main() {
-	cloudCreateReq := *openapiclient.NewCloudCreateReq() // CloudCreateReq | 
+	createReq := *openapiclient.NewCreateReq() // CreateReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudPostV1GitRepos(context.Background()).CloudCreateReq(cloudCreateReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitRepos(context.Background()).CreateReq(createReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitRepos``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitRepos``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1GitRepos`: CloudRepoView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudPostV1GitRepos`: %v\n", resp)
+	// response from `PostGitRepos`: RepoView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitRepos`: %v\n", resp)
 }
 ```
 
@@ -1772,20 +1925,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitReposRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitReposRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudCreateReq** | [**CloudCreateReq**](CloudCreateReq.md) |  | 
+ **createReq** | [**CreateReq**](CreateReq.md) |  | 
 
 ### Return type
 
-[**CloudRepoView**](CloudRepoView.md)
+[**RepoView**](RepoView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1797,9 +1950,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitReposNameGc
+## PostGitReposByNameGc
 
-> CloudGcOut CloudPostV1GitReposNameGc(ctx, name).Execute()
+> GcOut PostGitReposByNameGc(ctx, name).Execute()
 
 Repacks a repo into one bitmapped pack and rewrites its commit-graph, so the next clone reuses the bitmap instead of walking the whole object graph.
 
@@ -1822,13 +1975,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudPostV1GitReposNameGc(context.Background(), name).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameGc(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitReposNameGc``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameGc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1GitReposNameGc`: CloudGcOut
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudPostV1GitReposNameGc`: %v\n", resp)
+	// response from `PostGitReposByNameGc`: GcOut
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameGc`: %v\n", resp)
 }
 ```
 
@@ -1842,7 +1995,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitReposNameGcRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitReposByNameGcRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1851,11 +2004,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudGcOut**](CloudGcOut.md)
+[**GcOut**](GcOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1867,9 +2020,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitReposNameMirror
+## PostGitReposByNameMirror
 
-> CloudRepoView CloudPostV1GitReposNameMirror(ctx, name).CloudMirrorReq(cloudMirrorReq).Execute()
+> RepoView PostGitReposByNameMirror(ctx, name).MirrorReq(mirrorReq).Execute()
 
 Imports an external git repository into the caller's repo, provisioning it on first use.
 
@@ -1889,17 +2042,17 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the local repo to mirror into, from the :name path segment. It is CREATED on first use.
-	cloudMirrorReq := *openapiclient.NewCloudMirrorReq() // CloudMirrorReq | 
+	mirrorReq := *openapiclient.NewMirrorReq() // MirrorReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudPostV1GitReposNameMirror(context.Background(), name).CloudMirrorReq(cloudMirrorReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameMirror(context.Background(), name).MirrorReq(mirrorReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitReposNameMirror``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameMirror``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1GitReposNameMirror`: CloudRepoView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudPostV1GitReposNameMirror`: %v\n", resp)
+	// response from `PostGitReposByNameMirror`: RepoView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameMirror`: %v\n", resp)
 }
 ```
 
@@ -1913,21 +2066,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitReposNameMirrorRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitReposByNameMirrorRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudMirrorReq** | [**CloudMirrorReq**](CloudMirrorReq.md) |  | 
+ **mirrorReq** | [**MirrorReq**](MirrorReq.md) |  | 
 
 ### Return type
 
-[**CloudRepoView**](CloudRepoView.md)
+[**RepoView**](RepoView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -1939,9 +2092,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitReposNameMirrors
+## PostGitReposByNameMirrors
 
-> CloudMirrorTargetView CloudPostV1GitReposNameMirrors(ctx, name).CloudMirrorTargetReq(cloudMirrorTargetReq).Execute()
+> MirrorTargetView PostGitReposByNameMirrors(ctx, name).MirrorTargetReq(mirrorTargetReq).Execute()
 
 Registers a downstream remote the repo's advanced refs are pushed to whenever a push lands here.
 
@@ -1961,17 +2114,17 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo whose advanced refs are pushed downstream, from the :name path segment.
-	cloudMirrorTargetReq := *openapiclient.NewCloudMirrorTargetReq() // CloudMirrorTargetReq | 
+	mirrorTargetReq := *openapiclient.NewMirrorTargetReq() // MirrorTargetReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudPostV1GitReposNameMirrors(context.Background(), name).CloudMirrorTargetReq(cloudMirrorTargetReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameMirrors(context.Background(), name).MirrorTargetReq(mirrorTargetReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitReposNameMirrors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameMirrors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1GitReposNameMirrors`: CloudMirrorTargetView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudPostV1GitReposNameMirrors`: %v\n", resp)
+	// response from `PostGitReposByNameMirrors`: MirrorTargetView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameMirrors`: %v\n", resp)
 }
 ```
 
@@ -1985,21 +2138,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitReposNameMirrorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitReposByNameMirrorsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudMirrorTargetReq** | [**CloudMirrorTargetReq**](CloudMirrorTargetReq.md) |  | 
+ **mirrorTargetReq** | [**MirrorTargetReq**](MirrorTargetReq.md) |  | 
 
 ### Return type
 
-[**CloudMirrorTargetView**](CloudMirrorTargetView.md)
+[**MirrorTargetView**](MirrorTargetView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2011,9 +2164,154 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitReposNamePush
+## PostGitReposByNamePulls
 
-> CloudPushResp CloudPostV1GitReposNamePush(ctx, name).CloudPushReq(cloudPushReq).Execute()
+> PullView PostGitReposByNamePulls(ctx, name).OpenReq(openReq).Execute()
+
+Proposes a branch for merging and returns it with its number.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "widgets" // string | Name is the repo the proposal belongs to, from the :name path segment.
+	openReq := *openapiclient.NewOpenReq() // OpenReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostGitReposByNamePulls(context.Background(), name).OpenReq(openReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNamePulls``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGitReposByNamePulls`: PullView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNamePulls`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the repo the proposal belongs to, from the :name path segment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitReposByNamePullsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **openReq** | [**OpenReq**](OpenReq.md) |  | 
+
+### Return type
+
+[**PullView**](PullView.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitReposByNamePullsByNumberMerge
+
+> PullView PostGitReposByNamePullsByNumberMerge(ctx, name, number).Execute()
+
+Merges an open pull request by FAST-FORWARDING base to head, and answers the proposal in its merged state with the revision base now points at.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	name := "widgets" // string | Name is the repo, from the :name path segment.
+	number := int32(4) // int32 | Number is the proposal's per-repo number, from the :number path segment.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostGitReposByNamePullsByNumberMerge(context.Background(), name, number).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNamePullsByNumberMerge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGitReposByNamePullsByNumberMerge`: PullView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNamePullsByNumberMerge`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name is the repo, from the :name path segment. | 
+**number** | **int32** | Number is the proposal&#39;s per-repo number, from the :number path segment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitReposByNamePullsByNumberMergeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**PullView**](PullView.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitReposByNamePush
+
+> PushResp PostGitReposByNamePush(ctx, name).PushReq(pushReq).Execute()
 
 Lands a set of files as one commit without a git client — the hanzo.app builder's push.
 
@@ -2033,17 +2331,17 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo to push into, from the :name path segment. It is CREATED on first push if it does not exist.
-	cloudPushReq := *openapiclient.NewCloudPushReq() // CloudPushReq | 
+	pushReq := *openapiclient.NewPushReq() // PushReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudPostV1GitReposNamePush(context.Background(), name).CloudPushReq(cloudPushReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNamePush(context.Background(), name).PushReq(pushReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitReposNamePush``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNamePush``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1GitReposNamePush`: CloudPushResp
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudPostV1GitReposNamePush`: %v\n", resp)
+	// response from `PostGitReposByNamePush`: PushResp
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNamePush`: %v\n", resp)
 }
 ```
 
@@ -2057,21 +2355,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitReposNamePushRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitReposByNamePushRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudPushReq** | [**CloudPushReq**](CloudPushReq.md) |  | 
+ **pushReq** | [**PushReq**](PushReq.md) |  | 
 
 ### Return type
 
-[**CloudPushResp**](CloudPushResp.md)
+[**PushResp**](PushResp.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2083,9 +2381,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitReposNameSubscriptions
+## PostGitReposByNameSubscriptions
 
-> CloudSubscriptionView CloudPostV1GitReposNameSubscriptions(ctx, name).CloudSubscribeReq(cloudSubscribeReq).Execute()
+> SubscriptionView PostGitReposByNameSubscriptions(ctx, name).SubscribeReq(subscribeReq).Execute()
 
 Binds a Slack channel to a repo, so the lifecycle notifier posts that repo's push and deploy events there.
 
@@ -2105,17 +2403,17 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo to subscribe, from the :name path segment.
-	cloudSubscribeReq := *openapiclient.NewCloudSubscribeReq() // CloudSubscribeReq | 
+	subscribeReq := *openapiclient.NewSubscribeReq() // SubscribeReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.CloudPostV1GitReposNameSubscriptions(context.Background(), name).CloudSubscribeReq(cloudSubscribeReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameSubscriptions(context.Background(), name).SubscribeReq(subscribeReq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitReposNameSubscriptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameSubscriptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1GitReposNameSubscriptions`: CloudSubscriptionView
-	fmt.Fprintf(os.Stdout, "Response from `GitAPI.CloudPostV1GitReposNameSubscriptions`: %v\n", resp)
+	// response from `PostGitReposByNameSubscriptions`: SubscriptionView
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameSubscriptions`: %v\n", resp)
 }
 ```
 
@@ -2129,21 +2427,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitReposNameSubscriptionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitReposByNameSubscriptionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudSubscribeReq** | [**CloudSubscribeReq**](CloudSubscribeReq.md) |  | 
+ **subscribeReq** | [**SubscribeReq**](SubscribeReq.md) |  | 
 
 ### Return type
 
-[**CloudSubscriptionView**](CloudSubscriptionView.md)
+[**SubscriptionView**](SubscriptionView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2155,257 +2453,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitWebhook
+## PostGitWebhook
 
-> CloudPostV1GitWebhook(ctx).CloudPushEvent(cloudPushEvent).Execute()
+> PostGitWebhook(ctx).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudPushEvent := *openapiclient.NewCloudPushEvent() // CloudPushEvent |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitWebhook(context.Background()).CloudPushEvent(cloudPushEvent).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitWebhook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1GitWebhookRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudPushEvent** | [**CloudPushEvent**](CloudPushEvent.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1GitZapCreaterepo
-
-> CloudPostV1GitZapCreaterepo(ctx).CloudZapProcReq(cloudZapProcReq).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudZapProcReq := *openapiclient.NewCloudZapProcReq() // CloudZapProcReq |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitZapCreaterepo(context.Background()).CloudZapProcReq(cloudZapProcReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitZapCreaterepo``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1GitZapCreaterepoRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudZapProcReq** | [**CloudZapProcReq**](CloudZapProcReq.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1GitZapDeleterepo
-
-> CloudPostV1GitZapDeleterepo(ctx).CloudZapProcReq(cloudZapProcReq).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudZapProcReq := *openapiclient.NewCloudZapProcReq() // CloudZapProcReq |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitZapDeleterepo(context.Background()).CloudZapProcReq(cloudZapProcReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitZapDeleterepo``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1GitZapDeleterepoRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudZapProcReq** | [**CloudZapProcReq**](CloudZapProcReq.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1GitZapGetrepo
-
-> CloudPostV1GitZapGetrepo(ctx).CloudZapProcReq(cloudZapProcReq).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudZapProcReq := *openapiclient.NewCloudZapProcReq() // CloudZapProcReq |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitZapGetrepo(context.Background()).CloudZapProcReq(cloudZapProcReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitZapGetrepo``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1GitZapGetrepoRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudZapProcReq** | [**CloudZapProcReq**](CloudZapProcReq.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1GitZapListrepos
-
-> CloudPostV1GitZapListrepos(ctx).Execute()
+Retired — forge pushes build via platform.hanzo.ai
 
 
 
@@ -2425,9 +2477,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitZapListrepos(context.Background()).Execute()
+	r, err := apiClient.GitAPI.PostGitWebhook(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitZapListrepos``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitWebhook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2439,7 +2491,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitZapListreposRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitWebhookRequest struct via the builder pattern
 
 
 ### Return type
@@ -2448,7 +2500,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1GitZapListrepos
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -2460,9 +2512,203 @@ Other parameters are passed through a pointer to a apiCloudPostV1GitZapListrepos
 [[Back to README]](../README.md)
 
 
-## CloudPostV1GitZapUsage
+## PostGitZapCreaterepo
 
-> CloudPostV1GitZapUsage(ctx).Execute()
+> PostGitZapCreaterepo(ctx).ZapProcReq(zapProcReq).Execute()
+
+Create a repository over the ZAP transport
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	zapProcReq := *openapiclient.NewZapProcReq() // ZapProcReq |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.PostGitZapCreaterepo(context.Background()).ZapProcReq(zapProcReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapCreaterepo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitZapCreaterepoRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **zapProcReq** | [**ZapProcReq**](ZapProcReq.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitZapDeleterepo
+
+> PostGitZapDeleterepo(ctx).ZapProcReq(zapProcReq).Execute()
+
+Delete a repository over the ZAP transport
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	zapProcReq := *openapiclient.NewZapProcReq() // ZapProcReq |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.PostGitZapDeleterepo(context.Background()).ZapProcReq(zapProcReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapDeleterepo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitZapDeleterepoRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **zapProcReq** | [**ZapProcReq**](ZapProcReq.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitZapGetrepo
+
+> PostGitZapGetrepo(ctx).ZapProcReq(zapProcReq).Execute()
+
+Read one repository over the ZAP transport
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	zapProcReq := *openapiclient.NewZapProcReq() // ZapProcReq |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.PostGitZapGetrepo(context.Background()).ZapProcReq(zapProcReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapGetrepo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitZapGetrepoRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **zapProcReq** | [**ZapProcReq**](ZapProcReq.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitZapListrepos
+
+> PostGitZapListrepos(ctx).Execute()
+
+List your repositories over the ZAP transport
 
 
 
@@ -2482,9 +2728,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GitAPI.CloudPostV1GitZapUsage(context.Background()).Execute()
+	r, err := apiClient.GitAPI.PostGitZapListrepos(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.CloudPostV1GitZapUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapListrepos``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -2496,7 +2742,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1GitZapUsageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGitZapListreposRequest struct via the builder pattern
 
 
 ### Return type
@@ -2505,7 +2751,66 @@ Other parameters are passed through a pointer to a apiCloudPostV1GitZapUsageRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitZapUsage
+
+> PostGitZapUsage(ctx).Execute()
+
+Report your org's git storage footprint over the ZAP transport
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.PostGitZapUsage(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitZapUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitZapUsageRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

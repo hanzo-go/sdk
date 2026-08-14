@@ -4,19 +4,19 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Authors**](AuthorsAPI.md#CloudGetV1Authors) | **Get** /v1/authors | MyAuthorProgram returns the caller&#39;s author-program dashboard: enrolment status, linked forge login, verified repositories and owner-wide claims, recorded deploys, accrued / pending / paid royalty, and the payout history.
-[**CloudGetV1AuthorsBasis**](AuthorsAPI.md#CloudGetV1AuthorsBasis) | **Get** /v1/authors/basis | MyRoyaltyBasis returns the AUDIT TRAIL behind the caller&#39;s own royalty: every ledger row with the spend it was computed from, the share applied at the time, the platform&#39;s matching half, whether each row satisfies the formula, and the attribution edges that already existed when the row was written.
-[**CloudPostV1AuthorsConnect**](AuthorsAPI.md#CloudPostV1AuthorsConnect) | **Post** /v1/authors/connect | ConnectAuthor enrols the caller&#39;s org in the author program at status \&quot;connected\&quot; and returns its enrolment, including the verify code the file method needs.
-[**CloudPostV1AuthorsDeploysRecord**](AuthorsAPI.md#CloudPostV1AuthorsDeploysRecord) | **Post** /v1/authors/deploys/record | RecordAuthorDeploy records that the caller&#39;s org deployed a project built from a source repository, which is the edge that makes an author&#39;s work earn royalty.
-[**CloudPostV1AuthorsReposVerify**](AuthorsAPI.md#CloudPostV1AuthorsReposVerify) | **Post** /v1/authors/repos/verify | VerifyAuthorRepo proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
+[**GetAuthors**](AuthorsAPI.md#GetAuthors) | **Get** /v1/authors | Returns the caller&#39;s author-program dashboard: enrolment status, linked forge login, verified repositories and owner-wide claims, recorded deploys, accrued / pending / paid royalty, and the payout history.
+[**GetAuthorsBasis**](AuthorsAPI.md#GetAuthorsBasis) | **Get** /v1/authors/basis | Returns the AUDIT TRAIL behind the caller&#39;s own royalty: every ledger row with the spend it was computed from, the share applied at the time, the platform&#39;s matching half, whether each row satisfies the formula, and the attribution edges that already existed when the row was written.
+[**PostAuthorsConnect**](AuthorsAPI.md#PostAuthorsConnect) | **Post** /v1/authors/connect | Enrols the caller&#39;s org in the author program at status \&quot;connected\&quot; and returns its enrolment, including the verify code the file method needs.
+[**PostAuthorsDeploysRecord**](AuthorsAPI.md#PostAuthorsDeploysRecord) | **Post** /v1/authors/deploys/record | Records that the caller&#39;s org deployed a project built from a source repository, which is the edge that makes an author&#39;s work earn royalty.
+[**PostAuthorsReposVerify**](AuthorsAPI.md#PostAuthorsReposVerify) | **Post** /v1/authors/repos/verify | Proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
 
 
 
-## CloudGetV1Authors
+## GetAuthors
 
-> map[string]map[string]interface{} CloudGetV1Authors(ctx).Execute()
+> map[string]map[string]interface{} GetAuthors(ctx).Execute()
 
-MyAuthorProgram returns the caller's author-program dashboard: enrolment status, linked forge login, verified repositories and owner-wide claims, recorded deploys, accrued / pending / paid royalty, and the payout history.
+Returns the caller's author-program dashboard: enrolment status, linked forge login, verified repositories and owner-wide claims, recorded deploys, accrued / pending / paid royalty, and the payout history.
 
 
 
@@ -36,13 +36,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorsAPI.CloudGetV1Authors(context.Background()).Execute()
+	resp, r, err := apiClient.AuthorsAPI.GetAuthors(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.CloudGetV1Authors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.GetAuthors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Authors`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.CloudGetV1Authors`: %v\n", resp)
+	// response from `GetAuthors`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.GetAuthors`: %v\n", resp)
 }
 ```
 
@@ -52,7 +52,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AuthorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAuthorsRequest struct via the builder pattern
 
 
 ### Return type
@@ -61,7 +61,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1AuthorsRequest s
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -73,11 +73,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AuthorsRequest s
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AuthorsBasis
+## GetAuthorsBasis
 
-> map[string]map[string]interface{} CloudGetV1AuthorsBasis(ctx).Period(period).Execute()
+> map[string]map[string]interface{} GetAuthorsBasis(ctx).Period(period).Execute()
 
-MyRoyaltyBasis returns the AUDIT TRAIL behind the caller's own royalty: every ledger row with the spend it was computed from, the share applied at the time, the platform's matching half, whether each row satisfies the formula, and the attribution edges that already existed when the row was written.
+Returns the AUDIT TRAIL behind the caller's own royalty: every ledger row with the spend it was computed from, the share applied at the time, the platform's matching half, whether each row satisfies the formula, and the attribution edges that already existed when the row was written.
 
 
 
@@ -98,13 +98,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorsAPI.CloudGetV1AuthorsBasis(context.Background()).Period(period).Execute()
+	resp, r, err := apiClient.AuthorsAPI.GetAuthorsBasis(context.Background()).Period(period).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.CloudGetV1AuthorsBasis``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.GetAuthorsBasis``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1AuthorsBasis`: map[string]map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.CloudGetV1AuthorsBasis`: %v\n", resp)
+	// response from `GetAuthorsBasis`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.GetAuthorsBasis`: %v\n", resp)
 }
 ```
 
@@ -114,7 +114,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AuthorsBasisRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAuthorsBasisRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -139,11 +139,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AuthorsConnect
+## PostAuthorsConnect
 
-> CloudEnrolment CloudPostV1AuthorsConnect(ctx).CloudConnectRequest(cloudConnectRequest).Execute()
+> Enrolment PostAuthorsConnect(ctx).ConnectRequest(connectRequest).Execute()
 
-ConnectAuthor enrols the caller's org in the author program at status \"connected\" and returns its enrolment, including the verify code the file method needs.
+Enrols the caller's org in the author program at status \"connected\" and returns its enrolment, including the verify code the file method needs.
 
 
 
@@ -160,17 +160,17 @@ import (
 )
 
 func main() {
-	cloudConnectRequest := *openapiclient.NewCloudConnectRequest() // CloudConnectRequest | 
+	connectRequest := *openapiclient.NewConnectRequest() // ConnectRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorsAPI.CloudPostV1AuthorsConnect(context.Background()).CloudConnectRequest(cloudConnectRequest).Execute()
+	resp, r, err := apiClient.AuthorsAPI.PostAuthorsConnect(context.Background()).ConnectRequest(connectRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.CloudPostV1AuthorsConnect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.PostAuthorsConnect``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AuthorsConnect`: CloudEnrolment
-	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.CloudPostV1AuthorsConnect`: %v\n", resp)
+	// response from `PostAuthorsConnect`: Enrolment
+	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.PostAuthorsConnect`: %v\n", resp)
 }
 ```
 
@@ -180,20 +180,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AuthorsConnectRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAuthorsConnectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudConnectRequest** | [**CloudConnectRequest**](CloudConnectRequest.md) |  | 
+ **connectRequest** | [**ConnectRequest**](ConnectRequest.md) |  | 
 
 ### Return type
 
-[**CloudEnrolment**](CloudEnrolment.md)
+[**Enrolment**](Enrolment.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -205,11 +205,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AuthorsDeploysRecord
+## PostAuthorsDeploysRecord
 
-> CloudDeployRecord CloudPostV1AuthorsDeploysRecord(ctx).CloudDeployRequest(cloudDeployRequest).Execute()
+> DeployRecord PostAuthorsDeploysRecord(ctx).DeployRequest(deployRequest).Execute()
 
-RecordAuthorDeploy records that the caller's org deployed a project built from a source repository, which is the edge that makes an author's work earn royalty.
+Records that the caller's org deployed a project built from a source repository, which is the edge that makes an author's work earn royalty.
 
 
 
@@ -226,17 +226,17 @@ import (
 )
 
 func main() {
-	cloudDeployRequest := *openapiclient.NewCloudDeployRequest() // CloudDeployRequest | 
+	deployRequest := *openapiclient.NewDeployRequest() // DeployRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorsAPI.CloudPostV1AuthorsDeploysRecord(context.Background()).CloudDeployRequest(cloudDeployRequest).Execute()
+	resp, r, err := apiClient.AuthorsAPI.PostAuthorsDeploysRecord(context.Background()).DeployRequest(deployRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.CloudPostV1AuthorsDeploysRecord``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.PostAuthorsDeploysRecord``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AuthorsDeploysRecord`: CloudDeployRecord
-	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.CloudPostV1AuthorsDeploysRecord`: %v\n", resp)
+	// response from `PostAuthorsDeploysRecord`: DeployRecord
+	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.PostAuthorsDeploysRecord`: %v\n", resp)
 }
 ```
 
@@ -246,20 +246,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AuthorsDeploysRecordRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAuthorsDeploysRecordRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudDeployRequest** | [**CloudDeployRequest**](CloudDeployRequest.md) |  | 
+ **deployRequest** | [**DeployRequest**](DeployRequest.md) |  | 
 
 ### Return type
 
-[**CloudDeployRecord**](CloudDeployRecord.md)
+[**DeployRecord**](DeployRecord.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -271,11 +271,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1AuthorsReposVerify
+## PostAuthorsReposVerify
 
-> CloudClaim CloudPostV1AuthorsReposVerify(ctx).CloudVerifyRequest(cloudVerifyRequest).Execute()
+> Claim PostAuthorsReposVerify(ctx).VerifyRequest(verifyRequest).Execute()
 
-VerifyAuthorRepo proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
+Proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
 
 
 
@@ -292,17 +292,17 @@ import (
 )
 
 func main() {
-	cloudVerifyRequest := *openapiclient.NewCloudVerifyRequest() // CloudVerifyRequest | 
+	verifyRequest := *openapiclient.NewVerifyRequest() // VerifyRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorsAPI.CloudPostV1AuthorsReposVerify(context.Background()).CloudVerifyRequest(cloudVerifyRequest).Execute()
+	resp, r, err := apiClient.AuthorsAPI.PostAuthorsReposVerify(context.Background()).VerifyRequest(verifyRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.CloudPostV1AuthorsReposVerify``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorsAPI.PostAuthorsReposVerify``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1AuthorsReposVerify`: CloudClaim
-	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.CloudPostV1AuthorsReposVerify`: %v\n", resp)
+	// response from `PostAuthorsReposVerify`: Claim
+	fmt.Fprintf(os.Stdout, "Response from `AuthorsAPI.PostAuthorsReposVerify`: %v\n", resp)
 }
 ```
 
@@ -312,20 +312,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AuthorsReposVerifyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAuthorsReposVerifyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudVerifyRequest** | [**CloudVerifyRequest**](CloudVerifyRequest.md) |  | 
+ **verifyRequest** | [**VerifyRequest**](VerifyRequest.md) |  | 
 
 ### Return type
 
-[**CloudClaim**](CloudClaim.md)
+[**Claim**](Claim.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudCancelFleetJob**](FleetAPI.md#CloudCancelFleetJob) | **Post** /v1/fleet/jobs/{id}/cancel | Cancels a queued or running render in the caller&#39;s org.
-[**CloudListFleet**](FleetAPI.md#CloudListFleet) | **Get** /v1/fleet | Returns every compute unit the caller&#39;s org has, from every source, each carrying its latest utilization: agent run-targets, the BYO machines that dialed in, attached BYO clusters and Visor-provisioned machines.
-[**CloudListFleetJobs**](FleetAPI.md#CloudListFleetJobs) | **Get** /v1/fleet/jobs | Returns the caller org&#39;s gpu-jobs render queue, each row tagged with the GPU it targets (empty &#x3D; the shared any-GPU lane) and the node claiming it, optionally narrowed to one GPU&#39;s queue and/or one status.
-[**CloudListFleetSamples**](FleetAPI.md#CloudListFleetSamples) | **Get** /v1/fleet/samples | Returns the caller org&#39;s utilization series, oldest first.
-[**CloudListFleetWorkers**](FleetAPI.md#CloudListFleetWorkers) | **Get** /v1/fleet/workers | Returns the caller org&#39;s BYO machines — the ones that dialed in via &#x60;hanzo link&#x60; — with everything each host reported about itself.
-[**CloudRecordFleetSample**](FleetAPI.md#CloudRecordFleetSample) | **Post** /v1/fleet/samples | Records a BYO worker&#39;s live GPU utilization into the SAME series the fleet board overlays.
+[**CancelFleetJob**](FleetAPI.md#CancelFleetJob) | **Post** /v1/fleet/jobs/{id}/cancel | Cancels a queued or running render in the caller&#39;s org.
+[**ListFleet**](FleetAPI.md#ListFleet) | **Get** /v1/fleet | Returns every compute unit the caller&#39;s org has, from every source, each carrying its latest utilization: agent run-targets, the BYO machines that dialed in, attached BYO clusters and Visor-provisioned machines.
+[**ListFleetJobs**](FleetAPI.md#ListFleetJobs) | **Get** /v1/fleet/jobs | Returns the caller org&#39;s gpu-jobs render queue, each row tagged with the GPU it targets (empty &#x3D; the shared any-GPU lane) and the node claiming it, optionally narrowed to one GPU&#39;s queue and/or one status.
+[**ListFleetSamples**](FleetAPI.md#ListFleetSamples) | **Get** /v1/fleet/samples | Returns the caller org&#39;s utilization series, oldest first.
+[**ListFleetWorkers**](FleetAPI.md#ListFleetWorkers) | **Get** /v1/fleet/workers | Returns the caller org&#39;s BYO machines — the ones that dialed in via &#x60;hanzo link&#x60; — with everything each host reported about itself.
+[**RecordFleetSample**](FleetAPI.md#RecordFleetSample) | **Post** /v1/fleet/samples | Records a BYO worker&#39;s live GPU utilization into the SAME series the fleet board overlays.
 
 
 
-## CloudCancelFleetJob
+## CancelFleetJob
 
-> CloudJobCanceled CloudCancelFleetJob(ctx, id).CloudJobCancel(cloudJobCancel).Execute()
+> JobCanceled CancelFleetJob(ctx, id).JobCancel(jobCancel).Execute()
 
 Cancels a queued or running render in the caller's org.
 
@@ -35,17 +35,17 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the job (activity) id, from the URL path.
-	cloudJobCancel := *openapiclient.NewCloudJobCancel() // CloudJobCancel | 
+	jobCancel := *openapiclient.NewJobCancel() // JobCancel | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FleetAPI.CloudCancelFleetJob(context.Background(), id).CloudJobCancel(cloudJobCancel).Execute()
+	resp, r, err := apiClient.FleetAPI.CancelFleetJob(context.Background(), id).JobCancel(jobCancel).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.CloudCancelFleetJob``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.CancelFleetJob``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudCancelFleetJob`: CloudJobCanceled
-	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.CloudCancelFleetJob`: %v\n", resp)
+	// response from `CancelFleetJob`: JobCanceled
+	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.CancelFleetJob`: %v\n", resp)
 }
 ```
 
@@ -59,21 +59,21 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudCancelFleetJobRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCancelFleetJobRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cloudJobCancel** | [**CloudJobCancel**](CloudJobCancel.md) |  | 
+ **jobCancel** | [**JobCancel**](JobCancel.md) |  | 
 
 ### Return type
 
-[**CloudJobCanceled**](CloudJobCanceled.md)
+[**JobCanceled**](JobCanceled.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -85,9 +85,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudListFleet
+## ListFleet
 
-> CloudFleetBoard CloudListFleet(ctx).Execute()
+> FleetBoard ListFleet(ctx).Execute()
 
 Returns every compute unit the caller's org has, from every source, each carrying its latest utilization: agent run-targets, the BYO machines that dialed in, attached BYO clusters and Visor-provisioned machines.
 
@@ -109,13 +109,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FleetAPI.CloudListFleet(context.Background()).Execute()
+	resp, r, err := apiClient.FleetAPI.ListFleet(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.CloudListFleet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.ListFleet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListFleet`: CloudFleetBoard
-	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.CloudListFleet`: %v\n", resp)
+	// response from `ListFleet`: FleetBoard
+	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.ListFleet`: %v\n", resp)
 }
 ```
 
@@ -125,16 +125,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListFleetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListFleetRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudFleetBoard**](CloudFleetBoard.md)
+[**FleetBoard**](FleetBoard.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -146,9 +146,9 @@ Other parameters are passed through a pointer to a apiCloudListFleetRequest stru
 [[Back to README]](../README.md)
 
 
-## CloudListFleetJobs
+## ListFleetJobs
 
-> CloudJobList CloudListFleetJobs(ctx).Gpu(gpu).Status(status).Execute()
+> JobList ListFleetJobs(ctx).Gpu(gpu).Status(status).Execute()
 
 Returns the caller org's gpu-jobs render queue, each row tagged with the GPU it targets (empty = the shared any-GPU lane) and the node claiming it, optionally narrowed to one GPU's queue and/or one status.
 
@@ -172,13 +172,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FleetAPI.CloudListFleetJobs(context.Background()).Gpu(gpu).Status(status).Execute()
+	resp, r, err := apiClient.FleetAPI.ListFleetJobs(context.Background()).Gpu(gpu).Status(status).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.CloudListFleetJobs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.ListFleetJobs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListFleetJobs`: CloudJobList
-	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.CloudListFleetJobs`: %v\n", resp)
+	// response from `ListFleetJobs`: JobList
+	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.ListFleetJobs`: %v\n", resp)
 }
 ```
 
@@ -188,7 +188,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListFleetJobsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListFleetJobsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -198,11 +198,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudJobList**](CloudJobList.md)
+[**JobList**](JobList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -214,9 +214,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudListFleetSamples
+## ListFleetSamples
 
-> CloudSampleList CloudListFleetSamples(ctx).Unit(unit).Source(source).Range_(range_).Execute()
+> SampleList ListFleetSamples(ctx).Unit(unit).Source(source).Range_(range_).Execute()
 
 Returns the caller org's utilization series, oldest first.
 
@@ -241,13 +241,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FleetAPI.CloudListFleetSamples(context.Background()).Unit(unit).Source(source).Range_(range_).Execute()
+	resp, r, err := apiClient.FleetAPI.ListFleetSamples(context.Background()).Unit(unit).Source(source).Range_(range_).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.CloudListFleetSamples``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.ListFleetSamples``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListFleetSamples`: CloudSampleList
-	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.CloudListFleetSamples`: %v\n", resp)
+	// response from `ListFleetSamples`: SampleList
+	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.ListFleetSamples`: %v\n", resp)
 }
 ```
 
@@ -257,7 +257,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListFleetSamplesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListFleetSamplesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -268,11 +268,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudSampleList**](CloudSampleList.md)
+[**SampleList**](SampleList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -284,9 +284,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudListFleetWorkers
+## ListFleetWorkers
 
-> CloudWorkerList CloudListFleetWorkers(ctx).Execute()
+> WorkerList ListFleetWorkers(ctx).Execute()
 
 Returns the caller org's BYO machines — the ones that dialed in via `hanzo link` — with everything each host reported about itself.
 
@@ -308,13 +308,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FleetAPI.CloudListFleetWorkers(context.Background()).Execute()
+	resp, r, err := apiClient.FleetAPI.ListFleetWorkers(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.CloudListFleetWorkers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.ListFleetWorkers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudListFleetWorkers`: CloudWorkerList
-	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.CloudListFleetWorkers`: %v\n", resp)
+	// response from `ListFleetWorkers`: WorkerList
+	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.ListFleetWorkers`: %v\n", resp)
 }
 ```
 
@@ -324,16 +324,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudListFleetWorkersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListFleetWorkersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudWorkerList**](CloudWorkerList.md)
+[**WorkerList**](WorkerList.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -345,9 +345,9 @@ Other parameters are passed through a pointer to a apiCloudListFleetWorkersReque
 [[Back to README]](../README.md)
 
 
-## CloudRecordFleetSample
+## RecordFleetSample
 
-> CloudSampleAccepted CloudRecordFleetSample(ctx).CloudSampleIngest(cloudSampleIngest).Execute()
+> SampleAccepted RecordFleetSample(ctx).SampleIngest(sampleIngest).Execute()
 
 Records a BYO worker's live GPU utilization into the SAME series the fleet board overlays.
 
@@ -366,17 +366,17 @@ import (
 )
 
 func main() {
-	cloudSampleIngest := *openapiclient.NewCloudSampleIngest() // CloudSampleIngest | 
+	sampleIngest := *openapiclient.NewSampleIngest() // SampleIngest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FleetAPI.CloudRecordFleetSample(context.Background()).CloudSampleIngest(cloudSampleIngest).Execute()
+	resp, r, err := apiClient.FleetAPI.RecordFleetSample(context.Background()).SampleIngest(sampleIngest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.CloudRecordFleetSample``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FleetAPI.RecordFleetSample``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudRecordFleetSample`: CloudSampleAccepted
-	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.CloudRecordFleetSample`: %v\n", resp)
+	// response from `RecordFleetSample`: SampleAccepted
+	fmt.Fprintf(os.Stdout, "Response from `FleetAPI.RecordFleetSample`: %v\n", resp)
 }
 ```
 
@@ -386,20 +386,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudRecordFleetSampleRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiRecordFleetSampleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudSampleIngest** | [**CloudSampleIngest**](CloudSampleIngest.md) |  | 
+ **sampleIngest** | [**SampleIngest**](SampleIngest.md) |  | 
 
 ### Return type
 
-[**CloudSampleAccepted**](CloudSampleAccepted.md)
+[**SampleAccepted**](SampleAccepted.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -4,27 +4,30 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1ProjectsBySlug**](ProjectsAPI.md#CloudDeleteV1ProjectsBySlug) | **Delete** /v1/projects/{slug} | 
-[**CloudDeleteV1ProjectsBySlugDomainsByHost**](ProjectsAPI.md#CloudDeleteV1ProjectsBySlugDomainsByHost) | **Delete** /v1/projects/{slug}/domains/{host} | 
-[**CloudGetV1Projects**](ProjectsAPI.md#CloudGetV1Projects) | **Get** /v1/projects | 
-[**CloudGetV1ProjectsBySlug**](ProjectsAPI.md#CloudGetV1ProjectsBySlug) | **Get** /v1/projects/{slug} | 
-[**CloudGetV1ProjectsBySlugDeployments**](ProjectsAPI.md#CloudGetV1ProjectsBySlugDeployments) | **Get** /v1/projects/{slug}/deployments | 
-[**CloudGetV1ProjectsBySlugDeploymentsById**](ProjectsAPI.md#CloudGetV1ProjectsBySlugDeploymentsById) | **Get** /v1/projects/{slug}/deployments/{id} | 
-[**CloudGetV1ProjectsBySlugDomains**](ProjectsAPI.md#CloudGetV1ProjectsBySlugDomains) | **Get** /v1/projects/{slug}/domains | 
-[**CloudPatchV1ProjectsBySlug**](ProjectsAPI.md#CloudPatchV1ProjectsBySlug) | **Patch** /v1/projects/{slug} | 
-[**CloudPostV1Projects**](ProjectsAPI.md#CloudPostV1Projects) | **Post** /v1/projects | 
-[**CloudPostV1ProjectsBySlugDeploy**](ProjectsAPI.md#CloudPostV1ProjectsBySlugDeploy) | **Post** /v1/projects/{slug}/deploy | 
-[**CloudPostV1ProjectsBySlugDeploymentsByIdComplete**](ProjectsAPI.md#CloudPostV1ProjectsBySlugDeploymentsByIdComplete) | **Post** /v1/projects/{slug}/deployments/{id}/complete | 
-[**CloudPostV1ProjectsBySlugDomains**](ProjectsAPI.md#CloudPostV1ProjectsBySlugDomains) | **Post** /v1/projects/{slug}/domains | 
-[**CloudPostV1ProjectsBySlugDomainsByHostVerify**](ProjectsAPI.md#CloudPostV1ProjectsBySlugDomainsByHostVerify) | **Post** /v1/projects/{slug}/domains/{host}/verify | 
-[**CloudPostV1ProjectsBySlugPurge**](ProjectsAPI.md#CloudPostV1ProjectsBySlugPurge) | **Post** /v1/projects/{slug}/purge | 
-[**CloudPostV1ProjectsFork**](ProjectsAPI.md#CloudPostV1ProjectsFork) | **Post** /v1/projects/fork | 
+[**DeleteProjectsBySlug**](ProjectsAPI.md#DeleteProjectsBySlug) | **Delete** /v1/projects/{slug} | Deletes a project and takes its site off the internet.
+[**DeleteProjectsBySlugDomainsByHost**](ProjectsAPI.md#DeleteProjectsBySlugDomainsByHost) | **Delete** /v1/projects/{slug}/domains/{host} | Gives a custom hostname back, so the name is free to reuse.
+[**GetProjects**](ProjectsAPI.md#GetProjects) | **Get** /v1/projects | Returns every project your org owns.
+[**GetProjectsBySlug**](ProjectsAPI.md#GetProjectsBySlug) | **Get** /v1/projects/{slug} | Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
+[**GetProjectsBySlugDeployments**](ProjectsAPI.md#GetProjectsBySlugDeployments) | **Get** /v1/projects/{slug}/deployments | Returns a project&#39;s deploy history, newest version first.
+[**GetProjectsBySlugDeploymentsById**](ProjectsAPI.md#GetProjectsBySlugDeploymentsById) | **Get** /v1/projects/{slug}/deployments/{id} | Returns one deployment of a project by id.
+[**GetProjectsBySlugDomains**](ProjectsAPI.md#GetProjectsBySlugDomains) | **Get** /v1/projects/{slug}/domains | Returns every custom hostname this site holds: the live ones, plus any pending claim with the DNS records it still owes.
+[**PatchProjectsBySlug**](ProjectsAPI.md#PatchProjectsBySlug) | **Patch** /v1/projects/{slug} | Changes a project&#39;s settings, and only the settings you send.
+[**PostProjects**](ProjectsAPI.md#PostProjects) | **Post** /v1/projects | Creates a project — the handle a site is deployed and served under — and answers 201 with it in &#x60;draft&#x60;.
+[**PostProjectsBySlugDeploy**](ProjectsAPI.md#PostProjectsBySlugDeploy) | **Post** /v1/projects/{slug}/deploy | Upload a built site as one archive and serve it
+[**PostProjectsBySlugDeployments**](ProjectsAPI.md#PostProjectsBySlugDeployments) | **Post** /v1/projects/{slug}/deployments | Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
+[**PostProjectsBySlugDeploymentsByIdComplete**](ProjectsAPI.md#PostProjectsBySlugDeploymentsByIdComplete) | **Post** /v1/projects/{slug}/deployments/{id}/complete | CompleteDeployment is the CI completion hook that flips a queued git deployment to live (or error) once CI has synced the built site to S3.
+[**PostProjectsBySlugDomains**](ProjectsAPI.md#PostProjectsBySlugDomains) | **Post** /v1/projects/{slug}/domains | Attaches one or more CUSTOM public hostnames to this org&#39;s site.
+[**PostProjectsBySlugDomainsByHostVerify**](ProjectsAPI.md#PostProjectsBySlugDomainsByHostVerify) | **Post** /v1/projects/{slug}/domains/{host}/verify | Checks the DNS challenge for a pending custom hostname and, when it passes, promotes the host so it begins routing at the edge.
+[**PostProjectsBySlugPurge**](ProjectsAPI.md#PostProjectsBySlugPurge) | **Post** /v1/projects/{slug}/purge | Flushes the site&#39;s edge cache without redeploying anything.
+[**PostProjectsFork**](ProjectsAPI.md#PostProjectsFork) | **Post** /v1/projects/fork | Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org&#39;s app serving at &lt;slug&gt;.hanzo.app).
 
 
 
-## CloudDeleteV1ProjectsBySlug
+## DeleteProjectsBySlug
 
-> CloudDeleteV1ProjectsBySlug(ctx, slug).Execute()
+> DeleteProjectsBySlug(ctx, slug).Execute()
+
+Deletes a project and takes its site off the internet.
 
 
 
@@ -41,13 +44,13 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
+	slug := "slug_example" // string | Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudDeleteV1ProjectsBySlug(context.Background(), slug).Execute()
+	r, err := apiClient.ProjectsAPI.DeleteProjectsBySlug(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudDeleteV1ProjectsBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.DeleteProjectsBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -59,11 +62,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**slug** | **string** | Slug is the project to act on, from the path. It is unique within the caller&#39;s org and nowhere else, so another tenant&#39;s slug is a 404. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1ProjectsBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteProjectsBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -76,7 +79,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -88,9 +91,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudDeleteV1ProjectsBySlugDomainsByHost
+## DeleteProjectsBySlugDomainsByHost
 
-> CloudDeleteV1ProjectsBySlugDomainsByHost(ctx, slug, host).Execute()
+> DeleteProjectsBySlugDomainsByHost(ctx, slug, host).Execute()
+
+Gives a custom hostname back, so the name is free to reuse.
 
 
 
@@ -107,14 +112,14 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
-	host := "host_example" // string | 
+	slug := "slug_example" // string | Slug is the project the host is attached to, from the path.
+	host := "host_example" // string | Host is the custom hostname, from the path. It is cleaned to its canonical form (lowercased, trailing dot dropped) before anything is looked up.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudDeleteV1ProjectsBySlugDomainsByHost(context.Background(), slug, host).Execute()
+	r, err := apiClient.ProjectsAPI.DeleteProjectsBySlugDomainsByHost(context.Background(), slug, host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudDeleteV1ProjectsBySlugDomainsByHost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.DeleteProjectsBySlugDomainsByHost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -126,12 +131,12 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-**host** | **string** |  | 
+**slug** | **string** | Slug is the project the host is attached to, from the path. | 
+**host** | **string** | Host is the custom hostname, from the path. It is cleaned to its canonical form (lowercased, trailing dot dropped) before anything is looked up. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1ProjectsBySlugDomainsByHostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteProjectsBySlugDomainsByHostRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -145,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -157,9 +162,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1Projects
+## GetProjects
 
-> CloudGetV1Projects(ctx).Execute()
+> []ProjectsProject GetProjects(ctx).Execute()
+
+Returns every project your org owns.
 
 
 
@@ -179,11 +186,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudGetV1Projects(context.Background()).Execute()
+	resp, r, err := apiClient.ProjectsAPI.GetProjects(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudGetV1Projects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetProjects`: []ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjects`: %v\n", resp)
 }
 ```
 
@@ -193,30 +202,453 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ProjectsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetProjectsRequest struct via the builder pattern
 
 
 ### Return type
 
- (empty response body)
+[**[]ProjectsProject**](ProjectsProject.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ProjectsBySlug
+## GetProjectsBySlug
 
-> CloudGetV1ProjectsBySlug(ctx, slug).Execute()
+> ProjectsProject GetProjectsBySlug(ctx, slug).Execute()
+
+Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlug(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProjectsBySlug`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlug`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the project to act on, from the path. It is unique within the caller&#39;s org and nowhere else, so another tenant&#39;s slug is a 404. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProjectsBySlugRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ProjectsProject**](ProjectsProject.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetProjectsBySlugDeployments
+
+> []ProjectsDeployment GetProjectsBySlugDeployments(ctx, slug).Execute()
+
+Returns a project's deploy history, newest version first.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlugDeployments(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlugDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProjectsBySlugDeployments`: []ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlugDeployments`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the project to act on, from the path. It is unique within the caller&#39;s org and nowhere else, so another tenant&#39;s slug is a 404. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProjectsBySlugDeploymentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**[]ProjectsDeployment**](ProjectsDeployment.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetProjectsBySlugDeploymentsById
+
+> ProjectsDeployment GetProjectsBySlugDeploymentsById(ctx, slug, id).Execute()
+
+Returns one deployment of a project by id.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the project the deployment belongs to, from the path.
+	id := "id_example" // string | ID is the deployment id, from the path. A deployment of another project — or of another tenant's project — is not found.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlugDeploymentsById(context.Background(), slug, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlugDeploymentsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProjectsBySlugDeploymentsById`: ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlugDeploymentsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the project the deployment belongs to, from the path. | 
+**id** | **string** | ID is the deployment id, from the path. A deployment of another project — or of another tenant&#39;s project — is not found. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProjectsBySlugDeploymentsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**ProjectsDeployment**](ProjectsDeployment.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetProjectsBySlugDomains
+
+> ProjectsDomains GetProjectsBySlugDomains(ctx, slug).Execute()
+
+Returns every custom hostname this site holds: the live ones, plus any pending claim with the DNS records it still owes.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsAPI.GetProjectsBySlugDomains(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.GetProjectsBySlugDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProjectsBySlugDomains`: ProjectsDomains
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.GetProjectsBySlugDomains`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the project to act on, from the path. It is unique within the caller&#39;s org and nowhere else, so another tenant&#39;s slug is a 404. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProjectsBySlugDomainsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ProjectsDomains**](ProjectsDomains.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchProjectsBySlug
+
+> ProjectsProject PatchProjectsBySlug(ctx, slug).ProjectsUpdate(projectsUpdate).Execute()
+
+Changes a project's settings, and only the settings you send.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the project to update, from the path. The URL is the addressing authority — a `slug` in the body cannot move the write to another project.
+	projectsUpdate := *openapiclient.NewProjectsUpdate() // ProjectsUpdate | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsAPI.PatchProjectsBySlug(context.Background(), slug).ProjectsUpdate(projectsUpdate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PatchProjectsBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchProjectsBySlug`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PatchProjectsBySlug`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the project to update, from the path. The URL is the addressing authority — a &#x60;slug&#x60; in the body cannot move the write to another project. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchProjectsBySlugRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **projectsUpdate** | [**ProjectsUpdate**](ProjectsUpdate.md) |  | 
+
+### Return type
+
+[**ProjectsProject**](ProjectsProject.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostProjects
+
+> ProjectsProject PostProjects(ctx).ProjectsCreate(projectsCreate).Execute()
+
+Creates a project — the handle a site is deployed and served under — and answers 201 with it in `draft`.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	projectsCreate := *openapiclient.NewProjectsCreate() // ProjectsCreate | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsAPI.PostProjects(context.Background()).ProjectsCreate(projectsCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostProjects`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjects`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostProjectsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectsCreate** | [**ProjectsCreate**](ProjectsCreate.md) |  | 
+
+### Return type
+
+[**ProjectsProject**](ProjectsProject.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostProjectsBySlugDeploy
+
+> ProjectsDeployment PostProjectsBySlugDeploy(ctx, slug).Body(body).Execute()
+
+Upload a built site as one archive and serve it
 
 
 
@@ -234,14 +666,17 @@ import (
 
 func main() {
 	slug := "slug_example" // string | 
+	body := os.NewFile(1234, "some_file") // *os.File |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudGetV1ProjectsBySlug(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDeploy(context.Background(), slug).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudGetV1ProjectsBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostProjectsBySlugDeploy`: ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDeploy`: %v\n", resp)
 }
 ```
 
@@ -255,34 +690,37 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ProjectsBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectsBySlugDeployRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **body** | ***os.File** |  | 
 
 ### Return type
 
- (empty response body)
+[**ProjectsDeployment**](ProjectsDeployment.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/octet-stream
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ProjectsBySlugDeployments
+## PostProjectsBySlugDeployments
 
-> CloudGetV1ProjectsBySlugDeployments(ctx, slug).Execute()
+> ProjectsDeployment PostProjectsBySlugDeployments(ctx, slug).ProjectsDeployStart(projectsDeployStart).Execute()
+
+Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
 
 
 
@@ -299,15 +737,18 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
+	slug := "slug_example" // string | Slug is the site to deploy, from the path.
+	projectsDeployStart := *openapiclient.NewProjectsDeployStart() // ProjectsDeployStart | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudGetV1ProjectsBySlugDeployments(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDeployments(context.Background(), slug).ProjectsDeployStart(projectsDeployStart).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudGetV1ProjectsBySlugDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostProjectsBySlugDeployments`: ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDeployments`: %v\n", resp)
 }
 ```
 
@@ -317,38 +758,41 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**slug** | **string** | Slug is the site to deploy, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ProjectsBySlugDeploymentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectsBySlugDeploymentsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **projectsDeployStart** | [**ProjectsDeployStart**](ProjectsDeployStart.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ProjectsDeployment**](ProjectsDeployment.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ProjectsBySlugDeploymentsById
+## PostProjectsBySlugDeploymentsByIdComplete
 
-> CloudGetV1ProjectsBySlugDeploymentsById(ctx, slug, id).Execute()
+> ProjectsDeployment PostProjectsBySlugDeploymentsByIdComplete(ctx, slug, id).ProjectsComplete(projectsComplete).Execute()
+
+CompleteDeployment is the CI completion hook that flips a queued git deployment to live (or error) once CI has synced the built site to S3.
 
 
 
@@ -365,16 +809,19 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
-	id := "id_example" // string | 
+	slug := "slug_example" // string | Slug is the project the deployment belongs to, from the path.
+	id := "id_example" // string | ID is the queued deployment to complete, from the path.
+	projectsComplete := *openapiclient.NewProjectsComplete() // ProjectsComplete | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudGetV1ProjectsBySlugDeploymentsById(context.Background(), slug, id).Execute()
+	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDeploymentsByIdComplete(context.Background(), slug, id).ProjectsComplete(projectsComplete).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudGetV1ProjectsBySlugDeploymentsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDeploymentsByIdComplete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostProjectsBySlugDeploymentsByIdComplete`: ProjectsDeployment
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDeploymentsByIdComplete`: %v\n", resp)
 }
 ```
 
@@ -384,40 +831,43 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-**id** | **string** |  | 
+**slug** | **string** | Slug is the project the deployment belongs to, from the path. | 
+**id** | **string** | ID is the queued deployment to complete, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ProjectsBySlugDeploymentsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectsBySlugDeploymentsByIdCompleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **projectsComplete** | [**ProjectsComplete**](ProjectsComplete.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ProjectsDeployment**](ProjectsDeployment.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudGetV1ProjectsBySlugDomains
+## PostProjectsBySlugDomains
 
-> CloudGetV1ProjectsBySlugDomains(ctx, slug).Execute()
+> ProjectsBoundDomains PostProjectsBySlugDomains(ctx, slug).ProjectsDomainsBind(projectsDomainsBind).Execute()
+
+Attaches one or more CUSTOM public hostnames to this org's site.
 
 
 
@@ -434,15 +884,18 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
+	slug := "slug_example" // string | Slug is the site the hosts attach to, from the path.
+	projectsDomainsBind := *openapiclient.NewProjectsDomainsBind() // ProjectsDomainsBind | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudGetV1ProjectsBySlugDomains(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDomains(context.Background(), slug).ProjectsDomainsBind(projectsDomainsBind).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudGetV1ProjectsBySlugDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostProjectsBySlugDomains`: ProjectsBoundDomains
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDomains`: %v\n", resp)
 }
 ```
 
@@ -452,38 +905,41 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**slug** | **string** | Slug is the site the hosts attach to, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1ProjectsBySlugDomainsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectsBySlugDomainsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **projectsDomainsBind** | [**ProjectsDomainsBind**](ProjectsDomainsBind.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ProjectsBoundDomains**](ProjectsBoundDomains.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1ProjectsBySlug
+## PostProjectsBySlugDomainsByHostVerify
 
-> CloudPatchV1ProjectsBySlug(ctx, slug).Execute()
+> ProjectsDomain PostProjectsBySlugDomainsByHostVerify(ctx, slug, host).Execute()
+
+Checks the DNS challenge for a pending custom hostname and, when it passes, promotes the host so it begins routing at the edge.
 
 
 
@@ -500,15 +956,18 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
+	slug := "slug_example" // string | Slug is the project the host is attached to, from the path.
+	host := "host_example" // string | Host is the custom hostname, from the path. It is cleaned to its canonical form (lowercased, trailing dot dropped) before anything is looked up.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudPatchV1ProjectsBySlug(context.Background(), slug).Execute()
+	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugDomainsByHostVerify(context.Background(), slug, host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudPatchV1ProjectsBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugDomainsByHostVerify``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostProjectsBySlugDomainsByHostVerify`: ProjectsDomain
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugDomainsByHostVerify`: %v\n", resp)
 }
 ```
 
@@ -518,38 +977,42 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**slug** | **string** | Slug is the project the host is attached to, from the path. | 
+**host** | **string** | Host is the custom hostname, from the path. It is cleaned to its canonical form (lowercased, trailing dot dropped) before anything is looked up. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1ProjectsBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectsBySlugDomainsByHostVerifyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+
 ### Return type
 
- (empty response body)
+[**ProjectsDomain**](ProjectsDomain.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Projects
+## PostProjectsBySlugPurge
 
-> CloudPostV1Projects(ctx).Execute()
+> ProjectsProject PostProjectsBySlugPurge(ctx, slug).Execute()
+
+Flushes the site's edge cache without redeploying anything.
 
 
 
@@ -566,72 +1029,17 @@ import (
 )
 
 func main() {
+	slug := "slug_example" // string | Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudPostV1Projects(context.Background()).Execute()
+	resp, r, err := apiClient.ProjectsAPI.PostProjectsBySlugPurge(context.Background(), slug).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudPostV1Projects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsBySlugPurge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1ProjectsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1ProjectsBySlugDeploy
-
-> CloudPostV1ProjectsBySlugDeploy(ctx, slug).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudPostV1ProjectsBySlugDeploy(context.Background(), slug).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudPostV1ProjectsBySlugDeploy``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+	// response from `PostProjectsBySlugPurge`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsBySlugPurge`: %v\n", resp)
 }
 ```
 
@@ -641,11 +1049,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**slug** | **string** | Slug is the project to act on, from the path. It is unique within the caller&#39;s org and nowhere else, so another tenant&#39;s slug is a 404. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ProjectsBySlugDeployRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectsBySlugPurgeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -654,25 +1062,27 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**ProjectsProject**](ProjectsProject.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## CloudPostV1ProjectsBySlugDeploymentsByIdComplete
+## PostProjectsFork
 
-> CloudPostV1ProjectsBySlugDeploymentsByIdComplete(ctx, slug, id).Execute()
+> ProjectsProject PostProjectsFork(ctx).ProjectsFork(projectsFork).Execute()
+
+Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org's app serving at <slug>.hanzo.app).
 
 
 
@@ -689,308 +1099,45 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
-	id := "id_example" // string | 
+	projectsFork := *openapiclient.NewProjectsFork() // ProjectsFork | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudPostV1ProjectsBySlugDeploymentsByIdComplete(context.Background(), slug, id).Execute()
+	resp, r, err := apiClient.ProjectsAPI.PostProjectsFork(context.Background()).ProjectsFork(projectsFork).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudPostV1ProjectsBySlugDeploymentsByIdComplete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PostProjectsFork``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostProjectsFork`: ProjectsProject
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PostProjectsFork`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-**id** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1ProjectsBySlugDeploymentsByIdCompleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostProjectsForkRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
+ **projectsFork** | [**ProjectsFork**](ProjectsFork.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ProjectsProject**](ProjectsProject.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1ProjectsBySlugDomains
-
-> CloudPostV1ProjectsBySlugDomains(ctx, slug).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudPostV1ProjectsBySlugDomains(context.Background(), slug).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudPostV1ProjectsBySlugDomains``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1ProjectsBySlugDomainsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1ProjectsBySlugDomainsByHostVerify
-
-> CloudPostV1ProjectsBySlugDomainsByHostVerify(ctx, slug, host).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-	host := "host_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudPostV1ProjectsBySlugDomainsByHostVerify(context.Background(), slug, host).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudPostV1ProjectsBySlugDomainsByHostVerify``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-**host** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1ProjectsBySlugDomainsByHostVerifyRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1ProjectsBySlugPurge
-
-> CloudPostV1ProjectsBySlugPurge(ctx, slug).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudPostV1ProjectsBySlugPurge(context.Background(), slug).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudPostV1ProjectsBySlugPurge``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1ProjectsBySlugPurgeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1ProjectsFork
-
-> CloudPostV1ProjectsFork(ctx).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ProjectsAPI.CloudPostV1ProjectsFork(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.CloudPostV1ProjectsFork``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1ProjectsForkRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

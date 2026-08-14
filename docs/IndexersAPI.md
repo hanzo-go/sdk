@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Indexers**](IndexersAPI.md#CloudGetV1Indexers) | **Get** /v1/indexers | ListIndexers reports the deployment&#39;s chain indexer(s) and how far each has indexed.
+[**GetIndexers**](IndexersAPI.md#GetIndexers) | **Get** /v1/indexers | Reports the deployment&#39;s chain indexer(s) and how far each has indexed.
 
 
 
-## CloudGetV1Indexers
+## GetIndexers
 
-> CloudIndexersOut CloudGetV1Indexers(ctx).Execute()
+> IndexersOut GetIndexers(ctx).Execute()
 
-ListIndexers reports the deployment's chain indexer(s) and how far each has indexed.
+Reports the deployment's chain indexer(s) and how far each has indexed.
 
 
 
@@ -32,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IndexersAPI.CloudGetV1Indexers(context.Background()).Execute()
+	resp, r, err := apiClient.IndexersAPI.GetIndexers(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IndexersAPI.CloudGetV1Indexers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IndexersAPI.GetIndexers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1Indexers`: CloudIndexersOut
-	fmt.Fprintf(os.Stdout, "Response from `IndexersAPI.CloudGetV1Indexers`: %v\n", resp)
+	// response from `GetIndexers`: IndexersOut
+	fmt.Fprintf(os.Stdout, "Response from `IndexersAPI.GetIndexers`: %v\n", resp)
 }
 ```
 
@@ -48,16 +48,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1IndexersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetIndexersRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudIndexersOut**](CloudIndexersOut.md)
+[**IndexersOut**](IndexersOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -1,10 +1,10 @@
 // tools — list the MCP tools this key can reach.
 //
-// Operation: GET /v1/tools (cloud_get_v1_tools).
+// Operation: GET /v1/tools (get_tools).
 //
 // This is the served tool list: every tool the caller's org can see, which is
 // what an MCP tools/list answers. To CALL one, the next route is
-// POST /v1/tools/call (cloud_post_v1_tools_call).
+// POST /v1/tools/call (post_tools_call).
 //
 //	HANZO_API_KEY=sk-... go run ./examples/tools
 package main
@@ -20,7 +20,7 @@ import (
 func main() {
 	client := hanzoai.NewClient("")
 
-	list, _, err := client.ToolsAPI.CloudGetV1Tools(context.Background()).Execute()
+	list, _, err := client.ToolsAPI.GetTools(context.Background()).Execute()
 	if err != nil {
 		log.Fatalf("tools: %v", err)
 	}

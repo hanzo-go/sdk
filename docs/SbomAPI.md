@@ -4,15 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1SbomByWildcard1**](SbomAPI.md#CloudGetV1SbomByWildcard1) | **Get** /v1/sbom/{wildcard1} | 
-[**CloudGetV1SbomHealth**](SbomAPI.md#CloudGetV1SbomHealth) | **Get** /v1/sbom/health | Health is a pure liveness probe: the service is up; datastore reflects whether the datastore store is connected.
-[**CloudPostV1Sbom**](SbomAPI.md#CloudPostV1Sbom) | **Post** /v1/sbom | Ingest persists a CycloneDX SBOM&#39;s components keyed by image digest.
+[**GetSbomByWildcard1**](SbomAPI.md#GetSbomByWildcard1) | **Get** /v1/sbom/{wildcard1} | Resolve everything inside a container image
+[**GetSbomHealth**](SbomAPI.md#GetSbomHealth) | **Get** /v1/sbom/health | Health is a pure liveness probe: the service is up; datastore reflects whether the datastore store is connected.
+[**PostSbom**](SbomAPI.md#PostSbom) | **Post** /v1/sbom | Ingest persists a CycloneDX SBOM&#39;s components keyed by image digest.
 
 
 
-## CloudGetV1SbomByWildcard1
+## GetSbomByWildcard1
 
-> CloudGetV1SbomByWildcard1(ctx, wildcard1).Execute()
+> GetSbomByWildcard1(ctx, wildcard1).Execute()
+
+Resolve everything inside a container image
 
 
 
@@ -33,9 +35,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SbomAPI.CloudGetV1SbomByWildcard1(context.Background(), wildcard1).Execute()
+	r, err := apiClient.SbomAPI.GetSbomByWildcard1(context.Background(), wildcard1).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SbomAPI.CloudGetV1SbomByWildcard1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SbomAPI.GetSbomByWildcard1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -51,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SbomByWildcard1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSbomByWildcard1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -64,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -76,9 +78,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1SbomHealth
+## GetSbomHealth
 
-> CloudSbomHealth CloudGetV1SbomHealth(ctx).Execute()
+> SbomHealth GetSbomHealth(ctx).Execute()
 
 Health is a pure liveness probe: the service is up; datastore reflects whether the datastore store is connected.
 
@@ -100,13 +102,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SbomAPI.CloudGetV1SbomHealth(context.Background()).Execute()
+	resp, r, err := apiClient.SbomAPI.GetSbomHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SbomAPI.CloudGetV1SbomHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SbomAPI.GetSbomHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1SbomHealth`: CloudSbomHealth
-	fmt.Fprintf(os.Stdout, "Response from `SbomAPI.CloudGetV1SbomHealth`: %v\n", resp)
+	// response from `GetSbomHealth`: SbomHealth
+	fmt.Fprintf(os.Stdout, "Response from `SbomAPI.GetSbomHealth`: %v\n", resp)
 }
 ```
 
@@ -116,16 +118,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1SbomHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetSbomHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudSbomHealth**](CloudSbomHealth.md)
+[**SbomHealth**](SbomHealth.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -137,9 +139,9 @@ Other parameters are passed through a pointer to a apiCloudGetV1SbomHealthReques
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Sbom
+## PostSbom
 
-> CloudSbomIngested CloudPostV1Sbom(ctx).CloudSbomIngest(cloudSbomIngest).Execute()
+> SbomIngested PostSbom(ctx).SbomIngest(sbomIngest).Execute()
 
 Ingest persists a CycloneDX SBOM's components keyed by image digest.
 
@@ -158,17 +160,17 @@ import (
 )
 
 func main() {
-	cloudSbomIngest := *openapiclient.NewCloudSbomIngest() // CloudSbomIngest | 
+	sbomIngest := *openapiclient.NewSbomIngest() // SbomIngest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SbomAPI.CloudPostV1Sbom(context.Background()).CloudSbomIngest(cloudSbomIngest).Execute()
+	resp, r, err := apiClient.SbomAPI.PostSbom(context.Background()).SbomIngest(sbomIngest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SbomAPI.CloudPostV1Sbom``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SbomAPI.PostSbom``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1Sbom`: CloudSbomIngested
-	fmt.Fprintf(os.Stdout, "Response from `SbomAPI.CloudPostV1Sbom`: %v\n", resp)
+	// response from `PostSbom`: SbomIngested
+	fmt.Fprintf(os.Stdout, "Response from `SbomAPI.PostSbom`: %v\n", resp)
 }
 ```
 
@@ -178,20 +180,20 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1SbomRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostSbomRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudSbomIngest** | [**CloudSbomIngest**](CloudSbomIngest.md) |  | 
+ **sbomIngest** | [**SbomIngest**](SbomIngest.md) |  | 
 
 ### Return type
 
-[**CloudSbomIngested**](CloudSbomIngested.md)
+[**SbomIngested**](SbomIngested.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

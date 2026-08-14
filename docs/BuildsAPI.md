@@ -4,13 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Builds**](BuildsAPI.md#CloudGetV1Builds) | **Get** /v1/builds | 
+[**GetBuilds**](BuildsAPI.md#GetBuilds) | **Get** /v1/builds | Returns real build records for your org.
 
 
 
-## CloudGetV1Builds
+## GetBuilds
 
-> CloudGetV1Builds(ctx).Execute()
+> BuildBoard GetBuilds(ctx).Execute()
+
+Returns real build records for your org.
 
 
 
@@ -30,11 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BuildsAPI.CloudGetV1Builds(context.Background()).Execute()
+	resp, r, err := apiClient.BuildsAPI.GetBuilds(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BuildsAPI.CloudGetV1Builds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BuildsAPI.GetBuilds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetBuilds`: BuildBoard
+	fmt.Fprintf(os.Stdout, "Response from `BuildsAPI.GetBuilds`: %v\n", resp)
 }
 ```
 
@@ -44,21 +48,21 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1BuildsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBuildsRequest struct via the builder pattern
 
 
 ### Return type
 
- (empty response body)
+[**BuildBoard**](BuildBoard.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

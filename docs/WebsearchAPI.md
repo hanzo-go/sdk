@@ -4,19 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1WebsearchSearch**](WebsearchAPI.md#CloudDeleteV1WebsearchSearch) | **Delete** /v1/websearch/search | 
-[**CloudGetV1WebsearchSearch**](WebsearchAPI.md#CloudGetV1WebsearchSearch) | **Get** /v1/websearch/search | 
-[**CloudOptionsV1WebsearchSearch**](WebsearchAPI.md#CloudOptionsV1WebsearchSearch) | **Options** /v1/websearch/search | 
-[**CloudPatchV1WebsearchSearch**](WebsearchAPI.md#CloudPatchV1WebsearchSearch) | **Patch** /v1/websearch/search | 
-[**CloudPostV1WebsearchSearch**](WebsearchAPI.md#CloudPostV1WebsearchSearch) | **Post** /v1/websearch/search | 
-[**CloudPutV1WebsearchSearch**](WebsearchAPI.md#CloudPutV1WebsearchSearch) | **Put** /v1/websearch/search | 
-[**CloudTraceV1WebsearchSearch**](WebsearchAPI.md#CloudTraceV1WebsearchSearch) | **Trace** /v1/websearch/search | 
+[**DeleteWebsearchSearch**](WebsearchAPI.md#DeleteWebsearchSearch) | **Delete** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
+[**GetWebsearchSearch**](WebsearchAPI.md#GetWebsearchSearch) | **Get** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
+[**PatchWebsearchSearch**](WebsearchAPI.md#PatchWebsearchSearch) | **Patch** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
+[**PostWebsearchSearch**](WebsearchAPI.md#PostWebsearchSearch) | **Post** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
+[**PutWebsearchSearch**](WebsearchAPI.md#PutWebsearchSearch) | **Put** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
+[**SearchWeb**](WebsearchAPI.md#SearchWeb) | **Post** /v1/websearch | Search the live web
 
 
 
-## CloudDeleteV1WebsearchSearch
+## DeleteWebsearchSearch
 
-> CloudDeleteV1WebsearchSearch(ctx).Execute()
+> DeleteWebsearchSearch(ctx).Execute()
+
+Keyless web meta-search, in the SearXNG JSON envelope.
 
 
 
@@ -36,9 +37,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebsearchAPI.CloudDeleteV1WebsearchSearch(context.Background()).Execute()
+	r, err := apiClient.WebsearchAPI.DeleteWebsearchSearch(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.CloudDeleteV1WebsearchSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.DeleteWebsearchSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -50,7 +51,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1WebsearchSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteWebsearchSearchRequest struct via the builder pattern
 
 
 ### Return type
@@ -59,7 +60,7 @@ Other parameters are passed through a pointer to a apiCloudDeleteV1WebsearchSear
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -71,9 +72,11 @@ Other parameters are passed through a pointer to a apiCloudDeleteV1WebsearchSear
 [[Back to README]](../README.md)
 
 
-## CloudGetV1WebsearchSearch
+## GetWebsearchSearch
 
-> CloudGetV1WebsearchSearch(ctx).Execute()
+> GetWebsearchSearch(ctx).Execute()
+
+Keyless web meta-search, in the SearXNG JSON envelope.
 
 
 
@@ -93,9 +96,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebsearchAPI.CloudGetV1WebsearchSearch(context.Background()).Execute()
+	r, err := apiClient.WebsearchAPI.GetWebsearchSearch(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.CloudGetV1WebsearchSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.GetWebsearchSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -107,7 +110,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1WebsearchSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetWebsearchSearchRequest struct via the builder pattern
 
 
 ### Return type
@@ -116,7 +119,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1WebsearchSearchR
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -128,9 +131,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1WebsearchSearchR
 [[Back to README]](../README.md)
 
 
-## CloudOptionsV1WebsearchSearch
+## PatchWebsearchSearch
 
-> CloudOptionsV1WebsearchSearch(ctx).Execute()
+> PatchWebsearchSearch(ctx).Execute()
+
+Keyless web meta-search, in the SearXNG JSON envelope.
 
 
 
@@ -150,9 +155,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebsearchAPI.CloudOptionsV1WebsearchSearch(context.Background()).Execute()
+	r, err := apiClient.WebsearchAPI.PatchWebsearchSearch(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.CloudOptionsV1WebsearchSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.PatchWebsearchSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -164,7 +169,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudOptionsV1WebsearchSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchWebsearchSearchRequest struct via the builder pattern
 
 
 ### Return type
@@ -173,7 +178,7 @@ Other parameters are passed through a pointer to a apiCloudOptionsV1WebsearchSea
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -185,9 +190,11 @@ Other parameters are passed through a pointer to a apiCloudOptionsV1WebsearchSea
 [[Back to README]](../README.md)
 
 
-## CloudPatchV1WebsearchSearch
+## PostWebsearchSearch
 
-> CloudPatchV1WebsearchSearch(ctx).Execute()
+> PostWebsearchSearch(ctx).Execute()
+
+Keyless web meta-search, in the SearXNG JSON envelope.
 
 
 
@@ -207,9 +214,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebsearchAPI.CloudPatchV1WebsearchSearch(context.Background()).Execute()
+	r, err := apiClient.WebsearchAPI.PostWebsearchSearch(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.CloudPatchV1WebsearchSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.PostWebsearchSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -221,7 +228,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPatchV1WebsearchSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostWebsearchSearchRequest struct via the builder pattern
 
 
 ### Return type
@@ -230,7 +237,7 @@ Other parameters are passed through a pointer to a apiCloudPatchV1WebsearchSearc
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -242,9 +249,11 @@ Other parameters are passed through a pointer to a apiCloudPatchV1WebsearchSearc
 [[Back to README]](../README.md)
 
 
-## CloudPostV1WebsearchSearch
+## PutWebsearchSearch
 
-> CloudPostV1WebsearchSearch(ctx).Execute()
+> PutWebsearchSearch(ctx).Execute()
+
+Keyless web meta-search, in the SearXNG JSON envelope.
 
 
 
@@ -264,9 +273,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebsearchAPI.CloudPostV1WebsearchSearch(context.Background()).Execute()
+	r, err := apiClient.WebsearchAPI.PutWebsearchSearch(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.CloudPostV1WebsearchSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.PutWebsearchSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -278,7 +287,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1WebsearchSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutWebsearchSearchRequest struct via the builder pattern
 
 
 ### Return type
@@ -287,7 +296,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1WebsearchSearch
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -299,66 +308,11 @@ Other parameters are passed through a pointer to a apiCloudPostV1WebsearchSearch
 [[Back to README]](../README.md)
 
 
-## CloudPutV1WebsearchSearch
+## SearchWeb
 
-> CloudPutV1WebsearchSearch(ctx).Execute()
+> WebSearchResults SearchWeb(ctx).WebSearchQuery(webSearchQuery).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebsearchAPI.CloudPutV1WebsearchSearch(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.CloudPutV1WebsearchSearch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPutV1WebsearchSearchRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudTraceV1WebsearchSearch
-
-> CloudTraceV1WebsearchSearch(ctx).Execute()
+Search the live web
 
 
 
@@ -375,38 +329,45 @@ import (
 )
 
 func main() {
+	webSearchQuery := *openapiclient.NewWebSearchQuery() // WebSearchQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebsearchAPI.CloudTraceV1WebsearchSearch(context.Background()).Execute()
+	resp, r, err := apiClient.WebsearchAPI.SearchWeb(context.Background()).WebSearchQuery(webSearchQuery).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.CloudTraceV1WebsearchSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.SearchWeb``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `SearchWeb`: WebSearchResults
+	fmt.Fprintf(os.Stdout, "Response from `WebsearchAPI.SearchWeb`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudTraceV1WebsearchSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSearchWebRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webSearchQuery** | [**WebSearchQuery**](WebSearchQuery.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**WebSearchResults**](WebSearchResults.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

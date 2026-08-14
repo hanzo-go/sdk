@@ -4,23 +4,23 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudDeleteV1FlagsDefsKey**](FlagsAPI.md#CloudDeleteV1FlagsDefsKey) | **Delete** /v1/flags/defs/{key} | DeleteFlagDefinition removes one flag definition by key and records the deletion in the change log.
-[**CloudGetV1FlagsActivity**](FlagsAPI.md#CloudGetV1FlagsActivity) | **Get** /v1/flags/activity | ListFlagActivity returns the caller&#39;s flag change log newest-first: every create, update and delete, with the actor and the time.
-[**CloudGetV1FlagsDefs**](FlagsAPI.md#CloudGetV1FlagsDefs) | **Get** /v1/flags/defs | ListFlagDefinitions returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
-[**CloudGetV1FlagsDefsKey**](FlagsAPI.md#CloudGetV1FlagsDefsKey) | **Get** /v1/flags/defs/{key} | GetFlagDefinition returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
-[**CloudGetV1FlagsHealth**](FlagsAPI.md#CloudGetV1FlagsHealth) | **Get** /v1/flags/health | Health reports that the flag engine is serving.
-[**CloudGetV1FlagsWaitlist**](FlagsAPI.md#CloudGetV1FlagsWaitlist) | **Get** /v1/flags/waitlist | WaitlistMode reports whether ONE host is currently gated by the launch waitlist.
-[**CloudPostV1Flags**](FlagsAPI.md#CloudPostV1Flags) | **Post** /v1/flags | Evaluate runs the caller&#39;s flag definitions for one identity and returns the PostHog-shaped verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-[**CloudPostV1FlagsDecide**](FlagsAPI.md#CloudPostV1FlagsDecide) | **Post** /v1/flags/decide | Evaluate runs the caller&#39;s flag definitions for one identity and returns the PostHog-shaped verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-[**CloudPutV1FlagsDefsKey**](FlagsAPI.md#CloudPutV1FlagsDefsKey) | **Put** /v1/flags/defs/{key} | PutFlagDefinition creates or replaces the flag definition at the path&#39;s key and returns the stored row.
+[**DeleteFlagsDefsByKey**](FlagsAPI.md#DeleteFlagsDefsByKey) | **Delete** /v1/flags/defs/{key} | Removes one flag definition by key and records the deletion in the change log.
+[**GetFlagsActivity**](FlagsAPI.md#GetFlagsActivity) | **Get** /v1/flags/activity | Returns the caller&#39;s flag change log newest-first: every create, update and delete, with the actor and the time.
+[**GetFlagsDefs**](FlagsAPI.md#GetFlagsDefs) | **Get** /v1/flags/defs | Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
+[**GetFlagsDefsByKey**](FlagsAPI.md#GetFlagsDefsByKey) | **Get** /v1/flags/defs/{key} | Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
+[**GetFlagsHealth**](FlagsAPI.md#GetFlagsHealth) | **Get** /v1/flags/health | Health reports that the flag engine is serving.
+[**GetFlagsWaitlist**](FlagsAPI.md#GetFlagsWaitlist) | **Get** /v1/flags/waitlist | Reports whether ONE host is currently gated by the launch waitlist.
+[**PostFlags**](FlagsAPI.md#PostFlags) | **Post** /v1/flags | Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+[**PostFlagsDecide**](FlagsAPI.md#PostFlagsDecide) | **Post** /v1/flags/decide | Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+[**PutFlagsDefsByKey**](FlagsAPI.md#PutFlagsDefsByKey) | **Put** /v1/flags/defs/{key} | Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
 
 
 
-## CloudDeleteV1FlagsDefsKey
+## DeleteFlagsDefsByKey
 
-> CloudDeletedOut CloudDeleteV1FlagsDefsKey(ctx, key).Execute()
+> DeletedOut DeleteFlagsDefsByKey(ctx, key).Execute()
 
-DeleteFlagDefinition removes one flag definition by key and records the deletion in the change log.
+Removes one flag definition by key and records the deletion in the change log.
 
 
 
@@ -41,13 +41,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudDeleteV1FlagsDefsKey(context.Background(), key).Execute()
+	resp, r, err := apiClient.FlagsAPI.DeleteFlagsDefsByKey(context.Background(), key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudDeleteV1FlagsDefsKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.DeleteFlagsDefsByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudDeleteV1FlagsDefsKey`: CloudDeletedOut
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudDeleteV1FlagsDefsKey`: %v\n", resp)
+	// response from `DeleteFlagsDefsByKey`: DeletedOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.DeleteFlagsDefsByKey`: %v\n", resp)
 }
 ```
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudDeleteV1FlagsDefsKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteFlagsDefsByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -70,11 +70,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDeletedOut**](CloudDeletedOut.md)
+[**DeletedOut**](DeletedOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -86,11 +86,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlagsActivity
+## GetFlagsActivity
 
-> CloudActivityOut CloudGetV1FlagsActivity(ctx).Limit(limit).Execute()
+> ActivityOut GetFlagsActivity(ctx).Limit(limit).Execute()
 
-ListFlagActivity returns the caller's flag change log newest-first: every create, update and delete, with the actor and the time.
+Returns the caller's flag change log newest-first: every create, update and delete, with the actor and the time.
 
 
 
@@ -111,13 +111,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudGetV1FlagsActivity(context.Background()).Limit(limit).Execute()
+	resp, r, err := apiClient.FlagsAPI.GetFlagsActivity(context.Background()).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudGetV1FlagsActivity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsActivity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlagsActivity`: CloudActivityOut
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudGetV1FlagsActivity`: %v\n", resp)
+	// response from `GetFlagsActivity`: ActivityOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsActivity`: %v\n", resp)
 }
 ```
 
@@ -127,7 +127,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlagsActivityRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagsActivityRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -136,11 +136,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudActivityOut**](CloudActivityOut.md)
+[**ActivityOut**](ActivityOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -152,11 +152,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlagsDefs
+## GetFlagsDefs
 
-> CloudDefsOut CloudGetV1FlagsDefs(ctx).Execute()
+> DefsOut GetFlagsDefs(ctx).Execute()
 
-ListFlagDefinitions returns every flag definition in the caller's (org, project) store, by key, with its version and who last changed it.
+Returns every flag definition in the caller's (org, project) store, by key, with its version and who last changed it.
 
 
 
@@ -176,13 +176,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudGetV1FlagsDefs(context.Background()).Execute()
+	resp, r, err := apiClient.FlagsAPI.GetFlagsDefs(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudGetV1FlagsDefs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsDefs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlagsDefs`: CloudDefsOut
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudGetV1FlagsDefs`: %v\n", resp)
+	// response from `GetFlagsDefs`: DefsOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsDefs`: %v\n", resp)
 }
 ```
 
@@ -192,16 +192,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlagsDefsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagsDefsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudDefsOut**](CloudDefsOut.md)
+[**DefsOut**](DefsOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -213,11 +213,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1FlagsDefsRequest
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlagsDefsKey
+## GetFlagsDefsByKey
 
-> CloudDefRow CloudGetV1FlagsDefsKey(ctx, key).Execute()
+> DefRow GetFlagsDefsByKey(ctx, key).Execute()
 
-GetFlagDefinition returns one flag definition by key, or 404 when the caller's store has none under that key.
+Returns one flag definition by key, or 404 when the caller's store has none under that key.
 
 
 
@@ -238,13 +238,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudGetV1FlagsDefsKey(context.Background(), key).Execute()
+	resp, r, err := apiClient.FlagsAPI.GetFlagsDefsByKey(context.Background(), key).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudGetV1FlagsDefsKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsDefsByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlagsDefsKey`: CloudDefRow
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudGetV1FlagsDefsKey`: %v\n", resp)
+	// response from `GetFlagsDefsByKey`: DefRow
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsDefsByKey`: %v\n", resp)
 }
 ```
 
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlagsDefsKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagsDefsByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -267,11 +267,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDefRow**](CloudDefRow.md)
+[**DefRow**](DefRow.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -283,9 +283,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlagsHealth
+## GetFlagsHealth
 
-> CloudHealthOut CloudGetV1FlagsHealth(ctx).Execute()
+> HealthOut GetFlagsHealth(ctx).Execute()
 
 Health reports that the flag engine is serving.
 
@@ -307,13 +307,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudGetV1FlagsHealth(context.Background()).Execute()
+	resp, r, err := apiClient.FlagsAPI.GetFlagsHealth(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudGetV1FlagsHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlagsHealth`: CloudHealthOut
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudGetV1FlagsHealth`: %v\n", resp)
+	// response from `GetFlagsHealth`: HealthOut
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsHealth`: %v\n", resp)
 }
 ```
 
@@ -323,16 +323,16 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlagsHealthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagsHealthRequest struct via the builder pattern
 
 
 ### Return type
 
-[**CloudHealthOut**](CloudHealthOut.md)
+[**HealthOut**](HealthOut.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -344,11 +344,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1FlagsHealthReque
 [[Back to README]](../README.md)
 
 
-## CloudGetV1FlagsWaitlist
+## GetFlagsWaitlist
 
-> CloudWaitlistModeView CloudGetV1FlagsWaitlist(ctx).Host(host).Execute()
+> WaitlistModeView GetFlagsWaitlist(ctx).Host(host).Execute()
 
-WaitlistMode reports whether ONE host is currently gated by the launch waitlist.
+Reports whether ONE host is currently gated by the launch waitlist.
 
 
 
@@ -369,13 +369,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudGetV1FlagsWaitlist(context.Background()).Host(host).Execute()
+	resp, r, err := apiClient.FlagsAPI.GetFlagsWaitlist(context.Background()).Host(host).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudGetV1FlagsWaitlist``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsWaitlist``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudGetV1FlagsWaitlist`: CloudWaitlistModeView
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudGetV1FlagsWaitlist`: %v\n", resp)
+	// response from `GetFlagsWaitlist`: WaitlistModeView
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsWaitlist`: %v\n", resp)
 }
 ```
 
@@ -385,7 +385,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1FlagsWaitlistRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetFlagsWaitlistRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -394,11 +394,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudWaitlistModeView**](CloudWaitlistModeView.md)
+[**WaitlistModeView**](WaitlistModeView.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -410,77 +410,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Flags
+## PostFlags
 
-> interface{} CloudPostV1Flags(ctx).CloudEvaluateIn(cloudEvaluateIn).Execute()
+> interface{} PostFlags(ctx).EvaluateIn(evaluateIn).Execute()
 
-Evaluate runs the caller's flag definitions for one identity and returns the PostHog-shaped verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	cloudEvaluateIn := *openapiclient.NewCloudEvaluateIn() // CloudEvaluateIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudPostV1Flags(context.Background()).CloudEvaluateIn(cloudEvaluateIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudPostV1Flags``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloudPostV1Flags`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudPostV1Flags`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCloudPostV1FlagsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cloudEvaluateIn** | [**CloudEvaluateIn**](CloudEvaluateIn.md) |  | 
-
-### Return type
-
-**interface{}**
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CloudPostV1FlagsDecide
-
-> interface{} CloudPostV1FlagsDecide(ctx).CloudEvaluateIn(cloudEvaluateIn).Execute()
-
-Evaluate runs the caller's flag definitions for one identity and returns the PostHog-shaped verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 
 
 
@@ -497,17 +431,17 @@ import (
 )
 
 func main() {
-	cloudEvaluateIn := *openapiclient.NewCloudEvaluateIn() // CloudEvaluateIn | 
+	evaluateIn := *openapiclient.NewEvaluateIn() // EvaluateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudPostV1FlagsDecide(context.Background()).CloudEvaluateIn(cloudEvaluateIn).Execute()
+	resp, r, err := apiClient.FlagsAPI.PostFlags(context.Background()).EvaluateIn(evaluateIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudPostV1FlagsDecide``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.PostFlags``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPostV1FlagsDecide`: interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudPostV1FlagsDecide`: %v\n", resp)
+	// response from `PostFlags`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.PostFlags`: %v\n", resp)
 }
 ```
 
@@ -517,12 +451,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1FlagsDecideRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFlagsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cloudEvaluateIn** | [**CloudEvaluateIn**](CloudEvaluateIn.md) |  | 
+ **evaluateIn** | [**EvaluateIn**](EvaluateIn.md) |  | 
 
 ### Return type
 
@@ -530,7 +464,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -542,11 +476,77 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudPutV1FlagsDefsKey
+## PostFlagsDecide
 
-> CloudDefRow CloudPutV1FlagsDefsKey(ctx, key).Body(body).Execute()
+> interface{} PostFlagsDecide(ctx).EvaluateIn(evaluateIn).Execute()
 
-PutFlagDefinition creates or replaces the flag definition at the path's key and returns the stored row.
+Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	evaluateIn := *openapiclient.NewEvaluateIn() // EvaluateIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagsAPI.PostFlagsDecide(context.Background()).EvaluateIn(evaluateIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.PostFlagsDecide``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostFlagsDecide`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.PostFlagsDecide`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostFlagsDecideRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **evaluateIn** | [**EvaluateIn**](EvaluateIn.md) |  | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutFlagsDefsByKey
+
+> DefRow PutFlagsDefsByKey(ctx, key).Body(body).Execute()
+
+Creates or replaces the flag definition at the path's key and returns the stored row.
 
 
 
@@ -568,13 +568,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.CloudPutV1FlagsDefsKey(context.Background(), key).Body(body).Execute()
+	resp, r, err := apiClient.FlagsAPI.PutFlagsDefsByKey(context.Background(), key).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.CloudPutV1FlagsDefsKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.PutFlagsDefsByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CloudPutV1FlagsDefsKey`: CloudDefRow
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.CloudPutV1FlagsDefsKey`: %v\n", resp)
+	// response from `PutFlagsDefsByKey`: DefRow
+	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.PutFlagsDefsByKey`: %v\n", resp)
 }
 ```
 
@@ -588,7 +588,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPutV1FlagsDefsKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutFlagsDefsByKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -598,11 +598,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudDefRow**](CloudDefRow.md)
+[**DefRow**](DefRow.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

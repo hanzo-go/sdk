@@ -4,16 +4,18 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1AgentConversations**](AgentAPI.md#CloudGetV1AgentConversations) | **Get** /v1/agent/conversations | 
-[**CloudGetV1AgentConversationsById**](AgentAPI.md#CloudGetV1AgentConversationsById) | **Get** /v1/agent/conversations/{id} | 
-[**CloudGetV1AgentPresets**](AgentAPI.md#CloudGetV1AgentPresets) | **Get** /v1/agent/presets | 
-[**CloudPostV1Agent**](AgentAPI.md#CloudPostV1Agent) | **Post** /v1/agent | 
+[**GetAgentConversations**](AgentAPI.md#GetAgentConversations) | **Get** /v1/agent/conversations | List the agent threads in your org
+[**GetAgentConversationsById**](AgentAPI.md#GetAgentConversationsById) | **Get** /v1/agent/conversations/{id} | Read one agent thread in full
+[**GetAgentPresets**](AgentAPI.md#GetAgentPresets) | **Get** /v1/agent/presets | List the agent presets available to a caller
+[**PostAgent**](AgentAPI.md#PostAgent) | **Post** /v1/agent | Run one tool-calling round against your org&#39;s own tools
 
 
 
-## CloudGetV1AgentConversations
+## GetAgentConversations
 
-> CloudGetV1AgentConversations(ctx).Execute()
+> GetAgentConversations(ctx).Execute()
+
+List the agent threads in your org
 
 
 
@@ -33,9 +35,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentAPI.CloudGetV1AgentConversations(context.Background()).Execute()
+	r, err := apiClient.AgentAPI.GetAgentConversations(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.CloudGetV1AgentConversations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentConversations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -47,7 +49,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentConversationsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentConversationsRequest struct via the builder pattern
 
 
 ### Return type
@@ -56,7 +58,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentConversatio
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -68,9 +70,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentConversatio
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentConversationsById
+## GetAgentConversationsById
 
-> CloudGetV1AgentConversationsById(ctx, id).Execute()
+> GetAgentConversationsById(ctx, id).Execute()
+
+Read one agent thread in full
 
 
 
@@ -91,9 +95,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentAPI.CloudGetV1AgentConversationsById(context.Background(), id).Execute()
+	r, err := apiClient.AgentAPI.GetAgentConversationsById(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.CloudGetV1AgentConversationsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentConversationsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -109,7 +113,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentConversationsByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentConversationsByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -122,7 +126,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -134,9 +138,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CloudGetV1AgentPresets
+## GetAgentPresets
 
-> CloudGetV1AgentPresets(ctx).Execute()
+> GetAgentPresets(ctx).Execute()
+
+List the agent presets available to a caller
 
 
 
@@ -156,9 +162,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentAPI.CloudGetV1AgentPresets(context.Background()).Execute()
+	r, err := apiClient.AgentAPI.GetAgentPresets(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.CloudGetV1AgentPresets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.GetAgentPresets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -170,7 +176,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1AgentPresetsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAgentPresetsRequest struct via the builder pattern
 
 
 ### Return type
@@ -179,7 +185,7 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentPresetsRequ
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -191,9 +197,11 @@ Other parameters are passed through a pointer to a apiCloudGetV1AgentPresetsRequ
 [[Back to README]](../README.md)
 
 
-## CloudPostV1Agent
+## PostAgent
 
-> CloudPostV1Agent(ctx).Execute()
+> PostAgent(ctx).Execute()
+
+Run one tool-calling round against your org's own tools
 
 
 
@@ -213,9 +221,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentAPI.CloudPostV1Agent(context.Background()).Execute()
+	r, err := apiClient.AgentAPI.PostAgent(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.CloudPostV1Agent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentAPI.PostAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -227,7 +235,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudPostV1AgentRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAgentRequest struct via the builder pattern
 
 
 ### Return type
@@ -236,7 +244,7 @@ Other parameters are passed through a pointer to a apiCloudPostV1AgentRequest st
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 

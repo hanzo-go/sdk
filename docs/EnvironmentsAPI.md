@@ -4,13 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloudGetV1Environments**](EnvironmentsAPI.md#CloudGetV1Environments) | **Get** /v1/environments | 
+[**GetEnvironments**](EnvironmentsAPI.md#GetEnvironments) | **Get** /v1/environments | Returns your deploy targets, and what is running on each.
 
 
 
-## CloudGetV1Environments
+## GetEnvironments
 
-> CloudGetV1Environments(ctx).Execute()
+> EnvironmentBoard GetEnvironments(ctx).Execute()
+
+Returns your deploy targets, and what is running on each.
 
 
 
@@ -30,11 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EnvironmentsAPI.CloudGetV1Environments(context.Background()).Execute()
+	resp, r, err := apiClient.EnvironmentsAPI.GetEnvironments(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsAPI.CloudGetV1Environments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsAPI.GetEnvironments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetEnvironments`: EnvironmentBoard
+	fmt.Fprintf(os.Stdout, "Response from `EnvironmentsAPI.GetEnvironments`: %v\n", resp)
 }
 ```
 
@@ -44,21 +48,21 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCloudGetV1EnvironmentsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetEnvironmentsRequest struct via the builder pattern
 
 
 ### Return type
 
- (empty response body)
+[**EnvironmentBoard**](EnvironmentBoard.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
