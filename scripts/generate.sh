@@ -87,7 +87,7 @@ OUT="$STAGE/gen"
 # --skip-validate-spec: the document is OpenAPI 3.1, and 3.1 made `responses`
 # OPTIONAL on an operation. The validator in generator 7.14.0 still enforces the
 # 3.0 rule that it is required, so it REFUSES a document that is valid. Measured
-# on hanzoai/cloud's openapi.yaml: 684 of 1636 operations are routes the router
+# on hanzoai/cloud's openapi.yaml: 716 of 2479 operations are routes the router
 # proves exist and whose response shape no seam can state, and cloud emits those
 # with no `responses` key on purpose (openapi/openapi.go — "absent stays valid
 # and absent beats invented").

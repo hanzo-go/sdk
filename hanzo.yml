@@ -7,7 +7,7 @@
 
 test:
   - name: go-build
-    # The generated client is 1358 files in one package; if a regeneration
+    # The generated client is 2656 files in one package; if a regeneration
     # produces something that does not compile, it must not reach a tag.
     run: |
       set -e
@@ -20,7 +20,7 @@ test:
       go vet ./...
   - name: go-test
     # hanzo_test.go pins the six canonical example flows to the routes
-    # hanzo.yaml documents, and asserts the client actually sends the bearer
+    # openapi.yaml documents, and asserts the client actually sends the bearer
     # token. Those two facts are the whole contract of a generated SDK.
     run: |
       set -e
@@ -42,11 +42,11 @@ test:
 # `.spec-lock` beside the code, and — only after the `test:` block below has
 # passed over exactly those bytes — commits and cuts a patch.
 #
-# The document moved from hanzoai/openapi `hanzo.yaml` (hand-merged, 1742 paths,
-# fed by nothing, and NOTHING HAS EVER SENT the spec-update this repo listens
-# for) to hanzoai/cloud `openapi.yaml` — smaller (1058 paths), emitted from the
-# code by each app's own router, and gated on every cloud release. A smaller true
-# document beats a larger unverified one.
+# The document moved from hanzoai/openapi `hanzo.yaml` (hand-merged, fed by
+# nothing, and NOTHING HAS EVER SENT the spec-update this repo listens for) to
+# hanzoai/cloud `openapi.yaml` — 1814 paths and 2479 operations, emitted from
+# the code by each app's own router and gated on every cloud release. A true
+# document beats an unverified one at any size.
 client:
   generate: ./scripts/generate.sh
   version: 'tag'

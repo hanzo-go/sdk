@@ -1,5 +1,5 @@
-// The Hanzo Go SDK. Generated from hanzoai/openapi `hanzo.yaml` by
-// scripts/generate.sh — see README.md.
+// The Hanzo Go SDK. Generated from hanzoai/cloud's `openapi.yaml` by
+// scripts/generate.sh, at the ref .spec-lock names — see README.md.
 //
 // The module path is github.com/hanzoai/go-sdk and stays that way: it is the
 // path already on the module proxy and pkg.go.dev. The repo moved to

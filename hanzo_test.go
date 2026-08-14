@@ -35,10 +35,11 @@ func TestNewConfigHonoursBaseURLOverride(t *testing.T) {
 // regeneration moves an operation, this fails instead of the examples silently
 // calling the wrong endpoint.
 //
-// Six flows and five examples: `chat` is pinned here and shipped nowhere. The
-// document states POST /v1/chat/completions and not its shape, so the generated
-// method carries no prompt — what this asserts is that the address still
-// resolves to a method, which is what has to hold for the example to return.
+// All six ship. `chat` is the one whose shape the document does not state — no
+// request body, no responses — so its example prints what the route answered
+// rather than a completion. What this asserts for it is that the address still
+// resolves to a method, which is what has to hold for that example to run at
+// all.
 func TestFlows(t *testing.T) {
 	ctx := context.Background()
 

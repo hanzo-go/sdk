@@ -6,7 +6,7 @@
 // Neither takes an org: both derive the tenant server-side from the JWT `owner`
 // claim, so a key can only read its own money.
 //
-// Both declare the address and not the shape — two of the 684 operations the
+// Both declare the address and not the shape — two of the 716 operations the
 // document publishes with no `responses` — so the generated methods hand back
 // the raw *http.Response and there is nothing to unmarshal into. This decodes
 // the JSON body directly. When cloud's handlers declare their Out types, the

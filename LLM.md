@@ -48,9 +48,20 @@ is the module root, beside `.git`.
 
 ## One client, at the module root
 
-The repo root `*.go` **is** the client, `package hanzoai` — 2477 operations
-across 192 services. There is no second surface: the Stainless client and the
-parallel `cloud/` subpackage are both gone.
+The repo root `*.go` **is** the client, `package hanzoai` — 2656 generated files
+beside two hand-written ones. There is no second surface: the Stainless client
+and the parallel `cloud/` subpackage are both gone.
+
+**The shape, measured against the locked document.** 1814 paths carry 2479
+operations, and 191 distinct tags plus the 50 untagged operations make 192
+services. The client emits one method per (operation, tag) placement, and there
+are 2502 of those: 23 operations are tagged both `iam` and `compat` and so
+appear under `IamAPI` and `CompatAPI` both. That leaves **2477 distinct method
+names, not 2477 operations** — a count of names undercounts the surface twice
+over, because two more pairs collide across services on their own
+(`GitAPI`/`GitWebhookAPI` both have `PostGitWebhook`, `IamAPI`/`O11yAPI` both
+have `DeleteSession`, from four different operationIds). Every one of the 2479
+operations is reachable.
 
 Hand-written, and safe from regeneration:
 
@@ -58,13 +69,16 @@ Hand-written, and safe from regeneration:
 |---|---|
 | `hanzo.go` | `NewConfig` / `NewClient` — the authenticated constructor |
 | `hanzo_test.go` | pins the six flows to their routes; asserts the bearer token |
-| `examples/` | the canonical flows |
+| `examples/` | the six flows, plus `errors` |
 | `go.mod`, `README.md`, `LLM.md`, `hanzo.yml`, `.hanzo/`, `scripts/` | repo-owned |
 
-`scripts/generate.sh` deletes only what the generator's own
-`.openapi-generator/FILES` manifest lists, so the table above survives a
-regeneration. Everything not in it is generated — do not edit it, change the
-handler in `hanzoai/cloud`.
+`scripts/generate.sh` deletes the `*.go` and `docs/*.md` entries of the
+generator's own `.openapi-generator/FILES` manifest — and **only** those, which
+is the load-bearing part. The manifest also names `README.md`, `.gitignore`,
+`.travis.yml` and `git_push.sh`; the generator writes those and this repo owns
+them, so honouring the manifest wholesale would take the hand-written front door
+with it. Everything the two patterns do reach is generated — do not edit it,
+change the handler in `hanzoai/cloud`.
 
 ## Why `hanzo.go` exists
 
@@ -91,8 +105,8 @@ Every knob is in `scripts/generate.sh` and nowhere else.
 
 `--skip-validate-spec` is load-bearing. The document is OpenAPI **3.1**, which
 made `responses` optional on an operation; the validator in 7.14.0 still enforces
-the 3.0 rule that it is required, and 684 operations state their address and not
-their shape on purpose. The gate is `go build`, not the validator.
+the 3.0 rule that it is required, and 716 of 2479 operations state their address
+and not their shape on purpose. The gate is `go build`, not the validator.
 
 `structPrefix=true` is what lets an operation carry two tags: the request struct
 is named `<Service>API<Op>Request`, so 25 operations reachable from two service
@@ -142,12 +156,15 @@ and, per flow, the operationIds to call in order. It is the manifest that makes
 both follow it — do not pick a different operation here without changing it
 there first.
 
-**Six are pinned and five are shipped.** `chat` is `POST /v1/chat/completions`,
-which the document states as an address with no request body and no responses,
-so the generated method carries no prompt and there is no example to write.
-python-sdk and js-sdk ship five for the same measurement. `TestFlows` still pins
-the address, because that is what has to hold for the example to return the day
-cloud's handler declares its `In`/`Out` types.
+**All six ship.** `chat` is `POST /v1/chat/completions`, which the document
+states as an address with no request body and no responses, so the generated
+method carries no prompt and hands back the raw `*http.Response` — the same
+shape `money` already reads. That is an example, not a blocker: it calls the
+operation the document declares and prints what the route answered, which is
+what java-sdk and kotlin-sdk do with the same untyped operation. What it must
+not do is hand-roll the missing request body, because a request invented inside
+a generated client is the second authority these SDKs exist to remove. Probed
+without a key, the route answers 401 rather than 404, so it is mounted.
 
 `hello` is `get_keys` (`GET /v1/keys`), chosen by probing rather than by reading:
 it answers 403 with no key and with a bogus one while `/v1/keys-zzq9` answers
@@ -157,24 +174,41 @@ resolving when cloud began relaying all of `/v1/bot` through one wildcard.
 ## Names moved, twice, and both are in the past
 
 Every method used to read `CloudGetV1Tools`: a `cloud_` service prefix and the
-default version, both inside the operationId. The document dropped both —
-`get_tools` — and this client had 2703 method names carrying `V1` and 3186
-carrying `Cloud` until it was regenerated from the locked ref.
+default version, both inside the operationId. The document dropped both, and the
+method is `GetTools`. Measured on the two clients: `v1.0.1` has 2478 methods over
+263 services, of which 1351 carry `V1` and 1502 carry `Cloud`; the current tree
+has 2502 over 192, of which **one** carries `V1` and none carry the prefix.
 
-Two survivors are correct and must not be "fixed": `GetTeamTransactorApiV1Statistics`
-drops only the FIRST `v1` because the second is a path segment, and
-`CloudIntegrationId` is a query-parameter setter named after `cloudIntegrationId`.
+Every apparent survivor is correct and must not be "fixed":
+
+- `GetTeamTransactorApiV1Statistics` drops only the FIRST `v1`, because the
+  second is a path segment.
+- 11 methods spell `Cloud` because `cloud` is a path segment of the product —
+  `GetCloudAccounts`, `GetPricingCloudPlans`. Another 33 are `Cloudflare`, and a
+  grep for `Cloud` counts all 44 as leftovers.
+- `CloudIntegrationId` is a query-parameter setter named after the parameter
+  `cloudIntegrationId`.
+
 Never derive a name — read it off the generated client or the document.
 
 ## Release state
 
 `v1.0.0` is the reverted experiment, is published, and outranks every
 `v0.1.0-alpha.*`. The proxy is immutable (cached 2026-07-05), so retagging or
-deleting it does nothing; the fix was to publish higher, and `v1.0.1` is out at
-`260d2e2a`. The next tag is `v1.0.2`.
+deleting it does nothing; the fix was to publish higher.
+
+**`v1.0.1` is the last tag that predates the rename**, and that is a documented
+fact rather than trivia: `go get github.com/hanzoai/go-sdk` resolved to a client
+whose `KeysAPI` has `CloudGetV1Keys` and no `GetKeys`, so every method name in
+the README was one a consumer following the install line could not call. The
+README says **v1.0.2 or later** for exactly that reason. Do not write a method
+name into the README that the newest TAG does not carry — cut the tag instead.
 
 Publishing a Go module is pushing the tag. `.hanzo/workflows/release.yml` proves
-the tag compiles and warms the proxy; there is no registry and no token.
+the tag compiles and warms the proxy; there is no registry and no token. The
+proxy reads github.com/hanzoai/go-sdk, which GitHub redirects to hanzo-go/sdk,
+which the forge push-mirrors within seconds — so a tag pushed here is resolvable
+publicly without anything else being done.
 
 ## Testing
 
@@ -183,6 +217,10 @@ the tag compiles and warms the proxy; there is no registry and no token.
 method and path plus `Authorization: Bearer`. If a regeneration moves an
 operation, that test fails instead of the examples silently calling a wrong
 endpoint.
+
+`examples/errors` is the one example that runs to completion with no credential,
+because its whole subject is the refusal: it prints `403 Forbidden` and the
+API's own `{"code":"forbidden"}` body. Use it to check a base URL end to end.
 
 This replaces the old Stainless suite, whose `ok` was 187 SKIP / 25 PASS against
 a disabled mock server and asserted nothing about the API surface.
