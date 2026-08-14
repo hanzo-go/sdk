@@ -200,9 +200,17 @@ deleting it does nothing; the fix was to publish higher.
 **`v1.0.1` is the last tag that predates the rename**, and that is a documented
 fact rather than trivia: `go get github.com/hanzoai/go-sdk` resolved to a client
 whose `KeysAPI` has `CloudGetV1Keys` and no `GetKeys`, so every method name in
-the README was one a consumer following the install line could not call. The
-README says **v1.0.2 or later** for exactly that reason. Do not write a method
-name into the README that the newest TAG does not carry — cut the tag instead.
+the README was one a consumer following the install line could not call. The fix
+was the tag, not a footnote: **`v1.0.2` is out at `3ad23f3e`** and is the first
+tag carrying the renamed operationIds. Do not write a method name into the README
+that the newest TAG does not carry — cut the tag instead.
+
+The README pins that floor — `go get github.com/hanzoai/go-sdk@v1.0.2` — rather
+than printing a bare `go get`, because the proxy's `@latest` and `@v/list` are
+cached for a while after a push while `@v/<version>.info` is immediate. A pinned
+line works the second the tag lands; a bare one silently resolves to the
+previous tag until the index catches up, which is the whole failure this repo
+just had.
 
 Publishing a Go module is pushing the tag. `.hanzo/workflows/release.yml` proves
 the tag compiles and warms the proxy; there is no registry and no token. The

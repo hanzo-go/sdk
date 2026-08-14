@@ -10,13 +10,13 @@ route the running binary serves — 2479 operations over 1814 paths, grouped int
 ## Install
 
 ```bash
-go get github.com/hanzoai/go-sdk
+go get github.com/hanzoai/go-sdk@v1.0.2
 ```
 
-Needs Go 1.26 or newer. Take **v1.0.2 or later**: the operationIds lost their
-`cloud_` prefix and their default version, so what `v1.0.1` spelled
-`CloudGetV1Keys` this client spells `GetKeys`. Everything below is the current
-spelling.
+Needs Go 1.26 or newer. **v1.0.2 is the floor**, and the version is worth naming:
+the operationIds lost their `cloud_` prefix and their default version, so what
+`v1.0.1` spelled `CloudGetV1Keys` this client spells `GetKeys`. Later versions
+are drop-in; anything earlier answers to none of the names below.
 
 ## Quickstart
 
