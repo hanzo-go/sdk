@@ -233,6 +233,28 @@ proxy reads github.com/hanzoai/go-sdk, which GitHub redirects to hanzo-go/sdk,
 which the forge push-mirrors within seconds — so a tag pushed here is resolvable
 publicly without anything else being done.
 
+Confirming that from a Hanzo machine takes care, because two settings route
+around the thing under test: `GOPRIVATE=github.com/hanzoai/*` makes the fetch
+skip the proxy, and `url.https://git.hanzo.ai/hanzoai/.insteadOf
+https://github.com/hanzoai/` aims the direct fetch at the forge. A green
+`go get` under both proves the forge has the tag and says nothing about the
+registry. Exporting `GOPRIVATE=` does not undo it — Go falls back to its
+`go env` file when the variable is empty, so the override has to be a pattern
+that matches nothing. `GOVCS=off` is what makes the check honest: it forbids
+version control outright, leaving the proxy as the only source. From an empty
+module:
+
+```bash
+GOMODCACHE=$(mktemp -d) GOFLAGS= GOVCS=off GOPROXY=https://proxy.golang.org \
+GOSUMDB=sum.golang.org GOPRIVATE=example.invalid GONOPROXY=example.invalid \
+GIT_CONFIG_GLOBAL=/dev/null go get github.com/hanzoai/go-sdk@v1.0.4
+```
+
+A `go.sum` line for the version means sum.golang.org vouched for it as well.
+Two files are in the tag but not in the artifact: `AGENTS.md` and `CLAUDE.md`
+are symlinks to `LLM.md`, and a module zip carries no symlinks. Everything else
+is byte-identical, so a diff of the two is a real integrity check.
+
 There is no `CHANGELOG.md`, and one should not come back. The generator that
 wrote the old one left with the client it described, so it stopped at
 `0.1.0-alpha.7` while three releases shipped past it — a file that says nothing
