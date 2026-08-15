@@ -36,15 +36,31 @@ path=openapi.yaml
 ```
 
 A branch there would read as a moving target in CI, which clones without your
-remotes and cannot resolve `forge/main`. `scripts/generate.sh` re-fetches at that
-ref and refuses to run if the bytes hash to anything else.
+remotes and cannot resolve `forge/main`. The driver re-fetches at that ref and
+refuses to run if the bytes hash to anything else.
 
 It is **not** `hanzoai/openapi`'s `hanzo.yaml`. That file is itself a projection
 of this document with codegen rules applied, so reading it made this client a
 projection of a projection — one release behind whenever the middle step had not
-run. `sdks.yaml` has no `go:` row for the same reason it has no `rust:` row: its
-`take:` key promises the generator owns a directory, and this client's directory
-is the module root, beside `.git`.
+run. All five Hanzo SDKs read this one document at this one digest. Generating
+from the projection instead, measured at the locked ref, costs this client **46
+methods** — 2456 against 2502 — and stamps every file's header `API version:
+8.0.0`, the projection's own release counter, which names no cloud release. It
+buys one thing: the projection tags the 50 operations cloud leaves on
+`DefaultAPI`. That is cloud's emitter to fix, not a reason to read a second
+document.
+
+The one difference that does **not** apply here: the projection's root
+`security` requires a `bearerAuth` its own `components.securitySchemes` does not
+define, which costs the languages that emit a credential per operation. Go's
+generator reads the defined `bearer` scheme instead, so Go's single
+`Authorization` site in `client.go` survives either document.
+
+Go is a **row in `sdks.yaml`** like every other language. It was not, for one
+reason: `take:` used to promise the generator owned a *directory*, and this
+client's directory is the module root beside `go.mod` and `.git`. `take:` now
+names the *files* the generator wrote — see `.generated` below — so the row can
+say `{.: .}` and the second driver this repo carried is gone.
 
 ## One client, at the module root
 
@@ -72,13 +88,13 @@ Hand-written, and safe from regeneration:
 | `examples/` | the six flows, plus `models` and `errors` |
 | `go.mod`, `README.md`, `LLM.md`, `hanzo.yml`, `.hanzo/`, `scripts/` | repo-owned |
 
-`scripts/generate.sh` deletes the `*.go` and `docs/*.md` entries of the
-generator's own `.openapi-generator/FILES` manifest — and **only** those, which
-is the load-bearing part. The manifest also names `README.md`, `.gitignore`,
-`.travis.yml` and `git_push.sh`; the generator writes those and this repo owns
-them, so honouring the manifest wholesale would take the hand-written front door
-with it. Everything the two patterns do reach is generated — do not edit it,
-change the handler in `hanzoai/cloud`.
+**`.generated` is what makes that table a fact rather than a promise.** It names
+every path the driver wrote — the root `*.go` and `docs/*.md`, nothing else — so
+a regeneration removes a file the document stopped projecting and cannot touch a
+file it never wrote, whatever directory that file sits in. It is the same record
+in every Hanzo SDK, and it is why the client can live at the module root at all:
+ownership is a set of files, not a directory. Everything it names is generated —
+do not edit it, change the handler in `hanzoai/cloud`.
 
 ## Auth, and why `hanzo.go` exists
 
@@ -109,14 +125,20 @@ is a second client.
 
 ## Generation knobs
 
-Every knob is in `scripts/generate.sh` and nowhere else.
+Every knob is the `go:` row of `hanzoai/openapi`'s `sdks.yaml` and nowhere else.
+`scripts/generate.sh` is a call site: it names the language and this checkout.
 
 ```
--g go --skip-validate-spec
---additional-properties=packageName=hanzoai,withGoMod=false,structPrefix=true,enumClassPrefix=true
---name-mappings <eleven fields>
---model-name-mappings Config=StreamConfig
+generator: go            take: {.: .}          format: [gofmt, -w]
+properties: packageName=hanzoai, withGoMod=false, structPrefix=true, enumClassPrefix=true
+flags:      name-mappings <eleven fields>, model-name-mappings Config=StreamConfig
+global:     apiDocs=true, modelDocs=true       (--skip-validate-spec is the driver's, for every language)
 ```
+
+`format` is there because the generator's Go output is not gofmt'd — 2655 of
+2656 files — and an unformatted Go file reformats itself in every contributor's
+editor. `apiDocs`/`modelDocs` are on where the fleet default has them off: Go is
+the one client that publishes `docs/` as its reference.
 
 `--skip-validate-spec` is load-bearing. The document is OpenAPI **3.1**, which
 made `responses` optional on an operation; the validator in 7.14.0 still enforces
@@ -155,13 +177,14 @@ also the one bare `Config` in a document where every other is qualified —
 ## The drift check
 
 ```bash
-./scripts/generate.sh --check   # non-zero if the committed client drifted
+OPENAPI=../openapi ./scripts/generate.sh --check   # non-zero if the client drifted
 ```
 
-It regenerates into a temp dir and compares both directions. The second
-direction asks the committed `.openapi-generator/FILES` whether the generator
-ever owned a file before calling it stale — without that it reports `hanzo.go`
-and `hanzo_test.go`, which the generator never wrote, and can never pass.
+It regenerates into a temp dir and compares against the files `.generated`
+names. Restricting the comparison to those is the load-bearing part: `hanzo.go`
+and `hanzo_test.go` are root `*.go` files the generator never wrote, so a check
+that compared the two directories outright would report the hand-written seam as
+drift on every run and could never pass.
 
 ## The flows come from `flows.yaml`
 
