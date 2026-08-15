@@ -3,7 +3,7 @@
 #
 # The invocation is logic and lives once, in `generate.py`; every per-language
 # knob is data in `sdks.yaml` beside it. This file says "go, into this checkout"
-# and nothing else. What stood here was a SECOND DRIVER — 250 lines re-deriving
+# and nothing else. What stood here was a SECOND DRIVER — 196 lines re-deriving
 # the jar, the locked ref, the digest check, the YAML-to-JSON conversion and the
 # drift check, all of which the canonical driver already does. Two copies of one
 # contract is one copy too many, and the two had started to differ.

@@ -42,7 +42,9 @@ refuses to run if the bytes hash to anything else.
 It is **not** `hanzoai/openapi`'s `hanzo.yaml`. That file is itself a projection
 of this document with codegen rules applied, so reading it made this client a
 projection of a projection — one release behind whenever the middle step had not
-run. All five Hanzo SDKs read this one document at this one digest. Generating
+run. Every Hanzo SDK reads this same document, at the ref its own `.spec-lock`
+names; five of the seven — python, typescript, java, kotlin and this one — are
+pinned at this ref and share one digest. Generating
 from the projection instead, measured at the locked ref, costs this client **46
 methods** — 2456 against 2502 — and stamps every file's header `API version:
 8.0.0`, the projection's own release counter, which names no cloud release. It
