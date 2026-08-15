@@ -81,7 +81,7 @@ Other parameters are passed through a pointer to a apiGetPricingRequest struct v
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -142,7 +142,7 @@ Other parameters are passed through a pointer to a apiGetPricingBaseRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a apiGetPricingBlockchainReques
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -264,7 +264,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -325,7 +325,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudPlansReques
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -386,7 +386,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudRegionsRequ
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -447,7 +447,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudStorageRequ
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -508,7 +508,7 @@ Other parameters are passed through a pointer to a apiGetPricingComputeRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -569,7 +569,7 @@ Other parameters are passed through a pointer to a apiGetPricingComputePresetsRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -630,7 +630,7 @@ Other parameters are passed through a pointer to a apiGetPricingDatastoreRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -691,7 +691,7 @@ Other parameters are passed through a pointer to a apiGetPricingFeaturedRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -752,7 +752,7 @@ Other parameters are passed through a pointer to a apiGetPricingFreeRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -813,7 +813,7 @@ Other parameters are passed through a pointer to a apiGetPricingGpuRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -874,7 +874,7 @@ Other parameters are passed through a pointer to a apiGetPricingHealthRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -935,7 +935,7 @@ Other parameters are passed through a pointer to a apiGetPricingIamRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1005,7 +1005,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1066,7 +1066,7 @@ Other parameters are passed through a pointer to a apiGetPricingModelsRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1127,7 +1127,7 @@ Other parameters are passed through a pointer to a apiGetPricingPaasRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1188,7 +1188,7 @@ Other parameters are passed through a pointer to a apiGetPricingPolicyRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1249,7 +1249,7 @@ Other parameters are passed through a pointer to a apiGetPricingProvidersRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1310,7 +1310,7 @@ Other parameters are passed through a pointer to a apiGetPricingServicesRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1371,7 +1371,7 @@ Other parameters are passed through a pointer to a apiGetPricingSubscriptionsReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1432,7 +1432,7 @@ Other parameters are passed through a pointer to a apiGetPricingSummaryRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1493,7 +1493,7 @@ Other parameters are passed through a pointer to a apiGetPricingToolsRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1554,7 +1554,7 @@ Other parameters are passed through a pointer to a apiPostPricingSyncRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

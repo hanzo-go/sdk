@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -275,7 +275,7 @@ Other parameters are passed through a pointer to a apiGetS3Request struct via th
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -334,7 +334,7 @@ Other parameters are passed through a pointer to a apiGetS3BucketsRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -402,7 +402,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -473,7 +473,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -602,7 +602,7 @@ Other parameters are passed through a pointer to a apiGetS3HealthRequest struct 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -668,7 +668,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -727,7 +727,7 @@ Other parameters are passed through a pointer to a apiPostS3BucketsRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -795,7 +795,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

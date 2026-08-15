@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -145,7 +145,7 @@ Other parameters are passed through a pointer to a apiGetDeployApplicationsReque
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -358,7 +358,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -428,7 +428,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -487,7 +487,7 @@ Other parameters are passed through a pointer to a apiGetDeployCallbackRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -548,7 +548,7 @@ Other parameters are passed through a pointer to a apiGetDeployClustersRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -609,7 +609,7 @@ Other parameters are passed through a pointer to a apiGetDeployGitopsRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -668,7 +668,7 @@ Other parameters are passed through a pointer to a apiGetDeployHealthRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -727,7 +727,7 @@ Other parameters are passed through a pointer to a apiGetDeployLoginRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -788,7 +788,7 @@ Other parameters are passed through a pointer to a apiGetDeployProjectsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -849,7 +849,7 @@ Other parameters are passed through a pointer to a apiGetDeploySessionUserinfoRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -910,7 +910,7 @@ Other parameters are passed through a pointer to a apiGetDeploySettingsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -969,7 +969,7 @@ Other parameters are passed through a pointer to a apiGetDeployStreamApplication
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1037,7 +1037,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1098,7 +1098,7 @@ Other parameters are passed through a pointer to a apiGetDeployVersionRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1166,7 +1166,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1234,7 +1234,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1293,7 +1293,7 @@ Other parameters are passed through a pointer to a apiPostDeployLogoutRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1352,7 +1352,7 @@ Other parameters are passed through a pointer to a apiPostDeployReconcileRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetEnvironmentsRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

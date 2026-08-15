@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiPostResponsesRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

@@ -62,7 +62,7 @@ Other parameters are passed through a pointer to a apiGetWorldRequest struct via
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -189,7 +189,7 @@ Other parameters are passed through a pointer to a apiGetWorldNewsRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -250,7 +250,7 @@ Other parameters are passed through a pointer to a apiGetWorldPipelineRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -309,7 +309,7 @@ Other parameters are passed through a pointer to a apiGetWorldStreamRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -375,7 +375,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

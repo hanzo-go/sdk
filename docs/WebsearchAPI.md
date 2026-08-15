@@ -60,7 +60,7 @@ Other parameters are passed through a pointer to a apiDeleteWebsearchSearchReque
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -119,7 +119,7 @@ Other parameters are passed through a pointer to a apiGetWebsearchSearchRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -178,7 +178,7 @@ Other parameters are passed through a pointer to a apiPatchWebsearchSearchReques
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -237,7 +237,7 @@ Other parameters are passed through a pointer to a apiPostWebsearchSearchRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -296,7 +296,7 @@ Other parameters are passed through a pointer to a apiPutWebsearchSearchRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

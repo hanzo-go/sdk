@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetDevBridgeRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

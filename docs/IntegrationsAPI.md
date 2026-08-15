@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -165,7 +165,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -362,7 +362,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsDiscordLink
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -421,7 +421,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsDiscordLink
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -480,7 +480,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsDiscordLink
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -541,7 +541,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsGithubInsta
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -602,7 +602,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsGithubRepos
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -731,7 +731,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsSlackInstal
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -790,7 +790,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsSlackLinkRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -849,7 +849,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsSlackLinkCa
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -908,7 +908,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsSlackLinkSl
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -967,7 +967,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsTeamsLinkRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1026,7 +1026,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsTeamsLinkAa
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1085,7 +1085,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsTeamsLinkCa
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1144,7 +1144,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsTelegramLin
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1203,7 +1203,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsTelegramLin
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1262,7 +1262,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationsTelegramLin
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1334,7 +1334,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1404,7 +1404,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1474,7 +1474,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1533,7 +1533,7 @@ Other parameters are passed through a pointer to a apiPostIntegrationsDiscordInt
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1599,7 +1599,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1665,7 +1665,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1731,7 +1731,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1803,7 +1803,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1873,7 +1873,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1939,7 +1939,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2005,7 +2005,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2064,7 +2064,7 @@ Other parameters are passed through a pointer to a apiPostIntegrationsGithubWebh
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2130,7 +2130,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2189,7 +2189,7 @@ Other parameters are passed through a pointer to a apiPostIntegrationsSlackComma
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2248,7 +2248,7 @@ Other parameters are passed through a pointer to a apiPostIntegrationsSlackEvent
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2307,7 +2307,7 @@ Other parameters are passed through a pointer to a apiPostIntegrationsTeamsEvent
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2368,7 +2368,7 @@ Other parameters are passed through a pointer to a apiPostIntegrationsTelegramCo
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2427,7 +2427,7 @@ Other parameters are passed through a pointer to a apiPostIntegrationsTelegramWe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2499,7 +2499,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

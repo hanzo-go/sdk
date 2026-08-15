@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetRagContextRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -118,7 +118,7 @@ Other parameters are passed through a pointer to a apiPostRagDeleteRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -177,7 +177,7 @@ Other parameters are passed through a pointer to a apiPostRagEmbedRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -236,7 +236,7 @@ Other parameters are passed through a pointer to a apiPostRagQueryRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -295,7 +295,7 @@ Other parameters are passed through a pointer to a apiPostRagQueryMultipleReques
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

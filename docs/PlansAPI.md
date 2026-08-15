@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -144,7 +144,7 @@ Other parameters are passed through a pointer to a apiGetPlansRequest struct via
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -205,7 +205,7 @@ Other parameters are passed through a pointer to a apiGetPlansBlockchainRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -266,7 +266,7 @@ Other parameters are passed through a pointer to a apiGetPlansCloudRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -327,7 +327,7 @@ Other parameters are passed through a pointer to a apiGetPlansDnsRequest struct 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -456,7 +456,7 @@ Other parameters are passed through a pointer to a apiGetPlansEntriesRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -517,7 +517,7 @@ Other parameters are passed through a pointer to a apiGetPlansGpuRequest struct 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -578,7 +578,7 @@ Other parameters are passed through a pointer to a apiGetPlansHealthRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -639,7 +639,7 @@ Other parameters are passed through a pointer to a apiGetPlansPolicyRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -700,7 +700,7 @@ Other parameters are passed through a pointer to a apiGetPlansRegionsRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -770,7 +770,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -831,7 +831,7 @@ Other parameters are passed through a pointer to a apiGetPlansSchemaRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -892,7 +892,7 @@ Other parameters are passed through a pointer to a apiGetPlansStorageRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -953,7 +953,7 @@ Other parameters are passed through a pointer to a apiGetPlansSubscriptionsReque
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1014,7 +1014,7 @@ Other parameters are passed through a pointer to a apiGetPlansToolsRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1075,7 +1075,7 @@ Other parameters are passed through a pointer to a apiGetPlansVocabRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1134,7 +1134,7 @@ Other parameters are passed through a pointer to a apiPostPlansEntriesRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1193,7 +1193,7 @@ Other parameters are passed through a pointer to a apiPostPlansSeedRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1261,7 +1261,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

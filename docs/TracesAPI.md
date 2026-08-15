@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiGetTracesHealthRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -117,7 +117,7 @@ Other parameters are passed through a pointer to a apiGetTracesQueryRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -176,7 +176,7 @@ Other parameters are passed through a pointer to a apiGetTracesTraceRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -235,7 +235,7 @@ Other parameters are passed through a pointer to a apiPostTracesWriteRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

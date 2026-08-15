@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -214,7 +214,7 @@ Other parameters are passed through a pointer to a apiGetCatalogEntriesRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -273,7 +273,7 @@ Other parameters are passed through a pointer to a apiPostCatalogEntriesRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -332,7 +332,7 @@ Other parameters are passed through a pointer to a apiPostCatalogModelsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -391,7 +391,7 @@ Other parameters are passed through a pointer to a apiPostCatalogModelsRefreshRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -450,7 +450,7 @@ Other parameters are passed through a pointer to a apiPostCatalogSeedRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -518,7 +518,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

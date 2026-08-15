@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetMeetHealthRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -118,7 +118,7 @@ Other parameters are passed through a pointer to a apiGetMeetSessionRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -177,7 +177,7 @@ Other parameters are passed through a pointer to a apiPostMeetGettokenRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

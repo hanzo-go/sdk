@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetLogsHealthRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -116,7 +116,7 @@ Other parameters are passed through a pointer to a apiGetLogsQueryRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -175,7 +175,7 @@ Other parameters are passed through a pointer to a apiPostLogsWriteRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

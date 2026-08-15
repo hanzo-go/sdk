@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -129,7 +129,7 @@ Other parameters are passed through a pointer to a apiGetKmsConfigRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -188,7 +188,7 @@ Other parameters are passed through a pointer to a apiGetKmsHealthRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -247,7 +247,7 @@ Other parameters are passed through a pointer to a apiGetKmsSecretsRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -374,7 +374,7 @@ Other parameters are passed through a pointer to a apiPostKmsAuthLoginRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -433,7 +433,7 @@ Other parameters are passed through a pointer to a apiPostKmsSecretsRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -244,7 +244,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -371,7 +371,7 @@ Other parameters are passed through a pointer to a apiGetBillingAccountsRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -498,7 +498,7 @@ Other parameters are passed through a pointer to a apiGetBillingAlertsRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -557,7 +557,7 @@ Other parameters are passed through a pointer to a apiGetBillingAlertsAuthorizeR
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -616,7 +616,7 @@ Other parameters are passed through a pointer to a apiGetBillingBalanceRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -675,7 +675,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditBalanceReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -734,7 +734,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -802,7 +802,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -861,7 +861,7 @@ Other parameters are passed through a pointer to a apiGetBillingCryptoOptionsReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -920,7 +920,7 @@ Other parameters are passed through a pointer to a apiGetBillingInvoicesRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -988,7 +988,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1047,7 +1047,7 @@ Other parameters are passed through a pointer to a apiGetBillingMethodsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1106,7 +1106,7 @@ Other parameters are passed through a pointer to a apiGetBillingPayoutsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1165,7 +1165,7 @@ Other parameters are passed through a pointer to a apiGetBillingPlansRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1224,7 +1224,7 @@ Other parameters are passed through a pointer to a apiGetBillingPortalMethodsReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1283,7 +1283,7 @@ Other parameters are passed through a pointer to a apiGetBillingSettingsRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1342,7 +1342,7 @@ Other parameters are passed through a pointer to a apiGetBillingSubscriptionsReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1401,7 +1401,7 @@ Other parameters are passed through a pointer to a apiGetBillingTierRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1460,7 +1460,7 @@ Other parameters are passed through a pointer to a apiGetBillingTransactionsRequ
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1519,7 +1519,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1580,7 +1580,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageAccountsReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1639,7 +1639,7 @@ Other parameters are passed through a pointer to a apiGetBillingWireRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1709,7 +1709,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1779,7 +1779,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1847,7 +1847,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1906,7 +1906,7 @@ Other parameters are passed through a pointer to a apiPostBillingAlertsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1965,7 +1965,7 @@ Other parameters are passed through a pointer to a apiPostBillingCryptoDepositRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2024,7 +2024,7 @@ Other parameters are passed through a pointer to a apiPostBillingMethodsRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2083,7 +2083,7 @@ Other parameters are passed through a pointer to a apiPostBillingModeRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2142,7 +2142,7 @@ Other parameters are passed through a pointer to a apiPostBillingPortalMethodsRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2201,7 +2201,7 @@ Other parameters are passed through a pointer to a apiPostBillingRechargeRunAllR
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2260,7 +2260,7 @@ Other parameters are passed through a pointer to a apiPostBillingSubscribeCardRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2328,7 +2328,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2396,7 +2396,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2455,7 +2455,7 @@ Other parameters are passed through a pointer to a apiPostBillingTopupRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2514,7 +2514,7 @@ Other parameters are passed through a pointer to a apiPostBillingTopupTokenReque
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2582,7 +2582,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2648,7 +2648,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2718,7 +2718,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

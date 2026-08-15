@@ -68,8 +68,8 @@ Hand-written, and safe from regeneration:
 | file | why |
 |---|---|
 | `hanzo.go` | `NewConfig` / `NewClient` — the authenticated constructor |
-| `hanzo_test.go` | pins the six flows to their routes; asserts the bearer token |
-| `examples/` | the six flows, plus `errors` |
+| `hanzo_test.go` | pins the six flows to their routes; asserts one bearer header |
+| `examples/` | the six flows, plus `models` and `errors` |
 | `go.mod`, `README.md`, `LLM.md`, `hanzo.yml`, `.hanzo/`, `scripts/` | repo-owned |
 
 `scripts/generate.sh` deletes the `*.go` and `docs/*.md` entries of the
@@ -80,17 +80,32 @@ them, so honouring the manifest wholesale would take the hand-written front door
 with it. Everything the two patterns do reach is generated — do not edit it,
 change the handler in `hanzoai/cloud`.
 
-## Why `hanzo.go` exists
+## Auth, and why `hanzo.go` exists
 
-The document declares **no `security` at all** — not at the root, not on any of
-its 2479 operations. openapi-generator emits auth code only from those
-declarations, so the generated client contains zero references to
-`ContextAccessToken` and would send no `Authorization` header on any call.
-`NewConfig` sets the bearer as a default header, which covers every operation
-and is why a hand-written file exists in a generated package.
+The document declares it: one `securityScheme`, `bearer` (`type: http`,
+`scheme: bearer`), and a root `security: [{bearer: []}]` every operation
+inherits. Four opt out with `security: []` — `GET /v1/models`,
+`GET /v1/models/providers`, `GET /v1/commands`, `GET /v1/openapi.json` — and
+`/v1/models` says why in its own description: the catalogue takes no principal,
+so the route reads `Authorization` to annotate gated SKUs and never to admit.
 
-When cloud's emitter declares a scheme, this stays as it is: a default header is
-still one place, and per-operation auth code would be 2479.
+openapi-generator emits auth code from that declaration and nowhere else, so
+what it emits is now real: `configuration.go` defines
+`ContextAccessToken = contextKey("accesstoken")` and `client.go` writes
+`Authorization: Bearer <token>` from it in `prepareRequest`. Before the
+declaration landed the generated client held zero references to either.
+
+That reader takes the token **per call**, off the context. `NewConfig` puts it
+on the Configuration instead, once, because the credential belongs to the client
+and not to a call — and that is the whole reason a hand-written file exists in a
+generated package.
+
+**One place, and the reason is mechanical.** `prepareRequest` reads the context
+key and then `Add`s every default header, both under `Authorization`, so a token
+set in both places is sent twice. `TestFlows` asserts
+`len(Header.Values("Authorization")) == 1` rather than just its value, so the
+day someone wires the context path as well the test says so. A second identity
+is a second client.
 
 ## Generation knobs
 
@@ -205,12 +220,12 @@ was the tag, not a footnote: **`v1.0.2` is out at `3ad23f3e`** and is the first
 tag carrying the renamed operationIds. Do not write a method name into the README
 that the newest TAG does not carry — cut the tag instead.
 
-The README pins that floor — `go get github.com/hanzoai/go-sdk@v1.0.2` — rather
-than printing a bare `go get`, because the proxy's `@latest` and `@v/list` are
-cached for a while after a push while `@v/<version>.info` is immediate. A pinned
-line works the second the tag lands; a bare one silently resolves to the
-previous tag until the index catches up, which is the whole failure this repo
-just had.
+The README pins the current tag rather than printing a bare `go get`, because
+the proxy's `@latest` and `@v/list` are cached for a while after a push while
+`@v/<version>.info` is immediate. A pinned line works the second the tag lands;
+a bare one silently resolves to the previous tag until the index catches up,
+which is the whole failure this repo once had. Move that pin with every tag —
+v1.0.2 stays named in the prose as the floor, which is a different fact.
 
 Publishing a Go module is pushing the tag. `.hanzo/workflows/release.yml` proves
 the tag compiles and warms the proxy; there is no registry and no token. The
@@ -231,9 +246,27 @@ method and path plus `Authorization: Bearer`. If a regeneration moves an
 operation, that test fails instead of the examples silently calling a wrong
 endpoint.
 
-`examples/errors` is the one example that runs to completion with no credential,
-because its whole subject is the refusal: it prints `403 Forbidden` and the
-API's own `{"code":"forbidden"}` body. Use it to check a base URL end to end.
+Two examples run to completion with no credential, and they are the pair that
+proves the auth contract from both ends against the live API:
+
+```
+$ go run ./examples/models              # HANZO_API_KEY unset
+200 OK  112 model(s)
+  all-mini-lm-l6-v2            do-ai
+  anthropic-claude-opus-5      do-ai
+  best                         hanzo
+  ...
+$ go run ./examples/errors              # a key the API refuses
+status    403 Forbidden
+refused   {"status":403,"code":"forbidden","error":"sign in to manage API keys"}
+$ HANZO_API_KEY=sk-... go run ./examples/hello
+the key is accepted; this org holds 1 key(s)
+```
+
+`models` is a public operation answering everyone; `errors`/`hello` are the same
+route answering 403 without a credential and 200 with one, which is what makes
+the credential load-bearing rather than decorative. `errors` is also the way to
+check a base URL end to end.
 
 This replaces the suite that shipped with that client, whose `ok` was 187 SKIP /
 25 PASS against a disabled mock server and asserted nothing about the API

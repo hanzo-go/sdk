@@ -10,13 +10,15 @@ route the running binary serves — 2479 operations over 1814 paths, grouped int
 ## Install
 
 ```bash
-go get github.com/hanzoai/go-sdk@v1.0.2
+go get github.com/hanzoai/go-sdk@v1.0.4
 ```
 
-Needs Go 1.26 or newer. **v1.0.2 is the floor**, and the version is worth naming:
-the operationIds lost their `cloud_` prefix and their default version, so what
-`v1.0.1` spelled `CloudGetV1Keys` this client spells `GetKeys`. Later versions
-are drop-in; anything earlier answers to none of the names below.
+Needs Go 1.26 or newer. The line pins the current tag rather than resolving
+`@latest`, which the proxy caches for a while after a push. **v1.0.2 is the
+floor**, and the version is worth naming: the operationIds lost their `cloud_`
+prefix and their default version, so what `v1.0.1` spelled `CloudGetV1Keys` this
+client spells `GetKeys`. Later versions are drop-in; anything earlier answers to
+none of the names below.
 
 ## Quickstart
 
@@ -55,9 +57,24 @@ response shape, the response and the error alone.
 
 ## Authenticating
 
-Requests carry a bearer token. `NewClient("")` reads it from **`HANZO_API_KEY`**;
-pass a key as the argument to override the environment. The base URL is
-`https://api.hanzo.ai` unless **`HANZO_BASE_URL`** says otherwise.
+### bearer
+
+The document declares the credential — one scheme, `bearer`, required at the
+root — so the generated client carries the code that sends it, and all but four
+operations need it. The four that do not say `security: []`: `GET /v1/models`,
+`GET /v1/models/providers`, `GET /v1/commands`, `GET /v1/openapi.json`. Every
+page under [`docs/`](docs) names which one it is and links back here.
+
+A token is either an access token minted by Hanzo IAM or an API key (`sk-`/`pk-`).
+`NewClient("")` reads it from **`HANZO_API_KEY`**; pass a key as the argument to
+override the environment. The base URL is `https://api.hanzo.ai` unless
+**`HANZO_BASE_URL`** says otherwise.
+
+The credential belongs to the client, so it is set once, on the configuration,
+and every call carries it. Set it in one place only: the generated client also
+reads a token off the context (`ContextAccessToken`) and adds its header there,
+so doing both sends `Authorization` twice. For a second identity, build a second
+client.
 
 Some services are scoped to an org and want an `X-Org-Id` header. Build the
 configuration yourself for those:
@@ -90,24 +107,46 @@ key — it prints `403 Forbidden` and the refusal cloud wrote.
 
 ## Examples
 
-Six are the canonical flows from `hanzoai/openapi`'s `flows.yaml`, the manifest
-every Hanzo SDK draws its examples from — same names, same routes — so what you
-learn here transfers to the Python, TypeScript, Java, Kotlin and Rust clients.
-`errors` is Go's own.
+Start with `models`. It calls one of the four public operations, so it runs with
+nothing set up at all:
 
-| | Does | Calls |
-| --- | --- | --- |
-| [`hello`](examples/hello) | Prove the key works | `GET /v1/keys` |
-| [`chat`](examples/chat) | One completion | `POST /v1/chat/completions` |
-| [`money`](examples/money) | Balance, and the usage that moved it | `GET /v1/billing/balance`, `GET /v1/billing/usage` |
-| [`store`](examples/store) | Create a KV store, read it, delete it | `POST /v1/kv`, `GET`/`DELETE /v1/kv/{name}` |
-| [`agent`](examples/agent) | Create an agent, run it, poll the run | `POST /v1/agents`, `POST /v1/agents/{ref}/run`, `GET /v1/agents/{ref}/runs` |
-| [`tools`](examples/tools) | List the tools this key can reach | `GET /v1/tools` |
-| [`errors`](examples/errors) | Read a refusal | `GET /v1/keys` |
+```bash
+go run ./examples/models
+```
+
+```
+200 OK  112 model(s)
+  all-mini-lm-l6-v2            do-ai
+  anthropic-claude-opus-5      do-ai
+  best                         hanzo
+  ...
+```
+
+Then `hello`, the same shape with a credential behind it:
 
 ```bash
 HANZO_API_KEY=sk-... go run ./examples/hello
 ```
+
+```
+the key is accepted; this org holds 1 key(s)
+```
+
+Six of the eight are the canonical flows from `hanzoai/openapi`'s `flows.yaml`,
+the manifest every Hanzo SDK draws its examples from — same names, same routes —
+so what you learn here transfers to the Python, TypeScript, Java, Kotlin and
+Rust clients. `models` and `errors` are Go's own.
+
+| | Does | Calls | Key |
+| --- | --- | --- | --- |
+| [`models`](examples/models) | List the catalogue | `GET /v1/models` | no |
+| [`hello`](examples/hello) | Prove the key works | `GET /v1/keys` | yes |
+| [`chat`](examples/chat) | One completion | `POST /v1/chat/completions` | yes |
+| [`money`](examples/money) | Balance, and the usage that moved it | `GET /v1/billing/balance`, `GET /v1/billing/usage` | yes |
+| [`store`](examples/store) | Create a KV store, read it, delete it | `POST /v1/kv`, `GET`/`DELETE /v1/kv/{name}` | yes |
+| [`agent`](examples/agent) | Create an agent, run it, poll the run | `POST /v1/agents`, `POST /v1/agents/{ref}/run`, `GET /v1/agents/{ref}/runs` | yes |
+| [`tools`](examples/tools) | List the tools this key can reach | `GET /v1/tools` | yes |
+| [`errors`](examples/errors) | Read a refusal | `GET /v1/keys` | no |
 
 `store` and `agent` are org-scoped, so set `HANZO_ORG_ID` for those.
 

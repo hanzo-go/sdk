@@ -84,7 +84,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterArtifactMetaRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -143,7 +143,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterDataRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -202,7 +202,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterDefaultsReques
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -261,7 +261,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterLedgerRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -320,7 +320,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterPolicyRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -379,7 +379,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterRewardsRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -438,7 +438,7 @@ Other parameters are passed through a pointer to a apiGetRouterArtifactMetaReque
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -497,7 +497,7 @@ Other parameters are passed through a pointer to a apiGetRouterDataRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -556,7 +556,7 @@ Other parameters are passed through a pointer to a apiGetRouterDefaultsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -615,7 +615,7 @@ Other parameters are passed through a pointer to a apiGetRouterHistoryRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -674,7 +674,7 @@ Other parameters are passed through a pointer to a apiGetRouterJudgePanelRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -733,7 +733,7 @@ Other parameters are passed through a pointer to a apiGetRouterLedgerRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -792,7 +792,7 @@ Other parameters are passed through a pointer to a apiGetRouterPolicyRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -851,7 +851,7 @@ Other parameters are passed through a pointer to a apiGetRouterRewardsRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -910,7 +910,7 @@ Other parameters are passed through a pointer to a apiGetRouterStatsRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -969,7 +969,7 @@ Other parameters are passed through a pointer to a apiPatchRouterArtifactMetaReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1028,7 +1028,7 @@ Other parameters are passed through a pointer to a apiPatchRouterDefaultsRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1087,7 +1087,7 @@ Other parameters are passed through a pointer to a apiPatchRouterLedgerRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1146,7 +1146,7 @@ Other parameters are passed through a pointer to a apiPatchRouterPolicyRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1205,7 +1205,7 @@ Other parameters are passed through a pointer to a apiPatchRouterRewardsRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1264,7 +1264,7 @@ Other parameters are passed through a pointer to a apiPostRouterArtifactMetaRequ
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1323,7 +1323,7 @@ Other parameters are passed through a pointer to a apiPostRouterDefaultsRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1382,7 +1382,7 @@ Other parameters are passed through a pointer to a apiPostRouterLedgerRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1441,7 +1441,7 @@ Other parameters are passed through a pointer to a apiPostRouterPolicyRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1500,7 +1500,7 @@ Other parameters are passed through a pointer to a apiPostRouterRewardsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1559,7 +1559,7 @@ Other parameters are passed through a pointer to a apiPutRouterArtifactMetaReque
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1618,7 +1618,7 @@ Other parameters are passed through a pointer to a apiPutRouterDefaultsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1677,7 +1677,7 @@ Other parameters are passed through a pointer to a apiPutRouterLedgerRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1736,7 +1736,7 @@ Other parameters are passed through a pointer to a apiPutRouterPolicyRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1795,7 +1795,7 @@ Other parameters are passed through a pointer to a apiPutRouterRewardsRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

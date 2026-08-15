@@ -61,7 +61,7 @@ Other parameters are passed through a pointer to a apiGetMemoryFactsRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -120,7 +120,7 @@ Other parameters are passed through a pointer to a apiGetMemoryListRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -179,7 +179,7 @@ Other parameters are passed through a pointer to a apiGetMemoryRecallRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -238,7 +238,7 @@ Other parameters are passed through a pointer to a apiGetMemorySearchRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -297,7 +297,7 @@ Other parameters are passed through a pointer to a apiPostMemoryDeleteRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -356,7 +356,7 @@ Other parameters are passed through a pointer to a apiPostMemoryRememberRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -415,7 +415,7 @@ Other parameters are passed through a pointer to a apiPostMemoryUpdateRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

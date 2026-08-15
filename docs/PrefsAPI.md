@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiGetPrefsRequest struct via
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -117,7 +117,7 @@ Other parameters are passed through a pointer to a apiPatchPrefsRequest struct v
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

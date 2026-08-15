@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetCsrfRequest struct via 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

@@ -90,8 +90,12 @@ func TestFlows(t *testing.T) {
 			if got.Method != tc.method || got.URL.Path != tc.path {
 				t.Errorf("%s %s, want %s %s", got.Method, got.URL.Path, tc.method, tc.path)
 			}
-			if auth := got.Header.Get("Authorization"); auth != "Bearer test-key" {
-				t.Errorf("Authorization = %q, want %q", auth, "Bearer test-key")
+			// One header, not two. The generated client adds the
+			// Configuration's default headers AFTER reading
+			// ContextAccessToken, so a credential set in both places is
+			// sent twice. NewConfig owns the one place.
+			if auth := got.Header.Values("Authorization"); len(auth) != 1 || auth[0] != "Bearer test-key" {
+				t.Errorf("Authorization = %q, want exactly [%q]", auth, "Bearer test-key")
 			}
 		})
 	}

@@ -64,7 +64,7 @@ Other parameters are passed through a pointer to a apiDeleteOrgSettingsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -123,7 +123,7 @@ Other parameters are passed through a pointer to a apiDeleteOrgSettingsListReque
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -182,7 +182,7 @@ Other parameters are passed through a pointer to a apiGetOrgSettingsRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -241,7 +241,7 @@ Other parameters are passed through a pointer to a apiGetOrgSettingsListRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -300,7 +300,7 @@ Other parameters are passed through a pointer to a apiPatchOrgSettingsRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -359,7 +359,7 @@ Other parameters are passed through a pointer to a apiPatchOrgSettingsListReques
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -418,7 +418,7 @@ Other parameters are passed through a pointer to a apiPostOrgSettingsRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -477,7 +477,7 @@ Other parameters are passed through a pointer to a apiPostOrgSettingsListRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -536,7 +536,7 @@ Other parameters are passed through a pointer to a apiPutOrgSettingsRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -595,7 +595,7 @@ Other parameters are passed through a pointer to a apiPutOrgSettingsListRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

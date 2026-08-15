@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetBlueprintRequest struct
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -120,7 +120,7 @@ Other parameters are passed through a pointer to a apiGetBlueprintHealthRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -179,7 +179,7 @@ Other parameters are passed through a pointer to a apiGetBlueprintSbomRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

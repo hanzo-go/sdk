@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiListGpuAlertsRequest struc
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -119,7 +119,7 @@ Other parameters are passed through a pointer to a apiListGpusRequest struct via
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

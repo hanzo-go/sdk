@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -132,7 +132,7 @@ Other parameters are passed through a pointer to a apiGetFinanceBalanceRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -193,7 +193,7 @@ Other parameters are passed through a pointer to a apiGetFinanceCreditsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -254,7 +254,7 @@ Other parameters are passed through a pointer to a apiGetFinanceInvoicesRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -320,7 +320,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -381,7 +381,7 @@ Other parameters are passed through a pointer to a apiGetFinancePaymentMethodsRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -442,7 +442,7 @@ Other parameters are passed through a pointer to a apiGetFinanceTreasuryRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -508,7 +508,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

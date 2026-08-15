@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiGetMetricsHealthRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -117,7 +117,7 @@ Other parameters are passed through a pointer to a apiGetMetricsQueryRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -176,7 +176,7 @@ Other parameters are passed through a pointer to a apiPostMetricsBatchRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -235,7 +235,7 @@ Other parameters are passed through a pointer to a apiPostMetricsWriteRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

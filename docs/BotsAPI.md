@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetBotsRequest struct via 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -188,7 +188,7 @@ Other parameters are passed through a pointer to a apiPostBotsRunRequest struct 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

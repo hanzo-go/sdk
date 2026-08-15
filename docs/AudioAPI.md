@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiPostAudioFoleyRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -118,7 +118,7 @@ Other parameters are passed through a pointer to a apiPostAudioMusicRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -177,7 +177,7 @@ Other parameters are passed through a pointer to a apiPostAudioSpeechRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -236,7 +236,7 @@ Other parameters are passed through a pointer to a apiPostAudioTranscriptionsReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -295,7 +295,7 @@ Other parameters are passed through a pointer to a apiPostAudioVoiceRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

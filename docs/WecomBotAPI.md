@@ -56,7 +56,7 @@ Other parameters are passed through a pointer to a apiGetWecomBotCallbackByBotid
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -115,7 +115,7 @@ Other parameters are passed through a pointer to a apiPostWecomBotCallbackByBoti
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

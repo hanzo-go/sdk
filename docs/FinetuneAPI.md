@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to a apiGetFinetuneHfDatasetsReque
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -122,7 +122,7 @@ Other parameters are passed through a pointer to a apiGetFinetuneHfModelsRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -181,7 +181,7 @@ Other parameters are passed through a pointer to a apiGetFinetuneHfRepoRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -240,7 +240,7 @@ Other parameters are passed through a pointer to a apiGetFinetuneJobRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -299,7 +299,7 @@ Other parameters are passed through a pointer to a apiGetFinetuneJobsRequest str
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -358,7 +358,7 @@ Other parameters are passed through a pointer to a apiGetFinetunePresetsRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -417,7 +417,7 @@ Other parameters are passed through a pointer to a apiPostFinetuneCancelRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -476,7 +476,7 @@ Other parameters are passed through a pointer to a apiPostFinetuneDeployRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -535,7 +535,7 @@ Other parameters are passed through a pointer to a apiPostFinetuneJobsRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

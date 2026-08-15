@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -236,7 +236,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -376,7 +376,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -437,7 +437,7 @@ Other parameters are passed through a pointer to a apiGetCaptableClassesRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -498,7 +498,7 @@ Other parameters are passed through a pointer to a apiGetCaptableCompanyRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -559,7 +559,7 @@ Other parameters are passed through a pointer to a apiGetCaptableConvertiblesReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -620,7 +620,7 @@ Other parameters are passed through a pointer to a apiGetCaptableInvestmentsRequ
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -681,7 +681,7 @@ Other parameters are passed through a pointer to a apiGetCaptableOptionsRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -742,7 +742,7 @@ Other parameters are passed through a pointer to a apiGetCaptablePlansRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -803,7 +803,7 @@ Other parameters are passed through a pointer to a apiGetCaptableRoundsRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -873,7 +873,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -934,7 +934,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSafesRequest st
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -995,7 +995,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSharesRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1056,7 +1056,7 @@ Other parameters are passed through a pointer to a apiGetCaptableStakeholdersReq
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1117,7 +1117,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSummaryRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1185,7 +1185,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1257,7 +1257,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1316,7 +1316,7 @@ Other parameters are passed through a pointer to a apiPostCaptableClassesRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1375,7 +1375,7 @@ Other parameters are passed through a pointer to a apiPostCaptableConvertiblesRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1434,7 +1434,7 @@ Other parameters are passed through a pointer to a apiPostCaptableOptionsRequest
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1493,7 +1493,7 @@ Other parameters are passed through a pointer to a apiPostCaptablePlansRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1552,7 +1552,7 @@ Other parameters are passed through a pointer to a apiPostCaptableRoundsRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1624,7 +1624,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1692,7 +1692,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1751,7 +1751,7 @@ Other parameters are passed through a pointer to a apiPostCaptableSafesRequest s
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1810,7 +1810,7 @@ Other parameters are passed through a pointer to a apiPostCaptableSharesRequest 
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1869,7 +1869,7 @@ Other parameters are passed through a pointer to a apiPostCaptableSharesTransfer
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1928,7 +1928,7 @@ Other parameters are passed through a pointer to a apiPostCaptableStakeholdersRe
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1994,7 +1994,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

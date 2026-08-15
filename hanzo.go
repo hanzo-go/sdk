@@ -15,11 +15,17 @@ const DefaultBaseURL = "https://api.hanzo.ai"
 // with apiKey. An empty apiKey reads HANZO_API_KEY from the environment; an
 // empty HANZO_BASE_URL leaves the base URL at DefaultBaseURL.
 //
-// Auth is a default header rather than generated per-operation code because
-// there is no per-operation code to generate: the document declares no
-// `security` at all, on any of its 2479 operations or at its root, so the
-// generated client holds zero references to ContextAccessToken and would send
-// no Authorization header on any call. One default header covers all of them.
+// The document declares the credential: one `bearer` scheme, required at the
+// root, so all but four of its 2479 operations inherit it and the generated
+// client carries the code that sends it — client.go reads ContextAccessToken
+// and writes `Authorization: Bearer <token>`. That reader takes the token per
+// call, off the context.
+//
+// The credential belongs to the client, not to a call, so this puts it on the
+// Configuration once and every operation carries it. Which means there is one
+// place to set it: a token in the context as well would be a SECOND
+// Authorization header on the same request, because the generated client adds
+// both. For a second identity, build a second client.
 //
 // Use NewConfig when a request needs more than credentials — an org scope, say:
 //

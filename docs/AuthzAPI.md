@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetAuthzHealthRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -116,7 +116,7 @@ Other parameters are passed through a pointer to a apiGetAuthzReadyzRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -175,7 +175,7 @@ Other parameters are passed through a pointer to a apiPostAuthzCheckRequest stru
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
