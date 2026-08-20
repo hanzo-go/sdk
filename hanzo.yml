@@ -48,5 +48,17 @@ test:
 # the code by each app's own router and gated on every cloud release. A true
 # document beats an unverified one at any size.
 client:
+  # WHICH cloud, said out loud. hanzoai/ci defaults this to `hanzoai/cloud`, and
+  # that path now serves the re-rooted OSS core -- a twelve-commit line sharing no
+  # ancestor with the product, and carrying no openapi.yaml at all. So the fetch
+  # 404s for every ref this projection could name, on check and move alike, and
+  # has since the repoint. It reads as a credential fault and is not one.
+  #
+  # The product line is what this SDK is a projection of, so it is what is named.
+  # `.spec-lock`'s own repo= line does NOT set this -- ci reads the repo from here
+  # and uses the lock's copy for a commit message -- so the two can disagree in
+  # silence. They are one fact; keep them equal.
+  spec:
+    repo: hanzo-inc/cloud
   generate: ./scripts/generate.sh
   version: 'tag'
