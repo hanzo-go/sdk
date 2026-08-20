@@ -33,9 +33,9 @@ func (r ResponsesAPIPostResponsesRequest) Execute() (*http.Response, error) {
 /*
 PostResponses Implements POST /v1/responses.
 
-Implements POST /v1/responses. The converted request is passed to
-ChatCompletions and an installed ResponseWriter converts its OpenAI chat JSON
-or SSE back into Responses JSON/SSE on the fly.
+Implements POST /v1/responses. The converted request is completed by
+the chat path, which is handed a sink saying where the answer goes: a stream is
+translated as it is produced, a whole body is translated entire.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ResponsesAPIPostResponsesRequest

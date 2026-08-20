@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to a apiDeleteDocumentsRequest str
 
 ## GetDocumentsByFileIdContext
 
-> GetDocumentsByFileIdContext(ctx).Execute()
+> GetDocumentsByFileIdContext(ctx, fileId).Execute()
 
 Handles GET /v1/documents/:file_id/context — every chunk of a file, as LangChain Documents (used when RAG_USE_FULL_CONTEXT is on).
 
@@ -89,10 +89,11 @@ import (
 )
 
 func main() {
+	fileId := "fileId_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DocumentsAPI.GetDocumentsByFileIdContext(context.Background()).Execute()
+	r, err := apiClient.DocumentsAPI.GetDocumentsByFileIdContext(context.Background(), fileId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DocumentsAPI.GetDocumentsByFileIdContext``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -102,11 +103,19 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**fileId** | **string** |  | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetDocumentsByFileIdContextRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type

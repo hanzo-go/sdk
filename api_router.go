@@ -136,7 +136,7 @@ type RouterAPIDeleteRouterDataRequest struct {
 	ApiService *RouterAPIService
 }
 
-func (r RouterAPIDeleteRouterDataRequest) Execute() (*Envelope, *http.Response, error) {
+func (r RouterAPIDeleteRouterDataRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteRouterDataExecute(r)
 }
 
@@ -154,19 +154,16 @@ func (a *RouterAPIService) DeleteRouterData(ctx context.Context) RouterAPIDelete
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *RouterAPIService) DeleteRouterDataExecute(r RouterAPIDeleteRouterDataRequest) (*Envelope, *http.Response, error) {
+func (a *RouterAPIService) DeleteRouterDataExecute(r RouterAPIDeleteRouterDataRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RouterAPIService.DeleteRouterData")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/router/data"
@@ -185,7 +182,7 @@ func (a *RouterAPIService) DeleteRouterDataExecute(r RouterAPIDeleteRouterDataRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -194,19 +191,19 @@ func (a *RouterAPIService) DeleteRouterDataExecute(r RouterAPIDeleteRouterDataRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -214,19 +211,10 @@ func (a *RouterAPIService) DeleteRouterDataExecute(r RouterAPIDeleteRouterDataRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type RouterAPIDeleteRouterDefaultsRequest struct {
@@ -784,7 +772,7 @@ type RouterAPIGetRouterDataRequest struct {
 	ApiService *RouterAPIService
 }
 
-func (r RouterAPIGetRouterDataRequest) Execute() (*Envelope, *http.Response, error) {
+func (r RouterAPIGetRouterDataRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetRouterDataExecute(r)
 }
 
@@ -802,19 +790,16 @@ func (a *RouterAPIService) GetRouterData(ctx context.Context) RouterAPIGetRouter
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *RouterAPIService) GetRouterDataExecute(r RouterAPIGetRouterDataRequest) (*Envelope, *http.Response, error) {
+func (a *RouterAPIService) GetRouterDataExecute(r RouterAPIGetRouterDataRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RouterAPIService.GetRouterData")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/router/data"
@@ -833,7 +818,7 @@ func (a *RouterAPIService) GetRouterDataExecute(r RouterAPIGetRouterDataRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -842,19 +827,19 @@ func (a *RouterAPIService) GetRouterDataExecute(r RouterAPIGetRouterDataRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -862,19 +847,10 @@ func (a *RouterAPIService) GetRouterDataExecute(r RouterAPIGetRouterDataRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type RouterAPIGetRouterDefaultsRequest struct {

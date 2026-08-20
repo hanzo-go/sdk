@@ -5,9 +5,12 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetBenchmarkCatalog**](BenchmarkAPI.md#GetBenchmarkCatalog) | **Get** /v1/benchmark/catalog | Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
+[**GetBenchmarkClaims**](BenchmarkAPI.md#GetBenchmarkClaims) | **Get** /v1/benchmark/claims | Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
 [**GetBenchmarkCompare**](BenchmarkAPI.md#GetBenchmarkCompare) | **Get** /v1/benchmark/compare | Is the ONLY valid arm-vs-arm test: it pairs the two models on the items BOTH completed, and answers rescue and damage counts with an exact-McNemar p.
+[**GetBenchmarkHistory**](BenchmarkAPI.md#GetBenchmarkHistory) | **Get** /v1/benchmark/history | Returns each model&#39;s measured score per run over time, oldest first, with the change between runs.
 [**GetBenchmarkLeaderboard**](BenchmarkAPI.md#GetBenchmarkLeaderboard) | **Get** /v1/benchmark/leaderboard | Answers one row per model for the benchmark named — what our own harness measured, beside what the vendor claims, and the gap between them.
 [**GetBenchmarkPresets**](BenchmarkAPI.md#GetBenchmarkPresets) | **Get** /v1/benchmark/presets | Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-&lt;name&gt;.
+[**PostBenchmarkClaims**](BenchmarkAPI.md#PostBenchmarkClaims) | **Post** /v1/benchmark/claims | Records published claims: one to correct a number, many to import a leaderboard.
 [**PostBenchmarkPresets**](BenchmarkAPI.md#PostBenchmarkPresets) | **Post** /v1/benchmark/presets | Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-&lt;name&gt; it would be served as.
 [**PostBenchmarkRuns**](BenchmarkAPI.md#PostBenchmarkRuns) | **Post** /v1/benchmark/runs | Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
 
@@ -59,6 +62,80 @@ Other parameters are passed through a pointer to a apiGetBenchmarkCatalogRequest
 ### Return type
 
 [**BenchmarkCatalog**](BenchmarkCatalog.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBenchmarkClaims
+
+> ClaimsOut GetBenchmarkClaims(ctx).Benchmark(benchmark).Model(model).Provider(provider).Source(source).Protocol(protocol).Execute()
+
+Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	benchmark := "benchmark_example" // string | Benchmark filters to one benchmark id. Empty returns every benchmark. (optional)
+	model := "model_example" // string | Model filters to one model. Empty returns every model. (optional)
+	provider := "provider_example" // string | Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. (optional)
+	source := "source_example" // string | Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. (optional)
+	protocol := "protocol_example" // string | Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BenchmarkAPI.GetBenchmarkClaims(context.Background()).Benchmark(benchmark).Model(model).Provider(provider).Source(source).Protocol(protocol).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.GetBenchmarkClaims``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBenchmarkClaims`: ClaimsOut
+	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.GetBenchmarkClaims`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBenchmarkClaimsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **benchmark** | **string** | Benchmark filters to one benchmark id. Empty returns every benchmark. | 
+ **model** | **string** | Model filters to one model. Empty returns every model. | 
+ **provider** | **string** | Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. | 
+ **source** | **string** | Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. | 
+ **protocol** | **string** | Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. | 
+
+### Return type
+
+[**ClaimsOut**](ClaimsOut.md)
 
 ### Authorization
 
@@ -129,6 +206,74 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Pairing**](Pairing.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBenchmarkHistory
+
+> HistoryOut GetBenchmarkHistory(ctx).Benchmark(benchmark).Model(model).Execute()
+
+Returns each model's measured score per run over time, oldest first, with the change between runs.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	benchmark := "benchmark_example" // string | Benchmark is the catalog id to read, defaulting to gpqa_diamond. (optional)
+	model := "model_example" // string | Model filters to one model. Empty returns every model measured. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BenchmarkAPI.GetBenchmarkHistory(context.Background()).Benchmark(benchmark).Model(model).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.GetBenchmarkHistory``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBenchmarkHistory`: HistoryOut
+	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.GetBenchmarkHistory`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBenchmarkHistoryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **benchmark** | **string** | Benchmark is the catalog id to read, defaulting to gpqa_diamond. | 
+ **model** | **string** | Model filters to one model. Empty returns every model measured. | 
+
+### Return type
+
+[**HistoryOut**](HistoryOut.md)
 
 ### Authorization
 
@@ -264,6 +409,72 @@ Other parameters are passed through a pointer to a apiGetBenchmarkPresetsRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostBenchmarkClaims
+
+> PutClaimsOut PostBenchmarkClaims(ctx).PutClaimsIn(putClaimsIn).Execute()
+
+Records published claims: one to correct a number, many to import a leaderboard.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	putClaimsIn := *openapiclient.NewPutClaimsIn() // PutClaimsIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BenchmarkAPI.PostBenchmarkClaims(context.Background()).PutClaimsIn(putClaimsIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.PostBenchmarkClaims``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostBenchmarkClaims`: PutClaimsOut
+	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.PostBenchmarkClaims`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBenchmarkClaimsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **putClaimsIn** | [**PutClaimsIn**](PutClaimsIn.md) |  | 
+
+### Return type
+
+[**PutClaimsOut**](PutClaimsOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

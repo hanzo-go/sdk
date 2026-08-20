@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetWecomBotCallbackByBotid
 
-> GetWecomBotCallbackByBotid(ctx).Execute()
+> GetWecomBotCallbackByBotid(ctx, botId).Execute()
 
 Verify WeChat work bot callback URL
 
@@ -30,10 +30,11 @@ import (
 )
 
 func main() {
+	botId := "botId_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WecomBotAPI.GetWecomBotCallbackByBotid(context.Background()).Execute()
+	r, err := apiClient.WecomBotAPI.GetWecomBotCallbackByBotid(context.Background(), botId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WecomBotAPI.GetWecomBotCallbackByBotid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -43,11 +44,19 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**botId** | **string** |  | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetWecomBotCallbackByBotidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type
@@ -70,7 +79,7 @@ Other parameters are passed through a pointer to a apiGetWecomBotCallbackByBotid
 
 ## PostWecomBotCallbackByBotid
 
-> PostWecomBotCallbackByBotid(ctx).Execute()
+> PostWecomBotCallbackByBotid(ctx, botId).Execute()
 
 Process WeChat work bot messages
 
@@ -89,10 +98,11 @@ import (
 )
 
 func main() {
+	botId := "botId_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WecomBotAPI.PostWecomBotCallbackByBotid(context.Background()).Execute()
+	r, err := apiClient.WecomBotAPI.PostWecomBotCallbackByBotid(context.Background(), botId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WecomBotAPI.PostWecomBotCallbackByBotid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -102,11 +112,19 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**botId** | **string** |  | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostWecomBotCallbackByBotidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type

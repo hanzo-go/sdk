@@ -43,8 +43,6 @@ type RunnerBuildReq struct {
 	Os *string `json:"os,omitempty"`
 	// Ref is the git ref to build when no SHA is given.
 	Ref *string `json:"ref,omitempty"`
-	// Release requests native release semantics for cloud's self-publish: compute the next version, build+push ghcr.io/hanzoai/cloud, smoke it, then tag (the receipt) and notify universe. It owns its output image (release.go), and it takes SuperAdmin.
-	Release *bool `json:"release,omitempty"`
 	// Repo is the repository clone URL to build. Required on the image lane.
 	Repo *string `json:"repo,omitempty"`
 	// SHA is the commit to pin; it wins over Ref and Branch.
@@ -454,38 +452,6 @@ func (o *RunnerBuildReq) SetRef(v string) {
 	o.Ref = &v
 }
 
-// GetRelease returns the Release field value if set, zero value otherwise.
-func (o *RunnerBuildReq) GetRelease() bool {
-	if o == nil || IsNil(o.Release) {
-		var ret bool
-		return ret
-	}
-	return *o.Release
-}
-
-// GetReleaseOk returns a tuple with the Release field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RunnerBuildReq) GetReleaseOk() (*bool, bool) {
-	if o == nil || IsNil(o.Release) {
-		return nil, false
-	}
-	return o.Release, true
-}
-
-// HasRelease returns a boolean if a field has been set.
-func (o *RunnerBuildReq) HasRelease() bool {
-	if o != nil && !IsNil(o.Release) {
-		return true
-	}
-
-	return false
-}
-
-// SetRelease gets a reference to the given bool and assigns it to the Release field.
-func (o *RunnerBuildReq) SetRelease(v bool) {
-	o.Release = &v
-}
-
 // GetRepo returns the Repo field value if set, zero value otherwise.
 func (o *RunnerBuildReq) GetRepo() string {
 	if o == nil || IsNil(o.Repo) {
@@ -627,9 +593,6 @@ func (o RunnerBuildReq) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Ref) {
 		toSerialize["ref"] = o.Ref
-	}
-	if !IsNil(o.Release) {
-		toSerialize["release"] = o.Release
 	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo

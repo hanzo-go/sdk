@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetComplianceAccreditation**](ComplianceAPI.md#GetComplianceAccreditation) | **Get** /v1/compliance/accreditation | Returns the org&#39;s tracked accreditation-state records, newest first — evidence entries the org keeps, never a platform certification.
 [**GetComplianceAccreditationById**](ComplianceAPI.md#GetComplianceAccreditationById) | **Get** /v1/compliance/accreditation/{id} | Returns one tracked accreditation record.
-[**GetComplianceAudit**](ComplianceAPI.md#GetComplianceAudit) | **Get** /v1/compliance/audit | AuditRead is the compliance-scoped read of the SHARED tamper-evident audit plane — the SOC 2 posture surface (privileged actions: who started/decided what, when).
+[**GetComplianceAudit**](ComplianceAPI.md#GetComplianceAudit) | **Get** /v1/compliance/audit | AuditRead is the compliance read of the SHARED tamper-evident audit plane — the SOC 2 posture surface (privileged actions: who started/decided what, when).
 [**GetComplianceHealth**](ComplianceAPI.md#GetComplianceHealth) | **Get** /v1/compliance/health | Health reports subsystem liveness and the wired verification provider.
 [**GetComplianceRecords**](ComplianceAPI.md#GetComplianceRecords) | **Get** /v1/compliance/records | ListRecords is the unified compliance-record view for the org: its verifications and accreditation records together, each provider-reported or tracked, never platform-asserted.
 [**GetComplianceStatus**](ComplianceAPI.md#GetComplianceStatus) | **Get** /v1/compliance/status | Status is the org&#39;s honest posture read: the wired provider and the per-status tally of its verifications.
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 > AuditList GetComplianceAudit(ctx).Result(result).Execute()
 
-AuditRead is the compliance-scoped read of the SHARED tamper-evident audit plane — the SOC 2 posture surface (privileged actions: who started/decided what, when).
+AuditRead is the compliance read of the SHARED tamper-evident audit plane — the SOC 2 posture surface (privileged actions: who started/decided what, when).
 
 
 

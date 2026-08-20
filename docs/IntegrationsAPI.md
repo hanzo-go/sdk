@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**GetIntegrationsGithubInstallations**](IntegrationsAPI.md#GetIntegrationsGithubInstallations) | **Get** /v1/integrations/github/installations | Lists the GitHub accounts the caller may see the App installed on, each confirmed against the App&#39;s own list, plus where to add another.
 [**GetIntegrationsGithubRepos**](IntegrationsAPI.md#GetIntegrationsGithubRepos) | **Get** /v1/integrations/github/repos | Lists the org&#39;s granted GitHub repositories, each annotated with its native import + sync status from the git object plane.
 [**GetIntegrationsGithubReposByRepoPages**](IntegrationsAPI.md#GetIntegrationsGithubReposByRepoPages) | **Get** /v1/integrations/github/repos/{repo}/pages | Returns the repo&#39;s Pages status, live URL, custom domain and build source.
+[**GetIntegrationsGitlabProjects**](IntegrationsAPI.md#GetIntegrationsGitlabProjects) | **Get** /v1/integrations/gitlab/projects | Lists the projects the org&#39;s GitLab connection can reach — membership projects, most recently active first.
 [**GetIntegrationsSlackInstall**](IntegrationsAPI.md#GetIntegrationsSlackInstall) | **Get** /v1/integrations/slack/install | Install the Hanzo app into a Slack workspace
 [**GetIntegrationsSlackLink**](IntegrationsAPI.md#GetIntegrationsSlackLink) | **Get** /v1/integrations/slack/link | Begin linking a Hanzo account from Slack
 [**GetIntegrationsSlackLinkCallback**](IntegrationsAPI.md#GetIntegrationsSlackLinkCallback) | **Get** /v1/integrations/slack/link/callback | Complete the Slack account link
@@ -669,6 +670,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GithubPagesView**](GithubPagesView.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIntegrationsGitlabProjects
+
+> GitlabProjectsOut GetIntegrationsGitlabProjects(ctx).Execute()
+
+Lists the projects the org's GitLab connection can reach — membership projects, most recently active first.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.GetIntegrationsGitlabProjects(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.GetIntegrationsGitlabProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIntegrationsGitlabProjects`: GitlabProjectsOut
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.GetIntegrationsGitlabProjects`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIntegrationsGitlabProjectsRequest struct via the builder pattern
+
+
+### Return type
+
+[**GitlabProjectsOut**](GitlabProjectsOut.md)
 
 ### Authorization
 

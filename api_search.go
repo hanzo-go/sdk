@@ -16,313 +16,10 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
 // SearchAPIService SearchAPI service
 type SearchAPIService service
-
-type SearchAPIDeleteSearchByNameRequest struct {
-	ctx        context.Context
-	ApiService *SearchAPIService
-	name       string
-}
-
-func (r SearchAPIDeleteSearchByNameRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteSearchByNameExecute(r)
-}
-
-/*
-DeleteSearchByName Deletes one search index from the shared backend and removes its metadata row.
-
-Deletes one search index from the shared backend and removes its
-metadata row. Answers 204 with no body; a second call is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
-	@return SearchAPIDeleteSearchByNameRequest
-*/
-func (a *SearchAPIService) DeleteSearchByName(ctx context.Context, name string) SearchAPIDeleteSearchByNameRequest {
-	return SearchAPIDeleteSearchByNameRequest{
-		ApiService: a,
-		ctx:        ctx,
-		name:       name,
-	}
-}
-
-// Execute executes the request
-func (a *SearchAPIService) DeleteSearchByNameExecute(r SearchAPIDeleteSearchByNameRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.DeleteSearchByName")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/search/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type SearchAPIGetSearchRequest struct {
-	ctx        context.Context
-	ApiService *SearchAPIService
-}
-
-func (r SearchAPIGetSearchRequest) Execute() ([]ProvisionedSummary, *http.Response, error) {
-	return r.ApiService.GetSearchExecute(r)
-}
-
-/*
-GetSearch Lists the caller org's search indexes.
-
-Lists the caller org's search indexes. An index is a logical
-resource inside an already-live shared backend, so every one of them is
-reached through the public gateway rather than at an instance of its own.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return SearchAPIGetSearchRequest
-*/
-func (a *SearchAPIService) GetSearch(ctx context.Context) SearchAPIGetSearchRequest {
-	return SearchAPIGetSearchRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []ProvisionedSummary
-func (a *SearchAPIService) GetSearchExecute(r SearchAPIGetSearchRequest) ([]ProvisionedSummary, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ProvisionedSummary
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.GetSearch")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/search"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type SearchAPIGetSearchByNameRequest struct {
-	ctx        context.Context
-	ApiService *SearchAPIService
-	name       string
-}
-
-func (r SearchAPIGetSearchByNameRequest) Execute() (*ProvisionedResource, *http.Response, error) {
-	return r.ApiService.GetSearchByNameExecute(r)
-}
-
-/*
-GetSearchByName Returns one search index's metadata.
-
-Returns one search index's metadata. It carries the index's status
-and the gateway address it is reached at, and no username: the backend
-authenticates with a shared, out-of-band key rather than a per-index
-credential.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
-	@return SearchAPIGetSearchByNameRequest
-*/
-func (a *SearchAPIService) GetSearchByName(ctx context.Context, name string) SearchAPIGetSearchByNameRequest {
-	return SearchAPIGetSearchByNameRequest{
-		ApiService: a,
-		ctx:        ctx,
-		name:       name,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProvisionedResource
-func (a *SearchAPIService) GetSearchByNameExecute(r SearchAPIGetSearchByNameRequest) (*ProvisionedResource, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProvisionedResource
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.GetSearchByName")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/search/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type SearchAPIGetSearchIndexesRequest struct {
 	ctx           context.Context
@@ -557,39 +254,33 @@ func (a *SearchAPIService) GetSearchStatsExecute(r SearchAPIGetSearchStatsReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type SearchAPIPostSearchRequest struct {
-	ctx              context.Context
-	ApiService       *SearchAPIService
-	provisionRequest *ProvisionRequest
+type SearchAPISearchRequest struct {
+	ctx        context.Context
+	ApiService *SearchAPIService
+	request    *Request
 }
 
-func (r SearchAPIPostSearchRequest) ProvisionRequest(provisionRequest ProvisionRequest) SearchAPIPostSearchRequest {
-	r.provisionRequest = &provisionRequest
+func (r SearchAPISearchRequest) Request(request Request) SearchAPISearchRequest {
+	r.request = &request
 	return r
 }
 
-func (r SearchAPIPostSearchRequest) Execute() (*ProvisionResult, *http.Response, error) {
-	return r.ApiService.PostSearchExecute(r)
+func (r SearchAPISearchRequest) Execute() (*Response, *http.Response, error) {
+	return r.ApiService.SearchExecute(r)
 }
 
 /*
-PostSearch Provision a search index for your org
+Search Hybrid search over the org's own corpora
 
-Creates a search index inside the already-running shared search backend and answers with the endpoint that reaches it.
-
-`name` is the org-unique slug every physical name derives from, and must match ^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$. `instance` optionally BINDS the add-on to one of your app instances: the DSN is injected into that instance's addons secret as <KIND>_URL, switching the app off its built-in store and onto this one. Omit it and the connection string is yours to wire.
-
-THE CREDENTIAL COMES BACK ONCE. The connection string and password are in this response and nowhere else — every read beside it omits the password — so a caller that does not keep them has to provision again. Where KMS is configured the password is sealed there and only a reference is persisted; where it is not, it is returned this once and stored nowhere. It is never held in plaintext.
-
-Scoped to the caller's validated org (403 without one), which also namespaces the physical resource under a fixed-width hash, so two tenants can never fold onto one backend resource — a residual collision fails closed with 409 rather than silently sharing. A name already taken in your org is 409; an invalid name or instance slug is 400; a backend that refuses the create is 502. Where a later step fails after the backend resource already exists, it is torn back down rather than left orphaned.
-
-Billing is gated BEFORE anything is created: an unfunded org — or, in the fail-closed default, an unreachable meter — gets the fleet-wide 402/503 and nothing is provisioned. The fee is per-kind and set by the deployment.
+Is the typed op behind POST /v1/search. It does exactly two things the
+in-process entry point must not do: resolve the tenant from the validated
+principal, and refuse when there is none. Everything else is ForOrg.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return SearchAPIPostSearchRequest
+	@return SearchAPISearchRequest
 */
-func (a *SearchAPIService) PostSearch(ctx context.Context) SearchAPIPostSearchRequest {
-	return SearchAPIPostSearchRequest{
+func (a *SearchAPIService) Search(ctx context.Context) SearchAPISearchRequest {
+	return SearchAPISearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -597,16 +288,16 @@ func (a *SearchAPIService) PostSearch(ctx context.Context) SearchAPIPostSearchRe
 
 // Execute executes the request
 //
-//	@return ProvisionResult
-func (a *SearchAPIService) PostSearchExecute(r SearchAPIPostSearchRequest) (*ProvisionResult, *http.Response, error) {
+//	@return Response
+func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionResult
+		localVarReturnValue *Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.PostSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.Search")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -616,6 +307,9 @@ func (a *SearchAPIService) PostSearchExecute(r SearchAPIPostSearchRequest) (*Pro
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.request == nil {
+		return localVarReturnValue, nil, reportError("request is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -635,7 +329,7 @@ func (a *SearchAPIService) PostSearchExecute(r SearchAPIPostSearchRequest) (*Pro
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.provisionRequest
+	localVarPostBody = r.request
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

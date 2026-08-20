@@ -7,8 +7,8 @@ Method | HTTP request | Description
 [**AdminAIMetrics**](AdminAPI.md#AdminAIMetrics) | **Get** /v1/admin/aimetrics | Is the fleet AI board: LLM generations over gen_ai spans (count, cost, avg/p95 latency, per-model), per-model usage from the live cloud_usage ledger, and the eval plane (traces, scores, score names, runs, and the average-score trend).
 [**AdminAnalytics**](AdminAPI.md#AdminAnalytics) | **Get** /v1/admin/analytics | Is the SaaS product-analytics board over the caller&#39;s tenant window: active customers, new and churned, retention, MRR, ARPU, the usage trend and the top customers by spend — every number folded from the commerce ledger, not sampled.
 [**AdminApplications**](AdminAPI.md#AdminApplications) | **Get** /v1/admin/applications | Lists IAM applications for one owner org, forwarded VERBATIM from IAM&#39;s get-applications.
-[**AdminAudit**](AdminAPI.md#AdminAudit) | **Get** /v1/admin/audit | Reads cloud&#39;s tamper-evident audit trail, newest first, with the chain&#39;s live integrity attached so a listing can be badged as verified.
-[**AdminAuditVerify**](AdminAPI.md#AdminAuditVerify) | **Get** /v1/admin/audit/verify | Walks the WHOLE hash chain and reports whether it is intact: how many records were checked, the head hash to pin externally against tail-truncation, and — when the chain is broken — the seq of the first bad record and why.
+[**AdminAudit**](AdminAPI.md#AdminAudit) | **Get** /v1/admin/audit | Reads one chain of cloud&#39;s tamper-evident audit trail, newest first, with that chain&#39;s live integrity attached so a listing can be badged as verified.
+[**AdminAuditVerify**](AdminAPI.md#AdminAuditVerify) | **Get** /v1/admin/audit/verify | Walks EVERY hash chain this deployment keeps and reports each one: which chains were checked, how many records each holds, the head hash to pin externally against tail-truncation, and — when a chain is broken — the seq of the first bad record and why.
 [**AdminBases**](AdminAPI.md#AdminBases) | **Get** /v1/admin/bases | Lists the tenant Base instances in the caller&#39;s window — a SuperAdmin sees every tenant&#39;s, anyone else only their own subtree&#39;s.
 [**AdminCaps**](AdminAPI.md#AdminCaps) | **Get** /v1/admin/caps | Reads one org&#39;s usage caps: its spend alerts plus the derived period spend, over/warn state and reset time.
 [**AdminCompute**](AdminAPI.md#AdminCompute) | **Get** /v1/admin/compute | Rolls the fleet&#39;s compute usage up to one row per (org, app, project, kind): how many distinct machines ran in the window, how many are still active, what they billed, and when each group last emitted an event.
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 > RecordsOut AdminAudit(ctx).Org(org).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
 
-Reads cloud's tamper-evident audit trail, newest first, with the chain's live integrity attached so a listing can be badged as verified.
+Reads one chain of cloud's tamper-evident audit trail, newest first, with that chain's live integrity attached so a listing can be badged as verified.
 
 
 
@@ -383,7 +383,7 @@ Name | Type | Description  | Notes
 
 > VerifyOut AdminAuditVerify(ctx).Execute()
 
-Walks the WHOLE hash chain and reports whether it is intact: how many records were checked, the head hash to pin externally against tail-truncation, and — when the chain is broken — the seq of the first bad record and why.
+Walks EVERY hash chain this deployment keeps and reports each one: which chains were checked, how many records each holds, the head hash to pin externally against tail-truncation, and — when a chain is broken — the seq of the first bad record and why.
 
 
 

@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // VideosAPIService VideosAPI service
@@ -24,6 +25,7 @@ type VideosAPIService service
 type VideosAPIGetVideosByIdRequest struct {
 	ctx        context.Context
 	ApiService *VideosAPIService
+	id         string
 }
 
 func (r VideosAPIGetVideosByIdRequest) Execute() (*http.Response, error) {
@@ -42,12 +44,14 @@ actual cost and records the billable usage event (exactly once). Returns the
 OpenAI-shaped video object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
 	@return VideosAPIGetVideosByIdRequest
 */
-func (a *VideosAPIService) GetVideosById(ctx context.Context) VideosAPIGetVideosByIdRequest {
+func (a *VideosAPIService) GetVideosById(ctx context.Context, id string) VideosAPIGetVideosByIdRequest {
 	return VideosAPIGetVideosByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -65,6 +69,7 @@ func (a *VideosAPIService) GetVideosByIdExecute(r VideosAPIGetVideosByIdRequest)
 	}
 
 	localVarPath := localBasePath + "/v1/videos/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -118,6 +123,7 @@ func (a *VideosAPIService) GetVideosByIdExecute(r VideosAPIGetVideosByIdRequest)
 type VideosAPIGetVideosByIdContentRequest struct {
 	ctx        context.Context
 	ApiService *VideosAPIService
+	id         string
 }
 
 func (r VideosAPIGetVideosByIdContentRequest) Execute() (*http.Response, error) {
@@ -136,12 +142,14 @@ the client that downloads without first polling to completion) — idempotent
 with the poll path via job.markCompleted.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
 	@return VideosAPIGetVideosByIdContentRequest
 */
-func (a *VideosAPIService) GetVideosByIdContent(ctx context.Context) VideosAPIGetVideosByIdContentRequest {
+func (a *VideosAPIService) GetVideosByIdContent(ctx context.Context, id string) VideosAPIGetVideosByIdContentRequest {
 	return VideosAPIGetVideosByIdContentRequest{
 		ApiService: a,
 		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -159,6 +167,7 @@ func (a *VideosAPIService) GetVideosByIdContentExecute(r VideosAPIGetVideosByIdC
 	}
 
 	localVarPath := localBasePath + "/v1/videos/{id}/content"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

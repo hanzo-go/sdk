@@ -19,15 +19,17 @@ var _ MappedNullable = &Integrity{}
 
 // Integrity struct for Integrity
 type Integrity struct {
-	// BrokenAt is the seq of the FIRST record that failed verification, or -1 when OK. Reason describes the break (recomputed-hash mismatch, prev-hash discontinuity, or a seq gap).
+	// BrokenAt is the seq of the FIRST record that failed verification, and -1 whenever the walk found no break (including an unread chain, where no seq was reached). Reason describes the break (recomputed-hash mismatch, prev-hash discontinuity, or a seq gap) or why the chain could not be read.
 	BrokenAt *int32 `json:"brokenAt,omitempty"`
-	// Count is the number of records walked.
+	// Count is the number of records walked. Zero on an unread chain, where it means \"nothing was read\", not \"the chain is empty\".
 	Count *int32 `json:"count,omitempty"`
-	// HeadHash is the hash of the last record (or the genesis anchor for an empty chain). Pin this externally over time to detect tail-truncation.
-	HeadHash *string `json:"headHash,omitempty"`
-	// OK is true iff every record's stored hash equals the recomputed hash AND the chain links are continuous (each PrevHash == the prior record's Hash, seqs gapless from 0).
-	Ok     *bool   `json:"ok,omitempty"`
+	// Head is the hash of the last record (or the genesis anchor for an empty chain). Pin this externally over time to detect tail-truncation.
+	Head *string `json:"head,omitempty"`
+	// Name is the chain this verdict is about, e.g. \"audit\" or \"audit-iam\". It is carried because a verdict with no chain on it reads as the whole trail's, which is what a reader of a 128-chain deployment did.
+	Name   *string `json:"name,omitempty"`
 	Reason *string `json:"reason,omitempty"`
+	// Verdict is intact, broken or unread.
+	Verdict *string `json:"verdict,omitempty"`
 }
 
 // NewIntegrity instantiates a new Integrity object
@@ -111,68 +113,68 @@ func (o *Integrity) SetCount(v int32) {
 	o.Count = &v
 }
 
-// GetHeadHash returns the HeadHash field value if set, zero value otherwise.
-func (o *Integrity) GetHeadHash() string {
-	if o == nil || IsNil(o.HeadHash) {
+// GetHead returns the Head field value if set, zero value otherwise.
+func (o *Integrity) GetHead() string {
+	if o == nil || IsNil(o.Head) {
 		var ret string
 		return ret
 	}
-	return *o.HeadHash
+	return *o.Head
 }
 
-// GetHeadHashOk returns a tuple with the HeadHash field value if set, nil otherwise
+// GetHeadOk returns a tuple with the Head field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Integrity) GetHeadHashOk() (*string, bool) {
-	if o == nil || IsNil(o.HeadHash) {
+func (o *Integrity) GetHeadOk() (*string, bool) {
+	if o == nil || IsNil(o.Head) {
 		return nil, false
 	}
-	return o.HeadHash, true
+	return o.Head, true
 }
 
-// HasHeadHash returns a boolean if a field has been set.
-func (o *Integrity) HasHeadHash() bool {
-	if o != nil && !IsNil(o.HeadHash) {
+// HasHead returns a boolean if a field has been set.
+func (o *Integrity) HasHead() bool {
+	if o != nil && !IsNil(o.Head) {
 		return true
 	}
 
 	return false
 }
 
-// SetHeadHash gets a reference to the given string and assigns it to the HeadHash field.
-func (o *Integrity) SetHeadHash(v string) {
-	o.HeadHash = &v
+// SetHead gets a reference to the given string and assigns it to the Head field.
+func (o *Integrity) SetHead(v string) {
+	o.Head = &v
 }
 
-// GetOk returns the Ok field value if set, zero value otherwise.
-func (o *Integrity) GetOk() bool {
-	if o == nil || IsNil(o.Ok) {
-		var ret bool
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Integrity) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
 		return ret
 	}
-	return *o.Ok
+	return *o.Name
 }
 
-// GetOkOk returns a tuple with the Ok field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Integrity) GetOkOk() (*bool, bool) {
-	if o == nil || IsNil(o.Ok) {
+func (o *Integrity) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return o.Ok, true
+	return o.Name, true
 }
 
-// HasOk returns a boolean if a field has been set.
-func (o *Integrity) HasOk() bool {
-	if o != nil && !IsNil(o.Ok) {
+// HasName returns a boolean if a field has been set.
+func (o *Integrity) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// SetOk gets a reference to the given bool and assigns it to the Ok field.
-func (o *Integrity) SetOk(v bool) {
-	o.Ok = &v
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Integrity) SetName(v string) {
+	o.Name = &v
 }
 
 // GetReason returns the Reason field value if set, zero value otherwise.
@@ -207,6 +209,38 @@ func (o *Integrity) SetReason(v string) {
 	o.Reason = &v
 }
 
+// GetVerdict returns the Verdict field value if set, zero value otherwise.
+func (o *Integrity) GetVerdict() string {
+	if o == nil || IsNil(o.Verdict) {
+		var ret string
+		return ret
+	}
+	return *o.Verdict
+}
+
+// GetVerdictOk returns a tuple with the Verdict field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integrity) GetVerdictOk() (*string, bool) {
+	if o == nil || IsNil(o.Verdict) {
+		return nil, false
+	}
+	return o.Verdict, true
+}
+
+// HasVerdict returns a boolean if a field has been set.
+func (o *Integrity) HasVerdict() bool {
+	if o != nil && !IsNil(o.Verdict) {
+		return true
+	}
+
+	return false
+}
+
+// SetVerdict gets a reference to the given string and assigns it to the Verdict field.
+func (o *Integrity) SetVerdict(v string) {
+	o.Verdict = &v
+}
+
 func (o Integrity) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -223,14 +257,17 @@ func (o Integrity) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Count) {
 		toSerialize["count"] = o.Count
 	}
-	if !IsNil(o.HeadHash) {
-		toSerialize["headHash"] = o.HeadHash
+	if !IsNil(o.Head) {
+		toSerialize["head"] = o.Head
 	}
-	if !IsNil(o.Ok) {
-		toSerialize["ok"] = o.Ok
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
 	}
 	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
+	}
+	if !IsNil(o.Verdict) {
+		toSerialize["verdict"] = o.Verdict
 	}
 	return toSerialize, nil
 }

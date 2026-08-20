@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BrokenAt** | Pointer to **int32** | BrokenAt is the seq of the FIRST record that failed verification, or -1 when OK. Reason describes the break (recomputed-hash mismatch, prev-hash discontinuity, or a seq gap). | [optional] 
-**Count** | Pointer to **int32** | Count is the number of records walked. | [optional] 
-**HeadHash** | Pointer to **string** | HeadHash is the hash of the last record (or the genesis anchor for an empty chain). Pin this externally over time to detect tail-truncation. | [optional] 
-**Ok** | Pointer to **bool** | OK is true iff every record&#39;s stored hash equals the recomputed hash AND the chain links are continuous (each PrevHash &#x3D;&#x3D; the prior record&#39;s Hash, seqs gapless from 0). | [optional] 
+**BrokenAt** | Pointer to **int32** | BrokenAt is the seq of the FIRST record that failed verification, and -1 whenever the walk found no break (including an unread chain, where no seq was reached). Reason describes the break (recomputed-hash mismatch, prev-hash discontinuity, or a seq gap) or why the chain could not be read. | [optional] 
+**Count** | Pointer to **int32** | Count is the number of records walked. Zero on an unread chain, where it means \&quot;nothing was read\&quot;, not \&quot;the chain is empty\&quot;. | [optional] 
+**Head** | Pointer to **string** | Head is the hash of the last record (or the genesis anchor for an empty chain). Pin this externally over time to detect tail-truncation. | [optional] 
+**Name** | Pointer to **string** | Name is the chain this verdict is about, e.g. \&quot;audit\&quot; or \&quot;audit-iam\&quot;. It is carried because a verdict with no chain on it reads as the whole trail&#39;s, which is what a reader of a 128-chain deployment did. | [optional] 
 **Reason** | Pointer to **string** |  | [optional] 
+**Verdict** | Pointer to **string** | Verdict is intact, broken or unread. | [optional] 
 
 ## Methods
 
@@ -79,55 +80,55 @@ SetCount sets Count field to given value.
 
 HasCount returns a boolean if a field has been set.
 
-### GetHeadHash
+### GetHead
 
-`func (o *Integrity) GetHeadHash() string`
+`func (o *Integrity) GetHead() string`
 
-GetHeadHash returns the HeadHash field if non-nil, zero value otherwise.
+GetHead returns the Head field if non-nil, zero value otherwise.
 
-### GetHeadHashOk
+### GetHeadOk
 
-`func (o *Integrity) GetHeadHashOk() (*string, bool)`
+`func (o *Integrity) GetHeadOk() (*string, bool)`
 
-GetHeadHashOk returns a tuple with the HeadHash field if it's non-nil, zero value otherwise
+GetHeadOk returns a tuple with the Head field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetHeadHash
+### SetHead
 
-`func (o *Integrity) SetHeadHash(v string)`
+`func (o *Integrity) SetHead(v string)`
 
-SetHeadHash sets HeadHash field to given value.
+SetHead sets Head field to given value.
 
-### HasHeadHash
+### HasHead
 
-`func (o *Integrity) HasHeadHash() bool`
+`func (o *Integrity) HasHead() bool`
 
-HasHeadHash returns a boolean if a field has been set.
+HasHead returns a boolean if a field has been set.
 
-### GetOk
+### GetName
 
-`func (o *Integrity) GetOk() bool`
+`func (o *Integrity) GetName() string`
 
-GetOk returns the Ok field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetOkOk
+### GetNameOk
 
-`func (o *Integrity) GetOkOk() (*bool, bool)`
+`func (o *Integrity) GetNameOk() (*string, bool)`
 
-GetOkOk returns a tuple with the Ok field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOk
+### SetName
 
-`func (o *Integrity) SetOk(v bool)`
+`func (o *Integrity) SetName(v string)`
 
-SetOk sets Ok field to given value.
+SetName sets Name field to given value.
 
-### HasOk
+### HasName
 
-`func (o *Integrity) HasOk() bool`
+`func (o *Integrity) HasName() bool`
 
-HasOk returns a boolean if a field has been set.
+HasName returns a boolean if a field has been set.
 
 ### GetReason
 
@@ -153,6 +154,31 @@ SetReason sets Reason field to given value.
 `func (o *Integrity) HasReason() bool`
 
 HasReason returns a boolean if a field has been set.
+
+### GetVerdict
+
+`func (o *Integrity) GetVerdict() string`
+
+GetVerdict returns the Verdict field if non-nil, zero value otherwise.
+
+### GetVerdictOk
+
+`func (o *Integrity) GetVerdictOk() (*string, bool)`
+
+GetVerdictOk returns a tuple with the Verdict field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVerdict
+
+`func (o *Integrity) SetVerdict(v string)`
+
+SetVerdict sets Verdict field to given value.
+
+### HasVerdict
+
+`func (o *Integrity) HasVerdict() bool`
+
+HasVerdict returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -58,7 +58,7 @@ func TestFlows(t *testing.T) {
 		}},
 		{"store", "POST", "/v1/kv", func(c *APIClient) {
 			name := "n"
-			c.KvAPI.PostKv(ctx).ProvisionRequest(
+			c.InstancesAPI.PostInstancesKv(ctx).ProvisionRequest(
 				ProvisionRequest{Name: &name},
 			).Execute()
 		}},

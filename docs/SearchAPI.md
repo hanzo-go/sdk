@@ -4,212 +4,10 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSearchByName**](SearchAPI.md#DeleteSearchByName) | **Delete** /v1/search/{name} | Deletes one search index from the shared backend and removes its metadata row.
-[**GetSearch**](SearchAPI.md#GetSearch) | **Get** /v1/search | Lists the caller org&#39;s search indexes.
-[**GetSearchByName**](SearchAPI.md#GetSearchByName) | **Get** /v1/search/{name} | Returns one search index&#39;s metadata.
 [**GetSearchIndexes**](SearchAPI.md#GetSearchIndexes) | **Get** /v1/search/indexes | Lists the search indexes with their document counts and timestamps.
 [**GetSearchStats**](SearchAPI.md#GetSearchStats) | **Get** /v1/search/stats | Totals the documents across every search index.
-[**PostSearch**](SearchAPI.md#PostSearch) | **Post** /v1/search | Provision a search index for your org
+[**Search**](SearchAPI.md#Search) | **Post** /v1/search | Hybrid search over the org&#39;s own corpora
 
-
-
-## DeleteSearchByName
-
-> DeleteSearchByName(ctx, name).Execute()
-
-Deletes one search index from the shared backend and removes its metadata row.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "products" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SearchAPI.DeleteSearchByName(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.DeleteSearchByName``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteSearchByNameRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetSearch
-
-> []ProvisionedSummary GetSearch(ctx).Execute()
-
-Lists the caller org's search indexes.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.GetSearch(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.GetSearch``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetSearch`: []ProvisionedSummary
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.GetSearch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetSearchRequest struct via the builder pattern
-
-
-### Return type
-
-[**[]ProvisionedSummary**](ProvisionedSummary.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetSearchByName
-
-> ProvisionedResource GetSearchByName(ctx, name).Execute()
-
-Returns one search index's metadata.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	name := "products" // string | Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.GetSearchByName(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.GetSearchByName``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetSearchByName`: ProvisionedResource
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.GetSearchByName`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetSearchByNameRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ProvisionedResource**](ProvisionedResource.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## GetSearchIndexes
@@ -344,11 +142,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostSearch
+## Search
 
-> ProvisionResult PostSearch(ctx).ProvisionRequest(provisionRequest).Execute()
+> Response Search(ctx).Request(request).Execute()
 
-Provision a search index for your org
+Hybrid search over the org's own corpora
 
 
 
@@ -365,17 +163,17 @@ import (
 )
 
 func main() {
-	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest |  (optional)
+	request := *openapiclient.NewRequest() // Request | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.PostSearch(context.Background()).ProvisionRequest(provisionRequest).Execute()
+	resp, r, err := apiClient.SearchAPI.Search(context.Background()).Request(request).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.PostSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.Search``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSearch`: ProvisionResult
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.PostSearch`: %v\n", resp)
+	// response from `Search`: Response
+	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.Search`: %v\n", resp)
 }
 ```
 
@@ -385,16 +183,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
+ **request** | [**Request**](Request.md) |  | 
 
 ### Return type
 
-[**ProvisionResult**](ProvisionResult.md)
+[**Response**](Response.md)
 
 ### Authorization
 

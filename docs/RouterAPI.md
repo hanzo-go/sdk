@@ -98,7 +98,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterArtifactMetaRe
 
 ## DeleteRouterData
 
-> Envelope DeleteRouterData(ctx).Execute()
+> DeleteRouterData(ctx).Execute()
 
 Data
 
@@ -118,13 +118,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RouterAPI.DeleteRouterData(context.Background()).Execute()
+	r, err := apiClient.RouterAPI.DeleteRouterData(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RouterAPI.DeleteRouterData``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteRouterData`: Envelope
-	fmt.Fprintf(os.Stdout, "Response from `RouterAPI.DeleteRouterData`: %v\n", resp)
 }
 ```
 
@@ -139,7 +137,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterDataRequest st
 
 ### Return type
 
-[**Envelope**](Envelope.md)
+ (empty response body)
 
 ### Authorization
 
@@ -148,7 +146,7 @@ Other parameters are passed through a pointer to a apiDeleteRouterDataRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -452,7 +450,7 @@ Other parameters are passed through a pointer to a apiGetRouterArtifactMetaReque
 
 ## GetRouterData
 
-> Envelope GetRouterData(ctx).Execute()
+> GetRouterData(ctx).Execute()
 
 Data
 
@@ -472,13 +470,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RouterAPI.GetRouterData(context.Background()).Execute()
+	r, err := apiClient.RouterAPI.GetRouterData(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RouterAPI.GetRouterData``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRouterData`: Envelope
-	fmt.Fprintf(os.Stdout, "Response from `RouterAPI.GetRouterData`: %v\n", resp)
 }
 ```
 
@@ -493,7 +489,7 @@ Other parameters are passed through a pointer to a apiGetRouterDataRequest struc
 
 ### Return type
 
-[**Envelope**](Envelope.md)
+ (empty response body)
 
 ### Authorization
 
@@ -502,7 +498,7 @@ Other parameters are passed through a pointer to a apiGetRouterDataRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // WecomBotAPIService WecomBotAPI service
@@ -24,6 +25,7 @@ type WecomBotAPIService service
 type WecomBotAPIGetWecomBotCallbackByBotidRequest struct {
 	ctx        context.Context
 	ApiService *WecomBotAPIService
+	botId      string
 }
 
 func (r WecomBotAPIGetWecomBotCallbackByBotidRequest) Execute() (*http.Response, error) {
@@ -36,12 +38,14 @@ GetWecomBotCallbackByBotid Verify WeChat work bot callback URL
 Verify WeChat work bot callback URL
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId
 	@return WecomBotAPIGetWecomBotCallbackByBotidRequest
 */
-func (a *WecomBotAPIService) GetWecomBotCallbackByBotid(ctx context.Context) WecomBotAPIGetWecomBotCallbackByBotidRequest {
+func (a *WecomBotAPIService) GetWecomBotCallbackByBotid(ctx context.Context, botId string) WecomBotAPIGetWecomBotCallbackByBotidRequest {
 	return WecomBotAPIGetWecomBotCallbackByBotidRequest{
 		ApiService: a,
 		ctx:        ctx,
+		botId:      botId,
 	}
 }
 
@@ -59,6 +63,7 @@ func (a *WecomBotAPIService) GetWecomBotCallbackByBotidExecute(r WecomBotAPIGetW
 	}
 
 	localVarPath := localBasePath + "/v1/wecom-bot/callback/{botId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -112,6 +117,7 @@ func (a *WecomBotAPIService) GetWecomBotCallbackByBotidExecute(r WecomBotAPIGetW
 type WecomBotAPIPostWecomBotCallbackByBotidRequest struct {
 	ctx        context.Context
 	ApiService *WecomBotAPIService
+	botId      string
 }
 
 func (r WecomBotAPIPostWecomBotCallbackByBotidRequest) Execute() (*http.Response, error) {
@@ -124,12 +130,14 @@ PostWecomBotCallbackByBotid Process WeChat work bot messages
 Process WeChat work bot messages
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param botId
 	@return WecomBotAPIPostWecomBotCallbackByBotidRequest
 */
-func (a *WecomBotAPIService) PostWecomBotCallbackByBotid(ctx context.Context) WecomBotAPIPostWecomBotCallbackByBotidRequest {
+func (a *WecomBotAPIService) PostWecomBotCallbackByBotid(ctx context.Context, botId string) WecomBotAPIPostWecomBotCallbackByBotidRequest {
 	return WecomBotAPIPostWecomBotCallbackByBotidRequest{
 		ApiService: a,
 		ctx:        ctx,
+		botId:      botId,
 	}
 }
 
@@ -147,6 +155,7 @@ func (a *WecomBotAPIService) PostWecomBotCallbackByBotidExecute(r WecomBotAPIPos
 	}
 
 	localVarPath := localBasePath + "/v1/wecom-bot/callback/{botId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"botId"+"}", url.PathEscape(parameterValueToString(r.botId, "botId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

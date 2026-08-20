@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // DocumentsAPIService DocumentsAPI service
@@ -112,6 +113,7 @@ func (a *DocumentsAPIService) DeleteDocumentsExecute(r DocumentsAPIDeleteDocumen
 type DocumentsAPIGetDocumentsByFileIdContextRequest struct {
 	ctx        context.Context
 	ApiService *DocumentsAPIService
+	fileId     string
 }
 
 func (r DocumentsAPIGetDocumentsByFileIdContextRequest) Execute() (*http.Response, error) {
@@ -125,12 +127,14 @@ Handles GET /v1/documents/:file_id/context — every chunk of
 a file, as LangChain Documents (used when RAG_USE_FULL_CONTEXT is on).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fileId
 	@return DocumentsAPIGetDocumentsByFileIdContextRequest
 */
-func (a *DocumentsAPIService) GetDocumentsByFileIdContext(ctx context.Context) DocumentsAPIGetDocumentsByFileIdContextRequest {
+func (a *DocumentsAPIService) GetDocumentsByFileIdContext(ctx context.Context, fileId string) DocumentsAPIGetDocumentsByFileIdContextRequest {
 	return DocumentsAPIGetDocumentsByFileIdContextRequest{
 		ApiService: a,
 		ctx:        ctx,
+		fileId:     fileId,
 	}
 }
 
@@ -148,6 +152,7 @@ func (a *DocumentsAPIService) GetDocumentsByFileIdContextExecute(r DocumentsAPIG
 	}
 
 	localVarPath := localBasePath + "/v1/documents/{file_id}/context"
+	localVarPath = strings.Replace(localVarPath, "{"+"file_id"+"}", url.PathEscape(parameterValueToString(r.fileId, "fileId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

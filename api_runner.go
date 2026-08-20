@@ -16,230 +16,10 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
 // RunnerAPIService RunnerAPI service
 type RunnerAPIService service
-
-type RunnerAPIGetRunnerReleasesRequest struct {
-	ctx        context.Context
-	ApiService *RunnerAPIService
-}
-
-func (r RunnerAPIGetRunnerReleasesRequest) Execute() (*SelfReleaseList, *http.Response, error) {
-	return r.ApiService.GetRunnerReleasesExecute(r)
-}
-
-/*
-GetRunnerReleases Lists the self-publish releases this process has run.
-
-Lists the self-publish releases this process has run.
-
-It lists the platform's own release runs with their current state, so a release
-that answered 202 with an id can be followed to its end. SuperAdmin only — this
-is the platform's own publishing record, not a tenant surface.
-
-The record lives in THIS process's memory, so it covers the releases this
-instance started and does not survive a restart.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return RunnerAPIGetRunnerReleasesRequest
-*/
-func (a *RunnerAPIService) GetRunnerReleases(ctx context.Context) RunnerAPIGetRunnerReleasesRequest {
-	return RunnerAPIGetRunnerReleasesRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return SelfReleaseList
-func (a *RunnerAPIService) GetRunnerReleasesExecute(r RunnerAPIGetRunnerReleasesRequest) (*SelfReleaseList, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SelfReleaseList
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RunnerAPIService.GetRunnerReleases")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/runner/releases"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type RunnerAPIGetRunnerReleasesByIdRequest struct {
-	ctx        context.Context
-	ApiService *RunnerAPIService
-	id         string
-}
-
-func (r RunnerAPIGetRunnerReleasesByIdRequest) Execute() (*ReleaseState, *http.Response, error) {
-	return r.ApiService.GetRunnerReleasesByIdExecute(r)
-}
-
-/*
-GetRunnerReleasesById Returns one self-publish release by the id its 202 returned.
-
-Returns one self-publish release by the id its 202 returned.
-
-It returns the state of one release run — which is the whole reason the trigger
-answers with an id, because without this a release that died in the detached
-pipeline would look exactly like one still in flight. SuperAdmin only.
-
-A 404 means the id is unknown OR has aged out of this process's in-memory record.
-That is the honest answer either way: the process genuinely cannot tell the two
-apart.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the build id the release trigger answered with, from the path.
-	@return RunnerAPIGetRunnerReleasesByIdRequest
-*/
-func (a *RunnerAPIService) GetRunnerReleasesById(ctx context.Context, id string) RunnerAPIGetRunnerReleasesByIdRequest {
-	return RunnerAPIGetRunnerReleasesByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ReleaseState
-func (a *RunnerAPIService) GetRunnerReleasesByIdExecute(r RunnerAPIGetRunnerReleasesByIdRequest) (*ReleaseState, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ReleaseState
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RunnerAPIService.GetRunnerReleasesById")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/runner/releases/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type RunnerAPIPostRunnerRequest struct {
 	ctx            context.Context
@@ -261,17 +41,15 @@ PostRunner Triggers a native build — an image, or the binaries a repo declares
 
 Triggers a native build — an image, or the binaries a repo declares.
 
-The fabric's own build trigger, and what `hanzo build`, git-push-to-deploy and
-cloud's own self-release all call. It answers 202 with the build job id: a queued
-build, not a pushed artifact.
+The fabric's own build trigger, and what `hanzo build` and git-push-to-deploy
+call. It answers 202 with the build job id: a queued build, not a pushed
+artifact.
 
 Two lanes, and a build is exactly one of them. The IMAGE lane takes `repo` and
 the output `image` and launches a BuildKit Job that pushes it. The ARTIFACT lane
 takes `binaries` — the same recipe the repo's hanzo.yml declares — and publishes
 to object storage instead; it must carry no `image`, because a build produces
-binaries or an image, never both. `release: true` is the third mode: cloud
-self-publishing its own image, version computed, built, smoke-tested, tagged and
-announced.
+binaries or an image, never both.
 
 PRIVILEGED, with exactly two credentials and never a third: the shared
 build-callback token compared in constant time — the machine path, which a user
@@ -284,13 +62,6 @@ fabric owns, and on the IAM path the image's registry namespace must MATCH the
 caller's own validated org — so an org admin can only publish into their own
 brand and can never overwrite another's through the shared push credential. The
 same confinement applies to the artifact lane's repo owner.
-
-`release: true` is the exception, and takes SUPERADMIN. It publishes the
-platform's own image — the binary the whole fleet runs — so what it lands reaches
-every org at the next reconcile, and no role inside the caller's own org can
-authorize that. An org admin is refused however the registry namespace lines up,
-and the build token, which carries no identity at all, may enqueue an ordinary
-build but never a release.
 
 The output image is parsed and validated as a single well-formed OCI ref before
 any authorization decision reads it, so a crafted ref cannot smuggle a

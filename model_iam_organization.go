@@ -20,23 +20,26 @@ var _ MappedNullable = &IamOrganization{}
 
 // IamOrganization struct for IamOrganization
 type IamOrganization struct {
-	AccountItems           []IamAccountItem `json:"accountItems,omitempty"`
-	AccountMenu            *string          `json:"accountMenu,omitempty"`
-	BalanceCredit          *float32         `json:"balanceCredit,omitempty"`
-	BalanceCurrency        *string          `json:"balanceCurrency,omitempty"`
-	CountryCodes           []string         `json:"countryCodes,omitempty"`
-	CreatedAt              *time.Time       `json:"createdAt,omitempty"`
-	CreatedTime            *string          `json:"createdTime,omitempty"`
-	DcrPolicy              *string          `json:"dcrPolicy,omitempty"`
-	DefaultApplication     *string          `json:"defaultApplication,omitempty"`
-	DefaultAvatar          *string          `json:"defaultAvatar,omitempty"`
-	DefaultPassword        *string          `json:"defaultPassword,omitempty"`
-	Deleted                *bool            `json:"deleted,omitempty"`
-	DisableSignin          *bool            `json:"disableSignin,omitempty"`
-	DisplayName            *string          `json:"displayName,omitempty"`
-	EnableSoftDeletion     *bool            `json:"enableSoftDeletion,omitempty"`
-	EnableTour             *bool            `json:"enableTour,omitempty"`
-	FailedSigninFrozenTime *int32           `json:"failedSigninFrozenTime,omitempty"`
+	AccountItems []IamAccountItem `json:"accountItems,omitempty"`
+	AccountMenu  *string          `json:"accountMenu,omitempty"`
+	// How the organization appears across Hanzo — the square mark beside its name — as an image or as one emoji, never both. It is the pair a person carries (User.Avatar) under the same names, resolved the same way, so a screen draws a subject without asking which kind of subject it has. Both halves live on the row: a mark that appears everywhere cannot be kept on one device. Written through schema.MarkOf; Logo and LogoDark above are a different thing, the wordmark a login screen draws.
+	Avatar                 *string    `json:"avatar,omitempty"`
+	BalanceCredit          *float32   `json:"balanceCredit,omitempty"`
+	BalanceCurrency        *string    `json:"balanceCurrency,omitempty"`
+	CountryCodes           []string   `json:"countryCodes,omitempty"`
+	CreatedAt              *time.Time `json:"createdAt,omitempty"`
+	CreatedTime            *string    `json:"createdTime,omitempty"`
+	DcrPolicy              *string    `json:"dcrPolicy,omitempty"`
+	DefaultApplication     *string    `json:"defaultApplication,omitempty"`
+	DefaultAvatar          *string    `json:"defaultAvatar,omitempty"`
+	DefaultPassword        *string    `json:"defaultPassword,omitempty"`
+	Deleted                *bool      `json:"deleted,omitempty"`
+	DisableSignin          *bool      `json:"disableSignin,omitempty"`
+	DisplayName            *string    `json:"displayName,omitempty"`
+	Emoji                  *string    `json:"emoji,omitempty"`
+	EnableSoftDeletion     *bool      `json:"enableSoftDeletion,omitempty"`
+	EnableTour             *bool      `json:"enableTour,omitempty"`
+	FailedSigninFrozenTime *int32     `json:"failedSigninFrozenTime,omitempty"`
 	// Per-organization signin throttle. Zero means \"inherit the application default\"; a non-zero value overrides it. Safe bounds are clamped by the resource service before persistence.
 	FailedSigninLimit *int32  `json:"failedSigninLimit,omitempty"`
 	Favicon           *string `json:"favicon,omitempty"`
@@ -163,6 +166,38 @@ func (o *IamOrganization) HasAccountMenu() bool {
 // SetAccountMenu gets a reference to the given string and assigns it to the AccountMenu field.
 func (o *IamOrganization) SetAccountMenu(v string) {
 	o.AccountMenu = &v
+}
+
+// GetAvatar returns the Avatar field value if set, zero value otherwise.
+func (o *IamOrganization) GetAvatar() string {
+	if o == nil || IsNil(o.Avatar) {
+		var ret string
+		return ret
+	}
+	return *o.Avatar
+}
+
+// GetAvatarOk returns a tuple with the Avatar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamOrganization) GetAvatarOk() (*string, bool) {
+	if o == nil || IsNil(o.Avatar) {
+		return nil, false
+	}
+	return o.Avatar, true
+}
+
+// HasAvatar returns a boolean if a field has been set.
+func (o *IamOrganization) HasAvatar() bool {
+	if o != nil && !IsNil(o.Avatar) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatar gets a reference to the given string and assigns it to the Avatar field.
+func (o *IamOrganization) SetAvatar(v string) {
+	o.Avatar = &v
 }
 
 // GetBalanceCredit returns the BalanceCredit field value if set, zero value otherwise.
@@ -547,6 +582,38 @@ func (o *IamOrganization) HasDisplayName() bool {
 // SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
 func (o *IamOrganization) SetDisplayName(v string) {
 	o.DisplayName = &v
+}
+
+// GetEmoji returns the Emoji field value if set, zero value otherwise.
+func (o *IamOrganization) GetEmoji() string {
+	if o == nil || IsNil(o.Emoji) {
+		var ret string
+		return ret
+	}
+	return *o.Emoji
+}
+
+// GetEmojiOk returns a tuple with the Emoji field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamOrganization) GetEmojiOk() (*string, bool) {
+	if o == nil || IsNil(o.Emoji) {
+		return nil, false
+	}
+	return o.Emoji, true
+}
+
+// HasEmoji returns a boolean if a field has been set.
+func (o *IamOrganization) HasEmoji() bool {
+	if o != nil && !IsNil(o.Emoji) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmoji gets a reference to the given string and assigns it to the Emoji field.
+func (o *IamOrganization) SetEmoji(v string) {
+	o.Emoji = &v
 }
 
 // GetEnableSoftDeletion returns the EnableSoftDeletion field value if set, zero value otherwise.
@@ -2005,6 +2072,9 @@ func (o IamOrganization) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountMenu) {
 		toSerialize["accountMenu"] = o.AccountMenu
 	}
+	if !IsNil(o.Avatar) {
+		toSerialize["avatar"] = o.Avatar
+	}
 	if !IsNil(o.BalanceCredit) {
 		toSerialize["balanceCredit"] = o.BalanceCredit
 	}
@@ -2040,6 +2110,9 @@ func (o IamOrganization) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.Emoji) {
+		toSerialize["emoji"] = o.Emoji
 	}
 	if !IsNil(o.EnableSoftDeletion) {
 		toSerialize["enableSoftDeletion"] = o.EnableSoftDeletion

@@ -75,6 +75,8 @@ Method | HTTP request | Description
 [**GetIamUsers**](IamAPI.md#GetIamUsers) | **Get** /v1/iam/users | Returns a page of the people in your organization, with the total so you can page through the rest.
 [**GetIamUsersGet**](IamAPI.md#GetIamUsersGet) | **Get** /v1/iam/users/get | Returns one person in your organization, addressed by their username or by their email address.
 [**GetIamWeb3Nonce**](IamAPI.md#GetIamWeb3Nonce) | **Get** /v1/iam/web3/nonce | Starts a wallet sign-in: it returns a one-time challenge for the wallet to sign.
+[**GetIamWebauthnSigninBegin**](IamAPI.md#GetIamWebauthnSigninBegin) | **Get** /v1/iam/webauthn/signin/begin | Starts a passkey sign-in: it returns the challenge the person&#39;s authenticator signs.
+[**GetIamWebauthnSignupBegin**](IamAPI.md#GetIamWebauthnSignupBegin) | **Get** /v1/iam/webauthn/signup/begin | Starts enrolling a passkey for the signed-in person: it returns the options their browser hands to the authenticator.
 [**GetIamWellKnownJwks**](IamAPI.md#GetIamWellKnownJwks) | **Get** /v1/iam/.well-known/jwks | Publishes the public keys that verify the tokens issued here — the one URL you point a service at so it can check a token itself, offline, without calling back and without holding any secret of ours.
 [**GetIamWellKnownOauthAuthorizationServer**](IamAPI.md#GetIamWellKnownOauthAuthorizationServer) | **Get** /v1/iam/.well-known/oauth-authorization-server | Returns the OpenID Connect discovery document — the one URL you point a standards-compliant client at so it can find every other endpoint on its own, instead of you configuring them by hand.
 [**GetIamWellKnownOpenidConfiguration**](IamAPI.md#GetIamWellKnownOpenidConfiguration) | **Get** /v1/iam/.well-known/openid-configuration | Returns the OpenID Connect discovery document — the one URL you point a standards-compliant client at so it can find every other endpoint on its own, instead of you configuring them by hand.
@@ -89,7 +91,7 @@ Method | HTTP request | Description
 [**ListProviders**](IamAPI.md#ListProviders) | **Get** /v1/iam/providers | Returns your organization&#39;s providers, newest first — the identity providers your people sign in with, and the senders and connectors your applications go through.
 [**ListSessions**](IamAPI.md#ListSessions) | **Post** /v1/iam/sessions/list | Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
 [**ListTokens**](IamAPI.md#ListTokens) | **Get** /v1/iam/tokens | Returns the access tokens issued in your organization, newest first, and can be narrowed to one organization.
-[**ListWebauthnCredentials**](IamAPI.md#ListWebauthnCredentials) | **Get** /v1/iam/webauthn-credentials | Returns the passkeys and security keys registered in your organization, newest first — which device each belongs to and when it was last used.
+[**ListWebauthnCredentials**](IamAPI.md#ListWebauthnCredentials) | **Get** /v1/iam/webauthn-credentials | Returns the passkeys and security keys registered to one person, newest first — which device each lives on and when it was registered.
 [**PatchIamScimV2UsersByOwnerByName**](IamAPI.md#PatchIamScimV2UsersByOwnerByName) | **Patch** /v1/iam/scim/v2/Users/{owner}/{name} | Applies a partial change from your identity provider — one attribute moved, not the whole record resent.
 [**PostIamAddApplication**](IamAPI.md#PostIamAddApplication) | **Post** /v1/iam/add-application | Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
 [**PostIamAddMembership**](IamAPI.md#PostIamAddMembership) | **Post** /v1/iam/add-membership | Lets a person or an application act in an organization.
@@ -104,6 +106,7 @@ Method | HTTP request | Description
 [**PostIamApplications**](IamAPI.md#PostIamApplications) | **Post** /v1/iam/applications | Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
 [**PostIamApplicationsDelete**](IamAPI.md#PostIamApplicationsDelete) | **Post** /v1/iam/applications/delete | Removes an application.
 [**PostIamApplicationsUpdate**](IamAPI.md#PostIamApplicationsUpdate) | **Post** /v1/iam/applications/update | Changes an application&#39;s display, its sign-in methods and the redirect URIs it may return to — the call that makes login work from a new host.
+[**PostIamAssume**](IamAPI.md#PostIamAssume) | **Post** /v1/iam/assume | Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
 [**PostIamAuditLogs**](IamAPI.md#PostIamAuditLogs) | **Post** /v1/iam/audit-logs | Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
 [**PostIamAuditLogsDelete**](IamAPI.md#PostIamAuditLogsDelete) | **Post** /v1/iam/audit-logs/delete | Removes an audit entry.
 [**PostIamAuditLogsGet**](IamAPI.md#PostIamAuditLogsGet) | **Post** /v1/iam/audit-logs/get | Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
@@ -158,6 +161,7 @@ Method | HTTP request | Description
 [**PostIamProjectsGet**](IamAPI.md#PostIamProjectsGet) | **Post** /v1/iam/projects/get | Returns one project: what it is called and how it is set up.
 [**PostIamProjectsUpdate**](IamAPI.md#PostIamProjectsUpdate) | **Post** /v1/iam/projects/update | Changes a project&#39;s settings.
 [**PostIamRegistryToken**](IamAPI.md#PostIamRegistryToken) | **Post** /v1/iam/registry/token | Signs a container client in to your registry.
+[**PostIamRelease**](IamAPI.md#PostIamRelease) | **Post** /v1/iam/release | Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
 [**PostIamRevokeUserKeys**](IamAPI.md#PostIamRevokeUserKeys) | **Post** /v1/iam/revoke-user-keys | Clears the target user&#39;s key of the requested TYPE (immediate revoke).
 [**PostIamRoles**](IamAPI.md#PostIamRoles) | **Post** /v1/iam/roles | Makes a role — a named group of people that permissions are granted to.
 [**PostIamRolesDelete**](IamAPI.md#PostIamRolesDelete) | **Post** /v1/iam/roles/delete | Removes a role.
@@ -183,14 +187,19 @@ Method | HTTP request | Description
 [**PostIamUsersUpdate**](IamAPI.md#PostIamUsersUpdate) | **Post** /v1/iam/users/update | Changes a person&#39;s profile, their roles, or the credentials they sign in with.
 [**PostIamVerificationCodes**](IamAPI.md#PostIamVerificationCodes) | **Post** /v1/iam/verification-codes | Validates the request and asks otp to get a code to the person.
 [**PostIamWeb3Verify**](IamAPI.md#PostIamWeb3Verify) | **Post** /v1/iam/web3/verify | Completes a wallet sign-in: it verifies the signed challenge and, if it holds, signs the wallet&#39;s owner in.
+[**PostIamWebauthnSigninFinish**](IamAPI.md#PostIamWebauthnSigninFinish) | **Post** /v1/iam/webauthn/signin/finish | Verifies the signed challenge and signs the person in.
+[**PostIamWebauthnSignupFinish**](IamAPI.md#PostIamWebauthnSignupFinish) | **Post** /v1/iam/webauthn/signup/finish | Verifies the newly created passkey and stores it, so the person can sign in with their device from then on.
 [**PostIamWorkspaces**](IamAPI.md#PostIamWorkspaces) | **Post** /v1/iam/workspaces | Makes a workspace inside your organization — the scope a team works in, alongside projects rather than instead of them.
 [**PostIamWorkspacesDelete**](IamAPI.md#PostIamWorkspacesDelete) | **Post** /v1/iam/workspaces/delete | Removes a workspace.
 [**PostIamWorkspacesGet**](IamAPI.md#PostIamWorkspacesGet) | **Post** /v1/iam/workspaces/get | Returns one workspace: what it is called and how it is set up.
 [**PostIamWorkspacesUpdate**](IamAPI.md#PostIamWorkspacesUpdate) | **Post** /v1/iam/workspaces/update | Changes a workspace&#39;s settings.
+[**PutIamAccount**](IamAPI.md#PutIamAccount) | **Put** /v1/iam/account | Saves the calling person&#39;s own profile — the name they are shown by, their picture, a line about themselves and a link.
 [**PutIamApplication**](IamAPI.md#PutIamApplication) | **Put** /v1/iam/application | Changes an application&#39;s display, its sign-in methods and the redirect URIs it may return to — the call that makes login work from a new host.
 [**PutIamConsent**](IamAPI.md#PutIamConsent) | **Put** /v1/iam/consent | Records the calling person&#39;s privacy and communication choices.
 [**PutIamPassword**](IamAPI.md#PutIamPassword) | **Put** /v1/iam/password | Replaces the calling person&#39;s password.
 [**PutIamScimV2UsersByOwnerByName**](IamAPI.md#PutIamScimV2UsersByOwnerByName) | **Put** /v1/iam/scim/v2/Users/{owner}/{name} | Overwrites a person&#39;s SCIM attributes with what your identity provider sends — how a change made there lands here.
+[**SearchOrganizations**](IamAPI.md#SearchOrganizations) | **Get** /v1/iam/organizations/search | Returns the organizations you can act in, the ones you belong to first and the rest after, newest first, narrowed by an optional query against the name or the display name.
+[**SetOrganizationAvatar**](IamAPI.md#SetOrganizationAvatar) | **Post** /v1/iam/organizations/avatar | Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji.
 [**UpdateOrganization**](IamAPI.md#UpdateOrganization) | **Post** /v1/iam/organizations/update | Changes an organization&#39;s display, its defaults and the sign-in rules everyone in it inherits.
 [**UpdateProvider**](IamAPI.md#UpdateProvider) | **Post** /v1/iam/providers/update | Changes a provider&#39;s settings or rotates the credentials it holds.
 [**UpdateSession**](IamAPI.md#UpdateSession) | **Post** /v1/iam/sessions/update | Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
@@ -4698,6 +4707,124 @@ Other parameters are passed through a pointer to a apiGetIamWeb3NonceRequest str
 [[Back to README]](../README.md)
 
 
+## GetIamWebauthnSigninBegin
+
+> GetIamWebauthnSigninBegin(ctx).Execute()
+
+Starts a passkey sign-in: it returns the challenge the person's authenticator signs.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.GetIamWebauthnSigninBegin(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamWebauthnSigninBegin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIamWebauthnSigninBeginRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIamWebauthnSignupBegin
+
+> GetIamWebauthnSignupBegin(ctx).Execute()
+
+Starts enrolling a passkey for the signed-in person: it returns the options their browser hands to the authenticator.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.GetIamWebauthnSignupBegin(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamWebauthnSignupBegin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIamWebauthnSignupBeginRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetIamWellKnownJwks
 
 > GetIamWellKnownJwks(ctx).Execute()
@@ -5604,9 +5731,9 @@ Name | Type | Description  | Notes
 
 ## ListWebauthnCredentials
 
-> IamListWebauthnCredentialsOut ListWebauthnCredentials(ctx).Owner(owner).Execute()
+> IamListWebauthnCredentialsOut ListWebauthnCredentials(ctx).User(user).Execute()
 
-Returns the passkeys and security keys registered in your organization, newest first — which device each belongs to and when it was last used.
+Returns the passkeys and security keys registered to one person, newest first — which device each lives on and when it was registered.
 
 
 
@@ -5623,11 +5750,11 @@ import (
 )
 
 func main() {
-	owner := "owner_example" // string |  (optional)
+	user := "user_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.ListWebauthnCredentials(context.Background()).Owner(owner).Execute()
+	resp, r, err := apiClient.IamAPI.ListWebauthnCredentials(context.Background()).User(user).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.ListWebauthnCredentials``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5648,7 +5775,7 @@ Other parameters are passed through a pointer to a apiListWebauthnCredentialsReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **owner** | **string** |  | 
+ **user** | **string** |  | 
 
 ### Return type
 
@@ -6568,6 +6695,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**IamApplication**](IamApplication.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIamAssume
+
+> IamAnswer PostIamAssume(ctx).IamAssumeBody(iamAssumeBody).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
+
+Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	iamAssumeBody := *openapiclient.NewIamAssumeBody() // IamAssumeBody | 
+	authorization := "authorization_example" // string |  (optional)
+	xForwardedFor := "xForwardedFor_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PostIamAssume(context.Background()).IamAssumeBody(iamAssumeBody).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamAssume``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIamAssume`: IamAnswer
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PostIamAssume`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamAssumeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamAssumeBody** | [**IamAssumeBody**](IamAssumeBody.md) |  | 
+ **authorization** | **string** |  | 
+ **xForwardedFor** | **string** |  | 
+
+### Return type
+
+[**IamAnswer**](IamAnswer.md)
 
 ### Authorization
 
@@ -9972,6 +10169,76 @@ Other parameters are passed through a pointer to a apiPostIamRegistryTokenReques
 [[Back to README]](../README.md)
 
 
+## PostIamRelease
+
+> IamAnswer PostIamRelease(ctx).IamAssumeBody(iamAssumeBody).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
+
+Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	iamAssumeBody := *openapiclient.NewIamAssumeBody() // IamAssumeBody | 
+	authorization := "authorization_example" // string |  (optional)
+	xForwardedFor := "xForwardedFor_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PostIamRelease(context.Background()).IamAssumeBody(iamAssumeBody).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamRelease``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIamRelease`: IamAnswer
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PostIamRelease`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamReleaseRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamAssumeBody** | [**IamAssumeBody**](IamAssumeBody.md) |  | 
+ **authorization** | **string** |  | 
+ **xForwardedFor** | **string** |  | 
+
+### Return type
+
+[**IamAnswer**](IamAnswer.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostIamRevokeUserKeys
 
 > PostIamRevokeUserKeys(ctx).Execute()
@@ -11540,6 +11807,124 @@ Other parameters are passed through a pointer to a apiPostIamWeb3VerifyRequest s
 [[Back to README]](../README.md)
 
 
+## PostIamWebauthnSigninFinish
+
+> PostIamWebauthnSigninFinish(ctx).Execute()
+
+Verifies the signed challenge and signs the person in.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.PostIamWebauthnSigninFinish(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamWebauthnSigninFinish``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamWebauthnSigninFinishRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIamWebauthnSignupFinish
+
+> PostIamWebauthnSignupFinish(ctx).Execute()
+
+Verifies the newly created passkey and stores it, so the person can sign in with their device from then on.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.PostIamWebauthnSignupFinish(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamWebauthnSignupFinish``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamWebauthnSignupFinishRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostIamWorkspaces
 
 > IamWorkspace PostIamWorkspaces(ctx).IamWorkspacesInput(iamWorkspacesInput).Execute()
@@ -11789,6 +12174,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**IamWorkspace**](IamWorkspace.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutIamAccount
+
+> IamAnswer PutIamAccount(ctx).IamAccountBody(iamAccountBody).Cookie(cookie).Authorization(authorization).Execute()
+
+Saves the calling person's own profile — the name they are shown by, their picture, a line about themselves and a link.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	iamAccountBody := *openapiclient.NewIamAccountBody() // IamAccountBody | 
+	cookie := "cookie_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PutIamAccount(context.Background()).IamAccountBody(iamAccountBody).Cookie(cookie).Authorization(authorization).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutIamAccount`: IamAnswer
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PutIamAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutIamAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamAccountBody** | [**IamAccountBody**](IamAccountBody.md) |  | 
+ **cookie** | **string** |  | 
+ **authorization** | **string** |  | 
+
+### Return type
+
+[**IamAnswer**](IamAnswer.md)
 
 ### Authorization
 
@@ -12064,6 +12519,144 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SearchOrganizations
+
+> IamSearchOrganizationsOutput SearchOrganizations(ctx).XForwardedFor(xForwardedFor).Q(q).Limit(limit).Cursor(cursor).Execute()
+
+Returns the organizations you can act in, the ones you belong to first and the rest after, newest first, narrowed by an optional query against the name or the display name.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	xForwardedFor := "xForwardedFor_example" // string |  (optional)
+	q := "q_example" // string |  (optional)
+	limit := int32(56) // int32 |  (optional)
+	cursor := "cursor_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.SearchOrganizations(context.Background()).XForwardedFor(xForwardedFor).Q(q).Limit(limit).Cursor(cursor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.SearchOrganizations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SearchOrganizations`: IamSearchOrganizationsOutput
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.SearchOrganizations`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSearchOrganizationsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xForwardedFor** | **string** |  | 
+ **q** | **string** |  | 
+ **limit** | **int32** |  | 
+ **cursor** | **string** |  | 
+
+### Return type
+
+[**IamSearchOrganizationsOutput**](IamSearchOrganizationsOutput.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetOrganizationAvatar
+
+> IamOrganization SetOrganizationAvatar(ctx).IamSetAvatarInput(iamSetAvatarInput).Execute()
+
+Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	iamSetAvatarInput := *openapiclient.NewIamSetAvatarInput() // IamSetAvatarInput | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.SetOrganizationAvatar(context.Background()).IamSetAvatarInput(iamSetAvatarInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.SetOrganizationAvatar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SetOrganizationAvatar`: IamOrganization
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.SetOrganizationAvatar`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetOrganizationAvatarRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamSetAvatarInput** | [**IamSetAvatarInput**](IamSetAvatarInput.md) |  | 
+
+### Return type
+
+[**IamOrganization**](IamOrganization.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

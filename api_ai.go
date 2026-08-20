@@ -145,7 +145,7 @@ type AiAPIDeleteAiArticlesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiArticlesByOwnerByNameRequest) Execute() (*PostAiArticles200Response, *http.Response, error) {
+func (r AiAPIDeleteAiArticlesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiArticlesByOwnerByNameExecute(r)
 }
 
@@ -155,8 +155,8 @@ DeleteAiArticlesByOwnerByName Delete a article
 Delete one article.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiArticlesByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiArticlesByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiArticlesByOwnerByNameRequest {
@@ -169,19 +169,16 @@ func (a *AiAPIService) DeleteAiArticlesByOwnerByName(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return PostAiArticles200Response
-func (a *AiAPIService) DeleteAiArticlesByOwnerByNameExecute(r AiAPIDeleteAiArticlesByOwnerByNameRequest) (*PostAiArticles200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiArticlesByOwnerByNameExecute(r AiAPIDeleteAiArticlesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiArticles200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiArticlesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/articles/{owner}/{name}"
@@ -202,7 +199,7 @@ func (a *AiAPIService) DeleteAiArticlesByOwnerByNameExecute(r AiAPIDeleteAiArtic
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -211,19 +208,19 @@ func (a *AiAPIService) DeleteAiArticlesByOwnerByNameExecute(r AiAPIDeleteAiArtic
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -231,19 +228,10 @@ func (a *AiAPIService) DeleteAiArticlesByOwnerByNameExecute(r AiAPIDeleteAiArtic
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiAssetsByOwnerByNameRequest struct {
@@ -253,7 +241,7 @@ type AiAPIDeleteAiAssetsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiAssetsByOwnerByNameRequest) Execute() (*PostAiAssets200Response, *http.Response, error) {
+func (r AiAPIDeleteAiAssetsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiAssetsByOwnerByNameExecute(r)
 }
 
@@ -263,8 +251,8 @@ DeleteAiAssetsByOwnerByName Delete a asset
 Delete one asset.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiAssetsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiAssetsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiAssetsByOwnerByNameRequest {
@@ -277,19 +265,16 @@ func (a *AiAPIService) DeleteAiAssetsByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiAssets200Response
-func (a *AiAPIService) DeleteAiAssetsByOwnerByNameExecute(r AiAPIDeleteAiAssetsByOwnerByNameRequest) (*PostAiAssets200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiAssetsByOwnerByNameExecute(r AiAPIDeleteAiAssetsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiAssets200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiAssetsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/assets/{owner}/{name}"
@@ -310,7 +295,7 @@ func (a *AiAPIService) DeleteAiAssetsByOwnerByNameExecute(r AiAPIDeleteAiAssetsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -319,19 +304,19 @@ func (a *AiAPIService) DeleteAiAssetsByOwnerByNameExecute(r AiAPIDeleteAiAssetsB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -339,19 +324,10 @@ func (a *AiAPIService) DeleteAiAssetsByOwnerByNameExecute(r AiAPIDeleteAiAssetsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiChatsByOwnerByNameRequest struct {
@@ -361,7 +337,7 @@ type AiAPIDeleteAiChatsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiChatsByOwnerByNameRequest) Execute() (*PostAiChats200Response, *http.Response, error) {
+func (r AiAPIDeleteAiChatsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiChatsByOwnerByNameExecute(r)
 }
 
@@ -371,8 +347,8 @@ DeleteAiChatsByOwnerByName Delete a chat
 Delete one chat.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiChatsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiChatsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiChatsByOwnerByNameRequest {
@@ -385,19 +361,16 @@ func (a *AiAPIService) DeleteAiChatsByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiChats200Response
-func (a *AiAPIService) DeleteAiChatsByOwnerByNameExecute(r AiAPIDeleteAiChatsByOwnerByNameRequest) (*PostAiChats200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiChatsByOwnerByNameExecute(r AiAPIDeleteAiChatsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiChats200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiChatsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/chats/{owner}/{name}"
@@ -418,7 +391,7 @@ func (a *AiAPIService) DeleteAiChatsByOwnerByNameExecute(r AiAPIDeleteAiChatsByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -427,19 +400,19 @@ func (a *AiAPIService) DeleteAiChatsByOwnerByNameExecute(r AiAPIDeleteAiChatsByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -447,24 +420,16 @@ func (a *AiAPIService) DeleteAiChatsByOwnerByNameExecute(r AiAPIDeleteAiChatsByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiConnectionsByProviderRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	provider   string
 }
 
 func (r AiAPIDeleteAiConnectionsByProviderRequest) Execute() (*http.Response, error) {
@@ -479,12 +444,14 @@ row so completion resolution falls back to the global Hanzo account (no BYO), an
 best-effort tombstones the sealed secret. Idempotent.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider
 	@return AiAPIDeleteAiConnectionsByProviderRequest
 */
-func (a *AiAPIService) DeleteAiConnectionsByProvider(ctx context.Context) AiAPIDeleteAiConnectionsByProviderRequest {
+func (a *AiAPIService) DeleteAiConnectionsByProvider(ctx context.Context, provider string) AiAPIDeleteAiConnectionsByProviderRequest {
 	return AiAPIDeleteAiConnectionsByProviderRequest{
 		ApiService: a,
 		ctx:        ctx,
+		provider:   provider,
 	}
 }
 
@@ -502,6 +469,7 @@ func (a *AiAPIService) DeleteAiConnectionsByProviderExecute(r AiAPIDeleteAiConne
 	}
 
 	localVarPath := localBasePath + "/v1/ai/connections/{provider}"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -559,7 +527,7 @@ type AiAPIDeleteAiDeploymentsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiDeploymentsByOwnerByNameRequest) Execute() (*PostAiDeployments200Response, *http.Response, error) {
+func (r AiAPIDeleteAiDeploymentsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiDeploymentsByOwnerByNameExecute(r)
 }
 
@@ -569,8 +537,8 @@ DeleteAiDeploymentsByOwnerByName Delete a application
 Delete one application.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiDeploymentsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiDeploymentsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiDeploymentsByOwnerByNameRequest {
@@ -583,19 +551,16 @@ func (a *AiAPIService) DeleteAiDeploymentsByOwnerByName(ctx context.Context, own
 }
 
 // Execute executes the request
-//
-//	@return PostAiDeployments200Response
-func (a *AiAPIService) DeleteAiDeploymentsByOwnerByNameExecute(r AiAPIDeleteAiDeploymentsByOwnerByNameRequest) (*PostAiDeployments200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiDeploymentsByOwnerByNameExecute(r AiAPIDeleteAiDeploymentsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiDeployments200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiDeploymentsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/deployments/{owner}/{name}"
@@ -616,7 +581,7 @@ func (a *AiAPIService) DeleteAiDeploymentsByOwnerByNameExecute(r AiAPIDeleteAiDe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -625,19 +590,19 @@ func (a *AiAPIService) DeleteAiDeploymentsByOwnerByNameExecute(r AiAPIDeleteAiDe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -645,19 +610,10 @@ func (a *AiAPIService) DeleteAiDeploymentsByOwnerByNameExecute(r AiAPIDeleteAiDe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiFilesByOwnerByNameRequest struct {
@@ -667,7 +623,7 @@ type AiAPIDeleteAiFilesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiFilesByOwnerByNameRequest) Execute() (*PostAiFiles200Response, *http.Response, error) {
+func (r AiAPIDeleteAiFilesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiFilesByOwnerByNameExecute(r)
 }
 
@@ -677,8 +633,8 @@ DeleteAiFilesByOwnerByName Delete a file
 Delete one file.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiFilesByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiFilesByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiFilesByOwnerByNameRequest {
@@ -691,19 +647,16 @@ func (a *AiAPIService) DeleteAiFilesByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiFiles200Response
-func (a *AiAPIService) DeleteAiFilesByOwnerByNameExecute(r AiAPIDeleteAiFilesByOwnerByNameRequest) (*PostAiFiles200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiFilesByOwnerByNameExecute(r AiAPIDeleteAiFilesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiFiles200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiFilesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/{owner}/{name}"
@@ -724,7 +677,7 @@ func (a *AiAPIService) DeleteAiFilesByOwnerByNameExecute(r AiAPIDeleteAiFilesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -733,19 +686,19 @@ func (a *AiAPIService) DeleteAiFilesByOwnerByNameExecute(r AiAPIDeleteAiFilesByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -753,19 +706,10 @@ func (a *AiAPIService) DeleteAiFilesByOwnerByNameExecute(r AiAPIDeleteAiFilesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiFormsByOwnerByNameRequest struct {
@@ -775,7 +719,7 @@ type AiAPIDeleteAiFormsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiFormsByOwnerByNameRequest) Execute() (*PostAiForms200Response, *http.Response, error) {
+func (r AiAPIDeleteAiFormsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiFormsByOwnerByNameExecute(r)
 }
 
@@ -785,8 +729,8 @@ DeleteAiFormsByOwnerByName Delete a form
 Delete one form.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiFormsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiFormsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiFormsByOwnerByNameRequest {
@@ -799,19 +743,16 @@ func (a *AiAPIService) DeleteAiFormsByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiForms200Response
-func (a *AiAPIService) DeleteAiFormsByOwnerByNameExecute(r AiAPIDeleteAiFormsByOwnerByNameRequest) (*PostAiForms200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiFormsByOwnerByNameExecute(r AiAPIDeleteAiFormsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiForms200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiFormsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/forms/{owner}/{name}"
@@ -832,7 +773,7 @@ func (a *AiAPIService) DeleteAiFormsByOwnerByNameExecute(r AiAPIDeleteAiFormsByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -841,19 +782,19 @@ func (a *AiAPIService) DeleteAiFormsByOwnerByNameExecute(r AiAPIDeleteAiFormsByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -861,19 +802,10 @@ func (a *AiAPIService) DeleteAiFormsByOwnerByNameExecute(r AiAPIDeleteAiFormsByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiGraphsByOwnerByNameRequest struct {
@@ -883,7 +815,7 @@ type AiAPIDeleteAiGraphsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiGraphsByOwnerByNameRequest) Execute() (*PostAiGraphs200Response, *http.Response, error) {
+func (r AiAPIDeleteAiGraphsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiGraphsByOwnerByNameExecute(r)
 }
 
@@ -893,8 +825,8 @@ DeleteAiGraphsByOwnerByName Delete a graph
 Delete one graph.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiGraphsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiGraphsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiGraphsByOwnerByNameRequest {
@@ -907,19 +839,16 @@ func (a *AiAPIService) DeleteAiGraphsByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiGraphs200Response
-func (a *AiAPIService) DeleteAiGraphsByOwnerByNameExecute(r AiAPIDeleteAiGraphsByOwnerByNameRequest) (*PostAiGraphs200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiGraphsByOwnerByNameExecute(r AiAPIDeleteAiGraphsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiGraphs200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiGraphsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/graphs/{owner}/{name}"
@@ -940,7 +869,7 @@ func (a *AiAPIService) DeleteAiGraphsByOwnerByNameExecute(r AiAPIDeleteAiGraphsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -949,19 +878,19 @@ func (a *AiAPIService) DeleteAiGraphsByOwnerByNameExecute(r AiAPIDeleteAiGraphsB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -969,19 +898,10 @@ func (a *AiAPIService) DeleteAiGraphsByOwnerByNameExecute(r AiAPIDeleteAiGraphsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiMessagesByOwnerByNameRequest struct {
@@ -991,7 +911,7 @@ type AiAPIDeleteAiMessagesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiMessagesByOwnerByNameRequest) Execute() (*PostAiMessages200Response, *http.Response, error) {
+func (r AiAPIDeleteAiMessagesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiMessagesByOwnerByNameExecute(r)
 }
 
@@ -1001,8 +921,8 @@ DeleteAiMessagesByOwnerByName Delete a message
 Delete one message.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiMessagesByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiMessagesByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiMessagesByOwnerByNameRequest {
@@ -1015,19 +935,16 @@ func (a *AiAPIService) DeleteAiMessagesByOwnerByName(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return PostAiMessages200Response
-func (a *AiAPIService) DeleteAiMessagesByOwnerByNameExecute(r AiAPIDeleteAiMessagesByOwnerByNameRequest) (*PostAiMessages200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiMessagesByOwnerByNameExecute(r AiAPIDeleteAiMessagesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiMessages200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiMessagesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages/{owner}/{name}"
@@ -1048,7 +965,7 @@ func (a *AiAPIService) DeleteAiMessagesByOwnerByNameExecute(r AiAPIDeleteAiMessa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1057,19 +974,19 @@ func (a *AiAPIService) DeleteAiMessagesByOwnerByNameExecute(r AiAPIDeleteAiMessa
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1077,19 +994,10 @@ func (a *AiAPIService) DeleteAiMessagesByOwnerByNameExecute(r AiAPIDeleteAiMessa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiMessagesWelcomeRequest struct {
@@ -1097,7 +1005,7 @@ type AiAPIDeleteAiMessagesWelcomeRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIDeleteAiMessagesWelcomeRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIDeleteAiMessagesWelcomeRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiMessagesWelcomeExecute(r)
 }
 
@@ -1115,19 +1023,16 @@ func (a *AiAPIService) DeleteAiMessagesWelcome(ctx context.Context) AiAPIDeleteA
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) DeleteAiMessagesWelcomeExecute(r AiAPIDeleteAiMessagesWelcomeRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) DeleteAiMessagesWelcomeExecute(r AiAPIDeleteAiMessagesWelcomeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiMessagesWelcome")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages/welcome"
@@ -1146,7 +1051,7 @@ func (a *AiAPIService) DeleteAiMessagesWelcomeExecute(r AiAPIDeleteAiMessagesWel
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1155,19 +1060,19 @@ func (a *AiAPIService) DeleteAiMessagesWelcomeExecute(r AiAPIDeleteAiMessagesWel
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1175,19 +1080,10 @@ func (a *AiAPIService) DeleteAiMessagesWelcomeExecute(r AiAPIDeleteAiMessagesWel
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiNodesByOwnerByNameRequest struct {
@@ -1197,7 +1093,7 @@ type AiAPIDeleteAiNodesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiNodesByOwnerByNameRequest) Execute() (*PostAiNodes200Response, *http.Response, error) {
+func (r AiAPIDeleteAiNodesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiNodesByOwnerByNameExecute(r)
 }
 
@@ -1207,8 +1103,8 @@ DeleteAiNodesByOwnerByName Delete a node
 Delete one node.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiNodesByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiNodesByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiNodesByOwnerByNameRequest {
@@ -1221,19 +1117,16 @@ func (a *AiAPIService) DeleteAiNodesByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiNodes200Response
-func (a *AiAPIService) DeleteAiNodesByOwnerByNameExecute(r AiAPIDeleteAiNodesByOwnerByNameRequest) (*PostAiNodes200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiNodesByOwnerByNameExecute(r AiAPIDeleteAiNodesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiNodes200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiNodesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/nodes/{owner}/{name}"
@@ -1254,7 +1147,7 @@ func (a *AiAPIService) DeleteAiNodesByOwnerByNameExecute(r AiAPIDeleteAiNodesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1263,19 +1156,19 @@ func (a *AiAPIService) DeleteAiNodesByOwnerByNameExecute(r AiAPIDeleteAiNodesByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1283,19 +1176,10 @@ func (a *AiAPIService) DeleteAiNodesByOwnerByNameExecute(r AiAPIDeleteAiNodesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiProvidersByOwnerByNameRequest struct {
@@ -1305,7 +1189,7 @@ type AiAPIDeleteAiProvidersByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiProvidersByOwnerByNameRequest) Execute() (*PostAiProviders200Response, *http.Response, error) {
+func (r AiAPIDeleteAiProvidersByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiProvidersByOwnerByNameExecute(r)
 }
 
@@ -1315,8 +1199,8 @@ DeleteAiProvidersByOwnerByName Delete a provider
 Delete one provider.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiProvidersByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiProvidersByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiProvidersByOwnerByNameRequest {
@@ -1329,19 +1213,16 @@ func (a *AiAPIService) DeleteAiProvidersByOwnerByName(ctx context.Context, owner
 }
 
 // Execute executes the request
-//
-//	@return PostAiProviders200Response
-func (a *AiAPIService) DeleteAiProvidersByOwnerByNameExecute(r AiAPIDeleteAiProvidersByOwnerByNameRequest) (*PostAiProviders200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiProvidersByOwnerByNameExecute(r AiAPIDeleteAiProvidersByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiProviders200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiProvidersByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers/{owner}/{name}"
@@ -1362,7 +1243,7 @@ func (a *AiAPIService) DeleteAiProvidersByOwnerByNameExecute(r AiAPIDeleteAiProv
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1371,19 +1252,19 @@ func (a *AiAPIService) DeleteAiProvidersByOwnerByNameExecute(r AiAPIDeleteAiProv
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1391,19 +1272,10 @@ func (a *AiAPIService) DeleteAiProvidersByOwnerByNameExecute(r AiAPIDeleteAiProv
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiRecordsByOwnerByNameRequest struct {
@@ -1413,7 +1285,7 @@ type AiAPIDeleteAiRecordsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiRecordsByOwnerByNameRequest) Execute() (*PostAiRecords200Response, *http.Response, error) {
+func (r AiAPIDeleteAiRecordsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiRecordsByOwnerByNameExecute(r)
 }
 
@@ -1423,8 +1295,8 @@ DeleteAiRecordsByOwnerByName Delete a record
 Delete one record.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiRecordsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiRecordsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiRecordsByOwnerByNameRequest {
@@ -1437,19 +1309,16 @@ func (a *AiAPIService) DeleteAiRecordsByOwnerByName(ctx context.Context, owner s
 }
 
 // Execute executes the request
-//
-//	@return PostAiRecords200Response
-func (a *AiAPIService) DeleteAiRecordsByOwnerByNameExecute(r AiAPIDeleteAiRecordsByOwnerByNameRequest) (*PostAiRecords200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiRecordsByOwnerByNameExecute(r AiAPIDeleteAiRecordsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRecords200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRecordsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/{owner}/{name}"
@@ -1470,7 +1339,7 @@ func (a *AiAPIService) DeleteAiRecordsByOwnerByNameExecute(r AiAPIDeleteAiRecord
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1479,19 +1348,19 @@ func (a *AiAPIService) DeleteAiRecordsByOwnerByNameExecute(r AiAPIDeleteAiRecord
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1499,19 +1368,10 @@ func (a *AiAPIService) DeleteAiRecordsByOwnerByNameExecute(r AiAPIDeleteAiRecord
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiRemoteConnectionsByOwnerByNameRequest struct {
@@ -1521,7 +1381,7 @@ type AiAPIDeleteAiRemoteConnectionsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiRemoteConnectionsByOwnerByNameRequest) Execute() (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (r AiAPIDeleteAiRemoteConnectionsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiRemoteConnectionsByOwnerByNameExecute(r)
 }
 
@@ -1531,8 +1391,8 @@ DeleteAiRemoteConnectionsByOwnerByName Delete a connection
 Delete one connection.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiRemoteConnectionsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiRemoteConnectionsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiRemoteConnectionsByOwnerByNameRequest {
@@ -1545,19 +1405,16 @@ func (a *AiAPIService) DeleteAiRemoteConnectionsByOwnerByName(ctx context.Contex
 }
 
 // Execute executes the request
-//
-//	@return PostAiRemoteConnections200Response
-func (a *AiAPIService) DeleteAiRemoteConnectionsByOwnerByNameExecute(r AiAPIDeleteAiRemoteConnectionsByOwnerByNameRequest) (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiRemoteConnectionsByOwnerByNameExecute(r AiAPIDeleteAiRemoteConnectionsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRemoteConnections200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRemoteConnectionsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}"
@@ -1578,7 +1435,7 @@ func (a *AiAPIService) DeleteAiRemoteConnectionsByOwnerByNameExecute(r AiAPIDele
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1587,19 +1444,19 @@ func (a *AiAPIService) DeleteAiRemoteConnectionsByOwnerByNameExecute(r AiAPIDele
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1607,19 +1464,10 @@ func (a *AiAPIService) DeleteAiRemoteConnectionsByOwnerByNameExecute(r AiAPIDele
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiRoutesByOwnerByNameRequest struct {
@@ -1629,7 +1477,7 @@ type AiAPIDeleteAiRoutesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiRoutesByOwnerByNameRequest) Execute() (*PostAiRoutes200Response, *http.Response, error) {
+func (r AiAPIDeleteAiRoutesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiRoutesByOwnerByNameExecute(r)
 }
 
@@ -1639,8 +1487,8 @@ DeleteAiRoutesByOwnerByName Delete a model-route
 Delete one model-route.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiRoutesByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiRoutesByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiRoutesByOwnerByNameRequest {
@@ -1653,19 +1501,16 @@ func (a *AiAPIService) DeleteAiRoutesByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiRoutes200Response
-func (a *AiAPIService) DeleteAiRoutesByOwnerByNameExecute(r AiAPIDeleteAiRoutesByOwnerByNameRequest) (*PostAiRoutes200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiRoutesByOwnerByNameExecute(r AiAPIDeleteAiRoutesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRoutes200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRoutesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/routes/{owner}/{name}"
@@ -1686,7 +1531,7 @@ func (a *AiAPIService) DeleteAiRoutesByOwnerByNameExecute(r AiAPIDeleteAiRoutesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1695,19 +1540,19 @@ func (a *AiAPIService) DeleteAiRoutesByOwnerByNameExecute(r AiAPIDeleteAiRoutesB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1715,19 +1560,10 @@ func (a *AiAPIService) DeleteAiRoutesByOwnerByNameExecute(r AiAPIDeleteAiRoutesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiScalesByOwnerByNameRequest struct {
@@ -1737,7 +1573,7 @@ type AiAPIDeleteAiScalesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiScalesByOwnerByNameRequest) Execute() (*PostAiScales200Response, *http.Response, error) {
+func (r AiAPIDeleteAiScalesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiScalesByOwnerByNameExecute(r)
 }
 
@@ -1747,8 +1583,8 @@ DeleteAiScalesByOwnerByName Delete a scale
 Delete one scale.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiScalesByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiScalesByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiScalesByOwnerByNameRequest {
@@ -1761,19 +1597,16 @@ func (a *AiAPIService) DeleteAiScalesByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiScales200Response
-func (a *AiAPIService) DeleteAiScalesByOwnerByNameExecute(r AiAPIDeleteAiScalesByOwnerByNameRequest) (*PostAiScales200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiScalesByOwnerByNameExecute(r AiAPIDeleteAiScalesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScales200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiScalesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scales/{owner}/{name}"
@@ -1794,7 +1627,7 @@ func (a *AiAPIService) DeleteAiScalesByOwnerByNameExecute(r AiAPIDeleteAiScalesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1803,19 +1636,19 @@ func (a *AiAPIService) DeleteAiScalesByOwnerByNameExecute(r AiAPIDeleteAiScalesB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1823,19 +1656,10 @@ func (a *AiAPIService) DeleteAiScalesByOwnerByNameExecute(r AiAPIDeleteAiScalesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiScansByOwnerByNameRequest struct {
@@ -1845,7 +1669,7 @@ type AiAPIDeleteAiScansByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiScansByOwnerByNameRequest) Execute() (*PostAiScans200Response, *http.Response, error) {
+func (r AiAPIDeleteAiScansByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiScansByOwnerByNameExecute(r)
 }
 
@@ -1855,8 +1679,8 @@ DeleteAiScansByOwnerByName Delete a scan
 Delete one scan.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiScansByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiScansByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiScansByOwnerByNameRequest {
@@ -1869,19 +1693,16 @@ func (a *AiAPIService) DeleteAiScansByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiScans200Response
-func (a *AiAPIService) DeleteAiScansByOwnerByNameExecute(r AiAPIDeleteAiScansByOwnerByNameRequest) (*PostAiScans200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiScansByOwnerByNameExecute(r AiAPIDeleteAiScansByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScans200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiScansByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scans/{owner}/{name}"
@@ -1902,7 +1723,7 @@ func (a *AiAPIService) DeleteAiScansByOwnerByNameExecute(r AiAPIDeleteAiScansByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1911,19 +1732,19 @@ func (a *AiAPIService) DeleteAiScansByOwnerByNameExecute(r AiAPIDeleteAiScansByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1931,19 +1752,10 @@ func (a *AiAPIService) DeleteAiScansByOwnerByNameExecute(r AiAPIDeleteAiScansByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiSigninSessionsByOwnerByNameRequest struct {
@@ -1953,7 +1765,7 @@ type AiAPIDeleteAiSigninSessionsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiSigninSessionsByOwnerByNameRequest) Execute() (*PostAiSigninSessions200Response, *http.Response, error) {
+func (r AiAPIDeleteAiSigninSessionsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiSigninSessionsByOwnerByNameExecute(r)
 }
 
@@ -1963,8 +1775,8 @@ DeleteAiSigninSessionsByOwnerByName Delete a session
 Delete one session.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiSigninSessionsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiSigninSessionsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiSigninSessionsByOwnerByNameRequest {
@@ -1977,19 +1789,16 @@ func (a *AiAPIService) DeleteAiSigninSessionsByOwnerByName(ctx context.Context, 
 }
 
 // Execute executes the request
-//
-//	@return PostAiSigninSessions200Response
-func (a *AiAPIService) DeleteAiSigninSessionsByOwnerByNameExecute(r AiAPIDeleteAiSigninSessionsByOwnerByNameRequest) (*PostAiSigninSessions200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiSigninSessionsByOwnerByNameExecute(r AiAPIDeleteAiSigninSessionsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiSigninSessions200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiSigninSessionsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signin-sessions/{owner}/{name}"
@@ -2010,7 +1819,7 @@ func (a *AiAPIService) DeleteAiSigninSessionsByOwnerByNameExecute(r AiAPIDeleteA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2019,19 +1828,19 @@ func (a *AiAPIService) DeleteAiSigninSessionsByOwnerByNameExecute(r AiAPIDeleteA
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2039,19 +1848,10 @@ func (a *AiAPIService) DeleteAiSigninSessionsByOwnerByNameExecute(r AiAPIDeleteA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiStoresByOwnerByNameRequest struct {
@@ -2061,7 +1861,7 @@ type AiAPIDeleteAiStoresByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiStoresByOwnerByNameRequest) Execute() (*PostAiStores200Response, *http.Response, error) {
+func (r AiAPIDeleteAiStoresByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiStoresByOwnerByNameExecute(r)
 }
 
@@ -2071,8 +1871,8 @@ DeleteAiStoresByOwnerByName Delete a store
 Delete one store.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiStoresByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiStoresByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiStoresByOwnerByNameRequest {
@@ -2085,19 +1885,16 @@ func (a *AiAPIService) DeleteAiStoresByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiStores200Response
-func (a *AiAPIService) DeleteAiStoresByOwnerByNameExecute(r AiAPIDeleteAiStoresByOwnerByNameRequest) (*PostAiStores200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiStoresByOwnerByNameExecute(r AiAPIDeleteAiStoresByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiStores200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiStoresByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores/{owner}/{name}"
@@ -2118,7 +1915,7 @@ func (a *AiAPIService) DeleteAiStoresByOwnerByNameExecute(r AiAPIDeleteAiStoresB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2127,19 +1924,19 @@ func (a *AiAPIService) DeleteAiStoresByOwnerByNameExecute(r AiAPIDeleteAiStoresB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2147,19 +1944,10 @@ func (a *AiAPIService) DeleteAiStoresByOwnerByNameExecute(r AiAPIDeleteAiStoresB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiTasksByOwnerByNameRequest struct {
@@ -2169,7 +1957,7 @@ type AiAPIDeleteAiTasksByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiTasksByOwnerByNameRequest) Execute() (*PostAiTasks200Response, *http.Response, error) {
+func (r AiAPIDeleteAiTasksByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiTasksByOwnerByNameExecute(r)
 }
 
@@ -2179,8 +1967,8 @@ DeleteAiTasksByOwnerByName Delete a task
 Delete one task.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiTasksByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiTasksByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiTasksByOwnerByNameRequest {
@@ -2193,19 +1981,16 @@ func (a *AiAPIService) DeleteAiTasksByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiTasks200Response
-func (a *AiAPIService) DeleteAiTasksByOwnerByNameExecute(r AiAPIDeleteAiTasksByOwnerByNameRequest) (*PostAiTasks200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiTasksByOwnerByNameExecute(r AiAPIDeleteAiTasksByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTasks200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiTasksByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks/{owner}/{name}"
@@ -2226,7 +2011,7 @@ func (a *AiAPIService) DeleteAiTasksByOwnerByNameExecute(r AiAPIDeleteAiTasksByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2235,19 +2020,19 @@ func (a *AiAPIService) DeleteAiTasksByOwnerByNameExecute(r AiAPIDeleteAiTasksByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2255,19 +2040,10 @@ func (a *AiAPIService) DeleteAiTasksByOwnerByNameExecute(r AiAPIDeleteAiTasksByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiTemplatesByOwnerByNameRequest struct {
@@ -2277,7 +2053,7 @@ type AiAPIDeleteAiTemplatesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiTemplatesByOwnerByNameRequest) Execute() (*PostAiTemplates200Response, *http.Response, error) {
+func (r AiAPIDeleteAiTemplatesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiTemplatesByOwnerByNameExecute(r)
 }
 
@@ -2287,8 +2063,8 @@ DeleteAiTemplatesByOwnerByName Delete a template
 Delete one template.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiTemplatesByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiTemplatesByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiTemplatesByOwnerByNameRequest {
@@ -2301,19 +2077,16 @@ func (a *AiAPIService) DeleteAiTemplatesByOwnerByName(ctx context.Context, owner
 }
 
 // Execute executes the request
-//
-//	@return PostAiTemplates200Response
-func (a *AiAPIService) DeleteAiTemplatesByOwnerByNameExecute(r AiAPIDeleteAiTemplatesByOwnerByNameRequest) (*PostAiTemplates200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiTemplatesByOwnerByNameExecute(r AiAPIDeleteAiTemplatesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTemplates200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiTemplatesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/templates/{owner}/{name}"
@@ -2334,7 +2107,7 @@ func (a *AiAPIService) DeleteAiTemplatesByOwnerByNameExecute(r AiAPIDeleteAiTemp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2343,19 +2116,19 @@ func (a *AiAPIService) DeleteAiTemplatesByOwnerByNameExecute(r AiAPIDeleteAiTemp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2363,19 +2136,10 @@ func (a *AiAPIService) DeleteAiTemplatesByOwnerByNameExecute(r AiAPIDeleteAiTemp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiTreeFilesByOwnerByNameRequest struct {
@@ -2385,7 +2149,7 @@ type AiAPIDeleteAiTreeFilesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiTreeFilesByOwnerByNameRequest) Execute() (*PostAiTreeFiles200Response, *http.Response, error) {
+func (r AiAPIDeleteAiTreeFilesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiTreeFilesByOwnerByNameExecute(r)
 }
 
@@ -2395,8 +2159,8 @@ DeleteAiTreeFilesByOwnerByName Delete a tree-file
 Delete one tree-file.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiTreeFilesByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiTreeFilesByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiTreeFilesByOwnerByNameRequest {
@@ -2409,19 +2173,16 @@ func (a *AiAPIService) DeleteAiTreeFilesByOwnerByName(ctx context.Context, owner
 }
 
 // Execute executes the request
-//
-//	@return PostAiTreeFiles200Response
-func (a *AiAPIService) DeleteAiTreeFilesByOwnerByNameExecute(r AiAPIDeleteAiTreeFilesByOwnerByNameRequest) (*PostAiTreeFiles200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiTreeFilesByOwnerByNameExecute(r AiAPIDeleteAiTreeFilesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTreeFiles200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiTreeFilesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tree-files/{owner}/{name}"
@@ -2442,7 +2203,7 @@ func (a *AiAPIService) DeleteAiTreeFilesByOwnerByNameExecute(r AiAPIDeleteAiTree
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2451,19 +2212,19 @@ func (a *AiAPIService) DeleteAiTreeFilesByOwnerByNameExecute(r AiAPIDeleteAiTree
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2471,19 +2232,10 @@ func (a *AiAPIService) DeleteAiTreeFilesByOwnerByNameExecute(r AiAPIDeleteAiTree
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiVectorsAllRequest struct {
@@ -2491,7 +2243,7 @@ type AiAPIDeleteAiVectorsAllRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIDeleteAiVectorsAllRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIDeleteAiVectorsAllRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiVectorsAllExecute(r)
 }
 
@@ -2509,19 +2261,16 @@ func (a *AiAPIService) DeleteAiVectorsAll(ctx context.Context) AiAPIDeleteAiVect
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) DeleteAiVectorsAllExecute(r AiAPIDeleteAiVectorsAllRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) DeleteAiVectorsAllExecute(r AiAPIDeleteAiVectorsAllRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiVectorsAll")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/vectors/all"
@@ -2540,7 +2289,7 @@ func (a *AiAPIService) DeleteAiVectorsAllExecute(r AiAPIDeleteAiVectorsAllReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2549,19 +2298,19 @@ func (a *AiAPIService) DeleteAiVectorsAllExecute(r AiAPIDeleteAiVectorsAllReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2569,19 +2318,10 @@ func (a *AiAPIService) DeleteAiVectorsAllExecute(r AiAPIDeleteAiVectorsAllReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiVectorsByOwnerByNameRequest struct {
@@ -2591,7 +2331,7 @@ type AiAPIDeleteAiVectorsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiVectorsByOwnerByNameRequest) Execute() (*PostAiVectors200Response, *http.Response, error) {
+func (r AiAPIDeleteAiVectorsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiVectorsByOwnerByNameExecute(r)
 }
 
@@ -2601,8 +2341,8 @@ DeleteAiVectorsByOwnerByName Delete a vector
 Delete one vector.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiVectorsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiVectorsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiVectorsByOwnerByNameRequest {
@@ -2615,19 +2355,16 @@ func (a *AiAPIService) DeleteAiVectorsByOwnerByName(ctx context.Context, owner s
 }
 
 // Execute executes the request
-//
-//	@return PostAiVectors200Response
-func (a *AiAPIService) DeleteAiVectorsByOwnerByNameExecute(r AiAPIDeleteAiVectorsByOwnerByNameRequest) (*PostAiVectors200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiVectorsByOwnerByNameExecute(r AiAPIDeleteAiVectorsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVectors200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiVectorsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/vectors/{owner}/{name}"
@@ -2648,7 +2385,7 @@ func (a *AiAPIService) DeleteAiVectorsByOwnerByNameExecute(r AiAPIDeleteAiVector
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2657,19 +2394,19 @@ func (a *AiAPIService) DeleteAiVectorsByOwnerByNameExecute(r AiAPIDeleteAiVector
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2677,19 +2414,10 @@ func (a *AiAPIService) DeleteAiVectorsByOwnerByNameExecute(r AiAPIDeleteAiVector
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiVideosByOwnerByNameRequest struct {
@@ -2699,7 +2427,7 @@ type AiAPIDeleteAiVideosByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiVideosByOwnerByNameRequest) Execute() (*PostAiVideos200Response, *http.Response, error) {
+func (r AiAPIDeleteAiVideosByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiVideosByOwnerByNameExecute(r)
 }
 
@@ -2709,8 +2437,8 @@ DeleteAiVideosByOwnerByName Delete a video
 Delete one video.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiVideosByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiVideosByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiVideosByOwnerByNameRequest {
@@ -2723,19 +2451,16 @@ func (a *AiAPIService) DeleteAiVideosByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiVideos200Response
-func (a *AiAPIService) DeleteAiVideosByOwnerByNameExecute(r AiAPIDeleteAiVideosByOwnerByNameRequest) (*PostAiVideos200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiVideosByOwnerByNameExecute(r AiAPIDeleteAiVideosByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVideos200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiVideosByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/videos/{owner}/{name}"
@@ -2756,7 +2481,7 @@ func (a *AiAPIService) DeleteAiVideosByOwnerByNameExecute(r AiAPIDeleteAiVideosB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2765,19 +2490,19 @@ func (a *AiAPIService) DeleteAiVideosByOwnerByNameExecute(r AiAPIDeleteAiVideosB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2785,19 +2510,10 @@ func (a *AiAPIService) DeleteAiVideosByOwnerByNameExecute(r AiAPIDeleteAiVideosB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIDeleteAiWorkflowsByOwnerByNameRequest struct {
@@ -2807,7 +2523,7 @@ type AiAPIDeleteAiWorkflowsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIDeleteAiWorkflowsByOwnerByNameRequest) Execute() (*PostAiWorkflows200Response, *http.Response, error) {
+func (r AiAPIDeleteAiWorkflowsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAiWorkflowsByOwnerByNameExecute(r)
 }
 
@@ -2817,8 +2533,8 @@ DeleteAiWorkflowsByOwnerByName Delete a workflow
 Delete one workflow.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIDeleteAiWorkflowsByOwnerByNameRequest
 */
 func (a *AiAPIService) DeleteAiWorkflowsByOwnerByName(ctx context.Context, owner string, name string) AiAPIDeleteAiWorkflowsByOwnerByNameRequest {
@@ -2831,19 +2547,16 @@ func (a *AiAPIService) DeleteAiWorkflowsByOwnerByName(ctx context.Context, owner
 }
 
 // Execute executes the request
-//
-//	@return PostAiWorkflows200Response
-func (a *AiAPIService) DeleteAiWorkflowsByOwnerByNameExecute(r AiAPIDeleteAiWorkflowsByOwnerByNameRequest) (*PostAiWorkflows200Response, *http.Response, error) {
+func (a *AiAPIService) DeleteAiWorkflowsByOwnerByNameExecute(r AiAPIDeleteAiWorkflowsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiWorkflows200Response
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiWorkflowsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/workflows/{owner}/{name}"
@@ -2864,7 +2577,7 @@ func (a *AiAPIService) DeleteAiWorkflowsByOwnerByNameExecute(r AiAPIDeleteAiWork
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2873,19 +2586,19 @@ func (a *AiAPIService) DeleteAiWorkflowsByOwnerByNameExecute(r AiAPIDeleteAiWork
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2893,19 +2606,10 @@ func (a *AiAPIService) DeleteAiWorkflowsByOwnerByNameExecute(r AiAPIDeleteAiWork
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiAccountRequest struct {
@@ -2913,7 +2617,7 @@ type AiAPIGetAiAccountRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiAccountRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiAccountRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiAccountExecute(r)
 }
 
@@ -2931,19 +2635,16 @@ func (a *AiAPIService) GetAiAccount(ctx context.Context) AiAPIGetAiAccountReques
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiAccountExecute(r AiAPIGetAiAccountRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiAccountExecute(r AiAPIGetAiAccountRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiAccount")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/account"
@@ -2962,7 +2663,7 @@ func (a *AiAPIService) GetAiAccountExecute(r AiAPIGetAiAccountRequest) (*Envelop
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2971,19 +2672,19 @@ func (a *AiAPIService) GetAiAccountExecute(r AiAPIGetAiAccountRequest) (*Envelop
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2991,19 +2692,10 @@ func (a *AiAPIService) GetAiAccountExecute(r AiAPIGetAiAccountRequest) (*Envelop
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiActivitiesRequest struct {
@@ -3011,7 +2703,7 @@ type AiAPIGetAiActivitiesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiActivitiesRequest) Execute() (*GetAiActivities200Response, *http.Response, error) {
+func (r AiAPIGetAiActivitiesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiActivitiesExecute(r)
 }
 
@@ -3031,19 +2723,16 @@ func (a *AiAPIService) GetAiActivities(ctx context.Context) AiAPIGetAiActivities
 }
 
 // Execute executes the request
-//
-//	@return GetAiActivities200Response
-func (a *AiAPIService) GetAiActivitiesExecute(r AiAPIGetAiActivitiesRequest) (*GetAiActivities200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiActivitiesExecute(r AiAPIGetAiActivitiesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiActivities200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiActivities")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/activities"
@@ -3062,7 +2751,7 @@ func (a *AiAPIService) GetAiActivitiesExecute(r AiAPIGetAiActivitiesRequest) (*G
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3071,19 +2760,19 @@ func (a *AiAPIService) GetAiActivitiesExecute(r AiAPIGetAiActivitiesRequest) (*G
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3091,19 +2780,10 @@ func (a *AiAPIService) GetAiActivitiesExecute(r AiAPIGetAiActivitiesRequest) (*G
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiAnswerRequest struct {
@@ -3111,7 +2791,7 @@ type AiAPIGetAiAnswerRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiAnswerRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiAnswerRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiAnswerExecute(r)
 }
 
@@ -3129,19 +2809,16 @@ func (a *AiAPIService) GetAiAnswer(ctx context.Context) AiAPIGetAiAnswerRequest 
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiAnswerExecute(r AiAPIGetAiAnswerRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiAnswerExecute(r AiAPIGetAiAnswerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiAnswer")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/answer"
@@ -3160,7 +2837,7 @@ func (a *AiAPIService) GetAiAnswerExecute(r AiAPIGetAiAnswerRequest) (*Envelope,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3169,19 +2846,19 @@ func (a *AiAPIService) GetAiAnswerExecute(r AiAPIGetAiAnswerRequest) (*Envelope,
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3189,19 +2866,10 @@ func (a *AiAPIService) GetAiAnswerExecute(r AiAPIGetAiAnswerRequest) (*Envelope,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiArticlesRequest struct {
@@ -3209,7 +2877,7 @@ type AiAPIGetAiArticlesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiArticlesRequest) Execute() (*GetAiArticles200Response, *http.Response, error) {
+func (r AiAPIGetAiArticlesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiArticlesExecute(r)
 }
 
@@ -3229,19 +2897,16 @@ func (a *AiAPIService) GetAiArticles(ctx context.Context) AiAPIGetAiArticlesRequ
 }
 
 // Execute executes the request
-//
-//	@return GetAiArticles200Response
-func (a *AiAPIService) GetAiArticlesExecute(r AiAPIGetAiArticlesRequest) (*GetAiArticles200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiArticlesExecute(r AiAPIGetAiArticlesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiArticles200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiArticles")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/articles"
@@ -3260,7 +2925,7 @@ func (a *AiAPIService) GetAiArticlesExecute(r AiAPIGetAiArticlesRequest) (*GetAi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3269,19 +2934,19 @@ func (a *AiAPIService) GetAiArticlesExecute(r AiAPIGetAiArticlesRequest) (*GetAi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3289,19 +2954,10 @@ func (a *AiAPIService) GetAiArticlesExecute(r AiAPIGetAiArticlesRequest) (*GetAi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiArticlesByOwnerByNameRequest struct {
@@ -3311,7 +2967,7 @@ type AiAPIGetAiArticlesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiArticlesByOwnerByNameRequest) Execute() (*PostAiArticles200Response, *http.Response, error) {
+func (r AiAPIGetAiArticlesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiArticlesByOwnerByNameExecute(r)
 }
 
@@ -3321,8 +2977,8 @@ GetAiArticlesByOwnerByName Retrieve a article
 Read one article by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiArticlesByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiArticlesByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiArticlesByOwnerByNameRequest {
@@ -3335,19 +2991,16 @@ func (a *AiAPIService) GetAiArticlesByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiArticles200Response
-func (a *AiAPIService) GetAiArticlesByOwnerByNameExecute(r AiAPIGetAiArticlesByOwnerByNameRequest) (*PostAiArticles200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiArticlesByOwnerByNameExecute(r AiAPIGetAiArticlesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiArticles200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiArticlesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/articles/{owner}/{name}"
@@ -3368,7 +3021,7 @@ func (a *AiAPIService) GetAiArticlesByOwnerByNameExecute(r AiAPIGetAiArticlesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3377,19 +3030,19 @@ func (a *AiAPIService) GetAiArticlesByOwnerByNameExecute(r AiAPIGetAiArticlesByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3397,19 +3050,10 @@ func (a *AiAPIService) GetAiArticlesByOwnerByNameExecute(r AiAPIGetAiArticlesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiArticlesGlobalRequest struct {
@@ -3417,7 +3061,7 @@ type AiAPIGetAiArticlesGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiArticlesGlobalRequest) Execute() (*GetAiArticles200Response, *http.Response, error) {
+func (r AiAPIGetAiArticlesGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiArticlesGlobalExecute(r)
 }
 
@@ -3437,19 +3081,16 @@ func (a *AiAPIService) GetAiArticlesGlobal(ctx context.Context) AiAPIGetAiArticl
 }
 
 // Execute executes the request
-//
-//	@return GetAiArticles200Response
-func (a *AiAPIService) GetAiArticlesGlobalExecute(r AiAPIGetAiArticlesGlobalRequest) (*GetAiArticles200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiArticlesGlobalExecute(r AiAPIGetAiArticlesGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiArticles200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiArticlesGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/articles/global"
@@ -3468,7 +3109,7 @@ func (a *AiAPIService) GetAiArticlesGlobalExecute(r AiAPIGetAiArticlesGlobalRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3477,19 +3118,19 @@ func (a *AiAPIService) GetAiArticlesGlobalExecute(r AiAPIGetAiArticlesGlobalRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3497,19 +3138,10 @@ func (a *AiAPIService) GetAiArticlesGlobalExecute(r AiAPIGetAiArticlesGlobalRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiAssetsRequest struct {
@@ -3517,7 +3149,7 @@ type AiAPIGetAiAssetsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiAssetsRequest) Execute() (*GetAiAssets200Response, *http.Response, error) {
+func (r AiAPIGetAiAssetsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiAssetsExecute(r)
 }
 
@@ -3537,19 +3169,16 @@ func (a *AiAPIService) GetAiAssets(ctx context.Context) AiAPIGetAiAssetsRequest 
 }
 
 // Execute executes the request
-//
-//	@return GetAiAssets200Response
-func (a *AiAPIService) GetAiAssetsExecute(r AiAPIGetAiAssetsRequest) (*GetAiAssets200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiAssetsExecute(r AiAPIGetAiAssetsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiAssets200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiAssets")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/assets"
@@ -3568,7 +3197,7 @@ func (a *AiAPIService) GetAiAssetsExecute(r AiAPIGetAiAssetsRequest) (*GetAiAsse
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3577,19 +3206,19 @@ func (a *AiAPIService) GetAiAssetsExecute(r AiAPIGetAiAssetsRequest) (*GetAiAsse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3597,19 +3226,10 @@ func (a *AiAPIService) GetAiAssetsExecute(r AiAPIGetAiAssetsRequest) (*GetAiAsse
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiAssetsByOwnerByNameRequest struct {
@@ -3619,7 +3239,7 @@ type AiAPIGetAiAssetsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiAssetsByOwnerByNameRequest) Execute() (*PostAiAssets200Response, *http.Response, error) {
+func (r AiAPIGetAiAssetsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiAssetsByOwnerByNameExecute(r)
 }
 
@@ -3629,8 +3249,8 @@ GetAiAssetsByOwnerByName Retrieve a asset
 Read one asset by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiAssetsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiAssetsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiAssetsByOwnerByNameRequest {
@@ -3643,19 +3263,16 @@ func (a *AiAPIService) GetAiAssetsByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiAssets200Response
-func (a *AiAPIService) GetAiAssetsByOwnerByNameExecute(r AiAPIGetAiAssetsByOwnerByNameRequest) (*PostAiAssets200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiAssetsByOwnerByNameExecute(r AiAPIGetAiAssetsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiAssets200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiAssetsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/assets/{owner}/{name}"
@@ -3676,7 +3293,7 @@ func (a *AiAPIService) GetAiAssetsByOwnerByNameExecute(r AiAPIGetAiAssetsByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3685,19 +3302,19 @@ func (a *AiAPIService) GetAiAssetsByOwnerByNameExecute(r AiAPIGetAiAssetsByOwner
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3705,19 +3322,10 @@ func (a *AiAPIService) GetAiAssetsByOwnerByNameExecute(r AiAPIGetAiAssetsByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiChatsRequest struct {
@@ -3725,7 +3333,7 @@ type AiAPIGetAiChatsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiChatsRequest) Execute() (*GetAiChats200Response, *http.Response, error) {
+func (r AiAPIGetAiChatsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiChatsExecute(r)
 }
 
@@ -3745,19 +3353,16 @@ func (a *AiAPIService) GetAiChats(ctx context.Context) AiAPIGetAiChatsRequest {
 }
 
 // Execute executes the request
-//
-//	@return GetAiChats200Response
-func (a *AiAPIService) GetAiChatsExecute(r AiAPIGetAiChatsRequest) (*GetAiChats200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiChatsExecute(r AiAPIGetAiChatsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiChats200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiChats")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/chats"
@@ -3776,7 +3381,7 @@ func (a *AiAPIService) GetAiChatsExecute(r AiAPIGetAiChatsRequest) (*GetAiChats2
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3785,19 +3390,19 @@ func (a *AiAPIService) GetAiChatsExecute(r AiAPIGetAiChatsRequest) (*GetAiChats2
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3805,19 +3410,10 @@ func (a *AiAPIService) GetAiChatsExecute(r AiAPIGetAiChatsRequest) (*GetAiChats2
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiChatsByOwnerByNameRequest struct {
@@ -3827,7 +3423,7 @@ type AiAPIGetAiChatsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiChatsByOwnerByNameRequest) Execute() (*PostAiChats200Response, *http.Response, error) {
+func (r AiAPIGetAiChatsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiChatsByOwnerByNameExecute(r)
 }
 
@@ -3837,8 +3433,8 @@ GetAiChatsByOwnerByName Retrieve a chat
 Read one chat by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiChatsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiChatsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiChatsByOwnerByNameRequest {
@@ -3851,19 +3447,16 @@ func (a *AiAPIService) GetAiChatsByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiChats200Response
-func (a *AiAPIService) GetAiChatsByOwnerByNameExecute(r AiAPIGetAiChatsByOwnerByNameRequest) (*PostAiChats200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiChatsByOwnerByNameExecute(r AiAPIGetAiChatsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiChats200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiChatsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/chats/{owner}/{name}"
@@ -3884,7 +3477,7 @@ func (a *AiAPIService) GetAiChatsByOwnerByNameExecute(r AiAPIGetAiChatsByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3893,19 +3486,19 @@ func (a *AiAPIService) GetAiChatsByOwnerByNameExecute(r AiAPIGetAiChatsByOwnerBy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3913,19 +3506,10 @@ func (a *AiAPIService) GetAiChatsByOwnerByNameExecute(r AiAPIGetAiChatsByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiChatsGlobalRequest struct {
@@ -3933,7 +3517,7 @@ type AiAPIGetAiChatsGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiChatsGlobalRequest) Execute() (*GetAiChats200Response, *http.Response, error) {
+func (r AiAPIGetAiChatsGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiChatsGlobalExecute(r)
 }
 
@@ -3953,19 +3537,16 @@ func (a *AiAPIService) GetAiChatsGlobal(ctx context.Context) AiAPIGetAiChatsGlob
 }
 
 // Execute executes the request
-//
-//	@return GetAiChats200Response
-func (a *AiAPIService) GetAiChatsGlobalExecute(r AiAPIGetAiChatsGlobalRequest) (*GetAiChats200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiChatsGlobalExecute(r AiAPIGetAiChatsGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiChats200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiChatsGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/chats/global"
@@ -3984,7 +3565,7 @@ func (a *AiAPIService) GetAiChatsGlobalExecute(r AiAPIGetAiChatsGlobalRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3993,19 +3574,19 @@ func (a *AiAPIService) GetAiChatsGlobalExecute(r AiAPIGetAiChatsGlobalRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4013,19 +3594,10 @@ func (a *AiAPIService) GetAiChatsGlobalExecute(r AiAPIGetAiChatsGlobalRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiConnectionsRequest struct {
@@ -4120,6 +3692,7 @@ func (a *AiAPIService) GetAiConnectionsExecute(r AiAPIGetAiConnectionsRequest) (
 type AiAPIGetAiConnectionsByProviderAuthorizeRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	provider   string
 }
 
 func (r AiAPIGetAiConnectionsByProviderAuthorizeRequest) Execute() (*http.Response, error) {
@@ -4137,12 +3710,14 @@ SPA/BFF that needs to drive the redirect itself passes ?format=json and gets
 only the caller's own connection can result.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider
 	@return AiAPIGetAiConnectionsByProviderAuthorizeRequest
 */
-func (a *AiAPIService) GetAiConnectionsByProviderAuthorize(ctx context.Context) AiAPIGetAiConnectionsByProviderAuthorizeRequest {
+func (a *AiAPIService) GetAiConnectionsByProviderAuthorize(ctx context.Context, provider string) AiAPIGetAiConnectionsByProviderAuthorizeRequest {
 	return AiAPIGetAiConnectionsByProviderAuthorizeRequest{
 		ApiService: a,
 		ctx:        ctx,
+		provider:   provider,
 	}
 }
 
@@ -4160,6 +3735,7 @@ func (a *AiAPIService) GetAiConnectionsByProviderAuthorizeExecute(r AiAPIGetAiCo
 	}
 
 	localVarPath := localBasePath + "/v1/ai/connections/{provider}/authorize"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4213,6 +3789,7 @@ func (a *AiAPIService) GetAiConnectionsByProviderAuthorizeExecute(r AiAPIGetAiCo
 type AiAPIGetAiConnectionsByProviderCallbackRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	provider   string
 }
 
 func (r AiAPIGetAiConnectionsByProviderCallbackRequest) Execute() (*http.Response, error) {
@@ -4232,12 +3809,14 @@ token in a victim org — which is why this endpoint is state-authenticated rath
 than credential-gated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider
 	@return AiAPIGetAiConnectionsByProviderCallbackRequest
 */
-func (a *AiAPIService) GetAiConnectionsByProviderCallback(ctx context.Context) AiAPIGetAiConnectionsByProviderCallbackRequest {
+func (a *AiAPIService) GetAiConnectionsByProviderCallback(ctx context.Context, provider string) AiAPIGetAiConnectionsByProviderCallbackRequest {
 	return AiAPIGetAiConnectionsByProviderCallbackRequest{
 		ApiService: a,
 		ctx:        ctx,
+		provider:   provider,
 	}
 }
 
@@ -4255,6 +3834,7 @@ func (a *AiAPIService) GetAiConnectionsByProviderCallbackExecute(r AiAPIGetAiCon
 	}
 
 	localVarPath := localBasePath + "/v1/ai/connections/{provider}/callback"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4308,6 +3888,7 @@ func (a *AiAPIService) GetAiConnectionsByProviderCallbackExecute(r AiAPIGetAiCon
 type AiAPIGetAiConnectionsByProviderUsageRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	provider   string
 }
 
 func (r AiAPIGetAiConnectionsByProviderUsageRequest) Execute() (*http.Response, error) {
@@ -4325,12 +3906,14 @@ return a 200 ProviderUsage with connected/available flags + a human note — the
 honest-empty states — never a fabricated figure.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider
 	@return AiAPIGetAiConnectionsByProviderUsageRequest
 */
-func (a *AiAPIService) GetAiConnectionsByProviderUsage(ctx context.Context) AiAPIGetAiConnectionsByProviderUsageRequest {
+func (a *AiAPIService) GetAiConnectionsByProviderUsage(ctx context.Context, provider string) AiAPIGetAiConnectionsByProviderUsageRequest {
 	return AiAPIGetAiConnectionsByProviderUsageRequest{
 		ApiService: a,
 		ctx:        ctx,
+		provider:   provider,
 	}
 }
 
@@ -4348,6 +3931,7 @@ func (a *AiAPIService) GetAiConnectionsByProviderUsageExecute(r AiAPIGetAiConnec
 	}
 
 	localVarPath := localBasePath + "/v1/ai/connections/{provider}/usage"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4403,7 +3987,7 @@ type AiAPIGetAiDashboardsAgentsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiDashboardsAgentsRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiDashboardsAgentsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiDashboardsAgentsExecute(r)
 }
 
@@ -4421,19 +4005,16 @@ func (a *AiAPIService) GetAiDashboardsAgents(ctx context.Context) AiAPIGetAiDash
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiDashboardsAgentsExecute(r AiAPIGetAiDashboardsAgentsRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiDashboardsAgentsExecute(r AiAPIGetAiDashboardsAgentsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiDashboardsAgents")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/dashboards/agents"
@@ -4452,7 +4033,7 @@ func (a *AiAPIService) GetAiDashboardsAgentsExecute(r AiAPIGetAiDashboardsAgents
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4461,19 +4042,19 @@ func (a *AiAPIService) GetAiDashboardsAgentsExecute(r AiAPIGetAiDashboardsAgents
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4481,19 +4062,10 @@ func (a *AiAPIService) GetAiDashboardsAgentsExecute(r AiAPIGetAiDashboardsAgents
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiDashboardsVmRequest struct {
@@ -4501,7 +4073,7 @@ type AiAPIGetAiDashboardsVmRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiDashboardsVmRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiDashboardsVmRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiDashboardsVmExecute(r)
 }
 
@@ -4519,19 +4091,16 @@ func (a *AiAPIService) GetAiDashboardsVm(ctx context.Context) AiAPIGetAiDashboar
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiDashboardsVmExecute(r AiAPIGetAiDashboardsVmRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiDashboardsVmExecute(r AiAPIGetAiDashboardsVmRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiDashboardsVm")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/dashboards/vm"
@@ -4550,7 +4119,7 @@ func (a *AiAPIService) GetAiDashboardsVmExecute(r AiAPIGetAiDashboardsVmRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4559,19 +4128,19 @@ func (a *AiAPIService) GetAiDashboardsVmExecute(r AiAPIGetAiDashboardsVmRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4579,19 +4148,10 @@ func (a *AiAPIService) GetAiDashboardsVmExecute(r AiAPIGetAiDashboardsVmRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiDeploymentsRequest struct {
@@ -4599,7 +4159,7 @@ type AiAPIGetAiDeploymentsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiDeploymentsRequest) Execute() (*GetAiDeployments200Response, *http.Response, error) {
+func (r AiAPIGetAiDeploymentsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiDeploymentsExecute(r)
 }
 
@@ -4619,19 +4179,16 @@ func (a *AiAPIService) GetAiDeployments(ctx context.Context) AiAPIGetAiDeploymen
 }
 
 // Execute executes the request
-//
-//	@return GetAiDeployments200Response
-func (a *AiAPIService) GetAiDeploymentsExecute(r AiAPIGetAiDeploymentsRequest) (*GetAiDeployments200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiDeploymentsExecute(r AiAPIGetAiDeploymentsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiDeployments200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiDeployments")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/deployments"
@@ -4650,7 +4207,7 @@ func (a *AiAPIService) GetAiDeploymentsExecute(r AiAPIGetAiDeploymentsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4659,19 +4216,19 @@ func (a *AiAPIService) GetAiDeploymentsExecute(r AiAPIGetAiDeploymentsRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4679,19 +4236,10 @@ func (a *AiAPIService) GetAiDeploymentsExecute(r AiAPIGetAiDeploymentsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiDeploymentsByOwnerByNameRequest struct {
@@ -4701,7 +4249,7 @@ type AiAPIGetAiDeploymentsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiDeploymentsByOwnerByNameRequest) Execute() (*PostAiDeployments200Response, *http.Response, error) {
+func (r AiAPIGetAiDeploymentsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiDeploymentsByOwnerByNameExecute(r)
 }
 
@@ -4711,8 +4259,8 @@ GetAiDeploymentsByOwnerByName Retrieve a application
 Read one application by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiDeploymentsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiDeploymentsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiDeploymentsByOwnerByNameRequest {
@@ -4725,19 +4273,16 @@ func (a *AiAPIService) GetAiDeploymentsByOwnerByName(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return PostAiDeployments200Response
-func (a *AiAPIService) GetAiDeploymentsByOwnerByNameExecute(r AiAPIGetAiDeploymentsByOwnerByNameRequest) (*PostAiDeployments200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiDeploymentsByOwnerByNameExecute(r AiAPIGetAiDeploymentsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiDeployments200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiDeploymentsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/deployments/{owner}/{name}"
@@ -4758,7 +4303,7 @@ func (a *AiAPIService) GetAiDeploymentsByOwnerByNameExecute(r AiAPIGetAiDeployme
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4767,19 +4312,19 @@ func (a *AiAPIService) GetAiDeploymentsByOwnerByNameExecute(r AiAPIGetAiDeployme
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4787,19 +4332,10 @@ func (a *AiAPIService) GetAiDeploymentsByOwnerByNameExecute(r AiAPIGetAiDeployme
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiFilesRequest struct {
@@ -4807,7 +4343,7 @@ type AiAPIGetAiFilesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiFilesRequest) Execute() (*GetAiFiles200Response, *http.Response, error) {
+func (r AiAPIGetAiFilesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiFilesExecute(r)
 }
 
@@ -4827,19 +4363,16 @@ func (a *AiAPIService) GetAiFiles(ctx context.Context) AiAPIGetAiFilesRequest {
 }
 
 // Execute executes the request
-//
-//	@return GetAiFiles200Response
-func (a *AiAPIService) GetAiFilesExecute(r AiAPIGetAiFilesRequest) (*GetAiFiles200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiFilesExecute(r AiAPIGetAiFilesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiFiles200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFiles")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files"
@@ -4858,7 +4391,7 @@ func (a *AiAPIService) GetAiFilesExecute(r AiAPIGetAiFilesRequest) (*GetAiFiles2
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4867,19 +4400,19 @@ func (a *AiAPIService) GetAiFilesExecute(r AiAPIGetAiFilesRequest) (*GetAiFiles2
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4887,19 +4420,10 @@ func (a *AiAPIService) GetAiFilesExecute(r AiAPIGetAiFilesRequest) (*GetAiFiles2
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiFilesActiveRequest struct {
@@ -4907,7 +4431,7 @@ type AiAPIGetAiFilesActiveRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiFilesActiveRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiFilesActiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiFilesActiveExecute(r)
 }
 
@@ -4925,19 +4449,16 @@ func (a *AiAPIService) GetAiFilesActive(ctx context.Context) AiAPIGetAiFilesActi
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiFilesActiveExecute(r AiAPIGetAiFilesActiveRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiFilesActiveExecute(r AiAPIGetAiFilesActiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFilesActive")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/active"
@@ -4956,7 +4477,7 @@ func (a *AiAPIService) GetAiFilesActiveExecute(r AiAPIGetAiFilesActiveRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4965,19 +4486,19 @@ func (a *AiAPIService) GetAiFilesActiveExecute(r AiAPIGetAiFilesActiveRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4985,19 +4506,10 @@ func (a *AiAPIService) GetAiFilesActiveExecute(r AiAPIGetAiFilesActiveRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiFilesByOwnerByNameRequest struct {
@@ -5007,7 +4519,7 @@ type AiAPIGetAiFilesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiFilesByOwnerByNameRequest) Execute() (*PostAiFiles200Response, *http.Response, error) {
+func (r AiAPIGetAiFilesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiFilesByOwnerByNameExecute(r)
 }
 
@@ -5017,8 +4529,8 @@ GetAiFilesByOwnerByName Retrieve a file
 Read one file by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiFilesByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiFilesByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiFilesByOwnerByNameRequest {
@@ -5031,19 +4543,16 @@ func (a *AiAPIService) GetAiFilesByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiFiles200Response
-func (a *AiAPIService) GetAiFilesByOwnerByNameExecute(r AiAPIGetAiFilesByOwnerByNameRequest) (*PostAiFiles200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiFilesByOwnerByNameExecute(r AiAPIGetAiFilesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiFiles200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFilesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/{owner}/{name}"
@@ -5064,7 +4573,7 @@ func (a *AiAPIService) GetAiFilesByOwnerByNameExecute(r AiAPIGetAiFilesByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5073,19 +4582,19 @@ func (a *AiAPIService) GetAiFilesByOwnerByNameExecute(r AiAPIGetAiFilesByOwnerBy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5093,19 +4602,10 @@ func (a *AiAPIService) GetAiFilesByOwnerByNameExecute(r AiAPIGetAiFilesByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiFilesGlobalRequest struct {
@@ -5113,7 +4613,7 @@ type AiAPIGetAiFilesGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiFilesGlobalRequest) Execute() (*GetAiFiles200Response, *http.Response, error) {
+func (r AiAPIGetAiFilesGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiFilesGlobalExecute(r)
 }
 
@@ -5133,19 +4633,16 @@ func (a *AiAPIService) GetAiFilesGlobal(ctx context.Context) AiAPIGetAiFilesGlob
 }
 
 // Execute executes the request
-//
-//	@return GetAiFiles200Response
-func (a *AiAPIService) GetAiFilesGlobalExecute(r AiAPIGetAiFilesGlobalRequest) (*GetAiFiles200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiFilesGlobalExecute(r AiAPIGetAiFilesGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiFiles200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFilesGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/global"
@@ -5164,7 +4661,7 @@ func (a *AiAPIService) GetAiFilesGlobalExecute(r AiAPIGetAiFilesGlobalRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5173,19 +4670,19 @@ func (a *AiAPIService) GetAiFilesGlobalExecute(r AiAPIGetAiFilesGlobalRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5193,19 +4690,10 @@ func (a *AiAPIService) GetAiFilesGlobalExecute(r AiAPIGetAiFilesGlobalRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiFormsRequest struct {
@@ -5213,7 +4701,7 @@ type AiAPIGetAiFormsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiFormsRequest) Execute() (*GetAiForms200Response, *http.Response, error) {
+func (r AiAPIGetAiFormsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiFormsExecute(r)
 }
 
@@ -5233,19 +4721,16 @@ func (a *AiAPIService) GetAiForms(ctx context.Context) AiAPIGetAiFormsRequest {
 }
 
 // Execute executes the request
-//
-//	@return GetAiForms200Response
-func (a *AiAPIService) GetAiFormsExecute(r AiAPIGetAiFormsRequest) (*GetAiForms200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiFormsExecute(r AiAPIGetAiFormsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiForms200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiForms")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/forms"
@@ -5264,7 +4749,7 @@ func (a *AiAPIService) GetAiFormsExecute(r AiAPIGetAiFormsRequest) (*GetAiForms2
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5273,19 +4758,19 @@ func (a *AiAPIService) GetAiFormsExecute(r AiAPIGetAiFormsRequest) (*GetAiForms2
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5293,19 +4778,10 @@ func (a *AiAPIService) GetAiFormsExecute(r AiAPIGetAiFormsRequest) (*GetAiForms2
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiFormsByOwnerByNameRequest struct {
@@ -5315,7 +4791,7 @@ type AiAPIGetAiFormsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiFormsByOwnerByNameRequest) Execute() (*PostAiForms200Response, *http.Response, error) {
+func (r AiAPIGetAiFormsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiFormsByOwnerByNameExecute(r)
 }
 
@@ -5325,8 +4801,8 @@ GetAiFormsByOwnerByName Retrieve a form
 Read one form by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiFormsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiFormsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiFormsByOwnerByNameRequest {
@@ -5339,19 +4815,16 @@ func (a *AiAPIService) GetAiFormsByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiForms200Response
-func (a *AiAPIService) GetAiFormsByOwnerByNameExecute(r AiAPIGetAiFormsByOwnerByNameRequest) (*PostAiForms200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiFormsByOwnerByNameExecute(r AiAPIGetAiFormsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiForms200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFormsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/forms/{owner}/{name}"
@@ -5372,7 +4845,7 @@ func (a *AiAPIService) GetAiFormsByOwnerByNameExecute(r AiAPIGetAiFormsByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5381,19 +4854,19 @@ func (a *AiAPIService) GetAiFormsByOwnerByNameExecute(r AiAPIGetAiFormsByOwnerBy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5401,19 +4874,10 @@ func (a *AiAPIService) GetAiFormsByOwnerByNameExecute(r AiAPIGetAiFormsByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiFormsDataRequest struct {
@@ -5421,7 +4885,7 @@ type AiAPIGetAiFormsDataRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiFormsDataRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiFormsDataRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiFormsDataExecute(r)
 }
 
@@ -5439,19 +4903,16 @@ func (a *AiAPIService) GetAiFormsData(ctx context.Context) AiAPIGetAiFormsDataRe
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiFormsDataExecute(r AiAPIGetAiFormsDataRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiFormsDataExecute(r AiAPIGetAiFormsDataRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFormsData")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/forms/data"
@@ -5470,7 +4931,7 @@ func (a *AiAPIService) GetAiFormsDataExecute(r AiAPIGetAiFormsDataRequest) (*Env
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5479,19 +4940,19 @@ func (a *AiAPIService) GetAiFormsDataExecute(r AiAPIGetAiFormsDataRequest) (*Env
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5499,19 +4960,10 @@ func (a *AiAPIService) GetAiFormsDataExecute(r AiAPIGetAiFormsDataRequest) (*Env
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiFormsGlobalRequest struct {
@@ -5519,7 +4971,7 @@ type AiAPIGetAiFormsGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiFormsGlobalRequest) Execute() (*GetAiForms200Response, *http.Response, error) {
+func (r AiAPIGetAiFormsGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiFormsGlobalExecute(r)
 }
 
@@ -5539,19 +4991,16 @@ func (a *AiAPIService) GetAiFormsGlobal(ctx context.Context) AiAPIGetAiFormsGlob
 }
 
 // Execute executes the request
-//
-//	@return GetAiForms200Response
-func (a *AiAPIService) GetAiFormsGlobalExecute(r AiAPIGetAiFormsGlobalRequest) (*GetAiForms200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiFormsGlobalExecute(r AiAPIGetAiFormsGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiForms200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFormsGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/forms/global"
@@ -5570,7 +5019,7 @@ func (a *AiAPIService) GetAiFormsGlobalExecute(r AiAPIGetAiFormsGlobalRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5579,19 +5028,19 @@ func (a *AiAPIService) GetAiFormsGlobalExecute(r AiAPIGetAiFormsGlobalRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5599,19 +5048,10 @@ func (a *AiAPIService) GetAiFormsGlobalExecute(r AiAPIGetAiFormsGlobalRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiGraphsRequest struct {
@@ -5619,7 +5059,7 @@ type AiAPIGetAiGraphsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiGraphsRequest) Execute() (*GetAiGraphs200Response, *http.Response, error) {
+func (r AiAPIGetAiGraphsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiGraphsExecute(r)
 }
 
@@ -5639,19 +5079,16 @@ func (a *AiAPIService) GetAiGraphs(ctx context.Context) AiAPIGetAiGraphsRequest 
 }
 
 // Execute executes the request
-//
-//	@return GetAiGraphs200Response
-func (a *AiAPIService) GetAiGraphsExecute(r AiAPIGetAiGraphsRequest) (*GetAiGraphs200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiGraphsExecute(r AiAPIGetAiGraphsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiGraphs200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiGraphs")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/graphs"
@@ -5670,7 +5107,7 @@ func (a *AiAPIService) GetAiGraphsExecute(r AiAPIGetAiGraphsRequest) (*GetAiGrap
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5679,19 +5116,19 @@ func (a *AiAPIService) GetAiGraphsExecute(r AiAPIGetAiGraphsRequest) (*GetAiGrap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5699,19 +5136,10 @@ func (a *AiAPIService) GetAiGraphsExecute(r AiAPIGetAiGraphsRequest) (*GetAiGrap
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiGraphsByOwnerByNameRequest struct {
@@ -5721,7 +5149,7 @@ type AiAPIGetAiGraphsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiGraphsByOwnerByNameRequest) Execute() (*PostAiGraphs200Response, *http.Response, error) {
+func (r AiAPIGetAiGraphsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiGraphsByOwnerByNameExecute(r)
 }
 
@@ -5731,8 +5159,8 @@ GetAiGraphsByOwnerByName Retrieve a graph
 Read one graph by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiGraphsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiGraphsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiGraphsByOwnerByNameRequest {
@@ -5745,19 +5173,16 @@ func (a *AiAPIService) GetAiGraphsByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiGraphs200Response
-func (a *AiAPIService) GetAiGraphsByOwnerByNameExecute(r AiAPIGetAiGraphsByOwnerByNameRequest) (*PostAiGraphs200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiGraphsByOwnerByNameExecute(r AiAPIGetAiGraphsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiGraphs200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiGraphsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/graphs/{owner}/{name}"
@@ -5778,7 +5203,7 @@ func (a *AiAPIService) GetAiGraphsByOwnerByNameExecute(r AiAPIGetAiGraphsByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5787,19 +5212,19 @@ func (a *AiAPIService) GetAiGraphsByOwnerByNameExecute(r AiAPIGetAiGraphsByOwner
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5807,19 +5232,10 @@ func (a *AiAPIService) GetAiGraphsByOwnerByNameExecute(r AiAPIGetAiGraphsByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiGraphsGlobalRequest struct {
@@ -5827,7 +5243,7 @@ type AiAPIGetAiGraphsGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiGraphsGlobalRequest) Execute() (*GetAiGraphs200Response, *http.Response, error) {
+func (r AiAPIGetAiGraphsGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiGraphsGlobalExecute(r)
 }
 
@@ -5847,19 +5263,16 @@ func (a *AiAPIService) GetAiGraphsGlobal(ctx context.Context) AiAPIGetAiGraphsGl
 }
 
 // Execute executes the request
-//
-//	@return GetAiGraphs200Response
-func (a *AiAPIService) GetAiGraphsGlobalExecute(r AiAPIGetAiGraphsGlobalRequest) (*GetAiGraphs200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiGraphsGlobalExecute(r AiAPIGetAiGraphsGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiGraphs200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiGraphsGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/graphs/global"
@@ -5878,7 +5291,7 @@ func (a *AiAPIService) GetAiGraphsGlobalExecute(r AiAPIGetAiGraphsGlobalRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5887,19 +5300,19 @@ func (a *AiAPIService) GetAiGraphsGlobalExecute(r AiAPIGetAiGraphsGlobalRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5907,19 +5320,10 @@ func (a *AiAPIService) GetAiGraphsGlobalExecute(r AiAPIGetAiGraphsGlobalRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiK8sStatusRequest struct {
@@ -5927,7 +5331,7 @@ type AiAPIGetAiK8sStatusRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiK8sStatusRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiK8sStatusRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiK8sStatusExecute(r)
 }
 
@@ -5945,19 +5349,16 @@ func (a *AiAPIService) GetAiK8sStatus(ctx context.Context) AiAPIGetAiK8sStatusRe
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiK8sStatusExecute(r AiAPIGetAiK8sStatusRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiK8sStatusExecute(r AiAPIGetAiK8sStatusRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiK8sStatus")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/k8s-status"
@@ -5976,7 +5377,7 @@ func (a *AiAPIService) GetAiK8sStatusExecute(r AiAPIGetAiK8sStatusRequest) (*Env
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5985,19 +5386,19 @@ func (a *AiAPIService) GetAiK8sStatusExecute(r AiAPIGetAiK8sStatusRequest) (*Env
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6005,19 +5406,10 @@ func (a *AiAPIService) GetAiK8sStatusExecute(r AiAPIGetAiK8sStatusRequest) (*Env
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiMessagesRequest struct {
@@ -6025,7 +5417,7 @@ type AiAPIGetAiMessagesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiMessagesRequest) Execute() (*GetAiMessages200Response, *http.Response, error) {
+func (r AiAPIGetAiMessagesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiMessagesExecute(r)
 }
 
@@ -6045,19 +5437,16 @@ func (a *AiAPIService) GetAiMessages(ctx context.Context) AiAPIGetAiMessagesRequ
 }
 
 // Execute executes the request
-//
-//	@return GetAiMessages200Response
-func (a *AiAPIService) GetAiMessagesExecute(r AiAPIGetAiMessagesRequest) (*GetAiMessages200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiMessagesExecute(r AiAPIGetAiMessagesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiMessages200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiMessages")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages"
@@ -6076,7 +5465,7 @@ func (a *AiAPIService) GetAiMessagesExecute(r AiAPIGetAiMessagesRequest) (*GetAi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6085,19 +5474,19 @@ func (a *AiAPIService) GetAiMessagesExecute(r AiAPIGetAiMessagesRequest) (*GetAi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6105,19 +5494,10 @@ func (a *AiAPIService) GetAiMessagesExecute(r AiAPIGetAiMessagesRequest) (*GetAi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiMessagesByOwnerByNameRequest struct {
@@ -6127,7 +5507,7 @@ type AiAPIGetAiMessagesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiMessagesByOwnerByNameRequest) Execute() (*PostAiMessages200Response, *http.Response, error) {
+func (r AiAPIGetAiMessagesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiMessagesByOwnerByNameExecute(r)
 }
 
@@ -6137,8 +5517,8 @@ GetAiMessagesByOwnerByName Retrieve a message
 Read one message by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiMessagesByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiMessagesByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiMessagesByOwnerByNameRequest {
@@ -6151,19 +5531,16 @@ func (a *AiAPIService) GetAiMessagesByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiMessages200Response
-func (a *AiAPIService) GetAiMessagesByOwnerByNameExecute(r AiAPIGetAiMessagesByOwnerByNameRequest) (*PostAiMessages200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiMessagesByOwnerByNameExecute(r AiAPIGetAiMessagesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiMessages200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiMessagesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages/{owner}/{name}"
@@ -6184,7 +5561,7 @@ func (a *AiAPIService) GetAiMessagesByOwnerByNameExecute(r AiAPIGetAiMessagesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6193,19 +5570,19 @@ func (a *AiAPIService) GetAiMessagesByOwnerByNameExecute(r AiAPIGetAiMessagesByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6213,19 +5590,10 @@ func (a *AiAPIService) GetAiMessagesByOwnerByNameExecute(r AiAPIGetAiMessagesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiMessagesByOwnerByNameAnswerRequest struct {
@@ -6235,7 +5603,7 @@ type AiAPIGetAiMessagesByOwnerByNameAnswerRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiMessagesByOwnerByNameAnswerRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiMessagesByOwnerByNameAnswerRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiMessagesByOwnerByNameAnswerExecute(r)
 }
 
@@ -6243,8 +5611,8 @@ func (r AiAPIGetAiMessagesByOwnerByNameAnswerRequest) Execute() (*Envelope, *htt
 GetAiMessagesByOwnerByNameAnswer Answer (message)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiMessagesByOwnerByNameAnswerRequest
 */
 func (a *AiAPIService) GetAiMessagesByOwnerByNameAnswer(ctx context.Context, owner string, name string) AiAPIGetAiMessagesByOwnerByNameAnswerRequest {
@@ -6257,19 +5625,16 @@ func (a *AiAPIService) GetAiMessagesByOwnerByNameAnswer(ctx context.Context, own
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiMessagesByOwnerByNameAnswerExecute(r AiAPIGetAiMessagesByOwnerByNameAnswerRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiMessagesByOwnerByNameAnswerExecute(r AiAPIGetAiMessagesByOwnerByNameAnswerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiMessagesByOwnerByNameAnswer")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages/{owner}/{name}/answer"
@@ -6290,7 +5655,7 @@ func (a *AiAPIService) GetAiMessagesByOwnerByNameAnswerExecute(r AiAPIGetAiMessa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6299,19 +5664,19 @@ func (a *AiAPIService) GetAiMessagesByOwnerByNameAnswerExecute(r AiAPIGetAiMessa
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6319,19 +5684,10 @@ func (a *AiAPIService) GetAiMessagesByOwnerByNameAnswerExecute(r AiAPIGetAiMessa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiMessagesGlobalRequest struct {
@@ -6339,7 +5695,7 @@ type AiAPIGetAiMessagesGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiMessagesGlobalRequest) Execute() (*GetAiMessages200Response, *http.Response, error) {
+func (r AiAPIGetAiMessagesGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiMessagesGlobalExecute(r)
 }
 
@@ -6359,19 +5715,16 @@ func (a *AiAPIService) GetAiMessagesGlobal(ctx context.Context) AiAPIGetAiMessag
 }
 
 // Execute executes the request
-//
-//	@return GetAiMessages200Response
-func (a *AiAPIService) GetAiMessagesGlobalExecute(r AiAPIGetAiMessagesGlobalRequest) (*GetAiMessages200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiMessagesGlobalExecute(r AiAPIGetAiMessagesGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiMessages200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiMessagesGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages/global"
@@ -6390,7 +5743,7 @@ func (a *AiAPIService) GetAiMessagesGlobalExecute(r AiAPIGetAiMessagesGlobalRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6399,19 +5752,19 @@ func (a *AiAPIService) GetAiMessagesGlobalExecute(r AiAPIGetAiMessagesGlobalRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6419,19 +5772,10 @@ func (a *AiAPIService) GetAiMessagesGlobalExecute(r AiAPIGetAiMessagesGlobalRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiNodesRequest struct {
@@ -6439,7 +5783,7 @@ type AiAPIGetAiNodesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiNodesRequest) Execute() (*GetAiNodes200Response, *http.Response, error) {
+func (r AiAPIGetAiNodesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiNodesExecute(r)
 }
 
@@ -6459,19 +5803,16 @@ func (a *AiAPIService) GetAiNodes(ctx context.Context) AiAPIGetAiNodesRequest {
 }
 
 // Execute executes the request
-//
-//	@return GetAiNodes200Response
-func (a *AiAPIService) GetAiNodesExecute(r AiAPIGetAiNodesRequest) (*GetAiNodes200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiNodesExecute(r AiAPIGetAiNodesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiNodes200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiNodes")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/nodes"
@@ -6490,7 +5831,7 @@ func (a *AiAPIService) GetAiNodesExecute(r AiAPIGetAiNodesRequest) (*GetAiNodes2
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6499,19 +5840,19 @@ func (a *AiAPIService) GetAiNodesExecute(r AiAPIGetAiNodesRequest) (*GetAiNodes2
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6519,19 +5860,10 @@ func (a *AiAPIService) GetAiNodesExecute(r AiAPIGetAiNodesRequest) (*GetAiNodes2
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiNodesByOwnerByNameRequest struct {
@@ -6541,7 +5873,7 @@ type AiAPIGetAiNodesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiNodesByOwnerByNameRequest) Execute() (*PostAiNodes200Response, *http.Response, error) {
+func (r AiAPIGetAiNodesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiNodesByOwnerByNameExecute(r)
 }
 
@@ -6551,8 +5883,8 @@ GetAiNodesByOwnerByName Retrieve a node
 Read one node by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiNodesByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiNodesByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiNodesByOwnerByNameRequest {
@@ -6565,19 +5897,16 @@ func (a *AiAPIService) GetAiNodesByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiNodes200Response
-func (a *AiAPIService) GetAiNodesByOwnerByNameExecute(r AiAPIGetAiNodesByOwnerByNameRequest) (*PostAiNodes200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiNodesByOwnerByNameExecute(r AiAPIGetAiNodesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiNodes200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiNodesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/nodes/{owner}/{name}"
@@ -6598,7 +5927,7 @@ func (a *AiAPIService) GetAiNodesByOwnerByNameExecute(r AiAPIGetAiNodesByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6607,19 +5936,19 @@ func (a *AiAPIService) GetAiNodesByOwnerByNameExecute(r AiAPIGetAiNodesByOwnerBy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6627,19 +5956,10 @@ func (a *AiAPIService) GetAiNodesByOwnerByNameExecute(r AiAPIGetAiNodesByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiNodesByOwnerByNameTunnelRequest struct {
@@ -6649,7 +5969,7 @@ type AiAPIGetAiNodesByOwnerByNameTunnelRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiNodesByOwnerByNameTunnelRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiNodesByOwnerByNameTunnelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiNodesByOwnerByNameTunnelExecute(r)
 }
 
@@ -6657,8 +5977,8 @@ func (r AiAPIGetAiNodesByOwnerByNameTunnelRequest) Execute() (*Envelope, *http.R
 GetAiNodesByOwnerByNameTunnel Tunnel (node)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiNodesByOwnerByNameTunnelRequest
 */
 func (a *AiAPIService) GetAiNodesByOwnerByNameTunnel(ctx context.Context, owner string, name string) AiAPIGetAiNodesByOwnerByNameTunnelRequest {
@@ -6671,19 +5991,16 @@ func (a *AiAPIService) GetAiNodesByOwnerByNameTunnel(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiNodesByOwnerByNameTunnelExecute(r AiAPIGetAiNodesByOwnerByNameTunnelRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiNodesByOwnerByNameTunnelExecute(r AiAPIGetAiNodesByOwnerByNameTunnelRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiNodesByOwnerByNameTunnel")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/nodes/{owner}/{name}/tunnel"
@@ -6704,7 +6021,7 @@ func (a *AiAPIService) GetAiNodesByOwnerByNameTunnelExecute(r AiAPIGetAiNodesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6713,19 +6030,19 @@ func (a *AiAPIService) GetAiNodesByOwnerByNameTunnelExecute(r AiAPIGetAiNodesByO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6733,19 +6050,10 @@ func (a *AiAPIService) GetAiNodesByOwnerByNameTunnelExecute(r AiAPIGetAiNodesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiPrometheusRequest struct {
@@ -6753,7 +6061,7 @@ type AiAPIGetAiPrometheusRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiPrometheusRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiPrometheusRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiPrometheusExecute(r)
 }
 
@@ -6771,19 +6079,16 @@ func (a *AiAPIService) GetAiPrometheus(ctx context.Context) AiAPIGetAiPrometheus
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiPrometheusExecute(r AiAPIGetAiPrometheusRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiPrometheusExecute(r AiAPIGetAiPrometheusRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiPrometheus")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/prometheus"
@@ -6802,7 +6107,7 @@ func (a *AiAPIService) GetAiPrometheusExecute(r AiAPIGetAiPrometheusRequest) (*E
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6811,19 +6116,19 @@ func (a *AiAPIService) GetAiPrometheusExecute(r AiAPIGetAiPrometheusRequest) (*E
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6831,19 +6136,10 @@ func (a *AiAPIService) GetAiPrometheusExecute(r AiAPIGetAiPrometheusRequest) (*E
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiProvidersRequest struct {
@@ -6851,7 +6147,7 @@ type AiAPIGetAiProvidersRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiProvidersRequest) Execute() (*GetAiProviders200Response, *http.Response, error) {
+func (r AiAPIGetAiProvidersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiProvidersExecute(r)
 }
 
@@ -6871,19 +6167,16 @@ func (a *AiAPIService) GetAiProviders(ctx context.Context) AiAPIGetAiProvidersRe
 }
 
 // Execute executes the request
-//
-//	@return GetAiProviders200Response
-func (a *AiAPIService) GetAiProvidersExecute(r AiAPIGetAiProvidersRequest) (*GetAiProviders200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiProvidersExecute(r AiAPIGetAiProvidersRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiProviders200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiProviders")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers"
@@ -6902,7 +6195,7 @@ func (a *AiAPIService) GetAiProvidersExecute(r AiAPIGetAiProvidersRequest) (*Get
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6911,19 +6204,19 @@ func (a *AiAPIService) GetAiProvidersExecute(r AiAPIGetAiProvidersRequest) (*Get
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -6931,19 +6224,10 @@ func (a *AiAPIService) GetAiProvidersExecute(r AiAPIGetAiProvidersRequest) (*Get
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiProvidersByOwnerByNameRequest struct {
@@ -6953,7 +6237,7 @@ type AiAPIGetAiProvidersByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiProvidersByOwnerByNameRequest) Execute() (*PostAiProviders200Response, *http.Response, error) {
+func (r AiAPIGetAiProvidersByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiProvidersByOwnerByNameExecute(r)
 }
 
@@ -6963,8 +6247,8 @@ GetAiProvidersByOwnerByName Retrieve a provider
 Read one provider by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiProvidersByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiProvidersByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiProvidersByOwnerByNameRequest {
@@ -6977,19 +6261,16 @@ func (a *AiAPIService) GetAiProvidersByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiProviders200Response
-func (a *AiAPIService) GetAiProvidersByOwnerByNameExecute(r AiAPIGetAiProvidersByOwnerByNameRequest) (*PostAiProviders200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiProvidersByOwnerByNameExecute(r AiAPIGetAiProvidersByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiProviders200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiProvidersByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers/{owner}/{name}"
@@ -7010,7 +6291,7 @@ func (a *AiAPIService) GetAiProvidersByOwnerByNameExecute(r AiAPIGetAiProvidersB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7019,19 +6300,19 @@ func (a *AiAPIService) GetAiProvidersByOwnerByNameExecute(r AiAPIGetAiProvidersB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7039,19 +6320,10 @@ func (a *AiAPIService) GetAiProvidersByOwnerByNameExecute(r AiAPIGetAiProvidersB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiProvidersGlobalRequest struct {
@@ -7059,7 +6331,7 @@ type AiAPIGetAiProvidersGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiProvidersGlobalRequest) Execute() (*GetAiProviders200Response, *http.Response, error) {
+func (r AiAPIGetAiProvidersGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiProvidersGlobalExecute(r)
 }
 
@@ -7079,19 +6351,16 @@ func (a *AiAPIService) GetAiProvidersGlobal(ctx context.Context) AiAPIGetAiProvi
 }
 
 // Execute executes the request
-//
-//	@return GetAiProviders200Response
-func (a *AiAPIService) GetAiProvidersGlobalExecute(r AiAPIGetAiProvidersGlobalRequest) (*GetAiProviders200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiProvidersGlobalExecute(r AiAPIGetAiProvidersGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiProviders200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiProvidersGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers/global"
@@ -7110,7 +6379,7 @@ func (a *AiAPIService) GetAiProvidersGlobalExecute(r AiAPIGetAiProvidersGlobalRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7119,19 +6388,19 @@ func (a *AiAPIService) GetAiProvidersGlobalExecute(r AiAPIGetAiProvidersGlobalRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7139,19 +6408,10 @@ func (a *AiAPIService) GetAiProvidersGlobalExecute(r AiAPIGetAiProvidersGlobalRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiRecordsRequest struct {
@@ -7159,7 +6419,7 @@ type AiAPIGetAiRecordsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiRecordsRequest) Execute() (*GetAiRecords200Response, *http.Response, error) {
+func (r AiAPIGetAiRecordsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiRecordsExecute(r)
 }
 
@@ -7179,19 +6439,16 @@ func (a *AiAPIService) GetAiRecords(ctx context.Context) AiAPIGetAiRecordsReques
 }
 
 // Execute executes the request
-//
-//	@return GetAiRecords200Response
-func (a *AiAPIService) GetAiRecordsExecute(r AiAPIGetAiRecordsRequest) (*GetAiRecords200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiRecordsExecute(r AiAPIGetAiRecordsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiRecords200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRecords")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records"
@@ -7210,7 +6467,7 @@ func (a *AiAPIService) GetAiRecordsExecute(r AiAPIGetAiRecordsRequest) (*GetAiRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7219,19 +6476,19 @@ func (a *AiAPIService) GetAiRecordsExecute(r AiAPIGetAiRecordsRequest) (*GetAiRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7239,19 +6496,10 @@ func (a *AiAPIService) GetAiRecordsExecute(r AiAPIGetAiRecordsRequest) (*GetAiRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiRecordsByOwnerByNameRequest struct {
@@ -7261,7 +6509,7 @@ type AiAPIGetAiRecordsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiRecordsByOwnerByNameRequest) Execute() (*PostAiRecords200Response, *http.Response, error) {
+func (r AiAPIGetAiRecordsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiRecordsByOwnerByNameExecute(r)
 }
 
@@ -7271,8 +6519,8 @@ GetAiRecordsByOwnerByName Retrieve a record
 Read one record by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiRecordsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiRecordsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiRecordsByOwnerByNameRequest {
@@ -7285,19 +6533,16 @@ func (a *AiAPIService) GetAiRecordsByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiRecords200Response
-func (a *AiAPIService) GetAiRecordsByOwnerByNameExecute(r AiAPIGetAiRecordsByOwnerByNameRequest) (*PostAiRecords200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiRecordsByOwnerByNameExecute(r AiAPIGetAiRecordsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRecords200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRecordsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/{owner}/{name}"
@@ -7318,7 +6563,7 @@ func (a *AiAPIService) GetAiRecordsByOwnerByNameExecute(r AiAPIGetAiRecordsByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7327,19 +6572,19 @@ func (a *AiAPIService) GetAiRecordsByOwnerByNameExecute(r AiAPIGetAiRecordsByOwn
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7347,19 +6592,10 @@ func (a *AiAPIService) GetAiRecordsByOwnerByNameExecute(r AiAPIGetAiRecordsByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiRecordsQueryRequest struct {
@@ -7367,7 +6603,7 @@ type AiAPIGetAiRecordsQueryRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiRecordsQueryRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiRecordsQueryRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiRecordsQueryExecute(r)
 }
 
@@ -7385,19 +6621,16 @@ func (a *AiAPIService) GetAiRecordsQuery(ctx context.Context) AiAPIGetAiRecordsQ
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiRecordsQueryExecute(r AiAPIGetAiRecordsQueryRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiRecordsQueryExecute(r AiAPIGetAiRecordsQueryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRecordsQuery")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/query"
@@ -7416,7 +6649,7 @@ func (a *AiAPIService) GetAiRecordsQueryExecute(r AiAPIGetAiRecordsQueryRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7425,19 +6658,19 @@ func (a *AiAPIService) GetAiRecordsQueryExecute(r AiAPIGetAiRecordsQueryRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7445,19 +6678,10 @@ func (a *AiAPIService) GetAiRecordsQueryExecute(r AiAPIGetAiRecordsQueryRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiRecordsQuerySecondRequest struct {
@@ -7465,7 +6689,7 @@ type AiAPIGetAiRecordsQuerySecondRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiRecordsQuerySecondRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiRecordsQuerySecondRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiRecordsQuerySecondExecute(r)
 }
 
@@ -7483,19 +6707,16 @@ func (a *AiAPIService) GetAiRecordsQuerySecond(ctx context.Context) AiAPIGetAiRe
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiRecordsQuerySecondExecute(r AiAPIGetAiRecordsQuerySecondRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiRecordsQuerySecondExecute(r AiAPIGetAiRecordsQuerySecondRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRecordsQuerySecond")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/query-second"
@@ -7514,7 +6735,7 @@ func (a *AiAPIService) GetAiRecordsQuerySecondExecute(r AiAPIGetAiRecordsQuerySe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7523,19 +6744,19 @@ func (a *AiAPIService) GetAiRecordsQuerySecondExecute(r AiAPIGetAiRecordsQuerySe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7543,19 +6764,10 @@ func (a *AiAPIService) GetAiRecordsQuerySecondExecute(r AiAPIGetAiRecordsQuerySe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiRemoteConnectionsRequest struct {
@@ -7563,7 +6775,7 @@ type AiAPIGetAiRemoteConnectionsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiRemoteConnectionsRequest) Execute() (*GetAiRemoteConnections200Response, *http.Response, error) {
+func (r AiAPIGetAiRemoteConnectionsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiRemoteConnectionsExecute(r)
 }
 
@@ -7583,19 +6795,16 @@ func (a *AiAPIService) GetAiRemoteConnections(ctx context.Context) AiAPIGetAiRem
 }
 
 // Execute executes the request
-//
-//	@return GetAiRemoteConnections200Response
-func (a *AiAPIService) GetAiRemoteConnectionsExecute(r AiAPIGetAiRemoteConnectionsRequest) (*GetAiRemoteConnections200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiRemoteConnectionsExecute(r AiAPIGetAiRemoteConnectionsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiRemoteConnections200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRemoteConnections")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/remote-connections"
@@ -7614,7 +6823,7 @@ func (a *AiAPIService) GetAiRemoteConnectionsExecute(r AiAPIGetAiRemoteConnectio
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7623,19 +6832,19 @@ func (a *AiAPIService) GetAiRemoteConnectionsExecute(r AiAPIGetAiRemoteConnectio
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7643,19 +6852,10 @@ func (a *AiAPIService) GetAiRemoteConnectionsExecute(r AiAPIGetAiRemoteConnectio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiRemoteConnectionsByOwnerByNameRequest struct {
@@ -7665,7 +6865,7 @@ type AiAPIGetAiRemoteConnectionsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiRemoteConnectionsByOwnerByNameRequest) Execute() (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (r AiAPIGetAiRemoteConnectionsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiRemoteConnectionsByOwnerByNameExecute(r)
 }
 
@@ -7675,8 +6875,8 @@ GetAiRemoteConnectionsByOwnerByName Retrieve a connection
 Read one connection by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiRemoteConnectionsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiRemoteConnectionsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiRemoteConnectionsByOwnerByNameRequest {
@@ -7689,19 +6889,16 @@ func (a *AiAPIService) GetAiRemoteConnectionsByOwnerByName(ctx context.Context, 
 }
 
 // Execute executes the request
-//
-//	@return PostAiRemoteConnections200Response
-func (a *AiAPIService) GetAiRemoteConnectionsByOwnerByNameExecute(r AiAPIGetAiRemoteConnectionsByOwnerByNameRequest) (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiRemoteConnectionsByOwnerByNameExecute(r AiAPIGetAiRemoteConnectionsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRemoteConnections200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRemoteConnectionsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}"
@@ -7722,7 +6919,7 @@ func (a *AiAPIService) GetAiRemoteConnectionsByOwnerByNameExecute(r AiAPIGetAiRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7731,19 +6928,19 @@ func (a *AiAPIService) GetAiRemoteConnectionsByOwnerByNameExecute(r AiAPIGetAiRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7751,19 +6948,10 @@ func (a *AiAPIService) GetAiRemoteConnectionsByOwnerByNameExecute(r AiAPIGetAiRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiRoutesRequest struct {
@@ -7771,7 +6959,7 @@ type AiAPIGetAiRoutesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiRoutesRequest) Execute() (*GetAiRoutes200Response, *http.Response, error) {
+func (r AiAPIGetAiRoutesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiRoutesExecute(r)
 }
 
@@ -7791,19 +6979,16 @@ func (a *AiAPIService) GetAiRoutes(ctx context.Context) AiAPIGetAiRoutesRequest 
 }
 
 // Execute executes the request
-//
-//	@return GetAiRoutes200Response
-func (a *AiAPIService) GetAiRoutesExecute(r AiAPIGetAiRoutesRequest) (*GetAiRoutes200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiRoutesExecute(r AiAPIGetAiRoutesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiRoutes200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRoutes")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/routes"
@@ -7822,7 +7007,7 @@ func (a *AiAPIService) GetAiRoutesExecute(r AiAPIGetAiRoutesRequest) (*GetAiRout
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7831,19 +7016,19 @@ func (a *AiAPIService) GetAiRoutesExecute(r AiAPIGetAiRoutesRequest) (*GetAiRout
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7851,19 +7036,10 @@ func (a *AiAPIService) GetAiRoutesExecute(r AiAPIGetAiRoutesRequest) (*GetAiRout
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiRoutesByOwnerByNameRequest struct {
@@ -7873,7 +7049,7 @@ type AiAPIGetAiRoutesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiRoutesByOwnerByNameRequest) Execute() (*PostAiRoutes200Response, *http.Response, error) {
+func (r AiAPIGetAiRoutesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiRoutesByOwnerByNameExecute(r)
 }
 
@@ -7883,8 +7059,8 @@ GetAiRoutesByOwnerByName Retrieve a model-route
 Read one model-route by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiRoutesByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiRoutesByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiRoutesByOwnerByNameRequest {
@@ -7897,19 +7073,16 @@ func (a *AiAPIService) GetAiRoutesByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiRoutes200Response
-func (a *AiAPIService) GetAiRoutesByOwnerByNameExecute(r AiAPIGetAiRoutesByOwnerByNameRequest) (*PostAiRoutes200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiRoutesByOwnerByNameExecute(r AiAPIGetAiRoutesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRoutes200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRoutesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/routes/{owner}/{name}"
@@ -7930,7 +7103,7 @@ func (a *AiAPIService) GetAiRoutesByOwnerByNameExecute(r AiAPIGetAiRoutesByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7939,19 +7112,19 @@ func (a *AiAPIService) GetAiRoutesByOwnerByNameExecute(r AiAPIGetAiRoutesByOwner
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -7959,19 +7132,10 @@ func (a *AiAPIService) GetAiRoutesByOwnerByNameExecute(r AiAPIGetAiRoutesByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiScalesRequest struct {
@@ -7979,7 +7143,7 @@ type AiAPIGetAiScalesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiScalesRequest) Execute() (*GetAiScales200Response, *http.Response, error) {
+func (r AiAPIGetAiScalesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiScalesExecute(r)
 }
 
@@ -7999,19 +7163,16 @@ func (a *AiAPIService) GetAiScales(ctx context.Context) AiAPIGetAiScalesRequest 
 }
 
 // Execute executes the request
-//
-//	@return GetAiScales200Response
-func (a *AiAPIService) GetAiScalesExecute(r AiAPIGetAiScalesRequest) (*GetAiScales200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiScalesExecute(r AiAPIGetAiScalesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiScales200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiScales")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scales"
@@ -8030,7 +7191,7 @@ func (a *AiAPIService) GetAiScalesExecute(r AiAPIGetAiScalesRequest) (*GetAiScal
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8039,19 +7200,19 @@ func (a *AiAPIService) GetAiScalesExecute(r AiAPIGetAiScalesRequest) (*GetAiScal
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8059,19 +7220,10 @@ func (a *AiAPIService) GetAiScalesExecute(r AiAPIGetAiScalesRequest) (*GetAiScal
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiScalesByOwnerByNameRequest struct {
@@ -8081,7 +7233,7 @@ type AiAPIGetAiScalesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiScalesByOwnerByNameRequest) Execute() (*PostAiScales200Response, *http.Response, error) {
+func (r AiAPIGetAiScalesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiScalesByOwnerByNameExecute(r)
 }
 
@@ -8091,8 +7243,8 @@ GetAiScalesByOwnerByName Retrieve a scale
 Read one scale by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiScalesByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiScalesByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiScalesByOwnerByNameRequest {
@@ -8105,19 +7257,16 @@ func (a *AiAPIService) GetAiScalesByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiScales200Response
-func (a *AiAPIService) GetAiScalesByOwnerByNameExecute(r AiAPIGetAiScalesByOwnerByNameRequest) (*PostAiScales200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiScalesByOwnerByNameExecute(r AiAPIGetAiScalesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScales200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiScalesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scales/{owner}/{name}"
@@ -8138,7 +7287,7 @@ func (a *AiAPIService) GetAiScalesByOwnerByNameExecute(r AiAPIGetAiScalesByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8147,19 +7296,19 @@ func (a *AiAPIService) GetAiScalesByOwnerByNameExecute(r AiAPIGetAiScalesByOwner
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8167,19 +7316,10 @@ func (a *AiAPIService) GetAiScalesByOwnerByNameExecute(r AiAPIGetAiScalesByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiScalesGlobalRequest struct {
@@ -8187,7 +7327,7 @@ type AiAPIGetAiScalesGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiScalesGlobalRequest) Execute() (*GetAiScales200Response, *http.Response, error) {
+func (r AiAPIGetAiScalesGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiScalesGlobalExecute(r)
 }
 
@@ -8207,19 +7347,16 @@ func (a *AiAPIService) GetAiScalesGlobal(ctx context.Context) AiAPIGetAiScalesGl
 }
 
 // Execute executes the request
-//
-//	@return GetAiScales200Response
-func (a *AiAPIService) GetAiScalesGlobalExecute(r AiAPIGetAiScalesGlobalRequest) (*GetAiScales200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiScalesGlobalExecute(r AiAPIGetAiScalesGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiScales200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiScalesGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scales/global"
@@ -8238,7 +7375,7 @@ func (a *AiAPIService) GetAiScalesGlobalExecute(r AiAPIGetAiScalesGlobalRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8247,19 +7384,19 @@ func (a *AiAPIService) GetAiScalesGlobalExecute(r AiAPIGetAiScalesGlobalRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8267,19 +7404,10 @@ func (a *AiAPIService) GetAiScalesGlobalExecute(r AiAPIGetAiScalesGlobalRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiScalesPublicRequest struct {
@@ -8287,7 +7415,7 @@ type AiAPIGetAiScalesPublicRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiScalesPublicRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiScalesPublicRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiScalesPublicExecute(r)
 }
 
@@ -8305,19 +7433,16 @@ func (a *AiAPIService) GetAiScalesPublic(ctx context.Context) AiAPIGetAiScalesPu
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiScalesPublicExecute(r AiAPIGetAiScalesPublicRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiScalesPublicExecute(r AiAPIGetAiScalesPublicRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiScalesPublic")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scales/public"
@@ -8336,7 +7461,7 @@ func (a *AiAPIService) GetAiScalesPublicExecute(r AiAPIGetAiScalesPublicRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8345,19 +7470,19 @@ func (a *AiAPIService) GetAiScalesPublicExecute(r AiAPIGetAiScalesPublicRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8365,19 +7490,10 @@ func (a *AiAPIService) GetAiScalesPublicExecute(r AiAPIGetAiScalesPublicRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiScansRequest struct {
@@ -8385,7 +7501,7 @@ type AiAPIGetAiScansRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiScansRequest) Execute() (*GetAiScans200Response, *http.Response, error) {
+func (r AiAPIGetAiScansRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiScansExecute(r)
 }
 
@@ -8405,19 +7521,16 @@ func (a *AiAPIService) GetAiScans(ctx context.Context) AiAPIGetAiScansRequest {
 }
 
 // Execute executes the request
-//
-//	@return GetAiScans200Response
-func (a *AiAPIService) GetAiScansExecute(r AiAPIGetAiScansRequest) (*GetAiScans200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiScansExecute(r AiAPIGetAiScansRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiScans200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiScans")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scans"
@@ -8436,7 +7549,7 @@ func (a *AiAPIService) GetAiScansExecute(r AiAPIGetAiScansRequest) (*GetAiScans2
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8445,19 +7558,19 @@ func (a *AiAPIService) GetAiScansExecute(r AiAPIGetAiScansRequest) (*GetAiScans2
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8465,19 +7578,10 @@ func (a *AiAPIService) GetAiScansExecute(r AiAPIGetAiScansRequest) (*GetAiScans2
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiScansByOwnerByNameRequest struct {
@@ -8487,7 +7591,7 @@ type AiAPIGetAiScansByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiScansByOwnerByNameRequest) Execute() (*PostAiScans200Response, *http.Response, error) {
+func (r AiAPIGetAiScansByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiScansByOwnerByNameExecute(r)
 }
 
@@ -8497,8 +7601,8 @@ GetAiScansByOwnerByName Retrieve a scan
 Read one scan by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiScansByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiScansByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiScansByOwnerByNameRequest {
@@ -8511,19 +7615,16 @@ func (a *AiAPIService) GetAiScansByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiScans200Response
-func (a *AiAPIService) GetAiScansByOwnerByNameExecute(r AiAPIGetAiScansByOwnerByNameRequest) (*PostAiScans200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiScansByOwnerByNameExecute(r AiAPIGetAiScansByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScans200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiScansByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scans/{owner}/{name}"
@@ -8544,7 +7645,7 @@ func (a *AiAPIService) GetAiScansByOwnerByNameExecute(r AiAPIGetAiScansByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8553,19 +7654,19 @@ func (a *AiAPIService) GetAiScansByOwnerByNameExecute(r AiAPIGetAiScansByOwnerBy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8573,19 +7674,10 @@ func (a *AiAPIService) GetAiScansByOwnerByNameExecute(r AiAPIGetAiScansByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiSigninSessionsRequest struct {
@@ -8593,7 +7685,7 @@ type AiAPIGetAiSigninSessionsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiSigninSessionsRequest) Execute() (*GetAiSigninSessions200Response, *http.Response, error) {
+func (r AiAPIGetAiSigninSessionsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiSigninSessionsExecute(r)
 }
 
@@ -8613,19 +7705,16 @@ func (a *AiAPIService) GetAiSigninSessions(ctx context.Context) AiAPIGetAiSignin
 }
 
 // Execute executes the request
-//
-//	@return GetAiSigninSessions200Response
-func (a *AiAPIService) GetAiSigninSessionsExecute(r AiAPIGetAiSigninSessionsRequest) (*GetAiSigninSessions200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiSigninSessionsExecute(r AiAPIGetAiSigninSessionsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiSigninSessions200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiSigninSessions")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signin-sessions"
@@ -8644,7 +7733,7 @@ func (a *AiAPIService) GetAiSigninSessionsExecute(r AiAPIGetAiSigninSessionsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8653,19 +7742,19 @@ func (a *AiAPIService) GetAiSigninSessionsExecute(r AiAPIGetAiSigninSessionsRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8673,19 +7762,10 @@ func (a *AiAPIService) GetAiSigninSessionsExecute(r AiAPIGetAiSigninSessionsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiSigninSessionsByOwnerByNameRequest struct {
@@ -8695,7 +7775,7 @@ type AiAPIGetAiSigninSessionsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiSigninSessionsByOwnerByNameRequest) Execute() (*PostAiSigninSessions200Response, *http.Response, error) {
+func (r AiAPIGetAiSigninSessionsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiSigninSessionsByOwnerByNameExecute(r)
 }
 
@@ -8705,8 +7785,8 @@ GetAiSigninSessionsByOwnerByName Retrieve a session
 Read one session by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiSigninSessionsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiSigninSessionsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiSigninSessionsByOwnerByNameRequest {
@@ -8719,19 +7799,16 @@ func (a *AiAPIService) GetAiSigninSessionsByOwnerByName(ctx context.Context, own
 }
 
 // Execute executes the request
-//
-//	@return PostAiSigninSessions200Response
-func (a *AiAPIService) GetAiSigninSessionsByOwnerByNameExecute(r AiAPIGetAiSigninSessionsByOwnerByNameRequest) (*PostAiSigninSessions200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiSigninSessionsByOwnerByNameExecute(r AiAPIGetAiSigninSessionsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiSigninSessions200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiSigninSessionsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signin-sessions/{owner}/{name}"
@@ -8752,7 +7829,7 @@ func (a *AiAPIService) GetAiSigninSessionsByOwnerByNameExecute(r AiAPIGetAiSigni
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8761,19 +7838,19 @@ func (a *AiAPIService) GetAiSigninSessionsByOwnerByNameExecute(r AiAPIGetAiSigni
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8781,19 +7858,10 @@ func (a *AiAPIService) GetAiSigninSessionsByOwnerByNameExecute(r AiAPIGetAiSigni
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiSigninSessionsDuplicatedRequest struct {
@@ -8801,7 +7869,7 @@ type AiAPIGetAiSigninSessionsDuplicatedRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiSigninSessionsDuplicatedRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiSigninSessionsDuplicatedRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiSigninSessionsDuplicatedExecute(r)
 }
 
@@ -8819,19 +7887,16 @@ func (a *AiAPIService) GetAiSigninSessionsDuplicated(ctx context.Context) AiAPIG
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiSigninSessionsDuplicatedExecute(r AiAPIGetAiSigninSessionsDuplicatedRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiSigninSessionsDuplicatedExecute(r AiAPIGetAiSigninSessionsDuplicatedRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiSigninSessionsDuplicated")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signin-sessions/duplicated"
@@ -8850,7 +7915,7 @@ func (a *AiAPIService) GetAiSigninSessionsDuplicatedExecute(r AiAPIGetAiSigninSe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8859,19 +7924,19 @@ func (a *AiAPIService) GetAiSigninSessionsDuplicatedExecute(r AiAPIGetAiSigninSe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8879,19 +7944,10 @@ func (a *AiAPIService) GetAiSigninSessionsDuplicatedExecute(r AiAPIGetAiSigninSe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiStoresRequest struct {
@@ -8899,7 +7955,7 @@ type AiAPIGetAiStoresRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiStoresRequest) Execute() (*GetAiStores200Response, *http.Response, error) {
+func (r AiAPIGetAiStoresRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiStoresExecute(r)
 }
 
@@ -8919,19 +7975,16 @@ func (a *AiAPIService) GetAiStores(ctx context.Context) AiAPIGetAiStoresRequest 
 }
 
 // Execute executes the request
-//
-//	@return GetAiStores200Response
-func (a *AiAPIService) GetAiStoresExecute(r AiAPIGetAiStoresRequest) (*GetAiStores200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiStoresExecute(r AiAPIGetAiStoresRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiStores200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiStores")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores"
@@ -8950,7 +8003,7 @@ func (a *AiAPIService) GetAiStoresExecute(r AiAPIGetAiStoresRequest) (*GetAiStor
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8959,19 +8012,19 @@ func (a *AiAPIService) GetAiStoresExecute(r AiAPIGetAiStoresRequest) (*GetAiStor
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -8979,19 +8032,10 @@ func (a *AiAPIService) GetAiStoresExecute(r AiAPIGetAiStoresRequest) (*GetAiStor
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiStoresByOwnerByNameRequest struct {
@@ -9001,7 +8045,7 @@ type AiAPIGetAiStoresByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiStoresByOwnerByNameRequest) Execute() (*PostAiStores200Response, *http.Response, error) {
+func (r AiAPIGetAiStoresByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiStoresByOwnerByNameExecute(r)
 }
 
@@ -9011,8 +8055,8 @@ GetAiStoresByOwnerByName Retrieve a store
 Read one store by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiStoresByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiStoresByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiStoresByOwnerByNameRequest {
@@ -9025,19 +8069,16 @@ func (a *AiAPIService) GetAiStoresByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiStores200Response
-func (a *AiAPIService) GetAiStoresByOwnerByNameExecute(r AiAPIGetAiStoresByOwnerByNameRequest) (*PostAiStores200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiStoresByOwnerByNameExecute(r AiAPIGetAiStoresByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiStores200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiStoresByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores/{owner}/{name}"
@@ -9058,7 +8099,7 @@ func (a *AiAPIService) GetAiStoresByOwnerByNameExecute(r AiAPIGetAiStoresByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9067,19 +8108,19 @@ func (a *AiAPIService) GetAiStoresByOwnerByNameExecute(r AiAPIGetAiStoresByOwner
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9087,19 +8128,10 @@ func (a *AiAPIService) GetAiStoresByOwnerByNameExecute(r AiAPIGetAiStoresByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiStoresGlobalRequest struct {
@@ -9107,7 +8139,7 @@ type AiAPIGetAiStoresGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiStoresGlobalRequest) Execute() (*GetAiStores200Response, *http.Response, error) {
+func (r AiAPIGetAiStoresGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiStoresGlobalExecute(r)
 }
 
@@ -9127,19 +8159,16 @@ func (a *AiAPIService) GetAiStoresGlobal(ctx context.Context) AiAPIGetAiStoresGl
 }
 
 // Execute executes the request
-//
-//	@return GetAiStores200Response
-func (a *AiAPIService) GetAiStoresGlobalExecute(r AiAPIGetAiStoresGlobalRequest) (*GetAiStores200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiStoresGlobalExecute(r AiAPIGetAiStoresGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiStores200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiStoresGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores/global"
@@ -9158,7 +8187,7 @@ func (a *AiAPIService) GetAiStoresGlobalExecute(r AiAPIGetAiStoresGlobalRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9167,19 +8196,19 @@ func (a *AiAPIService) GetAiStoresGlobalExecute(r AiAPIGetAiStoresGlobalRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9187,19 +8216,10 @@ func (a *AiAPIService) GetAiStoresGlobalExecute(r AiAPIGetAiStoresGlobalRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiStoresNamesRequest struct {
@@ -9207,7 +8227,7 @@ type AiAPIGetAiStoresNamesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiStoresNamesRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiStoresNamesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiStoresNamesExecute(r)
 }
 
@@ -9225,19 +8245,16 @@ func (a *AiAPIService) GetAiStoresNames(ctx context.Context) AiAPIGetAiStoresNam
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiStoresNamesExecute(r AiAPIGetAiStoresNamesRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiStoresNamesExecute(r AiAPIGetAiStoresNamesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiStoresNames")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores/names"
@@ -9256,7 +8273,7 @@ func (a *AiAPIService) GetAiStoresNamesExecute(r AiAPIGetAiStoresNamesRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9265,19 +8282,19 @@ func (a *AiAPIService) GetAiStoresNamesExecute(r AiAPIGetAiStoresNamesRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9285,19 +8302,10 @@ func (a *AiAPIService) GetAiStoresNamesExecute(r AiAPIGetAiStoresNamesRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiStoresProvidersRequest struct {
@@ -9305,7 +8313,7 @@ type AiAPIGetAiStoresProvidersRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiStoresProvidersRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiStoresProvidersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiStoresProvidersExecute(r)
 }
 
@@ -9323,19 +8331,16 @@ func (a *AiAPIService) GetAiStoresProviders(ctx context.Context) AiAPIGetAiStore
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiStoresProvidersExecute(r AiAPIGetAiStoresProvidersRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiStoresProvidersExecute(r AiAPIGetAiStoresProvidersRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiStoresProviders")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores/providers"
@@ -9354,7 +8359,7 @@ func (a *AiAPIService) GetAiStoresProvidersExecute(r AiAPIGetAiStoresProvidersRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9363,19 +8368,19 @@ func (a *AiAPIService) GetAiStoresProvidersExecute(r AiAPIGetAiStoresProvidersRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9383,19 +8388,10 @@ func (a *AiAPIService) GetAiStoresProvidersExecute(r AiAPIGetAiStoresProvidersRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiSystemRequest struct {
@@ -9403,7 +8399,7 @@ type AiAPIGetAiSystemRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiSystemRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiSystemRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiSystemExecute(r)
 }
 
@@ -9421,19 +8417,16 @@ func (a *AiAPIService) GetAiSystem(ctx context.Context) AiAPIGetAiSystemRequest 
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiSystemExecute(r AiAPIGetAiSystemRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiSystemExecute(r AiAPIGetAiSystemRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiSystem")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/system"
@@ -9452,7 +8445,7 @@ func (a *AiAPIService) GetAiSystemExecute(r AiAPIGetAiSystemRequest) (*Envelope,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9461,19 +8454,19 @@ func (a *AiAPIService) GetAiSystemExecute(r AiAPIGetAiSystemRequest) (*Envelope,
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9481,19 +8474,10 @@ func (a *AiAPIService) GetAiSystemExecute(r AiAPIGetAiSystemRequest) (*Envelope,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiTasksRequest struct {
@@ -9501,7 +8485,7 @@ type AiAPIGetAiTasksRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiTasksRequest) Execute() (*GetAiTasks200Response, *http.Response, error) {
+func (r AiAPIGetAiTasksRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiTasksExecute(r)
 }
 
@@ -9521,19 +8505,16 @@ func (a *AiAPIService) GetAiTasks(ctx context.Context) AiAPIGetAiTasksRequest {
 }
 
 // Execute executes the request
-//
-//	@return GetAiTasks200Response
-func (a *AiAPIService) GetAiTasksExecute(r AiAPIGetAiTasksRequest) (*GetAiTasks200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiTasksExecute(r AiAPIGetAiTasksRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiTasks200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiTasks")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks"
@@ -9552,7 +8533,7 @@ func (a *AiAPIService) GetAiTasksExecute(r AiAPIGetAiTasksRequest) (*GetAiTasks2
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9561,19 +8542,19 @@ func (a *AiAPIService) GetAiTasksExecute(r AiAPIGetAiTasksRequest) (*GetAiTasks2
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9581,19 +8562,10 @@ func (a *AiAPIService) GetAiTasksExecute(r AiAPIGetAiTasksRequest) (*GetAiTasks2
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiTasksByOwnerByNameRequest struct {
@@ -9603,7 +8575,7 @@ type AiAPIGetAiTasksByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiTasksByOwnerByNameRequest) Execute() (*PostAiTasks200Response, *http.Response, error) {
+func (r AiAPIGetAiTasksByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiTasksByOwnerByNameExecute(r)
 }
 
@@ -9613,8 +8585,8 @@ GetAiTasksByOwnerByName Retrieve a task
 Read one task by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiTasksByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiTasksByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiTasksByOwnerByNameRequest {
@@ -9627,19 +8599,16 @@ func (a *AiAPIService) GetAiTasksByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiTasks200Response
-func (a *AiAPIService) GetAiTasksByOwnerByNameExecute(r AiAPIGetAiTasksByOwnerByNameRequest) (*PostAiTasks200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiTasksByOwnerByNameExecute(r AiAPIGetAiTasksByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTasks200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiTasksByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks/{owner}/{name}"
@@ -9660,7 +8629,7 @@ func (a *AiAPIService) GetAiTasksByOwnerByNameExecute(r AiAPIGetAiTasksByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9669,19 +8638,19 @@ func (a *AiAPIService) GetAiTasksByOwnerByNameExecute(r AiAPIGetAiTasksByOwnerBy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9689,19 +8658,10 @@ func (a *AiAPIService) GetAiTasksByOwnerByNameExecute(r AiAPIGetAiTasksByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiTasksGlobalRequest struct {
@@ -9709,7 +8669,7 @@ type AiAPIGetAiTasksGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiTasksGlobalRequest) Execute() (*GetAiTasks200Response, *http.Response, error) {
+func (r AiAPIGetAiTasksGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiTasksGlobalExecute(r)
 }
 
@@ -9729,19 +8689,16 @@ func (a *AiAPIService) GetAiTasksGlobal(ctx context.Context) AiAPIGetAiTasksGlob
 }
 
 // Execute executes the request
-//
-//	@return GetAiTasks200Response
-func (a *AiAPIService) GetAiTasksGlobalExecute(r AiAPIGetAiTasksGlobalRequest) (*GetAiTasks200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiTasksGlobalExecute(r AiAPIGetAiTasksGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiTasks200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiTasksGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks/global"
@@ -9760,7 +8717,7 @@ func (a *AiAPIService) GetAiTasksGlobalExecute(r AiAPIGetAiTasksGlobalRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9769,19 +8726,19 @@ func (a *AiAPIService) GetAiTasksGlobalExecute(r AiAPIGetAiTasksGlobalRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9789,19 +8746,10 @@ func (a *AiAPIService) GetAiTasksGlobalExecute(r AiAPIGetAiTasksGlobalRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiTemplatesRequest struct {
@@ -9809,7 +8757,7 @@ type AiAPIGetAiTemplatesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiTemplatesRequest) Execute() (*GetAiTemplates200Response, *http.Response, error) {
+func (r AiAPIGetAiTemplatesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiTemplatesExecute(r)
 }
 
@@ -9829,19 +8777,16 @@ func (a *AiAPIService) GetAiTemplates(ctx context.Context) AiAPIGetAiTemplatesRe
 }
 
 // Execute executes the request
-//
-//	@return GetAiTemplates200Response
-func (a *AiAPIService) GetAiTemplatesExecute(r AiAPIGetAiTemplatesRequest) (*GetAiTemplates200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiTemplatesExecute(r AiAPIGetAiTemplatesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiTemplates200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiTemplates")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/templates"
@@ -9860,7 +8805,7 @@ func (a *AiAPIService) GetAiTemplatesExecute(r AiAPIGetAiTemplatesRequest) (*Get
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9869,19 +8814,19 @@ func (a *AiAPIService) GetAiTemplatesExecute(r AiAPIGetAiTemplatesRequest) (*Get
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9889,19 +8834,10 @@ func (a *AiAPIService) GetAiTemplatesExecute(r AiAPIGetAiTemplatesRequest) (*Get
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiTemplatesByOwnerByNameRequest struct {
@@ -9911,7 +8847,7 @@ type AiAPIGetAiTemplatesByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiTemplatesByOwnerByNameRequest) Execute() (*PostAiTemplates200Response, *http.Response, error) {
+func (r AiAPIGetAiTemplatesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiTemplatesByOwnerByNameExecute(r)
 }
 
@@ -9921,8 +8857,8 @@ GetAiTemplatesByOwnerByName Retrieve a template
 Read one template by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiTemplatesByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiTemplatesByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiTemplatesByOwnerByNameRequest {
@@ -9935,19 +8871,16 @@ func (a *AiAPIService) GetAiTemplatesByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiTemplates200Response
-func (a *AiAPIService) GetAiTemplatesByOwnerByNameExecute(r AiAPIGetAiTemplatesByOwnerByNameRequest) (*PostAiTemplates200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiTemplatesByOwnerByNameExecute(r AiAPIGetAiTemplatesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTemplates200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiTemplatesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/templates/{owner}/{name}"
@@ -9968,7 +8901,7 @@ func (a *AiAPIService) GetAiTemplatesByOwnerByNameExecute(r AiAPIGetAiTemplatesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9977,19 +8910,19 @@ func (a *AiAPIService) GetAiTemplatesByOwnerByNameExecute(r AiAPIGetAiTemplatesB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -9997,19 +8930,10 @@ func (a *AiAPIService) GetAiTemplatesByOwnerByNameExecute(r AiAPIGetAiTemplatesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiTrainingContributionRequest struct {
@@ -10017,7 +8941,7 @@ type AiAPIGetAiTrainingContributionRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiTrainingContributionRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiTrainingContributionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiTrainingContributionExecute(r)
 }
 
@@ -10035,19 +8959,16 @@ func (a *AiAPIService) GetAiTrainingContribution(ctx context.Context) AiAPIGetAi
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiTrainingContributionExecute(r AiAPIGetAiTrainingContributionRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiTrainingContributionExecute(r AiAPIGetAiTrainingContributionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiTrainingContribution")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/training-contribution"
@@ -10066,7 +8987,7 @@ func (a *AiAPIService) GetAiTrainingContributionExecute(r AiAPIGetAiTrainingCont
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10075,19 +8996,19 @@ func (a *AiAPIService) GetAiTrainingContributionExecute(r AiAPIGetAiTrainingCont
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10095,19 +9016,10 @@ func (a *AiAPIService) GetAiTrainingContributionExecute(r AiAPIGetAiTrainingCont
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiUsagesRequest struct {
@@ -10115,7 +9027,7 @@ type AiAPIGetAiUsagesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiUsagesRequest) Execute() (*GetAiUsages200Response, *http.Response, error) {
+func (r AiAPIGetAiUsagesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiUsagesExecute(r)
 }
 
@@ -10135,19 +9047,16 @@ func (a *AiAPIService) GetAiUsages(ctx context.Context) AiAPIGetAiUsagesRequest 
 }
 
 // Execute executes the request
-//
-//	@return GetAiUsages200Response
-func (a *AiAPIService) GetAiUsagesExecute(r AiAPIGetAiUsagesRequest) (*GetAiUsages200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiUsagesExecute(r AiAPIGetAiUsagesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiUsages200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiUsages")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/usages"
@@ -10166,7 +9075,7 @@ func (a *AiAPIService) GetAiUsagesExecute(r AiAPIGetAiUsagesRequest) (*GetAiUsag
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10175,19 +9084,19 @@ func (a *AiAPIService) GetAiUsagesExecute(r AiAPIGetAiUsagesRequest) (*GetAiUsag
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10195,19 +9104,10 @@ func (a *AiAPIService) GetAiUsagesExecute(r AiAPIGetAiUsagesRequest) (*GetAiUsag
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiUsagesByUserRequest struct {
@@ -10215,7 +9115,7 @@ type AiAPIGetAiUsagesByUserRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiUsagesByUserRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiUsagesByUserRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiUsagesByUserExecute(r)
 }
 
@@ -10233,19 +9133,16 @@ func (a *AiAPIService) GetAiUsagesByUser(ctx context.Context) AiAPIGetAiUsagesBy
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiUsagesByUserExecute(r AiAPIGetAiUsagesByUserRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiUsagesByUserExecute(r AiAPIGetAiUsagesByUserRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiUsagesByUser")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/usages/by-user"
@@ -10264,7 +9161,7 @@ func (a *AiAPIService) GetAiUsagesByUserExecute(r AiAPIGetAiUsagesByUserRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10273,19 +9170,19 @@ func (a *AiAPIService) GetAiUsagesByUserExecute(r AiAPIGetAiUsagesByUserRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10293,19 +9190,10 @@ func (a *AiAPIService) GetAiUsagesByUserExecute(r AiAPIGetAiUsagesByUserRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiUsagesCloudRequest struct {
@@ -10313,7 +9201,7 @@ type AiAPIGetAiUsagesCloudRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiUsagesCloudRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiUsagesCloudRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiUsagesCloudExecute(r)
 }
 
@@ -10331,19 +9219,16 @@ func (a *AiAPIService) GetAiUsagesCloud(ctx context.Context) AiAPIGetAiUsagesClo
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiUsagesCloudExecute(r AiAPIGetAiUsagesCloudRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiUsagesCloudExecute(r AiAPIGetAiUsagesCloudRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiUsagesCloud")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/usages/cloud"
@@ -10362,7 +9247,7 @@ func (a *AiAPIService) GetAiUsagesCloudExecute(r AiAPIGetAiUsagesCloudRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10371,19 +9256,19 @@ func (a *AiAPIService) GetAiUsagesCloudExecute(r AiAPIGetAiUsagesCloudRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10391,19 +9276,10 @@ func (a *AiAPIService) GetAiUsagesCloudExecute(r AiAPIGetAiUsagesCloudRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiUsagesRangeRequest struct {
@@ -10411,7 +9287,7 @@ type AiAPIGetAiUsagesRangeRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiUsagesRangeRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiUsagesRangeRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiUsagesRangeExecute(r)
 }
 
@@ -10429,19 +9305,16 @@ func (a *AiAPIService) GetAiUsagesRange(ctx context.Context) AiAPIGetAiUsagesRan
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiUsagesRangeExecute(r AiAPIGetAiUsagesRangeRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiUsagesRangeExecute(r AiAPIGetAiUsagesRangeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiUsagesRange")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/usages/range"
@@ -10460,7 +9333,7 @@ func (a *AiAPIService) GetAiUsagesRangeExecute(r AiAPIGetAiUsagesRangeRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10469,19 +9342,19 @@ func (a *AiAPIService) GetAiUsagesRangeExecute(r AiAPIGetAiUsagesRangeRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10489,19 +9362,10 @@ func (a *AiAPIService) GetAiUsagesRangeExecute(r AiAPIGetAiUsagesRangeRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiUsagesUserNamesRequest struct {
@@ -10509,7 +9373,7 @@ type AiAPIGetAiUsagesUserNamesRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiUsagesUserNamesRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiUsagesUserNamesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiUsagesUserNamesExecute(r)
 }
 
@@ -10527,19 +9391,16 @@ func (a *AiAPIService) GetAiUsagesUserNames(ctx context.Context) AiAPIGetAiUsage
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiUsagesUserNamesExecute(r AiAPIGetAiUsagesUserNamesRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiUsagesUserNamesExecute(r AiAPIGetAiUsagesUserNamesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiUsagesUserNames")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/usages/user-names"
@@ -10558,7 +9419,7 @@ func (a *AiAPIService) GetAiUsagesUserNamesExecute(r AiAPIGetAiUsagesUserNamesRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10567,19 +9428,19 @@ func (a *AiAPIService) GetAiUsagesUserNamesExecute(r AiAPIGetAiUsagesUserNamesRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10587,19 +9448,10 @@ func (a *AiAPIService) GetAiUsagesUserNamesExecute(r AiAPIGetAiUsagesUserNamesRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiVectorsRequest struct {
@@ -10607,7 +9459,7 @@ type AiAPIGetAiVectorsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiVectorsRequest) Execute() (*GetAiVectors200Response, *http.Response, error) {
+func (r AiAPIGetAiVectorsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiVectorsExecute(r)
 }
 
@@ -10627,19 +9479,16 @@ func (a *AiAPIService) GetAiVectors(ctx context.Context) AiAPIGetAiVectorsReques
 }
 
 // Execute executes the request
-//
-//	@return GetAiVectors200Response
-func (a *AiAPIService) GetAiVectorsExecute(r AiAPIGetAiVectorsRequest) (*GetAiVectors200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiVectorsExecute(r AiAPIGetAiVectorsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiVectors200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiVectors")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/vectors"
@@ -10658,7 +9507,7 @@ func (a *AiAPIService) GetAiVectorsExecute(r AiAPIGetAiVectorsRequest) (*GetAiVe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10667,19 +9516,19 @@ func (a *AiAPIService) GetAiVectorsExecute(r AiAPIGetAiVectorsRequest) (*GetAiVe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10687,19 +9536,10 @@ func (a *AiAPIService) GetAiVectorsExecute(r AiAPIGetAiVectorsRequest) (*GetAiVe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiVectorsByOwnerByNameRequest struct {
@@ -10709,7 +9549,7 @@ type AiAPIGetAiVectorsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiVectorsByOwnerByNameRequest) Execute() (*PostAiVectors200Response, *http.Response, error) {
+func (r AiAPIGetAiVectorsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiVectorsByOwnerByNameExecute(r)
 }
 
@@ -10719,8 +9559,8 @@ GetAiVectorsByOwnerByName Retrieve a vector
 Read one vector by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiVectorsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiVectorsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiVectorsByOwnerByNameRequest {
@@ -10733,19 +9573,16 @@ func (a *AiAPIService) GetAiVectorsByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiVectors200Response
-func (a *AiAPIService) GetAiVectorsByOwnerByNameExecute(r AiAPIGetAiVectorsByOwnerByNameRequest) (*PostAiVectors200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiVectorsByOwnerByNameExecute(r AiAPIGetAiVectorsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVectors200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiVectorsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/vectors/{owner}/{name}"
@@ -10766,7 +9603,7 @@ func (a *AiAPIService) GetAiVectorsByOwnerByNameExecute(r AiAPIGetAiVectorsByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10775,19 +9612,19 @@ func (a *AiAPIService) GetAiVectorsByOwnerByNameExecute(r AiAPIGetAiVectorsByOwn
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10795,19 +9632,10 @@ func (a *AiAPIService) GetAiVectorsByOwnerByNameExecute(r AiAPIGetAiVectorsByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiVectorsGlobalRequest struct {
@@ -10815,7 +9643,7 @@ type AiAPIGetAiVectorsGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiVectorsGlobalRequest) Execute() (*GetAiVectors200Response, *http.Response, error) {
+func (r AiAPIGetAiVectorsGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiVectorsGlobalExecute(r)
 }
 
@@ -10835,19 +9663,16 @@ func (a *AiAPIService) GetAiVectorsGlobal(ctx context.Context) AiAPIGetAiVectors
 }
 
 // Execute executes the request
-//
-//	@return GetAiVectors200Response
-func (a *AiAPIService) GetAiVectorsGlobalExecute(r AiAPIGetAiVectorsGlobalRequest) (*GetAiVectors200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiVectorsGlobalExecute(r AiAPIGetAiVectorsGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiVectors200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiVectorsGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/vectors/global"
@@ -10866,7 +9691,7 @@ func (a *AiAPIService) GetAiVectorsGlobalExecute(r AiAPIGetAiVectorsGlobalReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10875,19 +9700,19 @@ func (a *AiAPIService) GetAiVectorsGlobalExecute(r AiAPIGetAiVectorsGlobalReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10895,19 +9720,10 @@ func (a *AiAPIService) GetAiVectorsGlobalExecute(r AiAPIGetAiVectorsGlobalReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiVersionRequest struct {
@@ -10915,7 +9731,7 @@ type AiAPIGetAiVersionRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiVersionRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIGetAiVersionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiVersionExecute(r)
 }
 
@@ -10933,19 +9749,16 @@ func (a *AiAPIService) GetAiVersion(ctx context.Context) AiAPIGetAiVersionReques
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) GetAiVersionExecute(r AiAPIGetAiVersionRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) GetAiVersionExecute(r AiAPIGetAiVersionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiVersion")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/version"
@@ -10964,7 +9777,7 @@ func (a *AiAPIService) GetAiVersionExecute(r AiAPIGetAiVersionRequest) (*Envelop
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10973,19 +9786,19 @@ func (a *AiAPIService) GetAiVersionExecute(r AiAPIGetAiVersionRequest) (*Envelop
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -10993,19 +9806,10 @@ func (a *AiAPIService) GetAiVersionExecute(r AiAPIGetAiVersionRequest) (*Envelop
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiVideosRequest struct {
@@ -11013,7 +9817,7 @@ type AiAPIGetAiVideosRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiVideosRequest) Execute() (*GetAiVideos200Response, *http.Response, error) {
+func (r AiAPIGetAiVideosRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiVideosExecute(r)
 }
 
@@ -11033,19 +9837,16 @@ func (a *AiAPIService) GetAiVideos(ctx context.Context) AiAPIGetAiVideosRequest 
 }
 
 // Execute executes the request
-//
-//	@return GetAiVideos200Response
-func (a *AiAPIService) GetAiVideosExecute(r AiAPIGetAiVideosRequest) (*GetAiVideos200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiVideosExecute(r AiAPIGetAiVideosRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiVideos200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiVideos")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/videos"
@@ -11064,7 +9865,7 @@ func (a *AiAPIService) GetAiVideosExecute(r AiAPIGetAiVideosRequest) (*GetAiVide
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11073,19 +9874,19 @@ func (a *AiAPIService) GetAiVideosExecute(r AiAPIGetAiVideosRequest) (*GetAiVide
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11093,19 +9894,10 @@ func (a *AiAPIService) GetAiVideosExecute(r AiAPIGetAiVideosRequest) (*GetAiVide
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiVideosByOwnerByNameRequest struct {
@@ -11115,7 +9907,7 @@ type AiAPIGetAiVideosByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiVideosByOwnerByNameRequest) Execute() (*PostAiVideos200Response, *http.Response, error) {
+func (r AiAPIGetAiVideosByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiVideosByOwnerByNameExecute(r)
 }
 
@@ -11125,8 +9917,8 @@ GetAiVideosByOwnerByName Retrieve a video
 Read one video by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiVideosByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiVideosByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiVideosByOwnerByNameRequest {
@@ -11139,19 +9931,16 @@ func (a *AiAPIService) GetAiVideosByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiVideos200Response
-func (a *AiAPIService) GetAiVideosByOwnerByNameExecute(r AiAPIGetAiVideosByOwnerByNameRequest) (*PostAiVideos200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiVideosByOwnerByNameExecute(r AiAPIGetAiVideosByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVideos200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiVideosByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/videos/{owner}/{name}"
@@ -11172,7 +9961,7 @@ func (a *AiAPIService) GetAiVideosByOwnerByNameExecute(r AiAPIGetAiVideosByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11181,19 +9970,19 @@ func (a *AiAPIService) GetAiVideosByOwnerByNameExecute(r AiAPIGetAiVideosByOwner
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11201,19 +9990,10 @@ func (a *AiAPIService) GetAiVideosByOwnerByNameExecute(r AiAPIGetAiVideosByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiVideosGlobalRequest struct {
@@ -11221,7 +10001,7 @@ type AiAPIGetAiVideosGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiVideosGlobalRequest) Execute() (*GetAiVideos200Response, *http.Response, error) {
+func (r AiAPIGetAiVideosGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiVideosGlobalExecute(r)
 }
 
@@ -11241,19 +10021,16 @@ func (a *AiAPIService) GetAiVideosGlobal(ctx context.Context) AiAPIGetAiVideosGl
 }
 
 // Execute executes the request
-//
-//	@return GetAiVideos200Response
-func (a *AiAPIService) GetAiVideosGlobalExecute(r AiAPIGetAiVideosGlobalRequest) (*GetAiVideos200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiVideosGlobalExecute(r AiAPIGetAiVideosGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiVideos200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiVideosGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/videos/global"
@@ -11272,7 +10049,7 @@ func (a *AiAPIService) GetAiVideosGlobalExecute(r AiAPIGetAiVideosGlobalRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11281,19 +10058,19 @@ func (a *AiAPIService) GetAiVideosGlobalExecute(r AiAPIGetAiVideosGlobalRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11301,19 +10078,10 @@ func (a *AiAPIService) GetAiVideosGlobalExecute(r AiAPIGetAiVideosGlobalRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiWorkflowsRequest struct {
@@ -11321,7 +10089,7 @@ type AiAPIGetAiWorkflowsRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiWorkflowsRequest) Execute() (*GetAiWorkflows200Response, *http.Response, error) {
+func (r AiAPIGetAiWorkflowsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiWorkflowsExecute(r)
 }
 
@@ -11341,19 +10109,16 @@ func (a *AiAPIService) GetAiWorkflows(ctx context.Context) AiAPIGetAiWorkflowsRe
 }
 
 // Execute executes the request
-//
-//	@return GetAiWorkflows200Response
-func (a *AiAPIService) GetAiWorkflowsExecute(r AiAPIGetAiWorkflowsRequest) (*GetAiWorkflows200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiWorkflowsExecute(r AiAPIGetAiWorkflowsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiWorkflows200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiWorkflows")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/workflows"
@@ -11372,7 +10137,7 @@ func (a *AiAPIService) GetAiWorkflowsExecute(r AiAPIGetAiWorkflowsRequest) (*Get
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11381,19 +10146,19 @@ func (a *AiAPIService) GetAiWorkflowsExecute(r AiAPIGetAiWorkflowsRequest) (*Get
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11401,19 +10166,10 @@ func (a *AiAPIService) GetAiWorkflowsExecute(r AiAPIGetAiWorkflowsRequest) (*Get
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiWorkflowsByOwnerByNameRequest struct {
@@ -11423,7 +10179,7 @@ type AiAPIGetAiWorkflowsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r AiAPIGetAiWorkflowsByOwnerByNameRequest) Execute() (*PostAiWorkflows200Response, *http.Response, error) {
+func (r AiAPIGetAiWorkflowsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiWorkflowsByOwnerByNameExecute(r)
 }
 
@@ -11433,8 +10189,8 @@ GetAiWorkflowsByOwnerByName Retrieve a workflow
 Read one workflow by its (owner, name) key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIGetAiWorkflowsByOwnerByNameRequest
 */
 func (a *AiAPIService) GetAiWorkflowsByOwnerByName(ctx context.Context, owner string, name string) AiAPIGetAiWorkflowsByOwnerByNameRequest {
@@ -11447,19 +10203,16 @@ func (a *AiAPIService) GetAiWorkflowsByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiWorkflows200Response
-func (a *AiAPIService) GetAiWorkflowsByOwnerByNameExecute(r AiAPIGetAiWorkflowsByOwnerByNameRequest) (*PostAiWorkflows200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiWorkflowsByOwnerByNameExecute(r AiAPIGetAiWorkflowsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiWorkflows200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiWorkflowsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/workflows/{owner}/{name}"
@@ -11480,7 +10233,7 @@ func (a *AiAPIService) GetAiWorkflowsByOwnerByNameExecute(r AiAPIGetAiWorkflowsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11489,19 +10242,19 @@ func (a *AiAPIService) GetAiWorkflowsByOwnerByNameExecute(r AiAPIGetAiWorkflowsB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11509,19 +10262,10 @@ func (a *AiAPIService) GetAiWorkflowsByOwnerByNameExecute(r AiAPIGetAiWorkflowsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiWorkflowsGlobalRequest struct {
@@ -11529,7 +10273,7 @@ type AiAPIGetAiWorkflowsGlobalRequest struct {
 	ApiService *AiAPIService
 }
 
-func (r AiAPIGetAiWorkflowsGlobalRequest) Execute() (*GetAiWorkflows200Response, *http.Response, error) {
+func (r AiAPIGetAiWorkflowsGlobalRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetAiWorkflowsGlobalExecute(r)
 }
 
@@ -11549,19 +10293,16 @@ func (a *AiAPIService) GetAiWorkflowsGlobal(ctx context.Context) AiAPIGetAiWorkf
 }
 
 // Execute executes the request
-//
-//	@return GetAiWorkflows200Response
-func (a *AiAPIService) GetAiWorkflowsGlobalExecute(r AiAPIGetAiWorkflowsGlobalRequest) (*GetAiWorkflows200Response, *http.Response, error) {
+func (a *AiAPIService) GetAiWorkflowsGlobalExecute(r AiAPIGetAiWorkflowsGlobalRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetAiWorkflows200Response
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiWorkflowsGlobal")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/workflows/global"
@@ -11580,7 +10321,7 @@ func (a *AiAPIService) GetAiWorkflowsGlobalExecute(r AiAPIGetAiWorkflowsGlobalRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11589,19 +10330,19 @@ func (a *AiAPIService) GetAiWorkflowsGlobalExecute(r AiAPIGetAiWorkflowsGlobalRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11609,19 +10350,10 @@ func (a *AiAPIService) GetAiWorkflowsGlobalExecute(r AiAPIGetAiWorkflowsGlobalRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiArticlesByOwnerByNameRequest struct {
@@ -11629,15 +10361,9 @@ type AiAPIPatchAiArticlesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiArticlesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiArticlesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiArticlesByOwnerByNameRequest) Execute() (*PostAiArticles200Response, *http.Response, error) {
+func (r AiAPIPatchAiArticlesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiArticlesByOwnerByNameExecute(r)
 }
 
@@ -11647,8 +10373,8 @@ PatchAiArticlesByOwnerByName Update a article
 Update one article. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiArticlesByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiArticlesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiArticlesByOwnerByNameRequest {
@@ -11661,19 +10387,16 @@ func (a *AiAPIService) PatchAiArticlesByOwnerByName(ctx context.Context, owner s
 }
 
 // Execute executes the request
-//
-//	@return PostAiArticles200Response
-func (a *AiAPIService) PatchAiArticlesByOwnerByNameExecute(r AiAPIPatchAiArticlesByOwnerByNameRequest) (*PostAiArticles200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiArticlesByOwnerByNameExecute(r AiAPIPatchAiArticlesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiArticles200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiArticlesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/articles/{owner}/{name}"
@@ -11683,12 +10406,9 @@ func (a *AiAPIService) PatchAiArticlesByOwnerByNameExecute(r AiAPIPatchAiArticle
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -11697,30 +10417,28 @@ func (a *AiAPIService) PatchAiArticlesByOwnerByNameExecute(r AiAPIPatchAiArticle
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11728,19 +10446,10 @@ func (a *AiAPIService) PatchAiArticlesByOwnerByNameExecute(r AiAPIPatchAiArticle
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiAssetsByOwnerByNameRequest struct {
@@ -11748,15 +10457,9 @@ type AiAPIPatchAiAssetsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiAssetsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiAssetsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiAssetsByOwnerByNameRequest) Execute() (*PostAiAssets200Response, *http.Response, error) {
+func (r AiAPIPatchAiAssetsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiAssetsByOwnerByNameExecute(r)
 }
 
@@ -11766,8 +10469,8 @@ PatchAiAssetsByOwnerByName Update a asset
 Update one asset. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiAssetsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiAssetsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiAssetsByOwnerByNameRequest {
@@ -11780,19 +10483,16 @@ func (a *AiAPIService) PatchAiAssetsByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiAssets200Response
-func (a *AiAPIService) PatchAiAssetsByOwnerByNameExecute(r AiAPIPatchAiAssetsByOwnerByNameRequest) (*PostAiAssets200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiAssetsByOwnerByNameExecute(r AiAPIPatchAiAssetsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiAssets200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiAssetsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/assets/{owner}/{name}"
@@ -11802,12 +10502,9 @@ func (a *AiAPIService) PatchAiAssetsByOwnerByNameExecute(r AiAPIPatchAiAssetsByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -11816,30 +10513,28 @@ func (a *AiAPIService) PatchAiAssetsByOwnerByNameExecute(r AiAPIPatchAiAssetsByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11847,19 +10542,10 @@ func (a *AiAPIService) PatchAiAssetsByOwnerByNameExecute(r AiAPIPatchAiAssetsByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiChatsByOwnerByNameRequest struct {
@@ -11867,15 +10553,9 @@ type AiAPIPatchAiChatsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiChatsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiChatsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiChatsByOwnerByNameRequest) Execute() (*PostAiChats200Response, *http.Response, error) {
+func (r AiAPIPatchAiChatsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiChatsByOwnerByNameExecute(r)
 }
 
@@ -11885,8 +10565,8 @@ PatchAiChatsByOwnerByName Update a chat
 Update one chat. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiChatsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiChatsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiChatsByOwnerByNameRequest {
@@ -11899,19 +10579,16 @@ func (a *AiAPIService) PatchAiChatsByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiChats200Response
-func (a *AiAPIService) PatchAiChatsByOwnerByNameExecute(r AiAPIPatchAiChatsByOwnerByNameRequest) (*PostAiChats200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiChatsByOwnerByNameExecute(r AiAPIPatchAiChatsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiChats200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiChatsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/chats/{owner}/{name}"
@@ -11921,12 +10598,9 @@ func (a *AiAPIService) PatchAiChatsByOwnerByNameExecute(r AiAPIPatchAiChatsByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -11935,30 +10609,28 @@ func (a *AiAPIService) PatchAiChatsByOwnerByNameExecute(r AiAPIPatchAiChatsByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -11966,19 +10638,10 @@ func (a *AiAPIService) PatchAiChatsByOwnerByNameExecute(r AiAPIPatchAiChatsByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiDeploymentsByOwnerByNameRequest struct {
@@ -11986,15 +10649,9 @@ type AiAPIPatchAiDeploymentsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiDeploymentsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiDeploymentsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiDeploymentsByOwnerByNameRequest) Execute() (*PostAiDeployments200Response, *http.Response, error) {
+func (r AiAPIPatchAiDeploymentsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiDeploymentsByOwnerByNameExecute(r)
 }
 
@@ -12004,8 +10661,8 @@ PatchAiDeploymentsByOwnerByName Update a application
 Update one application. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiDeploymentsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiDeploymentsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiDeploymentsByOwnerByNameRequest {
@@ -12018,19 +10675,16 @@ func (a *AiAPIService) PatchAiDeploymentsByOwnerByName(ctx context.Context, owne
 }
 
 // Execute executes the request
-//
-//	@return PostAiDeployments200Response
-func (a *AiAPIService) PatchAiDeploymentsByOwnerByNameExecute(r AiAPIPatchAiDeploymentsByOwnerByNameRequest) (*PostAiDeployments200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiDeploymentsByOwnerByNameExecute(r AiAPIPatchAiDeploymentsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiDeployments200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiDeploymentsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/deployments/{owner}/{name}"
@@ -12040,12 +10694,9 @@ func (a *AiAPIService) PatchAiDeploymentsByOwnerByNameExecute(r AiAPIPatchAiDepl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12054,30 +10705,28 @@ func (a *AiAPIService) PatchAiDeploymentsByOwnerByNameExecute(r AiAPIPatchAiDepl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -12085,19 +10734,10 @@ func (a *AiAPIService) PatchAiDeploymentsByOwnerByNameExecute(r AiAPIPatchAiDepl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiFilesByOwnerByNameRequest struct {
@@ -12105,15 +10745,9 @@ type AiAPIPatchAiFilesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiFilesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiFilesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiFilesByOwnerByNameRequest) Execute() (*PostAiFiles200Response, *http.Response, error) {
+func (r AiAPIPatchAiFilesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiFilesByOwnerByNameExecute(r)
 }
 
@@ -12123,8 +10757,8 @@ PatchAiFilesByOwnerByName Update a file
 Update one file. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiFilesByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiFilesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiFilesByOwnerByNameRequest {
@@ -12137,19 +10771,16 @@ func (a *AiAPIService) PatchAiFilesByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiFiles200Response
-func (a *AiAPIService) PatchAiFilesByOwnerByNameExecute(r AiAPIPatchAiFilesByOwnerByNameRequest) (*PostAiFiles200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiFilesByOwnerByNameExecute(r AiAPIPatchAiFilesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiFiles200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiFilesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/{owner}/{name}"
@@ -12159,12 +10790,9 @@ func (a *AiAPIService) PatchAiFilesByOwnerByNameExecute(r AiAPIPatchAiFilesByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12173,30 +10801,28 @@ func (a *AiAPIService) PatchAiFilesByOwnerByNameExecute(r AiAPIPatchAiFilesByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -12204,19 +10830,10 @@ func (a *AiAPIService) PatchAiFilesByOwnerByNameExecute(r AiAPIPatchAiFilesByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiFormsByOwnerByNameRequest struct {
@@ -12224,15 +10841,9 @@ type AiAPIPatchAiFormsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiFormsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiFormsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiFormsByOwnerByNameRequest) Execute() (*PostAiForms200Response, *http.Response, error) {
+func (r AiAPIPatchAiFormsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiFormsByOwnerByNameExecute(r)
 }
 
@@ -12242,8 +10853,8 @@ PatchAiFormsByOwnerByName Update a form
 Update one form. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiFormsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiFormsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiFormsByOwnerByNameRequest {
@@ -12256,19 +10867,16 @@ func (a *AiAPIService) PatchAiFormsByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiForms200Response
-func (a *AiAPIService) PatchAiFormsByOwnerByNameExecute(r AiAPIPatchAiFormsByOwnerByNameRequest) (*PostAiForms200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiFormsByOwnerByNameExecute(r AiAPIPatchAiFormsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiForms200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiFormsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/forms/{owner}/{name}"
@@ -12278,12 +10886,9 @@ func (a *AiAPIService) PatchAiFormsByOwnerByNameExecute(r AiAPIPatchAiFormsByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12292,30 +10897,28 @@ func (a *AiAPIService) PatchAiFormsByOwnerByNameExecute(r AiAPIPatchAiFormsByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -12323,19 +10926,10 @@ func (a *AiAPIService) PatchAiFormsByOwnerByNameExecute(r AiAPIPatchAiFormsByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiGraphsByOwnerByNameRequest struct {
@@ -12343,15 +10937,9 @@ type AiAPIPatchAiGraphsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiGraphsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiGraphsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiGraphsByOwnerByNameRequest) Execute() (*PostAiGraphs200Response, *http.Response, error) {
+func (r AiAPIPatchAiGraphsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiGraphsByOwnerByNameExecute(r)
 }
 
@@ -12361,8 +10949,8 @@ PatchAiGraphsByOwnerByName Update a graph
 Update one graph. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiGraphsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiGraphsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiGraphsByOwnerByNameRequest {
@@ -12375,19 +10963,16 @@ func (a *AiAPIService) PatchAiGraphsByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiGraphs200Response
-func (a *AiAPIService) PatchAiGraphsByOwnerByNameExecute(r AiAPIPatchAiGraphsByOwnerByNameRequest) (*PostAiGraphs200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiGraphsByOwnerByNameExecute(r AiAPIPatchAiGraphsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiGraphs200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiGraphsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/graphs/{owner}/{name}"
@@ -12397,12 +10982,9 @@ func (a *AiAPIService) PatchAiGraphsByOwnerByNameExecute(r AiAPIPatchAiGraphsByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12411,30 +10993,28 @@ func (a *AiAPIService) PatchAiGraphsByOwnerByNameExecute(r AiAPIPatchAiGraphsByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -12442,19 +11022,10 @@ func (a *AiAPIService) PatchAiGraphsByOwnerByNameExecute(r AiAPIPatchAiGraphsByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiMessagesByOwnerByNameRequest struct {
@@ -12462,15 +11033,9 @@ type AiAPIPatchAiMessagesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiMessagesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiMessagesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiMessagesByOwnerByNameRequest) Execute() (*PostAiMessages200Response, *http.Response, error) {
+func (r AiAPIPatchAiMessagesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiMessagesByOwnerByNameExecute(r)
 }
 
@@ -12480,8 +11045,8 @@ PatchAiMessagesByOwnerByName Update a message
 Update one message. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiMessagesByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiMessagesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiMessagesByOwnerByNameRequest {
@@ -12494,19 +11059,16 @@ func (a *AiAPIService) PatchAiMessagesByOwnerByName(ctx context.Context, owner s
 }
 
 // Execute executes the request
-//
-//	@return PostAiMessages200Response
-func (a *AiAPIService) PatchAiMessagesByOwnerByNameExecute(r AiAPIPatchAiMessagesByOwnerByNameRequest) (*PostAiMessages200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiMessagesByOwnerByNameExecute(r AiAPIPatchAiMessagesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiMessages200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiMessagesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages/{owner}/{name}"
@@ -12516,12 +11078,9 @@ func (a *AiAPIService) PatchAiMessagesByOwnerByNameExecute(r AiAPIPatchAiMessage
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12530,30 +11089,28 @@ func (a *AiAPIService) PatchAiMessagesByOwnerByNameExecute(r AiAPIPatchAiMessage
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -12561,19 +11118,10 @@ func (a *AiAPIService) PatchAiMessagesByOwnerByNameExecute(r AiAPIPatchAiMessage
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiNodesByOwnerByNameRequest struct {
@@ -12581,15 +11129,9 @@ type AiAPIPatchAiNodesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiNodesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiNodesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiNodesByOwnerByNameRequest) Execute() (*PostAiNodes200Response, *http.Response, error) {
+func (r AiAPIPatchAiNodesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiNodesByOwnerByNameExecute(r)
 }
 
@@ -12599,8 +11141,8 @@ PatchAiNodesByOwnerByName Update a node
 Update one node. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiNodesByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiNodesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiNodesByOwnerByNameRequest {
@@ -12613,19 +11155,16 @@ func (a *AiAPIService) PatchAiNodesByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiNodes200Response
-func (a *AiAPIService) PatchAiNodesByOwnerByNameExecute(r AiAPIPatchAiNodesByOwnerByNameRequest) (*PostAiNodes200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiNodesByOwnerByNameExecute(r AiAPIPatchAiNodesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiNodes200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiNodesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/nodes/{owner}/{name}"
@@ -12635,12 +11174,9 @@ func (a *AiAPIService) PatchAiNodesByOwnerByNameExecute(r AiAPIPatchAiNodesByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12649,30 +11185,28 @@ func (a *AiAPIService) PatchAiNodesByOwnerByNameExecute(r AiAPIPatchAiNodesByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -12680,33 +11214,18 @@ func (a *AiAPIService) PatchAiNodesByOwnerByNameExecute(r AiAPIPatchAiNodesByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiPreferencesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiPreferencesRequest) Body(body map[string]interface{}) AiAPIPatchAiPreferencesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiPreferencesRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPatchAiPreferencesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiPreferencesExecute(r)
 }
 
@@ -12724,19 +11243,16 @@ func (a *AiAPIService) PatchAiPreferences(ctx context.Context) AiAPIPatchAiPrefe
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PatchAiPreferencesExecute(r AiAPIPatchAiPreferencesRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PatchAiPreferencesExecute(r AiAPIPatchAiPreferencesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiPreferences")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/preferences"
@@ -12744,12 +11260,9 @@ func (a *AiAPIService) PatchAiPreferencesExecute(r AiAPIPatchAiPreferencesReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12758,30 +11271,28 @@ func (a *AiAPIService) PatchAiPreferencesExecute(r AiAPIPatchAiPreferencesReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -12789,19 +11300,10 @@ func (a *AiAPIService) PatchAiPreferencesExecute(r AiAPIPatchAiPreferencesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiProvidersByOwnerByNameRequest struct {
@@ -12809,15 +11311,9 @@ type AiAPIPatchAiProvidersByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiProvidersByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiProvidersByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiProvidersByOwnerByNameRequest) Execute() (*PostAiProviders200Response, *http.Response, error) {
+func (r AiAPIPatchAiProvidersByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiProvidersByOwnerByNameExecute(r)
 }
 
@@ -12827,8 +11323,8 @@ PatchAiProvidersByOwnerByName Update a provider
 Update one provider. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiProvidersByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiProvidersByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiProvidersByOwnerByNameRequest {
@@ -12841,19 +11337,16 @@ func (a *AiAPIService) PatchAiProvidersByOwnerByName(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return PostAiProviders200Response
-func (a *AiAPIService) PatchAiProvidersByOwnerByNameExecute(r AiAPIPatchAiProvidersByOwnerByNameRequest) (*PostAiProviders200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiProvidersByOwnerByNameExecute(r AiAPIPatchAiProvidersByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiProviders200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiProvidersByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers/{owner}/{name}"
@@ -12863,12 +11356,9 @@ func (a *AiAPIService) PatchAiProvidersByOwnerByNameExecute(r AiAPIPatchAiProvid
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12877,30 +11367,28 @@ func (a *AiAPIService) PatchAiProvidersByOwnerByNameExecute(r AiAPIPatchAiProvid
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -12908,19 +11396,10 @@ func (a *AiAPIService) PatchAiProvidersByOwnerByNameExecute(r AiAPIPatchAiProvid
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiRecordsByOwnerByNameRequest struct {
@@ -12928,15 +11407,9 @@ type AiAPIPatchAiRecordsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiRecordsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiRecordsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiRecordsByOwnerByNameRequest) Execute() (*PostAiRecords200Response, *http.Response, error) {
+func (r AiAPIPatchAiRecordsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiRecordsByOwnerByNameExecute(r)
 }
 
@@ -12946,8 +11419,8 @@ PatchAiRecordsByOwnerByName Update a record
 Update one record. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiRecordsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiRecordsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiRecordsByOwnerByNameRequest {
@@ -12960,19 +11433,16 @@ func (a *AiAPIService) PatchAiRecordsByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiRecords200Response
-func (a *AiAPIService) PatchAiRecordsByOwnerByNameExecute(r AiAPIPatchAiRecordsByOwnerByNameRequest) (*PostAiRecords200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiRecordsByOwnerByNameExecute(r AiAPIPatchAiRecordsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRecords200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiRecordsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/{owner}/{name}"
@@ -12982,12 +11452,9 @@ func (a *AiAPIService) PatchAiRecordsByOwnerByNameExecute(r AiAPIPatchAiRecordsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -12996,30 +11463,28 @@ func (a *AiAPIService) PatchAiRecordsByOwnerByNameExecute(r AiAPIPatchAiRecordsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13027,19 +11492,10 @@ func (a *AiAPIService) PatchAiRecordsByOwnerByNameExecute(r AiAPIPatchAiRecordsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest struct {
@@ -13047,15 +11503,9 @@ type AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest) Execute() (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (r AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiRemoteConnectionsByOwnerByNameExecute(r)
 }
 
@@ -13065,8 +11515,8 @@ PatchAiRemoteConnectionsByOwnerByName Update a connection
 Update one connection. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest {
@@ -13079,19 +11529,16 @@ func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByName(ctx context.Context
 }
 
 // Execute executes the request
-//
-//	@return PostAiRemoteConnections200Response
-func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest) (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRemoteConnections200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiRemoteConnectionsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}"
@@ -13101,12 +11548,9 @@ func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPatch
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -13115,30 +11559,28 @@ func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPatch
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13146,19 +11588,10 @@ func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPatch
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiRoutesByOwnerByNameRequest struct {
@@ -13166,15 +11599,9 @@ type AiAPIPatchAiRoutesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiRoutesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiRoutesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiRoutesByOwnerByNameRequest) Execute() (*PostAiRoutes200Response, *http.Response, error) {
+func (r AiAPIPatchAiRoutesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiRoutesByOwnerByNameExecute(r)
 }
 
@@ -13184,8 +11611,8 @@ PatchAiRoutesByOwnerByName Update a model-route
 Update one model-route. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiRoutesByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiRoutesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiRoutesByOwnerByNameRequest {
@@ -13198,19 +11625,16 @@ func (a *AiAPIService) PatchAiRoutesByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiRoutes200Response
-func (a *AiAPIService) PatchAiRoutesByOwnerByNameExecute(r AiAPIPatchAiRoutesByOwnerByNameRequest) (*PostAiRoutes200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiRoutesByOwnerByNameExecute(r AiAPIPatchAiRoutesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRoutes200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiRoutesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/routes/{owner}/{name}"
@@ -13220,12 +11644,9 @@ func (a *AiAPIService) PatchAiRoutesByOwnerByNameExecute(r AiAPIPatchAiRoutesByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -13234,30 +11655,28 @@ func (a *AiAPIService) PatchAiRoutesByOwnerByNameExecute(r AiAPIPatchAiRoutesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13265,19 +11684,10 @@ func (a *AiAPIService) PatchAiRoutesByOwnerByNameExecute(r AiAPIPatchAiRoutesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiScalesByOwnerByNameRequest struct {
@@ -13285,15 +11695,9 @@ type AiAPIPatchAiScalesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiScalesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiScalesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiScalesByOwnerByNameRequest) Execute() (*PostAiScales200Response, *http.Response, error) {
+func (r AiAPIPatchAiScalesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiScalesByOwnerByNameExecute(r)
 }
 
@@ -13303,8 +11707,8 @@ PatchAiScalesByOwnerByName Update a scale
 Update one scale. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiScalesByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiScalesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiScalesByOwnerByNameRequest {
@@ -13317,19 +11721,16 @@ func (a *AiAPIService) PatchAiScalesByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiScales200Response
-func (a *AiAPIService) PatchAiScalesByOwnerByNameExecute(r AiAPIPatchAiScalesByOwnerByNameRequest) (*PostAiScales200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiScalesByOwnerByNameExecute(r AiAPIPatchAiScalesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScales200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiScalesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scales/{owner}/{name}"
@@ -13339,12 +11740,9 @@ func (a *AiAPIService) PatchAiScalesByOwnerByNameExecute(r AiAPIPatchAiScalesByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -13353,30 +11751,28 @@ func (a *AiAPIService) PatchAiScalesByOwnerByNameExecute(r AiAPIPatchAiScalesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13384,19 +11780,10 @@ func (a *AiAPIService) PatchAiScalesByOwnerByNameExecute(r AiAPIPatchAiScalesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiScansByOwnerByNameRequest struct {
@@ -13404,15 +11791,9 @@ type AiAPIPatchAiScansByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiScansByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiScansByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiScansByOwnerByNameRequest) Execute() (*PostAiScans200Response, *http.Response, error) {
+func (r AiAPIPatchAiScansByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiScansByOwnerByNameExecute(r)
 }
 
@@ -13422,8 +11803,8 @@ PatchAiScansByOwnerByName Update a scan
 Update one scan. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiScansByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiScansByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiScansByOwnerByNameRequest {
@@ -13436,19 +11817,16 @@ func (a *AiAPIService) PatchAiScansByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiScans200Response
-func (a *AiAPIService) PatchAiScansByOwnerByNameExecute(r AiAPIPatchAiScansByOwnerByNameRequest) (*PostAiScans200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiScansByOwnerByNameExecute(r AiAPIPatchAiScansByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScans200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiScansByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scans/{owner}/{name}"
@@ -13458,12 +11836,9 @@ func (a *AiAPIService) PatchAiScansByOwnerByNameExecute(r AiAPIPatchAiScansByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -13472,30 +11847,28 @@ func (a *AiAPIService) PatchAiScansByOwnerByNameExecute(r AiAPIPatchAiScansByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13503,19 +11876,10 @@ func (a *AiAPIService) PatchAiScansByOwnerByNameExecute(r AiAPIPatchAiScansByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiSigninSessionsByOwnerByNameRequest struct {
@@ -13523,15 +11887,9 @@ type AiAPIPatchAiSigninSessionsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiSigninSessionsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiSigninSessionsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiSigninSessionsByOwnerByNameRequest) Execute() (*PostAiSigninSessions200Response, *http.Response, error) {
+func (r AiAPIPatchAiSigninSessionsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiSigninSessionsByOwnerByNameExecute(r)
 }
 
@@ -13541,8 +11899,8 @@ PatchAiSigninSessionsByOwnerByName Update a session
 Update one session. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiSigninSessionsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiSigninSessionsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiSigninSessionsByOwnerByNameRequest {
@@ -13555,19 +11913,16 @@ func (a *AiAPIService) PatchAiSigninSessionsByOwnerByName(ctx context.Context, o
 }
 
 // Execute executes the request
-//
-//	@return PostAiSigninSessions200Response
-func (a *AiAPIService) PatchAiSigninSessionsByOwnerByNameExecute(r AiAPIPatchAiSigninSessionsByOwnerByNameRequest) (*PostAiSigninSessions200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiSigninSessionsByOwnerByNameExecute(r AiAPIPatchAiSigninSessionsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiSigninSessions200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiSigninSessionsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signin-sessions/{owner}/{name}"
@@ -13577,12 +11932,9 @@ func (a *AiAPIService) PatchAiSigninSessionsByOwnerByNameExecute(r AiAPIPatchAiS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -13591,30 +11943,28 @@ func (a *AiAPIService) PatchAiSigninSessionsByOwnerByNameExecute(r AiAPIPatchAiS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13622,19 +11972,10 @@ func (a *AiAPIService) PatchAiSigninSessionsByOwnerByNameExecute(r AiAPIPatchAiS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiStoresByOwnerByNameRequest struct {
@@ -13642,15 +11983,9 @@ type AiAPIPatchAiStoresByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiStoresByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiStoresByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiStoresByOwnerByNameRequest) Execute() (*PostAiStores200Response, *http.Response, error) {
+func (r AiAPIPatchAiStoresByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiStoresByOwnerByNameExecute(r)
 }
 
@@ -13660,8 +11995,8 @@ PatchAiStoresByOwnerByName Update a store
 Update one store. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiStoresByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiStoresByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiStoresByOwnerByNameRequest {
@@ -13674,19 +12009,16 @@ func (a *AiAPIService) PatchAiStoresByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiStores200Response
-func (a *AiAPIService) PatchAiStoresByOwnerByNameExecute(r AiAPIPatchAiStoresByOwnerByNameRequest) (*PostAiStores200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiStoresByOwnerByNameExecute(r AiAPIPatchAiStoresByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiStores200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiStoresByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores/{owner}/{name}"
@@ -13696,12 +12028,9 @@ func (a *AiAPIService) PatchAiStoresByOwnerByNameExecute(r AiAPIPatchAiStoresByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -13710,30 +12039,28 @@ func (a *AiAPIService) PatchAiStoresByOwnerByNameExecute(r AiAPIPatchAiStoresByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13741,19 +12068,10 @@ func (a *AiAPIService) PatchAiStoresByOwnerByNameExecute(r AiAPIPatchAiStoresByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiTasksByOwnerByNameRequest struct {
@@ -13761,15 +12079,9 @@ type AiAPIPatchAiTasksByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiTasksByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiTasksByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiTasksByOwnerByNameRequest) Execute() (*PostAiTasks200Response, *http.Response, error) {
+func (r AiAPIPatchAiTasksByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiTasksByOwnerByNameExecute(r)
 }
 
@@ -13779,8 +12091,8 @@ PatchAiTasksByOwnerByName Update a task
 Update one task. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiTasksByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiTasksByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiTasksByOwnerByNameRequest {
@@ -13793,19 +12105,16 @@ func (a *AiAPIService) PatchAiTasksByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiTasks200Response
-func (a *AiAPIService) PatchAiTasksByOwnerByNameExecute(r AiAPIPatchAiTasksByOwnerByNameRequest) (*PostAiTasks200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiTasksByOwnerByNameExecute(r AiAPIPatchAiTasksByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTasks200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiTasksByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks/{owner}/{name}"
@@ -13815,12 +12124,9 @@ func (a *AiAPIService) PatchAiTasksByOwnerByNameExecute(r AiAPIPatchAiTasksByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -13829,30 +12135,28 @@ func (a *AiAPIService) PatchAiTasksByOwnerByNameExecute(r AiAPIPatchAiTasksByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13860,19 +12164,10 @@ func (a *AiAPIService) PatchAiTasksByOwnerByNameExecute(r AiAPIPatchAiTasksByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiTemplatesByOwnerByNameRequest struct {
@@ -13880,15 +12175,9 @@ type AiAPIPatchAiTemplatesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiTemplatesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiTemplatesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiTemplatesByOwnerByNameRequest) Execute() (*PostAiTemplates200Response, *http.Response, error) {
+func (r AiAPIPatchAiTemplatesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiTemplatesByOwnerByNameExecute(r)
 }
 
@@ -13898,8 +12187,8 @@ PatchAiTemplatesByOwnerByName Update a template
 Update one template. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiTemplatesByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiTemplatesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiTemplatesByOwnerByNameRequest {
@@ -13912,19 +12201,16 @@ func (a *AiAPIService) PatchAiTemplatesByOwnerByName(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return PostAiTemplates200Response
-func (a *AiAPIService) PatchAiTemplatesByOwnerByNameExecute(r AiAPIPatchAiTemplatesByOwnerByNameRequest) (*PostAiTemplates200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiTemplatesByOwnerByNameExecute(r AiAPIPatchAiTemplatesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTemplates200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiTemplatesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/templates/{owner}/{name}"
@@ -13934,12 +12220,9 @@ func (a *AiAPIService) PatchAiTemplatesByOwnerByNameExecute(r AiAPIPatchAiTempla
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -13948,30 +12231,28 @@ func (a *AiAPIService) PatchAiTemplatesByOwnerByNameExecute(r AiAPIPatchAiTempla
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -13979,33 +12260,18 @@ func (a *AiAPIService) PatchAiTemplatesByOwnerByNameExecute(r AiAPIPatchAiTempla
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiTrainingContributionRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiTrainingContributionRequest) Body(body map[string]interface{}) AiAPIPatchAiTrainingContributionRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiTrainingContributionRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPatchAiTrainingContributionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiTrainingContributionExecute(r)
 }
 
@@ -14023,19 +12289,16 @@ func (a *AiAPIService) PatchAiTrainingContribution(ctx context.Context) AiAPIPat
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PatchAiTrainingContributionExecute(r AiAPIPatchAiTrainingContributionRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PatchAiTrainingContributionExecute(r AiAPIPatchAiTrainingContributionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiTrainingContribution")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/training-contribution"
@@ -14043,12 +12306,9 @@ func (a *AiAPIService) PatchAiTrainingContributionExecute(r AiAPIPatchAiTraining
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14057,30 +12317,28 @@ func (a *AiAPIService) PatchAiTrainingContributionExecute(r AiAPIPatchAiTraining
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -14088,19 +12346,10 @@ func (a *AiAPIService) PatchAiTrainingContributionExecute(r AiAPIPatchAiTraining
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiTreeFilesByOwnerByNameRequest struct {
@@ -14108,15 +12357,9 @@ type AiAPIPatchAiTreeFilesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiTreeFilesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiTreeFilesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiTreeFilesByOwnerByNameRequest) Execute() (*PostAiTreeFiles200Response, *http.Response, error) {
+func (r AiAPIPatchAiTreeFilesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiTreeFilesByOwnerByNameExecute(r)
 }
 
@@ -14126,8 +12369,8 @@ PatchAiTreeFilesByOwnerByName Update a tree-file
 Update one tree-file. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiTreeFilesByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiTreeFilesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiTreeFilesByOwnerByNameRequest {
@@ -14140,19 +12383,16 @@ func (a *AiAPIService) PatchAiTreeFilesByOwnerByName(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return PostAiTreeFiles200Response
-func (a *AiAPIService) PatchAiTreeFilesByOwnerByNameExecute(r AiAPIPatchAiTreeFilesByOwnerByNameRequest) (*PostAiTreeFiles200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiTreeFilesByOwnerByNameExecute(r AiAPIPatchAiTreeFilesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTreeFiles200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiTreeFilesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tree-files/{owner}/{name}"
@@ -14162,12 +12402,9 @@ func (a *AiAPIService) PatchAiTreeFilesByOwnerByNameExecute(r AiAPIPatchAiTreeFi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14176,30 +12413,28 @@ func (a *AiAPIService) PatchAiTreeFilesByOwnerByNameExecute(r AiAPIPatchAiTreeFi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -14207,19 +12442,10 @@ func (a *AiAPIService) PatchAiTreeFilesByOwnerByNameExecute(r AiAPIPatchAiTreeFi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiVectorsByOwnerByNameRequest struct {
@@ -14227,15 +12453,9 @@ type AiAPIPatchAiVectorsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiVectorsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiVectorsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiVectorsByOwnerByNameRequest) Execute() (*PostAiVectors200Response, *http.Response, error) {
+func (r AiAPIPatchAiVectorsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiVectorsByOwnerByNameExecute(r)
 }
 
@@ -14245,8 +12465,8 @@ PatchAiVectorsByOwnerByName Update a vector
 Update one vector. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiVectorsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiVectorsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiVectorsByOwnerByNameRequest {
@@ -14259,19 +12479,16 @@ func (a *AiAPIService) PatchAiVectorsByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiVectors200Response
-func (a *AiAPIService) PatchAiVectorsByOwnerByNameExecute(r AiAPIPatchAiVectorsByOwnerByNameRequest) (*PostAiVectors200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiVectorsByOwnerByNameExecute(r AiAPIPatchAiVectorsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVectors200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiVectorsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/vectors/{owner}/{name}"
@@ -14281,12 +12498,9 @@ func (a *AiAPIService) PatchAiVectorsByOwnerByNameExecute(r AiAPIPatchAiVectorsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14295,30 +12509,28 @@ func (a *AiAPIService) PatchAiVectorsByOwnerByNameExecute(r AiAPIPatchAiVectorsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -14326,19 +12538,10 @@ func (a *AiAPIService) PatchAiVectorsByOwnerByNameExecute(r AiAPIPatchAiVectorsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiVideosByOwnerByNameRequest struct {
@@ -14346,15 +12549,9 @@ type AiAPIPatchAiVideosByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiVideosByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiVideosByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiVideosByOwnerByNameRequest) Execute() (*PostAiVideos200Response, *http.Response, error) {
+func (r AiAPIPatchAiVideosByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiVideosByOwnerByNameExecute(r)
 }
 
@@ -14364,8 +12561,8 @@ PatchAiVideosByOwnerByName Update a video
 Update one video. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiVideosByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiVideosByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiVideosByOwnerByNameRequest {
@@ -14378,19 +12575,16 @@ func (a *AiAPIService) PatchAiVideosByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiVideos200Response
-func (a *AiAPIService) PatchAiVideosByOwnerByNameExecute(r AiAPIPatchAiVideosByOwnerByNameRequest) (*PostAiVideos200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiVideosByOwnerByNameExecute(r AiAPIPatchAiVideosByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVideos200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiVideosByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/videos/{owner}/{name}"
@@ -14400,12 +12594,9 @@ func (a *AiAPIService) PatchAiVideosByOwnerByNameExecute(r AiAPIPatchAiVideosByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14414,30 +12605,28 @@ func (a *AiAPIService) PatchAiVideosByOwnerByNameExecute(r AiAPIPatchAiVideosByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -14445,19 +12634,10 @@ func (a *AiAPIService) PatchAiVideosByOwnerByNameExecute(r AiAPIPatchAiVideosByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPatchAiWorkflowsByOwnerByNameRequest struct {
@@ -14465,15 +12645,9 @@ type AiAPIPatchAiWorkflowsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPatchAiWorkflowsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiWorkflowsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPatchAiWorkflowsByOwnerByNameRequest) Execute() (*PostAiWorkflows200Response, *http.Response, error) {
+func (r AiAPIPatchAiWorkflowsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchAiWorkflowsByOwnerByNameExecute(r)
 }
 
@@ -14483,8 +12657,8 @@ PatchAiWorkflowsByOwnerByName Update a workflow
 Update one workflow. PATCH and PUT reach the same handler, which has always taken a whole object.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPatchAiWorkflowsByOwnerByNameRequest
 */
 func (a *AiAPIService) PatchAiWorkflowsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPatchAiWorkflowsByOwnerByNameRequest {
@@ -14497,19 +12671,16 @@ func (a *AiAPIService) PatchAiWorkflowsByOwnerByName(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return PostAiWorkflows200Response
-func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkflowsByOwnerByNameRequest) (*PostAiWorkflows200Response, *http.Response, error) {
+func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkflowsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiWorkflows200Response
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiWorkflowsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/workflows/{owner}/{name}"
@@ -14519,12 +12690,9 @@ func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkfl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14533,30 +12701,28 @@ func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkfl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -14564,33 +12730,18 @@ func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkfl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiArticlesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiArticlesRequest) Body(body map[string]interface{}) AiAPIPostAiArticlesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiArticlesRequest) Execute() (*PostAiArticles200Response, *http.Response, error) {
+func (r AiAPIPostAiArticlesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiArticlesExecute(r)
 }
 
@@ -14610,19 +12761,16 @@ func (a *AiAPIService) PostAiArticles(ctx context.Context) AiAPIPostAiArticlesRe
 }
 
 // Execute executes the request
-//
-//	@return PostAiArticles200Response
-func (a *AiAPIService) PostAiArticlesExecute(r AiAPIPostAiArticlesRequest) (*PostAiArticles200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiArticlesExecute(r AiAPIPostAiArticlesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiArticles200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiArticles")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/articles"
@@ -14630,12 +12778,9 @@ func (a *AiAPIService) PostAiArticlesExecute(r AiAPIPostAiArticlesRequest) (*Pos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14644,30 +12789,28 @@ func (a *AiAPIService) PostAiArticlesExecute(r AiAPIPostAiArticlesRequest) (*Pos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -14675,33 +12818,18 @@ func (a *AiAPIService) PostAiArticlesExecute(r AiAPIPostAiArticlesRequest) (*Pos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiAssetsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiAssetsRequest) Body(body map[string]interface{}) AiAPIPostAiAssetsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiAssetsRequest) Execute() (*PostAiAssets200Response, *http.Response, error) {
+func (r AiAPIPostAiAssetsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiAssetsExecute(r)
 }
 
@@ -14721,19 +12849,16 @@ func (a *AiAPIService) PostAiAssets(ctx context.Context) AiAPIPostAiAssetsReques
 }
 
 // Execute executes the request
-//
-//	@return PostAiAssets200Response
-func (a *AiAPIService) PostAiAssetsExecute(r AiAPIPostAiAssetsRequest) (*PostAiAssets200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiAssetsExecute(r AiAPIPostAiAssetsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiAssets200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiAssets")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/assets"
@@ -14741,12 +12866,9 @@ func (a *AiAPIService) PostAiAssetsExecute(r AiAPIPostAiAssetsRequest) (*PostAiA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14755,30 +12877,28 @@ func (a *AiAPIService) PostAiAssetsExecute(r AiAPIPostAiAssetsRequest) (*PostAiA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -14786,19 +12906,10 @@ func (a *AiAPIService) PostAiAssetsExecute(r AiAPIPostAiAssetsRequest) (*PostAiA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiAssetsByOwnerByNameScanRequest struct {
@@ -14806,15 +12917,9 @@ type AiAPIPostAiAssetsByOwnerByNameScanRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiAssetsByOwnerByNameScanRequest) Body(body map[string]interface{}) AiAPIPostAiAssetsByOwnerByNameScanRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiAssetsByOwnerByNameScanRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiAssetsByOwnerByNameScanRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiAssetsByOwnerByNameScanExecute(r)
 }
 
@@ -14822,8 +12927,8 @@ func (r AiAPIPostAiAssetsByOwnerByNameScanRequest) Execute() (*Envelope, *http.R
 PostAiAssetsByOwnerByNameScan Scan (asset)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiAssetsByOwnerByNameScanRequest
 */
 func (a *AiAPIService) PostAiAssetsByOwnerByNameScan(ctx context.Context, owner string, name string) AiAPIPostAiAssetsByOwnerByNameScanRequest {
@@ -14836,19 +12941,16 @@ func (a *AiAPIService) PostAiAssetsByOwnerByNameScan(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiAssetsByOwnerByNameScanExecute(r AiAPIPostAiAssetsByOwnerByNameScanRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiAssetsByOwnerByNameScanExecute(r AiAPIPostAiAssetsByOwnerByNameScanRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiAssetsByOwnerByNameScan")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/assets/{owner}/{name}/scan"
@@ -14858,12 +12960,9 @@ func (a *AiAPIService) PostAiAssetsByOwnerByNameScanExecute(r AiAPIPostAiAssetsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14872,30 +12971,28 @@ func (a *AiAPIService) PostAiAssetsByOwnerByNameScanExecute(r AiAPIPostAiAssetsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -14903,33 +13000,18 @@ func (a *AiAPIService) PostAiAssetsByOwnerByNameScanExecute(r AiAPIPostAiAssetsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiAssetsScanRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiAssetsScanRequest) Body(body map[string]interface{}) AiAPIPostAiAssetsScanRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiAssetsScanRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiAssetsScanRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiAssetsScanExecute(r)
 }
 
@@ -14947,19 +13029,16 @@ func (a *AiAPIService) PostAiAssetsScan(ctx context.Context) AiAPIPostAiAssetsSc
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiAssetsScanExecute(r AiAPIPostAiAssetsScanRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiAssetsScanExecute(r AiAPIPostAiAssetsScanRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiAssetsScan")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/assets/scan"
@@ -14967,12 +13046,9 @@ func (a *AiAPIService) PostAiAssetsScanExecute(r AiAPIPostAiAssetsScanRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -14981,30 +13057,28 @@ func (a *AiAPIService) PostAiAssetsScanExecute(r AiAPIPostAiAssetsScanRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -15012,33 +13086,18 @@ func (a *AiAPIService) PostAiAssetsScanExecute(r AiAPIPostAiAssetsScanRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiChatsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiChatsRequest) Body(body map[string]interface{}) AiAPIPostAiChatsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiChatsRequest) Execute() (*PostAiChats200Response, *http.Response, error) {
+func (r AiAPIPostAiChatsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiChatsExecute(r)
 }
 
@@ -15058,19 +13117,16 @@ func (a *AiAPIService) PostAiChats(ctx context.Context) AiAPIPostAiChatsRequest 
 }
 
 // Execute executes the request
-//
-//	@return PostAiChats200Response
-func (a *AiAPIService) PostAiChatsExecute(r AiAPIPostAiChatsRequest) (*PostAiChats200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiChatsExecute(r AiAPIPostAiChatsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiChats200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiChats")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/chats"
@@ -15078,12 +13134,9 @@ func (a *AiAPIService) PostAiChatsExecute(r AiAPIPostAiChatsRequest) (*PostAiCha
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15092,30 +13145,28 @@ func (a *AiAPIService) PostAiChatsExecute(r AiAPIPostAiChatsRequest) (*PostAiCha
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -15123,19 +13174,10 @@ func (a *AiAPIService) PostAiChatsExecute(r AiAPIPostAiChatsRequest) (*PostAiCha
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiConnectionsRequest struct {
@@ -15231,6 +13273,7 @@ func (a *AiAPIService) PostAiConnectionsExecute(r AiAPIPostAiConnectionsRequest)
 type AiAPIPostAiConnectionsByProviderRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	provider   string
 }
 
 func (r AiAPIPostAiConnectionsByProviderRequest) Execute() (*http.Response, error) {
@@ -15245,12 +13288,14 @@ row so completion resolution falls back to the global Hanzo account (no BYO), an
 best-effort tombstones the sealed secret. Idempotent.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider
 	@return AiAPIPostAiConnectionsByProviderRequest
 */
-func (a *AiAPIService) PostAiConnectionsByProvider(ctx context.Context) AiAPIPostAiConnectionsByProviderRequest {
+func (a *AiAPIService) PostAiConnectionsByProvider(ctx context.Context, provider string) AiAPIPostAiConnectionsByProviderRequest {
 	return AiAPIPostAiConnectionsByProviderRequest{
 		ApiService: a,
 		ctx:        ctx,
+		provider:   provider,
 	}
 }
 
@@ -15268,6 +13313,7 @@ func (a *AiAPIService) PostAiConnectionsByProviderExecute(r AiAPIPostAiConnectio
 	}
 
 	localVarPath := localBasePath + "/v1/ai/connections/{provider}"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -15321,15 +13367,9 @@ func (a *AiAPIService) PostAiConnectionsByProviderExecute(r AiAPIPostAiConnectio
 type AiAPIPostAiDeploymentsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiDeploymentsRequest) Body(body map[string]interface{}) AiAPIPostAiDeploymentsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiDeploymentsRequest) Execute() (*PostAiDeployments200Response, *http.Response, error) {
+func (r AiAPIPostAiDeploymentsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiDeploymentsExecute(r)
 }
 
@@ -15349,19 +13389,16 @@ func (a *AiAPIService) PostAiDeployments(ctx context.Context) AiAPIPostAiDeploym
 }
 
 // Execute executes the request
-//
-//	@return PostAiDeployments200Response
-func (a *AiAPIService) PostAiDeploymentsExecute(r AiAPIPostAiDeploymentsRequest) (*PostAiDeployments200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiDeploymentsExecute(r AiAPIPostAiDeploymentsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiDeployments200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiDeployments")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/deployments"
@@ -15369,12 +13406,9 @@ func (a *AiAPIService) PostAiDeploymentsExecute(r AiAPIPostAiDeploymentsRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15383,30 +13417,28 @@ func (a *AiAPIService) PostAiDeploymentsExecute(r AiAPIPostAiDeploymentsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -15414,19 +13446,10 @@ func (a *AiAPIService) PostAiDeploymentsExecute(r AiAPIPostAiDeploymentsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiDeploymentsByOwnerByNameDeployRequest struct {
@@ -15434,15 +13457,9 @@ type AiAPIPostAiDeploymentsByOwnerByNameDeployRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiDeploymentsByOwnerByNameDeployRequest) Body(body map[string]interface{}) AiAPIPostAiDeploymentsByOwnerByNameDeployRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiDeploymentsByOwnerByNameDeployRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiDeploymentsByOwnerByNameDeployRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiDeploymentsByOwnerByNameDeployExecute(r)
 }
 
@@ -15450,8 +13467,8 @@ func (r AiAPIPostAiDeploymentsByOwnerByNameDeployRequest) Execute() (*Envelope, 
 PostAiDeploymentsByOwnerByNameDeploy Deploy (application)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiDeploymentsByOwnerByNameDeployRequest
 */
 func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeploy(ctx context.Context, owner string, name string) AiAPIPostAiDeploymentsByOwnerByNameDeployRequest {
@@ -15464,19 +13481,16 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeploy(ctx context.Context,
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeployExecute(r AiAPIPostAiDeploymentsByOwnerByNameDeployRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeployExecute(r AiAPIPostAiDeploymentsByOwnerByNameDeployRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiDeploymentsByOwnerByNameDeploy")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/deployments/{owner}/{name}/deploy"
@@ -15486,12 +13500,9 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeployExecute(r AiAPIPostAi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15500,30 +13511,28 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeployExecute(r AiAPIPostAi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -15531,19 +13540,10 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeployExecute(r AiAPIPostAi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest struct {
@@ -15551,15 +13551,9 @@ type AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest) Body(body map[string]interface{}) AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiDeploymentsByOwnerByNameUndeployExecute(r)
 }
 
@@ -15567,8 +13561,8 @@ func (r AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest) Execute() (*Envelope
 PostAiDeploymentsByOwnerByNameUndeploy Undeploy (application)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest
 */
 func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeploy(ctx context.Context, owner string, name string) AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest {
@@ -15581,19 +13575,16 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeploy(ctx context.Contex
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiDeploymentsByOwnerByNameUndeploy")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/deployments/{owner}/{name}/undeploy"
@@ -15603,12 +13594,9 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15617,30 +13605,28 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -15648,33 +13634,18 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiFilesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiFilesRequest) Body(body map[string]interface{}) AiAPIPostAiFilesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiFilesRequest) Execute() (*PostAiFiles200Response, *http.Response, error) {
+func (r AiAPIPostAiFilesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiFilesExecute(r)
 }
 
@@ -15694,19 +13665,16 @@ func (a *AiAPIService) PostAiFiles(ctx context.Context) AiAPIPostAiFilesRequest 
 }
 
 // Execute executes the request
-//
-//	@return PostAiFiles200Response
-func (a *AiAPIService) PostAiFilesExecute(r AiAPIPostAiFilesRequest) (*PostAiFiles200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiFilesExecute(r AiAPIPostAiFilesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiFiles200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiFiles")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files"
@@ -15714,12 +13682,9 @@ func (a *AiAPIService) PostAiFilesExecute(r AiAPIPostAiFilesRequest) (*PostAiFil
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15728,30 +13693,28 @@ func (a *AiAPIService) PostAiFilesExecute(r AiAPIPostAiFilesRequest) (*PostAiFil
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -15759,33 +13722,18 @@ func (a *AiAPIService) PostAiFilesExecute(r AiAPIPostAiFilesRequest) (*PostAiFil
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiFilesActivateRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiFilesActivateRequest) Body(body map[string]interface{}) AiAPIPostAiFilesActivateRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiFilesActivateRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiFilesActivateRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiFilesActivateExecute(r)
 }
 
@@ -15803,19 +13751,16 @@ func (a *AiAPIService) PostAiFilesActivate(ctx context.Context) AiAPIPostAiFiles
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiFilesActivateExecute(r AiAPIPostAiFilesActivateRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiFilesActivateExecute(r AiAPIPostAiFilesActivateRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiFilesActivate")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/activate"
@@ -15823,12 +13768,9 @@ func (a *AiAPIService) PostAiFilesActivateExecute(r AiAPIPostAiFilesActivateRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15837,30 +13779,28 @@ func (a *AiAPIService) PostAiFilesActivateExecute(r AiAPIPostAiFilesActivateRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -15868,19 +13808,10 @@ func (a *AiAPIService) PostAiFilesActivateExecute(r AiAPIPostAiFilesActivateRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiFilesByOwnerByNameVectorsRequest struct {
@@ -15888,15 +13819,9 @@ type AiAPIPostAiFilesByOwnerByNameVectorsRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiFilesByOwnerByNameVectorsRequest) Body(body map[string]interface{}) AiAPIPostAiFilesByOwnerByNameVectorsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiFilesByOwnerByNameVectorsRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiFilesByOwnerByNameVectorsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiFilesByOwnerByNameVectorsExecute(r)
 }
 
@@ -15904,8 +13829,8 @@ func (r AiAPIPostAiFilesByOwnerByNameVectorsRequest) Execute() (*Envelope, *http
 PostAiFilesByOwnerByNameVectors Vectors (file)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiFilesByOwnerByNameVectorsRequest
 */
 func (a *AiAPIService) PostAiFilesByOwnerByNameVectors(ctx context.Context, owner string, name string) AiAPIPostAiFilesByOwnerByNameVectorsRequest {
@@ -15918,19 +13843,16 @@ func (a *AiAPIService) PostAiFilesByOwnerByNameVectors(ctx context.Context, owne
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiFilesByOwnerByNameVectorsExecute(r AiAPIPostAiFilesByOwnerByNameVectorsRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiFilesByOwnerByNameVectorsExecute(r AiAPIPostAiFilesByOwnerByNameVectorsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiFilesByOwnerByNameVectors")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/{owner}/{name}/vectors"
@@ -15940,12 +13862,9 @@ func (a *AiAPIService) PostAiFilesByOwnerByNameVectorsExecute(r AiAPIPostAiFiles
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15954,30 +13873,28 @@ func (a *AiAPIService) PostAiFilesByOwnerByNameVectorsExecute(r AiAPIPostAiFiles
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -15985,33 +13902,18 @@ func (a *AiAPIService) PostAiFilesByOwnerByNameVectorsExecute(r AiAPIPostAiFiles
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiFilesUploadRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiFilesUploadRequest) Body(body map[string]interface{}) AiAPIPostAiFilesUploadRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiFilesUploadRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiFilesUploadRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiFilesUploadExecute(r)
 }
 
@@ -16029,19 +13931,16 @@ func (a *AiAPIService) PostAiFilesUpload(ctx context.Context) AiAPIPostAiFilesUp
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiFilesUploadExecute(r AiAPIPostAiFilesUploadRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiFilesUploadExecute(r AiAPIPostAiFilesUploadRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiFilesUpload")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/upload"
@@ -16049,12 +13948,9 @@ func (a *AiAPIService) PostAiFilesUploadExecute(r AiAPIPostAiFilesUploadRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16063,30 +13959,28 @@ func (a *AiAPIService) PostAiFilesUploadExecute(r AiAPIPostAiFilesUploadRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16094,33 +13988,18 @@ func (a *AiAPIService) PostAiFilesUploadExecute(r AiAPIPostAiFilesUploadRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiFormsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiFormsRequest) Body(body map[string]interface{}) AiAPIPostAiFormsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiFormsRequest) Execute() (*PostAiForms200Response, *http.Response, error) {
+func (r AiAPIPostAiFormsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiFormsExecute(r)
 }
 
@@ -16140,19 +14019,16 @@ func (a *AiAPIService) PostAiForms(ctx context.Context) AiAPIPostAiFormsRequest 
 }
 
 // Execute executes the request
-//
-//	@return PostAiForms200Response
-func (a *AiAPIService) PostAiFormsExecute(r AiAPIPostAiFormsRequest) (*PostAiForms200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiFormsExecute(r AiAPIPostAiFormsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiForms200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiForms")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/forms"
@@ -16160,12 +14036,9 @@ func (a *AiAPIService) PostAiFormsExecute(r AiAPIPostAiFormsRequest) (*PostAiFor
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16174,30 +14047,28 @@ func (a *AiAPIService) PostAiFormsExecute(r AiAPIPostAiFormsRequest) (*PostAiFor
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16205,33 +14076,18 @@ func (a *AiAPIService) PostAiFormsExecute(r AiAPIPostAiFormsRequest) (*PostAiFor
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiGraphsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiGraphsRequest) Body(body map[string]interface{}) AiAPIPostAiGraphsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiGraphsRequest) Execute() (*PostAiGraphs200Response, *http.Response, error) {
+func (r AiAPIPostAiGraphsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiGraphsExecute(r)
 }
 
@@ -16251,19 +14107,16 @@ func (a *AiAPIService) PostAiGraphs(ctx context.Context) AiAPIPostAiGraphsReques
 }
 
 // Execute executes the request
-//
-//	@return PostAiGraphs200Response
-func (a *AiAPIService) PostAiGraphsExecute(r AiAPIPostAiGraphsRequest) (*PostAiGraphs200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiGraphsExecute(r AiAPIPostAiGraphsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiGraphs200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiGraphs")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/graphs"
@@ -16271,12 +14124,9 @@ func (a *AiAPIService) PostAiGraphsExecute(r AiAPIPostAiGraphsRequest) (*PostAiG
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16285,30 +14135,28 @@ func (a *AiAPIService) PostAiGraphsExecute(r AiAPIPostAiGraphsRequest) (*PostAiG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16316,33 +14164,18 @@ func (a *AiAPIService) PostAiGraphsExecute(r AiAPIPostAiGraphsRequest) (*PostAiG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiMessagesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiMessagesRequest) Body(body map[string]interface{}) AiAPIPostAiMessagesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiMessagesRequest) Execute() (*PostAiMessages200Response, *http.Response, error) {
+func (r AiAPIPostAiMessagesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiMessagesExecute(r)
 }
 
@@ -16362,19 +14195,16 @@ func (a *AiAPIService) PostAiMessages(ctx context.Context) AiAPIPostAiMessagesRe
 }
 
 // Execute executes the request
-//
-//	@return PostAiMessages200Response
-func (a *AiAPIService) PostAiMessagesExecute(r AiAPIPostAiMessagesRequest) (*PostAiMessages200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiMessagesExecute(r AiAPIPostAiMessagesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiMessages200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiMessages")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages"
@@ -16382,12 +14212,9 @@ func (a *AiAPIService) PostAiMessagesExecute(r AiAPIPostAiMessagesRequest) (*Pos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16396,30 +14223,28 @@ func (a *AiAPIService) PostAiMessagesExecute(r AiAPIPostAiMessagesRequest) (*Pos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16427,33 +14252,18 @@ func (a *AiAPIService) PostAiMessagesExecute(r AiAPIPostAiMessagesRequest) (*Pos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiNodesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiNodesRequest) Body(body map[string]interface{}) AiAPIPostAiNodesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiNodesRequest) Execute() (*PostAiNodes200Response, *http.Response, error) {
+func (r AiAPIPostAiNodesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiNodesExecute(r)
 }
 
@@ -16473,19 +14283,16 @@ func (a *AiAPIService) PostAiNodes(ctx context.Context) AiAPIPostAiNodesRequest 
 }
 
 // Execute executes the request
-//
-//	@return PostAiNodes200Response
-func (a *AiAPIService) PostAiNodesExecute(r AiAPIPostAiNodesRequest) (*PostAiNodes200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiNodesExecute(r AiAPIPostAiNodesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiNodes200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiNodes")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/nodes"
@@ -16493,12 +14300,9 @@ func (a *AiAPIService) PostAiNodesExecute(r AiAPIPostAiNodesRequest) (*PostAiNod
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16507,30 +14311,28 @@ func (a *AiAPIService) PostAiNodesExecute(r AiAPIPostAiNodesRequest) (*PostAiNod
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16538,19 +14340,10 @@ func (a *AiAPIService) PostAiNodesExecute(r AiAPIPostAiNodesRequest) (*PostAiNod
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiNodesByOwnerByNameTunnelRequest struct {
@@ -16558,15 +14351,9 @@ type AiAPIPostAiNodesByOwnerByNameTunnelRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiNodesByOwnerByNameTunnelRequest) Body(body map[string]interface{}) AiAPIPostAiNodesByOwnerByNameTunnelRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiNodesByOwnerByNameTunnelRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiNodesByOwnerByNameTunnelRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiNodesByOwnerByNameTunnelExecute(r)
 }
 
@@ -16574,8 +14361,8 @@ func (r AiAPIPostAiNodesByOwnerByNameTunnelRequest) Execute() (*Envelope, *http.
 PostAiNodesByOwnerByNameTunnel Tunnel (node)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiNodesByOwnerByNameTunnelRequest
 */
 func (a *AiAPIService) PostAiNodesByOwnerByNameTunnel(ctx context.Context, owner string, name string) AiAPIPostAiNodesByOwnerByNameTunnelRequest {
@@ -16588,19 +14375,16 @@ func (a *AiAPIService) PostAiNodesByOwnerByNameTunnel(ctx context.Context, owner
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiNodesByOwnerByNameTunnelExecute(r AiAPIPostAiNodesByOwnerByNameTunnelRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiNodesByOwnerByNameTunnelExecute(r AiAPIPostAiNodesByOwnerByNameTunnelRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiNodesByOwnerByNameTunnel")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/nodes/{owner}/{name}/tunnel"
@@ -16610,12 +14394,9 @@ func (a *AiAPIService) PostAiNodesByOwnerByNameTunnelExecute(r AiAPIPostAiNodesB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16624,30 +14405,28 @@ func (a *AiAPIService) PostAiNodesByOwnerByNameTunnelExecute(r AiAPIPostAiNodesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16655,33 +14434,18 @@ func (a *AiAPIService) PostAiNodesByOwnerByNameTunnelExecute(r AiAPIPostAiNodesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiProvidersRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiProvidersRequest) Body(body map[string]interface{}) AiAPIPostAiProvidersRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiProvidersRequest) Execute() (*PostAiProviders200Response, *http.Response, error) {
+func (r AiAPIPostAiProvidersRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiProvidersExecute(r)
 }
 
@@ -16701,19 +14465,16 @@ func (a *AiAPIService) PostAiProviders(ctx context.Context) AiAPIPostAiProviders
 }
 
 // Execute executes the request
-//
-//	@return PostAiProviders200Response
-func (a *AiAPIService) PostAiProvidersExecute(r AiAPIPostAiProvidersRequest) (*PostAiProviders200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiProvidersExecute(r AiAPIPostAiProvidersRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiProviders200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiProviders")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers"
@@ -16721,12 +14482,9 @@ func (a *AiAPIService) PostAiProvidersExecute(r AiAPIPostAiProvidersRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16735,30 +14493,28 @@ func (a *AiAPIService) PostAiProvidersExecute(r AiAPIPostAiProvidersRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16766,33 +14522,18 @@ func (a *AiAPIService) PostAiProvidersExecute(r AiAPIPostAiProvidersRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiProvidersMcpToolsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiProvidersMcpToolsRequest) Body(body map[string]interface{}) AiAPIPostAiProvidersMcpToolsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiProvidersMcpToolsRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiProvidersMcpToolsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiProvidersMcpToolsExecute(r)
 }
 
@@ -16810,19 +14551,16 @@ func (a *AiAPIService) PostAiProvidersMcpTools(ctx context.Context) AiAPIPostAiP
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiProvidersMcpToolsExecute(r AiAPIPostAiProvidersMcpToolsRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiProvidersMcpToolsExecute(r AiAPIPostAiProvidersMcpToolsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiProvidersMcpTools")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers/mcp-tools"
@@ -16830,12 +14568,9 @@ func (a *AiAPIService) PostAiProvidersMcpToolsExecute(r AiAPIPostAiProvidersMcpT
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16844,30 +14579,28 @@ func (a *AiAPIService) PostAiProvidersMcpToolsExecute(r AiAPIPostAiProvidersMcpT
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16875,33 +14608,18 @@ func (a *AiAPIService) PostAiProvidersMcpToolsExecute(r AiAPIPostAiProvidersMcpT
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiRecordsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiRecordsRequest) Body(body map[string]interface{}) AiAPIPostAiRecordsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiRecordsRequest) Execute() (*PostAiRecords200Response, *http.Response, error) {
+func (r AiAPIPostAiRecordsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiRecordsExecute(r)
 }
 
@@ -16921,19 +14639,16 @@ func (a *AiAPIService) PostAiRecords(ctx context.Context) AiAPIPostAiRecordsRequ
 }
 
 // Execute executes the request
-//
-//	@return PostAiRecords200Response
-func (a *AiAPIService) PostAiRecordsExecute(r AiAPIPostAiRecordsRequest) (*PostAiRecords200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiRecordsExecute(r AiAPIPostAiRecordsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRecords200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRecords")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records"
@@ -16941,12 +14656,9 @@ func (a *AiAPIService) PostAiRecordsExecute(r AiAPIPostAiRecordsRequest) (*PostA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16955,30 +14667,28 @@ func (a *AiAPIService) PostAiRecordsExecute(r AiAPIPostAiRecordsRequest) (*PostA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -16986,33 +14696,18 @@ func (a *AiAPIService) PostAiRecordsExecute(r AiAPIPostAiRecordsRequest) (*PostA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiRecordsBatchRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiRecordsBatchRequest) Body(body map[string]interface{}) AiAPIPostAiRecordsBatchRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiRecordsBatchRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiRecordsBatchRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiRecordsBatchExecute(r)
 }
 
@@ -17030,19 +14725,16 @@ func (a *AiAPIService) PostAiRecordsBatch(ctx context.Context) AiAPIPostAiRecord
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiRecordsBatchExecute(r AiAPIPostAiRecordsBatchRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiRecordsBatchExecute(r AiAPIPostAiRecordsBatchRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRecordsBatch")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/batch"
@@ -17050,12 +14742,9 @@ func (a *AiAPIService) PostAiRecordsBatchExecute(r AiAPIPostAiRecordsBatchReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17064,30 +14753,28 @@ func (a *AiAPIService) PostAiRecordsBatchExecute(r AiAPIPostAiRecordsBatchReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17095,33 +14782,18 @@ func (a *AiAPIService) PostAiRecordsBatchExecute(r AiAPIPostAiRecordsBatchReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiRecordsCommitRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiRecordsCommitRequest) Body(body map[string]interface{}) AiAPIPostAiRecordsCommitRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiRecordsCommitRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiRecordsCommitRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiRecordsCommitExecute(r)
 }
 
@@ -17139,19 +14811,16 @@ func (a *AiAPIService) PostAiRecordsCommit(ctx context.Context) AiAPIPostAiRecor
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiRecordsCommitExecute(r AiAPIPostAiRecordsCommitRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiRecordsCommitExecute(r AiAPIPostAiRecordsCommitRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRecordsCommit")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/commit"
@@ -17159,12 +14828,9 @@ func (a *AiAPIService) PostAiRecordsCommitExecute(r AiAPIPostAiRecordsCommitRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17173,30 +14839,28 @@ func (a *AiAPIService) PostAiRecordsCommitExecute(r AiAPIPostAiRecordsCommitRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17204,33 +14868,18 @@ func (a *AiAPIService) PostAiRecordsCommitExecute(r AiAPIPostAiRecordsCommitRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiRecordsCommitSecondRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiRecordsCommitSecondRequest) Body(body map[string]interface{}) AiAPIPostAiRecordsCommitSecondRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiRecordsCommitSecondRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiRecordsCommitSecondRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiRecordsCommitSecondExecute(r)
 }
 
@@ -17248,19 +14897,16 @@ func (a *AiAPIService) PostAiRecordsCommitSecond(ctx context.Context) AiAPIPostA
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiRecordsCommitSecondExecute(r AiAPIPostAiRecordsCommitSecondRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiRecordsCommitSecondExecute(r AiAPIPostAiRecordsCommitSecondRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRecordsCommitSecond")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/commit-second"
@@ -17268,12 +14914,9 @@ func (a *AiAPIService) PostAiRecordsCommitSecondExecute(r AiAPIPostAiRecordsComm
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17282,30 +14925,28 @@ func (a *AiAPIService) PostAiRecordsCommitSecondExecute(r AiAPIPostAiRecordsComm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17313,33 +14954,18 @@ func (a *AiAPIService) PostAiRecordsCommitSecondExecute(r AiAPIPostAiRecordsComm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiRemoteConnectionsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiRemoteConnectionsRequest) Body(body map[string]interface{}) AiAPIPostAiRemoteConnectionsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiRemoteConnectionsRequest) Execute() (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (r AiAPIPostAiRemoteConnectionsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiRemoteConnectionsExecute(r)
 }
 
@@ -17359,19 +14985,16 @@ func (a *AiAPIService) PostAiRemoteConnections(ctx context.Context) AiAPIPostAiR
 }
 
 // Execute executes the request
-//
-//	@return PostAiRemoteConnections200Response
-func (a *AiAPIService) PostAiRemoteConnectionsExecute(r AiAPIPostAiRemoteConnectionsRequest) (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiRemoteConnectionsExecute(r AiAPIPostAiRemoteConnectionsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRemoteConnections200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRemoteConnections")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/remote-connections"
@@ -17379,12 +15002,9 @@ func (a *AiAPIService) PostAiRemoteConnectionsExecute(r AiAPIPostAiRemoteConnect
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17393,30 +15013,28 @@ func (a *AiAPIService) PostAiRemoteConnectionsExecute(r AiAPIPostAiRemoteConnect
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17424,19 +15042,10 @@ func (a *AiAPIService) PostAiRemoteConnectionsExecute(r AiAPIPostAiRemoteConnect
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest struct {
@@ -17444,15 +15053,9 @@ type AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest) Body(body map[string]interface{}) AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiRemoteConnectionsByOwnerByNameStartExecute(r)
 }
 
@@ -17460,8 +15063,8 @@ func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest) Execute() (*Envel
 PostAiRemoteConnectionsByOwnerByNameStart Start (connection)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest
 */
 func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStart(ctx context.Context, owner string, name string) AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest {
@@ -17474,19 +15077,16 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStart(ctx context.Con
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStartExecute(r AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStartExecute(r AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRemoteConnectionsByOwnerByNameStart")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}/start"
@@ -17496,12 +15096,9 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStartExecute(r AiAPIP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17510,30 +15107,28 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStartExecute(r AiAPIP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17541,19 +15136,10 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStartExecute(r AiAPIP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest struct {
@@ -17561,15 +15147,9 @@ type AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest) Body(body map[string]interface{}) AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiRemoteConnectionsByOwnerByNameStopExecute(r)
 }
 
@@ -17577,8 +15157,8 @@ func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest) Execute() (*Envelo
 PostAiRemoteConnectionsByOwnerByNameStop Stop (connection)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest
 */
 func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStop(ctx context.Context, owner string, name string) AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest {
@@ -17591,19 +15171,16 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStop(ctx context.Cont
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStopExecute(r AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStopExecute(r AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRemoteConnectionsByOwnerByNameStop")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}/stop"
@@ -17613,12 +15190,9 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStopExecute(r AiAPIPo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17627,30 +15201,28 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStopExecute(r AiAPIPo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17658,33 +15230,18 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStopExecute(r AiAPIPo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiRoutesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiRoutesRequest) Body(body map[string]interface{}) AiAPIPostAiRoutesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiRoutesRequest) Execute() (*PostAiRoutes200Response, *http.Response, error) {
+func (r AiAPIPostAiRoutesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiRoutesExecute(r)
 }
 
@@ -17704,19 +15261,16 @@ func (a *AiAPIService) PostAiRoutes(ctx context.Context) AiAPIPostAiRoutesReques
 }
 
 // Execute executes the request
-//
-//	@return PostAiRoutes200Response
-func (a *AiAPIService) PostAiRoutesExecute(r AiAPIPostAiRoutesRequest) (*PostAiRoutes200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiRoutesExecute(r AiAPIPostAiRoutesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRoutes200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRoutes")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/routes"
@@ -17724,12 +15278,9 @@ func (a *AiAPIService) PostAiRoutesExecute(r AiAPIPostAiRoutesRequest) (*PostAiR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17738,30 +15289,28 @@ func (a *AiAPIService) PostAiRoutesExecute(r AiAPIPostAiRoutesRequest) (*PostAiR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17769,33 +15318,18 @@ func (a *AiAPIService) PostAiRoutesExecute(r AiAPIPostAiRoutesRequest) (*PostAiR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiScalesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiScalesRequest) Body(body map[string]interface{}) AiAPIPostAiScalesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiScalesRequest) Execute() (*PostAiScales200Response, *http.Response, error) {
+func (r AiAPIPostAiScalesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiScalesExecute(r)
 }
 
@@ -17815,19 +15349,16 @@ func (a *AiAPIService) PostAiScales(ctx context.Context) AiAPIPostAiScalesReques
 }
 
 // Execute executes the request
-//
-//	@return PostAiScales200Response
-func (a *AiAPIService) PostAiScalesExecute(r AiAPIPostAiScalesRequest) (*PostAiScales200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiScalesExecute(r AiAPIPostAiScalesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScales200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiScales")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scales"
@@ -17835,12 +15366,9 @@ func (a *AiAPIService) PostAiScalesExecute(r AiAPIPostAiScalesRequest) (*PostAiS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17849,30 +15377,28 @@ func (a *AiAPIService) PostAiScalesExecute(r AiAPIPostAiScalesRequest) (*PostAiS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17880,33 +15406,18 @@ func (a *AiAPIService) PostAiScalesExecute(r AiAPIPostAiScalesRequest) (*PostAiS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiScansRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiScansRequest) Body(body map[string]interface{}) AiAPIPostAiScansRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiScansRequest) Execute() (*PostAiScans200Response, *http.Response, error) {
+func (r AiAPIPostAiScansRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiScansExecute(r)
 }
 
@@ -17926,19 +15437,16 @@ func (a *AiAPIService) PostAiScans(ctx context.Context) AiAPIPostAiScansRequest 
 }
 
 // Execute executes the request
-//
-//	@return PostAiScans200Response
-func (a *AiAPIService) PostAiScansExecute(r AiAPIPostAiScansRequest) (*PostAiScans200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiScansExecute(r AiAPIPostAiScansRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScans200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiScans")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scans"
@@ -17946,12 +15454,9 @@ func (a *AiAPIService) PostAiScansExecute(r AiAPIPostAiScansRequest) (*PostAiSca
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17960,30 +15465,28 @@ func (a *AiAPIService) PostAiScansExecute(r AiAPIPostAiScansRequest) (*PostAiSca
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -17991,33 +15494,18 @@ func (a *AiAPIService) PostAiScansExecute(r AiAPIPostAiScansRequest) (*PostAiSca
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiSigninRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiSigninRequest) Body(body map[string]interface{}) AiAPIPostAiSigninRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiSigninRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiSigninRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiSigninExecute(r)
 }
 
@@ -18035,19 +15523,16 @@ func (a *AiAPIService) PostAiSignin(ctx context.Context) AiAPIPostAiSigninReques
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiSigninExecute(r AiAPIPostAiSigninRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiSigninExecute(r AiAPIPostAiSigninRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiSignin")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signin"
@@ -18055,12 +15540,9 @@ func (a *AiAPIService) PostAiSigninExecute(r AiAPIPostAiSigninRequest) (*Envelop
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18069,30 +15551,28 @@ func (a *AiAPIService) PostAiSigninExecute(r AiAPIPostAiSigninRequest) (*Envelop
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -18100,33 +15580,18 @@ func (a *AiAPIService) PostAiSigninExecute(r AiAPIPostAiSigninRequest) (*Envelop
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiSigninSessionsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiSigninSessionsRequest) Body(body map[string]interface{}) AiAPIPostAiSigninSessionsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiSigninSessionsRequest) Execute() (*PostAiSigninSessions200Response, *http.Response, error) {
+func (r AiAPIPostAiSigninSessionsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiSigninSessionsExecute(r)
 }
 
@@ -18146,19 +15611,16 @@ func (a *AiAPIService) PostAiSigninSessions(ctx context.Context) AiAPIPostAiSign
 }
 
 // Execute executes the request
-//
-//	@return PostAiSigninSessions200Response
-func (a *AiAPIService) PostAiSigninSessionsExecute(r AiAPIPostAiSigninSessionsRequest) (*PostAiSigninSessions200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiSigninSessionsExecute(r AiAPIPostAiSigninSessionsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiSigninSessions200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiSigninSessions")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signin-sessions"
@@ -18166,12 +15628,9 @@ func (a *AiAPIService) PostAiSigninSessionsExecute(r AiAPIPostAiSigninSessionsRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18180,30 +15639,28 @@ func (a *AiAPIService) PostAiSigninSessionsExecute(r AiAPIPostAiSigninSessionsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -18211,33 +15668,18 @@ func (a *AiAPIService) PostAiSigninSessionsExecute(r AiAPIPostAiSigninSessionsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiSignoutRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiSignoutRequest) Body(body map[string]interface{}) AiAPIPostAiSignoutRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiSignoutRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiSignoutRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiSignoutExecute(r)
 }
 
@@ -18255,19 +15697,16 @@ func (a *AiAPIService) PostAiSignout(ctx context.Context) AiAPIPostAiSignoutRequ
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiSignoutExecute(r AiAPIPostAiSignoutRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiSignoutExecute(r AiAPIPostAiSignoutRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiSignout")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signout"
@@ -18275,12 +15714,9 @@ func (a *AiAPIService) PostAiSignoutExecute(r AiAPIPostAiSignoutRequest) (*Envel
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18289,30 +15725,28 @@ func (a *AiAPIService) PostAiSignoutExecute(r AiAPIPostAiSignoutRequest) (*Envel
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -18320,33 +15754,18 @@ func (a *AiAPIService) PostAiSignoutExecute(r AiAPIPostAiSignoutRequest) (*Envel
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiStoresRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiStoresRequest) Body(body map[string]interface{}) AiAPIPostAiStoresRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiStoresRequest) Execute() (*PostAiStores200Response, *http.Response, error) {
+func (r AiAPIPostAiStoresRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiStoresExecute(r)
 }
 
@@ -18366,19 +15785,16 @@ func (a *AiAPIService) PostAiStores(ctx context.Context) AiAPIPostAiStoresReques
 }
 
 // Execute executes the request
-//
-//	@return PostAiStores200Response
-func (a *AiAPIService) PostAiStoresExecute(r AiAPIPostAiStoresRequest) (*PostAiStores200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiStoresExecute(r AiAPIPostAiStoresRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiStores200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiStores")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores"
@@ -18386,12 +15802,9 @@ func (a *AiAPIService) PostAiStoresExecute(r AiAPIPostAiStoresRequest) (*PostAiS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18400,30 +15813,28 @@ func (a *AiAPIService) PostAiStoresExecute(r AiAPIPostAiStoresRequest) (*PostAiS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -18431,19 +15842,10 @@ func (a *AiAPIService) PostAiStoresExecute(r AiAPIPostAiStoresRequest) (*PostAiS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiStoresByOwnerByNameVectorsRequest struct {
@@ -18451,15 +15853,9 @@ type AiAPIPostAiStoresByOwnerByNameVectorsRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiStoresByOwnerByNameVectorsRequest) Body(body map[string]interface{}) AiAPIPostAiStoresByOwnerByNameVectorsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiStoresByOwnerByNameVectorsRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiStoresByOwnerByNameVectorsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiStoresByOwnerByNameVectorsExecute(r)
 }
 
@@ -18467,8 +15863,8 @@ func (r AiAPIPostAiStoresByOwnerByNameVectorsRequest) Execute() (*Envelope, *htt
 PostAiStoresByOwnerByNameVectors Vectors (store)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiStoresByOwnerByNameVectorsRequest
 */
 func (a *AiAPIService) PostAiStoresByOwnerByNameVectors(ctx context.Context, owner string, name string) AiAPIPostAiStoresByOwnerByNameVectorsRequest {
@@ -18481,19 +15877,16 @@ func (a *AiAPIService) PostAiStoresByOwnerByNameVectors(ctx context.Context, own
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiStoresByOwnerByNameVectorsExecute(r AiAPIPostAiStoresByOwnerByNameVectorsRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiStoresByOwnerByNameVectorsExecute(r AiAPIPostAiStoresByOwnerByNameVectorsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiStoresByOwnerByNameVectors")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores/{owner}/{name}/vectors"
@@ -18503,12 +15896,9 @@ func (a *AiAPIService) PostAiStoresByOwnerByNameVectorsExecute(r AiAPIPostAiStor
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18517,30 +15907,28 @@ func (a *AiAPIService) PostAiStoresByOwnerByNameVectorsExecute(r AiAPIPostAiStor
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -18548,33 +15936,18 @@ func (a *AiAPIService) PostAiStoresByOwnerByNameVectorsExecute(r AiAPIPostAiStor
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiTasksRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiTasksRequest) Body(body map[string]interface{}) AiAPIPostAiTasksRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiTasksRequest) Execute() (*PostAiTasks200Response, *http.Response, error) {
+func (r AiAPIPostAiTasksRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiTasksExecute(r)
 }
 
@@ -18594,19 +15967,16 @@ func (a *AiAPIService) PostAiTasks(ctx context.Context) AiAPIPostAiTasksRequest 
 }
 
 // Execute executes the request
-//
-//	@return PostAiTasks200Response
-func (a *AiAPIService) PostAiTasksExecute(r AiAPIPostAiTasksRequest) (*PostAiTasks200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiTasksExecute(r AiAPIPostAiTasksRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTasks200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiTasks")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks"
@@ -18614,12 +15984,9 @@ func (a *AiAPIService) PostAiTasksExecute(r AiAPIPostAiTasksRequest) (*PostAiTas
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18628,30 +15995,28 @@ func (a *AiAPIService) PostAiTasksExecute(r AiAPIPostAiTasksRequest) (*PostAiTas
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -18659,19 +16024,10 @@ func (a *AiAPIService) PostAiTasksExecute(r AiAPIPostAiTasksRequest) (*PostAiTas
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiTasksByOwnerByNameAnalyzeRequest struct {
@@ -18679,15 +16035,9 @@ type AiAPIPostAiTasksByOwnerByNameAnalyzeRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiTasksByOwnerByNameAnalyzeRequest) Body(body map[string]interface{}) AiAPIPostAiTasksByOwnerByNameAnalyzeRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiTasksByOwnerByNameAnalyzeRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiTasksByOwnerByNameAnalyzeRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiTasksByOwnerByNameAnalyzeExecute(r)
 }
 
@@ -18695,8 +16045,8 @@ func (r AiAPIPostAiTasksByOwnerByNameAnalyzeRequest) Execute() (*Envelope, *http
 PostAiTasksByOwnerByNameAnalyze Analyze (task)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiTasksByOwnerByNameAnalyzeRequest
 */
 func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyze(ctx context.Context, owner string, name string) AiAPIPostAiTasksByOwnerByNameAnalyzeRequest {
@@ -18709,19 +16059,16 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyze(ctx context.Context, owne
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyzeExecute(r AiAPIPostAiTasksByOwnerByNameAnalyzeRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyzeExecute(r AiAPIPostAiTasksByOwnerByNameAnalyzeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiTasksByOwnerByNameAnalyze")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks/{owner}/{name}/analyze"
@@ -18731,12 +16078,9 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyzeExecute(r AiAPIPostAiTasks
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18745,30 +16089,28 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyzeExecute(r AiAPIPostAiTasks
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -18776,19 +16118,10 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyzeExecute(r AiAPIPostAiTasks
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiTasksByOwnerByNameDocumentRequest struct {
@@ -18796,15 +16129,9 @@ type AiAPIPostAiTasksByOwnerByNameDocumentRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiTasksByOwnerByNameDocumentRequest) Body(body map[string]interface{}) AiAPIPostAiTasksByOwnerByNameDocumentRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiTasksByOwnerByNameDocumentRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiTasksByOwnerByNameDocumentRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiTasksByOwnerByNameDocumentExecute(r)
 }
 
@@ -18812,8 +16139,8 @@ func (r AiAPIPostAiTasksByOwnerByNameDocumentRequest) Execute() (*Envelope, *htt
 PostAiTasksByOwnerByNameDocument Document (task)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPostAiTasksByOwnerByNameDocumentRequest
 */
 func (a *AiAPIService) PostAiTasksByOwnerByNameDocument(ctx context.Context, owner string, name string) AiAPIPostAiTasksByOwnerByNameDocumentRequest {
@@ -18826,19 +16153,16 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameDocument(ctx context.Context, own
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiTasksByOwnerByNameDocumentExecute(r AiAPIPostAiTasksByOwnerByNameDocumentRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiTasksByOwnerByNameDocumentExecute(r AiAPIPostAiTasksByOwnerByNameDocumentRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiTasksByOwnerByNameDocument")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks/{owner}/{name}/document"
@@ -18848,12 +16172,9 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameDocumentExecute(r AiAPIPostAiTask
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18862,30 +16183,28 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameDocumentExecute(r AiAPIPostAiTask
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -18893,33 +16212,18 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameDocumentExecute(r AiAPIPostAiTask
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiTemplatesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiTemplatesRequest) Body(body map[string]interface{}) AiAPIPostAiTemplatesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiTemplatesRequest) Execute() (*PostAiTemplates200Response, *http.Response, error) {
+func (r AiAPIPostAiTemplatesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiTemplatesExecute(r)
 }
 
@@ -18939,19 +16243,16 @@ func (a *AiAPIService) PostAiTemplates(ctx context.Context) AiAPIPostAiTemplates
 }
 
 // Execute executes the request
-//
-//	@return PostAiTemplates200Response
-func (a *AiAPIService) PostAiTemplatesExecute(r AiAPIPostAiTemplatesRequest) (*PostAiTemplates200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiTemplatesExecute(r AiAPIPostAiTemplatesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTemplates200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiTemplates")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/templates"
@@ -18959,12 +16260,9 @@ func (a *AiAPIService) PostAiTemplatesExecute(r AiAPIPostAiTemplatesRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18973,30 +16271,28 @@ func (a *AiAPIService) PostAiTemplatesExecute(r AiAPIPostAiTemplatesRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19004,33 +16300,18 @@ func (a *AiAPIService) PostAiTemplatesExecute(r AiAPIPostAiTemplatesRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiTreeFilesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiTreeFilesRequest) Body(body map[string]interface{}) AiAPIPostAiTreeFilesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiTreeFilesRequest) Execute() (*PostAiTreeFiles200Response, *http.Response, error) {
+func (r AiAPIPostAiTreeFilesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiTreeFilesExecute(r)
 }
 
@@ -19050,19 +16331,16 @@ func (a *AiAPIService) PostAiTreeFiles(ctx context.Context) AiAPIPostAiTreeFiles
 }
 
 // Execute executes the request
-//
-//	@return PostAiTreeFiles200Response
-func (a *AiAPIService) PostAiTreeFilesExecute(r AiAPIPostAiTreeFilesRequest) (*PostAiTreeFiles200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiTreeFilesExecute(r AiAPIPostAiTreeFilesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTreeFiles200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiTreeFiles")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tree-files"
@@ -19070,12 +16348,9 @@ func (a *AiAPIService) PostAiTreeFilesExecute(r AiAPIPostAiTreeFilesRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19084,30 +16359,28 @@ func (a *AiAPIService) PostAiTreeFilesExecute(r AiAPIPostAiTreeFilesRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19115,33 +16388,18 @@ func (a *AiAPIService) PostAiTreeFilesExecute(r AiAPIPostAiTreeFilesRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiVectorsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiVectorsRequest) Body(body map[string]interface{}) AiAPIPostAiVectorsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiVectorsRequest) Execute() (*PostAiVectors200Response, *http.Response, error) {
+func (r AiAPIPostAiVectorsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiVectorsExecute(r)
 }
 
@@ -19161,19 +16419,16 @@ func (a *AiAPIService) PostAiVectors(ctx context.Context) AiAPIPostAiVectorsRequ
 }
 
 // Execute executes the request
-//
-//	@return PostAiVectors200Response
-func (a *AiAPIService) PostAiVectorsExecute(r AiAPIPostAiVectorsRequest) (*PostAiVectors200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiVectorsExecute(r AiAPIPostAiVectorsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVectors200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiVectors")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/vectors"
@@ -19181,12 +16436,9 @@ func (a *AiAPIService) PostAiVectorsExecute(r AiAPIPostAiVectorsRequest) (*PostA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19195,30 +16447,28 @@ func (a *AiAPIService) PostAiVectorsExecute(r AiAPIPostAiVectorsRequest) (*PostA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19226,33 +16476,18 @@ func (a *AiAPIService) PostAiVectorsExecute(r AiAPIPostAiVectorsRequest) (*PostA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiVideosRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiVideosRequest) Body(body map[string]interface{}) AiAPIPostAiVideosRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiVideosRequest) Execute() (*PostAiVideos200Response, *http.Response, error) {
+func (r AiAPIPostAiVideosRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiVideosExecute(r)
 }
 
@@ -19272,19 +16507,16 @@ func (a *AiAPIService) PostAiVideos(ctx context.Context) AiAPIPostAiVideosReques
 }
 
 // Execute executes the request
-//
-//	@return PostAiVideos200Response
-func (a *AiAPIService) PostAiVideosExecute(r AiAPIPostAiVideosRequest) (*PostAiVideos200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiVideosExecute(r AiAPIPostAiVideosRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVideos200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiVideos")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/videos"
@@ -19292,12 +16524,9 @@ func (a *AiAPIService) PostAiVideosExecute(r AiAPIPostAiVideosRequest) (*PostAiV
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19306,30 +16535,28 @@ func (a *AiAPIService) PostAiVideosExecute(r AiAPIPostAiVideosRequest) (*PostAiV
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19337,33 +16564,18 @@ func (a *AiAPIService) PostAiVideosExecute(r AiAPIPostAiVideosRequest) (*PostAiV
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiVideosUploadRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiVideosUploadRequest) Body(body map[string]interface{}) AiAPIPostAiVideosUploadRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiVideosUploadRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPostAiVideosUploadRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiVideosUploadExecute(r)
 }
 
@@ -19381,19 +16593,16 @@ func (a *AiAPIService) PostAiVideosUpload(ctx context.Context) AiAPIPostAiVideos
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PostAiVideosUploadExecute(r AiAPIPostAiVideosUploadRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PostAiVideosUploadExecute(r AiAPIPostAiVideosUploadRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiVideosUpload")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/videos/upload"
@@ -19401,12 +16610,9 @@ func (a *AiAPIService) PostAiVideosUploadExecute(r AiAPIPostAiVideosUploadReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19415,30 +16621,28 @@ func (a *AiAPIService) PostAiVideosUploadExecute(r AiAPIPostAiVideosUploadReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19446,33 +16650,18 @@ func (a *AiAPIService) PostAiVideosUploadExecute(r AiAPIPostAiVideosUploadReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPostAiWorkflowsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPostAiWorkflowsRequest) Body(body map[string]interface{}) AiAPIPostAiWorkflowsRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPostAiWorkflowsRequest) Execute() (*PostAiWorkflows200Response, *http.Response, error) {
+func (r AiAPIPostAiWorkflowsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAiWorkflowsExecute(r)
 }
 
@@ -19492,19 +16681,16 @@ func (a *AiAPIService) PostAiWorkflows(ctx context.Context) AiAPIPostAiWorkflows
 }
 
 // Execute executes the request
-//
-//	@return PostAiWorkflows200Response
-func (a *AiAPIService) PostAiWorkflowsExecute(r AiAPIPostAiWorkflowsRequest) (*PostAiWorkflows200Response, *http.Response, error) {
+func (a *AiAPIService) PostAiWorkflowsExecute(r AiAPIPostAiWorkflowsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiWorkflows200Response
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiWorkflows")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/workflows"
@@ -19512,12 +16698,9 @@ func (a *AiAPIService) PostAiWorkflowsExecute(r AiAPIPostAiWorkflowsRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19526,30 +16709,28 @@ func (a *AiAPIService) PostAiWorkflowsExecute(r AiAPIPostAiWorkflowsRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19557,19 +16738,10 @@ func (a *AiAPIService) PostAiWorkflowsExecute(r AiAPIPostAiWorkflowsRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiArticlesByOwnerByNameRequest struct {
@@ -19577,15 +16749,9 @@ type AiAPIPutAiArticlesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiArticlesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiArticlesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiArticlesByOwnerByNameRequest) Execute() (*PostAiArticles200Response, *http.Response, error) {
+func (r AiAPIPutAiArticlesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiArticlesByOwnerByNameExecute(r)
 }
 
@@ -19595,8 +16761,8 @@ PutAiArticlesByOwnerByName Replace a article
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiArticlesByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiArticlesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiArticlesByOwnerByNameRequest {
@@ -19609,19 +16775,16 @@ func (a *AiAPIService) PutAiArticlesByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiArticles200Response
-func (a *AiAPIService) PutAiArticlesByOwnerByNameExecute(r AiAPIPutAiArticlesByOwnerByNameRequest) (*PostAiArticles200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiArticlesByOwnerByNameExecute(r AiAPIPutAiArticlesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiArticles200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiArticlesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/articles/{owner}/{name}"
@@ -19631,12 +16794,9 @@ func (a *AiAPIService) PutAiArticlesByOwnerByNameExecute(r AiAPIPutAiArticlesByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19645,30 +16805,28 @@ func (a *AiAPIService) PutAiArticlesByOwnerByNameExecute(r AiAPIPutAiArticlesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19676,19 +16834,10 @@ func (a *AiAPIService) PutAiArticlesByOwnerByNameExecute(r AiAPIPutAiArticlesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiAssetsByOwnerByNameRequest struct {
@@ -19696,15 +16845,9 @@ type AiAPIPutAiAssetsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiAssetsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiAssetsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiAssetsByOwnerByNameRequest) Execute() (*PostAiAssets200Response, *http.Response, error) {
+func (r AiAPIPutAiAssetsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiAssetsByOwnerByNameExecute(r)
 }
 
@@ -19714,8 +16857,8 @@ PutAiAssetsByOwnerByName Replace a asset
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiAssetsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiAssetsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiAssetsByOwnerByNameRequest {
@@ -19728,19 +16871,16 @@ func (a *AiAPIService) PutAiAssetsByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiAssets200Response
-func (a *AiAPIService) PutAiAssetsByOwnerByNameExecute(r AiAPIPutAiAssetsByOwnerByNameRequest) (*PostAiAssets200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiAssetsByOwnerByNameExecute(r AiAPIPutAiAssetsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiAssets200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiAssetsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/assets/{owner}/{name}"
@@ -19750,12 +16890,9 @@ func (a *AiAPIService) PutAiAssetsByOwnerByNameExecute(r AiAPIPutAiAssetsByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19764,30 +16901,28 @@ func (a *AiAPIService) PutAiAssetsByOwnerByNameExecute(r AiAPIPutAiAssetsByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19795,19 +16930,10 @@ func (a *AiAPIService) PutAiAssetsByOwnerByNameExecute(r AiAPIPutAiAssetsByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiChatsByOwnerByNameRequest struct {
@@ -19815,15 +16941,9 @@ type AiAPIPutAiChatsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiChatsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiChatsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiChatsByOwnerByNameRequest) Execute() (*PostAiChats200Response, *http.Response, error) {
+func (r AiAPIPutAiChatsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiChatsByOwnerByNameExecute(r)
 }
 
@@ -19833,8 +16953,8 @@ PutAiChatsByOwnerByName Replace a chat
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiChatsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiChatsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiChatsByOwnerByNameRequest {
@@ -19847,19 +16967,16 @@ func (a *AiAPIService) PutAiChatsByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiChats200Response
-func (a *AiAPIService) PutAiChatsByOwnerByNameExecute(r AiAPIPutAiChatsByOwnerByNameRequest) (*PostAiChats200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiChatsByOwnerByNameExecute(r AiAPIPutAiChatsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiChats200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiChatsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/chats/{owner}/{name}"
@@ -19869,12 +16986,9 @@ func (a *AiAPIService) PutAiChatsByOwnerByNameExecute(r AiAPIPutAiChatsByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19883,30 +16997,28 @@ func (a *AiAPIService) PutAiChatsByOwnerByNameExecute(r AiAPIPutAiChatsByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -19914,19 +17026,10 @@ func (a *AiAPIService) PutAiChatsByOwnerByNameExecute(r AiAPIPutAiChatsByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiDeploymentsByOwnerByNameRequest struct {
@@ -19934,15 +17037,9 @@ type AiAPIPutAiDeploymentsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiDeploymentsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiDeploymentsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiDeploymentsByOwnerByNameRequest) Execute() (*PostAiDeployments200Response, *http.Response, error) {
+func (r AiAPIPutAiDeploymentsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiDeploymentsByOwnerByNameExecute(r)
 }
 
@@ -19952,8 +17049,8 @@ PutAiDeploymentsByOwnerByName Replace a application
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiDeploymentsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiDeploymentsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiDeploymentsByOwnerByNameRequest {
@@ -19966,19 +17063,16 @@ func (a *AiAPIService) PutAiDeploymentsByOwnerByName(ctx context.Context, owner 
 }
 
 // Execute executes the request
-//
-//	@return PostAiDeployments200Response
-func (a *AiAPIService) PutAiDeploymentsByOwnerByNameExecute(r AiAPIPutAiDeploymentsByOwnerByNameRequest) (*PostAiDeployments200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiDeploymentsByOwnerByNameExecute(r AiAPIPutAiDeploymentsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiDeployments200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiDeploymentsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/deployments/{owner}/{name}"
@@ -19988,12 +17082,9 @@ func (a *AiAPIService) PutAiDeploymentsByOwnerByNameExecute(r AiAPIPutAiDeployme
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20002,30 +17093,28 @@ func (a *AiAPIService) PutAiDeploymentsByOwnerByNameExecute(r AiAPIPutAiDeployme
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20033,19 +17122,10 @@ func (a *AiAPIService) PutAiDeploymentsByOwnerByNameExecute(r AiAPIPutAiDeployme
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiFilesByOwnerByNameRequest struct {
@@ -20053,15 +17133,9 @@ type AiAPIPutAiFilesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiFilesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiFilesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiFilesByOwnerByNameRequest) Execute() (*PostAiFiles200Response, *http.Response, error) {
+func (r AiAPIPutAiFilesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiFilesByOwnerByNameExecute(r)
 }
 
@@ -20071,8 +17145,8 @@ PutAiFilesByOwnerByName Replace a file
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiFilesByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiFilesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiFilesByOwnerByNameRequest {
@@ -20085,19 +17159,16 @@ func (a *AiAPIService) PutAiFilesByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiFiles200Response
-func (a *AiAPIService) PutAiFilesByOwnerByNameExecute(r AiAPIPutAiFilesByOwnerByNameRequest) (*PostAiFiles200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiFilesByOwnerByNameExecute(r AiAPIPutAiFilesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiFiles200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiFilesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/files/{owner}/{name}"
@@ -20107,12 +17178,9 @@ func (a *AiAPIService) PutAiFilesByOwnerByNameExecute(r AiAPIPutAiFilesByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20121,30 +17189,28 @@ func (a *AiAPIService) PutAiFilesByOwnerByNameExecute(r AiAPIPutAiFilesByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20152,19 +17218,10 @@ func (a *AiAPIService) PutAiFilesByOwnerByNameExecute(r AiAPIPutAiFilesByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiFormsByOwnerByNameRequest struct {
@@ -20172,15 +17229,9 @@ type AiAPIPutAiFormsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiFormsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiFormsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiFormsByOwnerByNameRequest) Execute() (*PostAiForms200Response, *http.Response, error) {
+func (r AiAPIPutAiFormsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiFormsByOwnerByNameExecute(r)
 }
 
@@ -20190,8 +17241,8 @@ PutAiFormsByOwnerByName Replace a form
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiFormsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiFormsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiFormsByOwnerByNameRequest {
@@ -20204,19 +17255,16 @@ func (a *AiAPIService) PutAiFormsByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiForms200Response
-func (a *AiAPIService) PutAiFormsByOwnerByNameExecute(r AiAPIPutAiFormsByOwnerByNameRequest) (*PostAiForms200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiFormsByOwnerByNameExecute(r AiAPIPutAiFormsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiForms200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiFormsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/forms/{owner}/{name}"
@@ -20226,12 +17274,9 @@ func (a *AiAPIService) PutAiFormsByOwnerByNameExecute(r AiAPIPutAiFormsByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20240,30 +17285,28 @@ func (a *AiAPIService) PutAiFormsByOwnerByNameExecute(r AiAPIPutAiFormsByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20271,19 +17314,10 @@ func (a *AiAPIService) PutAiFormsByOwnerByNameExecute(r AiAPIPutAiFormsByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiGraphsByOwnerByNameRequest struct {
@@ -20291,15 +17325,9 @@ type AiAPIPutAiGraphsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiGraphsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiGraphsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiGraphsByOwnerByNameRequest) Execute() (*PostAiGraphs200Response, *http.Response, error) {
+func (r AiAPIPutAiGraphsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiGraphsByOwnerByNameExecute(r)
 }
 
@@ -20309,8 +17337,8 @@ PutAiGraphsByOwnerByName Replace a graph
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiGraphsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiGraphsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiGraphsByOwnerByNameRequest {
@@ -20323,19 +17351,16 @@ func (a *AiAPIService) PutAiGraphsByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiGraphs200Response
-func (a *AiAPIService) PutAiGraphsByOwnerByNameExecute(r AiAPIPutAiGraphsByOwnerByNameRequest) (*PostAiGraphs200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiGraphsByOwnerByNameExecute(r AiAPIPutAiGraphsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiGraphs200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiGraphsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/graphs/{owner}/{name}"
@@ -20345,12 +17370,9 @@ func (a *AiAPIService) PutAiGraphsByOwnerByNameExecute(r AiAPIPutAiGraphsByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20359,30 +17381,28 @@ func (a *AiAPIService) PutAiGraphsByOwnerByNameExecute(r AiAPIPutAiGraphsByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20390,19 +17410,10 @@ func (a *AiAPIService) PutAiGraphsByOwnerByNameExecute(r AiAPIPutAiGraphsByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiMessagesByOwnerByNameRequest struct {
@@ -20410,15 +17421,9 @@ type AiAPIPutAiMessagesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiMessagesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiMessagesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiMessagesByOwnerByNameRequest) Execute() (*PostAiMessages200Response, *http.Response, error) {
+func (r AiAPIPutAiMessagesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiMessagesByOwnerByNameExecute(r)
 }
 
@@ -20428,8 +17433,8 @@ PutAiMessagesByOwnerByName Replace a message
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiMessagesByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiMessagesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiMessagesByOwnerByNameRequest {
@@ -20442,19 +17447,16 @@ func (a *AiAPIService) PutAiMessagesByOwnerByName(ctx context.Context, owner str
 }
 
 // Execute executes the request
-//
-//	@return PostAiMessages200Response
-func (a *AiAPIService) PutAiMessagesByOwnerByNameExecute(r AiAPIPutAiMessagesByOwnerByNameRequest) (*PostAiMessages200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiMessagesByOwnerByNameExecute(r AiAPIPutAiMessagesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiMessages200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiMessagesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/messages/{owner}/{name}"
@@ -20464,12 +17466,9 @@ func (a *AiAPIService) PutAiMessagesByOwnerByNameExecute(r AiAPIPutAiMessagesByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20478,30 +17477,28 @@ func (a *AiAPIService) PutAiMessagesByOwnerByNameExecute(r AiAPIPutAiMessagesByO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20509,19 +17506,10 @@ func (a *AiAPIService) PutAiMessagesByOwnerByNameExecute(r AiAPIPutAiMessagesByO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiNodesByOwnerByNameRequest struct {
@@ -20529,15 +17517,9 @@ type AiAPIPutAiNodesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiNodesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiNodesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiNodesByOwnerByNameRequest) Execute() (*PostAiNodes200Response, *http.Response, error) {
+func (r AiAPIPutAiNodesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiNodesByOwnerByNameExecute(r)
 }
 
@@ -20547,8 +17529,8 @@ PutAiNodesByOwnerByName Replace a node
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiNodesByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiNodesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiNodesByOwnerByNameRequest {
@@ -20561,19 +17543,16 @@ func (a *AiAPIService) PutAiNodesByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiNodes200Response
-func (a *AiAPIService) PutAiNodesByOwnerByNameExecute(r AiAPIPutAiNodesByOwnerByNameRequest) (*PostAiNodes200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiNodesByOwnerByNameExecute(r AiAPIPutAiNodesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiNodes200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiNodesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/nodes/{owner}/{name}"
@@ -20583,12 +17562,9 @@ func (a *AiAPIService) PutAiNodesByOwnerByNameExecute(r AiAPIPutAiNodesByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20597,30 +17573,28 @@ func (a *AiAPIService) PutAiNodesByOwnerByNameExecute(r AiAPIPutAiNodesByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20628,33 +17602,18 @@ func (a *AiAPIService) PutAiNodesByOwnerByNameExecute(r AiAPIPutAiNodesByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiPreferencesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiPreferencesRequest) Body(body map[string]interface{}) AiAPIPutAiPreferencesRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiPreferencesRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPutAiPreferencesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiPreferencesExecute(r)
 }
 
@@ -20672,19 +17631,16 @@ func (a *AiAPIService) PutAiPreferences(ctx context.Context) AiAPIPutAiPreferenc
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PutAiPreferencesExecute(r AiAPIPutAiPreferencesRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PutAiPreferencesExecute(r AiAPIPutAiPreferencesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiPreferences")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/preferences"
@@ -20692,12 +17648,9 @@ func (a *AiAPIService) PutAiPreferencesExecute(r AiAPIPutAiPreferencesRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20706,30 +17659,28 @@ func (a *AiAPIService) PutAiPreferencesExecute(r AiAPIPutAiPreferencesRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20737,19 +17688,10 @@ func (a *AiAPIService) PutAiPreferencesExecute(r AiAPIPutAiPreferencesRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiProvidersByOwnerByNameRequest struct {
@@ -20757,15 +17699,9 @@ type AiAPIPutAiProvidersByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiProvidersByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiProvidersByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiProvidersByOwnerByNameRequest) Execute() (*PostAiProviders200Response, *http.Response, error) {
+func (r AiAPIPutAiProvidersByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiProvidersByOwnerByNameExecute(r)
 }
 
@@ -20775,8 +17711,8 @@ PutAiProvidersByOwnerByName Replace a provider
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiProvidersByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiProvidersByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiProvidersByOwnerByNameRequest {
@@ -20789,19 +17725,16 @@ func (a *AiAPIService) PutAiProvidersByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiProviders200Response
-func (a *AiAPIService) PutAiProvidersByOwnerByNameExecute(r AiAPIPutAiProvidersByOwnerByNameRequest) (*PostAiProviders200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiProvidersByOwnerByNameExecute(r AiAPIPutAiProvidersByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiProviders200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiProvidersByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers/{owner}/{name}"
@@ -20811,12 +17744,9 @@ func (a *AiAPIService) PutAiProvidersByOwnerByNameExecute(r AiAPIPutAiProvidersB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20825,30 +17755,28 @@ func (a *AiAPIService) PutAiProvidersByOwnerByNameExecute(r AiAPIPutAiProvidersB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20856,19 +17784,10 @@ func (a *AiAPIService) PutAiProvidersByOwnerByNameExecute(r AiAPIPutAiProvidersB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiRecordsByOwnerByNameRequest struct {
@@ -20876,15 +17795,9 @@ type AiAPIPutAiRecordsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiRecordsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiRecordsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiRecordsByOwnerByNameRequest) Execute() (*PostAiRecords200Response, *http.Response, error) {
+func (r AiAPIPutAiRecordsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiRecordsByOwnerByNameExecute(r)
 }
 
@@ -20894,8 +17807,8 @@ PutAiRecordsByOwnerByName Replace a record
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiRecordsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiRecordsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiRecordsByOwnerByNameRequest {
@@ -20908,19 +17821,16 @@ func (a *AiAPIService) PutAiRecordsByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiRecords200Response
-func (a *AiAPIService) PutAiRecordsByOwnerByNameExecute(r AiAPIPutAiRecordsByOwnerByNameRequest) (*PostAiRecords200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiRecordsByOwnerByNameExecute(r AiAPIPutAiRecordsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRecords200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRecordsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/records/{owner}/{name}"
@@ -20930,12 +17840,9 @@ func (a *AiAPIService) PutAiRecordsByOwnerByNameExecute(r AiAPIPutAiRecordsByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20944,30 +17851,28 @@ func (a *AiAPIService) PutAiRecordsByOwnerByNameExecute(r AiAPIPutAiRecordsByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -20975,19 +17880,10 @@ func (a *AiAPIService) PutAiRecordsByOwnerByNameExecute(r AiAPIPutAiRecordsByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiRemoteConnectionsByOwnerByNameRequest struct {
@@ -20995,15 +17891,9 @@ type AiAPIPutAiRemoteConnectionsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiRemoteConnectionsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiRemoteConnectionsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiRemoteConnectionsByOwnerByNameRequest) Execute() (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (r AiAPIPutAiRemoteConnectionsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiRemoteConnectionsByOwnerByNameExecute(r)
 }
 
@@ -21013,8 +17903,8 @@ PutAiRemoteConnectionsByOwnerByName Replace a connection
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiRemoteConnectionsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiRemoteConnectionsByOwnerByNameRequest {
@@ -21027,19 +17917,16 @@ func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByName(ctx context.Context, 
 }
 
 // Execute executes the request
-//
-//	@return PostAiRemoteConnections200Response
-func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPutAiRemoteConnectionsByOwnerByNameRequest) (*PostAiRemoteConnections200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPutAiRemoteConnectionsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRemoteConnections200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRemoteConnectionsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}"
@@ -21049,12 +17936,9 @@ func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPutAiRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21063,30 +17947,28 @@ func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPutAiRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -21094,19 +17976,10 @@ func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPutAiRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiRoutesByOwnerByNameRequest struct {
@@ -21114,15 +17987,9 @@ type AiAPIPutAiRoutesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiRoutesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiRoutesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiRoutesByOwnerByNameRequest) Execute() (*PostAiRoutes200Response, *http.Response, error) {
+func (r AiAPIPutAiRoutesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiRoutesByOwnerByNameExecute(r)
 }
 
@@ -21132,8 +17999,8 @@ PutAiRoutesByOwnerByName Replace a model-route
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiRoutesByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiRoutesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiRoutesByOwnerByNameRequest {
@@ -21146,19 +18013,16 @@ func (a *AiAPIService) PutAiRoutesByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiRoutes200Response
-func (a *AiAPIService) PutAiRoutesByOwnerByNameExecute(r AiAPIPutAiRoutesByOwnerByNameRequest) (*PostAiRoutes200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiRoutesByOwnerByNameExecute(r AiAPIPutAiRoutesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiRoutes200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRoutesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/routes/{owner}/{name}"
@@ -21168,12 +18032,9 @@ func (a *AiAPIService) PutAiRoutesByOwnerByNameExecute(r AiAPIPutAiRoutesByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21182,30 +18043,28 @@ func (a *AiAPIService) PutAiRoutesByOwnerByNameExecute(r AiAPIPutAiRoutesByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -21213,19 +18072,10 @@ func (a *AiAPIService) PutAiRoutesByOwnerByNameExecute(r AiAPIPutAiRoutesByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiScalesByOwnerByNameRequest struct {
@@ -21233,15 +18083,9 @@ type AiAPIPutAiScalesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiScalesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiScalesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiScalesByOwnerByNameRequest) Execute() (*PostAiScales200Response, *http.Response, error) {
+func (r AiAPIPutAiScalesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiScalesByOwnerByNameExecute(r)
 }
 
@@ -21251,8 +18095,8 @@ PutAiScalesByOwnerByName Replace a scale
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiScalesByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiScalesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiScalesByOwnerByNameRequest {
@@ -21265,19 +18109,16 @@ func (a *AiAPIService) PutAiScalesByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiScales200Response
-func (a *AiAPIService) PutAiScalesByOwnerByNameExecute(r AiAPIPutAiScalesByOwnerByNameRequest) (*PostAiScales200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiScalesByOwnerByNameExecute(r AiAPIPutAiScalesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScales200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiScalesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scales/{owner}/{name}"
@@ -21287,12 +18128,9 @@ func (a *AiAPIService) PutAiScalesByOwnerByNameExecute(r AiAPIPutAiScalesByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21301,30 +18139,28 @@ func (a *AiAPIService) PutAiScalesByOwnerByNameExecute(r AiAPIPutAiScalesByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -21332,19 +18168,10 @@ func (a *AiAPIService) PutAiScalesByOwnerByNameExecute(r AiAPIPutAiScalesByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiScansByOwnerByNameRequest struct {
@@ -21352,15 +18179,9 @@ type AiAPIPutAiScansByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiScansByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiScansByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiScansByOwnerByNameRequest) Execute() (*PostAiScans200Response, *http.Response, error) {
+func (r AiAPIPutAiScansByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiScansByOwnerByNameExecute(r)
 }
 
@@ -21370,8 +18191,8 @@ PutAiScansByOwnerByName Replace a scan
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiScansByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiScansByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiScansByOwnerByNameRequest {
@@ -21384,19 +18205,16 @@ func (a *AiAPIService) PutAiScansByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiScans200Response
-func (a *AiAPIService) PutAiScansByOwnerByNameExecute(r AiAPIPutAiScansByOwnerByNameRequest) (*PostAiScans200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiScansByOwnerByNameExecute(r AiAPIPutAiScansByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiScans200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiScansByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/scans/{owner}/{name}"
@@ -21406,12 +18224,9 @@ func (a *AiAPIService) PutAiScansByOwnerByNameExecute(r AiAPIPutAiScansByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21420,30 +18235,28 @@ func (a *AiAPIService) PutAiScansByOwnerByNameExecute(r AiAPIPutAiScansByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -21451,19 +18264,10 @@ func (a *AiAPIService) PutAiScansByOwnerByNameExecute(r AiAPIPutAiScansByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiSigninSessionsByOwnerByNameRequest struct {
@@ -21471,15 +18275,9 @@ type AiAPIPutAiSigninSessionsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiSigninSessionsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiSigninSessionsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiSigninSessionsByOwnerByNameRequest) Execute() (*PostAiSigninSessions200Response, *http.Response, error) {
+func (r AiAPIPutAiSigninSessionsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiSigninSessionsByOwnerByNameExecute(r)
 }
 
@@ -21489,8 +18287,8 @@ PutAiSigninSessionsByOwnerByName Replace a session
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiSigninSessionsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiSigninSessionsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiSigninSessionsByOwnerByNameRequest {
@@ -21503,19 +18301,16 @@ func (a *AiAPIService) PutAiSigninSessionsByOwnerByName(ctx context.Context, own
 }
 
 // Execute executes the request
-//
-//	@return PostAiSigninSessions200Response
-func (a *AiAPIService) PutAiSigninSessionsByOwnerByNameExecute(r AiAPIPutAiSigninSessionsByOwnerByNameRequest) (*PostAiSigninSessions200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiSigninSessionsByOwnerByNameExecute(r AiAPIPutAiSigninSessionsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiSigninSessions200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiSigninSessionsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/signin-sessions/{owner}/{name}"
@@ -21525,12 +18320,9 @@ func (a *AiAPIService) PutAiSigninSessionsByOwnerByNameExecute(r AiAPIPutAiSigni
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21539,30 +18331,28 @@ func (a *AiAPIService) PutAiSigninSessionsByOwnerByNameExecute(r AiAPIPutAiSigni
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -21570,19 +18360,10 @@ func (a *AiAPIService) PutAiSigninSessionsByOwnerByNameExecute(r AiAPIPutAiSigni
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiStoresByOwnerByNameRequest struct {
@@ -21590,15 +18371,9 @@ type AiAPIPutAiStoresByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiStoresByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiStoresByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiStoresByOwnerByNameRequest) Execute() (*PostAiStores200Response, *http.Response, error) {
+func (r AiAPIPutAiStoresByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiStoresByOwnerByNameExecute(r)
 }
 
@@ -21608,8 +18383,8 @@ PutAiStoresByOwnerByName Replace a store
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiStoresByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiStoresByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiStoresByOwnerByNameRequest {
@@ -21622,19 +18397,16 @@ func (a *AiAPIService) PutAiStoresByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiStores200Response
-func (a *AiAPIService) PutAiStoresByOwnerByNameExecute(r AiAPIPutAiStoresByOwnerByNameRequest) (*PostAiStores200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiStoresByOwnerByNameExecute(r AiAPIPutAiStoresByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiStores200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiStoresByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/stores/{owner}/{name}"
@@ -21644,12 +18416,9 @@ func (a *AiAPIService) PutAiStoresByOwnerByNameExecute(r AiAPIPutAiStoresByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21658,30 +18427,28 @@ func (a *AiAPIService) PutAiStoresByOwnerByNameExecute(r AiAPIPutAiStoresByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -21689,19 +18456,10 @@ func (a *AiAPIService) PutAiStoresByOwnerByNameExecute(r AiAPIPutAiStoresByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiTasksByOwnerByNameRequest struct {
@@ -21709,15 +18467,9 @@ type AiAPIPutAiTasksByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiTasksByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiTasksByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiTasksByOwnerByNameRequest) Execute() (*PostAiTasks200Response, *http.Response, error) {
+func (r AiAPIPutAiTasksByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiTasksByOwnerByNameExecute(r)
 }
 
@@ -21727,8 +18479,8 @@ PutAiTasksByOwnerByName Replace a task
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiTasksByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiTasksByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiTasksByOwnerByNameRequest {
@@ -21741,19 +18493,16 @@ func (a *AiAPIService) PutAiTasksByOwnerByName(ctx context.Context, owner string
 }
 
 // Execute executes the request
-//
-//	@return PostAiTasks200Response
-func (a *AiAPIService) PutAiTasksByOwnerByNameExecute(r AiAPIPutAiTasksByOwnerByNameRequest) (*PostAiTasks200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiTasksByOwnerByNameExecute(r AiAPIPutAiTasksByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTasks200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiTasksByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tasks/{owner}/{name}"
@@ -21763,12 +18512,9 @@ func (a *AiAPIService) PutAiTasksByOwnerByNameExecute(r AiAPIPutAiTasksByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21777,30 +18523,28 @@ func (a *AiAPIService) PutAiTasksByOwnerByNameExecute(r AiAPIPutAiTasksByOwnerBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -21808,19 +18552,10 @@ func (a *AiAPIService) PutAiTasksByOwnerByNameExecute(r AiAPIPutAiTasksByOwnerBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiTemplatesByOwnerByNameRequest struct {
@@ -21828,15 +18563,9 @@ type AiAPIPutAiTemplatesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiTemplatesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiTemplatesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiTemplatesByOwnerByNameRequest) Execute() (*PostAiTemplates200Response, *http.Response, error) {
+func (r AiAPIPutAiTemplatesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiTemplatesByOwnerByNameExecute(r)
 }
 
@@ -21846,8 +18575,8 @@ PutAiTemplatesByOwnerByName Replace a template
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiTemplatesByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiTemplatesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiTemplatesByOwnerByNameRequest {
@@ -21860,19 +18589,16 @@ func (a *AiAPIService) PutAiTemplatesByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiTemplates200Response
-func (a *AiAPIService) PutAiTemplatesByOwnerByNameExecute(r AiAPIPutAiTemplatesByOwnerByNameRequest) (*PostAiTemplates200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiTemplatesByOwnerByNameExecute(r AiAPIPutAiTemplatesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTemplates200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiTemplatesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/templates/{owner}/{name}"
@@ -21882,12 +18608,9 @@ func (a *AiAPIService) PutAiTemplatesByOwnerByNameExecute(r AiAPIPutAiTemplatesB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21896,30 +18619,28 @@ func (a *AiAPIService) PutAiTemplatesByOwnerByNameExecute(r AiAPIPutAiTemplatesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -21927,33 +18648,18 @@ func (a *AiAPIService) PutAiTemplatesByOwnerByNameExecute(r AiAPIPutAiTemplatesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiTrainingContributionRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiTrainingContributionRequest) Body(body map[string]interface{}) AiAPIPutAiTrainingContributionRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiTrainingContributionRequest) Execute() (*Envelope, *http.Response, error) {
+func (r AiAPIPutAiTrainingContributionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiTrainingContributionExecute(r)
 }
 
@@ -21971,19 +18677,16 @@ func (a *AiAPIService) PutAiTrainingContribution(ctx context.Context) AiAPIPutAi
 }
 
 // Execute executes the request
-//
-//	@return Envelope
-func (a *AiAPIService) PutAiTrainingContributionExecute(r AiAPIPutAiTrainingContributionRequest) (*Envelope, *http.Response, error) {
+func (a *AiAPIService) PutAiTrainingContributionExecute(r AiAPIPutAiTrainingContributionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Envelope
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiTrainingContribution")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/training-contribution"
@@ -21991,12 +18694,9 @@ func (a *AiAPIService) PutAiTrainingContributionExecute(r AiAPIPutAiTrainingCont
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22005,30 +18705,28 @@ func (a *AiAPIService) PutAiTrainingContributionExecute(r AiAPIPutAiTrainingCont
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -22036,19 +18734,10 @@ func (a *AiAPIService) PutAiTrainingContributionExecute(r AiAPIPutAiTrainingCont
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiTreeFilesByOwnerByNameRequest struct {
@@ -22056,15 +18745,9 @@ type AiAPIPutAiTreeFilesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiTreeFilesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiTreeFilesByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiTreeFilesByOwnerByNameRequest) Execute() (*PostAiTreeFiles200Response, *http.Response, error) {
+func (r AiAPIPutAiTreeFilesByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiTreeFilesByOwnerByNameExecute(r)
 }
 
@@ -22074,8 +18757,8 @@ PutAiTreeFilesByOwnerByName Replace a tree-file
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiTreeFilesByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiTreeFilesByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiTreeFilesByOwnerByNameRequest {
@@ -22088,19 +18771,16 @@ func (a *AiAPIService) PutAiTreeFilesByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiTreeFiles200Response
-func (a *AiAPIService) PutAiTreeFilesByOwnerByNameExecute(r AiAPIPutAiTreeFilesByOwnerByNameRequest) (*PostAiTreeFiles200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiTreeFilesByOwnerByNameExecute(r AiAPIPutAiTreeFilesByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiTreeFiles200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiTreeFilesByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/tree-files/{owner}/{name}"
@@ -22110,12 +18790,9 @@ func (a *AiAPIService) PutAiTreeFilesByOwnerByNameExecute(r AiAPIPutAiTreeFilesB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22124,30 +18801,28 @@ func (a *AiAPIService) PutAiTreeFilesByOwnerByNameExecute(r AiAPIPutAiTreeFilesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -22155,19 +18830,10 @@ func (a *AiAPIService) PutAiTreeFilesByOwnerByNameExecute(r AiAPIPutAiTreeFilesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiVectorsByOwnerByNameRequest struct {
@@ -22175,15 +18841,9 @@ type AiAPIPutAiVectorsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiVectorsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiVectorsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiVectorsByOwnerByNameRequest) Execute() (*PostAiVectors200Response, *http.Response, error) {
+func (r AiAPIPutAiVectorsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiVectorsByOwnerByNameExecute(r)
 }
 
@@ -22193,8 +18853,8 @@ PutAiVectorsByOwnerByName Replace a vector
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiVectorsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiVectorsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiVectorsByOwnerByNameRequest {
@@ -22207,19 +18867,16 @@ func (a *AiAPIService) PutAiVectorsByOwnerByName(ctx context.Context, owner stri
 }
 
 // Execute executes the request
-//
-//	@return PostAiVectors200Response
-func (a *AiAPIService) PutAiVectorsByOwnerByNameExecute(r AiAPIPutAiVectorsByOwnerByNameRequest) (*PostAiVectors200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiVectorsByOwnerByNameExecute(r AiAPIPutAiVectorsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVectors200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiVectorsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/vectors/{owner}/{name}"
@@ -22229,12 +18886,9 @@ func (a *AiAPIService) PutAiVectorsByOwnerByNameExecute(r AiAPIPutAiVectorsByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22243,30 +18897,28 @@ func (a *AiAPIService) PutAiVectorsByOwnerByNameExecute(r AiAPIPutAiVectorsByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -22274,19 +18926,10 @@ func (a *AiAPIService) PutAiVectorsByOwnerByNameExecute(r AiAPIPutAiVectorsByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiVideosByOwnerByNameRequest struct {
@@ -22294,15 +18937,9 @@ type AiAPIPutAiVideosByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiVideosByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiVideosByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiVideosByOwnerByNameRequest) Execute() (*PostAiVideos200Response, *http.Response, error) {
+func (r AiAPIPutAiVideosByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiVideosByOwnerByNameExecute(r)
 }
 
@@ -22312,8 +18949,8 @@ PutAiVideosByOwnerByName Replace a video
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiVideosByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiVideosByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiVideosByOwnerByNameRequest {
@@ -22326,19 +18963,16 @@ func (a *AiAPIService) PutAiVideosByOwnerByName(ctx context.Context, owner strin
 }
 
 // Execute executes the request
-//
-//	@return PostAiVideos200Response
-func (a *AiAPIService) PutAiVideosByOwnerByNameExecute(r AiAPIPutAiVideosByOwnerByNameRequest) (*PostAiVideos200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiVideosByOwnerByNameExecute(r AiAPIPutAiVideosByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiVideos200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiVideosByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/videos/{owner}/{name}"
@@ -22348,12 +18982,9 @@ func (a *AiAPIService) PutAiVideosByOwnerByNameExecute(r AiAPIPutAiVideosByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22362,30 +18993,28 @@ func (a *AiAPIService) PutAiVideosByOwnerByNameExecute(r AiAPIPutAiVideosByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -22393,19 +19022,10 @@ func (a *AiAPIService) PutAiVideosByOwnerByNameExecute(r AiAPIPutAiVideosByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIPutAiWorkflowsByOwnerByNameRequest struct {
@@ -22413,15 +19033,9 @@ type AiAPIPutAiWorkflowsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
-	body       *map[string]interface{}
 }
 
-func (r AiAPIPutAiWorkflowsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiWorkflowsByOwnerByNameRequest {
-	r.body = &body
-	return r
-}
-
-func (r AiAPIPutAiWorkflowsByOwnerByNameRequest) Execute() (*PostAiWorkflows200Response, *http.Response, error) {
+func (r AiAPIPutAiWorkflowsByOwnerByNameRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutAiWorkflowsByOwnerByNameExecute(r)
 }
 
@@ -22431,8 +19045,8 @@ PutAiWorkflowsByOwnerByName Replace a workflow
 Identical to PATCH — the handler takes a whole object either way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param owner Owning organization.
-	@param name Resource name, unique within the owner.
+	@param owner
+	@param name
 	@return AiAPIPutAiWorkflowsByOwnerByNameRequest
 */
 func (a *AiAPIService) PutAiWorkflowsByOwnerByName(ctx context.Context, owner string, name string) AiAPIPutAiWorkflowsByOwnerByNameRequest {
@@ -22445,19 +19059,16 @@ func (a *AiAPIService) PutAiWorkflowsByOwnerByName(ctx context.Context, owner st
 }
 
 // Execute executes the request
-//
-//	@return PostAiWorkflows200Response
-func (a *AiAPIService) PutAiWorkflowsByOwnerByNameExecute(r AiAPIPutAiWorkflowsByOwnerByNameRequest) (*PostAiWorkflows200Response, *http.Response, error) {
+func (a *AiAPIService) PutAiWorkflowsByOwnerByNameExecute(r AiAPIPutAiWorkflowsByOwnerByNameRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PostAiWorkflows200Response
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiWorkflowsByOwnerByName")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ai/workflows/{owner}/{name}"
@@ -22467,12 +19078,9 @@ func (a *AiAPIService) PutAiWorkflowsByOwnerByNameExecute(r AiAPIPutAiWorkflowsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22481,30 +19089,28 @@ func (a *AiAPIService) PutAiWorkflowsByOwnerByNameExecute(r AiAPIPutAiWorkflowsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -22512,17 +19118,8 @@ func (a *AiAPIService) PutAiWorkflowsByOwnerByNameExecute(r AiAPIPutAiWorkflowsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }

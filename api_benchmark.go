@@ -127,6 +127,163 @@ func (a *BenchmarkAPIService) GetBenchmarkCatalogExecute(r BenchmarkAPIGetBenchm
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type BenchmarkAPIGetBenchmarkClaimsRequest struct {
+	ctx        context.Context
+	ApiService *BenchmarkAPIService
+	benchmark  *string
+	model      *string
+	provider   *string
+	source     *string
+	protocol   *string
+}
+
+// Benchmark filters to one benchmark id. Empty returns every benchmark.
+func (r BenchmarkAPIGetBenchmarkClaimsRequest) Benchmark(benchmark string) BenchmarkAPIGetBenchmarkClaimsRequest {
+	r.benchmark = &benchmark
+	return r
+}
+
+// Model filters to one model. Empty returns every model.
+func (r BenchmarkAPIGetBenchmarkClaimsRequest) Model(model string) BenchmarkAPIGetBenchmarkClaimsRequest {
+	r.model = &model
+	return r
+}
+
+// Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers.
+func (r BenchmarkAPIGetBenchmarkClaimsRequest) Provider(provider string) BenchmarkAPIGetBenchmarkClaimsRequest {
+	r.provider = &provider
+	return r
+}
+
+// Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other.
+func (r BenchmarkAPIGetBenchmarkClaimsRequest) Source(source string) BenchmarkAPIGetBenchmarkClaimsRequest {
+	r.source = &source
+	return r
+}
+
+// Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness.
+func (r BenchmarkAPIGetBenchmarkClaimsRequest) Protocol(protocol string) BenchmarkAPIGetBenchmarkClaimsRequest {
+	r.protocol = &protocol
+	return r
+}
+
+func (r BenchmarkAPIGetBenchmarkClaimsRequest) Execute() (*ClaimsOut, *http.Response, error) {
+	return r.ApiService.GetBenchmarkClaimsExecute(r)
+}
+
+/*
+GetBenchmarkClaims Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+
+Lists the effective published claims: what the leaderboard will use for
+each (benchmark, model) after the seed, the import and any stored correction
+are layered. It answers the operator's question — what does this arena
+currently believe someone else reported, and did we ship that or fix it.
+
+Effective values only. The history of a key lives in the append-only file and
+is not what this op is for; a list that returned every superseded row would
+make the common question the hard one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BenchmarkAPIGetBenchmarkClaimsRequest
+*/
+func (a *BenchmarkAPIService) GetBenchmarkClaims(ctx context.Context) BenchmarkAPIGetBenchmarkClaimsRequest {
+	return BenchmarkAPIGetBenchmarkClaimsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ClaimsOut
+func (a *BenchmarkAPIService) GetBenchmarkClaimsExecute(r BenchmarkAPIGetBenchmarkClaimsRequest) (*ClaimsOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ClaimsOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.GetBenchmarkClaims")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/benchmark/claims"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.benchmark != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "Benchmark", r.benchmark, "form", "")
+	}
+	if r.model != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "Model", r.model, "form", "")
+	}
+	if r.provider != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "Provider", r.provider, "form", "")
+	}
+	if r.source != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "Source", r.source, "form", "")
+	}
+	if r.protocol != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "Protocol", r.protocol, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type BenchmarkAPIGetBenchmarkCompareRequest struct {
 	ctx        context.Context
 	ApiService *BenchmarkAPIService
@@ -212,6 +369,136 @@ func (a *BenchmarkAPIService) GetBenchmarkCompareExecute(r BenchmarkAPIGetBenchm
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "a", r.a, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "b", r.b, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BenchmarkAPIGetBenchmarkHistoryRequest struct {
+	ctx        context.Context
+	ApiService *BenchmarkAPIService
+	benchmark  *string
+	model      *string
+}
+
+// Benchmark is the catalog id to read, defaulting to gpqa_diamond.
+func (r BenchmarkAPIGetBenchmarkHistoryRequest) Benchmark(benchmark string) BenchmarkAPIGetBenchmarkHistoryRequest {
+	r.benchmark = &benchmark
+	return r
+}
+
+// Model filters to one model. Empty returns every model measured.
+func (r BenchmarkAPIGetBenchmarkHistoryRequest) Model(model string) BenchmarkAPIGetBenchmarkHistoryRequest {
+	r.model = &model
+	return r
+}
+
+func (r BenchmarkAPIGetBenchmarkHistoryRequest) Execute() (*HistoryOut, *http.Response, error) {
+	return r.ApiService.GetBenchmarkHistoryExecute(r)
+}
+
+/*
+GetBenchmarkHistory Returns each model's measured score per run over time, oldest first, with the change between runs.
+
+Returns each model's measured score per run over time, oldest first,
+with the change between runs.
+
+This is the counterweight to a leaderboard: the board shows the latest run
+because that is what "how good is it" means, and a single latest number cannot
+distinguish a model that has always been strong from one that just improved,
+or from one that regressed after a provider changed something. Both matter for
+routing, and only one of them is visible on a board.
+
+Runs with no id — attempts recorded before runs existed — group under the
+empty run, which is honestly what they are: one undated measurement.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BenchmarkAPIGetBenchmarkHistoryRequest
+*/
+func (a *BenchmarkAPIService) GetBenchmarkHistory(ctx context.Context) BenchmarkAPIGetBenchmarkHistoryRequest {
+	return BenchmarkAPIGetBenchmarkHistoryRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return HistoryOut
+func (a *BenchmarkAPIService) GetBenchmarkHistoryExecute(r BenchmarkAPIGetBenchmarkHistoryRequest) (*HistoryOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *HistoryOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.GetBenchmarkHistory")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/benchmark/history"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.benchmark != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "Benchmark", r.benchmark, "form", "")
+	}
+	if r.model != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "Model", r.model, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -458,6 +745,125 @@ func (a *BenchmarkAPIService) GetBenchmarkPresetsExecute(r BenchmarkAPIGetBenchm
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BenchmarkAPIPostBenchmarkClaimsRequest struct {
+	ctx         context.Context
+	ApiService  *BenchmarkAPIService
+	putClaimsIn *PutClaimsIn
+}
+
+func (r BenchmarkAPIPostBenchmarkClaimsRequest) PutClaimsIn(putClaimsIn PutClaimsIn) BenchmarkAPIPostBenchmarkClaimsRequest {
+	r.putClaimsIn = &putClaimsIn
+	return r
+}
+
+func (r BenchmarkAPIPostBenchmarkClaimsRequest) Execute() (*PutClaimsOut, *http.Response, error) {
+	return r.ApiService.PostBenchmarkClaimsExecute(r)
+}
+
+/*
+PostBenchmarkClaims Records published claims: one to correct a number, many to import a leaderboard.
+
+Records published claims: one to correct a number, many to import a
+leaderboard. Every row must carry a Source, because a claim without its
+citation is a number nobody can check — and an unattributed number in the
+published plane is indistinguishable from a measurement, which is the one
+confusion this whole surface is built to prevent.
+
+Writes are append-only, so this never destroys the value it replaces. A
+vendor restating a score leaves both rows on disk, which is how the restating
+itself becomes visible.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BenchmarkAPIPostBenchmarkClaimsRequest
+*/
+func (a *BenchmarkAPIService) PostBenchmarkClaims(ctx context.Context) BenchmarkAPIPostBenchmarkClaimsRequest {
+	return BenchmarkAPIPostBenchmarkClaimsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PutClaimsOut
+func (a *BenchmarkAPIService) PostBenchmarkClaimsExecute(r BenchmarkAPIPostBenchmarkClaimsRequest) (*PutClaimsOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PutClaimsOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.PostBenchmarkClaims")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/benchmark/claims"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.putClaimsIn == nil {
+		return localVarReturnValue, nil, reportError("putClaimsIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.putClaimsIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

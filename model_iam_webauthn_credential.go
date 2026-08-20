@@ -20,26 +20,28 @@ var _ MappedNullable = &IamWebauthnCredential{}
 
 // IamWebauthnCredential struct for IamWebauthnCredential
 type IamWebauthnCredential struct {
-	Aaguid          *string    `json:"aaguid,omitempty"`
-	Attachment      *string    `json:"attachment,omitempty"`
-	AttestationType *string    `json:"attestationType,omitempty"`
-	BackupEligible  *bool      `json:"backupEligible,omitempty"`
-	BackupState     *bool      `json:"backupState,omitempty"`
-	CloneWarning    *bool      `json:"cloneWarning,omitempty"`
-	CreatedAt       *time.Time `json:"createdAt,omitempty"`
-	CreatedTime     *string    `json:"createdTime,omitempty"`
-	CredentialId    *string    `json:"credentialId,omitempty"`
-	Deleted         *bool      `json:"deleted,omitempty"`
-	Id              *string    `json:"id,omitempty"`
-	Name            *string    `json:"name,omitempty"`
-	Owner           *string    `json:"owner,omitempty"`
-	PublicKey       *string    `json:"publicKey,omitempty"`
-	SignCount       *int32     `json:"signCount,omitempty"`
-	Transport       []string   `json:"transport,omitempty"`
-	UpdatedAt       *time.Time `json:"updatedAt,omitempty"`
-	User            *string    `json:"user,omitempty"`
-	UserPresent     *bool      `json:"userPresent,omitempty"`
-	UserVerified    *bool      `json:"userVerified,omitempty"`
+	Aaguid     *string `json:"aaguid,omitempty"`
+	Attachment *string `json:"attachment,omitempty"`
+	// AttestationFormat is the statement format the authenticator attested in (\"packed\", \"apple\", \"none\", …), which is a DIFFERENT value from the attestation type above. The library reads it back when resolving the FIDO AppID extension, so a row that dropped it would round-trip a credential the verifier no longer recognises as the one it stored.
+	AttestationFormat *string    `json:"attestationFormat,omitempty"`
+	AttestationType   *string    `json:"attestationType,omitempty"`
+	BackupEligible    *bool      `json:"backupEligible,omitempty"`
+	BackupState       *bool      `json:"backupState,omitempty"`
+	CloneWarning      *bool      `json:"cloneWarning,omitempty"`
+	CreatedAt         *time.Time `json:"createdAt,omitempty"`
+	CreatedTime       *string    `json:"createdTime,omitempty"`
+	CredentialId      *string    `json:"credentialId,omitempty"`
+	Deleted           *bool      `json:"deleted,omitempty"`
+	Id                *string    `json:"id,omitempty"`
+	Name              *string    `json:"name,omitempty"`
+	Owner             *string    `json:"owner,omitempty"`
+	PublicKey         *string    `json:"publicKey,omitempty"`
+	SignCount         *int32     `json:"signCount,omitempty"`
+	Transport         []string   `json:"transport,omitempty"`
+	UpdatedAt         *time.Time `json:"updatedAt,omitempty"`
+	User              *string    `json:"user,omitempty"`
+	UserPresent       *bool      `json:"userPresent,omitempty"`
+	UserVerified      *bool      `json:"userVerified,omitempty"`
 }
 
 // NewIamWebauthnCredential instantiates a new IamWebauthnCredential object
@@ -121,6 +123,38 @@ func (o *IamWebauthnCredential) HasAttachment() bool {
 // SetAttachment gets a reference to the given string and assigns it to the Attachment field.
 func (o *IamWebauthnCredential) SetAttachment(v string) {
 	o.Attachment = &v
+}
+
+// GetAttestationFormat returns the AttestationFormat field value if set, zero value otherwise.
+func (o *IamWebauthnCredential) GetAttestationFormat() string {
+	if o == nil || IsNil(o.AttestationFormat) {
+		var ret string
+		return ret
+	}
+	return *o.AttestationFormat
+}
+
+// GetAttestationFormatOk returns a tuple with the AttestationFormat field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamWebauthnCredential) GetAttestationFormatOk() (*string, bool) {
+	if o == nil || IsNil(o.AttestationFormat) {
+		return nil, false
+	}
+	return o.AttestationFormat, true
+}
+
+// HasAttestationFormat returns a boolean if a field has been set.
+func (o *IamWebauthnCredential) HasAttestationFormat() bool {
+	if o != nil && !IsNil(o.AttestationFormat) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttestationFormat gets a reference to the given string and assigns it to the AttestationFormat field.
+func (o *IamWebauthnCredential) SetAttestationFormat(v string) {
+	o.AttestationFormat = &v
 }
 
 // GetAttestationType returns the AttestationType field value if set, zero value otherwise.
@@ -714,6 +748,9 @@ func (o IamWebauthnCredential) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Attachment) {
 		toSerialize["attachment"] = o.Attachment
+	}
+	if !IsNil(o.AttestationFormat) {
+		toSerialize["attestationFormat"] = o.AttestationFormat
 	}
 	if !IsNil(o.AttestationType) {
 		toSerialize["attestationType"] = o.AttestationType

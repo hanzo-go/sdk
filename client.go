@@ -60,6 +60,8 @@ type APIClient struct {
 
 	AiAPI *AiAPIService
 
+	AllowanceAPI *AllowanceAPIService
+
 	AnalyticsAPI *AnalyticsAPIService
 
 	AppearanceAPI *AppearanceAPIService
@@ -79,8 +81,6 @@ type APIClient struct {
 	AutomationsAPI *AutomationsAPIService
 
 	AvatarAPI *AvatarAPIService
-
-	BalancersAPI *BalancersAPIService
 
 	BaseAPI *BaseAPIService
 
@@ -148,8 +148,6 @@ type APIClient struct {
 
 	DataroomAPI *DataroomAPIService
 
-	DatastoreAPI *DatastoreAPIService
-
 	DefaultAPI *DefaultAPIService
 
 	DeployAPI *DeployAPIService
@@ -160,8 +158,6 @@ type APIClient struct {
 
 	DnsAPI *DnsAPIService
 
-	DocdbAPI *DocdbAPIService
-
 	DocsAPI *DocsAPIService
 
 	DocumentsAPI *DocumentsAPIService
@@ -169,6 +165,8 @@ type APIClient struct {
 	DomainAPI *DomainAPIService
 
 	DownloadAPI *DownloadAPIService
+
+	EdgeAPI *EdgeAPIService
 
 	EmbedAPI *EmbedAPIService
 
@@ -214,10 +212,6 @@ type APIClient struct {
 
 	GatewayAPI *GatewayAPIService
 
-	GenerateTextToSpeechAudioAPI *GenerateTextToSpeechAudioAPIService
-
-	GenerateTextToSpeechAudioStreamAPI *GenerateTextToSpeechAudioStreamAPIService
-
 	GitAPI *GitAPIService
 
 	GitWebhookAPI *GitWebhookAPIService
@@ -225,8 +219,6 @@ type APIClient struct {
 	GpusAPI *GpusAPIService
 
 	GuideAPI *GuideAPIService
-
-	HealthAPI *HealthAPIService
 
 	HelpAPI *HelpAPIService
 
@@ -244,6 +236,8 @@ type APIClient struct {
 
 	InstallPatchAPI *InstallPatchAPIService
 
+	InstancesAPI *InstancesAPIService
+
 	IntegrationsAPI *IntegrationsAPIService
 
 	K8sAPI *K8sAPIService
@@ -253,8 +247,6 @@ type APIClient struct {
 	KeysAPI *KeysAPIService
 
 	KmsAPI *KmsAPIService
-
-	KvAPI *KvAPIService
 
 	LegalAPI *LegalAPIService
 
@@ -314,8 +306,6 @@ type APIClient struct {
 
 	PricingAPI *PricingAPIService
 
-	ProcessSpeechToTextAPI *ProcessSpeechToTextAPIService
-
 	ProjectsAPI *ProjectsAPIService
 
 	PromptsAPI *PromptsAPIService
@@ -364,7 +354,7 @@ type APIClient struct {
 
 	SecurityAPI *SecurityAPIService
 
-	SentryAPI *SentryAPIService
+	SentinelAPI *SentinelAPIService
 
 	SettingsAPI *SettingsAPIService
 
@@ -375,8 +365,6 @@ type APIClient struct {
 	SkillsAPI *SkillsAPIService
 
 	SocialAPI *SocialAPIService
-
-	SqlAPI *SqlAPIService
 
 	StoreAPI *StoreAPIService
 
@@ -418,8 +406,6 @@ type APIClient struct {
 
 	VideosAPI *VideosAPIService
 
-	VpcsAPI *VpcsAPIService
-
 	WalletsAPI *WalletsAPIService
 
 	WebhooksAPI *WebhooksAPIService
@@ -455,6 +441,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AgentAPI = (*AgentAPIService)(&c.common)
 	c.AgentsAPI = (*AgentsAPIService)(&c.common)
 	c.AiAPI = (*AiAPIService)(&c.common)
+	c.AllowanceAPI = (*AllowanceAPIService)(&c.common)
 	c.AnalyticsAPI = (*AnalyticsAPIService)(&c.common)
 	c.AppearanceAPI = (*AppearanceAPIService)(&c.common)
 	c.AskAPI = (*AskAPIService)(&c.common)
@@ -465,7 +452,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AutoAPI = (*AutoAPIService)(&c.common)
 	c.AutomationsAPI = (*AutomationsAPIService)(&c.common)
 	c.AvatarAPI = (*AvatarAPIService)(&c.common)
-	c.BalancersAPI = (*BalancersAPIService)(&c.common)
 	c.BaseAPI = (*BaseAPIService)(&c.common)
 	c.BenchmarkAPI = (*BenchmarkAPIService)(&c.common)
 	c.BillingAPI = (*BillingAPIService)(&c.common)
@@ -499,17 +485,16 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CrmAPI = (*CrmAPIService)(&c.common)
 	c.CsrfAPI = (*CsrfAPIService)(&c.common)
 	c.DataroomAPI = (*DataroomAPIService)(&c.common)
-	c.DatastoreAPI = (*DatastoreAPIService)(&c.common)
 	c.DefaultAPI = (*DefaultAPIService)(&c.common)
 	c.DeployAPI = (*DeployAPIService)(&c.common)
 	c.DestinationsAPI = (*DestinationsAPIService)(&c.common)
 	c.DevBridgeAPI = (*DevBridgeAPIService)(&c.common)
 	c.DnsAPI = (*DnsAPIService)(&c.common)
-	c.DocdbAPI = (*DocdbAPIService)(&c.common)
 	c.DocsAPI = (*DocsAPIService)(&c.common)
 	c.DocumentsAPI = (*DocumentsAPIService)(&c.common)
 	c.DomainAPI = (*DomainAPIService)(&c.common)
 	c.DownloadAPI = (*DownloadAPIService)(&c.common)
+	c.EdgeAPI = (*EdgeAPIService)(&c.common)
 	c.EmbedAPI = (*EmbedAPIService)(&c.common)
 	c.EmbeddingsAPI = (*EmbeddingsAPIService)(&c.common)
 	c.EnablementAPI = (*EnablementAPIService)(&c.common)
@@ -532,13 +517,10 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.FrameworkAPI = (*FrameworkAPIService)(&c.common)
 	c.FunctionsAPI = (*FunctionsAPIService)(&c.common)
 	c.GatewayAPI = (*GatewayAPIService)(&c.common)
-	c.GenerateTextToSpeechAudioAPI = (*GenerateTextToSpeechAudioAPIService)(&c.common)
-	c.GenerateTextToSpeechAudioStreamAPI = (*GenerateTextToSpeechAudioStreamAPIService)(&c.common)
 	c.GitAPI = (*GitAPIService)(&c.common)
 	c.GitWebhookAPI = (*GitWebhookAPIService)(&c.common)
 	c.GpusAPI = (*GpusAPIService)(&c.common)
 	c.GuideAPI = (*GuideAPIService)(&c.common)
-	c.HealthAPI = (*HealthAPIService)(&c.common)
 	c.HelpAPI = (*HelpAPIService)(&c.common)
 	c.IamAPI = (*IamAPIService)(&c.common)
 	c.ImagesAPI = (*ImagesAPIService)(&c.common)
@@ -547,12 +529,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.IngressAPI = (*IngressAPIService)(&c.common)
 	c.InsightsAPI = (*InsightsAPIService)(&c.common)
 	c.InstallPatchAPI = (*InstallPatchAPIService)(&c.common)
+	c.InstancesAPI = (*InstancesAPIService)(&c.common)
 	c.IntegrationsAPI = (*IntegrationsAPIService)(&c.common)
 	c.K8sAPI = (*K8sAPIService)(&c.common)
 	c.KbAPI = (*KbAPIService)(&c.common)
 	c.KeysAPI = (*KeysAPIService)(&c.common)
 	c.KmsAPI = (*KmsAPIService)(&c.common)
-	c.KvAPI = (*KvAPIService)(&c.common)
 	c.LegalAPI = (*LegalAPIService)(&c.common)
 	c.LicensingAPI = (*LicensingAPIService)(&c.common)
 	c.LinksAPI = (*LinksAPIService)(&c.common)
@@ -582,7 +564,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.PluginsAPI = (*PluginsAPIService)(&c.common)
 	c.PrefsAPI = (*PrefsAPIService)(&c.common)
 	c.PricingAPI = (*PricingAPIService)(&c.common)
-	c.ProcessSpeechToTextAPI = (*ProcessSpeechToTextAPIService)(&c.common)
 	c.ProjectsAPI = (*ProjectsAPIService)(&c.common)
 	c.PromptsAPI = (*PromptsAPIService)(&c.common)
 	c.PubsubAPI = (*PubsubAPIService)(&c.common)
@@ -607,13 +588,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ScrapeAPI = (*ScrapeAPIService)(&c.common)
 	c.SearchAPI = (*SearchAPIService)(&c.common)
 	c.SecurityAPI = (*SecurityAPIService)(&c.common)
-	c.SentryAPI = (*SentryAPIService)(&c.common)
+	c.SentinelAPI = (*SentinelAPIService)(&c.common)
 	c.SettingsAPI = (*SettingsAPIService)(&c.common)
 	c.ShareAPI = (*ShareAPIService)(&c.common)
 	c.SitesAPI = (*SitesAPIService)(&c.common)
 	c.SkillsAPI = (*SkillsAPIService)(&c.common)
 	c.SocialAPI = (*SocialAPIService)(&c.common)
-	c.SqlAPI = (*SqlAPIService)(&c.common)
 	c.StoreAPI = (*StoreAPIService)(&c.common)
 	c.SummaryAPI = (*SummaryAPIService)(&c.common)
 	c.SyncAPI = (*SyncAPIService)(&c.common)
@@ -634,7 +614,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ValidatorsAPI = (*ValidatorsAPIService)(&c.common)
 	c.VectorAPI = (*VectorAPIService)(&c.common)
 	c.VideosAPI = (*VideosAPIService)(&c.common)
-	c.VpcsAPI = (*VpcsAPIService)(&c.common)
 	c.WalletsAPI = (*WalletsAPIService)(&c.common)
 	c.WebhooksAPI = (*WebhooksAPIService)(&c.common)
 	c.WebsearchAPI = (*WebsearchAPIService)(&c.common)

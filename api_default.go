@@ -2966,6 +2966,96 @@ func (a *DefaultAPIService) GetWellKnownOauthAuthorizationServerExecute(r Defaul
 	return localVarHTTPResponse, nil
 }
 
+type DefaultAPIGetWellKnownOpenapiJsonRequest struct {
+	ctx        context.Context
+	ApiService *DefaultAPIService
+}
+
+func (r DefaultAPIGetWellKnownOpenapiJsonRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetWellKnownOpenapiJsonExecute(r)
+}
+
+/*
+GetWellKnownOpenapiJson The API description, at the conventional address
+
+The same document /v1/openapi.json serves, at the address RFC 8615 reserves for discovery — one handler over one render, so the two cannot describe different APIs.
+
+It exists because a client that has never seen this API probes here first. Prefer /v1/openapi.json when you already know the API: it is canonical, and it is what the document's own self-description names.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return DefaultAPIGetWellKnownOpenapiJsonRequest
+*/
+func (a *DefaultAPIService) GetWellKnownOpenapiJson(ctx context.Context) DefaultAPIGetWellKnownOpenapiJsonRequest {
+	return DefaultAPIGetWellKnownOpenapiJsonRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) GetWellKnownOpenapiJsonExecute(r DefaultAPIGetWellKnownOpenapiJsonRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetWellKnownOpenapiJson")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/.well-known/openapi.json"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type DefaultAPIGetWellKnownOpenidConfigurationRequest struct {
 	ctx        context.Context
 	ApiService *DefaultAPIService

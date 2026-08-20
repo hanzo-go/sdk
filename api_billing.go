@@ -965,6 +965,96 @@ func (a *BillingAPIService) GetBillingCreditBalanceExecute(r BillingAPIGetBillin
 	return localVarHTTPResponse, nil
 }
 
+type BillingAPIGetBillingCreditBalanceBreakdownRequest struct {
+	ctx        context.Context
+	ApiService *BillingAPIService
+}
+
+func (r BillingAPIGetBillingCreditBalanceBreakdownRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetBillingCreditBalanceBreakdownExecute(r)
+}
+
+/*
+GetBillingCreditBalanceBreakdown What is left of your credit, grouped by where it came from
+
+Returns the same balance /v1/billing/credit-balance reports, split by the tag each grant carries, so a reader can tell trial credit from bought credit and show the earliest expiry within each group. A console needs the split to say what will lapse and when; the single number cannot.
+
+The subject is pinned to the caller before the handler runs, exactly as in the sibling reads, so the userId parameter can never name another tenant. A subject with no grants is an empty breakdown and a zero total, which is an answer and not an error.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BillingAPIGetBillingCreditBalanceBreakdownRequest
+*/
+func (a *BillingAPIService) GetBillingCreditBalanceBreakdown(ctx context.Context) BillingAPIGetBillingCreditBalanceBreakdownRequest {
+	return BillingAPIGetBillingCreditBalanceBreakdownRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *BillingAPIService) GetBillingCreditBalanceBreakdownExecute(r BillingAPIGetBillingCreditBalanceBreakdownRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingCreditBalanceBreakdown")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/billing/credit-balance/breakdown"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type BillingAPIGetBillingCreditsRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
@@ -2342,6 +2432,94 @@ func (a *BillingAPIService) GetBillingUsageAccountsExecute(r BillingAPIGetBillin
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BillingAPIGetBillingUsageRollupRequest struct {
+	ctx        context.Context
+	ApiService *BillingAPIService
+}
+
+func (r BillingAPIGetBillingUsageRollupRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetBillingUsageRollupExecute(r)
+}
+
+/*
+GetBillingUsageRollup What plan you are on and how much of it is left, beside the wallet
+
+Answers the one read the account page renders: the subject's resolved plan, the plan's included monthly allotment beside what was actually granted this period, consumption capped at that grant, the overage past it, and the spendable wallet (balance minus holds) — all for the current UTC month, every figure derived from the same transactions the gateway's balance gate reads, so this read can never disagree with the gate that admits the next call. It rides the same pinned chain as the sibling reads: the user parameter is overwritten with the validated caller's own billing subject before the handler runs, so it can never name another tenant; user is required, which only a service-to-service caller can omit and be refused 400 for, and plan is optional — omitted, it is resolved from the subject's subscription. The rule to get right is that the two sides are DIFFERENT MONEY: the included figures are usage the subscription grants and the wallet is prepaid credit the customer bought, so a reader who sums them invents a balance nobody holds — and before the period's first allotment grant runs, monthlyCents shows the plan's entitlement while grantedCents is zero, which is the figure consumption actually draws down.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BillingAPIGetBillingUsageRollupRequest
+*/
+func (a *BillingAPIService) GetBillingUsageRollup(ctx context.Context) BillingAPIGetBillingUsageRollupRequest {
+	return BillingAPIGetBillingUsageRollupRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *BillingAPIService) GetBillingUsageRollupExecute(r BillingAPIGetBillingUsageRollupRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingUsageRollup")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/billing/usage/rollup"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingWireRequest struct {

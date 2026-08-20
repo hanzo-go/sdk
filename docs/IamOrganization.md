@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountItems** | Pointer to [**[]IamAccountItem**](IamAccountItem.md) |  | [optional] 
 **AccountMenu** | Pointer to **string** |  | [optional] 
+**Avatar** | Pointer to **string** | How the organization appears across Hanzo — the square mark beside its name — as an image or as one emoji, never both. It is the pair a person carries (User.Avatar) under the same names, resolved the same way, so a screen draws a subject without asking which kind of subject it has. Both halves live on the row: a mark that appears everywhere cannot be kept on one device. Written through schema.MarkOf; Logo and LogoDark above are a different thing, the wordmark a login screen draws. | [optional] 
 **BalanceCredit** | Pointer to **float32** |  | [optional] 
 **BalanceCurrency** | Pointer to **string** |  | [optional] 
 **CountryCodes** | Pointer to **[]string** |  | [optional] 
@@ -18,6 +19,7 @@ Name | Type | Description | Notes
 **Deleted** | Pointer to **bool** |  | [optional] 
 **DisableSignin** | Pointer to **bool** |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
+**Emoji** | Pointer to **string** |  | [optional] 
 **EnableSoftDeletion** | Pointer to **bool** |  | [optional] 
 **EnableTour** | Pointer to **bool** |  | [optional] 
 **FailedSigninFrozenTime** | Pointer to **int32** |  | [optional] 
@@ -132,6 +134,31 @@ SetAccountMenu sets AccountMenu field to given value.
 `func (o *IamOrganization) HasAccountMenu() bool`
 
 HasAccountMenu returns a boolean if a field has been set.
+
+### GetAvatar
+
+`func (o *IamOrganization) GetAvatar() string`
+
+GetAvatar returns the Avatar field if non-nil, zero value otherwise.
+
+### GetAvatarOk
+
+`func (o *IamOrganization) GetAvatarOk() (*string, bool)`
+
+GetAvatarOk returns a tuple with the Avatar field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvatar
+
+`func (o *IamOrganization) SetAvatar(v string)`
+
+SetAvatar sets Avatar field to given value.
+
+### HasAvatar
+
+`func (o *IamOrganization) HasAvatar() bool`
+
+HasAvatar returns a boolean if a field has been set.
 
 ### GetBalanceCredit
 
@@ -432,6 +459,31 @@ SetDisplayName sets DisplayName field to given value.
 `func (o *IamOrganization) HasDisplayName() bool`
 
 HasDisplayName returns a boolean if a field has been set.
+
+### GetEmoji
+
+`func (o *IamOrganization) GetEmoji() string`
+
+GetEmoji returns the Emoji field if non-nil, zero value otherwise.
+
+### GetEmojiOk
+
+`func (o *IamOrganization) GetEmojiOk() (*string, bool)`
+
+GetEmojiOk returns a tuple with the Emoji field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmoji
+
+`func (o *IamOrganization) SetEmoji(v string)`
+
+SetEmoji sets Emoji field to given value.
+
+### HasEmoji
+
+`func (o *IamOrganization) HasEmoji() bool`
+
+HasEmoji returns a boolean if a field has been set.
 
 ### GetEnableSoftDeletion
 

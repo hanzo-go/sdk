@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## GetVideosById
 
-> GetVideosById(ctx).Execute()
+> GetVideosById(ctx, id).Execute()
 
 Implements GET /v1/videos/{id} — poll a job's status.
 
@@ -31,10 +31,11 @@ import (
 )
 
 func main() {
+	id := "id_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.VideosAPI.GetVideosById(context.Background()).Execute()
+	r, err := apiClient.VideosAPI.GetVideosById(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VideosAPI.GetVideosById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -44,11 +45,19 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetVideosByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type
@@ -71,7 +80,7 @@ Other parameters are passed through a pointer to a apiGetVideosByIdRequest struc
 
 ## GetVideosByIdContent
 
-> GetVideosByIdContent(ctx).Execute()
+> GetVideosByIdContent(ctx, id).Execute()
 
 Implements GET /v1/videos/{id}/content — download the finished MP4.
 
@@ -90,10 +99,11 @@ import (
 )
 
 func main() {
+	id := "id_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.VideosAPI.GetVideosByIdContent(context.Background()).Execute()
+	r, err := apiClient.VideosAPI.GetVideosByIdContent(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VideosAPI.GetVideosByIdContent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -103,11 +113,19 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetVideosByIdContentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type

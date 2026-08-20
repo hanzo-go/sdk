@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Aaguid** | Pointer to **string** |  | [optional] 
 **Attachment** | Pointer to **string** |  | [optional] 
+**AttestationFormat** | Pointer to **string** | AttestationFormat is the statement format the authenticator attested in (\&quot;packed\&quot;, \&quot;apple\&quot;, \&quot;none\&quot;, …), which is a DIFFERENT value from the attestation type above. The library reads it back when resolving the FIDO AppID extension, so a row that dropped it would round-trip a credential the verifier no longer recognises as the one it stored. | [optional] 
 **AttestationType** | Pointer to **string** |  | [optional] 
 **BackupEligible** | Pointer to **bool** |  | [optional] 
 **BackupState** | Pointer to **bool** |  | [optional] 
@@ -93,6 +94,31 @@ SetAttachment sets Attachment field to given value.
 `func (o *IamWebauthnCredential) HasAttachment() bool`
 
 HasAttachment returns a boolean if a field has been set.
+
+### GetAttestationFormat
+
+`func (o *IamWebauthnCredential) GetAttestationFormat() string`
+
+GetAttestationFormat returns the AttestationFormat field if non-nil, zero value otherwise.
+
+### GetAttestationFormatOk
+
+`func (o *IamWebauthnCredential) GetAttestationFormatOk() (*string, bool)`
+
+GetAttestationFormatOk returns a tuple with the AttestationFormat field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAttestationFormat
+
+`func (o *IamWebauthnCredential) SetAttestationFormat(v string)`
+
+SetAttestationFormat sets AttestationFormat field to given value.
+
+### HasAttestationFormat
+
+`func (o *IamWebauthnCredential) HasAttestationFormat() bool`
+
+HasAttestationFormat returns a boolean if a field has been set.
 
 ### GetAttestationType
 

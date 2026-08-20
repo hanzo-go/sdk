@@ -35,6 +35,7 @@ Method | HTTP request | Description
 [**GetWellKnownAgentSkillsIndexJson**](DefaultAPI.md#GetWellKnownAgentSkillsIndexJson) | **Get** /.well-known/agent-skills/index.json | The brand&#39;s master catalogue of agent skills
 [**GetWellKnownJwks**](DefaultAPI.md#GetWellKnownJwks) | **Get** /.well-known/jwks | Publishes the public keys that verify the tokens issued here — the one URL you point a service at so it can check a token itself, offline, without calling back and without holding any secret of ours.
 [**GetWellKnownOauthAuthorizationServer**](DefaultAPI.md#GetWellKnownOauthAuthorizationServer) | **Get** /.well-known/oauth-authorization-server | Returns the OpenID Connect discovery document — the one URL you point a standards-compliant client at so it can find every other endpoint on its own, instead of you configuring them by hand.
+[**GetWellKnownOpenapiJson**](DefaultAPI.md#GetWellKnownOpenapiJson) | **Get** /.well-known/openapi.json | The API description, at the conventional address
 [**GetWellKnownOpenidConfiguration**](DefaultAPI.md#GetWellKnownOpenidConfiguration) | **Get** /.well-known/openid-configuration | Returns the OpenID Connect discovery document — the one URL you point a standards-compliant client at so it can find every other endpoint on its own, instead of you configuring them by hand.
 [**GetWsQueryProgress**](DefaultAPI.md#GetWsQueryProgress) | **Get** /ws/query_progress | Watch one running query&#39;s progress over a websocket
 [**PatchMeetApp**](DefaultAPI.md#PatchMeetApp) | **Patch** /meet | Not served by the call client
@@ -2059,6 +2060,65 @@ Other parameters are passed through a pointer to a apiGetWellKnownOauthAuthoriza
 ### Authorization
 
 [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetWellKnownOpenapiJson
+
+> GetWellKnownOpenapiJson(ctx).Execute()
+
+The API description, at the conventional address
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.GetWellKnownOpenapiJson(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.GetWellKnownOpenapiJson``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetWellKnownOpenapiJsonRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

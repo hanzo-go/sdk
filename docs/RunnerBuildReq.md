@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **OrganizationId** | Pointer to **string** | OrgID attributes the build to an org. On the IAM path it defaults to the caller&#39;s own validated org, and a foreign one is refused unless the caller is a platform SuperAdmin. | [optional] 
 **Os** | Pointer to **string** | OS is the target operating system for the artifact lane. | [optional] 
 **Ref** | Pointer to **string** | Ref is the git ref to build when no SHA is given. | [optional] 
-**Release** | Pointer to **bool** | Release requests native release semantics for cloud&#39;s self-publish: compute the next version, build+push ghcr.io/hanzoai/cloud, smoke it, then tag (the receipt) and notify universe. It owns its output image (release.go), and it takes SuperAdmin. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository clone URL to build. Required on the image lane. | [optional] 
 **Sha** | Pointer to **string** | SHA is the commit to pin; it wins over Ref and Branch. | [optional] 
 **Tag** | Pointer to **string** | Tag is the publish path segment, so both front doors write ONE index at ONE URL. It defaults to the pinned ref, and must be named explicitly for a branch. | [optional] 
@@ -339,31 +338,6 @@ SetRef sets Ref field to given value.
 `func (o *RunnerBuildReq) HasRef() bool`
 
 HasRef returns a boolean if a field has been set.
-
-### GetRelease
-
-`func (o *RunnerBuildReq) GetRelease() bool`
-
-GetRelease returns the Release field if non-nil, zero value otherwise.
-
-### GetReleaseOk
-
-`func (o *RunnerBuildReq) GetReleaseOk() (*bool, bool)`
-
-GetReleaseOk returns a tuple with the Release field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRelease
-
-`func (o *RunnerBuildReq) SetRelease(v bool)`
-
-SetRelease sets Release field to given value.
-
-### HasRelease
-
-`func (o *RunnerBuildReq) HasRelease() bool`
-
-HasRelease returns a boolean if a field has been set.
 
 ### GetRepo
 

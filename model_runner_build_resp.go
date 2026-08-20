@@ -19,7 +19,7 @@ var _ MappedNullable = &RunnerBuildResp{}
 
 // RunnerBuildResp struct for RunnerBuildResp
 type RunnerBuildResp struct {
-	// BuildJobID is the queued build's id, and what a release is followed by.
+	// BuildJobID is the queued build's id, and what its progress is read by.
 	BuildJobId *string `json:"buildJobId,omitempty"`
 	// Image is the ref the image lane will push.
 	Image *string `json:"image,omitempty"`
@@ -27,7 +27,7 @@ type RunnerBuildResp struct {
 	Index *string `json:"index,omitempty"`
 	// RunnerPool is the runner class the build was placed on.
 	RunnerPool *string `json:"runnerPool,omitempty"`
-	// Status is `queued` for an ordinary build, `releasing` for a self-publish.
+	// Status is `queued` — the build was accepted and has not finished.
 	Status *string `json:"status,omitempty"`
 	// Target is the multi-stage build target, echoed back.
 	Target *string `json:"target,omitempty"`

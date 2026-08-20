@@ -35,7 +35,7 @@ func main() {
 	// Names are org-unique, so a hardcoded one collides with the last run.
 	name := fmt.Sprintf("sdk-example-%d", os.Getpid())
 
-	created, _, err := client.KvAPI.PostKv(ctx).
+	created, _, err := client.InstancesAPI.PostInstancesKv(ctx).
 		ProvisionRequest(hanzoai.ProvisionRequest{Name: &name}).Execute()
 	if err != nil {
 		log.Fatalf("provision %s: %v", name, err)
@@ -43,14 +43,14 @@ func main() {
 	// Delete in a defer, so a failed read still cleans up instead of leaving
 	// the store behind for the next run to collide with.
 	defer func() {
-		if _, err := client.KvAPI.DeleteKvByName(ctx, name).Execute(); err != nil {
+		if _, err := client.InstancesAPI.DeleteInstancesKvByName(ctx, name).Execute(); err != nil {
 			log.Fatalf("delete %s: %v", name, err)
 		}
 		fmt.Printf("delete   %s\n", name)
 	}()
 	fmt.Printf("create   %s (%s)\n", created.GetName(), created.GetStatus())
 
-	got, _, err := client.KvAPI.GetKvByName(ctx, name).Execute()
+	got, _, err := client.InstancesAPI.GetInstancesKvByName(ctx, name).Execute()
 	if err != nil {
 		log.Fatalf("read %s: %v", name, err)
 	}

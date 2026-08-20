@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BuildJobId** | Pointer to **string** | BuildJobID is the queued build&#39;s id, and what a release is followed by. | [optional] 
+**BuildJobId** | Pointer to **string** | BuildJobID is the queued build&#39;s id, and what its progress is read by. | [optional] 
 **Image** | Pointer to **string** | Image is the ref the image lane will push. | [optional] 
 **Index** | Pointer to **string** | Index is the binaries.json URL the artifact lane will publish. | [optional] 
 **RunnerPool** | Pointer to **string** | RunnerPool is the runner class the build was placed on. | [optional] 
-**Status** | Pointer to **string** | Status is &#x60;queued&#x60; for an ordinary build, &#x60;releasing&#x60; for a self-publish. | [optional] 
+**Status** | Pointer to **string** | Status is &#x60;queued&#x60; — the build was accepted and has not finished. | [optional] 
 **Target** | Pointer to **string** | Target is the multi-stage build target, echoed back. | [optional] 
 
 ## Methods

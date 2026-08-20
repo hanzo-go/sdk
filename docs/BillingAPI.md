@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**GetBillingAlertsAuthorize**](BillingAPI.md#GetBillingAlertsAuthorize) | **Get** /v1/billing/alerts/authorize | The per-request spend-cap verdict the metering gate consumes
 [**GetBillingBalance**](BillingAPI.md#GetBillingBalance) | **Get** /v1/billing/balance | Prepaid credit the caller&#39;s org can still spend
 [**GetBillingCreditBalance**](BillingAPI.md#GetBillingCreditBalance) | **Get** /v1/billing/credit-balance | What is left of your credit, as one number
+[**GetBillingCreditBalanceBreakdown**](BillingAPI.md#GetBillingCreditBalanceBreakdown) | **Get** /v1/billing/credit-balance/breakdown | What is left of your credit, grouped by where it came from
 [**GetBillingCredits**](BillingAPI.md#GetBillingCredits) | **Get** /v1/billing/credits | List the credit grants on your org&#39;s balance
 [**GetBillingCryptoDepositById**](BillingAPI.md#GetBillingCryptoDepositById) | **Get** /v1/billing/crypto/deposit/{id} | Follow one crypto deposit to settlement
 [**GetBillingCryptoOptions**](BillingAPI.md#GetBillingCryptoOptions) | **Get** /v1/billing/crypto/options | Which chains and tokens a crypto top-up can use
@@ -29,6 +30,7 @@ Method | HTTP request | Description
 [**GetBillingTransactions**](BillingAPI.md#GetBillingTransactions) | **Get** /v1/billing/transactions | List the movements on your own balance, newest first
 [**GetBillingUsage**](BillingAPI.md#GetBillingUsage) | **Get** /v1/billing/usage | Every billed call the caller&#39;s org made, attributed to a product
 [**GetBillingUsageAccounts**](BillingAPI.md#GetBillingUsageAccounts) | **Get** /v1/billing/usage/accounts | Answers per-account totals for the linked provider accounts the gateway ROUTED this caller&#39;s traffic through — requests, prompt and completion tokens, recorded cost — plus their honest sum.
+[**GetBillingUsageRollup**](BillingAPI.md#GetBillingUsageRollup) | **Get** /v1/billing/usage/rollup | What plan you are on and how much of it is left, beside the wallet
 [**GetBillingWire**](BillingAPI.md#GetBillingWire) | **Get** /v1/billing/wire | Where to wire funds, and the reference that credits them to you
 [**GetInvoice**](BillingAPI.md#GetInvoice) | **Get** /v1/billing/invoices/{id} | Read one invoice
 [**IssueInvoice**](BillingAPI.md#IssueInvoice) | **Post** /v1/billing/invoices/{id}/issue | Issue a draft invoice, making it collectible
@@ -667,6 +669,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetBillingCreditBalanceRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBillingCreditBalanceBreakdown
+
+> GetBillingCreditBalanceBreakdown(ctx).Execute()
+
+What is left of your credit, grouped by where it came from
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BillingAPI.GetBillingCreditBalanceBreakdown(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingCreditBalanceBreakdown``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBillingCreditBalanceBreakdownRequest struct via the builder pattern
 
 
 ### Return type
@@ -1586,6 +1647,65 @@ Other parameters are passed through a pointer to a apiGetBillingUsageAccountsReq
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBillingUsageRollup
+
+> GetBillingUsageRollup(ctx).Execute()
+
+What plan you are on and how much of it is left, beside the wallet
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BillingAPI.GetBillingUsageRollup(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingUsageRollup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBillingUsageRollupRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

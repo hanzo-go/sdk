@@ -22,6 +22,7 @@ var _ MappedNullable = &IamCreateOrganizationInput{}
 type IamCreateOrganizationInput struct {
 	AccountItems           []IamAccountItem `json:"accountItems,omitempty"`
 	AccountMenu            *string          `json:"accountMenu,omitempty"`
+	Avatar                 *string          `json:"avatar,omitempty"`
 	BalanceCredit          *float32         `json:"balanceCredit,omitempty"`
 	BalanceCurrency        *string          `json:"balanceCurrency,omitempty"`
 	CountryCodes           []string         `json:"countryCodes,omitempty"`
@@ -34,6 +35,7 @@ type IamCreateOrganizationInput struct {
 	Deleted                *bool            `json:"deleted,omitempty"`
 	DisableSignin          *bool            `json:"disableSignin,omitempty"`
 	DisplayName            *string          `json:"displayName,omitempty"`
+	Emoji                  *string          `json:"emoji,omitempty"`
 	EnableSoftDeletion     *bool            `json:"enableSoftDeletion,omitempty"`
 	EnableTour             *bool            `json:"enableTour,omitempty"`
 	FailedSigninFrozenTime *int32           `json:"failedSigninFrozenTime,omitempty"`
@@ -160,6 +162,38 @@ func (o *IamCreateOrganizationInput) HasAccountMenu() bool {
 // SetAccountMenu gets a reference to the given string and assigns it to the AccountMenu field.
 func (o *IamCreateOrganizationInput) SetAccountMenu(v string) {
 	o.AccountMenu = &v
+}
+
+// GetAvatar returns the Avatar field value if set, zero value otherwise.
+func (o *IamCreateOrganizationInput) GetAvatar() string {
+	if o == nil || IsNil(o.Avatar) {
+		var ret string
+		return ret
+	}
+	return *o.Avatar
+}
+
+// GetAvatarOk returns a tuple with the Avatar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamCreateOrganizationInput) GetAvatarOk() (*string, bool) {
+	if o == nil || IsNil(o.Avatar) {
+		return nil, false
+	}
+	return o.Avatar, true
+}
+
+// HasAvatar returns a boolean if a field has been set.
+func (o *IamCreateOrganizationInput) HasAvatar() bool {
+	if o != nil && !IsNil(o.Avatar) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatar gets a reference to the given string and assigns it to the Avatar field.
+func (o *IamCreateOrganizationInput) SetAvatar(v string) {
+	o.Avatar = &v
 }
 
 // GetBalanceCredit returns the BalanceCredit field value if set, zero value otherwise.
@@ -544,6 +578,38 @@ func (o *IamCreateOrganizationInput) HasDisplayName() bool {
 // SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
 func (o *IamCreateOrganizationInput) SetDisplayName(v string) {
 	o.DisplayName = &v
+}
+
+// GetEmoji returns the Emoji field value if set, zero value otherwise.
+func (o *IamCreateOrganizationInput) GetEmoji() string {
+	if o == nil || IsNil(o.Emoji) {
+		var ret string
+		return ret
+	}
+	return *o.Emoji
+}
+
+// GetEmojiOk returns a tuple with the Emoji field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamCreateOrganizationInput) GetEmojiOk() (*string, bool) {
+	if o == nil || IsNil(o.Emoji) {
+		return nil, false
+	}
+	return o.Emoji, true
+}
+
+// HasEmoji returns a boolean if a field has been set.
+func (o *IamCreateOrganizationInput) HasEmoji() bool {
+	if o != nil && !IsNil(o.Emoji) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmoji gets a reference to the given string and assigns it to the Emoji field.
+func (o *IamCreateOrganizationInput) SetEmoji(v string) {
+	o.Emoji = &v
 }
 
 // GetEnableSoftDeletion returns the EnableSoftDeletion field value if set, zero value otherwise.
@@ -2002,6 +2068,9 @@ func (o IamCreateOrganizationInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountMenu) {
 		toSerialize["accountMenu"] = o.AccountMenu
 	}
+	if !IsNil(o.Avatar) {
+		toSerialize["avatar"] = o.Avatar
+	}
 	if !IsNil(o.BalanceCredit) {
 		toSerialize["balanceCredit"] = o.BalanceCredit
 	}
@@ -2037,6 +2106,9 @@ func (o IamCreateOrganizationInput) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.Emoji) {
+		toSerialize["emoji"] = o.Emoji
 	}
 	if !IsNil(o.EnableSoftDeletion) {
 		toSerialize["enableSoftDeletion"] = o.EnableSoftDeletion
