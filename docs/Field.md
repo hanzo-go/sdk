@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
+**Key** | Pointer to **string** | Key is the identifier the body substitutes ({{.key}}) and the key a generation&#39;s data map must carry. snake_case by convention across the built-ins — effective_date, company_name, governing_law. An override whose body references a key no Field declares is refused on save. | [optional] 
+**Label** | Pointer to **string** | Label is the human prompt for whoever fills the value in — \&quot;Governing law (state)\&quot;. It never reaches the rendered document; only Key does. | [optional] 
 
 ## Methods
 

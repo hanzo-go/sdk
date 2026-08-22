@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,18 @@ var _ MappedNullable = &O11yStatusResult{}
 
 // O11yStatusResult struct for O11yStatusResult
 type O11yStatusResult struct {
-	CheckedAt   *string          `json:"checkedAt,omitempty"`
+	// CheckedAt is when this answer was measured, RFC3339 UTC.
+	CheckedAt *string `json:"checkedAt,omitempty"`
+	// Deployments is the per-replica inventory behind the verdict. Empty means the telemetry store reported none, not that the service runs on none.
 	Deployments []O11yDeployment `json:"deployments,omitempty"`
-	LatencyMs   *int32           `json:"latencyMs,omitempty"`
-	Product     *string          `json:"product,omitempty"`
-	Source      *string          `json:"source,omitempty"`
-	Up          *bool            `json:"up,omitempty"`
+	// LatencyMs is the health probe's round trip in MILLISECONDS, time-boxed at two seconds. It is 0 when no probe answered, which is not a fast service.
+	LatencyMs *int32 `json:"latencyMs,omitempty"`
+	// Product is the service this answer is about, echoed back.
+	Product *string `json:"product,omitempty"`
+	// Source is where the verdict came from: \"probe\" (we asked and it answered), \"datastore\" (the probe did not answer and the replica inventory decided it), \"unreachable\" (neither), or \"unknown-service\" for a well-formed product name nothing backs — which is answered without probing, since dialling an arbitrary host on a caller's say-so is the request forgery this refuses.
+	Source *string `json:"source,omitempty"`
+	// Up is true when the health probe succeeded OR any replica reports up, so a service reachable by either route reads up. Read Source to know which.
+	Up *bool `json:"up,omitempty"`
 }
 
 // NewO11yStatusResult instantiates a new O11yStatusResult object

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApiVersion** | Pointer to **string** |  | [optional] 
-**Items** | Pointer to [**[]ArgoApp**](ArgoApp.md) |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Metadata** | Pointer to [**ArgoListMeta**](ArgoListMeta.md) |  | [optional] 
+**ApiVersion** | Pointer to **string** | APIVersion is the constant \&quot;argoproj.io/v1alpha1\&quot;. | [optional] 
+**Items** | Pointer to [**[]ArgoApp**](ArgoApp.md) | Items is one entry per operator App CR the caller may see — its own org&#39;s, or every platform namespace&#39;s for a SuperAdmin — followed, for a SuperAdmin only, by every Hanzo CD Application in the cluster. Empty (never null) rather than absent when the caller owns nothing. | [optional] 
+**Kind** | Pointer to **string** | Kind is the constant \&quot;ApplicationList\&quot;. | [optional] 
+**Metadata** | Pointer to [**ArgoListMeta**](ArgoListMeta.md) | Metadata is the list envelope the SPA expects; it carries no resume point. | [optional] 
 
 ## Methods
 

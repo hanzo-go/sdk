@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,36 +19,57 @@ var _ MappedNullable = &SessionView{}
 
 // SessionView struct for SessionView
 type SessionView struct {
-	Account   *string `json:"account,omitempty"`
-	Actor     *string `json:"actor,omitempty"`
-	Agent     *string `json:"agent,omitempty"`
-	Children  *int32  `json:"children,omitempty"`
+	// Account is which subscription or API account under that provider served it. Together with Provider it is what a login revoke matches on to stop the sessions a withdrawn account was paying for.
+	Account *string `json:"account,omitempty"`
+	// Actor is WHO this session belongs to, as \"org/sub\" — the same identity a run is billed under. A register that names none takes the calling principal. It is what scopes a login revoke, so a session with the wrong actor is a session the right person cannot stop.
+	Actor *string `json:"actor,omitempty"`
+	// Agent is the label the surface running this session calls itself by (\"hanzo-dev\"), up to 128 characters. Required at register. It is free text, not a reference: it need not name a defined agent, and nothing resolves it.
+	Agent *string `json:"agent,omitempty"`
+	// Children is the DIRECT fan-out — how many sessions name this one as parent — and not the size of the subtree. Read the tree for that.
+	Children *int32 `json:"children,omitempty"`
+	// CreatedAt is when the row was written, same format. Every path that opens a session stamps it and StartedAt from one clock reading, so the two are equal on every session this surface has ever produced.
 	CreatedAt *string `json:"createdAt,omitempty"`
-	Cwd       *string `json:"cwd,omitempty"`
-	EndedAt   *string `json:"endedAt,omitempty"`
-	Events    *int32  `json:"events,omitempty"`
+	// Cwd is the directory the session is working in NOW, not the one it started in: a linked shell moves around, and a card showing where `hanzo link` was run answers \"which work is this\" with something that was true once.
+	Cwd *string `json:"cwd,omitempty"`
+	// EndedAt is when it reached done or error, same format. Empty while it is still running or paused, which is how absence reads here: not over yet.
+	EndedAt *string `json:"endedAt,omitempty"`
+	// Events is how many turns the session's log holds, counted at read time. It is the whole log, however few of them RecentEvents carries.
+	Events *int32 `json:"events,omitempty"`
 	// Execution context (mission-control): the machine/repo/cwd a card shows and the run-target a session is dispatched to. Omitted when a surface didn't report it.
 	Host *string `json:"host,omitempty"`
-	Id   *string `json:"id,omitempty"`
+	// ID is the session's handle, minted here as \"sess_\" + 32 hex characters. Every later read, patch, event append and control command is addressed with it, and a caller cannot choose it.
+	Id *string `json:"id,omitempty"`
 	// LastEvent is the compact latest-activity line for the list projection (nil in register/patch/tree responses; set by list + detail). It lets a swipe card show a live one-line preview without fetching full detail.
 	LastEvent *LastEventView `json:"lastEvent,omitempty"`
 	// Org is the caller's OWN tenant, echoed so a client can build the public build URL (/builds/:org/:project) without a second call or a guess. It is never another tenant's — every read is org-scoped before it gets here.
-	Org             *string `json:"org,omitempty"`
+	Org *string `json:"org,omitempty"`
+	// ParentSessionID is the session that spawned this one, making this a subagent of it. Empty means this session is a root — a flow of its own. A parent always belongs to the same org, so a tree never crosses a tenant.
 	ParentSessionId *string `json:"parentSessionId,omitempty"`
 	// The readable build: the product this session built and whether its story is public (provenance.go).
-	Project        *string `json:"project,omitempty"`
-	Provider       *string `json:"provider,omitempty"`
-	Published      *bool   `json:"published,omitempty"`
-	Repo           *string `json:"repo,omitempty"`
-	RootSessionId  *string `json:"rootSessionId,omitempty"`
-	StartedAt      *string `json:"startedAt,omitempty"`
-	Status         *string `json:"status,omitempty"`
-	Target         *string `json:"target,omitempty"`
-	TaskRunId      *string `json:"taskRunId,omitempty"`
+	Project *string `json:"project,omitempty"`
+	// Provider is the linked AI account's provider (claude | codex | hanzo | …) that served this run. Empty when the surface did not say.
+	Provider *string `json:"provider,omitempty"`
+	// Published is the author's decision to let anyone read this session's story at the public build route. It only ever widens READ access to a session that already exists and grants nothing else; false, an unpublished session is invisible there no matter who asks. It cannot be true without a Project, because that route is keyed on (org, project).
+	Published *bool `json:"published,omitempty"`
+	// Repo is the code the session is working on, as the surface reported it. It is truth the SURFACE states, so it is a label rather than something resolved here.
+	Repo *string `json:"repo,omitempty"`
+	// RootSessionID is the top of this session's tree, inherited from the parent and shared by every node in one flow. A root session's own id, when it has no parent. It is the key one indexed read pulls a whole flow by, and what ?root= narrows a list or a stream to.
+	RootSessionId *string `json:"rootSessionId,omitempty"`
+	// StartedAt is when the session opened, RFC 3339 in UTC to the second.
+	StartedAt *string `json:"startedAt,omitempty"`
+	// Status is one of exactly four: running, paused, done, error. running and paused are LIVE; done and error are TERMINAL and monotonic — once a session reaches one it can never go back, because reopening a finished run would fabricate liveness. A control command never moves it: the surface running the agent reports the new status, and until it does the command is only recorded.
+	Status *string `json:"status,omitempty"`
+	// Target is the registered run-target this session is dispatched to — a machine the org claimed, resolved same-org when it was set, so it can never point at another tenant's computer. Empty means the session names no machine.
+	Target *string `json:"target,omitempty"`
+	// TaskRunID is that workflow's particular run. A workflow is the definition and a run is one execution of it, which is why both are carried.
+	TaskRunId *string `json:"taskRunId,omitempty"`
+	// TaskWorkflowID is the hanzoai/tasks durable workflow that actually EXECUTES this session — this registry is the view, control and stream layer over it. Set, a control command is FORWARDED to that engine; empty, the running surface polls for commands instead, which is every session today.
 	TaskWorkflowId *string `json:"taskWorkflowId,omitempty"`
 	// Terminal is where this session can be WATCHED — the URL the machine published for its live terminal. Omitted when it publishes none.
-	Terminal  *string `json:"terminal,omitempty"`
-	Title     *string `json:"title,omitempty"`
+	Terminal *string `json:"terminal,omitempty"`
+	// Title is the human line a card shows (\"ship the landing page\"), up to 512 characters. Free text, and the one field a surface may rewrite as the work turns out to be something else.
+	Title *string `json:"title,omitempty"`
+	// UpdatedAt is the session's last-activity clock, same format. It moves on a write to the row — a status, a title, a re-dispatch — AND on every appended turn, because the append bumps it in the same transaction. The list is ordered on CreatedAt, so this is the field that says whether a session is still saying anything.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Agent** | Pointer to **string** |  | [optional] 
-**From** | Pointer to **string** |  | [optional] 
+**Agent** | Pointer to **string** | Agent hands the answered call to a Hanzo assistant by name instead of connecting it to a person. Empty places an ordinary call. | [optional] 
+**From** | Pointer to **string** | From is the number to call FROM, in E.164. It must be one this org holds. | [optional] 
 **Record** | Pointer to **bool** | Record is a per-call flag rather than a product. Where a recording lands and how long it is kept is the org&#39;s retention policy, not this call&#39;s. | [optional] 
-**To** | Pointer to **string** |  | [optional] 
-**Webhook** | Pointer to **string** |  | [optional] 
+**To** | Pointer to **string** | To is the number to call, in E.164. | [optional] 
+**Webhook** | Pointer to **string** | Webhook is a URL the carrier posts this call&#39;s events to as it progresses. Empty means the call&#39;s outcome is only visible by reading it back. | [optional] 
 
 ## Methods
 

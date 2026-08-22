@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | Pointer to **string** |  | [optional] 
-**Actor** | Pointer to **string** |  | [optional] 
-**Agent** | Pointer to **string** |  | [optional] 
-**Cwd** | Pointer to **string** |  | [optional] 
+**Account** | Pointer to **string** | Account is which subscription or API account under that provider served the run, up to 256 characters. It is what lets a revoke of that login stop exactly the sessions it was paying for. | [optional] 
+**Actor** | Pointer to **string** | Actor is the \&quot;org/sub\&quot; identity to record the session under, up to 256 characters. Omit it and the calling principal is used, which is almost always what you want: it is what a login revoke matches on to stop this session. | [optional] 
+**Agent** | Pointer to **string** | Agent is the label the surface opening this session calls itself by (\&quot;hanzo-dev\&quot;). REQUIRED, up to 128 characters, and free text — nothing resolves it against a defined agent. | [optional] 
+**Cwd** | Pointer to **string** | Cwd is the directory the session starts in, up to 1024 characters. It can be moved later, because a linked shell walks around. | [optional] 
 **Host** | Pointer to **string** | Execution context — where this session runs (all optional). | [optional] 
-**ParentSessionId** | Pointer to **string** |  | [optional] 
+**ParentSessionId** | Pointer to **string** | ParentSessionID makes this a subagent of that session: it inherits the parent&#39;s root, so one flow stays one tree. The parent must exist IN THE SAME ORG — a foreign or unknown id is a 400, never a tree across tenants. Empty opens a root session. | [optional] 
 **Project** | Pointer to **string** | The readable build (provenance.go): which product this session builds, and whether its story may be read by the world. | [optional] 
 **Provider** | Pointer to **string** | Account tag — the linked AI account this session ran under (login manager). | [optional] 
-**Published** | Pointer to **bool** |  | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Target** | Pointer to **string** |  | [optional] 
-**TaskRunId** | Pointer to **string** |  | [optional] 
-**TaskWorkflowId** | Pointer to **string** |  | [optional] 
+**Published** | Pointer to **bool** | Published opens this session&#39;s story to the public build route. It is refused without a Project, because that route is keyed on (org, project) — a build with no product is not a story anyone can open. False keeps it org-only. | [optional] 
+**Repo** | Pointer to **string** | Repo is the code being worked on, up to 512 characters. A label the surface states; nothing resolves it against the forge. | [optional] 
+**Status** | Pointer to **string** | Status opens the session in one of running, paused, done or error. Empty means running. A TERMINAL status here (done, error) records a session that has already finished — its end time is stamped now — and nothing can move it afterwards. | [optional] 
+**Target** | Pointer to **string** | Target names a run-target the org has registered. Unlike Host and Repo it IS resolved: a target that does not exist in this org is a 400, so a session can never claim to run on another tenant&#39;s machine. Empty names no machine. | [optional] 
+**TaskRunId** | Pointer to **string** | TaskRunID is that workflow&#39;s particular run, same bound. Recorded, not resolved: this surface does not check the workflow exists. | [optional] 
+**TaskWorkflowId** | Pointer to **string** | TaskWorkflowID links this session to the hanzoai/tasks workflow that executes it, up to 256 characters. Set it and control commands are forwarded to that engine; leave it and the running surface polls for them instead. | [optional] 
 **Terminal** | Pointer to **string** | Terminal is the URL this session&#39;s live terminal is published at, so the console can watch it. Optional — a session that publishes nothing is still a session. | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
+**Title** | Pointer to **string** | Title is the human line a card shows, up to 512 characters. Optional, and changeable later. | [optional] 
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Step**](Step.md) |  | [optional] 
+**Data** | Pointer to [**[]Step**](Step.md) | Data is every step of the sequence, idx ascending — the order they send in. It is not paged: a sequence&#39;s steps are a handful, and a partial list would misstate the drip. An empty array for a sequence with no messages yet, which enrolls fine and completes immediately. | [optional] 
 
 ## Methods
 

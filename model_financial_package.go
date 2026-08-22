@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,21 @@ var _ MappedNullable = &FinancialPackage{}
 
 // FinancialPackage struct for FinancialPackage
 type FinancialPackage struct {
+	// BalanceSheet is struck as of the period END, not the start.
 	BalanceSheet *BalanceSheet `json:"balanceSheet,omitempty"`
-	From         *string       `json:"from,omitempty"`
-	GeneratedAt  *string       `json:"generatedAt,omitempty"`
-	Gl           []GLRow       `json:"gl,omitempty"`
-	Org          *string       `json:"org,omitempty"`
-	Pnl          *PnL          `json:"pnl,omitempty"`
-	To           *string       `json:"to,omitempty"`
+	// From opens the reporting period. Absent means from the beginning of the ledger.
+	From *string `json:"from,omitempty"`
+	// GeneratedAt is when the bundle was assembled — the moment the statements were struck, which is what makes two exports of the same period comparable.
+	GeneratedAt *string `json:"generatedAt,omitempty"`
+	// GL is the newest slice of ledger detail, as the audit trail behind the statements. It is CAPPED, so on a busy ledger it is a sample rather than the full support for the figures above.
+	Gl []GLRow `json:"gl,omitempty"`
+	// Org is the organisation whose books these are — the validated caller's own, stamped so a downloaded bundle still says whose it is.
+	Org *string `json:"org,omitempty"`
+	// PnL is the income statement for the period, on an accrual basis.
+	Pnl *PnL `json:"pnl,omitempty"`
+	// To closes it. Absent means up to now.
+	To *string `json:"to,omitempty"`
+	// TrialBalance is the proof the ledger balances over the period.
 	TrialBalance *TrialBalance `json:"trialBalance,omitempty"`
 }
 

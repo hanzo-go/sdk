@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,19 @@ var _ MappedNullable = &MarketItem{}
 
 // MarketItem struct for MarketItem
 type MarketItem struct {
-	Activated    *bool       `json:"activated,omitempty"`
+	Activated *bool `json:"activated,omitempty"`
+	// Category is that same listing's grouping. Free text chosen by the publisher, absent when there is no public listing or the publisher left it blank.
 	Category     *string     `json:"category,omitempty"`
 	Description  *string     `json:"description,omitempty"`
 	Dispatchable *bool       `json:"dispatchable,omitempty"`
 	InputSchema  interface{} `json:"inputSchema,omitempty"`
-	Installed    *bool       `json:"installed,omitempty"`
-	Name         *string     `json:"name,omitempty"`
-	Price        *Price      `json:"price,omitempty"`
-	Source       *string     `json:"source,omitempty"`
-	Title        *string     `json:"title,omitempty"`
+	// Installed is whether the tool is activated for THIS caller's (org, project): the same bit as Activated, under the shop's name for it, which install and uninstall are the writes for. It is per caller, so one listing reads installed for one org and not for another.
+	Installed *bool   `json:"installed,omitempty"`
+	Name      *string `json:"name,omitempty"`
+	Price     *Price  `json:"price,omitempty"`
+	Source    *string `json:"source,omitempty"`
+	// Title is the shop-window name, painted over the registry Name from the CHEAPEST public listing for this tool — several orgs may list the same one, and the row shown is the one a buyer would pay. Absent when no org has listed the tool publicly: that row is a plain capability, not an offer.
+	Title *string `json:"title,omitempty"`
 }
 
 // NewMarketItem instantiates a new MarketItem object

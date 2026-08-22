@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Backend** | Pointer to **string** |  | [optional] 
-**Rank** | Pointer to **int32** |  | [optional] 
-**Score** | Pointer to **float32** |  | [optional] 
+**Backend** | Pointer to **string** | Backend is the leg that contributed this match: \&quot;index\&quot; (lexical), \&quot;vector\&quot; (semantic) or \&quot;code\&quot; (the org&#39;s repositories). It is the same name that leg reports itself under in Response.Backends, so a hit can be traced to a status. | [optional] 
+**Rank** | Pointer to **int32** | Rank is this document&#39;s 1-based position in THAT leg&#39;s own result list, before fusion — 1 is the leg&#39;s best hit. It is the only input to the fused score: RRF adds 1/(60+rank) per leg, which is why a document two legs ranked second beats one a single leg ranked first. | [optional] 
+**Score** | Pointer to **float32** | Score is the leg&#39;s NATIVE score, on that leg&#39;s own scale, reported for explanation and never used in ranking — the scales are incomparable (a cosine similarity against a term-match count), which is why fusion works on ranks. The vector leg reports Qdrant&#39;s cosine similarity; the lexical leg exposes no per-row score and reports 0, meaning \&quot;unscored\&quot;, not \&quot;scored zero\&quot;. | [optional] 
 
 ## Methods
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Brand** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Brand** | Pointer to **string** | Brand is the white-label key this revision was authored under; empty is the shared base playbook. Revisions of two brands never share a number line. | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is when this revision was written, as Unix seconds — the \&quot;who changed the playbook, and when\&quot; half of the audit trail. | [optional] 
+**Version** | Pointer to **int32** | Version is the store&#39;s own revision counter for that brand, starting at 1 for the seeded playbook and incrementing on every edit. Nothing is overwritten, so the highest number is the live one and every lower number is still readable. It is not the playbook&#39;s authored &#x60;version&#x60; string. | [optional] 
 
 ## Methods
 

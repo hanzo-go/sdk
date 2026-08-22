@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ComputeRef** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**ExecutionMode** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **string** |  | [optional] 
-**Model** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Schedule** | Pointer to **string** |  | [optional] 
-**ServiceAccountId** | Pointer to **string** |  | [optional] 
-**Tools** | Pointer to **[]string** |  | [optional] 
+**ComputeRef** | Pointer to **string** | ComputeRef optionally binds this bot to a visor machine. Opaque here, bounded at 256 characters, and not resolved — this package stores the reference and the binding&#39;s lifecycle belongs elsewhere. | [optional] 
+**Description** | Pointer to **string** | Description is the one line published as the description of the &#x60;agent_&lt;name&gt;&#x60; tool, which is how another agent decides whether to call this one. Optional, and worth writing for exactly that reason. | [optional] 
+**ExecutionMode** | Pointer to **string** | ExecutionMode is one-shot or long-running. Empty takes one-shot, which runs only when something POSTs to it. long-running additionally requires Schedule, and counts against a per-org cap that answers 409 when it is full. | [optional] 
+**Instructions** | Pointer to **string** | Instructions is the system prompt, up to 32 KiB, stored verbatim. This is what the model reads; Description is what other CALLERS read. | [optional] 
+**Model** | Pointer to **string** | Model names the model to run on. Omit it to take the deployment&#39;s configured default; name one and it is checked against the gateway&#39;s served catalogue here, so a model this deployment cannot serve is refused now rather than at the first run. Stored under our own name for it, whatever spelling arrives. | [optional] 
+**Name** | Pointer to **string** | Name is the agent&#39;s org-unique handle and the only required field. It must match ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$, and a name already taken in this org is a 409 rather than an overwrite. It is permanent: no update route moves it. | [optional] 
+**Schedule** | Pointer to **string** | Schedule is the 5-field cron a long-running agent fires on, parsed here so a bad expression is a 400 and not an agent that silently never runs. Required with long-running; DISCARDED for one-shot rather than stored unused. | [optional] 
+**ServiceAccountId** | Pointer to **string** | ServiceAccountID optionally names the IAM agent service account (&lt;org&gt;-&lt;agent&gt;) a scheduled run should be billed AS, so an autonomous run is attributable to a principal rather than only to the org. Same 256-character bound, also unresolved here. | [optional] 
+**Tools** | Pointer to **[]string** | Tools are the tool names this agent may call. Omitted or empty grants NONE — that default is the agent&#39;s authority and is not widened anywhere. The single entry \&quot;*\&quot; means whatever the fleet&#39;s tool door serves at the time of each run. | [optional] 
 
 ## Methods
 

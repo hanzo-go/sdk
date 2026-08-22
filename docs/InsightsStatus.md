@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Engine** | Pointer to **string** | Engine names the engine serving the surface: hanzo-analytics. | [optional] 
 **Ok** | Pointer to **bool** | OK is always true — reaching this route is the liveness fact it reports. | [optional] 
-**Surface** | Pointer to **string** | Surface is the path prefix this status covers: /v1/insights. | [optional] 
+**Surface** | Pointer to **string** | Surface is the path prefix this status covers: /v1/event/insights. | [optional] 
 
 ## Methods
 

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt and UpdatedAt are unix seconds, both server-assigned. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is unix seconds when the sequence was registered, server-assigned and never rewritten. | [optional] 
 **Id** | Pointer to **string** | ID is the server-assigned sequence id (\&quot;seq_\&quot; + 128 random bits). | [optional] 
 **Name** | Pointer to **string** | Name is the sequence&#39;s label. Required, trimmed, capped at 1024 bytes. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle: draft, active or archived. Empty means draft, and ONLY an active sequence accepts enrollments. | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is unix seconds of the last status flip, server-assigned, and the key the sequence list is ordered by (newest first). Adding a step or enrolling a contact does NOT touch it — only draft/active/archived does — so it tracks activation rather than activity. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &PagesProjectCreate{}
 
 // PagesProjectCreate struct for PagesProjectCreate
 type PagesProjectCreate struct {
-	BuildConfig       *PagesBuildConfig       `json:"build_config,omitempty"`
+	// BuildConfig says how to build the site. Omitted means no build step.
+	BuildConfig *PagesBuildConfig `json:"build_config,omitempty"`
+	// DeploymentConfigs carries the preview and production runtime configs — the bindings and variables the built site's functions run with.
 	DeploymentConfigs *PagesDeploymentConfigs `json:"deployment_configs,omitempty"`
-	Name              *string                 `json:"name,omitempty"`
-	ProductionBranch  *string                 `json:"production_branch,omitempty"`
+	// Name is the project name, and it is also the address: the site answers at <name>.pages.dev. Cloudflare will not rename a project afterwards.
+	Name *string `json:"name,omitempty"`
+	// ProductionBranch is which git branch builds to production; every other branch builds a preview. Omitted leaves Cloudflare's own default.
+	ProductionBranch *string `json:"production_branch,omitempty"`
 }
 
 // NewPagesProjectCreate instantiates a new PagesProjectCreate object

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -20,9 +20,11 @@ var _ MappedNullable = &ArgoDestination{}
 // ArgoDestination struct for ArgoDestination
 type ArgoDestination struct {
 	// ArgoCD allows a destination by cluster name; omitted for the in-cluster projection.
-	Name      *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// Namespace is where in that cluster the workload lands. \"*\" on a project's destination fence means any namespace.
 	Namespace *string `json:"namespace,omitempty"`
-	Server    *string `json:"server,omitempty"`
+	// Server is the cluster API URL the application reconciles into. Everything this plane projects lands in the cluster it runs in, so it is https://kubernetes.default.svc — except on a project's destination fence, where \"*\" means any cluster.
+	Server *string `json:"server,omitempty"`
 }
 
 // NewArgoDestination instantiates a new ArgoDestination object

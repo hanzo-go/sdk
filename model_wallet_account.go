@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &WalletAccount{}
 
 // WalletAccount struct for WalletAccount
 type WalletAccount struct {
-	CreatedAt *int32  `json:"createdAt,omitempty"`
-	Id        *string `json:"id,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	Org       *string `json:"org,omitempty"`
+	// CreatedAt is when the account was opened, Unix seconds. Listings order by it, newest first.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// ID is the account id, minted by the server as \"acct_\" + 24 hex. Wallets name it as their accountId, and it becomes a segment of each of their key refs — so it addresses key material and cannot be reassigned.
+	Id *string `json:"id,omitempty"`
+	// Name is the label given at creation, trimmed and required. It groups wallets: it is not a key, holds no balance, and is not unique in the org.
+	Name *string `json:"name,omitempty"`
+	// Org is the tenant that owns the account, stamped from the validated principal rather than taken from the request. Every read is physically scoped to it, so another tenant's accounts are not reachable at all.
+	Org *string `json:"org,omitempty"`
 }
 
 // NewWalletAccount instantiates a new WalletAccount object

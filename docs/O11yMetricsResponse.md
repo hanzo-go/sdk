@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Product** | Pointer to **string** |  | [optional] 
-**Range** | Pointer to [**O11yAvailabilityResponseRange**](O11yAvailabilityResponseRange.md) |  | [optional] 
+**Product** | Pointer to **string** | Product is the service these numbers are about, echoed back. | [optional] 
+**Range** | Pointer to [**O11yMetricsResponseRange**](O11yMetricsResponseRange.md) |  | [optional] 
 **Series** | Pointer to [**O11yMetricsResponseSeries**](O11yMetricsResponseSeries.md) |  | [optional] 
 **Summary** | Pointer to [**O11yMetricsResponseSummary**](O11yMetricsResponseSummary.md) |  | [optional] 
 **Usage** | Pointer to [**O11yMetricsResponseUsage**](O11yMetricsResponseUsage.md) |  | [optional] 
@@ -56,20 +56,20 @@ HasProduct returns a boolean if a field has been set.
 
 ### GetRange
 
-`func (o *O11yMetricsResponse) GetRange() O11yAvailabilityResponseRange`
+`func (o *O11yMetricsResponse) GetRange() O11yMetricsResponseRange`
 
 GetRange returns the Range field if non-nil, zero value otherwise.
 
 ### GetRangeOk
 
-`func (o *O11yMetricsResponse) GetRangeOk() (*O11yAvailabilityResponseRange, bool)`
+`func (o *O11yMetricsResponse) GetRangeOk() (*O11yMetricsResponseRange, bool)`
 
 GetRangeOk returns a tuple with the Range field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRange
 
-`func (o *O11yMetricsResponse) SetRange(v O11yAvailabilityResponseRange)`
+`func (o *O11yMetricsResponse) SetRange(v O11yMetricsResponseRange)`
 
 SetRange sets Range field to given value.
 

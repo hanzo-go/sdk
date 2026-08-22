@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Activated** | Pointer to **bool** |  | [optional] 
-**Category** | Pointer to **string** |  | [optional] 
+**Category** | Pointer to **string** | Category is that same listing&#39;s grouping. Free text chosen by the publisher, absent when there is no public listing or the publisher left it blank. | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Dispatchable** | Pointer to **bool** |  | [optional] 
 **InputSchema** | Pointer to **interface{}** |  | [optional] 
-**Installed** | Pointer to **bool** |  | [optional] 
+**Installed** | Pointer to **bool** | Installed is whether the tool is activated for THIS caller&#39;s (org, project): the same bit as Activated, under the shop&#39;s name for it, which install and uninstall are the writes for. It is per caller, so one listing reads installed for one org and not for another. | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Price** | Pointer to [**Price**](Price.md) |  | [optional] 
 **Source** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
+**Title** | Pointer to **string** | Title is the shop-window name, painted over the registry Name from the CHEAPEST public listing for this tool — several orgs may list the same one, and the row shown is the one a buyer would pay. Absent when no org has listed the tool publicly: that row is a plain capability, not an offer. | [optional] 
 
 ## Methods
 

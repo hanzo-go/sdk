@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Doctype** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Project** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**Doctype** | Pointer to **string** | DocType is which content type the row came from: Campaign, SocialPost or Asset. The board spans all three at once, so this is what tells them apart. | [optional] 
+**Name** | Pointer to **string** | Name is the document within that type. (doctype, name) is the pair every /v1/content write addresses an item by. | [optional] 
+**Project** | Pointer to **string** | Project is the brand/site sub-scope within the org. Absent for an item held at org level rather than under one brand. | [optional] 
+**Status** | Pointer to **string** | Status is the lifecycle state: draft, in_review, approved, queued, published or archived. It decides what a reader may see — the public site pulls exactly \&quot;published\&quot; and nothing else — so it is a visibility fact, not a workflow label. | [optional] 
+**Title** | Pointer to **string** | Title is the item&#39;s headline, read from its type&#39;s own title field. Empty for a document that has none. | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is unix seconds of the document&#39;s last write, and the key the board sorts on, newest first. | [optional] 
 
 ## Methods
 

@@ -4,89 +4,19 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteKmsSecretsByWildcard1**](KmsAPI.md#DeleteKmsSecretsByWildcard1) | **Delete** /v1/kms/secrets/{wildcard1} | Delete one secret from your org
-[**GetKmsConfig**](KmsAPI.md#GetKmsConfig) | **Get** /v1/kms/config | Runtime configuration for the KMS console
-[**GetKmsHealth**](KmsAPI.md#GetKmsHealth) | **Get** /v1/kms/health | Whether this broker can actually serve secrets
-[**GetKmsSecrets**](KmsAPI.md#GetKmsSecrets) | **Get** /v1/kms/secrets | List the secrets your org holds, without their values
-[**GetKmsSecretsByWildcard1**](KmsAPI.md#GetKmsSecretsByWildcard1) | **Get** /v1/kms/secrets/{wildcard1} | Read one secret&#39;s value
-[**PostKmsAuthLogin**](KmsAPI.md#PostKmsAuthLogin) | **Post** /v1/kms/auth/login | Exchange a machine credential for an IAM bearer token
-[**PostKmsSecrets**](KmsAPI.md#PostKmsSecrets) | **Post** /v1/kms/secrets | Store or replace one secret in your org
+[**GetKmsConfig**](KmsAPI.md#GetKmsConfig) | **Get** /v1/kms/config | Returns the runtime configuration for the KMS console.
+[**GetKmsHealth**](KmsAPI.md#GetKmsHealth) | **Get** /v1/kms/health | Reports whether this broker can actually serve secrets.
+[**GetKmsSecrets**](KmsAPI.md#GetKmsSecrets) | **Get** /v1/kms/secrets | Lists the secrets your org holds, without their values.
+[**PostKmsAuthLogin**](KmsAPI.md#PostKmsAuthLogin) | **Post** /v1/kms/auth/login | Exchanges a machine credential for an IAM bearer token.
+[**PostKmsSecrets**](KmsAPI.md#PostKmsSecrets) | **Post** /v1/kms/secrets | Stores or replaces one secret in your org.
 
-
-
-## DeleteKmsSecretsByWildcard1
-
-> DeleteKmsSecretsByWildcard1(ctx, wildcard1).Execute()
-
-Delete one secret from your org
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	wildcard1 := "wildcard1_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KmsAPI.DeleteKmsSecretsByWildcard1(context.Background(), wildcard1).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KmsAPI.DeleteKmsSecretsByWildcard1``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wildcard1** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteKmsSecretsByWildcard1Request struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## GetKmsConfig
 
-> GetKmsConfig(ctx).Execute()
+> KmsConfig GetKmsConfig(ctx).Execute()
 
-Runtime configuration for the KMS console
+Returns the runtime configuration for the KMS console.
 
 
 
@@ -106,11 +36,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KmsAPI.GetKmsConfig(context.Background()).Execute()
+	resp, r, err := apiClient.KmsAPI.GetKmsConfig(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KmsAPI.GetKmsConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetKmsConfig`: KmsConfig
+	fmt.Fprintf(os.Stdout, "Response from `KmsAPI.GetKmsConfig`: %v\n", resp)
 }
 ```
 
@@ -125,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetKmsConfigRequest struct
 
 ### Return type
 
- (empty response body)
+[**KmsConfig**](KmsConfig.md)
 
 ### Authorization
 
@@ -134,7 +66,7 @@ Other parameters are passed through a pointer to a apiGetKmsConfigRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -143,9 +75,9 @@ Other parameters are passed through a pointer to a apiGetKmsConfigRequest struct
 
 ## GetKmsHealth
 
-> GetKmsHealth(ctx).Execute()
+> KmsHealth GetKmsHealth(ctx).Execute()
 
-Whether this broker can actually serve secrets
+Reports whether this broker can actually serve secrets.
 
 
 
@@ -165,11 +97,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KmsAPI.GetKmsHealth(context.Background()).Execute()
+	resp, r, err := apiClient.KmsAPI.GetKmsHealth(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KmsAPI.GetKmsHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetKmsHealth`: KmsHealth
+	fmt.Fprintf(os.Stdout, "Response from `KmsAPI.GetKmsHealth`: %v\n", resp)
 }
 ```
 
@@ -184,7 +118,7 @@ Other parameters are passed through a pointer to a apiGetKmsHealthRequest struct
 
 ### Return type
 
- (empty response body)
+[**KmsHealth**](KmsHealth.md)
 
 ### Authorization
 
@@ -193,7 +127,7 @@ Other parameters are passed through a pointer to a apiGetKmsHealthRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -202,9 +136,9 @@ Other parameters are passed through a pointer to a apiGetKmsHealthRequest struct
 
 ## GetKmsSecrets
 
-> GetKmsSecrets(ctx).Execute()
+> KmsSecrets GetKmsSecrets(ctx).Env(env).Environment(environment).Path(path).SecretPath(secretPath).Execute()
 
-List the secrets your org holds, without their values
+Lists the secrets your org holds, without their values.
 
 
 
@@ -221,29 +155,42 @@ import (
 )
 
 func main() {
+	env := "env_example" // string |  (optional)
+	environment := "environment_example" // string |  (optional)
+	path := "path_example" // string |  (optional)
+	secretPath := "secretPath_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KmsAPI.GetKmsSecrets(context.Background()).Execute()
+	resp, r, err := apiClient.KmsAPI.GetKmsSecrets(context.Background()).Env(env).Environment(environment).Path(path).SecretPath(secretPath).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KmsAPI.GetKmsSecrets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetKmsSecrets`: KmsSecrets
+	fmt.Fprintf(os.Stdout, "Response from `KmsAPI.GetKmsSecrets`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetKmsSecretsRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **env** | **string** |  | 
+ **environment** | **string** |  | 
+ **path** | **string** |  | 
+ **secretPath** | **string** |  | 
+
 ### Return type
 
- (empty response body)
+[**KmsSecrets**](KmsSecrets.md)
 
 ### Authorization
 
@@ -252,75 +199,7 @@ Other parameters are passed through a pointer to a apiGetKmsSecretsRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetKmsSecretsByWildcard1
-
-> GetKmsSecretsByWildcard1(ctx, wildcard1).Execute()
-
-Read one secret's value
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	wildcard1 := "wildcard1_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KmsAPI.GetKmsSecretsByWildcard1(context.Background(), wildcard1).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `KmsAPI.GetKmsSecretsByWildcard1``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wildcard1** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetKmsSecretsByWildcard1Request struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -329,9 +208,9 @@ Name | Type | Description  | Notes
 
 ## PostKmsAuthLogin
 
-> PostKmsAuthLogin(ctx).Execute()
+> KmsToken PostKmsAuthLogin(ctx).KmsLogin(kmsLogin).Execute()
 
-Exchange a machine credential for an IAM bearer token
+Exchanges a machine credential for an IAM bearer token.
 
 
 
@@ -348,29 +227,36 @@ import (
 )
 
 func main() {
+	kmsLogin := *openapiclient.NewKmsLogin() // KmsLogin | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KmsAPI.PostKmsAuthLogin(context.Background()).Execute()
+	resp, r, err := apiClient.KmsAPI.PostKmsAuthLogin(context.Background()).KmsLogin(kmsLogin).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KmsAPI.PostKmsAuthLogin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostKmsAuthLogin`: KmsToken
+	fmt.Fprintf(os.Stdout, "Response from `KmsAPI.PostKmsAuthLogin`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostKmsAuthLoginRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kmsLogin** | [**KmsLogin**](KmsLogin.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**KmsToken**](KmsToken.md)
 
 ### Authorization
 
@@ -378,8 +264,8 @@ Other parameters are passed through a pointer to a apiPostKmsAuthLoginRequest st
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -388,9 +274,9 @@ Other parameters are passed through a pointer to a apiPostKmsAuthLoginRequest st
 
 ## PostKmsSecrets
 
-> PostKmsSecrets(ctx).Execute()
+> KmsStored PostKmsSecrets(ctx).KmsPut(kmsPut).Execute()
 
-Store or replace one secret in your org
+Stores or replaces one secret in your org.
 
 
 
@@ -407,29 +293,36 @@ import (
 )
 
 func main() {
+	kmsPut := *openapiclient.NewKmsPut() // KmsPut | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.KmsAPI.PostKmsSecrets(context.Background()).Execute()
+	resp, r, err := apiClient.KmsAPI.PostKmsSecrets(context.Background()).KmsPut(kmsPut).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KmsAPI.PostKmsSecrets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostKmsSecrets`: KmsStored
+	fmt.Fprintf(os.Stdout, "Response from `KmsAPI.PostKmsSecrets`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostKmsSecretsRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kmsPut** | [**KmsPut**](KmsPut.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**KmsStored**](KmsStored.md)
 
 ### Authorization
 
@@ -437,8 +330,8 @@ Other parameters are passed through a pointer to a apiPostKmsSecretsRequest stru
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

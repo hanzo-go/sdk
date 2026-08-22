@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,20 @@ var _ MappedNullable = &BuildTurn{}
 
 // BuildTurn struct for BuildTurn
 type BuildTurn struct {
-	Actor   *string `json:"actor,omitempty"`
-	At      *string `json:"at,omitempty"`
-	Body    *string `json:"body,omitempty"`
-	Commit  *string `json:"commit,omitempty"`
-	Kind    *string `json:"kind,omitempty"`
+	// Actor is who took the turn. A deploy turn's actor is the literal \"deploy\", because nobody took it.
+	Actor *string `json:"actor,omitempty"`
+	// At is when the turn was recorded, RFC 3339 in UTC to the second.
+	At *string `json:"at,omitempty"`
+	// Body is the readable text of the turn, taken from the stored event's `text`. Empty when the event carried a payload of some other shape — this route reads transcripts and does not invent prose for turns that are not one.
+	Body *string `json:"body,omitempty"`
+	// Commit is the full sha this turn produced, empty when the turn changed nothing. It is ECHOED from the transcript, and the authority is the commit itself: it carries the `Hanzo-Session:`/`Hanzo-Turn:` trailer, or a note under refs/notes/hanzo-provenance saying the same, so the claim is checkable at source with the command in `verify`.
+	Commit *string `json:"commit,omitempty"`
+	// Kind is what the turn was, from the log's closed six: message, tool-call, spawn, log, status, control. A deploy arrives as a `status` turn.
+	Kind *string `json:"kind,omitempty"`
+	// Subject is that commit's subject line, from the same transcript, so a reader sees what the commit says without fetching the repository.
 	Subject *string `json:"subject,omitempty"`
-	Turn    *int32  `json:"turn,omitempty"`
+	// Seq is this turn's POSITION in the session's log — monotonic from 1, per session — and it is what a commit's `Hanzo-Turn:` trailer names. It is not a count of anything: the count is `turns` on the summary beside it.
+	Turn *int32 `json:"turn,omitempty"`
 }
 
 // NewBuildTurn instantiates a new BuildTurn object

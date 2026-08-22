@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,23 @@ var _ MappedNullable = &SyncView{}
 
 // SyncView struct for SyncView
 type SyncView struct {
-	Actor     *string       `json:"actor,omitempty"`
-	CreatedAt *string       `json:"createdAt,omitempty"`
-	Direction *string       `json:"direction,omitempty"`
-	Id        *string       `json:"id,omitempty"`
-	Kind      *string       `json:"kind,omitempty"`
-	Source    *EndpointView `json:"source,omitempty"`
-	Target    *EndpointView `json:"target,omitempty"`
-	Trigger   *string       `json:"trigger,omitempty"`
-	// bumped on every reconcile — the last-synced time
+	// Actor is the identity a reconcile writes AS. It is the loop guard: a change this identity made is one we already have, so it is not synced back.
+	Actor *string `json:"actor,omitempty"`
+	// CreatedAt is when the link was first declared, RFC3339 in UTC.
+	CreatedAt *string `json:"createdAt,omitempty"`
+	// Direction is which way work flows: \"both\", \"pull\" (target ← source), \"push\" (source → target), or \"off\" — which keeps the link declared and moves nothing.
+	Direction *string `json:"direction,omitempty"`
+	// ID is the link's handle, derived from its source and target — which is what makes re-declaring the same pair an update rather than a duplicate.
+	Id *string `json:"id,omitempty"`
+	// Kind is what is being synced. \"git\" today; the field exists so a storage or database link is a value here rather than a second route family.
+	Kind *string `json:"kind,omitempty"`
+	// Source is the side read FROM on a pull.
+	Source *EndpointView `json:"source,omitempty"`
+	// Target is the side written TO on a push.
+	Target *EndpointView `json:"target,omitempty"`
+	// Trigger is what starts a reconcile: \"webhook\" (the provider tells us), \"poll\" (we ask on a schedule), or \"manual\" (only an explicit call).
+	Trigger *string `json:"trigger,omitempty"`
+	// UpdatedAt is bumped by every reconcile, so it reads as the LAST-SYNCED time rather than the last edit. Absent until the first one runs.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 

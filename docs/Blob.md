@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to **string** |  | [optional] 
-**Dir** | Pointer to **bool** |  | [optional] 
-**Entries** | Pointer to **[]string** |  | [optional] 
-**Path** | Pointer to **string** |  | [optional] 
+**Data** | Pointer to **string** | Data is the file&#39;s bytes, verbatim, base64 on the wire. Empty for a directory and for an empty file alike; Dir is what tells those apart. | [optional] 
+**Dir** | Pointer to **bool** | Dir says which of the two answers this is: true and the path is a directory, so read Entries; false and it is a file, so read Data. Nothing else distinguishes them — an empty file and an empty directory look alike here. | [optional] 
+**Entries** | Pointer to **[]string** | Entries is a directory&#39;s contents as bare NAMES, not paths — one level, no recursion, dotfiles included, \&quot;.\&quot; and \&quot;..\&quot; excluded (&#x60;ls -1A&#x60;). Empty for a file, and for an empty directory. | [optional] 
+**Path** | Pointer to **string** | Path is the RESOLVED absolute path that was read — the caller&#39;s relative path joined onto the sandbox&#39;s working directory (Leased.Workdir), so it names the same file for a reader who does not know the class. | [optional] 
 
 ## Methods
 

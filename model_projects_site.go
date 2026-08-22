@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &ProjectsSite{}
 
 // ProjectsSite struct for ProjectsSite
 type ProjectsSite struct {
-	Name      *string `json:"name,omitempty"`
-	Slug      *string `json:"slug,omitempty"`
-	Status    *string `json:"status,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
-	Url       *string `json:"url,omitempty"`
+	// Name is the site's display name.
+	Name *string `json:"name,omitempty"`
+	// Slug is the site's handle — also the label of the host it serves at.
+	Slug *string `json:"slug,omitempty"`
+	// Status is the project's state behind the site — whether it is serving, still building, or failed its last build. A site that is listed is not necessarily one that answers.
+	Status *string `json:"status,omitempty"`
+	// UpdatedAt is when the project last changed, as Unix seconds.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	// URL is the pretty address readers use, not the object-store path behind it.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewProjectsSite instantiates a new ProjectsSite object

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BalanceSheet** | Pointer to [**BalanceSheet**](BalanceSheet.md) |  | [optional] 
-**From** | Pointer to **string** |  | [optional] 
-**GeneratedAt** | Pointer to **string** |  | [optional] 
-**Gl** | Pointer to [**[]GLRow**](GLRow.md) |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Pnl** | Pointer to [**PnL**](PnL.md) |  | [optional] 
-**To** | Pointer to **string** |  | [optional] 
-**TrialBalance** | Pointer to [**TrialBalance**](TrialBalance.md) |  | [optional] 
+**BalanceSheet** | Pointer to [**BalanceSheet**](BalanceSheet.md) | BalanceSheet is struck as of the period END, not the start. | [optional] 
+**From** | Pointer to **string** | From opens the reporting period. Absent means from the beginning of the ledger. | [optional] 
+**GeneratedAt** | Pointer to **string** | GeneratedAt is when the bundle was assembled — the moment the statements were struck, which is what makes two exports of the same period comparable. | [optional] 
+**Gl** | Pointer to [**[]GLRow**](GLRow.md) | GL is the newest slice of ledger detail, as the audit trail behind the statements. It is CAPPED, so on a busy ledger it is a sample rather than the full support for the figures above. | [optional] 
+**Org** | Pointer to **string** | Org is the organisation whose books these are — the validated caller&#39;s own, stamped so a downloaded bundle still says whose it is. | [optional] 
+**Pnl** | Pointer to [**PnL**](PnL.md) | PnL is the income statement for the period, on an accrual basis. | [optional] 
+**To** | Pointer to **string** | To closes it. Absent means up to now. | [optional] 
+**TrialBalance** | Pointer to [**TrialBalance**](TrialBalance.md) | TrialBalance is the proof the ledger balances over the period. | [optional] 
 
 ## Methods
 

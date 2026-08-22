@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**E164** | Pointer to **string** |  | [optional] 
+**E164** | Pointer to **string** | E164 is the number to buy, in E.164 (a leading + and digits), exactly as the search returned it. This is the number itself, not the id from a search result. | [optional] 
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | ID is the file&#39;s path RELATIVE to its session&#39;s artifact directory, which is also how it is fetched: GET /v1/download/{session}/{id}. | [optional] 
+**Id** | Pointer to **string** | ID is the file&#39;s path RELATIVE to its session&#39;s artifact directory, which is also how it is fetched: GET /v1/exec/download/{session}/{id}. | [optional] 
 **Name** | Pointer to **string** | Name is the display name. On an ANSWER it carries the &#x60;{session}/{id}&#x60; identifier whole, because the client matches on that prefix. | [optional] 
 **SessionId** | Pointer to **string** | SessionID is the other accepted spelling of the same fact on the way IN. Both are read; whichever is set wins. | [optional] 
 **StorageSessionId** | Pointer to **string** | StorageSessionID names the session holding the bytes, and is the spelling the answer always uses. | [optional] 

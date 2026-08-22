@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | Pointer to **string** |  | [optional] 
-**Hits** | Pointer to **int32** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**TookMs** | Pointer to **int32** |  | [optional] 
+**Error** | Pointer to **string** | Error is the failure text from a leg whose status is degraded — the reason a configured backend could not answer. Absent otherwise. | [optional] 
+**Hits** | Pointer to **int32** | Hits is how many results this leg returned, counted BEFORE fusion, so it is not the number that survived into Response.Hits — fusion merges what both legs found and the caller&#39;s limit and offset then page it. 0 for a leg that did not run. | [optional] 
+**Name** | Pointer to **string** | Name is which leg this reports: \&quot;index\&quot;, the lexical store, \&quot;vector\&quot;, the semantic one, or \&quot;code\&quot;, the org&#39;s own repositories. Match.Backend uses the same three names. | [optional] 
+**Status** | Pointer to **string** | Status is one of ok, degraded, disabled, skipped — four distinct operational facts that are never collapsed. It ran and answered; it is configured and FAILED (Error says how, and only this one is a fault); this deployment never provisioned it; or the request&#39;s mode excluded it. | [optional] 
+**TookMs** | Pointer to **int32** | TookMS is how long this leg took, in milliseconds, timed around its own call and excluding fusion. 0 for a leg that was skipped or is disabled, since nothing was called. | [optional] 
 
 ## Methods
 

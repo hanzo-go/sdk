@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,7 +23,8 @@ type Spec struct {
 	Arch *string `json:"arch,omitempty"`
 	// logical cores
 	Cpus *int32 `json:"cpus,omitempty"`
-	Gpus []GPU  `json:"gpus,omitempty"`
+	// GPUs is every accelerator the machine advertises, one entry each, capped at 32 on write. Empty means the probe found none — and that is the answer a Need is checked against, so a machine with no entry here clears no accelerator floor. The list is not vendor-filtered: what satisfies a job is counts and VRAM, never a brand (see Need).
+	Gpus []GPU `json:"gpus,omitempty"`
 	// total RAM, bytes
 	Memory *int32 `json:"memory,omitempty"`
 	// linux | darwin | windows

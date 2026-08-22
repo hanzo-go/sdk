@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | Pointer to **string** |  | [optional] 
-**Against** | Pointer to **string** |  | [optional] 
-**Credit** | Pointer to **int32** |  | [optional] 
-**Debit** | Pointer to **int32** |  | [optional] 
-**Id** | Pointer to **int32** |  | [optional] 
-**PostingAt** | Pointer to **string** |  | [optional] 
-**Remarks** | Pointer to **string** |  | [optional] 
-**SourceId** | Pointer to **string** |  | [optional] 
-**SourceKind** | Pointer to **string** |  | [optional] 
+**Account** | Pointer to **string** | Account is the chart-of-accounts number this leg posts to. | [optional] 
+**Against** | Pointer to **string** | Against names the OTHER accounts in the same voucher — the contra side of this leg — so a single row reads as an entry rather than as half of one. | [optional] 
+**Credit** | Pointer to **int32** | Credit is the amount credited to that account, in whole cents. | [optional] 
+**Debit** | Pointer to **int32** | Debit is the amount debited to that account, in whole cents. Exactly one of debit and credit is non-zero on a leg; a negative amount is never used to mean the other side. | [optional] 
+**Id** | Pointer to **int32** | ID is the entry&#39;s position in the ledger. The ledger is append-only, so ids ascend with posting order and a higher id is a later entry. | [optional] 
+**PostingAt** | Pointer to **string** | PostingAt is the accounting date this entry belongs to — what the reports window on, which need not be when the row was written. | [optional] 
+**Remarks** | Pointer to **string** | Remarks is the memo carried onto the entry, for a human reading the ledger. | [optional] 
+**SourceId** | Pointer to **string** | SourceID identifies that originating record within its kind. | [optional] 
+**SourceKind** | Pointer to **string** | SourceKind is what caused the posting: a bank line, a scanned document, a commerce sale. With sourceId it traces the entry back to the thing that produced it. | [optional] 
 
 ## Methods
 

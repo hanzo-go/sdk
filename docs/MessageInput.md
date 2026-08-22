@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**From** | Pointer to **string** |  | [optional] 
-**Media** | Pointer to **[]string** |  | [optional] 
-**Text** | Pointer to **string** |  | [optional] 
-**To** | Pointer to **string** |  | [optional] 
+**From** | Pointer to **string** | From is the number to send FROM, in E.164. It must be one this org holds and it must be sms-capable. | [optional] 
+**Media** | Pointer to **[]string** | Media are URLs to attach. A message with any is an MMS to the carrier — the distinction is the carrier&#39;s to make, not something the caller declares. | [optional] 
+**Text** | Pointer to **string** | Text is the message body. It may be empty when Media carries the message. | [optional] 
+**To** | Pointer to **string** | To is the number to send to, in E.164. | [optional] 
 
 ## Methods
 

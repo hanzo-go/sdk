@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Applications** | Pointer to [**[]GitOpsApp**](GitOpsApp.md) |  | [optional] 
-**Installed** | Pointer to **bool** |  | [optional] 
-**Reason** | Pointer to **string** |  | [optional] 
+**Applications** | Pointer to [**[]GitOpsApp**](GitOpsApp.md) | Applications is every CD Application in the cluster, ordered by namespace then name. Empty (never null) when the plane is not installed, and equally empty when it is installed and tracks nothing — Installed is what separates those two. | [optional] 
+**Installed** | Pointer to **bool** | Installed is whether this cluster serves the CD Application CRD at all. False is a fact about the cluster, not a failure of the request: the caller says \&quot;no CD plane here\&quot; rather than rendering an error it cannot act on. | [optional] 
+**Reason** | Pointer to **string** | Reason says why the plane is absent, in words a caller can show. Empty when Installed. | [optional] 
 
 ## Methods
 

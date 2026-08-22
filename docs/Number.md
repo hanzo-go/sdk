@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Capable** | Pointer to **[]string** | voice | sms | mms | fax | [optional] 
-**Country** | Pointer to **string** |  | [optional] 
-**Currency** | Pointer to **string** |  | [optional] 
-**E164** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Monthly** | Pointer to **int32** | minor units, as the carrier quoted it | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Capable** | Pointer to **[]string** | Capable is what the number can carry: any of \&quot;voice\&quot;, \&quot;sms\&quot;, \&quot;mms\&quot;, \&quot;fax\&quot;. A number missing \&quot;sms\&quot; cannot send one no matter what this platform does. | [optional] 
+**Country** | Pointer to **string** | Country is the ISO 3166-1 alpha-2 code the number is issued under. Numbering is national, so this is what makes a search answerable at all. | [optional] 
+**Currency** | Pointer to **string** | Currency is the ISO 4217 code Monthly is denominated in. Without it the number beside it means nothing, so the two are always read together. | [optional] 
+**E164** | Pointer to **string** | E164 is the number in E.164: a leading + and digits only, no spaces or dashes. That is what a carrier accepts and what a search result must be bought by. | [optional] 
+**Id** | Pointer to **string** | ID is the carrier&#39;s handle for the number, and the id every route here addresses it by. It is not the number itself — see E164. | [optional] 
+**Monthly** | Pointer to **int32** | Monthly is the recurring rental in the MINOR unit of Currency (cents for USD), exactly as the carrier quoted it. It is a price, not a charge: nothing is billed by this field. | [optional] 
+**Org** | Pointer to **string** | Org is the tenant holding the number. A search result carries none — nobody holds it yet — which is how an available number is told from a held one. | [optional] 
+**Type** | Pointer to **string** | Type is what kind of number it is: \&quot;local\&quot;, \&quot;national\&quot;, \&quot;tollfree\&quot; or \&quot;mobile\&quot;. It decides both price and what a carrier will let it originate. | [optional] 
 
 ## Methods
 

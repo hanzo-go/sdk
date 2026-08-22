@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | Pointer to **string** |  | [optional] 
-**ClosingCredit** | Pointer to **int32** |  | [optional] 
-**ClosingDebit** | Pointer to **int32** |  | [optional] 
-**Credit** | Pointer to **int32** | period movement | [optional] 
-**Debit** | Pointer to **int32** | period movement | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**OpeningCredit** | Pointer to **int32** |  | [optional] 
-**OpeningDebit** | Pointer to **int32** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Account** | Pointer to **string** | Account is the chart-of-accounts NUMBER this line reports on (\&quot;1000\&quot;, \&quot;4000\&quot;) — the stable posting key, not a display label. | [optional] 
+**ClosingCredit** | Pointer to **int32** | ClosingCredit is that closing balance in cents when it is a credit balance. | [optional] 
+**ClosingDebit** | Pointer to **int32** | ClosingDebit is the balance at the end of the window, in cents, when it is a debit balance. This is the column the report&#39;s totals are summed from. | [optional] 
+**Credit** | Pointer to **int32** | Credit is the same window movement in cents when it was net credit. | [optional] 
+**Debit** | Pointer to **int32** | Debit is the account&#39;s MOVEMENT within the window — closing minus opening, not the closing balance — in cents, when that movement was net debit. Zero when the account moved net credit. | [optional] 
+**Name** | Pointer to **string** | Name is that account&#39;s human name from the fixed chart. | [optional] 
+**OpeningCredit** | Pointer to **int32** | OpeningCredit is the same opening balance in cents when it fell on the credit side. Zero when the balance was a debit one. | [optional] 
+**OpeningDebit** | Pointer to **int32** | OpeningDebit is the account&#39;s balance before the window began, in whole cents, when that balance was on the debit side. Zero when the balance was a credit one — the pair is exclusive, never two halves of one number. | [optional] 
+**Type** | Pointer to **string** | Type is the account&#39;s fundamental class — asset, liability, income, expense or equity — which is also its normal balance side. It is carried for presentation and does NOT decide which column an amount lands in: placement follows the sign of the real net, so a contra balance shows up as one. | [optional] 
 
 ## Methods
 

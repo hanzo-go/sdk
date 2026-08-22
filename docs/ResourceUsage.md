@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CostCents** | Pointer to **float32** |  | [optional] 
-**CpuVcpuHours** | Pointer to **float32** |  | [optional] 
-**MemGbHours** | Pointer to **float32** |  | [optional] 
-**StorageIoBytes** | Pointer to **float32** |  | [optional] 
+**CostCents** | Pointer to **float32** | CostCents would be the window&#39;s spend in cents. Always null here — the money a run costs is the metering ledger&#39;s, joined by the run id, and repeating it from this side would be a second number that could disagree with the bill. | [optional] 
+**CpuVcpuHours** | Pointer to **float32** | CPUVcpuHours would be vCPU-hours over the window. Always null: this store holds agent definitions and run I/O, and nothing here meters a CPU. Null is the honest answer and 0 would be a claim. | [optional] 
+**MemGbHours** | Pointer to **float32** | MemGbHours would be gigabyte-hours of memory. Always null, same reason. | [optional] 
+**StorageIoBytes** | Pointer to **float32** | StorageIoBytes would be bytes moved to and from storage. Always null, same reason. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -21,6 +21,113 @@ import (
 
 // IntegrationsAPIService IntegrationsAPI service
 type IntegrationsAPIService service
+
+type IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+	id         string
+}
+
+func (r IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest) Execute() (*DisconnectOut, *http.Response, error) {
+	return r.ApiService.DeleteIntegrationsConnectorsByIdExecute(r)
+}
+
+/*
+DeleteIntegrationsConnectorsById Forgets a connector: every custodied secret, then the row.
+
+Forgets a connector: every custodied secret, then the row.
+Idempotent — dropping a never-connected id still answers {disconnected:true}
+(disconnect() parity). No provider Revoke: none of the user-plane providers
+exposes a revoke endpoint.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+	@return IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest
+*/
+func (a *IntegrationsAPIService) DeleteIntegrationsConnectorsById(ctx context.Context, id string) IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest {
+	return IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return DisconnectOut
+func (a *IntegrationsAPIService) DeleteIntegrationsConnectorsByIdExecute(r IntegrationsAPIDeleteIntegrationsConnectorsByIdRequest) (*DisconnectOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DisconnectOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.DeleteIntegrationsConnectorsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/connectors/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type IntegrationsAPIDeleteIntegrationsGithubReposByRepoPagesRequest struct {
 	ctx        context.Context
@@ -142,7 +249,7 @@ GetIntegrations Returns every registered integration provider together with THIS
 Returns every registered integration provider together with THIS org's
 connection status for it — the catalog the console's Integrations page renders.
 Org-authed: a caller with no validated principal is 403, because the status is
-per-org and there is no org-less answer. User-plane providers (the /v1/connectors
+per-org and there is no org-less answer. User-plane providers (the /v1/integrations/connectors
 surface) are omitted; the two planes are disjoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -249,7 +356,7 @@ carries, for a single id. An unknown id is 404, and so is a user-plane provider:
 the org surface never resolves one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
 	@return IntegrationsAPIGetIntegrationsByProviderRequest
 */
 func (a *IntegrationsAPIService) GetIntegrationsByProvider(ctx context.Context, provider string) IntegrationsAPIGetIntegrationsByProviderRequest {
@@ -433,6 +540,318 @@ func (a *IntegrationsAPIService) GetIntegrationsByProviderCallbackExecute(r Inte
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIGetIntegrationsConnectorsRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+}
+
+func (r IntegrationsAPIGetIntegrationsConnectorsRequest) Execute() (*ConnectorsOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationsConnectorsExecute(r)
+}
+
+/*
+GetIntegrationsConnectors Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints.
+
+Lists the caller's OWN connectors across every provider — the set
+`hanzo connector ls` prints. Rows are keyed (org,user), so this can never
+surface another user's connector, and no secret is in the view.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIGetIntegrationsConnectorsRequest
+*/
+func (a *IntegrationsAPIService) GetIntegrationsConnectors(ctx context.Context) IntegrationsAPIGetIntegrationsConnectorsRequest {
+	return IntegrationsAPIGetIntegrationsConnectorsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ConnectorsOut
+func (a *IntegrationsAPIService) GetIntegrationsConnectorsExecute(r IntegrationsAPIGetIntegrationsConnectorsRequest) (*ConnectorsOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ConnectorsOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsConnectors")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/connectors"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+	id         string
+}
+
+func (r IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest) Execute() (*ConnectorTokenOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationsConnectorsByIdTokenExecute(r)
+}
+
+/*
+GetIntegrationsConnectorsByIdToken Hands the custodied access token to its owner — the ONE place custody exits.
+
+Hands the custodied access token to its owner — the ONE place
+custody exits. The (org,user)-keyed row IS the same-user gate: another user's
+id is simply "no row" → 404. fresh() auto-rotates within the refreshSkew
+window; static providers degenerate to a plain kmsGet of Secrets[0]. Refresh
+tokens are NEVER returned — custody keeps the sink. The token is never logged.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+	@return IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest
+*/
+func (a *IntegrationsAPIService) GetIntegrationsConnectorsByIdToken(ctx context.Context, id string) IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest {
+	return IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ConnectorTokenOut
+func (a *IntegrationsAPIService) GetIntegrationsConnectorsByIdTokenExecute(r IntegrationsAPIGetIntegrationsConnectorsByIdTokenRequest) (*ConnectorTokenOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ConnectorTokenOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsConnectorsByIdToken")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/connectors/{id}/token"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIGetIntegrationsConnectorsProvidersRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+}
+
+func (r IntegrationsAPIGetIntegrationsConnectorsProvidersRequest) Execute() (*ConnectorProvidersOut, *http.Response, error) {
+	return r.ApiService.GetIntegrationsConnectorsProvidersExecute(r)
+}
+
+/*
+GetIntegrationsConnectorsProviders Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
+
+Lists the user-scoped provider cards — the catalog of what a
+user can connect, and how. Methods derive from capabilities (Device/Adopt/Verify
+— Mount asserts at least one), never from a parallel kind enum.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIGetIntegrationsConnectorsProvidersRequest
+*/
+func (a *IntegrationsAPIService) GetIntegrationsConnectorsProviders(ctx context.Context) IntegrationsAPIGetIntegrationsConnectorsProvidersRequest {
+	return IntegrationsAPIGetIntegrationsConnectorsProvidersRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ConnectorProvidersOut
+func (a *IntegrationsAPIService) GetIntegrationsConnectorsProvidersExecute(r IntegrationsAPIGetIntegrationsConnectorsProvidersRequest) (*ConnectorProvidersOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ConnectorProvidersOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsConnectorsProviders")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/connectors/providers"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IntegrationsAPIGetIntegrationsDiscordLinkRequest struct {
@@ -2196,7 +2615,7 @@ provider that was never connected still returns {disconnected:true}. Symmetric
 with connect: an AdminOnly connector needs the caller's own-org admin bit.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
 	@return IntegrationsAPIPostIntegrationsByProviderDisconnectRequest
 */
 func (a *IntegrationsAPIService) PostIntegrationsByProviderDisconnect(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsByProviderDisconnectRequest {
@@ -2305,7 +2724,7 @@ CLI renders it. Only apikey providers support verify (OAuth tokens are checked a
 use, not re-verified here).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+	@param provider Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
 	@return IntegrationsAPIPostIntegrationsByProviderVerifyRequest
 */
 func (a *IntegrationsAPIService) PostIntegrationsByProviderVerify(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsByProviderVerifyRequest {
@@ -2334,6 +2753,460 @@ func (a *IntegrationsAPIService) PostIntegrationsByProviderVerifyExecute(r Integ
 
 	localVarPath := localBasePath + "/v1/integrations/{provider}/verify"
 	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+	id         string
+}
+
+func (r IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest) Execute() (*RefreshOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationsConnectorsByIdRefreshExecute(r)
+}
+
+/*
+PostIntegrationsConnectorsByIdRefresh Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
+
+Forces a token rotation for a connected connector, ahead of the
+automatic rotation a token read would do inside the expiry window. Only
+providers that declare a Refresh support it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+	@return IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsConnectorsByIdRefresh(ctx context.Context, id string) IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest {
+	return IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RefreshOut
+func (a *IntegrationsAPIService) PostIntegrationsConnectorsByIdRefreshExecute(r IntegrationsAPIPostIntegrationsConnectorsByIdRefreshRequest) (*RefreshOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RefreshOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsConnectorsByIdRefresh")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/connectors/{id}/refresh"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest struct {
+	ctx          context.Context
+	ApiService   *IntegrationsAPIService
+	provider     string
+	credentialIn *CredentialIn
+}
+
+func (r IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest) CredentialIn(credentialIn CredentialIn) IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest {
+	r.credentialIn = &credentialIn
+	return r
+}
+
+func (r IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest) Execute() (*CredentialOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationsConnectorsByProviderCredentialExecute(r)
+}
+
+/*
+PostIntegrationsConnectorsByProviderCredential Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt).
+
+Is the direct intake path: a customer-held token/setup-token
+(Verify) or an externally obtained OAuth bundle from the CLI's local PKCE
+(Adopt). ALWAYS verify-before-store: a bad credential is refused and NOTHING
+is persisted (connectByCredential's fail-closed order).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider Provider is the user-scoped provider's registry id, from the path.
+	@return IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderCredential(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest {
+	return IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest{
+		ApiService: a,
+		ctx:        ctx,
+		provider:   provider,
+	}
+}
+
+// Execute executes the request
+//
+//	@return CredentialOut
+func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderCredentialExecute(r IntegrationsAPIPostIntegrationsConnectorsByProviderCredentialRequest) (*CredentialOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CredentialOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsConnectorsByProviderCredential")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/connectors/{provider}/credential"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.credentialIn == nil {
+		return localVarReturnValue, nil, reportError("credentialIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.credentialIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest struct {
+	ctx           context.Context
+	ApiService    *IntegrationsAPIService
+	provider      string
+	deviceStartIn *DeviceStartIn
+}
+
+func (r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest) DeviceStartIn(deviceStartIn DeviceStartIn) IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest {
+	r.deviceStartIn = &deviceStartIn
+	return r
+}
+
+func (r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest) Execute() (*DeviceStartOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationsConnectorsByProviderDeviceExecute(r)
+}
+
+/*
+PostIntegrationsConnectorsByProviderDevice Begins a device sign-in and returns the code to show the user plus how to poll for completion.
+
+Begins a device sign-in and returns the code to show the user plus
+how to poll for completion. KMS readiness is checked NOW rather than dead-ending
+the user at poll-done (connect() parity), and the per-provider connector cap is
+checked before the provider is called. The provider's device code is persisted
+only in the encrypted grants table and is NEVER returned.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider Provider is the user-scoped provider's registry id, from the path.
+	@return IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDevice(ctx context.Context, provider string) IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest {
+	return IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest{
+		ApiService: a,
+		ctx:        ctx,
+		provider:   provider,
+	}
+}
+
+// Execute executes the request
+//
+//	@return DeviceStartOut
+func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceExecute(r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceRequest) (*DeviceStartOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeviceStartOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsConnectorsByProviderDevice")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/connectors/{provider}/device"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.deviceStartIn == nil {
+		return localVarReturnValue, nil, reportError("deviceStartIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.deviceStartIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+	provider   string
+	flow       string
+}
+
+func (r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest) Execute() (*DevicePollOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationsConnectorsByProviderDeviceByFlowPollExecute(r)
+}
+
+/*
+PostIntegrationsConnectorsByProviderDeviceByFlowPoll Advances a device sign-in.
+
+Advances a device sign-in. Terminal outcomes are DATA, not errors
+(verifyConn {active:false} discipline) — the status set is closed:
+pending|connected|denied|expired. pollSlow collapses to "pending" on the
+wire; the raised cadence rides interval.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider Provider is the user-scoped provider's registry id, from the path.
+	@param flow Flow is the id deviceStartOut returned. Expired or another user's flow is indistinguishable from an unknown one: 404.
+	@return IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceByFlowPoll(ctx context.Context, provider string, flow string) IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest {
+	return IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest{
+		ApiService: a,
+		ctx:        ctx,
+		provider:   provider,
+		flow:       flow,
+	}
+}
+
+// Execute executes the request
+//
+//	@return DevicePollOut
+func (a *IntegrationsAPIService) PostIntegrationsConnectorsByProviderDeviceByFlowPollExecute(r IntegrationsAPIPostIntegrationsConnectorsByProviderDeviceByFlowPollRequest) (*DevicePollOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DevicePollOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsConnectorsByProviderDeviceByFlowPoll")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/connectors/{provider}/device/{flow}/poll"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"flow"+"}", url.PathEscape(parameterValueToString(r.flow, "flow")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Actor** | Pointer to **string** |  | [optional] 
-**At** | Pointer to **string** |  | [optional] 
-**Body** | Pointer to **string** |  | [optional] 
-**Commit** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Subject** | Pointer to **string** |  | [optional] 
-**Turn** | Pointer to **int32** |  | [optional] 
+**Actor** | Pointer to **string** | Actor is who took the turn. A deploy turn&#39;s actor is the literal \&quot;deploy\&quot;, because nobody took it. | [optional] 
+**At** | Pointer to **string** | At is when the turn was recorded, RFC 3339 in UTC to the second. | [optional] 
+**Body** | Pointer to **string** | Body is the readable text of the turn, taken from the stored event&#39;s &#x60;text&#x60;. Empty when the event carried a payload of some other shape — this route reads transcripts and does not invent prose for turns that are not one. | [optional] 
+**Commit** | Pointer to **string** | Commit is the full sha this turn produced, empty when the turn changed nothing. It is ECHOED from the transcript, and the authority is the commit itself: it carries the &#x60;Hanzo-Session:&#x60;/&#x60;Hanzo-Turn:&#x60; trailer, or a note under refs/notes/hanzo-provenance saying the same, so the claim is checkable at source with the command in &#x60;verify&#x60;. | [optional] 
+**Kind** | Pointer to **string** | Kind is what the turn was, from the log&#39;s closed six: message, tool-call, spawn, log, status, control. A deploy arrives as a &#x60;status&#x60; turn. | [optional] 
+**Subject** | Pointer to **string** | Subject is that commit&#39;s subject line, from the same transcript, so a reader sees what the commit says without fetching the repository. | [optional] 
+**Turn** | Pointer to **int32** | Seq is this turn&#39;s POSITION in the session&#39;s log — monotonic from 1, per session — and it is what a commit&#39;s &#x60;Hanzo-Turn:&#x60; trailer names. It is not a count of anything: the count is &#x60;turns&#x60; on the summary beside it. | [optional] 
 
 ## Methods
 

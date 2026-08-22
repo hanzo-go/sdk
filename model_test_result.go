@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &TestResult{}
 
 // TestResult struct for TestResult
 type TestResult struct {
-	Delivered  *bool   `json:"delivered,omitempty"`
-	DurationMs *int32  `json:"durationMs,omitempty"`
-	Error      *string `json:"error,omitempty"`
-	HttpStatus *int32  `json:"httpStatus,omitempty"`
+	// Delivered is whether the subscriber accepted the test POST. It is the whole answer: the send is synchronous and is not retried.
+	Delivered *bool `json:"delivered,omitempty"`
+	// DurationMs is how long the single attempt took, in MILLISECONDS.
+	DurationMs *int32 `json:"durationMs,omitempty"`
+	// Error says what stopped it. Empty when delivered.
+	Error *string `json:"error,omitempty"`
+	// HTTPStatus is what the subscriber answered, or 0 if it never answered.
+	HttpStatus *int32 `json:"httpStatus,omitempty"`
 }
 
 // NewTestResult instantiates a new TestResult object

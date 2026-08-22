@@ -10,8 +10,9 @@ Name | Type | Description | Notes
 **Connected** | Pointer to **bool** | Connected is true when this org has a stored row for the platform — it has been configured here at least once. It says nothing about whether a credential still resolves; that is Live. | [optional] 
 **Enabled** | Pointer to **bool** | Enabled is whether the fan-out forwards to this destination. False on a destination that is connected but paused, and on one never connected. | [optional] 
 **Fields** | Pointer to [**[]DestinationField**](DestinationField.md) | Fields are the non-secret inputs this platform needs, which the console card renders and the connect body fills. | [optional] 
-**Live** | Pointer to **bool** | Live is whether a credential resolves RIGHT NOW: a KMS-sealed secret for this org, else the integrations connection named by the platform&#39;s Fallback, else no credential needed at all (a public-ingest sink like Umami). False on a connected destination whose secret has gone missing — Connected &amp;&amp; !Live is exactly the \&quot;reconnect me\&quot; state. | [optional] 
+**Live** | Pointer to **bool** | Live is whether a credential resolves RIGHT NOW: a KMS-sealed secret for this org, else the integrations connection named by the platform&#39;s Fallback, else no credential needed at all (a public-ingest sink like Analytics). False on a connected destination whose secret has gone missing — Connected &amp;&amp; !Live is exactly the \&quot;reconnect me\&quot; state. | [optional] 
 **Name** | Pointer to **string** | the platform&#39;s display name (\&quot;Google Analytics 4\&quot;) | [optional] 
+**Pixel** | Pointer to **bool** | Pixel is whether the hosted tag can inject a browser pixel for this platform, so a console offers a per-SITE pixel input for exactly these. False means the platform receives conversions server-side only, and an input would promise an injection that never happens. Derived from the tag&#39;s own map (event.BrowserTags), never restated — a second list is how a console offers a pixel nothing fires. | [optional] 
 **Platform** | Pointer to **string** | the platform slug, and the path segment every route addresses it by | [optional] 
 **Secrets** | Pointer to **[]string** | Secrets are the KMS secret NAMES this platform custodies for the org — names only, never values. The connect body accepts each under its camelCase form. | [optional] 
 
@@ -233,6 +234,31 @@ SetName sets Name field to given value.
 `func (o *DestinationStatus) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetPixel
+
+`func (o *DestinationStatus) GetPixel() bool`
+
+GetPixel returns the Pixel field if non-nil, zero value otherwise.
+
+### GetPixelOk
+
+`func (o *DestinationStatus) GetPixelOk() (*bool, bool)`
+
+GetPixelOk returns a tuple with the Pixel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPixel
+
+`func (o *DestinationStatus) SetPixel(v bool)`
+
+SetPixel sets Pixel field to given value.
+
+### HasPixel
+
+`func (o *DestinationStatus) HasPixel() bool`
+
+HasPixel returns a boolean if a field has been set.
 
 ### GetPlatform
 

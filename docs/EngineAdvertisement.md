@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Apis** | Pointer to **[]string** | [\&quot;openai\&quot;,\&quot;anthropic\&quot;] | [optional] 
-**Models** | Pointer to **[]string** | ids from the node&#39;s GET /v1/models | [optional] 
-**Status** | Pointer to **string** | \&quot;ready\&quot; | \&quot;unreachable\&quot; | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**Apis** | Pointer to **[]string** | APIs are the wire formats the engine serves on that one port: \&quot;openai\&quot;, \&quot;anthropic\&quot;, or both. | [optional] 
+**Models** | Pointer to **[]string** | Models are the model ids the node&#39;s own GET /v1/models answered with — what this GPU can actually be asked for. | [optional] 
+**Status** | Pointer to **string** | Status is \&quot;ready\&quot; when the node&#39;s engine answered, \&quot;unreachable\&quot; when it did not. Advertised is not the same as serving, and this is the difference. | [optional] 
+**Url** | Pointer to **string** | URL is the base address the node advertised its engine on — where a model call to this GPU is sent. The node chose it, so reaching it is a question about the node&#39;s network, not about this surface. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,18 @@ var _ MappedNullable = &ProjectView{}
 
 // ProjectView struct for ProjectView
 type ProjectView struct {
-	Applications *int32  `json:"applications,omitempty"`
-	CreatedAt    *int32  `json:"createdAt,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	Org          *string `json:"org,omitempty"`
-	Slug         *string `json:"slug,omitempty"`
+	// Applications is how many platform apps this org has under the project, counted per request. It is the one fact IAM cannot answer about a project.
+	Applications *int32 `json:"applications,omitempty"`
+	// CreatedAt is IAM's creation time as unix seconds. 0 when IAM's timestamp is absent or unparseable — never a fabricated time.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// Description is IAM's free text about the project. Nothing derives from it.
+	Description *string `json:"description,omitempty"`
+	// Name is IAM's display name, falling back to the slug when the project has none, so this is never empty.
+	Name *string `json:"name,omitempty"`
+	// Org is the project's IAM owner, and the tenant every app under it deploys into. It comes from the validated identity, never from the request.
+	Org *string `json:"org,omitempty"`
+	// Slug is the project's IAM name — half of the (org,name) identity, the `:project` path segment, and the scope key an app is filed under. It is the project's address; Name is not.
+	Slug *string `json:"slug,omitempty"`
 }
 
 // NewProjectView instantiates a new ProjectView object

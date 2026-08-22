@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,14 @@ var _ MappedNullable = &EngineAdvertisement{}
 
 // EngineAdvertisement struct for EngineAdvertisement
 type EngineAdvertisement struct {
-	// [\"openai\",\"anthropic\"]
+	// APIs are the wire formats the engine serves on that one port: \"openai\", \"anthropic\", or both.
 	Apis []string `json:"apis,omitempty"`
-	// ids from the node's GET /v1/models
+	// Models are the model ids the node's own GET /v1/models answered with — what this GPU can actually be asked for.
 	Models []string `json:"models,omitempty"`
-	// \"ready\" | \"unreachable\"
+	// Status is \"ready\" when the node's engine answered, \"unreachable\" when it did not. Advertised is not the same as serving, and this is the difference.
 	Status *string `json:"status,omitempty"`
-	Url    *string `json:"url,omitempty"`
+	// URL is the base address the node advertised its engine on — where a model call to this GPU is sent. The node chose it, so reaching it is a question about the node's network, not about this surface.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewEngineAdvertisement instantiates a new EngineAdvertisement object

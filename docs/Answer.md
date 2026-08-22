@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Cold** | Pointer to **bool** | Cold reports that this request paid to PREPARE the revision — the tree write, the dependency fetch and the language server&#39;s first index. It is the billed event, surfaced so a caller can see what it was charged for. | [optional] 
-**Completions** | Pointer to [**[]Completion**](Completion.md) |  | [optional] 
-**Diagnostics** | Pointer to [**[]Diagnostic**](Diagnostic.md) |  | [optional] 
-**Hover** | Pointer to **string** |  | [optional] 
-**Lang** | Pointer to **string** |  | [optional] 
-**Locations** | Pointer to [**[]Location**](Location.md) |  | [optional] 
-**Op** | Pointer to **string** |  | [optional] 
-**Path** | Pointer to **string** |  | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
-**Rev** | Pointer to **string** |  | [optional] 
-**Symbols** | Pointer to [**[]Symbol**](Symbol.md) |  | [optional] 
+**Completions** | Pointer to [**[]Completion**](Completion.md) | Completions is complete&#39;s answer: the candidates at the position, typed and resolved through the repository&#39;s dependencies rather than guessed from text. | [optional] 
+**Diagnostics** | Pointer to [**[]Diagnostic**](Diagnostic.md) | Diagnostics is diagnostics&#39; answer: every problem the server finds in the whole file, position ignored. Empty means it found none. | [optional] 
+**Hover** | Pointer to **string** | Hover is hover&#39;s answer: the type and documentation as the language server itself renders them, so it is prose meant to be shown, not parsed. | [optional] 
+**Lang** | Pointer to **string** | Lang is the language the server that answered speaks (\&quot;go\&quot;), as the daemon reports it. Empty when the daemon named none. | [optional] 
+**Locations** | Pointer to [**[]Location**](Location.md) | Locations is locate&#39;s answer: where the symbol is defined, referenced, typed or implemented, per the relation asked for. Empty means the server resolved nothing there, which is an answer. | [optional] 
+**Op** | Pointer to **string** | Op is the question that was asked: hover, locate, symbols, diagnostics or complete. It names which result field below is the populated one. | [optional] 
+**Path** | Pointer to **string** | Path is the repo-relative file the question was about, echoed back. | [optional] 
+**Repo** | Pointer to **string** | Repo is the repository the question was about, echoed back. | [optional] 
+**Rev** | Pointer to **string** | Rev is the RESOLVED commit sha, never the branch or tag that was asked for. It is what makes an answer re-askable: a branch moves, this does not. | [optional] 
+**Symbols** | Pointer to [**[]Symbol**](Symbol.md) | Symbols is symbols&#39; answer: the file&#39;s whole outline, position ignored. | [optional] 
 
 ## Methods
 

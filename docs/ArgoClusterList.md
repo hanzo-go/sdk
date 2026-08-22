@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]ArgoCluster**](ArgoCluster.md) |  | [optional] 
-**Metadata** | Pointer to [**ArgoListMeta**](ArgoListMeta.md) |  | [optional] 
+**Items** | Pointer to [**[]ArgoCluster**](ArgoCluster.md) | Items is one entry per distinct destination server, in first-seen order with the in-cluster destination first. Never empty: an empty fleet still has the one cluster it would deploy into. | [optional] 
+**Metadata** | Pointer to [**ArgoListMeta**](ArgoListMeta.md) | Metadata is the list envelope the SPA expects; it carries no resume point. | [optional] 
 
 ## Methods
 

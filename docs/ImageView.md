@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Repository** | Pointer to **string** |  | [optional] 
-**Tag** | Pointer to **string** |  | [optional] 
+**Repository** | Pointer to **string** | Repository is the image path without a tag (ghcr.io/acme/api). Required for source &#x60;image&#x60;, which runs it as-is. A git app&#39;s built image is NOT this: the build pushes to a path derived from the org and slug, and the deployment records that full ref. | [optional] 
+**Tag** | Pointer to **string** | Tag is the tag to run: what the create declared, then RE-STAMPED on every transition to live with the tag that actually went live. So after a deploy it names what is running, not what was asked for. | [optional] 
 
 ## Methods
 

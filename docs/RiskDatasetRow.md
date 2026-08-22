@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **At** | Pointer to **string** | At is the row&#39;s instant. | [optional] 
 **Id** | Pointer to **string** | ID names the row forever. It is DERIVED from the row&#39;s own subject and instant, not allocated, so two materialisations of the same fact agree on it without coordinating. | [optional] 
-**Kind** | Pointer to **string** | Kind and Subject name whose row this is. | [optional] 
+**Kind** | Pointer to **string** | Kind is the subject kind: person, session or account. | [optional] 
 **Point** | Pointer to **[]float32** | Point is the coordinates, in the order the version&#39;s spec names its dims. | [optional] 
 **Split** | Pointer to **string** | Split is train, val or test. | [optional] 
-**Subject** | Pointer to **string** |  | [optional] 
+**Subject** | Pointer to **string** | Subject is the identity within that kind — whose row this is. Every row of one subject is in ONE split, decided by that subject&#39;s earliest instant, so a subject is never on both sides of a cut. | [optional] 
 
 ## Methods
 

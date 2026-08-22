@@ -4,27 +4,27 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteMqStreamsByName**](MqAPI.md#DeleteMqStreamsByName) | **Delete** /v1/mq/streams/{name} | Removes a stream with all its messages and consumers.
-[**DeleteMqStreamsByNameMessagesBySeq**](MqAPI.md#DeleteMqStreamsByNameMessagesBySeq) | **Delete** /v1/mq/streams/{name}/messages/{seq} | Erases one message by sequence; the sequence gap remains.
-[**DeleteMqStreamsByStreamConsumersByName**](MqAPI.md#DeleteMqStreamsByStreamConsumersByName) | **Delete** /v1/mq/streams/{stream}/consumers/{name} | Removes a consumer and its delivery state; unacknowledged messages stay in the stream.
+[**DeleteMqStreamByName**](MqAPI.md#DeleteMqStreamByName) | **Delete** /v1/mq/stream/{name} | Removes a stream with all its messages and consumers.
+[**DeleteMqStreamByNameMessageBySeq**](MqAPI.md#DeleteMqStreamByNameMessageBySeq) | **Delete** /v1/mq/stream/{name}/message/{seq} | Erases one message by sequence; the sequence gap remains.
+[**DeleteMqStreamByStreamConsumerByName**](MqAPI.md#DeleteMqStreamByStreamConsumerByName) | **Delete** /v1/mq/stream/{stream}/consumer/{name} | Removes a consumer and its delivery state; unacknowledged messages stay in the stream.
 [**GetMqHealth**](MqAPI.md#GetMqHealth) | **Get** /v1/mq/health | Reports whether the message plane behind this surface answers.
 [**GetMqInfo**](MqAPI.md#GetMqInfo) | **Get** /v1/mq/info | Returns the broker&#39;s identity and the org&#39;s stream count.
-[**GetMqStreams**](MqAPI.md#GetMqStreams) | **Get** /v1/mq/streams | Returns the org&#39;s streams, name-ordered, with their live state.
-[**GetMqStreamsByName**](MqAPI.md#GetMqStreamsByName) | **Get** /v1/mq/streams/{name} | Returns one stream&#39;s configuration and live state.
-[**GetMqStreamsByNameMessages**](MqAPI.md#GetMqStreamsByNameMessages) | **Get** /v1/mq/streams/{name}/messages | Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
-[**GetMqStreamsByStreamConsumers**](MqAPI.md#GetMqStreamsByStreamConsumers) | **Get** /v1/mq/streams/{stream}/consumers | Returns a stream&#39;s consumers, name-ordered, with delivery state.
-[**GetMqStreamsByStreamConsumersByName**](MqAPI.md#GetMqStreamsByStreamConsumersByName) | **Get** /v1/mq/streams/{stream}/consumers/{name} | Returns one consumer&#39;s configuration and delivery state.
-[**PostMqStreams**](MqAPI.md#PostMqStreams) | **Post** /v1/mq/streams | Creates a durable stream in the org&#39;s namespace and returns it.
-[**PostMqStreamsByNamePurge**](MqAPI.md#PostMqStreamsByNamePurge) | **Post** /v1/mq/streams/{name}/purge | Removes messages from a stream, leaving its consumers in place.
-[**PostMqStreamsByStreamConsumers**](MqAPI.md#PostMqStreamsByStreamConsumers) | **Post** /v1/mq/streams/{stream}/consumers | Creates a durable pull consumer on a stream and returns it.
-[**PostMqStreamsByStreamConsumersByNameNext**](MqAPI.md#PostMqStreamsByStreamConsumersByNameNext) | **Post** /v1/mq/streams/{stream}/consumers/{name}/next | Pulls the consumer&#39;s next batch.
-[**PutMqStreamsByName**](MqAPI.md#PutMqStreamsByName) | **Put** /v1/mq/streams/{name} | Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
+[**GetMqStream**](MqAPI.md#GetMqStream) | **Get** /v1/mq/stream | Returns the org&#39;s streams, name-ordered, with their live state.
+[**GetMqStreamByName**](MqAPI.md#GetMqStreamByName) | **Get** /v1/mq/stream/{name} | Returns one stream&#39;s configuration and live state.
+[**GetMqStreamByNameMessage**](MqAPI.md#GetMqStreamByNameMessage) | **Get** /v1/mq/stream/{name}/message | Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
+[**GetMqStreamByStreamConsumer**](MqAPI.md#GetMqStreamByStreamConsumer) | **Get** /v1/mq/stream/{stream}/consumer | Returns a stream&#39;s consumers, name-ordered, with delivery state.
+[**GetMqStreamByStreamConsumerByName**](MqAPI.md#GetMqStreamByStreamConsumerByName) | **Get** /v1/mq/stream/{stream}/consumer/{name} | Returns one consumer&#39;s configuration and delivery state.
+[**PostMqStream**](MqAPI.md#PostMqStream) | **Post** /v1/mq/stream | Creates a durable stream in the org&#39;s namespace and returns it.
+[**PostMqStreamByNamePurge**](MqAPI.md#PostMqStreamByNamePurge) | **Post** /v1/mq/stream/{name}/purge | Removes messages from a stream, leaving its consumers in place.
+[**PostMqStreamByStreamConsumer**](MqAPI.md#PostMqStreamByStreamConsumer) | **Post** /v1/mq/stream/{stream}/consumer | Creates a durable pull consumer on a stream and returns it.
+[**PostMqStreamByStreamConsumerByNameNext**](MqAPI.md#PostMqStreamByStreamConsumerByNameNext) | **Post** /v1/mq/stream/{stream}/consumer/{name}/next | Pulls the consumer&#39;s next batch.
+[**PutMqStreamByName**](MqAPI.md#PutMqStreamByName) | **Put** /v1/mq/stream/{name} | Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
 
 
 
-## DeleteMqStreamsByName
+## DeleteMqStreamByName
 
-> DeleteMqStreamsByName(ctx, name).Execute()
+> DeleteMqStreamByName(ctx, name).Execute()
 
 Removes a stream with all its messages and consumers.
 
@@ -47,9 +47,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MqAPI.DeleteMqStreamsByName(context.Background(), name).Execute()
+	r, err := apiClient.MqAPI.DeleteMqStreamByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteMqStreamsByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMqStreamByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -90,9 +90,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteMqStreamsByNameMessagesBySeq
+## DeleteMqStreamByNameMessageBySeq
 
-> DeleteMqStreamsByNameMessagesBySeq(ctx, name, seq).Execute()
+> DeleteMqStreamByNameMessageBySeq(ctx, name, seq).Execute()
 
 Erases one message by sequence; the sequence gap remains.
 
@@ -116,9 +116,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MqAPI.DeleteMqStreamsByNameMessagesBySeq(context.Background(), name, seq).Execute()
+	r, err := apiClient.MqAPI.DeleteMqStreamByNameMessageBySeq(context.Background(), name, seq).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamsByNameMessagesBySeq``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamByNameMessageBySeq``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteMqStreamsByNameMessagesBySeqRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMqStreamByNameMessageBySeqRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -161,9 +161,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteMqStreamsByStreamConsumersByName
+## DeleteMqStreamByStreamConsumerByName
 
-> DeleteMqStreamsByStreamConsumersByName(ctx, stream, name).Execute()
+> DeleteMqStreamByStreamConsumerByName(ctx, stream, name).Execute()
 
 Removes a consumer and its delivery state; unacknowledged messages stay in the stream.
 
@@ -187,9 +187,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MqAPI.DeleteMqStreamsByStreamConsumersByName(context.Background(), stream, name).Execute()
+	r, err := apiClient.MqAPI.DeleteMqStreamByStreamConsumerByName(context.Background(), stream, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamsByStreamConsumersByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.DeleteMqStreamByStreamConsumerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteMqStreamsByStreamConsumersByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMqStreamByStreamConsumerByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -354,9 +354,9 @@ Other parameters are passed through a pointer to a apiGetMqInfoRequest struct vi
 [[Back to README]](../README.md)
 
 
-## GetMqStreams
+## GetMqStream
 
-> Streams GetMqStreams(ctx).Limit(limit).Offset(offset).Execute()
+> Streams GetMqStream(ctx).Limit(limit).Offset(offset).Execute()
 
 Returns the org's streams, name-ordered, with their live state.
 
@@ -380,13 +380,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.GetMqStreams(context.Background()).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStream(context.Background()).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStream``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreams`: Streams
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreams`: %v\n", resp)
+	// response from `GetMqStream`: Streams
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStream`: %v\n", resp)
 }
 ```
 
@@ -396,7 +396,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMqStreamsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -422,9 +422,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetMqStreamsByName
+## GetMqStreamByName
 
-> Stream GetMqStreamsByName(ctx, name).Execute()
+> Stream GetMqStreamByName(ctx, name).Execute()
 
 Returns one stream's configuration and live state.
 
@@ -447,13 +447,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.GetMqStreamsByName(context.Background(), name).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreamByName(context.Background(), name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreamsByName`: Stream
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamsByName`: %v\n", resp)
+	// response from `GetMqStreamByName`: Stream
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamByName`: %v\n", resp)
 }
 ```
 
@@ -467,7 +467,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMqStreamsByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -492,9 +492,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetMqStreamsByNameMessages
+## GetMqStreamByNameMessage
 
-> ReadOut GetMqStreamsByNameMessages(ctx, name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
+> ReadOut GetMqStreamByNameMessage(ctx, name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
 
 Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
 
@@ -521,13 +521,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.GetMqStreamsByNameMessages(context.Background(), name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreamByNameMessage(context.Background(), name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamsByNameMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamByNameMessage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreamsByNameMessages`: ReadOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamsByNameMessages`: %v\n", resp)
+	// response from `GetMqStreamByNameMessage`: ReadOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamByNameMessage`: %v\n", resp)
 }
 ```
 
@@ -541,7 +541,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMqStreamsByNameMessagesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamByNameMessageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -570,9 +570,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetMqStreamsByStreamConsumers
+## GetMqStreamByStreamConsumer
 
-> PickOut GetMqStreamsByStreamConsumers(ctx, stream).Limit(limit).Offset(offset).Execute()
+> PickOut GetMqStreamByStreamConsumer(ctx, stream).Limit(limit).Offset(offset).Execute()
 
 Returns a stream's consumers, name-ordered, with delivery state.
 
@@ -597,13 +597,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.GetMqStreamsByStreamConsumers(context.Background(), stream).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreamByStreamConsumer(context.Background(), stream).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamsByStreamConsumers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamByStreamConsumer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreamsByStreamConsumers`: PickOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamsByStreamConsumers`: %v\n", resp)
+	// response from `GetMqStreamByStreamConsumer`: PickOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamByStreamConsumer`: %v\n", resp)
 }
 ```
 
@@ -617,7 +617,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMqStreamsByStreamConsumersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamByStreamConsumerRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -644,9 +644,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetMqStreamsByStreamConsumersByName
+## GetMqStreamByStreamConsumerByName
 
-> Consumer GetMqStreamsByStreamConsumersByName(ctx, stream, name).Execute()
+> Consumer GetMqStreamByStreamConsumerByName(ctx, stream, name).Execute()
 
 Returns one consumer's configuration and delivery state.
 
@@ -670,13 +670,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.GetMqStreamsByStreamConsumersByName(context.Background(), stream, name).Execute()
+	resp, r, err := apiClient.MqAPI.GetMqStreamByStreamConsumerByName(context.Background(), stream, name).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamsByStreamConsumersByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamByStreamConsumerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreamsByStreamConsumersByName`: Consumer
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamsByStreamConsumersByName`: %v\n", resp)
+	// response from `GetMqStreamByStreamConsumerByName`: Consumer
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamByStreamConsumerByName`: %v\n", resp)
 }
 ```
 
@@ -691,7 +691,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMqStreamsByStreamConsumersByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMqStreamByStreamConsumerByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -717,9 +717,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMqStreams
+## PostMqStream
 
-> Stream PostMqStreams(ctx).StreamConfig(streamConfig).Execute()
+> Stream PostMqStream(ctx).StreamConfig(streamConfig).Execute()
 
 Creates a durable stream in the org's namespace and returns it.
 
@@ -742,13 +742,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PostMqStreams(context.Background()).StreamConfig(streamConfig).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStream(context.Background()).StreamConfig(streamConfig).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStream``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMqStreams`: Stream
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreams`: %v\n", resp)
+	// response from `PostMqStream`: Stream
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStream`: %v\n", resp)
 }
 ```
 
@@ -758,7 +758,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMqStreamsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMqStreamRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -783,9 +783,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMqStreamsByNamePurge
+## PostMqStreamByNamePurge
 
-> PurgeOut PostMqStreamsByNamePurge(ctx, name).Purge(purge).Execute()
+> PurgeOut PostMqStreamByNamePurge(ctx, name).Purge(purge).Execute()
 
 Removes messages from a stream, leaving its consumers in place.
 
@@ -809,13 +809,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PostMqStreamsByNamePurge(context.Background(), name).Purge(purge).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamByNamePurge(context.Background(), name).Purge(purge).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamsByNamePurge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamByNamePurge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMqStreamsByNamePurge`: PurgeOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamsByNamePurge`: %v\n", resp)
+	// response from `PostMqStreamByNamePurge`: PurgeOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamByNamePurge`: %v\n", resp)
 }
 ```
 
@@ -829,7 +829,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMqStreamsByNamePurgeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMqStreamByNamePurgeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -855,9 +855,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMqStreamsByStreamConsumers
+## PostMqStreamByStreamConsumer
 
-> Consumer PostMqStreamsByStreamConsumers(ctx, stream).MakeIn(makeIn).Execute()
+> Consumer PostMqStreamByStreamConsumer(ctx, stream).MakeIn(makeIn).Execute()
 
 Creates a durable pull consumer on a stream and returns it.
 
@@ -881,13 +881,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PostMqStreamsByStreamConsumers(context.Background(), stream).MakeIn(makeIn).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamByStreamConsumer(context.Background(), stream).MakeIn(makeIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamsByStreamConsumers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamByStreamConsumer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMqStreamsByStreamConsumers`: Consumer
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamsByStreamConsumers`: %v\n", resp)
+	// response from `PostMqStreamByStreamConsumer`: Consumer
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamByStreamConsumer`: %v\n", resp)
 }
 ```
 
@@ -901,7 +901,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMqStreamsByStreamConsumersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMqStreamByStreamConsumerRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -927,9 +927,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMqStreamsByStreamConsumersByNameNext
+## PostMqStreamByStreamConsumerByNameNext
 
-> ReadOut PostMqStreamsByStreamConsumersByNameNext(ctx, stream, name).NextIn(nextIn).Execute()
+> ReadOut PostMqStreamByStreamConsumerByNameNext(ctx, stream, name).NextIn(nextIn).Execute()
 
 Pulls the consumer's next batch.
 
@@ -954,13 +954,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PostMqStreamsByStreamConsumersByNameNext(context.Background(), stream, name).NextIn(nextIn).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamByStreamConsumerByNameNext(context.Background(), stream, name).NextIn(nextIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamsByStreamConsumersByNameNext``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamByStreamConsumerByNameNext``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMqStreamsByStreamConsumersByNameNext`: ReadOut
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamsByStreamConsumersByNameNext`: %v\n", resp)
+	// response from `PostMqStreamByStreamConsumerByNameNext`: ReadOut
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamByStreamConsumerByNameNext`: %v\n", resp)
 }
 ```
 
@@ -975,7 +975,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMqStreamsByStreamConsumersByNameNextRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMqStreamByStreamConsumerByNameNextRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1002,9 +1002,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutMqStreamsByName
+## PutMqStreamByName
 
-> Stream PutMqStreamsByName(ctx, name).StreamConfig(streamConfig).Execute()
+> Stream PutMqStreamByName(ctx, name).StreamConfig(streamConfig).Execute()
 
 Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
 
@@ -1028,13 +1028,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PutMqStreamsByName(context.Background(), name).StreamConfig(streamConfig).Execute()
+	resp, r, err := apiClient.MqAPI.PutMqStreamByName(context.Background(), name).StreamConfig(streamConfig).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PutMqStreamsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PutMqStreamByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutMqStreamsByName`: Stream
-	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PutMqStreamsByName`: %v\n", resp)
+	// response from `PutMqStreamByName`: Stream
+	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PutMqStreamByName`: %v\n", resp)
 }
 ```
 
@@ -1048,7 +1048,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutMqStreamsByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutMqStreamByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

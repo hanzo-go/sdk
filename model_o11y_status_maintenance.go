@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,24 @@ var _ MappedNullable = &O11yStatusMaintenance{}
 
 // O11yStatusMaintenance struct for O11yStatusMaintenance
 type O11yStatusMaintenance struct {
+	// AffectedComponents is what the window touches.
 	AffectedComponents []O11yStatusComponent `json:"affected_components,omitempty"`
-	EndsAt             *string               `json:"ends_at,omitempty"`
-	Id                 *string               `json:"id,omitempty"`
-	LastUpdateAt       *string               `json:"last_update_at,omitempty"`
-	LastUpdateMessage  *string               `json:"last_update_message,omitempty"`
-	Name               *string               `json:"name,omitempty"`
-	StartsAt           *string               `json:"starts_at,omitempty"`
-	Status             *string               `json:"status,omitempty"`
-	Url                *string               `json:"url,omitempty"`
+	// EndsAt is when it is expected to finish, RFC3339 UTC.
+	EndsAt *string `json:"ends_at,omitempty"`
+	// ID is the window's handle.
+	Id *string `json:"id,omitempty"`
+	// LastUpdateAt is when the window was last revised, RFC3339 UTC.
+	LastUpdateAt *string `json:"last_update_at,omitempty"`
+	// LastUpdateMessage is the text of that revision.
+	LastUpdateMessage *string `json:"last_update_message,omitempty"`
+	// Name is its one-line headline.
+	Name *string `json:"name,omitempty"`
+	// StartsAt is when work begins, RFC3339 UTC.
+	StartsAt *string `json:"starts_at,omitempty"`
+	// Status is where the window is in its life, in the client's own vocabulary.
+	Status *string `json:"status,omitempty"`
+	// URL points at the human status page, as every link in this document does.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewO11yStatusMaintenance instantiates a new O11yStatusMaintenance object

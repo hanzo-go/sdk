@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreationTimestamp** | Pointer to **string** |  | [optional] 
-**Labels** | Pointer to **map[string]string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**Uid** | Pointer to **string** |  | [optional] 
+**CreationTimestamp** | Pointer to **string** | CreationTimestamp is when the source object was created, RFC 3339 to the second. Empty for a synthesized project. | [optional] 
+**Labels** | Pointer to **map[string]string** | Labels are the labels this projection puts on the row, not the source object&#39;s full label set. An application projected from an App CR carries hanzo.ai/instance (its name), hanzo.ai/env (main, test or dev, from the namespace it was read from) and hanzo.ai/org when the CR declares a tenant. A Hanzo CD Application carries the CR&#39;s own labels verbatim. A project reflected from IAM carries hanzo.ai/org alone. | [optional] 
+**Name** | Pointer to **string** | Name is the projected object&#39;s name: the App CR&#39;s metadata.name for an application, the CD Application&#39;s name for a CD row, and the IAM project name for a project. | [optional] 
+**Namespace** | Pointer to **string** | Namespace is the namespace the source object was read from — the tenant or platform namespace for an App CR, CD&#39;s controller namespace for a CD row. Empty for a project synthesized here, which lives in no namespace. | [optional] 
+**Uid** | Pointer to **string** | UID is the k8s metadata.uid of the source object, which is what the SPA keys a row on across refreshes. Empty for a synthesized project — there is no object to take one from. | [optional] 
 
 ## Methods
 

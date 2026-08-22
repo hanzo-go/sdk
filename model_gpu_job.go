@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,19 +19,31 @@ var _ MappedNullable = &GpuJob{}
 
 // GpuJob struct for GpuJob
 type GpuJob struct {
-	Attempt       *int32  `json:"attempt,omitempty"`
-	CloseTime     *string `json:"closeTime,omitempty"`
-	FailureCause  *string `json:"failureCause,omitempty"`
-	Gpu           *string `json:"gpu,omitempty"`
-	Id            *string `json:"id,omitempty"`
-	Label         *string `json:"label,omitempty"`
+	// Attempt is which try this is, counting from 1. Above 1 means the job was retried after a failed or abandoned run.
+	Attempt *int32 `json:"attempt,omitempty"`
+	// CloseTime is when the job reached a terminal state, RFC 3339. Empty means it is still live — queued, running or stalled.
+	CloseTime *string `json:"closeTime,omitempty"`
+	// FailureCause is the engine's reason the job failed. Empty unless it did.
+	FailureCause *string `json:"failureCause,omitempty"`
+	// GPU is the node this job is aimed AT — the lane \"gpu:<node>\" it was submitted on. Empty means the shared any-GPU lane: it was not aimed anywhere and the first free worker takes it.
+	Gpu *string `json:"gpu,omitempty"`
+	// ID is the job's id, and the id the cancel route takes. The dispatcher sets it equal to the render's prompt id, so it is the same value the studio knows the job by.
+	Id *string `json:"id,omitempty"`
+	// Label is the cheap human name for the render — the output filename prefix lifted out of the submitted graph. Empty when the graph carried none. The graph itself is never in this list; the tasks describe endpoint serves it.
+	Label *string `json:"label,omitempty"`
+	// LastHeartbeat is the claiming worker's most recent beat on this job, RFC 3339 — the evidence a long render is still alive rather than wedged.
 	LastHeartbeat *string `json:"lastHeartbeat,omitempty"`
-	LeaseExpiry   *string `json:"leaseExpiry,omitempty"`
-	RunId         *string `json:"runId,omitempty"`
-	StartTime     *string `json:"startTime,omitempty"`
-	// queued|running|completed|failed|canceled
+	// LeaseExpiry is when the worker's claim lapses, RFC 3339. Past it with the job still STARTED, the claimant is presumed dead and Status reads \"stalled\".
+	LeaseExpiry *string `json:"leaseExpiry,omitempty"`
+	// RunID identifies this execution of the job. It equals ID for a job the dispatcher submitted, which is why a cancel that omits it still works.
+	RunId *string `json:"runId,omitempty"`
+	// StartTime is when a worker began executing the job, RFC 3339. Empty while it is still queued.
+	StartTime *string `json:"startTime,omitempty"`
+	// Status is the job's lifecycle state: queued, running, completed, failed or canceled — plus \"stalled\", which is this surface's own reading of a job that is STARTED whose worker died: its lease has elapsed and no reaper has taken it back yet. Without it such a job reads \"running\" forever. An engine state this surface does not recognize passes through lower-cased rather than being coerced into one of these.
 	Status *string `json:"status,omitempty"`
-	Type   *string `json:"type,omitempty"`
+	// Type is the work being done (\"studio.render\") — what the claiming worker has to be able to execute.
+	Type *string `json:"type,omitempty"`
+	// Worker is the node that actually CLAIMED the job, which is not always the one it was aimed at: a shared-lane job has no GPU but does have a Worker once picked up. Empty while the job is still waiting.
 	Worker *string `json:"worker,omitempty"`
 }
 

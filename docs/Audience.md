@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** | CreatedAt and UpdatedAt are unix seconds, both server-assigned. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is unix seconds when the filter was saved, server-assigned. | [optional] 
 **Event** | Pointer to **string** | Event is the analytics event a member must have fired. EMPTY MEANS NO FILTER: the audience is then every mailable customer in the org, and no warehouse is consulted. | [optional] 
 **Id** | Pointer to **string** | ID is the server-assigned audience id (\&quot;aud_\&quot; + 128 random bits). | [optional] 
 **Name** | Pointer to **string** | Name is the audience&#39;s label. Required, trimmed, capped at 1024 bytes. | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is unix seconds of the last write, server-assigned, and the key the audience list is ordered by (newest first). A saved audience has no update route, so in practice it stays equal to CreatedAt: to change a filter you save another one. | [optional] 
 **WindowDays** | Pointer to **int32** | WindowDays is how far back the event counts, ending now. 0 means 30 and nothing above 3650 is honoured. Ignored when Event is empty. | [optional] 
 
 ## Methods

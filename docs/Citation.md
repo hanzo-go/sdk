@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EndLine** | Pointer to **int32** |  | [optional] 
-**File** | Pointer to **string** |  | [optional] 
-**Line** | Pointer to **int32** |  | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
-**Symbol** | Pointer to **string** |  | [optional] 
+**EndLine** | Pointer to **int32** | EndLine is its last line, inclusive. | [optional] 
+**File** | Pointer to **string** | File is the path inside the repo, relative to its root. | [optional] 
+**Line** | Pointer to **int32** | Line is the first line of the cited region, 1-based. | [optional] 
+**Repo** | Pointer to **string** | Repo is the repository the cited code lives in (\&quot;owner/name\&quot;), absent when the ask was already scoped to one. | [optional] 
+**Symbol** | Pointer to **string** | Symbol is the declaration the region belongs to, when it belongs to one. | [optional] 
 
 ## Methods
 

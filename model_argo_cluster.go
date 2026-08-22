@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &ArgoCluster{}
 
 // ArgoCluster struct for ArgoCluster
 type ArgoCluster struct {
+	// ConnectionState is whether the destination is reachable.
 	ConnectionState *ArgoConnectionState `json:"connectionState,omitempty"`
-	Info            *ArgoClusterInfo     `json:"info,omitempty"`
-	Name            *string              `json:"name,omitempty"`
-	Server          *string              `json:"server,omitempty"`
+	// Info is the connection state again plus the count of applications targeting this destination.
+	Info *ArgoClusterInfo `json:"info,omitempty"`
+	// Name is what the Destination column shows: \"in-cluster\" for this cluster, otherwise whatever spec.destination.name declares, falling back to the server URL when it declares none.
+	Name *string `json:"name,omitempty"`
+	// Server is the destination's API URL, and the key the list is deduplicated by. https://kubernetes.default.svc is this cluster.
+	Server *string `json:"server,omitempty"`
 }
 
 // NewArgoCluster instantiates a new ArgoCluster object

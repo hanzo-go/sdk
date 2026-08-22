@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Host** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
-**Metrics** | Pointer to [**FleetMetrics**](FleetMetrics.md) |  | [optional] 
-**Queued** | Pointer to **int32** |  | [optional] 
-**Running** | Pointer to **int32** | Running is what the unit is actively executing: agent sessions for a run-target, in-flight renders for a BYO GPU. Queued is the gpu-jobs backlog on this GPU&#39;s lane (BYO units only; an agent unit does not queue). Both come from the org&#39;s gpu-jobs queue for BYO units, overlaid in listFleet. | [optional] 
-**Sessions** | Pointer to **int32** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
-**Spec** | Pointer to [**FleetSpec**](FleetSpec.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Unit** | Pointer to **string** |  | [optional] 
+**Host** | Pointer to **string** | Host is the unit&#39;s hostname. Empty for a unit that is not one host: a cluster row has no hostname to report. | [optional] 
+**Kind** | Pointer to **string** | Kind is what the unit IS: laptop, cloud, gpu, cluster, machine or worker. | [optional] 
+**Label** | Pointer to **string** | Label is the name to show a human — a target&#39;s label, a worker&#39;s hostname, a machine&#39;s display name. Empty when the source has none to give. | [optional] 
+**Metrics** | Pointer to [**FleetMetrics**](FleetMetrics.md) | Metrics is the unit&#39;s latest utilization: its own live snapshot when it keeps one (a run-target&#39;s heartbeat wins), else the newest sample from the series for the SAME source. Absent means nothing is known about this unit&#39;s load — which is deliberately not the same as a reading of zero. | [optional] 
+**Queued** | Pointer to **int32** | Queued is how many renders are waiting on THIS GPU&#39;s own lane in the org&#39;s gpu-jobs queue. BYO units only — an agent run-target dispatches, it does not queue — and omitted when nothing is waiting. | [optional] 
+**Running** | Pointer to **int32** | Running is what the unit is executing right now: agent sessions in flight for a run-target, claimed renders for a BYO GPU. | [optional] 
+**Sessions** | Pointer to **int32** | Sessions is how many agent sessions are open on this unit. Always present, and 0 for a source that cannot host agent sessions at all — a fact about that plane, not a gap in the reading. | [optional] 
+**Source** | Pointer to **string** | Source is the plane this row came from: \&quot;agent\&quot; (a linked run-target), \&quot;byo\&quot; (a worker or cluster the org dialed in) or \&quot;visor\&quot; (a machine Hanzo provisioned). It is half the row&#39;s identity, and it says which face owns the unit — /v1/agents/targets, /v1/visor/fleet/workers, /v1/visor/machines. | [optional] 
+**Spec** | Pointer to [**FleetSpec**](FleetSpec.md) | Spec is the unit&#39;s static capability. Absent when the source reported none — unknown capability, never a zeroed one. | [optional] 
+**Status** | Pointer to **string** | Status is liveness in the SOURCE&#39;s own vocabulary, because each plane decides it differently: a run-target&#39;s is derived from its heartbeat, a BYO worker&#39;s is online/offline on the 90s window, a BYO cluster&#39;s is \&quot;attached\&quot;, and a Visor machine&#39;s is the provider&#39;s word for its lifecycle state. | [optional] 
+**Unit** | Pointer to **string** | Unit is the SOURCE&#39;s own id for this unit — a run-target id, a BYO worker id, a Visor machine name — so a row links straight back to the face that owns it. It is unique within a source, not across them: two planes may mint the same id, which is why (source, unit) together is the identity. | [optional] 
 
 ## Methods
 

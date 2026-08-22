@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**GetMlModels**](MlAPI.md#GetMlModels) | **Get** /v1/ml/models | Lists the inference models deployed in the caller&#39;s org.
 [**GetMlModelsByName**](MlAPI.md#GetMlModelsByName) | **Get** /v1/ml/models/{name} | Returns one deployed inference model.
 [**PatchMlModelsByName**](MlAPI.md#PatchMlModelsByName) | **Patch** /v1/ml/models/{name} | Change a deployed model in place
-[**PostMlModels**](MlAPI.md#PostMlModels) | **Post** /v1/ml/models | Deploy an inference model
+[**PostMlModels**](MlAPI.md#PostMlModels) | **Post** /v1/ml/models | Deploys one inference model for the caller&#39;s org, and answers 201 with the model as Kubernetes admitted it.
 [**PostMlModelsByNamePredict**](MlAPI.md#PostMlModelsByNamePredict) | **Post** /v1/ml/models/{name}/predict | Run inference against one of your deployed models
 
 
@@ -342,9 +342,9 @@ Name | Type | Description  | Notes
 
 ## PostMlModels
 
-> PostMlModels(ctx).Execute()
+> MlResource PostMlModels(ctx).MlCreate(mlCreate).Execute()
 
-Deploy an inference model
+Deploys one inference model for the caller's org, and answers 201 with the model as Kubernetes admitted it.
 
 
 
@@ -361,29 +361,36 @@ import (
 )
 
 func main() {
+	mlCreate := *openapiclient.NewMlCreate() // MlCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MlAPI.PostMlModels(context.Background()).Execute()
+	resp, r, err := apiClient.MlAPI.PostMlModels(context.Background()).MlCreate(mlCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.PostMlModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostMlModels`: MlResource
+	fmt.Fprintf(os.Stdout, "Response from `MlAPI.PostMlModels`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostMlModelsRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mlCreate** | [**MlCreate**](MlCreate.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**MlResource**](MlResource.md)
 
 ### Authorization
 
@@ -391,8 +398,8 @@ Other parameters are passed through a pointer to a apiPostMlModelsRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

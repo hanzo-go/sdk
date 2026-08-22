@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Branch** | Pointer to **string** | Branch, CommitSha and Diffstat describe what the run produced; Error is the failure when OK is false. Each is clamped, never rejected. | [optional] 
-**Changed** | Pointer to **bool** |  | [optional] 
-**CommitSha** | Pointer to **string** |  | [optional] 
-**Diffstat** | Pointer to **string** |  | [optional] 
-**Error** | Pointer to **string** |  | [optional] 
+**Changed** | Pointer to **bool** | Changed says whether the run produced any commit. It is INDEPENDENT of OK: a run can succeed and change nothing (there was nothing to do), and a run can fail after committing some of its work. Two questions, two booleans. | [optional] 
+**CommitSha** | Pointer to **string** | CommitSha is the tip the run pushed, clamped to 128 characters. Empty when it pushed nothing, which is the same case Changed reports false for. | [optional] 
+**Diffstat** | Pointer to **string** | Diffstat is the run&#39;s own summary of what it changed, as text, clamped to 64 KiB. Free-form: it is shown, never parsed. | [optional] 
+**Error** | Pointer to **string** | Error is why the run failed, clamped to 64 KiB. It is CLAMPED rather than refused — a truncated reason is worth more than a rejected report, because a rejected report leaves the durable workflow waiting forever. | [optional] 
 **Id** | Pointer to **string** | ID is the machine reporting, from the path. | [optional] 
 **Ok** | Pointer to **bool** | OK is whether the run succeeded; Changed whether it produced any commit. | [optional] 
 **RunId** | Pointer to **string** | RunID is the routed run being completed, from the path. | [optional] 

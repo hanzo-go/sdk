@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,26 @@ var _ MappedNullable = &ProvisionResult{}
 
 // ProvisionResult struct for ProvisionResult
 type ProvisionResult struct {
+	// ConnectionString is the ready-to-use DSN, credential included. RETURNED HERE ONCE: no read beside this one carries it, so a caller that does not keep it must provision again.
 	ConnectionString *string `json:"connectionString,omitempty"`
-	Database         *string `json:"database,omitempty"`
-	Host             *string `json:"host,omitempty"`
-	Id               *string `json:"id,omitempty"`
-	Kind             *string `json:"kind,omitempty"`
-	Name             *string `json:"name,omitempty"`
-	Password         *string `json:"password,omitempty"`
-	Port             *int32  `json:"port,omitempty"`
-	Status           *string `json:"status,omitempty"`
-	Username         *string `json:"username,omitempty"`
+	// Database is the logical database, collection, index or bucket this resource resolves to on its backend. It is derived from Name under an org-namespacing hash, so it is not Name and two orgs cannot land on one.
+	Database *string `json:"database,omitempty"`
+	// Host is the address that routes to this resource — a dedicated instance's own in-cluster Service, or the public gateway for a shared one. Never the internal admin address of a shared backend.
+	Host *string `json:"host,omitempty"`
+	// ID is the resource's server-minted handle, \"rs_\"-prefixed. The caller does not choose it, and it is what every read and the delete address.
+	Id *string `json:"id,omitempty"`
+	// Kind is the product provisioned: sql, vector, datastore, kv, search, s3 or docdb. It is the route that was called, not a body field.
+	Kind *string `json:"kind,omitempty"`
+	// Name is the org-unique slug the caller asked for, lower-cased. Every physical name on the backend derives from it.
+	Name *string `json:"name,omitempty"`
+	// Password is the minted credential, in plaintext, for the kinds that have one. RETURNED HERE ONCE — where KMS is configured it is sealed there and only a reference is persisted; where it is not, it is stored nowhere at all. It is never held in plaintext on either side.
+	Password *string `json:"password,omitempty"`
+	// Port is the port a client connects to on Host.
+	Port *int32 `json:"port,omitempty"`
+	// Status is \"ready\", or \"provisioning\" while a dedicated instance is still being materialized by the operator. A shared-backend create is \"ready\" here; a dedicated one answers 201 still launching, and reaches ready only when a later read reconciles it against the operator's live CR — never fabricated.
+	Status *string `json:"status,omitempty"`
+	// Username is the credential's user, for the kinds that mint one per resource. Absent for a kind whose backend authenticates with a shared, out-of-band key.
+	Username *string `json:"username,omitempty"`
 }
 
 // NewProvisionResult instantiates a new ProvisionResult object

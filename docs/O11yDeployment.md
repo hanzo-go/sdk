@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Instance** | Pointer to **string** |  | [optional] 
-**Up** | Pointer to **bool** |  | [optional] 
+**Instance** | Pointer to **string** | Instance is the replica as the telemetry store labels it — the address the series was recorded against, which is what distinguishes two replicas of one service. | [optional] 
+**Up** | Pointer to **bool** | Up is that replica&#39;s last reported state. Every target emits on every cycle, so a replica missing from the list is one the prober is not reporting at all, which is a different fact from down. | [optional] 
 
 ## Methods
 

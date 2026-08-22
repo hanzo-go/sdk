@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,14 +23,16 @@ type AudiencePreview struct {
 	Available *bool `json:"available,omitempty"`
 	// Count is the cohort size: distinct warehouse identifiers for an event audience, mailable customers for an event-less (whole-org) one.
 	Count *int32 `json:"count,omitempty"`
-	// Deliverable is how many de-duplicated addresses a send would reach, and Unmatched how many cohort identifiers named no customer. Unmatched is reported rather than hidden: it is the honest explanation for a cohort of 500 that mails 3.
-	Deliverable *int32  `json:"deliverable,omitempty"`
-	Reason      *string `json:"reason,omitempty"`
+	// Deliverable is how many de-duplicated mailboxes a send would reach. Two customers sharing an address count once, so it is <= Count.
+	Deliverable *int32 `json:"deliverable,omitempty"`
+	// Reason is the error text of the read that failed: the org's roster could not be loaded (\"identity store unavailable…\"), or the cohort query had no warehouse to run against (\"analytics warehouse not configured\"). Absent when the evaluation succeeded, so its presence and Available=false are one fact seen twice.
+	Reason *string `json:"reason,omitempty"`
 	// Sample is up to 1000 cohort IDENTIFIERS — never addresses, which product analytics does not hold. Empty for an event-less (whole-org) audience.
 	Sample []string `json:"sample,omitempty"`
 	// Source names where the cohort was read: the events table for an event audience, \"iam:<org>\" for the whole-org one.
-	Source    *string `json:"source,omitempty"`
-	Unmatched *int32  `json:"unmatched,omitempty"`
+	Source *string `json:"source,omitempty"`
+	// Unmatched is how many cohort identifiers named nobody on the org's roster and so have no address to mail. It is reported rather than hidden: it is the honest explanation for a cohort of 500 that mails 3. Always 0 for an event-less (whole-org) audience, which starts from the roster and has nothing to match.
+	Unmatched *int32 `json:"unmatched,omitempty"`
 }
 
 // NewAudiencePreview instantiates a new AudiencePreview object

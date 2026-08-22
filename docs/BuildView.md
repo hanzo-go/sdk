@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Agent** | Pointer to **string** |  | [optional] 
-**EndedAt** | Pointer to **string** |  | [optional] 
-**Model** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Project** | Pointer to **string** |  | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
-**Session** | Pointer to **string** |  | [optional] 
-**StartedAt** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Turns** | Pointer to [**[]BuildTurn**](BuildTurn.md) |  | [optional] 
+**Agent** | Pointer to **string** | Agent is the label the surface that did the work calls itself by. | [optional] 
+**EndedAt** | Pointer to **string** | EndedAt is when it finished, same format. Empty means it has not — the build is still going. | [optional] 
+**Model** | Pointer to **string** | Model is the model that did the work, taken from the FIRST turn whose body names one — a transcript states it, this route does not resolve it. Empty when no turn said. | [optional] 
+**Org** | Pointer to **string** | Org is the org that published this build, echoed from the URL. It is part of the build&#39;s public ADDRESS and not a tenant key — this route is anonymous, and the only rows it can reach are ones an author explicitly published. | [optional] 
+**Project** | Pointer to **string** | Project is the product&#39;s slug, the other half of that address. | [optional] 
+**Repo** | Pointer to **string** | Repo is the repository the work was done in, as the session reported it. | [optional] 
+**Session** | Pointer to **string** | Session is the id of the agent session this story IS — the same value a produced commit carries in its &#x60;Hanzo-Session:&#x60; trailer, which is what ties the repository&#39;s history to this page. | [optional] 
+**StartedAt** | Pointer to **string** | StartedAt is when the session opened, RFC 3339 in UTC. | [optional] 
+**Status** | Pointer to **string** | Status is the session&#39;s own: running, paused, done or error. A build can be read while it is still being written, so this is not always terminal — and an &#x60;error&#x60; build is still a readable story, not a missing page. | [optional] 
+**Title** | Pointer to **string** | Title is the human line the session was opened or renamed with. Empty when nobody gave it one. | [optional] 
+**Turns** | Pointer to [**[]BuildTurn**](BuildTurn.md) | Turns is the whole transcript, oldest first, capped at 1000: a published build is a story to read down, not an archive to page. | [optional] 
 **Verify** | Pointer to **string** | Verify is the exact command that re-derives every commit binding below straight from git, so nothing here has to be taken on trust. | [optional] 
 
 ## Methods

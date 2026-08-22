@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Images** | Pointer to **[]string** |  | [optional] 
+**Images** | Pointer to **[]string** | Images are the container images the application runs. One entry for an App CR, built from its spec.image as \&quot;repository:tag\&quot; — the bare repository when it declares no tag, and absent when it declares neither. Absent on a CD row, which tracks commits rather than images. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,9 @@ var _ MappedNullable = &O11ySeries{}
 
 // O11ySeries struct for O11ySeries
 type O11ySeries struct {
-	CostCents *int32  `json:"costCents,omitempty"`
-	Errors    *int32  `json:"errors,omitempty"`
-	Requests  *int32  `json:"requests,omitempty"`
-	Tokens    *int32  `json:"tokens,omitempty"`
-	Ts        *string `json:"ts,omitempty"`
+	Labels      map[string]string   `json:"labels,omitempty"`
+	LabelsArray []map[string]string `json:"labelsArray,omitempty"`
+	Values      []interface{}       `json:"values,omitempty"`
 }
 
 // NewO11ySeries instantiates a new O11ySeries object
@@ -43,164 +41,100 @@ func NewO11ySeriesWithDefaults() *O11ySeries {
 	return &this
 }
 
-// GetCostCents returns the CostCents field value if set, zero value otherwise.
-func (o *O11ySeries) GetCostCents() int32 {
-	if o == nil || IsNil(o.CostCents) {
-		var ret int32
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *O11ySeries) GetLabels() map[string]string {
+	if o == nil || IsNil(o.Labels) {
+		var ret map[string]string
 		return ret
 	}
-	return *o.CostCents
+	return o.Labels
 }
 
-// GetCostCentsOk returns a tuple with the CostCents field value if set, nil otherwise
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11ySeries) GetCostCentsOk() (*int32, bool) {
-	if o == nil || IsNil(o.CostCents) {
-		return nil, false
+func (o *O11ySeries) GetLabelsOk() (map[string]string, bool) {
+	if o == nil || IsNil(o.Labels) {
+		return map[string]string{}, false
 	}
-	return o.CostCents, true
+	return o.Labels, true
 }
 
-// HasCostCents returns a boolean if a field has been set.
-func (o *O11ySeries) HasCostCents() bool {
-	if o != nil && !IsNil(o.CostCents) {
+// HasLabels returns a boolean if a field has been set.
+func (o *O11ySeries) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
 	return false
 }
 
-// SetCostCents gets a reference to the given int32 and assigns it to the CostCents field.
-func (o *O11ySeries) SetCostCents(v int32) {
-	o.CostCents = &v
+// SetLabels gets a reference to the given map[string]string and assigns it to the Labels field.
+func (o *O11ySeries) SetLabels(v map[string]string) {
+	o.Labels = v
 }
 
-// GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *O11ySeries) GetErrors() int32 {
-	if o == nil || IsNil(o.Errors) {
-		var ret int32
+// GetLabelsArray returns the LabelsArray field value if set, zero value otherwise.
+func (o *O11ySeries) GetLabelsArray() []map[string]string {
+	if o == nil || IsNil(o.LabelsArray) {
+		var ret []map[string]string
 		return ret
 	}
-	return *o.Errors
+	return o.LabelsArray
 }
 
-// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// GetLabelsArrayOk returns a tuple with the LabelsArray field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11ySeries) GetErrorsOk() (*int32, bool) {
-	if o == nil || IsNil(o.Errors) {
+func (o *O11ySeries) GetLabelsArrayOk() ([]map[string]string, bool) {
+	if o == nil || IsNil(o.LabelsArray) {
 		return nil, false
 	}
-	return o.Errors, true
+	return o.LabelsArray, true
 }
 
-// HasErrors returns a boolean if a field has been set.
-func (o *O11ySeries) HasErrors() bool {
-	if o != nil && !IsNil(o.Errors) {
+// HasLabelsArray returns a boolean if a field has been set.
+func (o *O11ySeries) HasLabelsArray() bool {
+	if o != nil && !IsNil(o.LabelsArray) {
 		return true
 	}
 
 	return false
 }
 
-// SetErrors gets a reference to the given int32 and assigns it to the Errors field.
-func (o *O11ySeries) SetErrors(v int32) {
-	o.Errors = &v
+// SetLabelsArray gets a reference to the given []map[string]string and assigns it to the LabelsArray field.
+func (o *O11ySeries) SetLabelsArray(v []map[string]string) {
+	o.LabelsArray = v
 }
 
-// GetRequests returns the Requests field value if set, zero value otherwise.
-func (o *O11ySeries) GetRequests() int32 {
-	if o == nil || IsNil(o.Requests) {
-		var ret int32
+// GetValues returns the Values field value if set, zero value otherwise.
+func (o *O11ySeries) GetValues() []interface{} {
+	if o == nil || IsNil(o.Values) {
+		var ret []interface{}
 		return ret
 	}
-	return *o.Requests
+	return o.Values
 }
 
-// GetRequestsOk returns a tuple with the Requests field value if set, nil otherwise
+// GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11ySeries) GetRequestsOk() (*int32, bool) {
-	if o == nil || IsNil(o.Requests) {
+func (o *O11ySeries) GetValuesOk() ([]interface{}, bool) {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
-	return o.Requests, true
+	return o.Values, true
 }
 
-// HasRequests returns a boolean if a field has been set.
-func (o *O11ySeries) HasRequests() bool {
-	if o != nil && !IsNil(o.Requests) {
+// HasValues returns a boolean if a field has been set.
+func (o *O11ySeries) HasValues() bool {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
 	return false
 }
 
-// SetRequests gets a reference to the given int32 and assigns it to the Requests field.
-func (o *O11ySeries) SetRequests(v int32) {
-	o.Requests = &v
-}
-
-// GetTokens returns the Tokens field value if set, zero value otherwise.
-func (o *O11ySeries) GetTokens() int32 {
-	if o == nil || IsNil(o.Tokens) {
-		var ret int32
-		return ret
-	}
-	return *o.Tokens
-}
-
-// GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11ySeries) GetTokensOk() (*int32, bool) {
-	if o == nil || IsNil(o.Tokens) {
-		return nil, false
-	}
-	return o.Tokens, true
-}
-
-// HasTokens returns a boolean if a field has been set.
-func (o *O11ySeries) HasTokens() bool {
-	if o != nil && !IsNil(o.Tokens) {
-		return true
-	}
-
-	return false
-}
-
-// SetTokens gets a reference to the given int32 and assigns it to the Tokens field.
-func (o *O11ySeries) SetTokens(v int32) {
-	o.Tokens = &v
-}
-
-// GetTs returns the Ts field value if set, zero value otherwise.
-func (o *O11ySeries) GetTs() string {
-	if o == nil || IsNil(o.Ts) {
-		var ret string
-		return ret
-	}
-	return *o.Ts
-}
-
-// GetTsOk returns a tuple with the Ts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11ySeries) GetTsOk() (*string, bool) {
-	if o == nil || IsNil(o.Ts) {
-		return nil, false
-	}
-	return o.Ts, true
-}
-
-// HasTs returns a boolean if a field has been set.
-func (o *O11ySeries) HasTs() bool {
-	if o != nil && !IsNil(o.Ts) {
-		return true
-	}
-
-	return false
-}
-
-// SetTs gets a reference to the given string and assigns it to the Ts field.
-func (o *O11ySeries) SetTs(v string) {
-	o.Ts = &v
+// SetValues gets a reference to the given []interface{} and assigns it to the Values field.
+func (o *O11ySeries) SetValues(v []interface{}) {
+	o.Values = v
 }
 
 func (o O11ySeries) MarshalJSON() ([]byte, error) {
@@ -213,20 +147,14 @@ func (o O11ySeries) MarshalJSON() ([]byte, error) {
 
 func (o O11ySeries) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CostCents) {
-		toSerialize["costCents"] = o.CostCents
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
 	}
-	if !IsNil(o.Errors) {
-		toSerialize["errors"] = o.Errors
+	if !IsNil(o.LabelsArray) {
+		toSerialize["labelsArray"] = o.LabelsArray
 	}
-	if !IsNil(o.Requests) {
-		toSerialize["requests"] = o.Requests
-	}
-	if !IsNil(o.Tokens) {
-		toSerialize["tokens"] = o.Tokens
-	}
-	if !IsNil(o.Ts) {
-		toSerialize["ts"] = o.Ts
+	if !IsNil(o.Values) {
+		toSerialize["values"] = o.Values
 	}
 	return toSerialize, nil
 }

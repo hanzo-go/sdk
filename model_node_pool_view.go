@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,20 @@ var _ MappedNullable = &NodePoolView{}
 
 // NodePoolView struct for NodePoolView
 type NodePoolView struct {
-	AutoScale *bool   `json:"autoScale,omitempty"`
-	Count     *int32  `json:"count,omitempty"`
-	MaxNodes  *int32  `json:"maxNodes,omitempty"`
-	MinNodes  *int32  `json:"minNodes,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	PoolId    *string `json:"poolId,omitempty"`
-	Size      *string `json:"size,omitempty"`
+	// AutoScale reports whether the provider's cluster autoscaler owns this pool's size, moving Count between MinNodes and MaxNodes as workloads demand. False means Count changes only when someone scales the pool.
+	AutoScale *bool `json:"autoScale,omitempty"`
+	// Count is how many nodes the pool has right now. Always present, so 0 means a pool that is genuinely empty rather than a figure the provider withheld.
+	Count *int32 `json:"count,omitempty"`
+	// MaxNodes is the ceiling the autoscaler will not grow the pool past, and so the bound on what this pool can cost. Read it only with AutoScale set.
+	MaxNodes *int32 `json:"maxNodes,omitempty"`
+	// MinNodes is the floor the autoscaler will not shrink the pool below. Read it only with AutoScale set — the provider ignores it otherwise.
+	MinNodes *int32 `json:"minNodes,omitempty"`
+	// Name is the pool's name as the provider knows it.
+	Name *string `json:"name,omitempty"`
+	// PoolID is the provider's id for the pool — the value the scale and delete routes address it by. It falls back to the pool's name when the provider answered without one, so it is always something the routes accept.
+	PoolId *string `json:"poolId,omitempty"`
+	// Size is the provider size slug every node in the pool runs at (\"s-4vcpu-8gb\", \"gpu-h100x8-640gb\"). One pool is one size — a mixed cluster is several pools.
+	Size *string `json:"size,omitempty"`
 }
 
 // NewNodePoolView instantiates a new NodePoolView object

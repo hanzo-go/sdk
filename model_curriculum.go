@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &Curriculum{}
 
 // Curriculum struct for Curriculum
 type Curriculum struct {
-	Steps   []JourneyStep `json:"steps,omitempty"`
-	Title   *string       `json:"title,omitempty"`
-	Version *string       `json:"version,omitempty"`
+	// Steps are the enabled steps in authoring order. Order is the tiebreak the next-step logic walks, so it is part of the contract rather than cosmetic.
+	Steps []JourneyStep `json:"steps,omitempty"`
+	// Title is the playbook's name as it heads the checklist.
+	Title *string `json:"title,omitempty"`
+	// Version identifies the authored playbook this journey was projected from, so two orgs on different playbooks can be told apart. It is the blueprint's own `version` string, not the store's numeric revision.
+	Version *string `json:"version,omitempty"`
 }
 
 // NewCurriculum instantiates a new Curriculum object

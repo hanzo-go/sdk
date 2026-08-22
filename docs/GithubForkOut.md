@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CloneUrl** | Pointer to **string** |  | [optional] 
-**DefaultBranch** | Pointer to **string** |  | [optional] 
+**CloneUrl** | Pointer to **string** | CloneURL is the fork&#39;s https git remote. GitHub populates a new fork in the background, so a clone issued the moment this answers can still find it empty. | [optional] 
+**DefaultBranch** | Pointer to **string** | DefaultBranch is the branch the fork checks out, inherited from upstream. | [optional] 
 **Existing** | Pointer to **bool** | Existing reports that the fork was already there. GitHub answers 202 either way, so without this a caller cannot tell \&quot;made you one\&quot; from \&quot;you had one\&quot;. | [optional] 
-**FullName** | Pointer to **string** |  | [optional] 
-**HtmlUrl** | Pointer to **string** |  | [optional] 
+**FullName** | Pointer to **string** | FullName is the fork&#39;s \&quot;owner/repo\&quot;. The owner is the account it landed in — the request&#39;s org, or the installation&#39;s own account when none was named. | [optional] 
+**HtmlUrl** | Pointer to **string** | HTMLURL is the fork&#39;s page on github.com. | [optional] 
 
 ## Methods
 

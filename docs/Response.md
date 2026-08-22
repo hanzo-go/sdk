@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Hits** | Pointer to [**[]Hit**](Hit.md) | Hits is the fused, ranked result set. | [optional] 
 **Mode** | Pointer to **string** | Mode is the mode actually used after &#x60;auto&#x60; resolution. | [optional] 
 **Status** | Pointer to **string** | Status is the query&#39;s overall honesty signal:   ok          every consulted leg answered.   partial     at least one leg failed; Hits holds the survivors&#39; results.   unavailable every consulted leg failed; Hits is empty AND that is stated. | [optional] 
-**TookMs** | Pointer to **int32** |  | [optional] 
+**TookMs** | Pointer to **int32** | TookMS is the whole query&#39;s wall time in milliseconds — every leg it consulted, plus fusion and paging. Each leg&#39;s own share is in Backends[].TookMS; the legs run in sequence, so this is at least their sum. | [optional] 
 
 ## Methods
 

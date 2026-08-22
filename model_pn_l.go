@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,14 +19,20 @@ var _ MappedNullable = &PnL{}
 
 // PnL struct for PnL
 type PnL struct {
+	// Expense is the cost lines that moved in the period, one per account.
 	Expense []PnLLine `json:"expense,omitempty"`
-	From    *string   `json:"from,omitempty"`
-	Income  []PnLLine `json:"income,omitempty"`
-	// TotalIncome − TotalExpense
-	NetIncome    *int32  `json:"netIncome,omitempty"`
-	To           *string `json:"to,omitempty"`
-	TotalExpense *int32  `json:"totalExpense,omitempty"`
-	TotalIncome  *int32  `json:"totalIncome,omitempty"`
+	// From opens the period and is EXCLUSIVE — movement strictly after it, matching the trial balance's opening boundary so the two reports agree on what belongs to a period. Absent means from the beginning of the ledger.
+	From *string `json:"from,omitempty"`
+	// Income is the revenue lines that moved in the period, one per account. Accounts that did not move are omitted rather than listed at zero.
+	Income []PnLLine `json:"income,omitempty"`
+	// NetIncome is totalIncome minus totalExpense, in cents. Negative is a loss.
+	NetIncome *int32 `json:"netIncome,omitempty"`
+	// To closes the period and is inclusive. Absent means up to now.
+	To *string `json:"to,omitempty"`
+	// TotalExpense is cost MATCHED to that revenue, in cents, including accrued infrastructure that has not been billed yet.
+	TotalExpense *int32 `json:"totalExpense,omitempty"`
+	// TotalIncome is revenue RECOGNIZED in the period, in cents — accrual, not cash, so a prepaid top-up is not in it until the credit is consumed.
+	TotalIncome *int32 `json:"totalIncome,omitempty"`
 }
 
 // NewPnL instantiates a new PnL object

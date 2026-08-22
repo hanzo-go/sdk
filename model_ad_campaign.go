@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,19 +19,28 @@ var _ MappedNullable = &AdCampaign{}
 
 // AdCampaign struct for AdCampaign
 type AdCampaign struct {
-	// provider ad-account ref (Meta act_<id>)
-	Account   *string `json:"account,omitempty"`
-	Budget    *int32  `json:"budget,omitempty"`
-	CreatedAt *int32  `json:"createdAt,omitempty"`
-	// provider campaign id after a launch
+	// Account is the provider ad-account the campaign runs under, in Meta's act_<id> form. Empty until the org supplies one or a launch resolves it.
+	Account *string `json:"account,omitempty"`
+	// Budget is the campaign's authorized spend in MINOR units (cents). Negative clamps to 0. It is the org's stored plan: a Meta launch creates the campaign object only, and the delivering budget lives on the ad set.
+	Budget *int32 `json:"budget,omitempty"`
+	// CreatedAt is when the campaign was first stored, in unix seconds. It never changes, including across a full-replace update.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// ExternalID is the ad network's own campaign id, written by a successful launch and by nothing else — an update never touches it. Empty means this campaign has never reached its network.
 	ExternalId *string `json:"externalId,omitempty"`
-	Id         *string `json:"id,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	Objective  *string `json:"objective,omitempty"`
-	Platform   *string `json:"platform,omitempty"`
-	Spend      *int32  `json:"spend,omitempty"`
-	Status     *string `json:"status,omitempty"`
-	UpdatedAt  *int32  `json:"updatedAt,omitempty"`
+	// ID is the campaign's server-minted handle, \"camp_\" + 32 hex. A create body cannot choose it, and it is the id every other route addresses.
+	Id *string `json:"id,omitempty"`
+	// Name is the campaign's display label, and the name Meta creates the campaign object under at launch. Required; trimmed and bounded to 1024 bytes.
+	Name *string `json:"name,omitempty"`
+	// Objective is the campaign goal spelled as the provider names it (\"conversions\", \"OUTCOME_TRAFFIC\"), passed through to the network verbatim at launch — Meta defaults an empty one to OUTCOME_TRAFFIC. Free text, bounded to 1024 bytes; no vocabulary is enforced here.
+	Objective *string `json:"objective,omitempty"`
+	// Platform is the ad network: meta, google, tiktok or x, and nothing else — a write naming another is 400. Empty stores as meta. Only meta executes today; launching any of the other three is 501.
+	Platform *string `json:"platform,omitempty"`
+	// Spend is spend-to-date in MINOR units (cents), as last written through create or update. Negative clamps to 0. It is NOT read back from the network — that is a separate insights call — so 0 means nothing was recorded here, not that nothing was spent.
+	Spend *int32 `json:"spend,omitempty"`
+	// Status is the lifecycle: draft, active, paused or completed, and nothing else — a write naming another is 400. Empty stores as draft; a successful launch sets active. It records what this deployment did, not what the ad network currently reports.
+	Status *string `json:"status,omitempty"`
+	// UpdatedAt is when the row was last written, in unix seconds — set by create, update and launch. Listings are ordered by it, newest first.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 }
 
 // NewAdCampaign instantiates a new AdCampaign object

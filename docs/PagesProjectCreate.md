@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BuildConfig** | Pointer to [**PagesBuildConfig**](PagesBuildConfig.md) |  | [optional] 
-**DeploymentConfigs** | Pointer to [**PagesDeploymentConfigs**](PagesDeploymentConfigs.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**ProductionBranch** | Pointer to **string** |  | [optional] 
+**BuildConfig** | Pointer to [**PagesBuildConfig**](PagesBuildConfig.md) | BuildConfig says how to build the site. Omitted means no build step. | [optional] 
+**DeploymentConfigs** | Pointer to [**PagesDeploymentConfigs**](PagesDeploymentConfigs.md) | DeploymentConfigs carries the preview and production runtime configs — the bindings and variables the built site&#39;s functions run with. | [optional] 
+**Name** | Pointer to **string** | Name is the project name, and it is also the address: the site answers at &lt;name&gt;.pages.dev. Cloudflare will not rename a project afterwards. | [optional] 
+**ProductionBranch** | Pointer to **string** | ProductionBranch is which git branch builds to production; every other branch builds a preview. Omitted leaves Cloudflare&#39;s own default. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,15 @@ var _ MappedNullable = &CallInput{}
 
 // CallInput struct for CallInput
 type CallInput struct {
+	// Agent hands the answered call to a Hanzo assistant by name instead of connecting it to a person. Empty places an ordinary call.
 	Agent *string `json:"agent,omitempty"`
-	From  *string `json:"from,omitempty"`
+	// From is the number to call FROM, in E.164. It must be one this org holds.
+	From *string `json:"from,omitempty"`
 	// Record is a per-call flag rather than a product. Where a recording lands and how long it is kept is the org's retention policy, not this call's.
-	Record  *bool   `json:"record,omitempty"`
-	To      *string `json:"to,omitempty"`
+	Record *bool `json:"record,omitempty"`
+	// To is the number to call, in E.164.
+	To *string `json:"to,omitempty"`
+	// Webhook is a URL the carrier posts this call's events to as it progresses. Empty means the call's outcome is only visible by reading it back.
 	Webhook *string `json:"webhook,omitempty"`
 }
 

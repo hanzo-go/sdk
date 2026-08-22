@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AffectedComponents** | Pointer to [**[]O11yStatusComponent**](O11yStatusComponent.md) |  | [optional] 
-**EndsAt** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**LastUpdateAt** | Pointer to **string** |  | [optional] 
-**LastUpdateMessage** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**StartsAt** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**AffectedComponents** | Pointer to [**[]O11yStatusComponent**](O11yStatusComponent.md) | AffectedComponents is what the window touches. | [optional] 
+**EndsAt** | Pointer to **string** | EndsAt is when it is expected to finish, RFC3339 UTC. | [optional] 
+**Id** | Pointer to **string** | ID is the window&#39;s handle. | [optional] 
+**LastUpdateAt** | Pointer to **string** | LastUpdateAt is when the window was last revised, RFC3339 UTC. | [optional] 
+**LastUpdateMessage** | Pointer to **string** | LastUpdateMessage is the text of that revision. | [optional] 
+**Name** | Pointer to **string** | Name is its one-line headline. | [optional] 
+**StartsAt** | Pointer to **string** | StartsAt is when work begins, RFC3339 UTC. | [optional] 
+**Status** | Pointer to **string** | Status is where the window is in its life, in the client&#39;s own vocabulary. | [optional] 
+**Url** | Pointer to **string** | URL points at the human status page, as every link in this document does. | [optional] 
 
 ## Methods
 

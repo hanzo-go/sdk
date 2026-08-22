@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FinishedAt** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
-**Phase** | Pointer to **string** |  | [optional] 
-**Revision** | Pointer to **string** |  | [optional] 
-**StartedAt** | Pointer to **string** |  | [optional] 
+**FinishedAt** | Pointer to **string** | FinishedAt is when it ended, RFC 3339. Absent while the phase is Running. | [optional] 
+**Message** | Pointer to **string** | Message is CD&#39;s account of the phase — \&quot;successfully synced (all tasks run)\&quot; for a Succeeded operation, the reason it stopped for a Failed one. | [optional] 
+**Phase** | Pointer to **string** | Phase is how the last sync operation ended, in CD&#39;s own vocabulary: Running, Succeeded or Failed. It is never empty — an Application whose phase is empty has no operation at all and omits this whole object. | [optional] 
+**Revision** | Pointer to **string** | Revision is the commit this operation ATTEMPTED (operationState.syncResult). It differs from the Application&#39;s own revision exactly when the attempt did not land: revision is the last commit CD got applied, this is the last one it tried. | [optional] 
+**StartedAt** | Pointer to **string** | StartedAt is when the operation began, RFC 3339. | [optional] 
 
 ## Methods
 

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **map[string]interface{}** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
-**Range** | Pointer to [**Range**](Range.md) |  | [optional] 
-**Severity** | Pointer to **int32** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
+**Code** | Pointer to **map[string]interface{}** | Code is the checker&#39;s own identifier for the rule, a string or a number depending on the server. Absent when it published none. | [optional] 
+**Message** | Pointer to **string** | Message is the problem in the server&#39;s own words, meant to be shown. | [optional] 
+**Range** | Pointer to [**Range**](Range.md) | Range is the span the problem is about. | [optional] 
+**Severity** | Pointer to **int32** | Severity is the LSP&#39;s: 1 error, 2 warning, 3 information, 4 hint. A file with only 3s and 4s still compiles. | [optional] 
+**Source** | Pointer to **string** | Source is which checker reported it (\&quot;compiler\&quot;, \&quot;go vet\&quot;, a linter&#39;s name), which is what separates a build error from a style opinion. | [optional] 
 
 ## Methods
 

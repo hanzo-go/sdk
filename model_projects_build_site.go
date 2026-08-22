@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &ProjectsBuildSite{}
 
 // ProjectsBuildSite struct for ProjectsBuildSite
 type ProjectsBuildSite struct {
+	// Brief is what the site should be, in plain language. It is the whole input the model gets and it is size-bounded.
 	Brief *string `json:"brief,omitempty"`
+	// Model names which model writes the site. Absent takes the deployment's default — this route spends inference on the caller's org either way.
 	Model *string `json:"model,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Slug  *string `json:"slug,omitempty"`
+	// Name is the site's display name. Taken from what the model writes when omitted.
+	Name *string `json:"name,omitempty"`
+	// Slug is the handle and public host label to publish under. Derived from the name, or from the brief, when omitted.
+	Slug *string `json:"slug,omitempty"`
 }
 
 // NewProjectsBuildSite instantiates a new ProjectsBuildSite object

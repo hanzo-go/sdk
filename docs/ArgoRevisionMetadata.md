@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Author** | Pointer to **string** |  | [optional] 
-**Date** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
-**SignatureInfo** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Author** | Pointer to **string** | Author is the commit author. Always absent: an App CR pins an IMAGE, so this process has no commit to read one from and will not invent one. | [optional] 
+**Date** | Pointer to **string** | Date is when the App CR was created, RFC 3339 UTC — the only real timestamp there is here. It is NOT the date of the revision asked for. | [optional] 
+**Message** | Pointer to **string** | Message is the revision asked for, echoed back — not a commit message. The empty revision and \&quot;HEAD\&quot; resolve to the image tag the CR declares (spec.image.tag), and anything longer than 256 characters is truncated to it. | [optional] 
+**SignatureInfo** | Pointer to **string** | SignatureInfo is the GPG verification result for the revision. Always absent: nothing here verifies a signature, and an empty field says so rather than implying an unsigned commit. | [optional] 
+**Tags** | Pointer to **[]string** | Tags are the git tags pointing at the revision. Always absent, for the same reason as Author. | [optional] 
 
 ## Methods
 

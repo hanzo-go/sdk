@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **int32** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
+**Code** | Pointer to **int32** | Code is the JSON-RPC error code the chain reported, passed through as it came. -32603 (internal error) is the one value this deployment mints itself, for an upstream that could not be reached at all. | [optional] 
+**Message** | Pointer to **string** | Message is the chain&#39;s own explanation, e.g. \&quot;execution reverted\&quot;. It is \&quot;upstream unavailable\&quot; when the deployment minted the error rather than the chain — that is the one message this side writes. | [optional] 
 
 ## Methods
 

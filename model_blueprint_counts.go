@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &BlueprintCounts{}
 
 // BlueprintCounts struct for BlueprintCounts
 type BlueprintCounts struct {
+	// Principles is how many spine archetypes the playbook carries (64 in the shipped corpus).
 	Principles *int32 `json:"principles,omitempty"`
-	Sections   *int32 `json:"sections,omitempty"`
-	Steps      *int32 `json:"steps,omitempty"`
+	// Sections is how many phases the journey has.
+	Sections *int32 `json:"sections,omitempty"`
+	// Steps is how many checklist items the playbook holds, DISABLED ONES INCLUDED — this counts the authored document, not the journey an org runs, so it is normally larger than the `total` on a progress view.
+	Steps *int32 `json:"steps,omitempty"`
+	// Strategies is how many tactics the corpus holds, again counting disabled ones.
 	Strategies *int32 `json:"strategies,omitempty"`
-	Templates  *int32 `json:"templates,omitempty"`
+	// Templates is how many reusable prompts the playbook carries.
+	Templates *int32 `json:"templates,omitempty"`
 }
 
 // NewBlueprintCounts instantiates a new BlueprintCounts object

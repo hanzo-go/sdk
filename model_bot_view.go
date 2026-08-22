@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,9 @@ var _ MappedNullable = &BotView{}
 
 // BotView struct for BotView
 type BotView struct {
-	Agent       *string       `json:"agent,omitempty"`
+	// Agent is the cloud Agent this machine runs, lifted out of the binding so a list of bots reads without following one. Empty means the machine is a bot machine with nothing bound — it costs money and answers nothing.
+	Agent *string `json:"agent,omitempty"`
+	// Binding is the record joining this machine to that agent, carrying vm's own reconciled status and its reason. Absent means no runtime is bound, which is also what a stopped bot looks like: stopping unbinds and leaves the machine running.
 	Binding     *AgentBinding `json:"binding,omitempty"`
 	CreatedTime *string       `json:"createdTime,omitempty"`
 	Gpu         *string       `json:"gpu,omitempty"`

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,17 +19,26 @@ var _ MappedNullable = &Span{}
 
 // Span struct for Span
 type Span struct {
-	EndLine *int32  `json:"endLine,omitempty"`
-	File    *string `json:"file,omitempty"`
-	Kind    *string `json:"kind,omitempty"`
-	Line    *int32  `json:"line,omitempty"`
-	Repo    *string `json:"repo,omitempty"`
+	// EndLine is the last line of the span, inclusive. It equals Line for a one-line span rather than being zero or absent.
+	EndLine *int32 `json:"endLine,omitempty"`
+	// File is the path inside the repo, relative to its root and never absolute.
+	File *string `json:"file,omitempty"`
+	// Kind is what the indexer decided this chunk IS — \"func\", \"method\", \"type\", \"struct\", \"interface\", \"var\", \"const\", or \"block\" for a run of code that declares nothing. Absent when the chunker could not classify it.
+	Kind *string `json:"kind,omitempty"`
+	// Line is where the span starts, 1-based, as an editor counts.
+	Line *int32 `json:"line,omitempty"`
+	// Repo is the indexed repository the span was found in, as it was indexed (\"owner/name\"). A search may be scoped to one repo or run across all of them, so this is how a caller tells the results apart.
+	Repo *string `json:"repo,omitempty"`
 	// context: match | definition | caller
-	Role    *string  `json:"role,omitempty"`
-	Score   *float32 `json:"score,omitempty"`
-	Snippet *string  `json:"snippet,omitempty"`
-	Symbol  *string  `json:"symbol,omitempty"`
-	Tier    *string  `json:"tier,omitempty"`
+	Role *string `json:"role,omitempty"`
+	// Score ranks this span against the OTHERS IN THE SAME RESPONSE and means nothing across responses or between tiers: the hybrid tier's number is a reciprocal-rank fusion sum (Σ 1/(60+rank), so tenths at best), the symbol tier's is a descending position count, and the text and semantic tiers pass through bm25 and cosine. Compare within a list; never threshold on it.
+	Score *float32 `json:"score,omitempty"`
+	// Snippet is the code itself: a bounded excerpt on /search, the whole chunk on /context — which is why the same type serves both and why a /context span is the one an agent pastes into its window.
+	Snippet *string `json:"snippet,omitempty"`
+	// Symbol is the declared name, when the span declares one. Absent on a block.
+	Symbol *string `json:"symbol,omitempty"`
+	// Tier is which retrieval produced the span: \"hybrid\" (the default — all three fused), \"text\" (trigram/FTS), \"regex\", \"semantic\" (vector), or \"symbol\". It is what explains a Score, so the two travel together.
+	Tier *string `json:"tier,omitempty"`
 }
 
 // NewSpan instantiates a new Span object

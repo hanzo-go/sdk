@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -16,123 +16,33 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
 // KmsAPIService KmsAPI service
 type KmsAPIService service
-
-type KmsAPIDeleteKmsSecretsByWildcard1Request struct {
-	ctx        context.Context
-	ApiService *KmsAPIService
-	wildcard1  string
-}
-
-func (r KmsAPIDeleteKmsSecretsByWildcard1Request) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteKmsSecretsByWildcard1Execute(r)
-}
-
-/*
-DeleteKmsSecretsByWildcard1 Delete one secret from your org
-
-Removes one secret from the caller's own org and confirms the name and environment that were removed. Deleting a secret that is not there is a 404, not a silent success, so a caller can tell a real deletion from a typo.
-
-The trailing path is the secret's subpath and name beneath the caller's org root, and `env` selects the environment, defaulting when omitted. Scoped to the caller's own org — the store root comes from the validated claim, never from the request.
-
-Requires ADMIN authority over the org, like the write: destroying a secret is an administrative act, and a credential distributed to read one must not be able to remove it.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param wildcard1
-	@return KmsAPIDeleteKmsSecretsByWildcard1Request
-*/
-func (a *KmsAPIService) DeleteKmsSecretsByWildcard1(ctx context.Context, wildcard1 string) KmsAPIDeleteKmsSecretsByWildcard1Request {
-	return KmsAPIDeleteKmsSecretsByWildcard1Request{
-		ApiService: a,
-		ctx:        ctx,
-		wildcard1:  wildcard1,
-	}
-}
-
-// Execute executes the request
-func (a *KmsAPIService) DeleteKmsSecretsByWildcard1Execute(r KmsAPIDeleteKmsSecretsByWildcard1Request) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.DeleteKmsSecretsByWildcard1")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/kms/secrets/{wildcard1}"
-	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
 
 type KmsAPIGetKmsConfigRequest struct {
 	ctx        context.Context
 	ApiService *KmsAPIService
 }
 
-func (r KmsAPIGetKmsConfigRequest) Execute() (*http.Response, error) {
+func (r KmsAPIGetKmsConfigRequest) Execute() (*KmsConfig, *http.Response, error) {
 	return r.ApiService.GetKmsConfigExecute(r)
 }
 
 /*
-GetKmsConfig Runtime configuration for the KMS console
+GetKmsConfig Returns the runtime configuration for the KMS console.
 
-Returns what the console needs before anyone has signed in: the brand, the OIDC issuer it authenticates against, the API base for this subsystem and the path of the login exchange.
+Returns the runtime configuration for the KMS console.
 
-Public on purpose, and it holds nothing sensitive — it is deliberately kept under this subsystem's own namespace rather than under an admin prefix, so a gateway that admin-gates the admin routes cannot break the console's legitimate pre-login fetch.
+What the console needs before anyone has signed in: the brand, the OIDC issuer
+it authenticates against, the API base for this subsystem and the path of the
+login exchange.
+
+Public on purpose, and it holds nothing sensitive — it is deliberately kept
+under this subsystem's own namespace rather than under an admin prefix, so a
+gateway that admin-gates the admin routes cannot break the console's
+legitimate pre-login fetch.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KmsAPIGetKmsConfigRequest
@@ -145,16 +55,19 @@ func (a *KmsAPIService) GetKmsConfig(ctx context.Context) KmsAPIGetKmsConfigRequ
 }
 
 // Execute executes the request
-func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*http.Response, error) {
+//
+//	@return KmsConfig
+func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*KmsConfig, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KmsConfig
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.GetKmsConfig")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/kms/config"
@@ -173,7 +86,7 @@ func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*http.
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -182,19 +95,19 @@ func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*http.
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -202,10 +115,19 @@ func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*http.
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type KmsAPIGetKmsHealthRequest struct {
@@ -213,16 +135,24 @@ type KmsAPIGetKmsHealthRequest struct {
 	ApiService *KmsAPIService
 }
 
-func (r KmsAPIGetKmsHealthRequest) Execute() (*http.Response, error) {
+func (r KmsAPIGetKmsHealthRequest) Execute() (*KmsHealth, *http.Response, error) {
 	return r.ApiService.GetKmsHealthExecute(r)
 }
 
 /*
-GetKmsHealth Whether this broker can actually serve secrets
+GetKmsHealth Reports whether this broker can actually serve secrets.
 
-A real readiness probe, not a liveness stub: 200 only when the store is open AND a master key is configured, with `signing` reporting whether signing keys are set up too. Anything less answers 503 with `ready:false` and the reason — no in-process store, or no master key — which are exactly the two states in which the secret operations refuse.
+Reports whether this broker can actually serve secrets.
 
-Not token-gated, because the platform must be able to probe it without a credential. It reports the broker's configuration state only; no secret, no key material and no tenant name appears in it.
+A real readiness probe, not a liveness stub: 200 only when the store is open
+AND a master key is configured, with `signing` reporting whether signing keys
+are set up too. Anything less answers 503 with `ready:false` and the reason —
+no in-process store, or no master key — which are exactly the two states in
+which the secret operations refuse.
+
+Not token-gated, because the platform must be able to probe it without a
+credential. It reports the broker's configuration state only; no secret, no
+key material and no tenant name appears in it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KmsAPIGetKmsHealthRequest
@@ -235,16 +165,19 @@ func (a *KmsAPIService) GetKmsHealth(ctx context.Context) KmsAPIGetKmsHealthRequ
 }
 
 // Execute executes the request
-func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*http.Response, error) {
+//
+//	@return KmsHealth
+func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*KmsHealth, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KmsHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.GetKmsHealth")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/kms/health"
@@ -263,7 +196,7 @@ func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*http.
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -272,19 +205,19 @@ func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*http.
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -292,29 +225,85 @@ func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*http.
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v KmsHealth
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type KmsAPIGetKmsSecretsRequest struct {
-	ctx        context.Context
-	ApiService *KmsAPIService
+	ctx         context.Context
+	ApiService  *KmsAPIService
+	env         *string
+	environment *string
+	path        *string
+	secretPath  *string
 }
 
-func (r KmsAPIGetKmsSecretsRequest) Execute() (*http.Response, error) {
+func (r KmsAPIGetKmsSecretsRequest) Env(env string) KmsAPIGetKmsSecretsRequest {
+	r.env = &env
+	return r
+}
+
+func (r KmsAPIGetKmsSecretsRequest) Environment(environment string) KmsAPIGetKmsSecretsRequest {
+	r.environment = &environment
+	return r
+}
+
+func (r KmsAPIGetKmsSecretsRequest) Path(path string) KmsAPIGetKmsSecretsRequest {
+	r.path = &path
+	return r
+}
+
+func (r KmsAPIGetKmsSecretsRequest) SecretPath(secretPath string) KmsAPIGetKmsSecretsRequest {
+	r.secretPath = &secretPath
+	return r
+}
+
+func (r KmsAPIGetKmsSecretsRequest) Execute() (*KmsSecrets, *http.Response, error) {
 	return r.ApiService.GetKmsSecretsExecute(r)
 }
 
 /*
-GetKmsSecrets List the secrets your org holds, without their values
+GetKmsSecrets Lists the secrets your org holds, without their values.
 
-Returns the METADATA of the caller's own secrets: each one's name, path, environment and sealing scheme. No value and no ciphertext is included — this operation exists to enumerate what is held, and reading a value is a separate, per-secret call.
+Lists the secrets your org holds, without their values.
 
-Scoped to the caller's own org and nothing else, structurally: there is no org in the path, the store root is derived from the validated org claim, and a caller therefore has no way to name another tenant's namespace. `path` narrows to a subpath and `env` selects the environment; both are also accepted under the operator's spellings, `secretPath` and `environment`.
+Returns the METADATA of the caller's own secrets: each one's name, path,
+environment and sealing scheme. No value and no ciphertext is included — this
+operation exists to enumerate what is held, and reading a value is a separate,
+per-secret call.
 
-Admission is fail-closed and in order: a validated member, an org that is a DNS-1123 label, and a store holding a master key — 403, 400 and 503 respectively, all decided before any record is touched.
+Scoped to the caller's own org and nothing else, structurally: there is no org
+in the path, the store root is derived from the validated org claim, and a
+caller therefore has no way to name another tenant's namespace. `path` narrows
+to a subpath and `env` selects the environment; both are also accepted under
+the operator's spellings, `secretPath` and `environment`. An omitted `env`
+means every environment and an omitted `path` means the whole org, because a
+default here reported a populated store as empty.
+
+Admission is fail-closed and in order: a validated member, an org that is a
+DNS-1123 label, and a store holding a master key — 403, 400 and 503
+respectively, all decided before any record is touched.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KmsAPIGetKmsSecretsRequest
@@ -327,16 +316,19 @@ func (a *KmsAPIService) GetKmsSecrets(ctx context.Context) KmsAPIGetKmsSecretsRe
 }
 
 // Execute executes the request
-func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*http.Response, error) {
+//
+//	@return KmsSecrets
+func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*KmsSecrets, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KmsSecrets
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.GetKmsSecrets")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/kms/secrets"
@@ -345,6 +337,18 @@ func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*htt
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.env != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "form", "")
+	}
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.path != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "form", "")
+	}
+	if r.secretPath != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "secretPath", r.secretPath, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -355,7 +359,7 @@ func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*htt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -364,19 +368,19 @@ func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*htt
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -384,125 +388,55 @@ func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*htt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type KmsAPIGetKmsSecretsByWildcard1Request struct {
-	ctx        context.Context
-	ApiService *KmsAPIService
-	wildcard1  string
-}
-
-func (r KmsAPIGetKmsSecretsByWildcard1Request) Execute() (*http.Response, error) {
-	return r.ApiService.GetKmsSecretsByWildcard1Execute(r)
-}
-
-/*
-GetKmsSecretsByWildcard1 Read one secret's value
-
-Opens one sealed secret belonging to the caller's own org and returns its value in the response body, with the name and environment it was resolved under. This is the broker's purpose, and the response body is the ONLY place the value appears — it is not logged, and it is never carried in an error.
-
-The trailing path is the secret's subpath and name beneath the caller's org root; `env` selects the environment and falls back to the default when omitted. A secret that is not there is a plain 404 that names nothing about the store.
-
-Scoped to the caller's own org and nothing else: there is no org in the path, so another tenant's secret is not merely refused, it is unnameable. Admission is fail-closed — validated member, well-formed org, master key present — and an unconfigured master key is 503 rather than an empty read.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param wildcard1
-	@return KmsAPIGetKmsSecretsByWildcard1Request
-*/
-func (a *KmsAPIService) GetKmsSecretsByWildcard1(ctx context.Context, wildcard1 string) KmsAPIGetKmsSecretsByWildcard1Request {
-	return KmsAPIGetKmsSecretsByWildcard1Request{
-		ApiService: a,
-		ctx:        ctx,
-		wildcard1:  wildcard1,
-	}
-}
-
-// Execute executes the request
-func (a *KmsAPIService) GetKmsSecretsByWildcard1Execute(r KmsAPIGetKmsSecretsByWildcard1Request) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.GetKmsSecretsByWildcard1")
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/kms/secrets/{wildcard1}"
-	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
+			error: err.Error(),
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type KmsAPIPostKmsAuthLoginRequest struct {
 	ctx        context.Context
 	ApiService *KmsAPIService
+	kmsLogin   *KmsLogin
 }
 
-func (r KmsAPIPostKmsAuthLoginRequest) Execute() (*http.Response, error) {
+func (r KmsAPIPostKmsAuthLoginRequest) KmsLogin(kmsLogin KmsLogin) KmsAPIPostKmsAuthLoginRequest {
+	r.kmsLogin = &kmsLogin
+	return r
+}
+
+func (r KmsAPIPostKmsAuthLoginRequest) Execute() (*KmsToken, *http.Response, error) {
 	return r.ApiService.PostKmsAuthLoginExecute(r)
 }
 
 /*
-PostKmsAuthLogin Exchange a machine credential for an IAM bearer token
+PostKmsAuthLogin Exchanges a machine credential for an IAM bearer token.
 
-Takes a tenant's machine credential — a client id and client secret — and returns an owner-scoped IAM access token with its lifetime, which is the bearer the caller then carries on the org-scoped secret operations.
+Exchanges a machine credential for an IAM bearer token.
 
-It is deliberately public and unauthenticated, because it IS the credential exchange and runs before any principal exists. That makes it the one route in this subsystem rate-limited PER SOURCE IP, keyed on the real TCP peer rather than on any caller-supplied header.
+Takes a tenant's machine credential — a client id and client secret — and
+returns an owner-scoped IAM access token with its lifetime, which is the
+bearer the caller then carries on the org-scoped secret operations.
 
-The submitted secret is never logged and never echoed, and failures collapse to one clean status with no upstream detail: 401 when the credential does not authenticate, 502 when the identity provider is unreachable, 503 when no issuer is configured. That is on purpose — a richer error would be a validity oracle for guessed credentials.
+It is deliberately public and unauthenticated, because it IS the credential
+exchange and runs before any principal exists. That makes it the one route in
+this subsystem rate-limited PER SOURCE IP, keyed on the real TCP peer rather
+than on any caller-supplied header, and body-capped at the same door.
+
+The submitted secret is never logged and never echoed, and failures collapse
+to one clean status with no upstream detail: 401 when the credential does not
+authenticate, 502 when the identity provider is unreachable, 503 when no
+issuer is configured. That is on purpose — a richer error would be a validity
+oracle for guessed credentials.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KmsAPIPostKmsAuthLoginRequest
@@ -515,16 +449,19 @@ func (a *KmsAPIService) PostKmsAuthLogin(ctx context.Context) KmsAPIPostKmsAuthL
 }
 
 // Execute executes the request
-func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest) (*http.Response, error) {
+//
+//	@return KmsToken
+func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest) (*KmsToken, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KmsToken
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.PostKmsAuthLogin")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/kms/auth/login"
@@ -532,9 +469,12 @@ func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.kmsLogin == nil {
+		return localVarReturnValue, nil, reportError("kmsLogin is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -543,28 +483,30 @@ func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.kmsLogin
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -572,31 +514,61 @@ func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type KmsAPIPostKmsSecretsRequest struct {
 	ctx        context.Context
 	ApiService *KmsAPIService
+	kmsPut     *KmsPut
 }
 
-func (r KmsAPIPostKmsSecretsRequest) Execute() (*http.Response, error) {
+func (r KmsAPIPostKmsSecretsRequest) KmsPut(kmsPut KmsPut) KmsAPIPostKmsSecretsRequest {
+	r.kmsPut = &kmsPut
+	return r
+}
+
+func (r KmsAPIPostKmsSecretsRequest) Execute() (*KmsStored, *http.Response, error) {
 	return r.ApiService.PostKmsSecretsExecute(r)
 }
 
 /*
-PostKmsSecrets Store or replace one secret in your org
+PostKmsSecrets Stores or replaces one secret in your org.
 
-Upserts one secret under the caller's own org. The value is sealed before it is written — a fresh per-secret data key, itself wrapped by the master key — so plaintext never reaches disk. The receipt confirms the name and environment that were written and does not echo the value.
+Stores or replaces one secret in your org.
 
-`env` is REQUIRED on a write and has no default, which is the rule most easily got wrong here: reads and deletes still fall back to the default environment for older callers, but a write must not, because the environment is part of the storage key. A silently defaulted write lands in a bucket the readers that resolve project, environment and path never look in, and the stale value keeps being served — so the write fails loudly instead.
+Upserts one secret under the caller's own org. The value is sealed before it
+is written — a fresh per-secret data key, itself wrapped by the master key —
+so plaintext never reaches disk. The receipt confirms the name and environment
+that were written and does not echo the value.
 
-`name` is required, `path` is an optional subpath beneath the org root, and the org is taken from the validated claim rather than the body.
+`env` is REQUIRED on a write and has no default, which is the rule most easily
+got wrong here: reads and deletes still fall back to the default environment
+for older callers, but a write must not, because the environment is part of
+the storage key. A silently defaulted write lands in a bucket the readers that
+resolve project, environment and path never look in, and the stale value keeps
+being served — so the write fails loudly instead.
 
-Requires ADMIN authority over the org — a member reads, an admin writes. A machine credential holds no membership and so is never an org admin: it can read the secrets it was issued for and cannot replace one. Fail-closed admission, in order: admin of the org, well-formed org, master key present — 403, 400 and 503, all decided before any record is touched.
+`name` is required, `path` is an optional subpath beneath the org root, and
+the org is taken from the validated claim rather than the body.
+
+Requires ADMIN authority over the org — a member reads, an admin writes. A
+machine credential holds no membership and so is never an org admin: it can
+read the secrets it was issued for and cannot replace one. Fail-closed
+admission, in order: admin of the org, well-formed org, master key present —
+403, 400 and 503, all decided before any record is touched.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KmsAPIPostKmsSecretsRequest
@@ -609,16 +581,19 @@ func (a *KmsAPIService) PostKmsSecrets(ctx context.Context) KmsAPIPostKmsSecrets
 }
 
 // Execute executes the request
-func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*http.Response, error) {
+//
+//	@return KmsStored
+func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*KmsStored, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KmsStored
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.PostKmsSecrets")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/kms/secrets"
@@ -626,9 +601,12 @@ func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*h
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.kmsPut == nil {
+		return localVarReturnValue, nil, reportError("kmsPut is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -637,28 +615,30 @@ func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*h
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.kmsPut
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -666,8 +646,17 @@ func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*h
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

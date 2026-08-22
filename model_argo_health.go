@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,8 +19,10 @@ var _ MappedNullable = &ArgoHealth{}
 
 // ArgoHealth struct for ArgoHealth
 type ArgoHealth struct {
+	// Message is why the status is what it is — \"Running: no replicas ready\", \"iam: CrashLoopBackOff\". A Healthy object carries one too (\"Running: all replicas ready\"), so this is not a failure signal. Always absent on a CD row, which reports no health message.
 	Message *string `json:"message,omitempty"`
-	Status  *string `json:"status,omitempty"`
+	// Status is the ArgoCD health vocabulary, Capitalized: Healthy, Progressing, Degraded, Suspended, Missing or Unknown. For an App CR it is derived per object from what the operator reconciled (a workload with every replica ready is Healthy, one scaled to zero is Suspended, a crash-looping pod is Degraded); for a CD row it is the verdict CD wrote.
+	Status *string `json:"status,omitempty"`
 }
 
 // NewArgoHealth instantiates a new ArgoHealth object

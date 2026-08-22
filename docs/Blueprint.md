@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Brand** | Pointer to **string** |  | [optional] 
-**Enabled** | Pointer to **bool** |  | [optional] 
-**Principles** | Pointer to [**[]Principle**](Principle.md) | the 64-principle spine (Zen of Hanzo archetypes) | [optional] 
-**Sections** | Pointer to [**[]Section**](Section.md) |  | [optional] 
-**Steps** | Pointer to [**[]JourneyStep**](JourneyStep.md) |  | [optional] 
-**Strategies** | Pointer to [**[]Strategy**](Strategy.md) |  | [optional] 
-**Templates** | Pointer to [**[]Page**](Page.md) |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
+**Brand** | Pointer to **string** | Brand is the white-label key this playbook serves. Empty is the shared default every unbranded deployment falls back to. | [optional] 
+**Enabled** | Pointer to **bool** | Enabled is the whole-playbook lever. Absent reads as ON; an explicit false makes resolution skip this playbook entirely and fall through to the next tier, rather than serving an empty journey. | [optional] 
+**Principles** | Pointer to [**[]Principle**](Principle.md) | Principles are the fixed 64-archetype spine a tactic files under. It is authored data an operator organises the corpus by; nothing in the checklist engine reads it. | [optional] 
+**Sections** | Pointer to [**[]Section**](Section.md) | Sections are the journey&#39;s ordered phases. | [optional] 
+**Steps** | Pointer to [**[]JourneyStep**](JourneyStep.md) | Steps are every checklist item, disabled ones included — this is the authored document, not the projection an org runs. | [optional] 
+**Strategies** | Pointer to [**[]Strategy**](Strategy.md) | Strategies are the tactics corpus the recommendation reads narrow. | [optional] 
+**Templates** | Pointer to [**[]Page**](Page.md) | Templates are the reusable prompts and snippets steps reference by id. | [optional] 
+**Title** | Pointer to **string** | Title is the playbook&#39;s name as a person reads it. | [optional] 
+**Version** | Pointer to **string** | Version is the playbook&#39;s own name for this edition of its content, chosen by whoever authored it. It travels onto every journey projected from it. The store&#39;s numeric revision is a separate value and lives beside it. | [optional] 
 
 ## Methods
 

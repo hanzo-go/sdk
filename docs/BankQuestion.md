@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Connector** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **string** |  | [optional] 
-**ExternalId** | Pointer to **string** |  | [optional] 
-**Prompt** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Connector** | Pointer to **string** | Connector names the feed the unplaceable line arrived on. With externalId it identifies both the question and the bank line it is about, so re-syncing the same deposit never asks twice. | [optional] 
+**CreatedAt** | Pointer to **string** | CreatedAt is when the question was raised. | [optional] 
+**ExternalId** | Pointer to **string** | ExternalID is the bank&#39;s own id for the line in question. | [optional] 
+**Prompt** | Pointer to **string** | Prompt is the question put to the founder in plain language — what this money was, since the books cannot place it on their own. | [optional] 
+**Status** | Pointer to **string** | Status is whether the question is still open or has been answered. | [optional] 
 
 ## Methods
 

@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Body** | Pointer to **string** | Body is the post text. Required. | [optional] 
 **Channel** | Pointer to **string** | Channel is the target network: x, facebook, instagram, linkedin, tiktok, youtube or threads. Required — a post must name where it goes. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt and UpdatedAt are unix seconds, both server-assigned. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is unix seconds when the post was added, server-assigned and never rewritten. | [optional] 
 **Error** | Pointer to **string** | Error is the exact reason the last publish attempt failed — the honest record behind a \&quot;failed\&quot; status, never a faked success. | [optional] 
 **Id** | Pointer to **string** | ID is the server-assigned post id (\&quot;cal_\&quot; + 128 random bits). | [optional] 
 **PublishedAt** | Pointer to **int32** | PublishedAt is when the publish succeeded; 0 until it does. | [optional] 
 **ScheduledAt** | Pointer to **int32** | ScheduledAt is the unix publish time; 0 leaves the post a draft, and any value makes it \&quot;scheduled\&quot; for the durable sweep to pick up. | [optional] 
 **Status** | Pointer to **string** | Status is draft, scheduled, published, failed or canceled. Server-owned. | [optional] 
 **Title** | Pointer to **string** | Title is the post&#39;s internal label, capped at 1024 bytes. | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is unix seconds of the last write, server-assigned. The durable sweep writes too — claiming a due post, publishing it and recording a failure each bump it — so this moves without anyone editing the post. | [optional] 
 
 ## Methods
 

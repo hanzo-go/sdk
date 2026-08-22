@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccessKey** | Pointer to **string** | AccessKey (pk-*) is the publishable identifier and lookup index; AccessSecret (sk-*) is the confidential secret. | [optional] 
+**AccessKey** | Pointer to **string** | AccessKey (pk-*) is the publishable identifier and lookup index; AccessSecret (sk-*) is the confidential secret. AccessSecret IS NOT PERSISTED for a key minted at or after the digest change: it carries the secret out to its holder once, in the mint response, and the row keeps only AccessSecretDigest. It stays on the struct because that one-time reveal is the whole point of minting, and it stays in the schema because rows written before the change still hold a plaintext secret that the resolver drains on first use. | [optional] 
 **AccessSecret** | Pointer to **string** |  | [optional] 
+**AccessSecretDigest** | Pointer to **string** | AccessSecretDigest is how a presented secret finds its key: the resolver digests what the caller sent and looks THAT up. It is what lets the row hold no plaintext and still be found in one indexed read — a salted hash cannot be looked up by value, which is the reason the plaintext was here. | [optional] 
+**Act** | Pointer to **bool** | Act is the durable, opt-in grant that lets this key act FOR a user in its own org — the credential behind as(): presenting it authorizes minting a short-lived, user-bound token for a member of the key&#39;s tenant. Default false, so a server key mints nothing on anyone&#39;s behalf until the grant is set deliberately — the capability is never inherited by every key. It is confined at mint time to the key&#39;s OWN Owner, and a reserved-org or SuperAdmin target is refused, so the grant reaches only ordinary members of the one tenant that holds the key. | [optional] 
 **Application** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **CreatedTime** | Pointer to **string** | CreatedTime and UpdatedTime are RFC3339 audit stamps carried as strings for byte-parity with the v1 row (orm.Model separately tracks CreatedAt / UpdatedAt as time.Time for the store&#39;s own lifecycle). | [optional] 
@@ -91,6 +93,56 @@ SetAccessSecret sets AccessSecret field to given value.
 `func (o *IamKey) HasAccessSecret() bool`
 
 HasAccessSecret returns a boolean if a field has been set.
+
+### GetAccessSecretDigest
+
+`func (o *IamKey) GetAccessSecretDigest() string`
+
+GetAccessSecretDigest returns the AccessSecretDigest field if non-nil, zero value otherwise.
+
+### GetAccessSecretDigestOk
+
+`func (o *IamKey) GetAccessSecretDigestOk() (*string, bool)`
+
+GetAccessSecretDigestOk returns a tuple with the AccessSecretDigest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccessSecretDigest
+
+`func (o *IamKey) SetAccessSecretDigest(v string)`
+
+SetAccessSecretDigest sets AccessSecretDigest field to given value.
+
+### HasAccessSecretDigest
+
+`func (o *IamKey) HasAccessSecretDigest() bool`
+
+HasAccessSecretDigest returns a boolean if a field has been set.
+
+### GetAct
+
+`func (o *IamKey) GetAct() bool`
+
+GetAct returns the Act field if non-nil, zero value otherwise.
+
+### GetActOk
+
+`func (o *IamKey) GetActOk() (*bool, bool)`
+
+GetActOk returns a tuple with the Act field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAct
+
+`func (o *IamKey) SetAct(v bool)`
+
+SetAct sets Act field to given value.
+
+### HasAct
+
+`func (o *IamKey) HasAct() bool`
+
+HasAct returns a boolean if a field has been set.
 
 ### GetApplication
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Children** | Pointer to [**[]TreeNode**](TreeNode.md) |  | [optional] 
-**Session** | Pointer to [**SessionView**](SessionView.md) |  | [optional] 
+**Children** | Pointer to [**[]TreeNode**](TreeNode.md) | Children is this node&#39;s direct children, each a whole node, so the array nests to the depth of the flow. A leaf carries null rather than an empty array. The subtree is materialised in full, up to 10000 nodes, out of one indexed read of the root; nothing is walked node by node. | [optional] 
+**Session** | Pointer to [**SessionView**](SessionView.md) | Session is this node&#39;s own session, carrying its event count and its direct fan-out. It is the same shape the list and detail reads answer with, minus the last-event preview, which the tree does not fetch. | [optional] 
 
 ## Methods
 

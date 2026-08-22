@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attempt** | Pointer to **int32** |  | [optional] 
-**Created** | Pointer to **string** |  | [optional] 
-**Delivery** | Pointer to **string** |  | [optional] 
-**DurationMs** | Pointer to **int32** |  | [optional] 
-**Endpoint** | Pointer to **string** |  | [optional] 
-**Error** | Pointer to **string** |  | [optional] 
-**HttpStatus** | Pointer to **int32** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Subject** | Pointer to **string** |  | [optional] 
+**Attempt** | Pointer to **int32** | Attempt is which try this row is, starting at 1. The ladder waits 1s, then 5s, then 25s before the next one. | [optional] 
+**Created** | Pointer to **string** | Created is when the attempt was made, RFC3339 in UTC. | [optional] 
+**Delivery** | Pointer to **string** | DeliveryID groups the attempts for ONE event to ONE endpoint. Rows sharing it are the same delivery being retried, not separate events. | [optional] 
+**DurationMs** | Pointer to **int32** | DurationMs is how long this attempt took end to end, in MILLISECONDS. | [optional] 
+**Endpoint** | Pointer to **string** | EndpointID is which subscriber this attempt was for. | [optional] 
+**Error** | Pointer to **string** | Error says what went wrong on a non-ok attempt. Empty on success. | [optional] 
+**HttpStatus** | Pointer to **int32** | HTTPStatus is what the subscriber answered. ZERO means it never answered — a refused connection, a DNS failure or a timeout — which is why a zero here is not a 200. | [optional] 
+**Status** | Pointer to **string** | Status is \&quot;ok\&quot; when the subscriber accepted it, \&quot;retrying\&quot; while a further attempt will follow, and \&quot;failed\&quot; when none will. Exactly one row of a delivery is terminal. | [optional] 
+**Subject** | Pointer to **string** | Subject is the event that was delivered (\&quot;commerce.order.created\&quot;). A manual test send carries \&quot;webhook.test\&quot;. | [optional] 
 
 ## Methods
 

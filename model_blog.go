@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &Blog{}
 
 // Blog struct for Blog
 type Blog struct {
+	// CaseStudy is one worked instance — somebody who ran it, and what happened.
 	CaseStudy *string `json:"caseStudy,omitempty"`
-	How       *string `json:"how,omitempty"`
-	Slug      *string `json:"slug,omitempty"`
-	Title     *string `json:"title,omitempty"`
-	Why       *string `json:"why,omitempty"`
+	// How is the run book: the steps to execute the tactic.
+	How *string `json:"how,omitempty"`
+	// Slug is the post's address — the last path segment it is published at.
+	Slug *string `json:"slug,omitempty"`
+	// Title is the post's headline.
+	Title *string `json:"title,omitempty"`
+	// Why is the mechanism: the reason the tactic works, stated as a principle rather than as instructions.
+	Why *string `json:"why,omitempty"`
 }
 
 // NewBlog instantiates a new Blog object

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &BankQuestion{}
 
 // BankQuestion struct for BankQuestion
 type BankQuestion struct {
-	Connector  *string `json:"connector,omitempty"`
-	CreatedAt  *string `json:"createdAt,omitempty"`
+	// Connector names the feed the unplaceable line arrived on. With externalId it identifies both the question and the bank line it is about, so re-syncing the same deposit never asks twice.
+	Connector *string `json:"connector,omitempty"`
+	// CreatedAt is when the question was raised.
+	CreatedAt *string `json:"createdAt,omitempty"`
+	// ExternalID is the bank's own id for the line in question.
 	ExternalId *string `json:"externalId,omitempty"`
-	Prompt     *string `json:"prompt,omitempty"`
-	Status     *string `json:"status,omitempty"`
+	// Prompt is the question put to the founder in plain language — what this money was, since the books cannot place it on their own.
+	Prompt *string `json:"prompt,omitempty"`
+	// Status is whether the question is still open or has been answered.
+	Status *string `json:"status,omitempty"`
 }
 
 // NewBankQuestion instantiates a new BankQuestion object

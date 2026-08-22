@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -31,9 +31,10 @@ type CodingStartIn struct {
 	Project *string `json:"project,omitempty"`
 	// Prompt is the task, in the words you would use with a colleague who has the checkout open. It is the whole instruction: there is no second field for context, and a prompt that names files and the outcome it wants gets a run that does not have to guess either.
 	Prompt *string `json:"prompt,omitempty"`
-	// ReplyChannel / ReplyThread are WHERE THE RUN NARRATES ITSELF, when the door that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app door's case, because /v1/coding hands back a session id and the session stream is a better progress feed than any message could be.  It is an ADDRESS and not a token: the engine says \"put this text there\", and the process that owns the workspace's bot credential is the one that actually posts. So a run reports into a Slack thread without the engine ever holding the token that could post anywhere else in that workspace.
+	// ReplyChannel / ReplyThread are WHERE THE RUN NARRATES ITSELF, when the door that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app door's case, because /v1/agents/coding hands back a session id and the session stream is a better progress feed than any message could be.  It is an ADDRESS and not a token: the engine says \"put this text there\", and the process that owns the workspace's bot credential is the one that actually posts. So a run reports into a Slack thread without the engine ever holding the token that could post anywhere else in that workspace.
 	ReplyChannel *string `json:"replyChannel,omitempty"`
-	ReplyThread  *string `json:"replyThread,omitempty"`
+	// ReplyThread narrows that address to one THREAD inside the channel: on Slack it is the parent message's ts, the same value a reply carries as thread_ts. Empty puts the run's status line at the top level of the channel instead.  The channel is what decides whether a run narrates at all, so this on its own addresses nothing — a thread with no ReplyChannel is a run nobody hears.
+	ReplyThread *string `json:"replyThread,omitempty"`
 	// Repo is what to work on, as `owner/name` in the caller's own org. The engine resolves the clone URL and the push credential from the org itself, so this says WHICH repository and never how to reach it.
 	Repo *string `json:"repo,omitempty"`
 	// TargetID routes the run to a registered machine the org has claimed instead of to a sandbox in our cluster. Empty runs it here, which is the usual case.

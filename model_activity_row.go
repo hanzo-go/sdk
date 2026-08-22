@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,18 @@ var _ MappedNullable = &ActivityRow{}
 
 // ActivityRow struct for ActivityRow
 type ActivityRow struct {
+	// Action is one of created, updated, deleted.
 	Action *string `json:"action,omitempty"`
-	Actor  *string `json:"actor,omitempty"`
-	At     *string `json:"at,omitempty"`
+	// Actor is the email of the principal who made the change. Empty for a write by an in-process composer; a project key can never appear here, because evaluating flags is all a key may do.
+	Actor *string `json:"actor,omitempty"`
+	// At is when the change was made, RFC 3339 UTC.
+	At *string `json:"at,omitempty"`
+	// Detail is free-form context about the change. Nothing writes it today, so it is absent from every row the store serves.
 	Detail *string `json:"detail,omitempty"`
-	Id     *int32  `json:"id,omitempty"`
-	Key    *string `json:"key,omitempty"`
+	// ID is the log's own sequence number, rising with each entry. The log is served newest-first, which is this descending.
+	Id *int32 `json:"id,omitempty"`
+	// Key is the flag that changed. It survives a delete, so the log still names flags the definition store no longer holds.
+	Key *string `json:"key,omitempty"`
 }
 
 // NewActivityRow instantiates a new ActivityRow object

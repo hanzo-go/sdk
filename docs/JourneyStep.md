@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Args** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Args** | Pointer to **map[string]map[string]interface{}** | Args are the tool&#39;s default arguments, merged under whatever the caller passes at run time, so a step ships with the arguments that make it work. | [optional] 
 **Deps** | Pointer to **[]string** | Dependencies are step ids that must be done/skipped before this step is available. The wire key is &#x60;deps&#x60; (the blueprint contract); the Go field keeps its descriptive name. | [optional] 
-**Detail** | Pointer to **string** | the prose/juncture — what the Guide asks/explains here | [optional] 
-**Draft** | Pointer to **string** |  | [optional] 
-**DraftInto** | Pointer to **string** |  | [optional] 
+**Detail** | Pointer to **string** | Detail is the juncture — what the Guide explains, or asks for, at this step. | [optional] 
+**Draft** | Pointer to **string** | Draft, when set, is the prompt the embedded AI answers first; its output is folded into one of Args before the tool runs, so the model writes the content and the tool only delivers it. | [optional] 
+**DraftInto** | Pointer to **string** | DraftInto names the argument the drafted text lands in. Empty means \&quot;brief\&quot;. | [optional] 
 **Enabled** | Pointer to **bool** | Enabled is the admin on/off lever. A NIL pointer reads as ENABLED (absence &#x3D;&#x3D; on): a legacy/org curriculum that omits the field keeps every step, and only an explicit &#x60;enabled: false&#x60; (an admin disable) drops a step from the journey. See on() in blueprint.go and the Blueprint.Curriculum() projection. | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Section** | Pointer to **string** | the phase (section id) this step groups under | [optional] 
+**Id** | Pointer to **string** | ID is the stable slug the whole plane addresses this step by — the value in &#x60;deps&#x60;, in &#x60;next&#x60;, in the progress rows, and in the URL of every step route. Renaming it orphans an org&#39;s recorded progress for this step. | [optional] 
+**Section** | Pointer to **string** | Section is the id of the phase this step groups under. A disabled section takes its steps out of the journey with it. | [optional] 
 **Signal** | Pointer to **string** | Signal, when set, names a machine detector (detect.go). When the detector reports the org&#39;s real state present, the step auto-marks done. | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Tool** | Pointer to **string** | Tool, when set, is the MCP tool the Business AI runs for \&quot;do it for me\&quot;. Args are its default arguments; Draft is an optional AI prompt whose output fills the DraftInto arg (default \&quot;brief\&quot;). | [optional] 
+**Title** | Pointer to **string** | Title is the one-line quest as a person reads it in the checklist. | [optional] 
+**Tool** | Pointer to **string** | Tool, when set, names the MCP tool the Business AI runs for \&quot;do it for me\&quot;. A step with no tool can only be completed by a person; it is the field the &#x60;automatable&#x60; flag on every projection of this step is derived from. | [optional] 
 
 ## Methods
 

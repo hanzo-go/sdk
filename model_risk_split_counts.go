@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -21,15 +21,20 @@ var _ MappedNullable = &RiskSplitCounts{}
 type RiskSplitCounts struct {
 	// Judged is how many rows carry a disposition. It is zero until a label plane writes one, and reporting it plainly is what lets a model plane refuse to rank rather than name a winner it cannot justify.
 	Judged *int32 `json:"judged,omitempty"`
-	// Productive and Unproductive are the two judged classes, so the imbalance is visible before anyone trains on it.
+	// Productive is how many judged rows carry the one disposition.
 	Productive *int32 `json:"productive,omitempty"`
-	Rows       *int32 `json:"rows,omitempty"`
+	// Rows is how many rows the version holds across every split. It is the size of the version, not of the source window — the horizon, the cuts and the row cap all bind before this number.
+	Rows *int32 `json:"rows,omitempty"`
 	// Subjects is how many distinct subjects the rows belong to. Every row of one subject is in ONE split, so this is the real sample size — the row count flatters it whenever a subject is active.
-	Subjects     *int32 `json:"subjects,omitempty"`
-	Test         *int32 `json:"test,omitempty"`
-	Train        *int32 `json:"train,omitempty"`
+	Subjects *int32 `json:"subjects,omitempty"`
+	// Test is how many fall after the second cut — the LATEST slice, and the only one a score is honest about, since the split is temporal.
+	Test *int32 `json:"test,omitempty"`
+	// Train is how many rows fall before the first cut — the EARLIEST slice of the window, which is what a model is fitted on.
+	Train *int32 `json:"train,omitempty"`
+	// Unproductive is how many carry the other. With Productive it accounts for Judged, so the class imbalance is visible before anyone trains on it; both stay 0 while Judged is 0.
 	Unproductive *int32 `json:"unproductive,omitempty"`
-	Val          *int32 `json:"val,omitempty"`
+	// Val is how many fall between the two cuts, held out for tuning.
+	Val *int32 `json:"val,omitempty"`
 }
 
 // NewRiskSplitCounts instantiates a new RiskSplitCounts object

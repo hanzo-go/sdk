@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,13 @@ var _ MappedNullable = &Channel{}
 
 // Channel struct for Channel
 type Channel struct {
+	// Disabled is true for a channel the org switched off at the social edge. It is still listed — this is what the org has CONNECTED, not what it can post to — but a publish never targets it, neither by name nor as part of the \"every channel\" default.
 	Disabled *bool `json:"disabled,omitempty"`
-	// the social integration id to target in a post
-	Id   *string `json:"id,omitempty"`
+	// ID is the social integration id a post targets. It is the exact value to put in a content item's `channels` list to reach this one connected account.
+	Id *string `json:"id,omitempty"`
+	// Name is the account label as the org connected it — the handle a human recognises. It is never an address: a publish resolves channels by ID or by Provider and never by this.
 	Name *string `json:"name,omitempty"`
-	// \"x\" | \"instagram\" | \"tiktok\" | ...
+	// Provider is the network behind the integration: \"x\", \"instagram\", \"tiktok\" and the rest of what the org connected. Naming a provider in a publish targets EVERY connected account of it, so it is the coarse handle where ID is the precise one.
 	Provider *string `json:"provider,omitempty"`
 }
 

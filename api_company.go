@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -784,6 +784,122 @@ func (a *CompanyAPIService) PostCompanyDocumentsExecute(r CompanyAPIPostCompanyD
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CompanyAPIPostCompanyEinRequest struct {
+	ctx        context.Context
+	ApiService *CompanyAPIService
+	einIn      *EinIn
+}
+
+func (r CompanyAPIPostCompanyEinRequest) EinIn(einIn EinIn) CompanyAPIPostCompanyEinRequest {
+	r.einIn = &einIn
+	return r
+}
+
+func (r CompanyAPIPostCompanyEinRequest) Execute() (*EIN, *http.Response, error) {
+	return r.ApiService.PostCompanyEinExecute(r)
+}
+
+/*
+PostCompanyEin Opens the EIN application and answers what it owes.
+
+Opens the EIN application and answers what it owes.
+
+The answer states whether it can be filed ONLINE, because that is the fact
+deciding whether the customer waits a sitting or several weeks — and it names
+each form with what that form is for, so nobody has to already know what an
+SS-4 is to understand why they are signing one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CompanyAPIPostCompanyEinRequest
+*/
+func (a *CompanyAPIService) PostCompanyEin(ctx context.Context) CompanyAPIPostCompanyEinRequest {
+	return CompanyAPIPostCompanyEinRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return EIN
+func (a *CompanyAPIService) PostCompanyEinExecute(r CompanyAPIPostCompanyEinRequest) (*EIN, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EIN
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyEin")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/company/ein"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.einIn == nil {
+		return localVarReturnValue, nil, reportError("einIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.einIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2166,13 +2282,29 @@ func (r CompanyAPIPostCompanyPaymentRequest) Execute() (*FormationView, *http.Re
 }
 
 /*
-PostCompanyPayment Charge the one-time formation fee and mark the formation paid
+PostCompanyPayment Charges the caller's own org the one-time Hanzo Company formation fee.
 
-Bills the caller's own org the one-time Hanzo Company formation fee — $999 unless the deployment sets another — and answers with the formation record carrying its paid flag and the charge reference. Takes no body: the org is the validated tenant and the amount is the platform's, never the caller's to assert.
+Charges the caller's own org the one-time Hanzo Company formation fee.
 
-IDEMPOTENT on the formation rather than on the request: an already-paid formation answers 200 with the same record and is not charged again, so a retry or a double-clicked button costs nothing. Available only at the `payment` stage (409 anywhere else) and only for an org that has begun a formation (404 otherwise).
+It is $999 unless the deployment sets another, and the answer is the formation
+record carrying its paid flag and the charge reference. It takes no body: the org is the validated tenant and the amount is the
+platform's, never the caller's to assert.
 
-A refused charge answers the fleet-wide billing contract, not a formation error — 402 when the org cannot pay, 503 when metering is unavailable — which is exactly why this route is not a typed op.
+IDEMPOTENT on the formation rather than on the request: an already-paid
+formation answers 200 with the same record and is not charged again, so a
+retry or a double-clicked button costs nothing. Available only at the
+`payment` stage (409 anywhere else) and only for an org that has begun a
+formation (404 otherwise).
+
+A denial answers the fleet-wide billing contract — 402 insufficient_balance,
+402 spend_cap_exceeded, 503 balance_unavailable — carried by cloud.Denied,
+which is the money wire's own {"error":{"code","message"}} body rather than a
+second vocabulary invented for this surface.
+
+The gate is the LAST thing it does, after the stage check and the paid
+short-circuit, so a caller the machine is about to refuse is never charged.
+That ordering is why the gate cannot lift into middleware, where it would run
+first. Both facts are pinned: TestPaymentDenialWire, TestPaymentChargesLast.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyPaymentRequest
@@ -2325,6 +2457,126 @@ func (a *CompanyAPIService) PostCompanySkipExecute(r CompanyAPIPostCompanySkipRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CompanyAPIPostCompanyTariffRequest struct {
+	ctx        context.Context
+	ApiService *CompanyAPIService
+	tariffIn   *TariffIn
+}
+
+func (r CompanyAPIPostCompanyTariffRequest) TariffIn(tariffIn TariffIn) CompanyAPIPostCompanyTariffRequest {
+	r.tariffIn = &tariffIn
+	return r
+}
+
+func (r CompanyAPIPostCompanyTariffRequest) Execute() (*Tariff, *http.Response, error) {
+	return r.ApiService.PostCompanyTariffExecute(r)
+}
+
+/*
+PostCompanyTariff Itemises what a formation costs before anyone commits to it.
+
+Itemises what a formation costs before anyone commits to it.
+
+It answers what is due now and what recurs, as separate figures, and marks the
+state's filing fee as money we collect and remit rather than keep. A caller can
+therefore show a payer the whole bill — which is the point of quoting at all,
+and was impossible while the fee was one number in an error string.
+
+A jurisdiction whose filing fee this deployment has not been told REFUSES,
+naming the setting that fixes it. Quoting our half as though it were the total
+is the one answer that would be worse than no answer.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CompanyAPIPostCompanyTariffRequest
+*/
+func (a *CompanyAPIService) PostCompanyTariff(ctx context.Context) CompanyAPIPostCompanyTariffRequest {
+	return CompanyAPIPostCompanyTariffRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Tariff
+func (a *CompanyAPIService) PostCompanyTariffExecute(r CompanyAPIPostCompanyTariffRequest) (*Tariff, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Tariff
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyTariff")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/company/tariff"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.tariffIn == nil {
+		return localVarReturnValue, nil, reportError("tariffIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.tariffIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

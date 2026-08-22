@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Category** | Pointer to **string** | proposed slug (software|cloud|office|…) | [optional] 
-**Currency** | Pointer to **string** |  | [optional] 
-**IssuedAt** | Pointer to **string** | YYYY-MM-DD | [optional] 
-**LineItems** | Pointer to [**[]LineItem**](LineItem.md) |  | [optional] 
-**Merchant** | Pointer to **string** |  | [optional] 
-**Note** | Pointer to **string** |  | [optional] 
-**TaxCents** | Pointer to **int32** |  | [optional] 
-**TotalCents** | Pointer to **int32** |  | [optional] 
+**Category** | Pointer to **string** | Category is the expense bucket the SCANNER guessed, as a slug — a hint only. Vendor rules override it whenever they know better, so this is the model&#39;s reading and not the account the entry will land on. | [optional] 
+**Currency** | Pointer to **string** | Currency is the ISO code the document is denominated in. | [optional] 
+**IssuedAt** | Pointer to **string** | IssuedAt is the document&#39;s OWN date as YYYY-MM-DD — when the bill was issued, which is not when it was uploaded or when it will post. | [optional] 
+**LineItems** | Pointer to [**[]LineItem**](LineItem.md) | LineItems are the individual lines read off the document, where it had any. They need not sum to totalCents: a document may carry lines the scanner could not read, and the total is taken from the total. | [optional] 
+**Merchant** | Pointer to **string** | Merchant is the supplier as printed on the document. | [optional] 
+**Note** | Pointer to **string** | Note is anything else worth carrying from the document that has no field of its own. | [optional] 
+**TaxCents** | Pointer to **int32** | TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it. | [optional] 
+**TotalCents** | Pointer to **int32** | TotalCents is the document total in whole cents, tax INCLUDED. | [optional] 
 
 ## Methods
 

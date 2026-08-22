@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | ID is the org-derived id of the overlay network — the key GET /v1/networks/{id} addresses. | [optional] 
+**Id** | Pointer to **string** | ID is the org-derived id of the overlay network — the key GET /v1/network/{id} addresses. | [optional] 
 **Name** | Pointer to **string** | Name is the org the overlay belongs to. | [optional] 
 **Nodes** | Pointer to **int32** | Nodes is how many edge-routers the org has on the fabric. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;connected\&quot; once at least one of the org&#39;s edge-routers is online, else \&quot;provisioning\&quot; (routers exist but none has dialed home). | [optional] 

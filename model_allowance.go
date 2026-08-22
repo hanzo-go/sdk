@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -26,8 +26,9 @@ type Allowance struct {
 	// unix seconds; when the count starts again
 	Resets *int32 `json:"resets,omitempty"`
 	// the subject is at the limit
-	Spent *bool  `json:"spent,omitempty"`
-	Used  *int32 `json:"used,omitempty"`
+	Spent *bool `json:"spent,omitempty"`
+	// Used is how many zero-priced calls this subject has been SERVED in the period ending at Resets — the UTC calendar day. Only a served call counts, so an admission check, a refusal, or a vendor that never answered leaves it where it stood. It stops AT Limit rather than climbing past it, so Limit-Used is what remains and never goes negative.
+	Used *int32 `json:"used,omitempty"`
 }
 
 // NewAllowance instantiates a new Allowance object

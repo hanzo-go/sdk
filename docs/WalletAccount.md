@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is when the account was opened, Unix seconds. Listings order by it, newest first. | [optional] 
+**Id** | Pointer to **string** | ID is the account id, minted by the server as \&quot;acct_\&quot; + 24 hex. Wallets name it as their accountId, and it becomes a segment of each of their key refs — so it addresses key material and cannot be reassigned. | [optional] 
+**Name** | Pointer to **string** | Name is the label given at creation, trimmed and required. It groups wallets: it is not a key, holds no balance, and is not unique in the org. | [optional] 
+**Org** | Pointer to **string** | Org is the tenant that owns the account, stamped from the validated principal rather than taken from the request. Every read is physically scoped to it, so another tenant&#39;s accounts are not reachable at all. | [optional] 
 
 ## Methods
 

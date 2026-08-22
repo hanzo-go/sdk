@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClusterResourceWhitelist** | Pointer to [**[]ArgoGroupKind**](ArgoGroupKind.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Destinations** | Pointer to [**[]ArgoDestination**](ArgoDestination.md) |  | [optional] 
-**SourceRepos** | Pointer to **[]string** |  | [optional] 
+**ClusterResourceWhitelist** | Pointer to [**[]ArgoGroupKind**](ArgoGroupKind.md) | ClusterResourceWhitelist are the cluster-scoped kinds it may create — [{group:\&quot;*\&quot;, kind:\&quot;*\&quot;}] on a synthesized project. | [optional] 
+**Description** | Pointer to **string** | Description is the project&#39;s human label: the IAM project&#39;s display name, or its description when it has no display name. Absent when IAM carries neither. | [optional] 
+**Destinations** | Pointer to [**[]ArgoDestination**](ArgoDestination.md) | Destinations are the cluster/namespace pairs it may write to — a single {server:\&quot;*\&quot;, namespace:\&quot;*\&quot;} on a synthesized project, for the same reason. | [optional] 
+**SourceRepos** | Pointer to **[]string** | SourceRepos are the git repos applications in this project may pull from. [\&quot;*\&quot;] for every project this plane synthesizes or reflects from IAM: the boundary that actually holds on this platform is the IAM org, resolved before a row is ever projected, so the projected fence is deliberately permissive and is NOT an authorization statement. | [optional] 
 
 ## Methods
 

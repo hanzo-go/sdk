@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,9 @@ var _ MappedNullable = &Field{}
 
 // Field struct for Field
 type Field struct {
-	Key   *string `json:"key,omitempty"`
+	// Key is the identifier the body substitutes ({{.key}}) and the key a generation's data map must carry. snake_case by convention across the built-ins — effective_date, company_name, governing_law. An override whose body references a key no Field declares is refused on save.
+	Key *string `json:"key,omitempty"`
+	// Label is the human prompt for whoever fills the value in — \"Governing law (state)\". It never reaches the rendered document; only Key does.
 	Label *string `json:"label,omitempty"`
 }
 

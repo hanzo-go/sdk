@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**From** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** | queued | sent | delivered | failed | [optional] 
-**Text** | Pointer to **string** |  | [optional] 
-**To** | Pointer to **string** |  | [optional] 
+**From** | Pointer to **string** | From is the sending number in E.164, and must be one this org holds. | [optional] 
+**Id** | Pointer to **string** | ID is the carrier&#39;s handle for the message. | [optional] 
+**Org** | Pointer to **string** | Org is the tenant the message was sent for or received by. | [optional] 
+**Status** | Pointer to **string** | Status is where the message is: \&quot;queued\&quot;, \&quot;sent\&quot;, \&quot;delivered\&quot; or \&quot;failed\&quot;. \&quot;sent\&quot; means the carrier took it; \&quot;delivered\&quot; means the handset got it, and not every carrier or destination reports that. | [optional] 
+**Text** | Pointer to **string** | Text is the message body. Empty is legal when the message carried only media. | [optional] 
+**To** | Pointer to **string** | To is the receiving number in E.164. | [optional] 
 
 ## Methods
 

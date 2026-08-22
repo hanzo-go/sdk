@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,16 @@ var _ MappedNullable = &Sequence{}
 
 // Sequence struct for Sequence
 type Sequence struct {
-	// CreatedAt and UpdatedAt are unix seconds, both server-assigned.
+	// CreatedAt is unix seconds when the sequence was registered, server-assigned and never rewritten.
 	CreatedAt *int32 `json:"createdAt,omitempty"`
 	// ID is the server-assigned sequence id (\"seq_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
 	// Name is the sequence's label. Required, trimmed, capped at 1024 bytes.
 	Name *string `json:"name,omitempty"`
 	// Status is the lifecycle: draft, active or archived. Empty means draft, and ONLY an active sequence accepts enrollments.
-	Status    *string `json:"status,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// UpdatedAt is unix seconds of the last status flip, server-assigned, and the key the sequence list is ordered by (newest first). Adding a step or enrolling a contact does NOT touch it — only draft/active/archived does — so it tracks activation rather than activity.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 }
 
 // NewSequence instantiates a new Sequence object

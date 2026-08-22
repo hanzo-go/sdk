@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -17,7 +17,7 @@ import (
 // checks if the O11yAvailabilityResponseRange type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &O11yAvailabilityResponseRange{}
 
-// O11yAvailabilityResponseRange struct for O11yAvailabilityResponseRange
+// O11yAvailabilityResponseRange Range is the window and bucket width actually used, after clamping — not what was asked for, which is why a caller reads it back rather than assuming.
 type O11yAvailabilityResponseRange struct {
 	SinceSec *int32 `json:"sinceSec,omitempty"`
 	StepSec  *int32 `json:"stepSec,omitempty"`

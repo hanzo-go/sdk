@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -36,7 +36,6 @@ type IamCert struct {
 	Id               *string    `json:"id,omitempty"`
 	Name             *string    `json:"name,omitempty"`
 	Owner            *string    `json:"owner,omitempty"`
-	PrivateKey       *string    `json:"privateKey,omitempty"`
 	Provider         *string    `json:"provider,omitempty"`
 	Scope            *string    `json:"scope,omitempty"`
 	Type             *string    `json:"type,omitempty"`
@@ -572,38 +571,6 @@ func (o *IamCert) SetOwner(v string) {
 	o.Owner = &v
 }
 
-// GetPrivateKey returns the PrivateKey field value if set, zero value otherwise.
-func (o *IamCert) GetPrivateKey() string {
-	if o == nil || IsNil(o.PrivateKey) {
-		var ret string
-		return ret
-	}
-	return *o.PrivateKey
-}
-
-// GetPrivateKeyOk returns a tuple with the PrivateKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamCert) GetPrivateKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.PrivateKey) {
-		return nil, false
-	}
-	return o.PrivateKey, true
-}
-
-// HasPrivateKey returns a boolean if a field has been set.
-func (o *IamCert) HasPrivateKey() bool {
-	if o != nil && !IsNil(o.PrivateKey) {
-		return true
-	}
-
-	return false
-}
-
-// SetPrivateKey gets a reference to the given string and assigns it to the PrivateKey field.
-func (o *IamCert) SetPrivateKey(v string) {
-	o.PrivateKey = &v
-}
-
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *IamCert) GetProvider() string {
 	if o == nil || IsNil(o.Provider) {
@@ -789,9 +756,6 @@ func (o IamCert) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
-	}
-	if !IsNil(o.PrivateKey) {
-		toSerialize["privateKey"] = o.PrivateKey
 	}
 	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider

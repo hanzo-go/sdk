@@ -4,31 +4,31 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteIndexIndexesByUid**](IndexAPI.md#DeleteIndexIndexesByUid) | **Delete** /v1/index/indexes/{uid} | Delete an index and everything in it
-[**DeleteIndexIndexesByUidDocumentsById**](IndexAPI.md#DeleteIndexIndexesByUidDocumentsById) | **Delete** /v1/index/indexes/{uid}/documents/{id} | Delete one document by its primary key
-[**GetIndexHealth**](IndexAPI.md#GetIndexHealth) | **Get** /v1/index/health | Report whether the search plane can serve
-[**GetIndexIndexes**](IndexAPI.md#GetIndexIndexes) | **Get** /v1/index/indexes | List the indexes your org holds
-[**GetIndexIndexesByUid**](IndexAPI.md#GetIndexIndexesByUid) | **Get** /v1/index/indexes/{uid} | Read one index&#39;s definition
-[**GetIndexIndexesByUidDocuments**](IndexAPI.md#GetIndexIndexesByUidDocuments) | **Get** /v1/index/indexes/{uid}/documents | Page through the documents in an index
-[**GetIndexIndexesByUidDocumentsById**](IndexAPI.md#GetIndexIndexesByUidDocumentsById) | **Get** /v1/index/indexes/{uid}/documents/{id} | Read one document by its primary key
-[**GetIndexIndexesByUidSettings**](IndexAPI.md#GetIndexIndexesByUidSettings) | **Get** /v1/index/indexes/{uid}/settings | Read an index&#39;s filterable attributes
-[**GetIndexStats**](IndexAPI.md#GetIndexStats) | **Get** /v1/index/stats | Count the documents in each of your indexes
-[**GetIndexTasksByUid**](IndexAPI.md#GetIndexTasksByUid) | **Get** /v1/index/tasks/{uid} | Check a write task, which has already finished
-[**GetIndexVersion**](IndexAPI.md#GetIndexVersion) | **Get** /v1/index/version | Identify the search implementation answering
-[**PatchIndexIndexesByUidSettings**](IndexAPI.md#PatchIndexIndexesByUidSettings) | **Patch** /v1/index/indexes/{uid}/settings | Set which attributes an index can be filtered on
-[**PostIndexIndexes**](IndexAPI.md#PostIndexIndexes) | **Post** /v1/index/indexes | Create an index
+[**DeleteIndexIndexesByUid**](IndexAPI.md#DeleteIndexIndexesByUid) | **Delete** /v1/index/indexes/{uid} | Deletes an index and everything in it.
+[**DeleteIndexIndexesByUidDocumentsById**](IndexAPI.md#DeleteIndexIndexesByUidDocumentsById) | **Delete** /v1/index/indexes/{uid}/documents/{id} | Deletes one document by its primary key.
+[**GetIndexHealth**](IndexAPI.md#GetIndexHealth) | **Get** /v1/index/health | Reports whether the search plane can serve.
+[**GetIndexIndexes**](IndexAPI.md#GetIndexIndexes) | **Get** /v1/index/indexes | Lists the indexes your org holds.
+[**GetIndexIndexesByUid**](IndexAPI.md#GetIndexIndexesByUid) | **Get** /v1/index/indexes/{uid} | Reads one index&#39;s definition.
+[**GetIndexIndexesByUidDocuments**](IndexAPI.md#GetIndexIndexesByUidDocuments) | **Get** /v1/index/indexes/{uid}/documents | Pages through the documents in an index.
+[**GetIndexIndexesByUidDocumentsById**](IndexAPI.md#GetIndexIndexesByUidDocumentsById) | **Get** /v1/index/indexes/{uid}/documents/{id} | Reads one document by its primary key.
+[**GetIndexIndexesByUidSettings**](IndexAPI.md#GetIndexIndexesByUidSettings) | **Get** /v1/index/indexes/{uid}/settings | Reads an index&#39;s filterable attributes.
+[**GetIndexStats**](IndexAPI.md#GetIndexStats) | **Get** /v1/index/stats | Counts the documents in each of your indexes.
+[**GetIndexTasksByUid**](IndexAPI.md#GetIndexTasksByUid) | **Get** /v1/index/tasks/{uid} | Checks a write task, which has already finished.
+[**GetIndexVersion**](IndexAPI.md#GetIndexVersion) | **Get** /v1/index/version | Identifies the search implementation answering.
+[**PatchIndexIndexesByUidSettings**](IndexAPI.md#PatchIndexIndexesByUidSettings) | **Patch** /v1/index/indexes/{uid}/settings | Sets which attributes an index can be filtered on.
+[**PostIndexIndexes**](IndexAPI.md#PostIndexIndexes) | **Post** /v1/index/indexes | Creates an index.
 [**PostIndexIndexesByUidDocuments**](IndexAPI.md#PostIndexIndexesByUidDocuments) | **Post** /v1/index/indexes/{uid}/documents | Add or replace documents in an index
 [**PostIndexIndexesByUidDocumentsDeleteBatch**](IndexAPI.md#PostIndexIndexesByUidDocumentsDeleteBatch) | **Post** /v1/index/indexes/{uid}/documents/delete-batch | Delete many documents by primary key in one call
-[**PostIndexIndexesByUidSearch**](IndexAPI.md#PostIndexIndexesByUidSearch) | **Post** /v1/index/indexes/{uid}/search | Search an index, forgiving typos
+[**PostIndexIndexesByUidSearch**](IndexAPI.md#PostIndexIndexesByUidSearch) | **Post** /v1/index/indexes/{uid}/search | Searches an index, forgiving typos.
 [**PutIndexIndexesByUidDocuments**](IndexAPI.md#PutIndexIndexesByUidDocuments) | **Put** /v1/index/indexes/{uid}/documents | Add or update documents in an index
 
 
 
 ## DeleteIndexIndexesByUid
 
-> DeleteIndexIndexesByUid(ctx, uid).Execute()
+> IndexEnqueued DeleteIndexIndexesByUid(ctx, uid).Execute()
 
-Delete an index and everything in it
+Deletes an index and everything in it.
 
 
 
@@ -49,11 +49,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.DeleteIndexIndexesByUid(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.DeleteIndexIndexesByUid(context.Background(), uid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.DeleteIndexIndexesByUid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteIndexIndexesByUid`: IndexEnqueued
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.DeleteIndexIndexesByUid`: %v\n", resp)
 }
 ```
 
@@ -76,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**IndexEnqueued**](IndexEnqueued.md)
 
 ### Authorization
 
@@ -85,7 +87,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -94,9 +96,9 @@ Name | Type | Description  | Notes
 
 ## DeleteIndexIndexesByUidDocumentsById
 
-> DeleteIndexIndexesByUidDocumentsById(ctx, uid, id).Execute()
+> IndexEnqueued DeleteIndexIndexesByUidDocumentsById(ctx, uid, id).Execute()
 
-Delete one document by its primary key
+Deletes one document by its primary key.
 
 
 
@@ -118,11 +120,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.DeleteIndexIndexesByUidDocumentsById(context.Background(), uid, id).Execute()
+	resp, r, err := apiClient.IndexAPI.DeleteIndexIndexesByUidDocumentsById(context.Background(), uid, id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.DeleteIndexIndexesByUidDocumentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteIndexIndexesByUidDocumentsById`: IndexEnqueued
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.DeleteIndexIndexesByUidDocumentsById`: %v\n", resp)
 }
 ```
 
@@ -147,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**IndexEnqueued**](IndexEnqueued.md)
 
 ### Authorization
 
@@ -156,7 +160,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -165,9 +169,9 @@ Name | Type | Description  | Notes
 
 ## GetIndexHealth
 
-> GetIndexHealth(ctx).Execute()
+> IndexHealth GetIndexHealth(ctx).Execute()
 
-Report whether the search plane can serve
+Reports whether the search plane can serve.
 
 
 
@@ -187,11 +191,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexHealth(context.Background()).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexHealth(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexHealth`: IndexHealth
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexHealth`: %v\n", resp)
 }
 ```
 
@@ -206,7 +212,7 @@ Other parameters are passed through a pointer to a apiGetIndexHealthRequest stru
 
 ### Return type
 
- (empty response body)
+[**IndexHealth**](IndexHealth.md)
 
 ### Authorization
 
@@ -215,7 +221,7 @@ Other parameters are passed through a pointer to a apiGetIndexHealthRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -224,9 +230,9 @@ Other parameters are passed through a pointer to a apiGetIndexHealthRequest stru
 
 ## GetIndexIndexes
 
-> GetIndexIndexes(ctx).Execute()
+> IndexList GetIndexIndexes(ctx).Execute()
 
-List the indexes your org holds
+Lists the indexes your org holds.
 
 
 
@@ -246,11 +252,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexIndexes(context.Background()).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexIndexes(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexIndexes`: IndexList
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexes`: %v\n", resp)
 }
 ```
 
@@ -265,7 +273,7 @@ Other parameters are passed through a pointer to a apiGetIndexIndexesRequest str
 
 ### Return type
 
- (empty response body)
+[**IndexList**](IndexList.md)
 
 ### Authorization
 
@@ -274,7 +282,7 @@ Other parameters are passed through a pointer to a apiGetIndexIndexesRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -283,9 +291,9 @@ Other parameters are passed through a pointer to a apiGetIndexIndexesRequest str
 
 ## GetIndexIndexesByUid
 
-> GetIndexIndexesByUid(ctx, uid).Execute()
+> IndexView GetIndexIndexesByUid(ctx, uid).Execute()
 
-Read one index's definition
+Reads one index's definition.
 
 
 
@@ -306,11 +314,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexIndexesByUid(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexIndexesByUid(context.Background(), uid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexesByUid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexIndexesByUid`: IndexView
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexesByUid`: %v\n", resp)
 }
 ```
 
@@ -333,7 +343,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**IndexView**](IndexView.md)
 
 ### Authorization
 
@@ -342,7 +352,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -351,9 +361,9 @@ Name | Type | Description  | Notes
 
 ## GetIndexIndexesByUidDocuments
 
-> GetIndexIndexesByUidDocuments(ctx, uid).Execute()
+> IndexDocuments GetIndexIndexesByUidDocuments(ctx, uid).Limit(limit).Offset(offset).Execute()
 
-Page through the documents in an index
+Pages through the documents in an index.
 
 
 
@@ -371,14 +381,18 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
+	limit := "limit_example" // string |  (optional)
+	offset := "offset_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexIndexesByUidDocuments(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexIndexesByUidDocuments(context.Background(), uid).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexesByUidDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexIndexesByUidDocuments`: IndexDocuments
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexesByUidDocuments`: %v\n", resp)
 }
 ```
 
@@ -398,10 +412,12 @@ Other parameters are passed through a pointer to a apiGetIndexIndexesByUidDocume
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **limit** | **string** |  | 
+ **offset** | **string** |  | 
 
 ### Return type
 
- (empty response body)
+[**IndexDocuments**](IndexDocuments.md)
 
 ### Authorization
 
@@ -410,7 +426,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -419,9 +435,9 @@ Name | Type | Description  | Notes
 
 ## GetIndexIndexesByUidDocumentsById
 
-> GetIndexIndexesByUidDocumentsById(ctx, uid, id).Execute()
+> interface{} GetIndexIndexesByUidDocumentsById(ctx, uid, id).Execute()
 
-Read one document by its primary key
+Reads one document by its primary key.
 
 
 
@@ -443,11 +459,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexIndexesByUidDocumentsById(context.Background(), uid, id).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexIndexesByUidDocumentsById(context.Background(), uid, id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexesByUidDocumentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexIndexesByUidDocumentsById`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexesByUidDocumentsById`: %v\n", resp)
 }
 ```
 
@@ -472,7 +490,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+**interface{}**
 
 ### Authorization
 
@@ -481,7 +499,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -490,9 +508,9 @@ Name | Type | Description  | Notes
 
 ## GetIndexIndexesByUidSettings
 
-> GetIndexIndexesByUidSettings(ctx, uid).Execute()
+> IndexSettings GetIndexIndexesByUidSettings(ctx, uid).Execute()
 
-Read an index's filterable attributes
+Reads an index's filterable attributes.
 
 
 
@@ -513,11 +531,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexIndexesByUidSettings(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexIndexesByUidSettings(context.Background(), uid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexesByUidSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexIndexesByUidSettings`: IndexSettings
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexesByUidSettings`: %v\n", resp)
 }
 ```
 
@@ -540,7 +560,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**IndexSettings**](IndexSettings.md)
 
 ### Authorization
 
@@ -549,7 +569,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -558,9 +578,9 @@ Name | Type | Description  | Notes
 
 ## GetIndexStats
 
-> GetIndexStats(ctx).Execute()
+> IndexStats GetIndexStats(ctx).Execute()
 
-Count the documents in each of your indexes
+Counts the documents in each of your indexes.
 
 
 
@@ -580,11 +600,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexStats(context.Background()).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexStats(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexStats``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexStats`: IndexStats
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexStats`: %v\n", resp)
 }
 ```
 
@@ -599,7 +621,7 @@ Other parameters are passed through a pointer to a apiGetIndexStatsRequest struc
 
 ### Return type
 
- (empty response body)
+[**IndexStats**](IndexStats.md)
 
 ### Authorization
 
@@ -608,7 +630,7 @@ Other parameters are passed through a pointer to a apiGetIndexStatsRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -617,9 +639,9 @@ Other parameters are passed through a pointer to a apiGetIndexStatsRequest struc
 
 ## GetIndexTasksByUid
 
-> GetIndexTasksByUid(ctx, uid).Execute()
+> IndexTask GetIndexTasksByUid(ctx, uid).Execute()
 
-Check a write task, which has already finished
+Checks a write task, which has already finished.
 
 
 
@@ -636,15 +658,17 @@ import (
 )
 
 func main() {
-	uid := "uid_example" // string | 
+	uid := int32(56) // int32 | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexTasksByUid(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexTasksByUid(context.Background(), uid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexTasksByUid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexTasksByUid`: IndexTask
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexTasksByUid`: %v\n", resp)
 }
 ```
 
@@ -654,7 +678,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**uid** | **string** |  | 
+**uid** | **int32** |  | 
 
 ### Other Parameters
 
@@ -667,7 +691,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**IndexTask**](IndexTask.md)
 
 ### Authorization
 
@@ -676,7 +700,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -685,9 +709,9 @@ Name | Type | Description  | Notes
 
 ## GetIndexVersion
 
-> GetIndexVersion(ctx).Execute()
+> IndexVersion GetIndexVersion(ctx).Execute()
 
-Identify the search implementation answering
+Identifies the search implementation answering.
 
 
 
@@ -707,11 +731,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.GetIndexVersion(context.Background()).Execute()
+	resp, r, err := apiClient.IndexAPI.GetIndexVersion(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetIndexVersion`: IndexVersion
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexVersion`: %v\n", resp)
 }
 ```
 
@@ -726,7 +752,7 @@ Other parameters are passed through a pointer to a apiGetIndexVersionRequest str
 
 ### Return type
 
- (empty response body)
+[**IndexVersion**](IndexVersion.md)
 
 ### Authorization
 
@@ -735,7 +761,7 @@ Other parameters are passed through a pointer to a apiGetIndexVersionRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -744,9 +770,9 @@ Other parameters are passed through a pointer to a apiGetIndexVersionRequest str
 
 ## PatchIndexIndexesByUidSettings
 
-> PatchIndexIndexesByUidSettings(ctx, uid).Execute()
+> IndexEnqueued PatchIndexIndexesByUidSettings(ctx, uid).IndexFilter(indexFilter).Execute()
 
-Set which attributes an index can be filtered on
+Sets which attributes an index can be filtered on.
 
 
 
@@ -764,14 +790,17 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
+	indexFilter := *openapiclient.NewIndexFilter() // IndexFilter | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.PatchIndexIndexesByUidSettings(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.PatchIndexIndexesByUidSettings(context.Background(), uid).IndexFilter(indexFilter).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PatchIndexIndexesByUidSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PatchIndexIndexesByUidSettings`: IndexEnqueued
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PatchIndexIndexesByUidSettings`: %v\n", resp)
 }
 ```
 
@@ -791,10 +820,11 @@ Other parameters are passed through a pointer to a apiPatchIndexIndexesByUidSett
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **indexFilter** | [**IndexFilter**](IndexFilter.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**IndexEnqueued**](IndexEnqueued.md)
 
 ### Authorization
 
@@ -802,8 +832,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -812,9 +842,9 @@ Name | Type | Description  | Notes
 
 ## PostIndexIndexes
 
-> PostIndexIndexes(ctx).Execute()
+> IndexEnqueued PostIndexIndexes(ctx).IndexNew(indexNew).Execute()
 
-Create an index
+Creates an index.
 
 
 
@@ -831,29 +861,36 @@ import (
 )
 
 func main() {
+	indexNew := *openapiclient.NewIndexNew() // IndexNew | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.PostIndexIndexes(context.Background()).Execute()
+	resp, r, err := apiClient.IndexAPI.PostIndexIndexes(context.Background()).IndexNew(indexNew).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PostIndexIndexes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostIndexIndexes`: IndexEnqueued
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PostIndexIndexes`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostIndexIndexesRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **indexNew** | [**IndexNew**](IndexNew.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**IndexEnqueued**](IndexEnqueued.md)
 
 ### Authorization
 
@@ -861,8 +898,8 @@ Other parameters are passed through a pointer to a apiPostIndexIndexesRequest st
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -871,7 +908,7 @@ Other parameters are passed through a pointer to a apiPostIndexIndexesRequest st
 
 ## PostIndexIndexesByUidDocuments
 
-> PostIndexIndexesByUidDocuments(ctx, uid).Execute()
+> IndexEnqueued PostIndexIndexesByUidDocuments(ctx, uid).RequestBody(requestBody).Execute()
 
 Add or replace documents in an index
 
@@ -891,14 +928,17 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
+	requestBody := []interface{}{interface{}(123)} // []interface{} |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.PostIndexIndexesByUidDocuments(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.PostIndexIndexesByUidDocuments(context.Background(), uid).RequestBody(requestBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PostIndexIndexesByUidDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostIndexIndexesByUidDocuments`: IndexEnqueued
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PostIndexIndexesByUidDocuments`: %v\n", resp)
 }
 ```
 
@@ -918,10 +958,11 @@ Other parameters are passed through a pointer to a apiPostIndexIndexesByUidDocum
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **requestBody** | **[]interface{}** |  | 
 
 ### Return type
 
- (empty response body)
+[**IndexEnqueued**](IndexEnqueued.md)
 
 ### Authorization
 
@@ -929,8 +970,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -939,7 +980,7 @@ Name | Type | Description  | Notes
 
 ## PostIndexIndexesByUidDocumentsDeleteBatch
 
-> PostIndexIndexesByUidDocumentsDeleteBatch(ctx, uid).Execute()
+> IndexEnqueued PostIndexIndexesByUidDocumentsDeleteBatch(ctx, uid).PostIndexIndexesByUidDocumentsDeleteBatchRequest(postIndexIndexesByUidDocumentsDeleteBatchRequest).Execute()
 
 Delete many documents by primary key in one call
 
@@ -959,14 +1000,17 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
+	postIndexIndexesByUidDocumentsDeleteBatchRequest := openapiclient.post_index_indexes_by_uid_documents_delete_batch_request{ArrayOfFloat32: new([]float32)} // PostIndexIndexesByUidDocumentsDeleteBatchRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.PostIndexIndexesByUidDocumentsDeleteBatch(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.PostIndexIndexesByUidDocumentsDeleteBatch(context.Background(), uid).PostIndexIndexesByUidDocumentsDeleteBatchRequest(postIndexIndexesByUidDocumentsDeleteBatchRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PostIndexIndexesByUidDocumentsDeleteBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostIndexIndexesByUidDocumentsDeleteBatch`: IndexEnqueued
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PostIndexIndexesByUidDocumentsDeleteBatch`: %v\n", resp)
 }
 ```
 
@@ -986,10 +1030,11 @@ Other parameters are passed through a pointer to a apiPostIndexIndexesByUidDocum
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **postIndexIndexesByUidDocumentsDeleteBatchRequest** | [**PostIndexIndexesByUidDocumentsDeleteBatchRequest**](PostIndexIndexesByUidDocumentsDeleteBatchRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**IndexEnqueued**](IndexEnqueued.md)
 
 ### Authorization
 
@@ -997,8 +1042,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1007,9 +1052,9 @@ Name | Type | Description  | Notes
 
 ## PostIndexIndexesByUidSearch
 
-> PostIndexIndexesByUidSearch(ctx, uid).Execute()
+> IndexHits PostIndexIndexesByUidSearch(ctx, uid).IndexQuery(indexQuery).Execute()
 
-Search an index, forgiving typos
+Searches an index, forgiving typos.
 
 
 
@@ -1027,14 +1072,17 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
+	indexQuery := *openapiclient.NewIndexQuery() // IndexQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.PostIndexIndexesByUidSearch(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.PostIndexIndexesByUidSearch(context.Background(), uid).IndexQuery(indexQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PostIndexIndexesByUidSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostIndexIndexesByUidSearch`: IndexHits
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PostIndexIndexesByUidSearch`: %v\n", resp)
 }
 ```
 
@@ -1054,10 +1102,11 @@ Other parameters are passed through a pointer to a apiPostIndexIndexesByUidSearc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **indexQuery** | [**IndexQuery**](IndexQuery.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**IndexHits**](IndexHits.md)
 
 ### Authorization
 
@@ -1065,8 +1114,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1075,7 +1124,7 @@ Name | Type | Description  | Notes
 
 ## PutIndexIndexesByUidDocuments
 
-> PutIndexIndexesByUidDocuments(ctx, uid).Execute()
+> IndexEnqueued PutIndexIndexesByUidDocuments(ctx, uid).RequestBody(requestBody).Execute()
 
 Add or update documents in an index
 
@@ -1095,14 +1144,17 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
+	requestBody := []interface{}{interface{}(123)} // []interface{} |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IndexAPI.PutIndexIndexesByUidDocuments(context.Background(), uid).Execute()
+	resp, r, err := apiClient.IndexAPI.PutIndexIndexesByUidDocuments(context.Background(), uid).RequestBody(requestBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PutIndexIndexesByUidDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PutIndexIndexesByUidDocuments`: IndexEnqueued
+	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PutIndexIndexesByUidDocuments`: %v\n", resp)
 }
 ```
 
@@ -1122,10 +1174,11 @@ Other parameters are passed through a pointer to a apiPutIndexIndexesByUidDocume
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **requestBody** | **[]interface{}** |  | 
 
 ### Return type
 
- (empty response body)
+[**IndexEnqueued**](IndexEnqueued.md)
 
 ### Authorization
 
@@ -1133,8 +1186,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

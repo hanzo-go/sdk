@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** |  | [optional] 
-**Repos** | Pointer to [**[]GithubSearchHit**](GithubSearchHit.md) |  | [optional] 
+**Count** | Pointer to **int32** | Count is how many hits Repos carries. It is that array&#39;s length, NOT GitHub&#39;s total_count, so it never exceeds limit and says nothing about how many more repositories matched. | [optional] 
+**Repos** | Pointer to [**[]GithubSearchHit**](GithubSearchHit.md) | Repos are the matching repositories in GitHub&#39;s own relevance order, capped at limit. Always an array, never null. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,16 @@ var _ MappedNullable = &Audience{}
 
 // Audience struct for Audience
 type Audience struct {
-	// CreatedAt and UpdatedAt are unix seconds, both server-assigned.
+	// CreatedAt is unix seconds when the filter was saved, server-assigned.
 	CreatedAt *int32 `json:"createdAt,omitempty"`
 	// Event is the analytics event a member must have fired. EMPTY MEANS NO FILTER: the audience is then every mailable customer in the org, and no warehouse is consulted.
 	Event *string `json:"event,omitempty"`
 	// ID is the server-assigned audience id (\"aud_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
 	// Name is the audience's label. Required, trimmed, capped at 1024 bytes.
-	Name      *string `json:"name,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// UpdatedAt is unix seconds of the last write, server-assigned, and the key the audience list is ordered by (newest first). A saved audience has no update route, so in practice it stays equal to CreatedAt: to change a filter you save another one.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 	// WindowDays is how far back the event counts, ending now. 0 means 30 and nothing above 3650 is honoured. Ignored when Event is empty.
 	WindowDays *int32 `json:"windowDays,omitempty"`
 }

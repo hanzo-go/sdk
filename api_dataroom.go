@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -959,6 +959,328 @@ func (a *DataroomAPIService) GetDataroomLinksExecute(r DataroomAPIGetDataroomLin
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type DataroomAPIGetDataroomTrustRequest struct {
+	ctx        context.Context
+	ApiService *DataroomAPIService
+}
+
+func (r DataroomAPIGetDataroomTrustRequest) Execute() (*TrustDesk, *http.Response, error) {
+	return r.ApiService.GetDataroomTrustExecute(r)
+}
+
+/*
+GetDataroomTrust Answers the caller org's OWN trust centre: its settings, every item it holds in both tiers, the requests waiting on it, and the grants it has made.
+
+Answers the caller org's OWN trust centre: its settings, every item it
+holds in both tiers, the requests waiting on it, and the grants it has made.
+
+The org is the caller's, taken from the validated bearer and from nothing else,
+so this op cannot be pointed at another tenant — there is no field for one. An
+org that has never opened a centre reads back an empty one rather than an error,
+because having no trust centre is an ordinary state and this is the read that
+tells you so.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return DataroomAPIGetDataroomTrustRequest
+*/
+func (a *DataroomAPIService) GetDataroomTrust(ctx context.Context) DataroomAPIGetDataroomTrustRequest {
+	return DataroomAPIGetDataroomTrustRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TrustDesk
+func (a *DataroomAPIService) GetDataroomTrustExecute(r DataroomAPIGetDataroomTrustRequest) (*TrustDesk, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrustDesk
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomTrust")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DataroomAPIGetDataroomTrustCenterBySlugRequest struct {
+	ctx        context.Context
+	ApiService *DataroomAPIService
+	slug       string
+}
+
+func (r DataroomAPIGetDataroomTrustCenterBySlugRequest) Execute() (*TrustPage, *http.Response, error) {
+	return r.ApiService.GetDataroomTrustCenterBySlugExecute(r)
+}
+
+/*
+GetDataroomTrustCenterBySlug Answers an org's public trust centre: its name, the text a party must accept to ask for a document, and every item it publishes.
+
+Answers an org's public trust centre: its name, the text a party must
+accept to ask for a document, and every item it publishes.
+
+An item is either available NOW — the things the org states itself, its policies,
+its filled questionnaires, its subprocessor list, its knowledge base — or
+available ON REQUEST, which is everything an independent auditor put their name
+to. Both are listed by name and kind, so a reader can see WHAT exists before
+asking for it; only the second withholds the content.
+
+No principal is involved and none is accepted: the org is resolved from the
+address, which answers only for a centre its owner has published. An address
+nobody publishes at is not found, the same answer an unpublished one gets.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug Slug is the centre's public address. It resolves only for an org that has published; anything else is not found, so this cannot be used to learn which orgs exist.
+	@return DataroomAPIGetDataroomTrustCenterBySlugRequest
+*/
+func (a *DataroomAPIService) GetDataroomTrustCenterBySlug(ctx context.Context, slug string) DataroomAPIGetDataroomTrustCenterBySlugRequest {
+	return DataroomAPIGetDataroomTrustCenterBySlugRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TrustPage
+func (a *DataroomAPIService) GetDataroomTrustCenterBySlugExecute(r DataroomAPIGetDataroomTrustCenterBySlugRequest) (*TrustPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrustPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomTrustCenterBySlug")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust/center/{slug}"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DataroomAPIGetDataroomTrustCenterBySlugFileByItemRequest struct {
+	ctx        context.Context
+	ApiService *DataroomAPIService
+	slug       string
+	item       string
+}
+
+func (r DataroomAPIGetDataroomTrustCenterBySlugFileByItemRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetDataroomTrustCenterBySlugFileByItemExecute(r)
+}
+
+/*
+GetDataroomTrustCenterBySlugFileByItem Read a public trust-centre item's bytes
+
+Streams the file behind an item a trust centre publishes openly — a policy, a filled questionnaire, a knowledge-base attachment — under its recorded content type.
+
+No principal and no link: these are the things an org states about itself, so they are served to anyone who asks. The narrowing is in the lookup rather than in a check: the item must be public, must not be retired, and must belong to a centre its owner has published, so an item released only on request is NOT FOUND here rather than refused — the same answer an id that never existed gets, which is what stops this reporting what the released-on-request tier holds.
+
+Bytes that cannot be fetched from object storage are 502, never a truncated file.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug
+	@param item
+	@return DataroomAPIGetDataroomTrustCenterBySlugFileByItemRequest
+*/
+func (a *DataroomAPIService) GetDataroomTrustCenterBySlugFileByItem(ctx context.Context, slug string, item string) DataroomAPIGetDataroomTrustCenterBySlugFileByItemRequest {
+	return DataroomAPIGetDataroomTrustCenterBySlugFileByItemRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+		item:       item,
+	}
+}
+
+// Execute executes the request
+func (a *DataroomAPIService) GetDataroomTrustCenterBySlugFileByItemExecute(r DataroomAPIGetDataroomTrustCenterBySlugFileByItemRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomTrustCenterBySlugFileByItem")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust/center/{slug}/file/{item}"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"item"+"}", url.PathEscape(parameterValueToString(r.item, "item")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type DataroomAPIGetDataroomViewByLinkidRequest struct {
 	ctx        context.Context
 	ApiService *DataroomAPIService
@@ -1153,6 +1475,133 @@ func (a *DataroomAPIService) GetDataroomViewByLinkidDocumentByDocumentidFileExec
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type DataroomAPIPatchDataroomTrustArtifactsByIdRequest struct {
+	ctx        context.Context
+	ApiService *DataroomAPIService
+	id         string
+	trustEdit  *TrustEdit
+}
+
+func (r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) TrustEdit(trustEdit TrustEdit) DataroomAPIPatchDataroomTrustArtifactsByIdRequest {
+	r.trustEdit = &trustEdit
+	return r
+}
+
+func (r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) Execute() (*TrustItemView, *http.Response, error) {
+	return r.ApiService.PatchDataroomTrustArtifactsByIdExecute(r)
+}
+
+/*
+PatchDataroomTrustArtifactsById Amend changes an item on the caller org's trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+
+Amend changes an item on the caller org's trust centre — replace its file with a
+newer edition, move it between public and gated, rewrite what it says, or retire
+it — and answers with the item as it now stands.
+
+Retiring is the withdrawal: the item leaves the public centre immediately and can
+no longer be granted, while grants already made over it stand, because a release
+that happened is part of the record and un-happening it in the record would be a
+lie. Restoring is the same call with retired false.
+
+Moving an item an independent auditor signed to the public tier is refused, and
+refused by the database rather than only here. Only an admin of the org may call
+it, and the item is resolved in that org's own store, so another org's id is not
+found.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the item to change, taken from the path.
+	@return DataroomAPIPatchDataroomTrustArtifactsByIdRequest
+*/
+func (a *DataroomAPIService) PatchDataroomTrustArtifactsById(ctx context.Context, id string) DataroomAPIPatchDataroomTrustArtifactsByIdRequest {
+	return DataroomAPIPatchDataroomTrustArtifactsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TrustItemView
+func (a *DataroomAPIService) PatchDataroomTrustArtifactsByIdExecute(r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) (*TrustItemView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrustItemView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PatchDataroomTrustArtifactsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust/artifacts/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.trustEdit == nil {
+		return localVarReturnValue, nil, reportError("trustEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.trustEdit
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type DataroomAPIPostDataroomDataroomsRequest struct {
@@ -1617,6 +2066,518 @@ func (a *DataroomAPIService) PostDataroomLinksExecute(r DataroomAPIPostDataroomL
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type DataroomAPIPostDataroomTrustArtifactsRequest struct {
+	ctx          context.Context
+	ApiService   *DataroomAPIService
+	trustPublish *TrustPublish
+}
+
+func (r DataroomAPIPostDataroomTrustArtifactsRequest) TrustPublish(trustPublish TrustPublish) DataroomAPIPostDataroomTrustArtifactsRequest {
+	r.trustPublish = &trustPublish
+	return r
+}
+
+func (r DataroomAPIPostDataroomTrustArtifactsRequest) Execute() (*TrustItemView, *http.Response, error) {
+	return r.ApiService.PostDataroomTrustArtifactsExecute(r)
+}
+
+/*
+PostDataroomTrustArtifacts Publish puts an item on the caller org's trust centre and answers with it.
+
+Publish puts an item on the caller org's trust centre and answers with it.
+
+The item is GATED unless it says otherwise, so a kind nobody has thought of yet
+arrives private and someone has to release it deliberately — that default is what
+keeps an auditor's report from becoming readable because a field went unset. An
+item whose attester is "auditor" cannot be public at all: the database refuses the
+pair, so no path through this API can publish one.
+
+A file is optional and is uploaded FIRST, through POST /v1/dataroom/documents,
+then named here — the data room is the one place bytes enter, so a trust centre
+document is an ordinary data-room document and inherits its storage, its grants
+and its page-by-page access record. A gated item that has a file is added to the
+org's release room, which is what lets a party be granted the whole gated tier in
+one link.
+
+Only an admin of the org may call it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return DataroomAPIPostDataroomTrustArtifactsRequest
+*/
+func (a *DataroomAPIService) PostDataroomTrustArtifacts(ctx context.Context) DataroomAPIPostDataroomTrustArtifactsRequest {
+	return DataroomAPIPostDataroomTrustArtifactsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TrustItemView
+func (a *DataroomAPIService) PostDataroomTrustArtifactsExecute(r DataroomAPIPostDataroomTrustArtifactsRequest) (*TrustItemView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrustItemView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomTrustArtifacts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust/artifacts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.trustPublish == nil {
+		return localVarReturnValue, nil, reportError("trustPublish is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.trustPublish
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest struct {
+	ctx        context.Context
+	ApiService *DataroomAPIService
+	slug       string
+	trustAsk   *TrustAsk
+}
+
+func (r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) TrustAsk(trustAsk TrustAsk) DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest {
+	r.trustAsk = &trustAsk
+	return r
+}
+
+func (r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) Execute() (*TrustAsked, *http.Response, error) {
+	return r.ApiService.PostDataroomTrustCenterBySlugRequestsExecute(r)
+}
+
+/*
+PostDataroomTrustCenterBySlugRequests Records a request to read what an independent auditor signed, and answers with its id.
+
+Records a request to read what an independent auditor signed, and
+answers with its id.
+
+The org that owns the centre decides. Nothing is released here and no link is
+minted: this writes the ask down, which is the whole promise the form makes.
+The write is the answer — a request that could not be stored is an error, never
+a receipt, so a form can never appear to have been sent and be gone.
+
+`email` is required and is the ONLY address the eventual grant will admit, so an
+address the asker cannot read is an ask that cannot be answered. Where the centre
+states an NDA, `accept` must be true and the text in force is recorded verbatim
+against the request.
+
+Asking twice for the same thing from the same address is the SAME ask: the second
+answers with the first's id rather than opening a second row, which is also what
+keeps an anonymous door from filling a tenant's store.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug Slug is the centre's public address, taken from the path.
+	@return DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest
+*/
+func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequests(ctx context.Context, slug string) DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest {
+	return DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TrustAsked
+func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequestsExecute(r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) (*TrustAsked, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrustAsked
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomTrustCenterBySlugRequests")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust/center/{slug}/requests"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.trustAsk == nil {
+		return localVarReturnValue, nil, reportError("trustAsk is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.trustAsk
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DataroomAPIPostDataroomTrustRequestsByIdGrantRequest struct {
+	ctx           context.Context
+	ApiService    *DataroomAPIService
+	id            string
+	trustDecision *TrustDecision
+}
+
+func (r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) TrustDecision(trustDecision TrustDecision) DataroomAPIPostDataroomTrustRequestsByIdGrantRequest {
+	r.trustDecision = &trustDecision
+	return r
+}
+
+func (r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) Execute() (*TrustGranted, *http.Response, error) {
+	return r.ApiService.PostDataroomTrustRequestsByIdGrantExecute(r)
+}
+
+/*
+PostDataroomTrustRequestsByIdGrant Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+
+Grant answers a request by opening access: it mints a share link over what was
+asked for, addressed to the address that asked and closing at expiry, records the
+decision, and mails the asker.
+
+The link is NEVER a public URL. It carries the asker's address on its allow list,
+so forwarding it to somebody else does not open it, and it expires. What the
+party then does with it — which document, which page, for how long — is recorded
+by the data room's own view tracking, which is where the access record for this
+release lives; there is no second log.
+
+A request that was already answered is refused rather than answered twice, so a
+second click cannot mint a second link. Only an admin of the org may call it, and
+the request is resolved in that org's own store, so another org's request id is
+not found — which is also what stops one org deciding another's queue.
+
+Mail is best effort and the grant does not depend on it: a deployment that sends
+no mail still records the grant and says so in `delivery`, so the approver knows
+to pass the address on themselves.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the request to answer, taken from the path.
+	@return DataroomAPIPostDataroomTrustRequestsByIdGrantRequest
+*/
+func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrant(ctx context.Context, id string) DataroomAPIPostDataroomTrustRequestsByIdGrantRequest {
+	return DataroomAPIPostDataroomTrustRequestsByIdGrantRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TrustGranted
+func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrantExecute(r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) (*TrustGranted, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrustGranted
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomTrustRequestsByIdGrant")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust/requests/{id}/grant"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.trustDecision == nil {
+		return localVarReturnValue, nil, reportError("trustDecision is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.trustDecision
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest struct {
+	ctx           context.Context
+	ApiService    *DataroomAPIService
+	id            string
+	trustDecision *TrustDecision
+}
+
+func (r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) TrustDecision(trustDecision TrustDecision) DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest {
+	r.trustDecision = &trustDecision
+	return r
+}
+
+func (r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) Execute() (*TrustRefused, *http.Response, error) {
+	return r.ApiService.PostDataroomTrustRequestsByIdRefuseExecute(r)
+}
+
+/*
+PostDataroomTrustRequestsByIdRefuse Refuse answers a request by declining it, recording who declined and why.
+
+Refuse answers a request by declining it, recording who declined and why.
+
+Nothing is released and no link is minted. The refusal STAYS on the record beside
+the ask — a request that was turned down is part of the access record exactly as
+one that was granted is, and deleting it would leave a queue that only ever shows
+the decisions somebody liked.
+
+A request that was already answered is refused rather than answered twice. Only an
+admin of the org may call it, and the request is resolved in that org's own store,
+so another org's request id is not found.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the request to answer, taken from the path.
+	@return DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest
+*/
+func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuse(ctx context.Context, id string) DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest {
+	return DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TrustRefused
+func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuseExecute(r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) (*TrustRefused, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrustRefused
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomTrustRequestsByIdRefuse")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust/requests/{id}/refuse"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.trustDecision == nil {
+		return localVarReturnValue, nil, reportError("trustDecision is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.trustDecision
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type DataroomAPIPostDataroomViewByLinkidAuthenticateRequest struct {
 	ctx        context.Context
 	ApiService *DataroomAPIService
@@ -1807,4 +2768,124 @@ func (a *DataroomAPIService) PostDataroomViewByLinkidPageviewExecute(r DataroomA
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type DataroomAPIPutDataroomTrustRequest struct {
+	ctx           context.Context
+	ApiService    *DataroomAPIService
+	trustSettings *TrustSettings
+}
+
+func (r DataroomAPIPutDataroomTrustRequest) TrustSettings(trustSettings TrustSettings) DataroomAPIPutDataroomTrustRequest {
+	r.trustSettings = &trustSettings
+	return r
+}
+
+func (r DataroomAPIPutDataroomTrustRequest) Execute() (*TrustDesk, *http.Response, error) {
+	return r.ApiService.PutDataroomTrustExecute(r)
+}
+
+/*
+PutDataroomTrust SetCenter opens, publishes or withdraws the caller org's trust centre and answers with the centre as it now stands.
+
+SetCenter opens, publishes or withdraws the caller org's trust centre and answers
+with the centre as it now stands.
+
+Publishing requires a name and an address, and the address must be free: another
+org already answering there is a conflict, never a takeover. Withdrawing closes
+the public door only — items, grants and the access record are untouched, so an
+org can go quiet and come back without losing anything.
+
+Only an admin of the org may call it. The org is the caller's own, so there is no
+field naming one and no way to point this at another tenant.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return DataroomAPIPutDataroomTrustRequest
+*/
+func (a *DataroomAPIService) PutDataroomTrust(ctx context.Context) DataroomAPIPutDataroomTrustRequest {
+	return DataroomAPIPutDataroomTrustRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TrustDesk
+func (a *DataroomAPIService) PutDataroomTrustExecute(r DataroomAPIPutDataroomTrustRequest) (*TrustDesk, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TrustDesk
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PutDataroomTrust")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/dataroom/trust"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.trustSettings == nil {
+		return localVarReturnValue, nil, reportError("trustSettings is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.trustSettings
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

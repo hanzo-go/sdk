@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Value** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Name is the chip&#39;s label. The only one this projection produces is \&quot;Image Tag\&quot;. | [optional] 
+**Value** | Pointer to **string** | Value is the chip&#39;s value — for \&quot;Image Tag\&quot;, the tag the node runs. | [optional] 
 
 ## Methods
 

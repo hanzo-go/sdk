@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Configured** | Pointer to **bool** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**DisplayName** | Pointer to **string** |  | [optional] 
+**Configured** | Pointer to **bool** | Configured is whether THIS DEPLOYMENT holds the OAuth client credentials for the provider. False means Connect would dead-end, so the console can offer it disabled instead of broken. It is deployment-wide and says nothing about whether the caller&#39;s org has connected the source — that is the connector list&#39;s &#x60;status&#x60;. | [optional] 
+**Description** | Pointer to **string** | Description is one line of shop copy: what connecting this source pulls in. Native connectors carry written prose; a piece-backed one reads \&quot;activepieces connector (&lt;piece&gt;)\&quot;. | [optional] 
+**DisplayName** | Pointer to **string** | DisplayName is the label to show a person. First-party connectors carry a written name (\&quot;GitHub\&quot;, \&quot;Google Drive\&quot;); a piece-backed one falls back to the provider capitalized, because the rich activepieces metadata lives behind a cross-service call this read will not make. | [optional] 
 **Kind** | Pointer to **string** | \&quot;native\&quot; | \&quot;piece\&quot; | [optional] 
-**Provider** | Pointer to **string** |  | [optional] 
+**Provider** | Pointer to **string** | Provider is the source&#39;s id and the address every connector op takes it by (/v1/knowledge/connectors/:provider). One of github, slack, google, notion. | [optional] 
 
 ## Methods
 

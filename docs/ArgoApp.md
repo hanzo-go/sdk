@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApiVersion** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Metadata** | Pointer to [**ArgoMeta**](ArgoMeta.md) |  | [optional] 
-**Spec** | Pointer to [**ArgoSpec**](ArgoSpec.md) |  | [optional] 
-**Status** | Pointer to [**ArgoStatus**](ArgoStatus.md) |  | [optional] 
+**ApiVersion** | Pointer to **string** | APIVersion is the constant \&quot;argoproj.io/v1alpha1\&quot; — the shape, not the source. These are projections of operator App CRs and Hanzo CD Applications; no argoproj.io object is stored anywhere behind this plane. | [optional] 
+**Kind** | Pointer to **string** | Kind is the constant \&quot;Application\&quot;. | [optional] 
+**Metadata** | Pointer to [**ArgoMeta**](ArgoMeta.md) | Metadata is the projected object&#39;s identity. | [optional] 
+**Spec** | Pointer to [**ArgoSpec**](ArgoSpec.md) | Spec is the desired state: where it comes from, where it lands, what project it belongs to. | [optional] 
+**Status** | Pointer to [**ArgoStatus**](ArgoStatus.md) | Status is what was observed: the sync verdict, the health, and the owned objects when this is a detail read. | [optional] 
 
 ## Methods
 

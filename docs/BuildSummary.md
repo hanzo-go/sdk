@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Agent** | Pointer to **string** |  | [optional] 
-**EndedAt** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Project** | Pointer to **string** |  | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
-**Session** | Pointer to **string** |  | [optional] 
-**StartedAt** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Turns** | Pointer to **int32** |  | [optional] 
+**Agent** | Pointer to **string** | Agent is the label the surface that did the work calls itself by. | [optional] 
+**EndedAt** | Pointer to **string** | EndedAt is when it finished, same format. Empty means it is still going. | [optional] 
+**Org** | Pointer to **string** | Org and Project are the build&#39;s public ADDRESS — the pair the full story is read at, and the pair a visitor sees in the URL bar. Not a tenant key: this index is anonymous and lists only what authors published. | [optional] 
+**Project** | Pointer to **string** | Project is the product&#39;s slug, the second half of that address. | [optional] 
+**Repo** | Pointer to **string** | Repo is the repository the work was done in, as the session reported it. | [optional] 
+**Session** | Pointer to **string** | Session is the agent session behind the build, and the value its commits name in their &#x60;Hanzo-Session:&#x60; trailer. | [optional] 
+**StartedAt** | Pointer to **string** | StartedAt is when the session opened, RFC 3339 in UTC. | [optional] 
+**Status** | Pointer to **string** | Status is the session&#39;s own: running, paused, done or error — so a card can show a build still being written. | [optional] 
+**Title** | Pointer to **string** | Title is the human line for the card. Sent even when empty, like every field here, because that is what this route has always sent. | [optional] 
+**Turns** | Pointer to **int32** | Turns is HOW MANY turns the transcript holds — a COUNT, unlike the &#x60;turn&#x60; on each turn of the full story, which is that turn&#39;s position. The full read returns at most 1000 of them; this number is not capped. | [optional] 
 
 ## Methods
 

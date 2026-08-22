@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Agent** | Pointer to **string** | agent name | [optional] 
 **At** | Pointer to **string** | RFC3339 UTC | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | ID identifies the event, and its shape says which kind it is: a run event carries the run&#39;s own id, while an agent event is the agent id suffixed \&quot;:created\&quot; or \&quot;:updated\&quot;. Unique within a feed, and not an address — there is nothing to fetch it by. | [optional] 
 **Kind** | Pointer to **string** | invoked|failed|created|updated (from real events) | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
+**Message** | Pointer to **string** | Message is the line to render, already bounded: \&quot;Invoked &lt;model&gt;\&quot; for a run that worked, the run&#39;s own error truncated to 200 characters for one that did not (or \&quot;Run failed\&quot; when it said nothing), and a fixed phrase for the two agent events. Nothing here is invented — every event is a row that exists. | [optional] 
 
 ## Methods
 

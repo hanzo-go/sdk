@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AgentName** | Pointer to **string** |  | [optional] 
-**BotVersion** | Pointer to **string** |  | [optional] 
-**CreatedTime** | Pointer to **string** |  | [optional] 
-**MachineId** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Owner** | Pointer to **string** |  | [optional] 
-**Provider** | Pointer to **string** |  | [optional] 
-**PublicIp** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**UpdatedTime** | Pointer to **string** |  | [optional] 
+**AgentName** | Pointer to **string** | AgentName is the cloud Agent (/v1/agents) this machine runs — the agent a message to the bot is actually run against. It is the one field that decides what the bot DOES. | [optional] 
+**BotVersion** | Pointer to **string** | BotVersion pins the @hanzo/bot runtime version the machine runs. Empty means the machine took the default in force when it was bound. | [optional] 
+**CreatedTime** | Pointer to **string** | CreatedTime is when the binding was first made. | [optional] 
+**MachineId** | Pointer to **string** | MachineId is the bound machine as vm addresses it, owner-qualified (\&quot;&lt;org&gt;/&lt;machine&gt;\&quot;). The unqualified half is what this surface&#39;s :id routes take. | [optional] 
+**Message** | Pointer to **string** | Message is vm&#39;s human-readable detail on Status (\&quot;machine provisioning; @hanzo/bot runtime not yet confirmed\&quot;) — the reason behind the state, not a second state. | [optional] 
+**Name** | Pointer to **string** | Name is the binding&#39;s own key, which is the machine&#39;s id: a machine hosts at most one agent, so the binding is named for it. This is the key a bots list joins bindings onto machines by. | [optional] 
+**Org** | Pointer to **string** | Org is the Hanzo tenant the binding belongs to. | [optional] 
+**Owner** | Pointer to **string** | Owner is the tenant vm filed the binding under, resolved from the ?owner it was called with — which is the caller&#39;s validated org and never a body field. | [optional] 
+**Provider** | Pointer to **string** | Provider is the cloud the bound machine runs on, carried here so a bindings list says where each bot lives without a second read per machine. | [optional] 
+**PublicIp** | Pointer to **string** | PublicIp is the bound machine&#39;s public address as vm recorded it on the binding. Empty while the machine has none yet. | [optional] 
+**Status** | Pointer to **string** | Status is the binding&#39;s lifecycle in VM&#39;s OWN words — \&quot;Pending\&quot; while the machine provisions and the runtime is unconfirmed, \&quot;running\&quot; once vm has confirmed it. The vocabulary is vm&#39;s and passes through unmapped, which is why its capitalization does not match the machine states beside it, and it is vm&#39;s reconciled reading rather than anything asserted here. | [optional] 
+**UpdatedTime** | Pointer to **string** | UpdatedTime is when vm last reconciled it — the age of Status. | [optional] 
 
 ## Methods
 

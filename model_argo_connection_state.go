@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &ArgoConnectionState{}
 
 // ArgoConnectionState struct for ArgoConnectionState
 type ArgoConnectionState struct {
+	// AttemptedAt is when the connection was last probed. Always absent: nothing is probed, and a fabricated timestamp would claim a check that never ran.
 	AttemptedAt *string `json:"attemptedAt,omitempty"`
-	Message     *string `json:"message,omitempty"`
-	Status      *string `json:"status,omitempty"`
+	// Message is why a connection failed. Always absent, since none does.
+	Message *string `json:"message,omitempty"`
+	// Status is ArgoCD's ConnectionStatus — Successful, Failed or Unknown. Always Successful here: the destination is the cluster this process is already running in, so it is reachable by construction and there is no credential to probe.
+	Status *string `json:"status,omitempty"`
 }
 
 // NewArgoConnectionState instantiates a new ArgoConnectionState object

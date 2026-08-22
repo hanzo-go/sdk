@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,11 @@ var _ MappedNullable = &Campaign{}
 
 // Campaign struct for Campaign
 type Campaign struct {
-	// Budget and Spend are minor units (USD cents), clamped to >= 0.
+	// Budget is what the campaign is allowed to cost, in USD cents. A negative value is clamped to 0; nothing enforces the ceiling here.
 	Budget *int32 `json:"budget,omitempty"`
 	// Channel is the delivery surface: email, sms, social, meta, google or tiktok. Empty means email.
 	Channel *string `json:"channel,omitempty"`
-	// CreatedAt and UpdatedAt are unix seconds, both server-assigned.
+	// CreatedAt is unix seconds when the campaign was registered. Server-assigned and never rewritten — an update leaves it as it was.
 	CreatedAt *int32 `json:"createdAt,omitempty"`
 	// ID is the server-assigned campaign id (\"camp_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
@@ -33,10 +33,12 @@ type Campaign struct {
 	Objective *string `json:"objective,omitempty"`
 	// ScheduledAt is the unix send time; 0 means unscheduled. Setting it on a campaign with no explicit status makes that status \"scheduled\".
 	ScheduledAt *int32 `json:"scheduledAt,omitempty"`
-	Spend       *int32 `json:"spend,omitempty"`
+	// Spend is what the campaign has cost so far, in USD cents, clamped to >= 0. The CALLER owns it: no send, ad buy or invoice moves it, so it changes only when create or update carries a new value. It is summed across the org's campaigns into GET /v1/marketing/summary.
+	Spend *int32 `json:"spend,omitempty"`
 	// Status is the lifecycle: draft, scheduled, active, paused or completed. Empty means draft.
-	Status    *string `json:"status,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// UpdatedAt is unix seconds of the last write. Server-assigned on create and on every update or schedule change, and the campaign list is ordered by it, newest first.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 }
 
 // NewCampaign instantiates a new Campaign object

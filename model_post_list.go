@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,6 +19,7 @@ var _ MappedNullable = &PostList{}
 
 // PostList struct for PostList
 type PostList struct {
+	// Data is the page, ordered by scheduledAt descending — the furthest-out post first and unscheduled drafts (scheduledAt 0) last. An empty array when the org's calendar holds no matching post.
 	Data []CalendarPost `json:"data,omitempty"`
 }
 

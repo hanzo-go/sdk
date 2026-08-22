@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,20 @@ var _ MappedNullable = &ProjectsDomain{}
 
 // ProjectsDomain struct for ProjectsDomain
 type ProjectsDomain struct {
-	CreatedAt *int32   `json:"createdAt,omitempty"`
-	Detail    *string  `json:"detail,omitempty"`
-	Host      *string  `json:"host,omitempty"`
-	Records   []Record `json:"records,omitempty"`
-	Status    *string  `json:"status,omitempty"`
-	Url       *string  `json:"url,omitempty"`
-	Verified  *bool    `json:"verified,omitempty"`
+	// CreatedAt is when the host was claimed, as Unix seconds — not when it went live.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// Detail is what is holding the claim up, in words a person can act on.
+	Detail *string `json:"detail,omitempty"`
+	// Host is the custom hostname claimed for this site.
+	Host *string `json:"host,omitempty"`
+	// Records are EXACTLY the DNS records to publish to prove ownership and route the host. Present only while pending, because a live host has already proved it; absent is therefore \"nothing left to do\", not \"we cannot say what to do\".
+	Records []Record `json:"records,omitempty"`
+	// Status is `live` when the edge answers for this host now, `pending` while the claim is waiting on DNS proof of ownership. A pending host is claimed but serves nothing.
+	Status *string `json:"status,omitempty"`
+	// URL is where the host will serve once it is live — present on a pending claim too, so a console can show the destination before it works.
+	Url *string `json:"url,omitempty"`
+	// Verified is the same fact as a boolean, for a caller that only needs the yes or no. It cannot disagree with status.
+	Verified *bool `json:"verified,omitempty"`
 }
 
 // NewProjectsDomain instantiates a new ProjectsDomain object

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Done** | Pointer to **int32** |  | [optional] 
-**Next** | Pointer to **string** |  | [optional] 
-**Percent** | Pointer to **int32** |  | [optional] 
-**Total** | Pointer to **int32** |  | [optional] 
+**Done** | Pointer to **int32** | Done counts steps that are FINISHED — done and skipped alike, since a step the org deliberately passed over is not still owed. It therefore rises when somebody skips, which is the intended reading of a checklist. | [optional] 
+**Next** | Pointer to **string** | Next is the id of the step to do next: the first available, unfinished step in authoring order. Empty when the journey is complete, and also empty when every remaining step is blocked by a dependency. | [optional] 
+**Percent** | Pointer to **int32** | Percent is done/total as a whole number 0-100, rounded, so a caller renders a bar without recomputing it. Total zero reads as 0. | [optional] 
+**Total** | Pointer to **int32** | Total is how many steps this org&#39;s journey holds — the ENABLED steps of the playbook, so it shrinks when an operator disables one and does not match the authored step count. | [optional] 
 
 ## Methods
 

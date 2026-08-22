@@ -12,6 +12,9 @@ Method | HTTP request | Description
 [**GetAgentsBuildsByOrgByProject**](AgentsAPI.md#GetAgentsBuildsByOrgByProject) | **Get** /v1/agents/builds/{org}/{project} | Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
 [**GetAgentsByRef**](AgentsAPI.md#GetAgentsByRef) | **Get** /v1/agents/{ref} | Returns one agent with its system prompt and its 20 most recent runs.
 [**GetAgentsByRefRuns**](AgentsAPI.md#GetAgentsByRefRuns) | **Get** /v1/agents/{ref}/runs | Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
+[**GetAgentsChatConversations**](AgentsAPI.md#GetAgentsChatConversations) | **Get** /v1/agents/chat/conversations | List the agent threads in your org
+[**GetAgentsChatConversationsById**](AgentsAPI.md#GetAgentsChatConversationsById) | **Get** /v1/agents/chat/conversations/{id} | Read one agent thread in full
+[**GetAgentsChatPresets**](AgentsAPI.md#GetAgentsChatPresets) | **Get** /v1/agents/chat/presets | List the agent presets available to a caller
 [**GetAgentsMetrics**](AgentsAPI.md#GetAgentsMetrics) | **Get** /v1/agents/metrics | Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
 [**GetAgentsRuns**](AgentsAPI.md#GetAgentsRuns) | **Get** /v1/agents/runs | Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
 [**GetAgentsSessions**](AgentsAPI.md#GetAgentsSessions) | **Get** /v1/agents/sessions | Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
@@ -26,6 +29,8 @@ Method | HTTP request | Description
 [**PatchAgentsTargetsById**](AgentsAPI.md#PatchAgentsTargetsById) | **Patch** /v1/agents/targets/{id} | Updates one machine in place.
 [**PostAgents**](AgentsAPI.md#PostAgents) | **Post** /v1/agents | Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
 [**PostAgentsByRefRun**](AgentsAPI.md#PostAgentsByRefRun) | **Post** /v1/agents/{ref}/run | Run one of your org&#39;s agents and get the recorded run back.
+[**PostAgentsChat**](AgentsAPI.md#PostAgentsChat) | **Post** /v1/agents/chat | Run one tool-calling round against your org&#39;s own tools
+[**PostAgentsCoding**](AgentsAPI.md#PostAgentsCoding) | **Post** /v1/agents/coding | Start one autonomous coding run against a repo in the caller&#39;s org
 [**PostAgentsSessions**](AgentsAPI.md#PostAgentsSessions) | **Post** /v1/agents/sessions | Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
 [**PostAgentsSessionsByIdEvents**](AgentsAPI.md#PostAgentsSessionsByIdEvents) | **Post** /v1/agents/sessions/{id}/events | Append one turn to a session&#39;s ordered log.
 [**PostAgentsSessionsByIdMessage**](AgentsAPI.md#PostAgentsSessionsByIdMessage) | **Post** /v1/agents/sessions/{id}/message | Send text into a running session.
@@ -574,6 +579,192 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAgentsChatConversations
+
+> GetAgentsChatConversations(ctx).Execute()
+
+List the agent threads in your org
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentsAPI.GetAgentsChatConversations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsChatConversations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentsChatConversationsRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAgentsChatConversationsById
+
+> GetAgentsChatConversationsById(ctx, id).Execute()
+
+Read one agent thread in full
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentsAPI.GetAgentsChatConversationsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsChatConversationsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentsChatConversationsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAgentsChatPresets
+
+> GetAgentsChatPresets(ctx).Execute()
+
+List the agent presets available to a caller
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentsAPI.GetAgentsChatPresets(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsChatPresets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentsChatPresetsRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1534,6 +1725,131 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAgentsChat
+
+> PostAgentsChat(ctx).Execute()
+
+Run one tool-calling round against your org's own tools
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentsAPI.PostAgentsChat(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsChat``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentsChatRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAgentsCoding
+
+> CodingStarted PostAgentsCoding(ctx).CodingStartIn(codingStartIn).Execute()
+
+Start one autonomous coding run against a repo in the caller's org
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	codingStartIn := *openapiclient.NewCodingStartIn() // CodingStartIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentsAPI.PostAgentsCoding(context.Background()).CodingStartIn(codingStartIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsCoding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAgentsCoding`: CodingStarted
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsCoding`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentsCodingRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **codingStartIn** | [**CodingStartIn**](CodingStartIn.md) |  | 
+
+### Return type
+
+[**CodingStarted**](CodingStarted.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

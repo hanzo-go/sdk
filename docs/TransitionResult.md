@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Distribution** | Pointer to [**PublishResult**](PublishResult.md) |  | [optional] 
-**Doctype** | Pointer to **string** |  | [optional] 
-**From** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Storefront** | Pointer to [**StorefrontResult**](StorefrontResult.md) |  | [optional] 
-**To** | Pointer to **string** |  | [optional] 
+**Distribution** | Pointer to [**PublishResult**](PublishResult.md) | Distribution is the channel fan-out this move triggered. Present ONLY on the move to published, the single edge that distributes — so its absence means no fan-out was attempted, never that one failed quietly. A fan-out that DID fail is present carrying its own honest status, because distribution never rolls the status change back. | [optional] 
+**Doctype** | Pointer to **string** | DocType is the content type that moved — Campaign, SocialPost or Asset — echoed from the path. | [optional] 
+**From** | Pointer to **string** | From is the state the item held when it was read. A document carrying no status yet reads as \&quot;draft\&quot;. | [optional] 
+**Name** | Pointer to **string** | Name is the document that moved, echoed from the path. | [optional] 
+**Storefront** | Pointer to [**StorefrontResult**](StorefrontResult.md) | Storefront is the catalog side effect, present only when a published Asset was product imagery — it carries a design and a kind of ecom, product or lifestyle. Absent for everything else, so absence reads as \&quot;not catalog imagery\&quot; rather than \&quot;the catalog failed\&quot;. | [optional] 
+**To** | Pointer to **string** | To is the state it holds now. From &#x3D;&#x3D; To on an idempotent re-transition, which is legal and is where a caller that lost a publish race lands. | [optional] 
 
 ## Methods
 

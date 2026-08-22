@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CurrentStatus** | Pointer to **string** | CurrentStatus is this component&#39;s own condition: \&quot;full_outage\&quot; for a service that did not answer its health probe at all. | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | ID is the component&#39;s stable handle, which on this platform IS the service name — there is no separate component registry to allocate ids from. | [optional] 
+**Name** | Pointer to **string** | Name is the service as the fleet prober knows it (the &#x60;service&#x60; label on hanzo_service_up), so a reader can match a component to what is being probed. | [optional] 
 
 ## Methods
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Path** | Pointer to **string** |  | [optional] 
-**RepoURL** | Pointer to **string** |  | [optional] 
-**TargetRevision** | Pointer to **string** |  | [optional] 
+**Path** | Pointer to **string** | Path is the directory within RepoURL. Display-only alongside a display-only RepoURL; CD&#39;s own value for a CD row. | [optional] 
+**RepoURL** | Pointer to **string** | RepoURL is the git repository the desired state comes from. For an application projected from an App CR it is the fleet manifest repo and is DISPLAY ONLY — an App CR pins an image, and nothing is rendered from this repo to produce it. For a CD row it is the repo CD actually polls. | [optional] 
+**TargetRevision** | Pointer to **string** | TargetRevision is the git ref tracked there — a branch such as \&quot;main\&quot;. Display-only for a projected App CR; the ref CD tracks for a CD row. | [optional] 
 
 ## Methods
 

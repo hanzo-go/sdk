@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Properties** | Pointer to **interface{}** |  | [optional] 
 **SessionId** | Pointer to **string** | SessionID groups the events of one visit. Omitted when the client sent none. | [optional] 
 **Timestamp** | Pointer to **string** | Timestamp is when the event happened, RFC3339 UTC. | [optional] 
-**Type** | Pointer to **string** | Type is the row&#39;s kind — the plane&#39;s discriminator: page, track, identify or group. (Errors are not here at all: they land on event.error and are read at /v1/errors.) | [optional] 
+**Type** | Pointer to **string** | Type is the row&#39;s kind — the plane&#39;s discriminator: page, track, identify or group. (Errors are not here at all: they land on event.error and are read at /v1/event/errors.) | [optional] 
 **Url** | Pointer to **string** | URL is the full page address the event fired on. Omitted when absent. | [optional] 
 
 ## Methods

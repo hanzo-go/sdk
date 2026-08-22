@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &AskAnswer{}
 
 // AskAnswer struct for AskAnswer
 type AskAnswer struct {
-	Answer    *string    `json:"answer,omitempty"`
+	// Answer is the synthesized prose. EMPTY is a real answer here: nothing in the index matched, or synthesis was unavailable — read `degraded` and `citations` to tell those apart. It is never written without grounding.
+	Answer *string `json:"answer,omitempty"`
+	// Citations are the exact regions the answer was grounded on, and they are the point: an answer is checkable only because every claim in it can be read back at a file and line. Present even when Answer is empty.
 	Citations []Citation `json:"citations,omitempty"`
-	Degraded  *bool      `json:"degraded,omitempty"`
-	Question  *string    `json:"question,omitempty"`
+	// Degraded is true when retrieval worked but no synthesizer was reachable. The citations are still real code, so a caller can answer from them itself; a caller that treats this like an error throws away a usable result.
+	Degraded *bool `json:"degraded,omitempty"`
+	// Question is the ask, echoed back.
+	Question *string `json:"question,omitempty"`
 }
 
 // NewAskAnswer instantiates a new AskAnswer object

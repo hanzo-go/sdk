@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Claims** | Pointer to [**[]ProjectsDomain**](ProjectsDomain.md) | Claims is one row per host — live, or pending with the DNS records it still owes. | [optional] 
 **Domains** | Pointer to **[]string** | Domains are the hostnames that are VERIFIED and routing right now. | [optional] 
-**Org** | Pointer to **string** | Org and Slug identify the site the panel belongs to. | [optional] 
-**Slug** | Pointer to **string** |  | [optional] 
+**Org** | Pointer to **string** | Org is the organisation that owns the site. | [optional] 
+**Slug** | Pointer to **string** | Slug is the site the panel belongs to. | [optional] 
 
 ## Methods
 

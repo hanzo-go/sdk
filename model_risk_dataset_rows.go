@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,17 +19,20 @@ var _ MappedNullable = &RiskDatasetRows{}
 
 // RiskDatasetRows struct for RiskDatasetRows
 type RiskDatasetRows struct {
+	// Dataset is the dataset the page was read from.
 	Dataset *string `json:"dataset,omitempty"`
 	// Digest is the version's fingerprint. An exported page that did not carry it would be bytes with no way to say which dataset they are.
 	Digest *string `json:"digest,omitempty"`
 	// Dims names what each coordinate of Point means, in Point's own order.
-	Dims  []string `json:"dims,omitempty"`
-	Limit *int32   `json:"limit,omitempty"`
-	// Offset and Limit are the page actually served, which may be smaller than the one asked for.
+	Dims []string `json:"dims,omitempty"`
+	// Limit is the page size actually served: the one asked for, clamped to the plane's own bound of 5000. Fewer rows than Limit means the version ended.
+	Limit *int32 `json:"limit,omitempty"`
+	// Offset is where this page starts in the version's own row order, which is by row id and therefore stable forever.
 	Offset *int32 `json:"offset,omitempty"`
 	// Rows is the page. Never null.
-	Rows    []RiskDatasetRow `json:"rows,omitempty"`
-	Version *int32           `json:"version,omitempty"`
+	Rows []RiskDatasetRow `json:"rows,omitempty"`
+	// Version is which published version it was read from — the one asked for, or the newest published one when the request named none.
+	Version *int32 `json:"version,omitempty"`
 }
 
 // NewRiskDatasetRows instantiates a new RiskDatasetRows object

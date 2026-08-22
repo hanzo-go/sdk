@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApplicationsCount** | Pointer to **int32** |  | [optional] 
-**ConnectionState** | Pointer to [**ArgoConnectionState**](ArgoConnectionState.md) |  | [optional] 
-**ServerVersion** | Pointer to **string** |  | [optional] 
+**ApplicationsCount** | Pointer to **int32** | ApplicationsCount is how many of THE CALLER&#39;S applications reconcile into this cluster, so a tenant sees its own count and a SuperAdmin the fleet&#39;s. It is zero for the in-cluster destination when the caller owns nothing, since that destination is listed whether or not anything targets it. | [optional] 
+**ConnectionState** | Pointer to [**ArgoConnectionState**](ArgoConnectionState.md) | ConnectionState repeats the cluster&#39;s own connection state, which is where ArgoCD&#39;s UI reads it from on this object. | [optional] 
+**ServerVersion** | Pointer to **string** | ServerVersion is the kubernetes version of the destination. Always absent: nothing here queries the API server for it. | [optional] 
 
 ## Methods
 

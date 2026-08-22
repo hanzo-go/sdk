@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ComputeRef** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**ExecutionMode** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **string** |  | [optional] 
-**Model** | Pointer to **string** |  | [optional] 
+**ComputeRef** | Pointer to **string** | ComputeRef re-binds (or, with \&quot;\&quot;, unbinds) the visor machine. Opaque here. | [optional] 
+**Description** | Pointer to **string** | Description replaces the line other agents read in the tool catalogue. | [optional] 
+**ExecutionMode** | Pointer to **string** | ExecutionMode switches between one-shot and long-running. The RESULTING mode+schedule are validated together, so switching to long-running without a stored or supplied cron is refused rather than accepted into an agent the scheduler would skip forever. A switch INTO long-running counts against the per-org cap and can be a 409. | [optional] 
+**Instructions** | Pointer to **string** | Instructions replaces the system prompt whole, up to 32 KiB. There is no append: a prompt is one text, and sending \&quot;\&quot; clears it. | [optional] 
+**Model** | Pointer to **string** | Model re-points the agent at another model, checked against the gateway&#39;s served catalogue exactly as create checks it. Empty STRING is refused — say nothing to keep the current one. Past runs keep the model that served them. | [optional] 
 **Ref** | Pointer to **string** | Ref is the agent to update — its public id or org-unique name, from the path. | [optional] 
-**Schedule** | Pointer to **string** |  | [optional] 
-**ServiceAccountId** | Pointer to **string** |  | [optional] 
-**Tools** | Pointer to **[]string** |  | [optional] 
+**Schedule** | Pointer to **string** | Schedule replaces the cron. It is validated against the mode this update leaves behind, and dropped if that mode is one-shot. | [optional] 
+**ServiceAccountId** | Pointer to **string** | ServiceAccountID re-points (or, with \&quot;\&quot;, clears) the IAM service account a scheduled run is billed as. Clearing it puts that spend back on the org. | [optional] 
+**Tools** | Pointer to **[]string** | Tools replaces the whole allow-list, it does not add to it. Sending [] takes every tool away, which is the only way to say that. | [optional] 
 
 ## Methods
 

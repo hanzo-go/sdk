@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Message** | Pointer to **string** | Message is why the status is what it is — \&quot;Running: no replicas ready\&quot;, \&quot;iam: CrashLoopBackOff\&quot;. A Healthy object carries one too (\&quot;Running: all replicas ready\&quot;), so this is not a failure signal. Always absent on a CD row, which reports no health message. | [optional] 
+**Status** | Pointer to **string** | Status is the ArgoCD health vocabulary, Capitalized: Healthy, Progressing, Degraded, Suspended, Missing or Unknown. For an App CR it is derived per object from what the operator reconciled (a workload with every replica ready is Healthy, one scaled to zero is Suspended, a crash-looping pod is Degraded); for a CD row it is the verdict CD wrote. | [optional] 
 
 ## Methods
 

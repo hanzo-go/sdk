@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Stopped** | Pointer to **int32** |  | [optional] 
+**Stopped** | Pointer to **int32** | Stopped counts the commands that were still running and were interrupted. Zero says the sandbox was idle, not that the stop failed — see above. | [optional] 
 
 ## Methods
 

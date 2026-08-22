@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -28,16 +28,22 @@ type IndexAPIDeleteIndexIndexesByUidRequest struct {
 	uid        string
 }
 
-func (r IndexAPIDeleteIndexIndexesByUidRequest) Execute() (*http.Response, error) {
+func (r IndexAPIDeleteIndexIndexesByUidRequest) Execute() (*IndexEnqueued, *http.Response, error) {
 	return r.ApiService.DeleteIndexIndexesByUidExecute(r)
 }
 
 /*
-DeleteIndexIndexesByUid Delete an index and everything in it
+DeleteIndexIndexesByUid Deletes an index and everything in it.
 
-Drops one index in the caller's org together with all of its documents. This is the only way to retire an index; without it a mistaken uid would be permanent. It is idempotent — dropping an index that is not there still succeeds. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Deletes an index and everything in it.
 
-The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+Drops the index and every document in it from the caller's own org, and
+answers the dialect's EnqueuedTask. This is the only way to retire an index;
+without it a mistaken uid is permanent. Deleting an index that is not there
+succeeds, so a cleanup pass is safe to re-run.
+
+The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of
+later work: the documents are already gone when this answers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -52,16 +58,19 @@ func (a *IndexAPIService) DeleteIndexIndexesByUid(ctx context.Context, uid strin
 }
 
 // Execute executes the request
-func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIndexesByUidRequest) (*http.Response, error) {
+//
+//	@return IndexEnqueued
+func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIndexesByUidRequest) (*IndexEnqueued, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.DeleteIndexIndexesByUid")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}"
@@ -81,7 +90,7 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -90,19 +99,19 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIn
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -110,10 +119,19 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest struct {
@@ -123,16 +141,21 @@ type IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest struct {
 	id         string
 }
 
-func (r IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest) Execute() (*http.Response, error) {
+func (r IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest) Execute() (*IndexEnqueued, *http.Response, error) {
 	return r.ApiService.DeleteIndexIndexesByUidDocumentsByIdExecute(r)
 }
 
 /*
-DeleteIndexIndexesByUidDocumentsById Delete one document by its primary key
+DeleteIndexIndexesByUidDocumentsById Deletes one document by its primary key.
 
-Removes one document from an index. It is IDEMPOTENT: deleting a key that is not there succeeds rather than 404, so a retry after a lost response is safe. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Deletes one document by its primary key.
 
-The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+Removes the document from the caller's own org and answers the dialect's
+EnqueuedTask. Deleting a key that is not there succeeds, so a client
+reconciling its own corpus can delete without checking first.
+
+The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of
+later work: the document is already gone when this answers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -149,16 +172,19 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsById(ctx context.Conte
 }
 
 // Execute executes the request
-func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest) (*http.Response, error) {
+//
+//	@return IndexEnqueued
+func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest) (*IndexEnqueued, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.DeleteIndexIndexesByUidDocumentsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/documents/{id}"
@@ -179,7 +205,7 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -188,19 +214,19 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPI
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -208,10 +234,19 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexHealthRequest struct {
@@ -219,14 +254,21 @@ type IndexAPIGetIndexHealthRequest struct {
 	ApiService *IndexAPIService
 }
 
-func (r IndexAPIGetIndexHealthRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexHealthRequest) Execute() (*IndexHealth, *http.Response, error) {
 	return r.ApiService.GetIndexHealthExecute(r)
 }
 
 /*
-GetIndexHealth Report whether the search plane can serve
+GetIndexHealth Reports whether the search plane can serve.
 
-Answers Meilisearch's `{"status":"available"}` when the index store is readable. It FAILS CLOSED — an unreadable store answers 503 and `unavailable` — so a replica whose volume has gone bad stops taking traffic instead of answering every search with nothing found. It touches no tenant data and needs no credential.
+Reports whether the search plane can serve.
+
+Answers the dialect's `{"status":"available"}` when the index store is
+readable. It FAILS CLOSED — an unreadable store answers 503 with
+`{"status":"unavailable"}` rather than an empty result set, because a
+Meilisearch client probes this before it will use a server at all and a
+cheerful 200 over a broken volume turns "search is down" into "nothing
+matched". It requires no principal and reads no tenant data.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IndexAPIGetIndexHealthRequest
@@ -239,16 +281,19 @@ func (a *IndexAPIService) GetIndexHealth(ctx context.Context) IndexAPIGetIndexHe
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest) (*http.Response, error) {
+//
+//	@return IndexHealth
+func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest) (*IndexHealth, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexHealth")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/health"
@@ -267,7 +312,7 @@ func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -276,19 +321,19 @@ func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -296,10 +341,29 @@ func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v IndexHealth
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexIndexesRequest struct {
@@ -307,14 +371,25 @@ type IndexAPIGetIndexIndexesRequest struct {
 	ApiService *IndexAPIService
 }
 
-func (r IndexAPIGetIndexIndexesRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexIndexesRequest) Execute() (*IndexList, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesExecute(r)
 }
 
 /*
-GetIndexIndexes List the indexes your org holds
+GetIndexIndexes Lists the indexes your org holds.
 
-Answers every index in the caller's org with its primary key and timestamps. It is the only way to enumerate what an org holds — without it an index whose uid a caller has forgotten is unreachable. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Lists the indexes your org holds.
+
+Answers every index in the caller's own org with its primary key and
+timestamps. Without it an index whose uid a caller has forgotten is
+unreachable — there is no other way to enumerate what an org holds. The page
+is the whole set: an org's index count is small by construction, so `limit`
+and `total` both report it.
+
+The tenant is the org minted from the VALIDATED bearer's owner claim, never a
+client-supplied header, and two orgs may both hold an index named "messages"
+without either seeing the other. Without a validated principal the answer is
+403 carrying the dialect's `invalid_api_key` body.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IndexAPIGetIndexIndexesRequest
@@ -327,16 +402,19 @@ func (a *IndexAPIService) GetIndexIndexes(ctx context.Context) IndexAPIGetIndexI
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesRequest) (*http.Response, error) {
+//
+//	@return IndexList
+func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesRequest) (*IndexList, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexes")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes"
@@ -355,7 +433,7 @@ func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -364,19 +442,19 @@ func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -384,10 +462,19 @@ func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexIndexesByUidRequest struct {
@@ -396,14 +483,23 @@ type IndexAPIGetIndexIndexesByUidRequest struct {
 	uid        string
 }
 
-func (r IndexAPIGetIndexIndexesByUidRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexIndexesByUidRequest) Execute() (*IndexView, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesByUidExecute(r)
 }
 
 /*
-GetIndexIndexesByUid Read one index's definition
+GetIndexIndexesByUid Reads one index's definition.
 
-Answers a single index's uid, primary key and timestamps. An index the caller's org does not hold is 404 `index_not_found` — which is the same answer another org's index gives, since the org is a bound predicate on the read. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Reads one index's definition.
+
+Answers the index's uid, primary key and timestamps. An index this org does
+not hold answers 404 carrying the dialect's `index_not_found` — the code a
+Meilisearch client reads as permission to create it, which is why this is a
+refusal rather than an empty object.
+
+The uid is scoped to the caller's own org, so another tenant's index is
+indistinguishable from one that never existed: this surface is not an
+existence oracle.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -418,16 +514,19 @@ func (a *IndexAPIService) GetIndexIndexesByUid(ctx context.Context, uid string) 
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesByUidRequest) (*http.Response, error) {
+//
+//	@return IndexView
+func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesByUidRequest) (*IndexView, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexesByUid")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}"
@@ -447,7 +546,7 @@ func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -456,19 +555,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -476,26 +575,55 @@ func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexIndexesByUidDocumentsRequest struct {
 	ctx        context.Context
 	ApiService *IndexAPIService
 	uid        string
+	limit      *string
+	offset     *string
 }
 
-func (r IndexAPIGetIndexIndexesByUidDocumentsRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexIndexesByUidDocumentsRequest) Limit(limit string) IndexAPIGetIndexIndexesByUidDocumentsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r IndexAPIGetIndexIndexesByUidDocumentsRequest) Offset(offset string) IndexAPIGetIndexIndexesByUidDocumentsRequest {
+	r.offset = &offset
+	return r
+}
+
+func (r IndexAPIGetIndexIndexesByUidDocumentsRequest) Execute() (*IndexDocuments, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesByUidDocumentsExecute(r)
 }
 
 /*
-GetIndexIndexesByUidDocuments Page through the documents in an index
+GetIndexIndexesByUidDocuments Pages through the documents in an index.
 
-Answers the documents in one index with a total count. `limit` defaults to 20 and is capped at 1000, `offset` pages, and the response echoes both back so a pager knows what it actually got. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Pages through the documents in an index.
+
+Answers the org's stored documents in insertion order, whole, with the page's
+bounds and the index's total. It is the enumeration surface — search ranks by
+relevance and cannot walk a corpus — so a caller reconciling what it has
+written reads it here.
+
+An index this org does not hold answers 404 carrying the dialect's
+`index_not_found`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -510,16 +638,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocuments(ctx context.Context, uid
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetIndexIndexesByUidDocumentsRequest) (*http.Response, error) {
+//
+//	@return IndexDocuments
+func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetIndexIndexesByUidDocumentsRequest) (*IndexDocuments, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexDocuments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexesByUidDocuments")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/documents"
@@ -529,6 +660,12 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetInde
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -539,7 +676,7 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetInde
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -548,19 +685,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetInde
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -568,10 +705,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetInde
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexIndexesByUidDocumentsByIdRequest struct {
@@ -581,14 +727,21 @@ type IndexAPIGetIndexIndexesByUidDocumentsByIdRequest struct {
 	id         string
 }
 
-func (r IndexAPIGetIndexIndexesByUidDocumentsByIdRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexIndexesByUidDocumentsByIdRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesByUidDocumentsByIdExecute(r)
 }
 
 /*
-GetIndexIndexesByUidDocumentsById Read one document by its primary key
+GetIndexIndexesByUidDocumentsById Reads one document by its primary key.
 
-Answers the stored document whose primary key matches, exactly as it was written. A missing document is 404 `document_not_found` and a missing index is 404 `index_not_found` — two different codes, because a client that branches on them treats the cases differently. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Reads one document by its primary key.
+
+Answers the stored document exactly as it was written — this surface keeps
+documents whole rather than projecting them, so what comes back is what went
+in. A primary key this index does not hold answers 404 carrying the dialect's
+`document_not_found`; an index this org does not hold answers
+`index_not_found`, and the two are different facts a client acts on
+differently.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -605,16 +758,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsById(ctx context.Context,
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexIndexesByUidDocumentsByIdExecute(r IndexAPIGetIndexIndexesByUidDocumentsByIdRequest) (*http.Response, error) {
+//
+//	@return interface{}
+func (a *IndexAPIService) GetIndexIndexesByUidDocumentsByIdExecute(r IndexAPIGetIndexIndexesByUidDocumentsByIdRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexesByUidDocumentsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/documents/{id}"
@@ -635,7 +791,7 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsByIdExecute(r IndexAPIGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -644,19 +800,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsByIdExecute(r IndexAPIGet
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -664,10 +820,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsByIdExecute(r IndexAPIGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexIndexesByUidSettingsRequest struct {
@@ -676,14 +841,18 @@ type IndexAPIGetIndexIndexesByUidSettingsRequest struct {
 	uid        string
 }
 
-func (r IndexAPIGetIndexIndexesByUidSettingsRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexIndexesByUidSettingsRequest) Execute() (*IndexSettings, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesByUidSettingsExecute(r)
 }
 
 /*
-GetIndexIndexesByUidSettings Read an index's filterable attributes
+GetIndexIndexesByUidSettings Reads an index's filterable attributes.
 
-Answers the attributes an index allows filtering on. This dialect implements the filterable-attributes setting and no other, so that is the whole of what comes back. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Reads an index's filterable attributes.
+
+Answers the settings subset this surface implements: the attributes a search
+`filter` may constrain. An index this org does not hold answers 404 carrying
+the dialect's `index_not_found`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -698,16 +867,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidSettings(ctx context.Context, uid 
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndexIndexesByUidSettingsRequest) (*http.Response, error) {
+//
+//	@return IndexSettings
+func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndexIndexesByUidSettingsRequest) (*IndexSettings, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexesByUidSettings")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/settings"
@@ -727,7 +899,7 @@ func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndex
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -736,19 +908,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndex
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -756,10 +928,19 @@ func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndex
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexStatsRequest struct {
@@ -767,14 +948,23 @@ type IndexAPIGetIndexStatsRequest struct {
 	ApiService *IndexAPIService
 }
 
-func (r IndexAPIGetIndexStatsRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexStatsRequest) Execute() (*IndexStats, *http.Response, error) {
 	return r.ApiService.GetIndexStatsExecute(r)
 }
 
 /*
-GetIndexStats Count the documents in each of your indexes
+GetIndexStats Counts the documents in each of your indexes.
 
-Answers a document count per index for the caller's org, plus their sum. `isIndexing` is always false, which is the honest answer here rather than a stub: writes are applied before their response, so there is never a backlog in progress to report. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Counts the documents in each of your indexes.
+
+Reports every index the caller's own org holds with its document count, plus
+the org's total. `isIndexing` is always false because writes here are applied
+before their response — there is never a background pass to wait on.
+
+The tenant is the org minted from the VALIDATED bearer's owner claim, never a
+client-supplied header, so this counts the caller's own documents and no
+other tenant's. Without a validated principal the answer is 403 carrying the
+dialect's `invalid_api_key` body.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IndexAPIGetIndexStatsRequest
@@ -787,16 +977,19 @@ func (a *IndexAPIService) GetIndexStats(ctx context.Context) IndexAPIGetIndexSta
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (*http.Response, error) {
+//
+//	@return IndexStats
+func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (*IndexStats, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexStats
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexStats")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/stats"
@@ -815,7 +1008,7 @@ func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -824,19 +1017,19 @@ func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -844,32 +1037,49 @@ func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexTasksByUidRequest struct {
 	ctx        context.Context
 	ApiService *IndexAPIService
-	uid        string
+	uid        int32
 }
 
-func (r IndexAPIGetIndexTasksByUidRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexTasksByUidRequest) Execute() (*IndexTask, *http.Response, error) {
 	return r.ApiService.GetIndexTasksByUidExecute(r)
 }
 
 /*
-GetIndexTasksByUid Check a write task, which has already finished
+GetIndexTasksByUid Checks a write task, which has already finished.
 
-Answers `succeeded` for the task id given. It ALWAYS answers succeeded, and that is honest rather than a stub: writes on this surface are applied before their response returns, so by the time any task id exists to ask about, its work is done. It exists so a Meilisearch client's waitForTask resolves at once instead of polling forever for a queue that was never there. It requires a validated principal but reads no tenant data.
+Checks a write task, which has already finished.
+
+Always reports `succeeded`. Writes here are applied to SQLite before their
+EnqueuedTask is returned, so a client polling waitForTask resolves on its
+first call rather than waiting for a queue that was never there. The three
+timestamps are the same instant for the same reason.
+
+It requires a validated principal but reads no tenant data: the task id it
+echoes was minted by this process and names nothing about any org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
 	@return IndexAPIGetIndexTasksByUidRequest
 */
-func (a *IndexAPIService) GetIndexTasksByUid(ctx context.Context, uid string) IndexAPIGetIndexTasksByUidRequest {
+func (a *IndexAPIService) GetIndexTasksByUid(ctx context.Context, uid int32) IndexAPIGetIndexTasksByUidRequest {
 	return IndexAPIGetIndexTasksByUidRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -878,16 +1088,19 @@ func (a *IndexAPIService) GetIndexTasksByUid(ctx context.Context, uid string) In
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUidRequest) (*http.Response, error) {
+//
+//	@return IndexTask
+func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUidRequest) (*IndexTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexTasksByUid")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/tasks/{uid}"
@@ -907,7 +1120,7 @@ func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUid
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -916,19 +1129,19 @@ func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUid
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -936,10 +1149,19 @@ func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUid
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIGetIndexVersionRequest struct {
@@ -947,14 +1169,19 @@ type IndexAPIGetIndexVersionRequest struct {
 	ApiService *IndexAPIService
 }
 
-func (r IndexAPIGetIndexVersionRequest) Execute() (*http.Response, error) {
+func (r IndexAPIGetIndexVersionRequest) Execute() (*IndexVersion, *http.Response, error) {
 	return r.ApiService.GetIndexVersionExecute(r)
 }
 
 /*
-GetIndexVersion Identify the search implementation answering
+GetIndexVersion Identifies the search implementation answering.
 
-Answers the version shape a Meilisearch client expects. It names THIS implementation rather than a Meilisearch release — the commit field reads `hanzo-cloud` — so a client that logs it records which server actually answered instead of implying a Meilisearch build. Needs no credential.
+Identifies the search implementation answering.
+
+Reports the dialect's version shape with `commitSha` naming this
+implementation rather than a Meilisearch build, so a client that logs the
+version records which server answered instead of implying a release of
+software this is not. It requires no principal and reads no tenant data.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IndexAPIGetIndexVersionRequest
@@ -967,16 +1194,19 @@ func (a *IndexAPIService) GetIndexVersion(ctx context.Context) IndexAPIGetIndexV
 }
 
 // Execute executes the request
-func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionRequest) (*http.Response, error) {
+//
+//	@return IndexVersion
+func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionRequest) (*IndexVersion, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexVersion")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/version"
@@ -995,7 +1225,7 @@ func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1004,19 +1234,19 @@ func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1024,28 +1254,52 @@ func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIPatchIndexIndexesByUidSettingsRequest struct {
-	ctx        context.Context
-	ApiService *IndexAPIService
-	uid        string
+	ctx         context.Context
+	ApiService  *IndexAPIService
+	uid         string
+	indexFilter *IndexFilter
 }
 
-func (r IndexAPIPatchIndexIndexesByUidSettingsRequest) Execute() (*http.Response, error) {
+func (r IndexAPIPatchIndexIndexesByUidSettingsRequest) IndexFilter(indexFilter IndexFilter) IndexAPIPatchIndexIndexesByUidSettingsRequest {
+	r.indexFilter = &indexFilter
+	return r
+}
+
+func (r IndexAPIPatchIndexIndexesByUidSettingsRequest) Execute() (*IndexEnqueued, *http.Response, error) {
 	return r.ApiService.PatchIndexIndexesByUidSettingsExecute(r)
 }
 
 /*
-PatchIndexIndexesByUidSettings Set which attributes an index can be filtered on
+PatchIndexIndexesByUidSettings Sets which attributes an index can be filtered on.
 
-Replaces an index's filterable attributes with the list in `filterableAttributes`; omitting the field leaves them as they are. The index is CREATED ON DEMAND rather than 404'd, because a client that configures an index it has just asked for should not have to create it first — this is the one read-shaped path on the surface that writes. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Sets which attributes an index can be filtered on.
 
-The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+Replaces the whole filterable set. An attribute not listed here cannot be
+used in a search `filter`, so this is what makes a per-user or per-tag
+narrowing possible at all.
+
+It CREATES the index when it is missing rather than answering 404, because a
+Meilisearch client configures settings on an index it has just asked for and
+a refusal there leaves the client with no index at all.
+
+The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of
+later work: the setting is already applied when this answers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -1060,16 +1314,19 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettings(ctx context.Context, ui
 }
 
 // Execute executes the request
-func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchIndexIndexesByUidSettingsRequest) (*http.Response, error) {
+//
+//	@return IndexEnqueued
+func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchIndexIndexesByUidSettingsRequest) (*IndexEnqueued, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PatchIndexIndexesByUidSettings")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/settings"
@@ -1078,9 +1335,12 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.indexFilter == nil {
+		return localVarReturnValue, nil, reportError("indexFilter is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1089,28 +1349,30 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.indexFilter
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1118,27 +1380,53 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIPostIndexIndexesRequest struct {
 	ctx        context.Context
 	ApiService *IndexAPIService
+	indexNew   *IndexNew
 }
 
-func (r IndexAPIPostIndexIndexesRequest) Execute() (*http.Response, error) {
+func (r IndexAPIPostIndexIndexesRequest) IndexNew(indexNew IndexNew) IndexAPIPostIndexIndexesRequest {
+	r.indexNew = &indexNew
+	return r
+}
+
+func (r IndexAPIPostIndexIndexesRequest) Execute() (*IndexEnqueued, *http.Response, error) {
 	return r.ApiService.PostIndexIndexesExecute(r)
 }
 
 /*
-PostIndexIndexes Create an index
+PostIndexIndexes Creates an index.
 
-Creates an index named by `uid` in the caller's org. `primaryKey` names the document field that identifies a document and defaults to `id`. Creating an index that already exists is not an error — it settles on the existing one, primary key included — so a client that creates before every write is safe to run repeatedly. A missing or over-long uid is 400 `invalid_index_uid`. A new index starts with `user` filterable, which is what lets a multi-user app narrow searches to one end user without configuring anything. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Creates an index.
 
-The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+Registers a named index in the caller's own org and answers the dialect's
+EnqueuedTask. It is idempotent: creating an index that already exists returns
+the same receipt and changes nothing, which is what lets a client create on
+startup without checking first.
+
+`primaryKey` is optional — the first write establishes one when it is omitted.
+An index is a ROW here rather than a table, so an unusual uid is stored
+verbatim instead of being sanitised into a schema name.
+
+The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of
+later work: the write is already applied when this answers. A client that
+polls waitForTask resolves immediately.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IndexAPIPostIndexIndexesRequest
@@ -1151,16 +1439,19 @@ func (a *IndexAPIService) PostIndexIndexes(ctx context.Context) IndexAPIPostInde
 }
 
 // Execute executes the request
-func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequest) (*http.Response, error) {
+//
+//	@return IndexEnqueued
+func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequest) (*IndexEnqueued, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PostIndexIndexes")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes"
@@ -1168,9 +1459,12 @@ func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.indexNew == nil {
+		return localVarReturnValue, nil, reportError("indexNew is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1179,28 +1473,30 @@ func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.indexNew
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1208,30 +1504,47 @@ func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIPostIndexIndexesByUidDocumentsRequest struct {
-	ctx        context.Context
-	ApiService *IndexAPIService
-	uid        string
+	ctx         context.Context
+	ApiService  *IndexAPIService
+	uid         string
+	requestBody *[]interface{}
 }
 
-func (r IndexAPIPostIndexIndexesByUidDocumentsRequest) Execute() (*http.Response, error) {
+func (r IndexAPIPostIndexIndexesByUidDocumentsRequest) RequestBody(requestBody []interface{}) IndexAPIPostIndexIndexesByUidDocumentsRequest {
+	r.requestBody = &requestBody
+	return r
+}
+
+func (r IndexAPIPostIndexIndexesByUidDocumentsRequest) Execute() (*IndexEnqueued, *http.Response, error) {
 	return r.ApiService.PostIndexIndexesByUidDocumentsExecute(r)
 }
 
 /*
 PostIndexIndexesByUidDocuments Add or replace documents in an index
 
-Upserts documents into one index, keyed by the index's primary key: a document whose key is already present is REPLACED, one that is not is added, and it becomes searchable immediately. Send an array, or a single object — a hand-rolled caller sending one document is accepted rather than 400'd. The index is created on demand, so a first write needs no create call.
+Writes documents into the caller's own index, keyed by the index's primary key: a document whose key is already present is REPLACED whole. The body is the dialect's own — an array of documents, or a single document — and each is stored verbatim, so a read gives back exactly what was written.
 
-This and the PUT on the same path are the SAME operation: both are a whole document upsert, which is what a Meilisearch client's addDocuments and updateDocuments both reduce to here. A body that is neither an array nor an object is 400. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+The index is CREATED when it is missing rather than refused, because a Meilisearch client writes before it configures.
 
-The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.
+
+The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the documents are searchable when this answers, and a client that polls waitForTask resolves immediately.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -1246,16 +1559,19 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocuments(ctx context.Context, ui
 }
 
 // Execute executes the request
-func (a *IndexAPIService) PostIndexIndexesByUidDocumentsExecute(r IndexAPIPostIndexIndexesByUidDocumentsRequest) (*http.Response, error) {
+//
+//	@return IndexEnqueued
+func (a *IndexAPIService) PostIndexIndexesByUidDocumentsExecute(r IndexAPIPostIndexIndexesByUidDocumentsRequest) (*IndexEnqueued, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PostIndexIndexesByUidDocuments")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/documents"
@@ -1266,7 +1582,7 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsExecute(r IndexAPIPostIn
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1275,28 +1591,30 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsExecute(r IndexAPIPostIn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.requestBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1304,28 +1622,45 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsExecute(r IndexAPIPostIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest struct {
-	ctx        context.Context
-	ApiService *IndexAPIService
-	uid        string
+	ctx                                              context.Context
+	ApiService                                       *IndexAPIService
+	uid                                              string
+	postIndexIndexesByUidDocumentsDeleteBatchRequest *PostIndexIndexesByUidDocumentsDeleteBatchRequest
 }
 
-func (r IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest) Execute() (*http.Response, error) {
+func (r IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest) PostIndexIndexesByUidDocumentsDeleteBatchRequest(postIndexIndexesByUidDocumentsDeleteBatchRequest PostIndexIndexesByUidDocumentsDeleteBatchRequest) IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest {
+	r.postIndexIndexesByUidDocumentsDeleteBatchRequest = &postIndexIndexesByUidDocumentsDeleteBatchRequest
+	return r
+}
+
+func (r IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest) Execute() (*IndexEnqueued, *http.Response, error) {
 	return r.ApiService.PostIndexIndexesByUidDocumentsDeleteBatchExecute(r)
 }
 
 /*
 PostIndexIndexesByUidDocumentsDeleteBatch Delete many documents by primary key in one call
 
-Removes every document named by an array of primary keys. Keys may be sent as strings or numbers — a number keeps its exact decimal form, so an integer key round-trips as `42` and never as scientific notation. Keys that are absent from the index are skipped rather than failing the batch, so this is idempotent. A body that is not an array is 400. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Removes every named document from the caller's own index. The body is the dialect's own: a bare array of primary keys, which may be strings or numbers. A key that is not there is not an error, so a client reconciling its own corpus can send one list rather than checking each key first.
 
-The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.
+
+The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the documents are already gone when this answers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -1340,16 +1675,19 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsDeleteBatch(ctx context.
 }
 
 // Execute executes the request
-func (a *IndexAPIService) PostIndexIndexesByUidDocumentsDeleteBatchExecute(r IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest) (*http.Response, error) {
+//
+//	@return IndexEnqueued
+func (a *IndexAPIService) PostIndexIndexesByUidDocumentsDeleteBatchExecute(r IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest) (*IndexEnqueued, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PostIndexIndexesByUidDocumentsDeleteBatch")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/documents/delete-batch"
@@ -1360,7 +1698,7 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsDeleteBatchExecute(r Ind
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1369,28 +1707,30 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsDeleteBatchExecute(r Ind
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.postIndexIndexesByUidDocumentsDeleteBatchRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1398,28 +1738,51 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsDeleteBatchExecute(r Ind
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIPostIndexIndexesByUidSearchRequest struct {
 	ctx        context.Context
 	ApiService *IndexAPIService
 	uid        string
+	indexQuery *IndexQuery
 }
 
-func (r IndexAPIPostIndexIndexesByUidSearchRequest) Execute() (*http.Response, error) {
+func (r IndexAPIPostIndexIndexesByUidSearchRequest) IndexQuery(indexQuery IndexQuery) IndexAPIPostIndexIndexesByUidSearchRequest {
+	r.indexQuery = &indexQuery
+	return r
+}
+
+func (r IndexAPIPostIndexIndexesByUidSearchRequest) Execute() (*IndexHits, *http.Response, error) {
 	return r.ApiService.PostIndexIndexesByUidSearchExecute(r)
 }
 
 /*
-PostIndexIndexesByUidSearch Search an index, forgiving typos
+PostIndexIndexesByUidSearch Searches an index, forgiving typos.
 
-Answers the documents in one index matching `q`, ranked by how many of the query's terms they match, with prefix matching so a partial word still finds its document. `limit` defaults to 20 and is capped at 1000, `offset` pages; a negative value falls back to the default rather than erroring.
+Searches an index, forgiving typos.
 
-`filter` takes a Meilisearch filter expression, or an array of them, and the `user = "…"` and `user IN […]` forms are honoured — that is how an app with many end users narrows results to one of them WITHIN the org. `estimatedTotalHits` is exact for the page returned, not an estimate, because every hit is materialised. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+Ranks the org's documents in one index against `q` and answers the matching
+documents whole, most relevant first. A prefix matches, so a partial word
+finds the documents containing it, and `filter` narrows the result to
+documents whose filterable attributes match — which is how a caller scopes
+results to one end user within its own org.
+
+`estimatedTotalHits` is the dialect's name for the count; every hit is
+materialised here, so for this page it is exact. An index this org does not
+hold answers 404 carrying the dialect's `index_not_found`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -1434,16 +1797,19 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearch(ctx context.Context, uid s
 }
 
 // Execute executes the request
-func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndexIndexesByUidSearchRequest) (*http.Response, error) {
+//
+//	@return IndexHits
+func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndexIndexesByUidSearchRequest) (*IndexHits, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexHits
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PostIndexIndexesByUidSearch")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/search"
@@ -1452,9 +1818,12 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndex
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.indexQuery == nil {
+		return localVarReturnValue, nil, reportError("indexQuery is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1463,28 +1832,30 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndex
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.indexQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1492,30 +1863,45 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndex
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IndexAPIPutIndexIndexesByUidDocumentsRequest struct {
-	ctx        context.Context
-	ApiService *IndexAPIService
-	uid        string
+	ctx         context.Context
+	ApiService  *IndexAPIService
+	uid         string
+	requestBody *[]interface{}
 }
 
-func (r IndexAPIPutIndexIndexesByUidDocumentsRequest) Execute() (*http.Response, error) {
+func (r IndexAPIPutIndexIndexesByUidDocumentsRequest) RequestBody(requestBody []interface{}) IndexAPIPutIndexIndexesByUidDocumentsRequest {
+	r.requestBody = &requestBody
+	return r
+}
+
+func (r IndexAPIPutIndexIndexesByUidDocumentsRequest) Execute() (*IndexEnqueued, *http.Response, error) {
 	return r.ApiService.PutIndexIndexesByUidDocumentsExecute(r)
 }
 
 /*
 PutIndexIndexesByUidDocuments Add or update documents in an index
 
-Upserts documents into one index, keyed by the index's primary key: a document whose key is already present is REPLACED, one that is not is added, and it becomes searchable immediately. Send an array, or a single object — a hand-rolled caller sending one document is accepted rather than 400'd. The index is created on demand, so a first write needs no create call.
+The dialect's update spelling of the write above, and the same act: an upsert keyed by the index's primary key. The JS client's addDocuments and updateDocuments both reduce to this for whole documents, so both spellings are served and both behave identically.
 
-This and the POST on the same path are the SAME operation, served by one handler. Both exist because the Meilisearch dialect has both verbs; there is no partial-update semantics on this one — a document is replaced whole either way. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named "messages" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.
 
-The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid
@@ -1530,16 +1916,19 @@ func (a *IndexAPIService) PutIndexIndexesByUidDocuments(ctx context.Context, uid
 }
 
 // Execute executes the request
-func (a *IndexAPIService) PutIndexIndexesByUidDocumentsExecute(r IndexAPIPutIndexIndexesByUidDocumentsRequest) (*http.Response, error) {
+//
+//	@return IndexEnqueued
+func (a *IndexAPIService) PutIndexIndexesByUidDocumentsExecute(r IndexAPIPutIndexIndexesByUidDocumentsRequest) (*IndexEnqueued, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PutIndexIndexesByUidDocuments")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/index/indexes/{uid}/documents"
@@ -1550,7 +1939,7 @@ func (a *IndexAPIService) PutIndexIndexesByUidDocumentsExecute(r IndexAPIPutInde
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1559,28 +1948,30 @@ func (a *IndexAPIService) PutIndexIndexesByUidDocumentsExecute(r IndexAPIPutInde
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.requestBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1588,8 +1979,17 @@ func (a *IndexAPIService) PutIndexIndexesByUidDocumentsExecute(r IndexAPIPutInde
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

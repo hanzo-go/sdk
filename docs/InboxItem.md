@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Category** | Pointer to **string** |  | [optional] 
-**Confidence** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **string** |  | [optional] 
-**Extracted** | Pointer to [**Extracted**](Extracted.md) |  | [optional] 
-**Filename** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** | the file hash (&#x3D;&#x3D; a scan&#39;s ScanID) | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Vendor** | Pointer to **string** |  | [optional] 
+**Category** | Pointer to **string** | Category is the expense account the scanner proposed, as a chart number — a PROPOSAL, not a posting: nothing is booked until it is accepted. | [optional] 
+**Confidence** | Pointer to **string** | Confidence is how sure the scanner is of that reading, and is the signal for whether a person needs to check it before it is booked. | [optional] 
+**CreatedAt** | Pointer to **string** | CreatedAt is when the document was uploaded. | [optional] 
+**Extracted** | Pointer to [**Extracted**](Extracted.md) | Extracted is what the scanner read off the document. Absent until it has been scanned, so its absence is \&quot;not read yet\&quot;, never \&quot;nothing on it\&quot;. | [optional] 
+**Filename** | Pointer to **string** | Filename is the name the document was uploaded under, for a person to recognise it by. It is not part of the item&#39;s identity. | [optional] 
+**Id** | Pointer to **string** | ID is the CONTENT HASH of the uploaded bytes, which is what makes the queue idempotent: re-uploading the same document returns this item rather than adding a second one. It is also the id the scan of this document carries. | [optional] 
+**Status** | Pointer to **string** | Status is where the document is in the queue — unsorted until the scanner has read it, and thereafter whether it is waiting on a person or has been booked. | [optional] 
+**Vendor** | Pointer to **string** | Vendor is the supplier the scanner identified, surfaced beside the item so a queue renders without opening each document. | [optional] 
 
 ## Methods
 

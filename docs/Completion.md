@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Detail** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **int32** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
+**Detail** | Pointer to **string** | Detail is the server&#39;s short elaboration, typically the type or signature. | [optional] 
+**Kind** | Pointer to **int32** | Kind is the LSP CompletionItemKind number (2 method, 3 function, 5 field, 6 variable, …), passed through as the protocol spells it. | [optional] 
+**Label** | Pointer to **string** | Label is the text a client would insert, and what an editor lists. | [optional] 
 
 ## Methods
 

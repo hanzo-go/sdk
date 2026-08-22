@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**GetMarketingAudiences**](MarketingAPI.md#GetMarketingAudiences) | **Get** /v1/marketing/audiences | Returns the org&#39;s saved audiences, most recently updated first.
 [**GetMarketingAudiencesById**](MarketingAPI.md#GetMarketingAudiencesById) | **Get** /v1/marketing/audiences/{id} | Returns one of the caller org&#39;s saved audiences.
 [**GetMarketingAudiencesByIdPreview**](MarketingAPI.md#GetMarketingAudiencesByIdPreview) | **Get** /v1/marketing/audiences/{id}/preview | Evaluates the cohort LIVE — the same resolution an enrollment would run — and reports how big it is and how many real mailboxes it reaches.
-[**GetMarketingCalendar**](MarketingAPI.md#GetMarketingCalendar) | **Get** /v1/marketing/calendar | Returns the org&#39;s calendar, soonest scheduled first, optionally narrowed to one status.
+[**GetMarketingCalendar**](MarketingAPI.md#GetMarketingCalendar) | **Get** /v1/marketing/calendar | Returns the org&#39;s calendar, latest scheduled first, optionally narrowed to one status.
 [**GetMarketingCalendarById**](MarketingAPI.md#GetMarketingCalendarById) | **Get** /v1/marketing/calendar/{id} | Returns one of the caller org&#39;s posts, including the exact error behind a failed publish.
 [**GetMarketingCampaigns**](MarketingAPI.md#GetMarketingCampaigns) | **Get** /v1/marketing/campaigns | Returns the org&#39;s campaigns, most recently updated first, optionally narrowed to one lifecycle status.
 [**GetMarketingCampaignsById**](MarketingAPI.md#GetMarketingCampaignsById) | **Get** /v1/marketing/campaigns/{id} | Returns one of the caller org&#39;s campaigns.
@@ -526,7 +526,7 @@ Name | Type | Description  | Notes
 
 > PostList GetMarketingCalendar(ctx).Status(status).Limit(limit).Execute()
 
-Returns the org's calendar, soonest scheduled first, optionally narrowed to one status.
+Returns the org's calendar, latest scheduled first, optionally narrowed to one status.
 
 
 

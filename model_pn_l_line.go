@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,14 @@ var _ MappedNullable = &PnLLine{}
 
 // PnLLine struct for PnLLine
 type PnLLine struct {
+	// Account is the chart-of-accounts number this line reports on.
 	Account *string `json:"account,omitempty"`
-	// cents, display sign (income & expense both positive when normal)
-	Amount *int32  `json:"amount,omitempty"`
-	Name   *string `json:"name,omitempty"`
-	Type   *string `json:"type,omitempty"`
+	// Amount is the account's movement over the period in whole cents, in its NATURAL sign: positive when the account behaved normally, for income and expense alike. Income is credit-normal so its stored net is flipped once here for display; the ledger underneath is never sign-flipped. A negative amount therefore means the account ran backwards — a refunded sale, a reversed cost.
+	Amount *int32 `json:"amount,omitempty"`
+	// Name is that account's human name from the fixed chart.
+	Name *string `json:"name,omitempty"`
+	// Type is the account's fundamental class, which on this statement is always income or expense — it tells a reader which half of the statement the line came from without re-deriving it from the array it arrived in.
+	Type *string `json:"type,omitempty"`
 }
 
 // NewPnLLine instantiates a new PnLLine object

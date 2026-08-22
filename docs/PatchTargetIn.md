@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Capacity** | Pointer to **string** |  | [optional] 
-**Host** | Pointer to **string** |  | [optional] 
+**Capacity** | Pointer to **string** | Capacity rewrites the human summary, up to 256 characters. \&quot;\&quot; clears it. | [optional] 
+**Host** | Pointer to **string** | Host re-points the hostname sessions are matched by. Moving it moves the load: the session counts follow the new name from the next read. | [optional] 
 **Id** | Pointer to **string** | ID is the target to update, from the path. | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
-**Metrics** | Pointer to [**Metrics**](Metrics.md) | present &#x3D;&gt; a heartbeat; the server stamps its time | [optional] 
-**Spec** | Pointer to [**Spec**](Spec.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Kind** | Pointer to **string** | Kind re-files it under laptop | cloud | gpu | cluster | machine. | [optional] 
+**Label** | Pointer to **string** | Label renames the machine, up to 128 characters. Empty STRING is refused — a target with no name is a row nobody can pick out of a fleet. | [optional] 
+**Metrics** | Pointer to [**Metrics**](Metrics.md) | Metrics replaces the live sample, and sending one IS A HEARTBEAT: the server stamps the time and appends the point to the fleet series. Sending an all-zero sample CLEARS the heartbeat — the machine goes back to having no liveness fact at all, and its stored status is taken at face value again. | [optional] 
+**Spec** | Pointer to [**Spec**](Spec.md) | Spec replaces the static capability whole, sanitized and clamped the same way a register&#39;s is. | [optional] 
+**Status** | Pointer to **string** | Status sets operator INTENT: online | offline | draining. Draining is how a machine is taken out of dispatch without ending what is already on it. What comes back may still read offline, because the heartbeat outranks the intent. | [optional] 
 
 ## Methods
 

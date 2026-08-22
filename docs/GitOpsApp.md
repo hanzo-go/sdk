@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Automated** | Pointer to **bool** |  | [optional] 
-**Health** | Pointer to **string** | Healthy|Degraded|Progressing|… | [optional] 
-**History** | Pointer to [**[]GitOpsDeploy**](GitOpsDeploy.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**Operation** | Pointer to [**GitOpsOperation**](GitOpsOperation.md) |  | [optional] 
-**Path** | Pointer to **string** |  | [optional] 
-**Project** | Pointer to **string** |  | [optional] 
-**ReconciledAt** | Pointer to **string** |  | [optional] 
-**RepoURL** | Pointer to **string** |  | [optional] 
-**Resources** | Pointer to **int32** |  | [optional] 
-**Revision** | Pointer to **string** | the commit last applied | [optional] 
-**SelfHeal** | Pointer to **bool** |  | [optional] 
-**Sync** | Pointer to **string** | Synced|OutOfSync|Unknown | [optional] 
-**TargetRevision** | Pointer to **string** |  | [optional] 
+**Automated** | Pointer to **bool** | Automated is whether CD applies new commits without being asked. It reads the PRESENCE of spec.syncPolicy.automated, which is a block rather than a boolean; false means drift is reported and nothing moves. | [optional] 
+**Health** | Pointer to **string** | Health is CD&#39;s verdict on the objects it manages, verbatim: Healthy, Progressing, Degraded, Suspended, Missing or Unknown. | [optional] 
+**History** | Pointer to [**[]GitOpsDeploy**](GitOpsDeploy.md) | History is the recent deploy log, NEWEST FIRST and capped at ten. CD appends oldest-first and bounds the list itself; the reversal happens here so a caller never has to know the storage order to show what shipped last. Empty (never null) for an Application that has deployed nothing. | [optional] 
+**Name** | Pointer to **string** | Name is what CD calls this tracked source, not the workload it deploys — the Application CR&#39;s own metadata.name. The fleet ApplicationSet mints these as &lt;namespace&gt;-&lt;app&gt;. | [optional] 
+**Namespace** | Pointer to **string** | Namespace is where the Application OBJECT lives: CD&#39;s own controller namespace, which is the same one for every row here. It is NOT the destination the workloads land in — this endpoint lists cluster-wide and never reads spec.destination. | [optional] 
+**Operation** | Pointer to [**GitOpsOperation**](GitOpsOperation.md) | Operation is the last sync attempt and how it ended. Absent when CD has run none, which is the honest gap between \&quot;never tried\&quot; and \&quot;tried and failed\&quot;. | [optional] 
+**Path** | Pointer to **string** | Path is the directory inside that repository CD renders, relative to its root. | [optional] 
+**Project** | Pointer to **string** | Project is the AppProject fence the sync is admitted under: which repos this Application may pull from and which destinations it may write to. Empty when the CR declares none. | [optional] 
+**ReconciledAt** | Pointer to **string** | ReconciledAt is when CD last COMPARED this Application against git, RFC 3339. It moves on every comparison, including ones that applied nothing. | [optional] 
+**RepoURL** | Pointer to **string** | RepoURL is the git repository CD polls for this Application&#39;s desired state. | [optional] 
+**Resources** | Pointer to **int32** | Resources is how MANY objects CD manages for this Application (len(status.resources)) — a count, not the objects. Zero for an Application CD has not reconciled. | [optional] 
+**Revision** | Pointer to **string** | Revision is the commit CD last APPLIED (status.sync.revision). Empty means it has applied none — never read that as the head of TargetRevision. | [optional] 
+**SelfHeal** | Pointer to **bool** | SelfHeal is whether CD also reverts changes made directly in the cluster (syncPolicy.automated.selfHeal). Meaningless unless Automated. | [optional] 
+**Sync** | Pointer to **string** | Sync is CD&#39;s verdict on git versus cluster, verbatim: Synced, OutOfSync or Unknown. It is about the applied REVISION, so an Application can be Synced to a commit that is several behind the branch it tracks. | [optional] 
+**TargetRevision** | Pointer to **string** | TargetRevision is the git ref CD TRACKS — usually a branch such as \&quot;main\&quot;. It is what CD aims at; Revision is what it has reached. | [optional] 
 
 ## Methods
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**AmountCents** | Pointer to **int32** | AmountCents is that line&#39;s amount in whole cents. The scanner is instructed to return integer cents rather than a decimal, so no float rounding can enter the ledger through here. | [optional] 
+**Description** | Pointer to **string** | Description is the line as it appears on the document. | [optional] 
 
 ## Methods
 

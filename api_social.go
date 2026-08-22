@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -33,16 +33,17 @@ func (r SocialAPIDeleteSocialAccountsByIdRequest) Execute() (*http.Response, err
 }
 
 /*
-DeleteSocialAccountsById Disconnect one account
+DeleteSocialAccountsById Removes one connected account from the org and answers 204 with no body; an id that is not there is 404.
 
-Removes one connected account from the org and answers 204 with no body; an id that is not there is 404.
+Removes one connected account from the org and answers 204 with no
+body; an id that is not there is 404.
 
-It removes the account record only. Posts that already published through it keep their published state and their recorded external ids — this does not retract anything from the network.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+It removes the account record only. Posts that already published through it keep
+their published state and their recorded external ids — this does not retract
+anything from the network.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the account or post to act on, taken from the path.
 	@return SocialAPIDeleteSocialAccountsByIdRequest
 */
 func (a *SocialAPIService) DeleteSocialAccountsById(ctx context.Context, id string) SocialAPIDeleteSocialAccountsByIdRequest {
@@ -129,16 +130,16 @@ func (r SocialAPIDeleteSocialPostsByIdRequest) Execute() (*http.Response, error)
 }
 
 /*
-DeleteSocialPostsById Delete one post
+DeleteSocialPostsById Removes one post from the org and answers 204 with no body; an id that is not there is 404.
 
-Removes one post from the org and answers 204 with no body; an id that is not there is 404.
+Removes one post from the org and answers 204 with no body; an id that
+is not there is 404.
 
-It deletes the record here only. A post that has already published is not retracted from the network by deleting it.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+It deletes the record here only. A post that has already published is not
+retracted from the network by deleting it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the account or post to act on, taken from the path.
 	@return SocialAPIDeleteSocialPostsByIdRequest
 */
 func (a *SocialAPIService) DeleteSocialPostsById(ctx context.Context, id string) SocialAPIDeleteSocialPostsByIdRequest {
@@ -217,20 +218,34 @@ func (a *SocialAPIService) DeleteSocialPostsByIdExecute(r SocialAPIDeleteSocialP
 type SocialAPIGetSocialAccountsRequest struct {
 	ctx        context.Context
 	ApiService *SocialAPIService
+	provider   *string
+	limit      *string
 }
 
-func (r SocialAPIGetSocialAccountsRequest) Execute() (*http.Response, error) {
+// Provider keeps only accounts on one network — x, facebook, instagram, linkedin, tiktok, youtube or threads. Omit it for every network. It is lower-cased and trimmed before it is matched, and a value that names no network simply matches nothing rather than being refused.
+func (r SocialAPIGetSocialAccountsRequest) Provider(provider string) SocialAPIGetSocialAccountsRequest {
+	r.provider = &provider
+	return r
+}
+
+// Limit bounds the page, defaulting to 200 and capped at 1000. It is a string rather than an integer on purpose: the route parses it with a leading trim and falls back to the default on anything it cannot read, so &#x60;?limit&#x3D;%2050&#x60; is a page of fifty today. An integer field would refuse the space and read an unparseable value as zero, which is a different page.
+func (r SocialAPIGetSocialAccountsRequest) Limit(limit string) SocialAPIGetSocialAccountsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r SocialAPIGetSocialAccountsRequest) Execute() (*SocialAccounts, *http.Response, error) {
 	return r.ApiService.GetSocialAccountsExecute(r)
 }
 
 /*
-GetSocialAccounts List the social accounts connected to your org
+GetSocialAccounts Returns the org's connected accounts — each one's id, network, handle, status and timestamps, most-recently-updated first.
 
-Returns the org's connected accounts — each one's id, network, handle, status and timestamps. `provider` filters to one network; `limit` bounds the page, defaulting to 200 and capped at 1000.
+Returns the org's connected accounts — each one's id, network,
+handle, status and timestamps, most-recently-updated first.
 
-An account's provider access token is NEVER included in any response on this surface. Only the publisher reads it.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+An account's provider access token is NEVER included in any response on this
+surface. Only the publisher reads it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SocialAPIGetSocialAccountsRequest
@@ -243,16 +258,19 @@ func (a *SocialAPIService) GetSocialAccounts(ctx context.Context) SocialAPIGetSo
 }
 
 // Execute executes the request
-func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccountsRequest) (*http.Response, error) {
+//
+//	@return SocialAccounts
+func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccountsRequest) (*SocialAccounts, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialAccounts
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialAccounts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/accounts"
@@ -261,6 +279,12 @@ func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccounts
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.provider != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "provider", r.provider, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -271,7 +295,7 @@ func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccounts
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -280,19 +304,19 @@ func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccounts
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -300,10 +324,19 @@ func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccounts
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIGetSocialAccountsByIdRequest struct {
@@ -312,19 +345,19 @@ type SocialAPIGetSocialAccountsByIdRequest struct {
 	id         string
 }
 
-func (r SocialAPIGetSocialAccountsByIdRequest) Execute() (*http.Response, error) {
+func (r SocialAPIGetSocialAccountsByIdRequest) Execute() (*SocialAccount, *http.Response, error) {
 	return r.ApiService.GetSocialAccountsByIdExecute(r)
 }
 
 /*
-GetSocialAccountsById Read one connected account
+GetSocialAccountsById Returns one of the org's connected accounts by id — its network, handle, status and timestamps — or 404.
 
-Returns one of the org's connected accounts by id — its network, handle, status and timestamps — or 404. The provider access token is not part of the response.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+Returns one of the org's connected accounts by id — its network,
+handle, status and timestamps — or 404. The provider access token is not part of
+the response.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the account or post to act on, taken from the path.
 	@return SocialAPIGetSocialAccountsByIdRequest
 */
 func (a *SocialAPIService) GetSocialAccountsById(ctx context.Context, id string) SocialAPIGetSocialAccountsByIdRequest {
@@ -336,16 +369,19 @@ func (a *SocialAPIService) GetSocialAccountsById(ctx context.Context, id string)
 }
 
 // Execute executes the request
-func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAccountsByIdRequest) (*http.Response, error) {
+//
+//	@return SocialAccount
+func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAccountsByIdRequest) (*SocialAccount, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialAccountsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/accounts/{id}"
@@ -365,7 +401,7 @@ func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAcco
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -374,19 +410,19 @@ func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAcco
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -394,27 +430,49 @@ func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAcco
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIGetSocialPostsRequest struct {
 	ctx        context.Context
 	ApiService *SocialAPIService
+	status     *string
+	limit      *string
 }
 
-func (r SocialAPIGetSocialPostsRequest) Execute() (*http.Response, error) {
+// Status keeps only posts in one state — draft, scheduled, published or failed. Omit it for every state. The transient publishing claim is not a user-visible state and matching it is not useful.
+func (r SocialAPIGetSocialPostsRequest) Status(status string) SocialAPIGetSocialPostsRequest {
+	r.status = &status
+	return r
+}
+
+// Limit bounds the page, defaulting to 200 and capped at 1000. A string for the same reason accountFilter.Limit is.
+func (r SocialAPIGetSocialPostsRequest) Limit(limit string) SocialAPIGetSocialPostsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r SocialAPIGetSocialPostsRequest) Execute() (*SocialPosts, *http.Response, error) {
 	return r.ApiService.GetSocialPostsExecute(r)
 }
 
 /*
-GetSocialPosts List your org's posts
+GetSocialPosts Returns the org's posts — content, channel, status, scheduled time, media and timestamps — most-recently-updated first.
 
-Returns the org's posts — content, channel, status, scheduled time, media and timestamps. `status` filters to one of draft, scheduled, published or failed; `limit` bounds the page, defaulting to 200 and capped at 1000.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+Returns the org's posts — content, channel, status, scheduled time,
+media and timestamps — most-recently-updated first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SocialAPIGetSocialPostsRequest
@@ -427,16 +485,19 @@ func (a *SocialAPIService) GetSocialPosts(ctx context.Context) SocialAPIGetSocia
 }
 
 // Execute executes the request
-func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsRequest) (*http.Response, error) {
+//
+//	@return SocialPosts
+func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsRequest) (*SocialPosts, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialPosts
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialPosts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/posts"
@@ -445,6 +506,12 @@ func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsReques
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -455,7 +522,7 @@ func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -464,19 +531,19 @@ func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -484,10 +551,19 @@ func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIGetSocialPostsByIdRequest struct {
@@ -496,19 +572,19 @@ type SocialAPIGetSocialPostsByIdRequest struct {
 	id         string
 }
 
-func (r SocialAPIGetSocialPostsByIdRequest) Execute() (*http.Response, error) {
+func (r SocialAPIGetSocialPostsByIdRequest) Execute() (*SocialPost, *http.Response, error) {
 	return r.ApiService.GetSocialPostsByIdExecute(r)
 }
 
 /*
-GetSocialPostsById Read one post
+GetSocialPostsById Returns one of the org's posts by id, with its current status, scheduled time, media and — once it has published — the account and external id it published under.
 
-Returns one of the org's posts by id, with its current status, scheduled time, media and — once it has published — the account and external id it published under. 404 when there is no such post for this org.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+Returns one of the org's posts by id, with its current status, scheduled
+time, media and — once it has published — the account and external id it published
+under. 404 when there is no such post for this org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the account or post to act on, taken from the path.
 	@return SocialAPIGetSocialPostsByIdRequest
 */
 func (a *SocialAPIService) GetSocialPostsById(ctx context.Context, id string) SocialAPIGetSocialPostsByIdRequest {
@@ -520,16 +596,19 @@ func (a *SocialAPIService) GetSocialPostsById(ctx context.Context, id string) So
 }
 
 // Execute executes the request
-func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsByIdRequest) (*http.Response, error) {
+//
+//	@return SocialPost
+func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsByIdRequest) (*SocialPost, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialPostsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/posts/{id}"
@@ -549,7 +628,7 @@ func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -558,19 +637,19 @@ func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsBy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -578,10 +657,19 @@ func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIGetSocialProvidersRequest struct {
@@ -589,18 +677,21 @@ type SocialAPIGetSocialProvidersRequest struct {
 	ApiService *SocialAPIService
 }
 
-func (r SocialAPIGetSocialProvidersRequest) Execute() (*http.Response, error) {
+func (r SocialAPIGetSocialProvidersRequest) Execute() (*SocialProviders, *http.Response, error) {
 	return r.ApiService.GetSocialProvidersExecute(r)
 }
 
 /*
-GetSocialProviders Which networks this deployment can actually publish to
+GetSocialProviders Reports each supported network's publish-readiness: whether this deployment holds the OAuth application credentials for it and, when it does not, exactly which environment variables are missing.
 
-Reports each supported network's publish-readiness: whether this deployment holds the OAuth application credentials for it and, when it does not, exactly which environment variables are missing.
+Reports each supported network's publish-readiness: whether this
+deployment holds the OAuth application credentials for it and, when it does not,
+exactly which environment variables are missing.
 
-This is a live read of the deployment's own configuration, not a static list of networks — it answers "can I connect this today", which is what a connect affordance and a pre-cutover checklist both need. It says nothing about whether the caller has connected an account; that is the accounts listing.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+This is a live read of the deployment's own configuration, not a static list of
+networks — it answers "can I connect this today", which is what a connect
+affordance and a pre-cutover checklist both need. It says nothing about whether
+the caller has connected an account; that is the accounts listing.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SocialAPIGetSocialProvidersRequest
@@ -613,16 +704,19 @@ func (a *SocialAPIService) GetSocialProviders(ctx context.Context) SocialAPIGetS
 }
 
 // Execute executes the request
-func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvidersRequest) (*http.Response, error) {
+//
+//	@return SocialProviders
+func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvidersRequest) (*SocialProviders, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialProviders
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialProviders")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/providers"
@@ -641,7 +735,7 @@ func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvide
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -650,19 +744,19 @@ func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvide
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -670,10 +764,19 @@ func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvide
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIGetSocialSummaryRequest struct {
@@ -681,16 +784,16 @@ type SocialAPIGetSocialSummaryRequest struct {
 	ApiService *SocialAPIService
 }
 
-func (r SocialAPIGetSocialSummaryRequest) Execute() (*http.Response, error) {
+func (r SocialAPIGetSocialSummaryRequest) Execute() (*SocialSummary, *http.Response, error) {
 	return r.ApiService.GetSocialSummaryExecute(r)
 }
 
 /*
-GetSocialSummary Counts across your org's social presence
+GetSocialSummary Returns four counts for the caller's org: total posts, how many are scheduled, how many have published, and how many accounts are connected.
 
-Returns four counts for the caller's org: total posts, how many are scheduled, how many have published, and how many accounts are connected. It is the dashboard roll-up, computed over the org's own rows in one read.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+Returns four counts for the caller's org: total posts, how many are
+scheduled, how many have published, and how many accounts are connected. It is
+the dashboard roll-up, computed over the org's own rows in one read.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SocialAPIGetSocialSummaryRequest
@@ -703,16 +806,19 @@ func (a *SocialAPIService) GetSocialSummary(ctx context.Context) SocialAPIGetSoc
 }
 
 // Execute executes the request
-func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRequest) (*http.Response, error) {
+//
+//	@return SocialSummary
+func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRequest) (*SocialSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialSummary")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/summary"
@@ -731,7 +837,7 @@ func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -740,19 +846,19 @@ func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -760,29 +866,41 @@ func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIPostSocialAccountsRequest struct {
-	ctx        context.Context
-	ApiService *SocialAPIService
+	ctx               context.Context
+	ApiService        *SocialAPIService
+	socialAccountBody *SocialAccountBody
 }
 
-func (r SocialAPIPostSocialAccountsRequest) Execute() (*http.Response, error) {
+func (r SocialAPIPostSocialAccountsRequest) SocialAccountBody(socialAccountBody SocialAccountBody) SocialAPIPostSocialAccountsRequest {
+	r.socialAccountBody = &socialAccountBody
+	return r
+}
+
+func (r SocialAPIPostSocialAccountsRequest) Execute() (*SocialAccount, *http.Response, error) {
 	return r.ApiService.PostSocialAccountsExecute(r)
 }
 
 /*
-PostSocialAccounts Connect a social account to your org
+PostSocialAccounts Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
 
-Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
-
-`provider` must be one of x, facebook, instagram, linkedin, tiktok, youtube or threads, defaulting to x when omitted. `status` is one of connected, disconnected or error, defaulting to connected. The handle is trimmed and bounded at 1024 characters.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+Records a social account for the org and answers 201 with the
+stored row, including the generated id later calls address it by.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SocialAPIPostSocialAccountsRequest
@@ -795,16 +913,19 @@ func (a *SocialAPIService) PostSocialAccounts(ctx context.Context) SocialAPIPost
 }
 
 // Execute executes the request
-func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccountsRequest) (*http.Response, error) {
+//
+//	@return SocialAccount
+func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccountsRequest) (*SocialAccount, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PostSocialAccounts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/accounts"
@@ -812,9 +933,12 @@ func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccoun
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.socialAccountBody == nil {
+		return localVarReturnValue, nil, reportError("socialAccountBody is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -823,28 +947,30 @@ func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccoun
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.socialAccountBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -852,31 +978,47 @@ func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccoun
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIPostSocialPostsRequest struct {
-	ctx        context.Context
-	ApiService *SocialAPIService
+	ctx            context.Context
+	ApiService     *SocialAPIService
+	socialPostBody *SocialPostBody
 }
 
-func (r SocialAPIPostSocialPostsRequest) Execute() (*http.Response, error) {
+func (r SocialAPIPostSocialPostsRequest) SocialPostBody(socialPostBody SocialPostBody) SocialAPIPostSocialPostsRequest {
+	r.socialPostBody = &socialPostBody
+	return r
+}
+
+func (r SocialAPIPostSocialPostsRequest) Execute() (*SocialPost, *http.Response, error) {
 	return r.ApiService.PostSocialPostsExecute(r)
 }
 
 /*
-PostSocialPosts Create a post, and publish it if it is already due
+PostSocialPosts Stores a post for the org and answers 201 with the stored row.
 
 Stores a post for the org and answers 201 with the stored row.
 
-A post created as scheduled for a time that has already passed is published IMMEDIATELY, and the row returned carries that outcome — this is the one behaviour a reader would otherwise miss. A future-scheduled post is left for the scheduler, and a draft is left alone. Publishing never fails the creation: the post is stored either way, and a publish that could not run leaves the row for the scheduler to retry.
-
-`content` is required and bounded at 8192 characters; `channel` is one of the seven supported networks, defaulting to x; `status` is one of draft, scheduled, published or failed, defaulting to draft; up to 10 media URLs are kept, each bounded at 1024 characters.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+A post created as scheduled for a time that has already passed is published
+IMMEDIATELY, and the row returned carries that outcome — this is the one behaviour
+a reader would otherwise miss. A future-scheduled post is left for the scheduler,
+and a draft is left alone. Publishing never fails the creation: the post is stored
+either way, and a publish that could not run leaves the row for the scheduler to
+retry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SocialAPIPostSocialPostsRequest
@@ -889,16 +1031,19 @@ func (a *SocialAPIService) PostSocialPosts(ctx context.Context) SocialAPIPostSoc
 }
 
 // Execute executes the request
-func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequest) (*http.Response, error) {
+//
+//	@return SocialPost
+func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequest) (*SocialPost, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PostSocialPosts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/posts"
@@ -906,9 +1051,12 @@ func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.socialPostBody == nil {
+		return localVarReturnValue, nil, reportError("socialPostBody is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -917,28 +1065,30 @@ func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.socialPostBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -946,10 +1096,19 @@ func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIPostSocialPostsByIdPublishRequest struct {
@@ -958,23 +1117,28 @@ type SocialAPIPostSocialPostsByIdPublishRequest struct {
 	id         string
 }
 
-func (r SocialAPIPostSocialPostsByIdPublishRequest) Execute() (*http.Response, error) {
+func (r SocialAPIPostSocialPostsByIdPublishRequest) Execute() (*SocialPost, *http.Response, error) {
 	return r.ApiService.PostSocialPostsByIdPublishExecute(r)
 }
 
 /*
-PostSocialPostsByIdPublish Publish one post now
+PostSocialPostsByIdPublish Publishes the post immediately to the connected accounts on its channel and answers with the updated row, carrying the account and external id it published under.
 
-Publishes the post immediately to the connected accounts on its channel and answers with the updated row, carrying the account and external id it published under.
+Publishes the post immediately to the connected accounts on its channel
+and answers with the updated row, carrying the account and external id it
+published under.
 
-It is IDEMPOTENT: a post that has already published, or that another caller is publishing right now, comes back unchanged rather than being posted twice. That claim is taken before any network call, which is what makes a double submit safe.
+It is IDEMPOTENT: a post that has already published, or that another caller is
+publishing right now, comes back unchanged rather than being posted twice. That
+claim is taken before any network call, which is what makes a double submit safe.
 
-The two failure shapes differ on purpose. Having no connected account for the channel is the caller's to fix, so it is recorded ON the post as failed with the reason and answers normally. A deployment that lacks the network's own credentials cannot publish for anyone, so that is a 503 naming exactly what is missing.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+The two failure shapes differ on purpose. Having no connected account for the
+channel is the caller's to fix, so it is recorded ON the post as failed with the
+reason and answers normally. A deployment that lacks the network's own credentials
+cannot publish for anyone, so that is a 503 naming exactly what is missing.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the account or post to act on, taken from the path.
 	@return SocialAPIPostSocialPostsByIdPublishRequest
 */
 func (a *SocialAPIService) PostSocialPostsByIdPublish(ctx context.Context, id string) SocialAPIPostSocialPostsByIdPublishRequest {
@@ -986,16 +1150,19 @@ func (a *SocialAPIService) PostSocialPostsByIdPublish(ctx context.Context, id st
 }
 
 // Execute executes the request
-func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSocialPostsByIdPublishRequest) (*http.Response, error) {
+//
+//	@return SocialPost
+func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSocialPostsByIdPublishRequest) (*SocialPost, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PostSocialPostsByIdPublish")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/posts/{id}/publish"
@@ -1015,7 +1182,7 @@ func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSoci
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1024,19 +1191,19 @@ func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSoci
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1044,30 +1211,48 @@ func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSoci
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIPutSocialAccountsByIdRequest struct {
-	ctx        context.Context
-	ApiService *SocialAPIService
-	id         string
+	ctx                context.Context
+	ApiService         *SocialAPIService
+	id                 string
+	socialAccountWrite *SocialAccountWrite
 }
 
-func (r SocialAPIPutSocialAccountsByIdRequest) Execute() (*http.Response, error) {
+func (r SocialAPIPutSocialAccountsByIdRequest) SocialAccountWrite(socialAccountWrite SocialAccountWrite) SocialAPIPutSocialAccountsByIdRequest {
+	r.socialAccountWrite = &socialAccountWrite
+	return r
+}
+
+func (r SocialAPIPutSocialAccountsByIdRequest) Execute() (*SocialAccount, *http.Response, error) {
 	return r.ApiService.PutSocialAccountsByIdExecute(r)
 }
 
 /*
-PutSocialAccountsById Replace one connected account
+PutSocialAccountsById Replaces the account's network, handle and status with what the body carries, and answers with the stored row.
 
-Replaces the account's network, handle and status with what the body carries, and answers with the stored row.
+Replaces the account's network, handle and status with what the
+body carries, and answers with the stored row.
 
-This is a REPLACEMENT, not a merge, which is the rule most easily got wrong: a field the body omits is written as its default, so leaving out the handle blanks it and leaving out the status resets it to connected. Send the whole record. The same vocabularies as create apply, and an unknown network or status is refused rather than coerced.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+This is a REPLACEMENT, not a merge, which is the rule most easily got wrong: a
+field the body omits is written as its default, so leaving out the handle blanks
+it and leaving out the status resets it to connected. Send the whole record. The
+same vocabularies as create apply, and an unknown network or status is refused
+rather than coerced.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1082,16 +1267,19 @@ func (a *SocialAPIService) PutSocialAccountsById(ctx context.Context, id string)
 }
 
 // Execute executes the request
-func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAccountsByIdRequest) (*http.Response, error) {
+//
+//	@return SocialAccount
+func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAccountsByIdRequest) (*SocialAccount, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PutSocialAccountsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/accounts/{id}"
@@ -1100,9 +1288,12 @@ func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAcco
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.socialAccountWrite == nil {
+		return localVarReturnValue, nil, reportError("socialAccountWrite is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1111,28 +1302,30 @@ func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAcco
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.socialAccountWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1140,30 +1333,48 @@ func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAcco
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SocialAPIPutSocialPostsByIdRequest struct {
-	ctx        context.Context
-	ApiService *SocialAPIService
-	id         string
+	ctx             context.Context
+	ApiService      *SocialAPIService
+	id              string
+	socialPostWrite *SocialPostWrite
 }
 
-func (r SocialAPIPutSocialPostsByIdRequest) Execute() (*http.Response, error) {
+func (r SocialAPIPutSocialPostsByIdRequest) SocialPostWrite(socialPostWrite SocialPostWrite) SocialAPIPutSocialPostsByIdRequest {
+	r.socialPostWrite = &socialPostWrite
+	return r
+}
+
+func (r SocialAPIPutSocialPostsByIdRequest) Execute() (*SocialPost, *http.Response, error) {
 	return r.ApiService.PutSocialPostsByIdExecute(r)
 }
 
 /*
-PutSocialPostsById Replace one post
+PutSocialPostsById Replaces the post's content, channel, status, scheduled time and media with what the body carries, and answers with the stored row.
 
-Replaces the post's content, channel, status, scheduled time and media with what the body carries, and answers with the stored row.
+Replaces the post's content, channel, status, scheduled time and media
+with what the body carries, and answers with the stored row.
 
-A REPLACEMENT, not a merge: an omitted field is written as its default, so omitting media clears it and omitting the status resets the post to draft. `content` is required on every update. Unlike create, this never triggers a publish — moving a post's scheduled time into the past here leaves it for the scheduler; publish now is its own operation.
-
-A validated principal is required; 403 without one. Every row is keyed by the caller's org taken from that principal and never from the request, so an id belonging to another tenant reads as not found rather than as a refusal.
+A REPLACEMENT, not a merge: an omitted field is written as its default, so
+omitting media clears it and omitting the status resets the post to draft.
+`content` is required on every update. Unlike create, this never triggers a
+publish — moving a post's scheduled time into the past here leaves it for the
+scheduler; publish now is its own operation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1178,16 +1389,19 @@ func (a *SocialAPIService) PutSocialPostsById(ctx context.Context, id string) So
 }
 
 // Execute executes the request
-func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsByIdRequest) (*http.Response, error) {
+//
+//	@return SocialPost
+func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsByIdRequest) (*SocialPost, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SocialPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PutSocialPostsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/social/posts/{id}"
@@ -1196,9 +1410,12 @@ func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.socialPostWrite == nil {
+		return localVarReturnValue, nil, reportError("socialPostWrite is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1207,28 +1424,30 @@ func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.socialPostWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1236,8 +1455,17 @@ func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

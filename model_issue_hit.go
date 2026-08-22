@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,26 @@ var _ MappedNullable = &IssueHit{}
 
 // IssueHit struct for IssueHit
 type IssueHit struct {
+	// Assignee is who holds the work. EMPTY MEANS UNHELD, which is what makes the issue claimable: claiming one already held by someone else is refused with 409 rather than quietly taken.
 	Assignee *string `json:"assignee,omitempty"`
-	Kind     *string `json:"kind,omitempty"`
-	Number   *int32  `json:"number,omitempty"`
+	// Kind is what the row IS: issue, pr or epic.
+	Kind *string `json:"kind,omitempty"`
+	// Number is the issue's number on that board, from 1 and monotonic there. Unique per board, never across the org — so it addresses an issue only together with Project.
+	Number *int32 `json:"number,omitempty"`
+	// Priority is urgent, high, medium, low or none. Never empty — an unset priority is the value \"none\".
 	Priority *string `json:"priority,omitempty"`
-	Project  *string `json:"project,omitempty"`
-	Repo     *string `json:"repo,omitempty"`
-	Source   *string `json:"source,omitempty"`
-	Status   *string `json:"status,omitempty"`
-	Title    *string `json:"title,omitempty"`
-	Url      *string `json:"url,omitempty"`
+	// Project is the board key the issue is on. It and Number are the issue's address in every other route on this surface, which is why a hit carries it.
+	Project *string `json:"project,omitempty"`
+	// Repo is the git repository the issue is bound to, empty when it is not repo-bound.
+	Repo *string `json:"repo,omitempty"`
+	// Source is which surface opened it: team, git, crm, helpdesk, cms or agent. \"git\" is how the mirrored forge and GitHub rows are spelled.
+	Source *string `json:"source,omitempty"`
+	// Status is the board column: backlog, todo, in_progress, done or canceled. Claiming moves backlog and todo to in_progress and leaves the other three where they are.
+	Status *string `json:"status,omitempty"`
+	// Title is the issue's one-line summary — what the q filter matched, along with the description.
+	Title *string `json:"title,omitempty"`
+	// URL is the row's external anchor — its extRef — which is a link only when the feeder sent one. A mirrored GitHub issue carries \"github:owner/repo#123\" and an agent's PR row carries the pushed branch. Empty for a row opened here.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewIssueHit instantiates a new IssueHit object

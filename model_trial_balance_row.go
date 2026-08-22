@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,17 +19,24 @@ var _ MappedNullable = &TrialBalanceRow{}
 
 // TrialBalanceRow struct for TrialBalanceRow
 type TrialBalanceRow struct {
-	Account       *string `json:"account,omitempty"`
-	ClosingCredit *int32  `json:"closingCredit,omitempty"`
-	ClosingDebit  *int32  `json:"closingDebit,omitempty"`
-	// period movement
+	// Account is the chart-of-accounts NUMBER this line reports on (\"1000\", \"4000\") — the stable posting key, not a display label.
+	Account *string `json:"account,omitempty"`
+	// ClosingCredit is that closing balance in cents when it is a credit balance.
+	ClosingCredit *int32 `json:"closingCredit,omitempty"`
+	// ClosingDebit is the balance at the end of the window, in cents, when it is a debit balance. This is the column the report's totals are summed from.
+	ClosingDebit *int32 `json:"closingDebit,omitempty"`
+	// Credit is the same window movement in cents when it was net credit.
 	Credit *int32 `json:"credit,omitempty"`
-	// period movement
-	Debit         *int32  `json:"debit,omitempty"`
-	Name          *string `json:"name,omitempty"`
-	OpeningCredit *int32  `json:"openingCredit,omitempty"`
-	OpeningDebit  *int32  `json:"openingDebit,omitempty"`
-	Type          *string `json:"type,omitempty"`
+	// Debit is the account's MOVEMENT within the window — closing minus opening, not the closing balance — in cents, when that movement was net debit. Zero when the account moved net credit.
+	Debit *int32 `json:"debit,omitempty"`
+	// Name is that account's human name from the fixed chart.
+	Name *string `json:"name,omitempty"`
+	// OpeningCredit is the same opening balance in cents when it fell on the credit side. Zero when the balance was a debit one.
+	OpeningCredit *int32 `json:"openingCredit,omitempty"`
+	// OpeningDebit is the account's balance before the window began, in whole cents, when that balance was on the debit side. Zero when the balance was a credit one — the pair is exclusive, never two halves of one number.
+	OpeningDebit *int32 `json:"openingDebit,omitempty"`
+	// Type is the account's fundamental class — asset, liability, income, expense or equity — which is also its normal balance side. It is carried for presentation and does NOT decide which column an amount lands in: placement follows the sign of the real net, so a contra balance shows up as one.
+	Type *string `json:"type,omitempty"`
 }
 
 // NewTrialBalanceRow instantiates a new TrialBalanceRow object

@@ -20,7 +20,6 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**PrivateKey** | Pointer to **string** |  | [optional] 
 **Provider** | Pointer to **string** |  | [optional] 
 **Scope** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
@@ -444,31 +443,6 @@ SetOwner sets Owner field to given value.
 `func (o *IamCert) HasOwner() bool`
 
 HasOwner returns a boolean if a field has been set.
-
-### GetPrivateKey
-
-`func (o *IamCert) GetPrivateKey() string`
-
-GetPrivateKey returns the PrivateKey field if non-nil, zero value otherwise.
-
-### GetPrivateKeyOk
-
-`func (o *IamCert) GetPrivateKeyOk() (*string, bool)`
-
-GetPrivateKeyOk returns a tuple with the PrivateKey field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrivateKey
-
-`func (o *IamCert) SetPrivateKey(v string)`
-
-SetPrivateKey sets PrivateKey field to given value.
-
-### HasPrivateKey
-
-`func (o *IamCert) HasPrivateKey() bool`
-
-HasPrivateKey returns a boolean if a field has been set.
 
 ### GetProvider
 

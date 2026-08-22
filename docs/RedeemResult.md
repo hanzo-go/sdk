@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AlreadyRedeemed** | Pointer to **bool** | AlreadyRedeemed is true when this org had already taken the promo and the call was an idempotent replay. | [optional] 
 **ChargeCents** | Pointer to **int32** | ChargeCents is what month one costs after the discount, DiscountCents the discount that produced it. Both are quoted figures against the org&#39;s derived plan — NOTHING WAS CREDITED and no wallet moved. | [optional] 
-**DiscountCents** | Pointer to **int32** |  | [optional] 
-**Redemption** | Pointer to [**Redemption**](Redemption.md) |  | [optional] 
+**DiscountCents** | Pointer to **int32** | DiscountCents is the discount claimed for month one, in USD cents, at the single-seat floor. It is the same figure recorded on the Redemption, and it is evidence an admin may later grant against — not a balance. | [optional] 
+**Redemption** | Pointer to [**Redemption**](Redemption.md) | Redemption is the row that was recorded — the org&#39;s claim on this promo, with the server-derived plan and seat count. On a replay it is the ORIGINAL row, so its redeemedAt is when the org first took the promo, not now. | [optional] 
 
 ## Methods
 

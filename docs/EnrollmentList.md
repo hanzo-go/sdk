@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Enrollment**](Enrollment.md) |  | [optional] 
+**Data** | Pointer to [**[]Enrollment**](Enrollment.md) | Data is the page: every contact walking this ONE sequence, in any state — active, completed and canceled walks all appear, since the history of who was reached is the point. An empty array when nobody has been enrolled. | [optional] 
 
 ## Methods
 

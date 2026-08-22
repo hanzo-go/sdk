@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Base** | Pointer to **string** |  | [optional] 
-**Branch** | Pointer to **string** |  | [optional] 
-**CloneUrl** | Pointer to **string** |  | [optional] 
-**Project** | Pointer to **string** |  | [optional] 
-**Prompt** | Pointer to **string** |  | [optional] 
+**Base** | Pointer to **string** | Base is the branch to start FROM. Empty means the repository&#39;s default — resolve it on the machine, since the machine is the one holding the clone. | [optional] 
+**Branch** | Pointer to **string** | Branch is the ref the run must push its work to, and the ONLY one it is permitted to write: the forge&#39;s ref policy refuses anything else from this run&#39;s credential. It is decided at dispatch and exists before the work does. | [optional] 
+**CloneUrl** | Pointer to **string** | CloneURL is how to fetch the repository. It carries NO credential — the machine authenticates with the git identity it already holds — which is why this whole shape is safe to hand to a claimed runner. | [optional] 
+**Project** | Pointer to **string** | Project is the product slug the run is filed under, so the machine can tag what it produces. Empty when the dispatch named none. | [optional] 
+**Prompt** | Pointer to **string** | Prompt is the task, in full, as the person wrote it. There is no second field for context. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository to work in and CloneURL is how to fetch it. | [optional] 
 **SessionId** | Pointer to **string** | SessionID is the live session opened at dispatch; the machine streams its turns into it. | [optional] 
 **TimeoutSeconds** | Pointer to **int32** | TimeoutSeconds bounds the run on the machine; 0 means the machine&#39;s own default. | [optional] 

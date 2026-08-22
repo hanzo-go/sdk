@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,22 @@ var _ MappedNullable = &BalanceSheet{}
 
 // BalanceSheet struct for BalanceSheet
 type BalanceSheet struct {
-	AsOf   *string       `json:"asOf,omitempty"`
+	// AsOf is the posting time the statement is taken at, inclusive. A balance sheet is a snapshot, not a window, so there is no From. Absent means as of now.
+	AsOf *string `json:"asOf,omitempty"`
+	// Assets are what the org OWNS at that instant, one line per account that has a balance. Cash, receivables, funds captured but not yet settled.
 	Assets []BalanceLine `json:"assets,omitempty"`
-	// TotalAssets == TotalLiabilities + TotalEquity
-	Balanced         *bool         `json:"balanced,omitempty"`
-	Equity           []BalanceLine `json:"equity,omitempty"`
-	Liabilities      []BalanceLine `json:"liabilities,omitempty"`
-	TotalAssets      *int32        `json:"totalAssets,omitempty"`
-	TotalEquity      *int32        `json:"totalEquity,omitempty"`
-	TotalLiabilities *int32        `json:"totalLiabilities,omitempty"`
+	// Balanced is whether assets equal liabilities plus equity — the accounting equation, computed from the totals above rather than assumed. False means the ledger is broken, not that the statement is.
+	Balanced *bool `json:"balanced,omitempty"`
+	// Equity is what is left over for the owners. It carries a DERIVED retained earnings line holding cumulative income minus expense, because this ledger has no period close that sweeps the P&L into equity — without that line the equation would not close.
+	Equity []BalanceLine `json:"equity,omitempty"`
+	// Liabilities are what the org OWES — including customers' unspent prepaid credit, which is their money until it is consumed and so is carried here rather than counted as revenue.
+	Liabilities []BalanceLine `json:"liabilities,omitempty"`
+	// TotalAssets is the sum of the asset lines, in cents.
+	TotalAssets *int32 `json:"totalAssets,omitempty"`
+	// TotalEquity is the sum of the equity lines including retained earnings, in cents.
+	TotalEquity *int32 `json:"totalEquity,omitempty"`
+	// TotalLiabilities is the sum of the liability lines, in cents.
+	TotalLiabilities *int32 `json:"totalLiabilities,omitempty"`
 }
 
 // NewBalanceSheet instantiates a new BalanceSheet object

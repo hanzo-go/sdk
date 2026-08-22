@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Capacity** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **string** |  | [optional] 
-**Host** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
-**Metrics** | Pointer to [**Metrics**](Metrics.md) |  | [optional] 
-**MetricsAt** | Pointer to **string** |  | [optional] 
-**Running** | Pointer to **int32** |  | [optional] 
-**Sessions** | Pointer to **int32** |  | [optional] 
-**Spec** | Pointer to [**Spec**](Spec.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **string** |  | [optional] 
+**Capacity** | Pointer to **string** | Capacity is a human summary of what the machine has (\&quot;8 vCPU / 32G\&quot;, \&quot;1× GB10\&quot;), up to 256 characters. Prose for a card — Spec is the same thing in a form a scheduler can read, and nothing derives one from the other. | [optional] 
+**CreatedAt** | Pointer to **string** | CreatedAt is when the machine was first registered, RFC 3339 in UTC. A re-link refreshes the row and leaves this alone, so it dates the machine and not the connection. | [optional] 
+**Host** | Pointer to **string** | Host is the hostname sessions on this machine report, and it is a JOIN KEY, not a label: a session naming this host counts against the load below even when it names no target id, and a re-link of the same (org, host, owner) refreshes this row instead of creating a second. Empty means the machine is addressable only by ID. | [optional] 
+**Id** | Pointer to **string** | ID is the machine&#39;s handle, minted as \&quot;tgt_\&quot; + 32 hex characters. It is what a session records to say it ran here, and what every later patch, claim or delete addresses. | [optional] 
+**Kind** | Pointer to **string** | Kind is what sort of destination this is, from a closed five: laptop | cloud | gpu | cluster | machine. A register that named none is a &#x60;machine&#x60;. | [optional] 
+**Label** | Pointer to **string** | Label is the name a person gave the machine (\&quot;workshop\&quot;), up to 128 characters. Required at register, free text, and the only field here meant for reading rather than matching. | [optional] 
+**Metrics** | Pointer to [**Metrics**](Metrics.md) | Metrics is what the machine was DOING at its last heartbeat — loadavg, memory, accelerator utilization. Absent when it has never beaten. It is a SNAPSHOT: the series over time lives in the fleet samples, not here. | [optional] 
+**MetricsAt** | Pointer to **string** | MetricsAt is when that heartbeat was recorded, RFC 3339 in UTC, and the SERVER stamps it — a client cannot backdate or forge the staleness clock. Absent means never beaten, which is exactly the case where Status is taken at its word. | [optional] 
+**Running** | Pointer to **int32** | Running is how many of those are in &#x60;running&#x60; right now — the number a dispatcher weighs against Capacity. paused sessions are in Sessions and not here. | [optional] 
+**Sessions** | Pointer to **int32** | Sessions is how many of the org&#39;s sessions are mapped to this machine, by target id OR by matching Host. All of them, whatever their status. | [optional] 
+**Spec** | Pointer to [**Spec**](Spec.md) | Spec is what the machine IS — os, arch, cores, RAM, accelerators — the static half, changed only when something reports it again. Absent when nothing has ever been reported, and a scheduler reads absence as \&quot;cannot satisfy a floor\&quot; rather than as \&quot;no limits\&quot;. | [optional] 
+**Status** | Pointer to **string** | Status is the EFFECTIVE liveness — online | offline | draining — not the stored one. offline and draining are operator INTENT and are reported as they stand; &#x60;online&#x60; is checked against the heartbeat, and a machine that has beaten before but not in the last 90 seconds reports offline whatever its row says. A target that has NEVER beaten keeps its stored status, because a hand-registered destination has no fact to check. | [optional] 
+**UpdatedAt** | Pointer to **string** | UpdatedAt is the last write to the row, same format — which for a beating machine is its last heartbeat, since a heartbeat IS a write. | [optional] 
 
 ## Methods
 

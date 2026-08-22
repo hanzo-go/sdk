@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,14 +19,15 @@ var _ MappedNullable = &RiskDataset{}
 
 // RiskDataset struct for RiskDataset
 type RiskDataset struct {
-	// At is when this version last changed state, and By who.
+	// At is when this version last changed state, RFC 3339 UTC.
 	At *string `json:"at,omitempty"`
+	// By is who moved it there: the validated user, or the org itself when the caller is a machine with no user behind it.
 	By *string `json:"by,omitempty"`
 	// Counts is how the rows fall across the splits.
 	Counts *RiskSplitCounts `json:"counts,omitempty"`
 	// Digest fingerprints the SPEC and the ROWS together. Two materialisations of one spec agree on it or the plane says they do not.
 	Digest *string `json:"digest,omitempty"`
-	// Name and Version identify the version.
+	// Name identifies the dataset across all of its versions.
 	Name *string `json:"name,omitempty"`
 	// Oversize is how many of the window's subjects this version could NOT carry because their subject identity exceeds the plane's per-subject byte bound.  It is on the wire, not only in a log, because it is the one degradation a caller cannot otherwise detect: the rows that are here look complete, and a dataset silently missing a population is a model silently blind to it. Non-zero does not make a version invalid — it makes it a version whose coverage is STATED. Zero is the normal case and omits.
 	Oversize *int32 `json:"oversize,omitempty"`
@@ -41,8 +42,9 @@ type RiskDataset struct {
 	// Status is declared, materializing, ready or refused. Only `ready` has bytes, and `ready` is terminal: a published version is never rewritten.
 	Status *string `json:"status,omitempty"`
 	// Truncated is true when the row cap bound before the window ran out. The trailing subject is dropped whole when that happens, because half a subject on one side of a split is exactly the leak the grouping prevents.
-	Truncated *bool  `json:"truncated,omitempty"`
-	Version   *int32 `json:"version,omitempty"`
+	Truncated *bool `json:"truncated,omitempty"`
+	// Version is which version this is, from 1 and monotone within the dataset. A number is never reused — not even after a disposal, where the next declare continues the count — so \"signups v3\" means one thing forever, which is what makes a model's citation of it checkable.
+	Version *int32 `json:"version,omitempty"`
 }
 
 // NewRiskDataset instantiates a new RiskDataset object

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,20 @@ var _ MappedNullable = &IamInput{}
 
 // IamInput struct for IamInput
 type IamInput struct {
-	CreatedTime  *string  `json:"createdTime,omitempty"`
-	Description  *string  `json:"description,omitempty"`
-	DisplayName  *string  `json:"displayName,omitempty"`
-	IsDefault    *bool    `json:"isDefault,omitempty"`
-	Metadata     *string  `json:"metadata,omitempty"`
-	Name         *string  `json:"name,omitempty"`
-	Organization *string  `json:"organization,omitempty"`
-	Owner        *string  `json:"owner,omitempty"`
-	Tags         []string `json:"tags,omitempty"`
-	Workspace    *string  `json:"workspace,omitempty"`
+	Action       *string `json:"action,omitempty"`
+	ClientIp     *string `json:"clientIp,omitempty"`
+	CreatedTime  *string `json:"createdTime,omitempty"`
+	IsTriggered  *bool   `json:"isTriggered,omitempty"`
+	Language     *string `json:"language,omitempty"`
+	Method       *string `json:"method,omitempty"`
+	Name         *string `json:"name,omitempty"`
+	Object       *string `json:"object,omitempty"`
+	Organization *string `json:"organization,omitempty"`
+	Owner        *string `json:"owner,omitempty"`
+	RequestUri   *string `json:"requestUri,omitempty"`
+	Response     *string `json:"response,omitempty"`
+	StatusCode   *int32  `json:"statusCode,omitempty"`
+	User         *string `json:"user,omitempty"`
 }
 
 // NewIamInput instantiates a new IamInput object
@@ -46,6 +50,70 @@ func NewIamInput() *IamInput {
 func NewIamInputWithDefaults() *IamInput {
 	this := IamInput{}
 	return &this
+}
+
+// GetAction returns the Action field value if set, zero value otherwise.
+func (o *IamInput) GetAction() string {
+	if o == nil || IsNil(o.Action) {
+		var ret string
+		return ret
+	}
+	return *o.Action
+}
+
+// GetActionOk returns a tuple with the Action field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetActionOk() (*string, bool) {
+	if o == nil || IsNil(o.Action) {
+		return nil, false
+	}
+	return o.Action, true
+}
+
+// HasAction returns a boolean if a field has been set.
+func (o *IamInput) HasAction() bool {
+	if o != nil && !IsNil(o.Action) {
+		return true
+	}
+
+	return false
+}
+
+// SetAction gets a reference to the given string and assigns it to the Action field.
+func (o *IamInput) SetAction(v string) {
+	o.Action = &v
+}
+
+// GetClientIp returns the ClientIp field value if set, zero value otherwise.
+func (o *IamInput) GetClientIp() string {
+	if o == nil || IsNil(o.ClientIp) {
+		var ret string
+		return ret
+	}
+	return *o.ClientIp
+}
+
+// GetClientIpOk returns a tuple with the ClientIp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetClientIpOk() (*string, bool) {
+	if o == nil || IsNil(o.ClientIp) {
+		return nil, false
+	}
+	return o.ClientIp, true
+}
+
+// HasClientIp returns a boolean if a field has been set.
+func (o *IamInput) HasClientIp() bool {
+	if o != nil && !IsNil(o.ClientIp) {
+		return true
+	}
+
+	return false
+}
+
+// SetClientIp gets a reference to the given string and assigns it to the ClientIp field.
+func (o *IamInput) SetClientIp(v string) {
+	o.ClientIp = &v
 }
 
 // GetCreatedTime returns the CreatedTime field value if set, zero value otherwise.
@@ -80,132 +148,100 @@ func (o *IamInput) SetCreatedTime(v string) {
 	o.CreatedTime = &v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *IamInput) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *IamInput) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *IamInput) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
-func (o *IamInput) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
-		var ret string
-		return ret
-	}
-	return *o.DisplayName
-}
-
-// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
-		return nil, false
-	}
-	return o.DisplayName, true
-}
-
-// HasDisplayName returns a boolean if a field has been set.
-func (o *IamInput) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
-func (o *IamInput) SetDisplayName(v string) {
-	o.DisplayName = &v
-}
-
-// GetIsDefault returns the IsDefault field value if set, zero value otherwise.
-func (o *IamInput) GetIsDefault() bool {
-	if o == nil || IsNil(o.IsDefault) {
+// GetIsTriggered returns the IsTriggered field value if set, zero value otherwise.
+func (o *IamInput) GetIsTriggered() bool {
+	if o == nil || IsNil(o.IsTriggered) {
 		var ret bool
 		return ret
 	}
-	return *o.IsDefault
+	return *o.IsTriggered
 }
 
-// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
+// GetIsTriggeredOk returns a tuple with the IsTriggered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInput) GetIsDefaultOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsDefault) {
+func (o *IamInput) GetIsTriggeredOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsTriggered) {
 		return nil, false
 	}
-	return o.IsDefault, true
+	return o.IsTriggered, true
 }
 
-// HasIsDefault returns a boolean if a field has been set.
-func (o *IamInput) HasIsDefault() bool {
-	if o != nil && !IsNil(o.IsDefault) {
+// HasIsTriggered returns a boolean if a field has been set.
+func (o *IamInput) HasIsTriggered() bool {
+	if o != nil && !IsNil(o.IsTriggered) {
 		return true
 	}
 
 	return false
 }
 
-// SetIsDefault gets a reference to the given bool and assigns it to the IsDefault field.
-func (o *IamInput) SetIsDefault(v bool) {
-	o.IsDefault = &v
+// SetIsTriggered gets a reference to the given bool and assigns it to the IsTriggered field.
+func (o *IamInput) SetIsTriggered(v bool) {
+	o.IsTriggered = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *IamInput) GetMetadata() string {
-	if o == nil || IsNil(o.Metadata) {
+// GetLanguage returns the Language field value if set, zero value otherwise.
+func (o *IamInput) GetLanguage() string {
+	if o == nil || IsNil(o.Language) {
 		var ret string
 		return ret
 	}
-	return *o.Metadata
+	return *o.Language
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInput) GetMetadataOk() (*string, bool) {
-	if o == nil || IsNil(o.Metadata) {
+func (o *IamInput) GetLanguageOk() (*string, bool) {
+	if o == nil || IsNil(o.Language) {
 		return nil, false
 	}
-	return o.Metadata, true
+	return o.Language, true
 }
 
-// HasMetadata returns a boolean if a field has been set.
-func (o *IamInput) HasMetadata() bool {
-	if o != nil && !IsNil(o.Metadata) {
+// HasLanguage returns a boolean if a field has been set.
+func (o *IamInput) HasLanguage() bool {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
 	return false
 }
 
-// SetMetadata gets a reference to the given string and assigns it to the Metadata field.
-func (o *IamInput) SetMetadata(v string) {
-	o.Metadata = &v
+// SetLanguage gets a reference to the given string and assigns it to the Language field.
+func (o *IamInput) SetLanguage(v string) {
+	o.Language = &v
+}
+
+// GetMethod returns the Method field value if set, zero value otherwise.
+func (o *IamInput) GetMethod() string {
+	if o == nil || IsNil(o.Method) {
+		var ret string
+		return ret
+	}
+	return *o.Method
+}
+
+// GetMethodOk returns a tuple with the Method field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetMethodOk() (*string, bool) {
+	if o == nil || IsNil(o.Method) {
+		return nil, false
+	}
+	return o.Method, true
+}
+
+// HasMethod returns a boolean if a field has been set.
+func (o *IamInput) HasMethod() bool {
+	if o != nil && !IsNil(o.Method) {
+		return true
+	}
+
+	return false
+}
+
+// SetMethod gets a reference to the given string and assigns it to the Method field.
+func (o *IamInput) SetMethod(v string) {
+	o.Method = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -238,6 +274,38 @@ func (o *IamInput) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *IamInput) SetName(v string) {
 	o.Name = &v
+}
+
+// GetObject returns the Object field value if set, zero value otherwise.
+func (o *IamInput) GetObject() string {
+	if o == nil || IsNil(o.Object) {
+		var ret string
+		return ret
+	}
+	return *o.Object
+}
+
+// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetObjectOk() (*string, bool) {
+	if o == nil || IsNil(o.Object) {
+		return nil, false
+	}
+	return o.Object, true
+}
+
+// HasObject returns a boolean if a field has been set.
+func (o *IamInput) HasObject() bool {
+	if o != nil && !IsNil(o.Object) {
+		return true
+	}
+
+	return false
+}
+
+// SetObject gets a reference to the given string and assigns it to the Object field.
+func (o *IamInput) SetObject(v string) {
+	o.Object = &v
 }
 
 // GetOrganization returns the Organization field value if set, zero value otherwise.
@@ -304,68 +372,132 @@ func (o *IamInput) SetOwner(v string) {
 	o.Owner = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *IamInput) GetTags() []string {
-	if o == nil || IsNil(o.Tags) {
-		var ret []string
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetTagsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Tags) {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *IamInput) HasTags() bool {
-	if o != nil && !IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *IamInput) SetTags(v []string) {
-	o.Tags = v
-}
-
-// GetWorkspace returns the Workspace field value if set, zero value otherwise.
-func (o *IamInput) GetWorkspace() string {
-	if o == nil || IsNil(o.Workspace) {
+// GetRequestUri returns the RequestUri field value if set, zero value otherwise.
+func (o *IamInput) GetRequestUri() string {
+	if o == nil || IsNil(o.RequestUri) {
 		var ret string
 		return ret
 	}
-	return *o.Workspace
+	return *o.RequestUri
 }
 
-// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
+// GetRequestUriOk returns a tuple with the RequestUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInput) GetWorkspaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Workspace) {
+func (o *IamInput) GetRequestUriOk() (*string, bool) {
+	if o == nil || IsNil(o.RequestUri) {
 		return nil, false
 	}
-	return o.Workspace, true
+	return o.RequestUri, true
 }
 
-// HasWorkspace returns a boolean if a field has been set.
-func (o *IamInput) HasWorkspace() bool {
-	if o != nil && !IsNil(o.Workspace) {
+// HasRequestUri returns a boolean if a field has been set.
+func (o *IamInput) HasRequestUri() bool {
+	if o != nil && !IsNil(o.RequestUri) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
-func (o *IamInput) SetWorkspace(v string) {
-	o.Workspace = &v
+// SetRequestUri gets a reference to the given string and assigns it to the RequestUri field.
+func (o *IamInput) SetRequestUri(v string) {
+	o.RequestUri = &v
+}
+
+// GetResponse returns the Response field value if set, zero value otherwise.
+func (o *IamInput) GetResponse() string {
+	if o == nil || IsNil(o.Response) {
+		var ret string
+		return ret
+	}
+	return *o.Response
+}
+
+// GetResponseOk returns a tuple with the Response field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetResponseOk() (*string, bool) {
+	if o == nil || IsNil(o.Response) {
+		return nil, false
+	}
+	return o.Response, true
+}
+
+// HasResponse returns a boolean if a field has been set.
+func (o *IamInput) HasResponse() bool {
+	if o != nil && !IsNil(o.Response) {
+		return true
+	}
+
+	return false
+}
+
+// SetResponse gets a reference to the given string and assigns it to the Response field.
+func (o *IamInput) SetResponse(v string) {
+	o.Response = &v
+}
+
+// GetStatusCode returns the StatusCode field value if set, zero value otherwise.
+func (o *IamInput) GetStatusCode() int32 {
+	if o == nil || IsNil(o.StatusCode) {
+		var ret int32
+		return ret
+	}
+	return *o.StatusCode
+}
+
+// GetStatusCodeOk returns a tuple with the StatusCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetStatusCodeOk() (*int32, bool) {
+	if o == nil || IsNil(o.StatusCode) {
+		return nil, false
+	}
+	return o.StatusCode, true
+}
+
+// HasStatusCode returns a boolean if a field has been set.
+func (o *IamInput) HasStatusCode() bool {
+	if o != nil && !IsNil(o.StatusCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatusCode gets a reference to the given int32 and assigns it to the StatusCode field.
+func (o *IamInput) SetStatusCode(v int32) {
+	o.StatusCode = &v
+}
+
+// GetUser returns the User field value if set, zero value otherwise.
+func (o *IamInput) GetUser() string {
+	if o == nil || IsNil(o.User) {
+		var ret string
+		return ret
+	}
+	return *o.User
+}
+
+// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetUserOk() (*string, bool) {
+	if o == nil || IsNil(o.User) {
+		return nil, false
+	}
+	return o.User, true
+}
+
+// HasUser returns a boolean if a field has been set.
+func (o *IamInput) HasUser() bool {
+	if o != nil && !IsNil(o.User) {
+		return true
+	}
+
+	return false
+}
+
+// SetUser gets a reference to the given string and assigns it to the User field.
+func (o *IamInput) SetUser(v string) {
+	o.User = &v
 }
 
 func (o IamInput) MarshalJSON() ([]byte, error) {
@@ -378,23 +510,29 @@ func (o IamInput) MarshalJSON() ([]byte, error) {
 
 func (o IamInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Action) {
+		toSerialize["action"] = o.Action
+	}
+	if !IsNil(o.ClientIp) {
+		toSerialize["clientIp"] = o.ClientIp
+	}
 	if !IsNil(o.CreatedTime) {
 		toSerialize["createdTime"] = o.CreatedTime
 	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if !IsNil(o.IsTriggered) {
+		toSerialize["isTriggered"] = o.IsTriggered
 	}
-	if !IsNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
 	}
-	if !IsNil(o.IsDefault) {
-		toSerialize["isDefault"] = o.IsDefault
-	}
-	if !IsNil(o.Metadata) {
-		toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.Method) {
+		toSerialize["method"] = o.Method
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Object) {
+		toSerialize["object"] = o.Object
 	}
 	if !IsNil(o.Organization) {
 		toSerialize["organization"] = o.Organization
@@ -402,11 +540,17 @@ func (o IamInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
-	if !IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
+	if !IsNil(o.RequestUri) {
+		toSerialize["requestUri"] = o.RequestUri
 	}
-	if !IsNil(o.Workspace) {
-		toSerialize["workspace"] = o.Workspace
+	if !IsNil(o.Response) {
+		toSerialize["response"] = o.Response
+	}
+	if !IsNil(o.StatusCode) {
+		toSerialize["statusCode"] = o.StatusCode
+	}
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
 	}
 	return toSerialize, nil
 }

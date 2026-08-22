@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Preview** | Pointer to [**PagesDeploymentConfig**](PagesDeploymentConfig.md) |  | [optional] 
-**Production** | Pointer to [**PagesDeploymentConfig**](PagesDeploymentConfig.md) |  | [optional] 
+**Preview** | Pointer to [**PagesDeploymentConfig**](PagesDeploymentConfig.md) | Preview is the config every branch build other than the production branch runs under. It is a SEPARATE set of bindings and variables, which is what lets a preview point at test data. | [optional] 
+**Production** | Pointer to [**PagesDeploymentConfig**](PagesDeploymentConfig.md) | Production is the config the production branch builds under. | [optional] 
 
 ## Methods
 

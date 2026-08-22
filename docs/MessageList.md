@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]SMS**](SMS.md) |  | [optional] 
+**Data** | Pointer to [**[]SMS**](SMS.md) | Data is this org&#39;s own messages, newest first — from our store rather than the carrier&#39;s, so it is the set an audit or a bill has to agree with. | [optional] 
 
 ## Methods
 

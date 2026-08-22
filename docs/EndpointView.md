@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Connector** | Pointer to **string** |  | [optional] 
-**Locator** | Pointer to **string** |  | [optional] 
-**Provider** | Pointer to **string** |  | [optional] 
+**Connector** | Pointer to **string** | Connector names a connected account from the org&#39;s connector registry, when the endpoint reaches its provider through one. Absent means the locator stands on its own; the pair below is always sufficient either way. | [optional] 
+**Locator** | Pointer to **string** | Locator addresses the thing INSIDE that provider, in the provider&#39;s own terms — an https clone URL for a hosted forge, a bare repository name for hanzo-git. It never carries a credential. | [optional] 
+**Provider** | Pointer to **string** | Provider is the concrete integration: \&quot;github\&quot;, \&quot;gitlab\&quot; or \&quot;hanzo-git\&quot;. | [optional] 
 
 ## Methods
 

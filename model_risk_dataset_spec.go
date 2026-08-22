@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,7 +23,7 @@ type RiskDatasetSpec struct {
 	Cuts []string `json:"cuts,omitempty"`
 	// Dims are the coordinates to carry, by published name. Empty takes the whole surface. They are stored in the plane's own order, never the order given, so two requests naming the same dims produce identical rows.
 	Dims []string `json:"dims,omitempty"`
-	// From and To bound the event window, half-open, RFC 3339. The window may not be longer than the source's own retention: past that, its older half is already gone and the dataset would silently be shorter than it says.
+	// From is where the event window opens, RFC 3339, INCLUSIVE. The window may not be longer than the source's own retention: past that, its older half is already gone and the dataset would silently be shorter than it says.
 	From *string `json:"from,omitempty"`
 	// Horizon is how many days a row must have aged before it may be admitted. It is what keeps a fact that was not yet knowable at scoring time out of a training set: a chargeback lands 30 to 120 days after the transaction it condemns, so 120 for the payment lane and 14 for signup abuse. Zero admits the whole window and is honest only where the outcome is immediate.
 	Horizon *int32 `json:"horizon,omitempty"`
@@ -35,7 +35,8 @@ type RiskDatasetSpec struct {
 	Rows *int32 `json:"rows,omitempty"`
 	// Seed decides WHICH subjects are admitted when the window holds more rows than the cap allows. It is recorded on the version, so a capped dataset is reproducible rather than being whichever rows the store returned first. Omit it to seed from the dataset's name.
 	Seed *string `json:"seed,omitempty"`
-	To   *string `json:"to,omitempty"`
+	// To is where the window ends, EXCLUSIVE, so two datasets meeting at one instant share no row. A materialisation reads less than this — the end is pulled back by Horizon, and the lineage reports the window it actually read.
+	To *string `json:"to,omitempty"`
 }
 
 // NewRiskDatasetSpec instantiates a new RiskDatasetSpec object

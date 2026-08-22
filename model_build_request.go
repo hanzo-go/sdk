@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &BuildRequest{}
 
 // BuildRequest struct for BuildRequest
 type BuildRequest struct {
-	Name     *string `json:"name,omitempty"`
+	// Name is the plugin's name: one lowercase path segment (a-z0-9, _ or -), and the id the runtime loads it by.
+	Name *string `json:"name,omitempty"`
+	// Provider is the connectors provider whose credential the plugin reads at run time. Empty for a plugin that needs none.
 	Provider *string `json:"provider,omitempty"`
-	Source   *string `json:"source,omitempty"`
-	Spec     *string `json:"spec,omitempty"`
+	// Source is TypeScript to build as-is. Exactly one of Source or Spec.
+	Source *string `json:"source,omitempty"`
+	// Spec is API documentation — an OpenAPI document, or prose describing the endpoints — that the generator turns into Source. The generated source is returned in the response, so a caller can read what will run before it runs.
+	Spec *string `json:"spec,omitempty"`
 }
 
 // NewBuildRequest instantiates a new BuildRequest object

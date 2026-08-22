@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ChargeCents** | Pointer to **int32** |  | [optional] 
-**Code** | Pointer to **string** | Code, Plan and Seats echo what was quoted. | [optional] 
-**DiscountCents** | Pointer to **int32** |  | [optional] 
+**ChargeCents** | Pointer to **int32** | ChargeCents is what month one costs after the discount, in USD cents, totalled over the seats quoted. On team that is a multiple of the seat count, so it is not ListCents minus DiscountCents. | [optional] 
+**Code** | Pointer to **string** | Code is the promo that was priced, as stored. | [optional] 
+**DiscountCents** | Pointer to **int32** | DiscountCents is what the promo takes off month one, in USD cents. The promo rate reaches at most TeamSeatCap seats; seats past the cap bill at full list and add nothing here. It is arithmetic only — quoting credits nothing, counts nothing and reserves nothing. | [optional] 
 **Eligible** | Pointer to **bool** | Eligible says whether a redeem would be accepted right now; Reason says why not when it would not. | [optional] 
-**ListCents** | Pointer to **int32** | ListCents is the undiscounted month price, ChargeCents what would be charged, DiscountCents the difference — all in USD cents. | [optional] 
-**Plan** | Pointer to **string** |  | [optional] 
-**Reason** | Pointer to **string** |  | [optional] 
+**ListCents** | Pointer to **int32** | ListCents is the undiscounted month price in USD cents: PER SEAT on team, the whole month on pro and max, 0 for a plan with no list price. | [optional] 
+**Plan** | Pointer to **string** | Plan is the tier priced, lower-cased and trimmed: pro, max or team. Unlike a redemption&#39;s plan this one comes from the REQUEST — quoting has no side effects, so it will happily price a plan the caller does not hold. | [optional] 
+**Reason** | Pointer to **string** | Reason is why Eligible is false, drawn from: \&quot;promo redemption is closed\&quot; (the subsystem is off, which is how it ships), \&quot;promo redemption cap reached\&quot;, \&quot;promo is not active\&quot;, \&quot;plan is free or unknown; nothing to discount\&quot;, \&quot;promo does not cover plan &lt;plan&gt;\&quot;. Absent when Eligible is true. | [optional] 
 **Remaining** | Pointer to **int32** | Remaining is how many redemptions are left under the fleet-wide cap. | [optional] 
-**Seats** | Pointer to **int32** |  | [optional] 
+**Seats** | Pointer to **int32** | Seats is the seat count priced; a request of 0 or less was read as 1. It only bites on team, the one per-seat plan — pro and max are single-seat and ignore it. | [optional] 
 
 ## Methods
 

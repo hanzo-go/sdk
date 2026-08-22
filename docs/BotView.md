@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Agent** | Pointer to **string** |  | [optional] 
-**Binding** | Pointer to [**AgentBinding**](AgentBinding.md) |  | [optional] 
+**Agent** | Pointer to **string** | Agent is the cloud Agent this machine runs, lifted out of the binding so a list of bots reads without following one. Empty means the machine is a bot machine with nothing bound — it costs money and answers nothing. | [optional] 
+**Binding** | Pointer to [**AgentBinding**](AgentBinding.md) | Binding is the record joining this machine to that agent, carrying vm&#39;s own reconciled status and its reason. Absent means no runtime is bound, which is also what a stopped bot looks like: stopping unbinds and leaves the machine running. | [optional] 
 **CreatedTime** | Pointer to **string** |  | [optional] 
 **Gpu** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 

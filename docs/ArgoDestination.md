@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | ArgoCD allows a destination by cluster name; omitted for the in-cluster projection. | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**Server** | Pointer to **string** |  | [optional] 
+**Namespace** | Pointer to **string** | Namespace is where in that cluster the workload lands. \&quot;*\&quot; on a project&#39;s destination fence means any namespace. | [optional] 
+**Server** | Pointer to **string** | Server is the cluster API URL the application reconciles into. Everything this plane projects lands in the cluster it runs in, so it is https://kubernetes.default.svc — except on a project&#39;s destination fence, where \&quot;*\&quot; means any cluster. | [optional] 
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]CalendarPost**](CalendarPost.md) |  | [optional] 
+**Data** | Pointer to [**[]CalendarPost**](CalendarPost.md) | Data is the page, ordered by scheduledAt descending — the furthest-out post first and unscheduled drafts (scheduledAt 0) last. An empty array when the org&#39;s calendar holds no matching post. | [optional] 
 
 ## Methods
 

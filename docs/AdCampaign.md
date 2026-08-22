@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | Pointer to **string** | provider ad-account ref (Meta act_&lt;id&gt;) | [optional] 
-**Budget** | Pointer to **int32** |  | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**ExternalId** | Pointer to **string** | provider campaign id after a launch | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Objective** | Pointer to **string** |  | [optional] 
-**Platform** | Pointer to **string** |  | [optional] 
-**Spend** | Pointer to **int32** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**Account** | Pointer to **string** | Account is the provider ad-account the campaign runs under, in Meta&#39;s act_&lt;id&gt; form. Empty until the org supplies one or a launch resolves it. | [optional] 
+**Budget** | Pointer to **int32** | Budget is the campaign&#39;s authorized spend in MINOR units (cents). Negative clamps to 0. It is the org&#39;s stored plan: a Meta launch creates the campaign object only, and the delivering budget lives on the ad set. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is when the campaign was first stored, in unix seconds. It never changes, including across a full-replace update. | [optional] 
+**ExternalId** | Pointer to **string** | ExternalID is the ad network&#39;s own campaign id, written by a successful launch and by nothing else — an update never touches it. Empty means this campaign has never reached its network. | [optional] 
+**Id** | Pointer to **string** | ID is the campaign&#39;s server-minted handle, \&quot;camp_\&quot; + 32 hex. A create body cannot choose it, and it is the id every other route addresses. | [optional] 
+**Name** | Pointer to **string** | Name is the campaign&#39;s display label, and the name Meta creates the campaign object under at launch. Required; trimmed and bounded to 1024 bytes. | [optional] 
+**Objective** | Pointer to **string** | Objective is the campaign goal spelled as the provider names it (\&quot;conversions\&quot;, \&quot;OUTCOME_TRAFFIC\&quot;), passed through to the network verbatim at launch — Meta defaults an empty one to OUTCOME_TRAFFIC. Free text, bounded to 1024 bytes; no vocabulary is enforced here. | [optional] 
+**Platform** | Pointer to **string** | Platform is the ad network: meta, google, tiktok or x, and nothing else — a write naming another is 400. Empty stores as meta. Only meta executes today; launching any of the other three is 501. | [optional] 
+**Spend** | Pointer to **int32** | Spend is spend-to-date in MINOR units (cents), as last written through create or update. Negative clamps to 0. It is NOT read back from the network — that is a separate insights call — so 0 means nothing was recorded here, not that nothing was spent. | [optional] 
+**Status** | Pointer to **string** | Status is the lifecycle: draft, active, paused or completed, and nothing else — a write naming another is 400. Empty stores as draft; a successful launch sets active. It records what this deployment did, not what the ad network currently reports. | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the row was last written, in unix seconds — set by create, update and launch. Listings are ordered by it, newest first. | [optional] 
 
 ## Methods
 

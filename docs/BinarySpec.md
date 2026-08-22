@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Image** | Pointer to **string** |  | [optional] 
-**Ldflags** | Pointer to **string** |  | [optional] 
-**Main** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Out** | Pointer to **string** |  | [optional] 
-**Platforms** | Pointer to **[]string** |  | [optional] 
-**Run** | Pointer to **string** |  | [optional] 
+**Image** | Pointer to **string** | Image is the toolchain image the recipe runs in, a Go bookworm image by default. It is the one field the GitHub lane ignores: there the runner IS the toolchain, and a cluster has to be told what a runner already is. | [optional] 
+**Ldflags** | Pointer to **string** | Ldflags are the Go linker flags, &#x60;-s -w&#x60; when the recipe names none, on one line. Go lane only. | [optional] 
+**Main** | Pointer to **string** | Main is the Go package to build, repo-relative (&#x60;.&#x60; or &#x60;./cmd/x&#x60;), and it selects the GO LANE. Defaults to &#x60;.&#x60; when neither lane is named; declaring it together with &#x60;run&#x60; is refused. | [optional] 
+**Name** | Pointer to **string** | Name is the artifact&#39;s base name: the prefix of every file published for this entry, and the name a host later asks for. It must match &#x60;^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$&#x60;, which is what makes it safe as both a filename and a URL path segment. | [optional] 
+**Out** | Pointer to **string** | Out is the glob of files &#x60;run&#x60; produced, relative to the repo root; matching nothing FAILS the build rather than publishing an empty entry. It expands unquoted, so it is bounded to path and glob characters. The Go lane names its own files and ignores this. | [optional] 
+**Platforms** | Pointer to **[]string** | Platforms are the &#x60;&lt;os&gt;/&lt;arch&gt;&#x60; pairs the Go lane cross-compiles, [linux/amd64] by default. Each one publishes as &#x60;&lt;name&gt;-&lt;os&gt;-&lt;arch&gt;&#x60;, which is the shape a host resolves a binary BY — so the list is what a caller can ask for later. | [optional] 
+**Run** | Pointer to **string** | Run is any other toolchain&#39;s build command, run by &#x60;sh -c&#x60; in this entry&#39;s image, and it selects the OTHER LANE. Arbitrary shell is the point — it is the same trust as a Dockerfile RUN — which is why it executes with no object-store credential and no service-account token. It requires &#x60;out&#x60;. | [optional] 
 
 ## Methods
 

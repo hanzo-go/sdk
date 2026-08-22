@@ -4,11 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CostCents** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to **int32** |  | [optional] 
-**Requests** | Pointer to **int32** |  | [optional] 
-**Tokens** | Pointer to **int32** |  | [optional] 
-**Ts** | Pointer to **string** |  | [optional] 
+**Labels** | Pointer to **map[string]string** |  | [optional] 
+**LabelsArray** | Pointer to **[]map[string]string** |  | [optional] 
+**Values** | Pointer to **[]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -29,130 +27,80 @@ NewO11ySeriesWithDefaults instantiates a new O11ySeries object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetCostCents
+### GetLabels
 
-`func (o *O11ySeries) GetCostCents() int32`
+`func (o *O11ySeries) GetLabels() map[string]string`
 
-GetCostCents returns the CostCents field if non-nil, zero value otherwise.
+GetLabels returns the Labels field if non-nil, zero value otherwise.
 
-### GetCostCentsOk
+### GetLabelsOk
 
-`func (o *O11ySeries) GetCostCentsOk() (*int32, bool)`
+`func (o *O11ySeries) GetLabelsOk() (*map[string]string, bool)`
 
-GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
+GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCostCents
+### SetLabels
 
-`func (o *O11ySeries) SetCostCents(v int32)`
+`func (o *O11ySeries) SetLabels(v map[string]string)`
 
-SetCostCents sets CostCents field to given value.
+SetLabels sets Labels field to given value.
 
-### HasCostCents
+### HasLabels
 
-`func (o *O11ySeries) HasCostCents() bool`
+`func (o *O11ySeries) HasLabels() bool`
 
-HasCostCents returns a boolean if a field has been set.
+HasLabels returns a boolean if a field has been set.
 
-### GetErrors
+### GetLabelsArray
 
-`func (o *O11ySeries) GetErrors() int32`
+`func (o *O11ySeries) GetLabelsArray() []map[string]string`
 
-GetErrors returns the Errors field if non-nil, zero value otherwise.
+GetLabelsArray returns the LabelsArray field if non-nil, zero value otherwise.
 
-### GetErrorsOk
+### GetLabelsArrayOk
 
-`func (o *O11ySeries) GetErrorsOk() (*int32, bool)`
+`func (o *O11ySeries) GetLabelsArrayOk() (*[]map[string]string, bool)`
 
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
+GetLabelsArrayOk returns a tuple with the LabelsArray field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetErrors
+### SetLabelsArray
 
-`func (o *O11ySeries) SetErrors(v int32)`
+`func (o *O11ySeries) SetLabelsArray(v []map[string]string)`
 
-SetErrors sets Errors field to given value.
+SetLabelsArray sets LabelsArray field to given value.
 
-### HasErrors
+### HasLabelsArray
 
-`func (o *O11ySeries) HasErrors() bool`
+`func (o *O11ySeries) HasLabelsArray() bool`
 
-HasErrors returns a boolean if a field has been set.
+HasLabelsArray returns a boolean if a field has been set.
 
-### GetRequests
+### GetValues
 
-`func (o *O11ySeries) GetRequests() int32`
+`func (o *O11ySeries) GetValues() []interface{}`
 
-GetRequests returns the Requests field if non-nil, zero value otherwise.
+GetValues returns the Values field if non-nil, zero value otherwise.
 
-### GetRequestsOk
+### GetValuesOk
 
-`func (o *O11ySeries) GetRequestsOk() (*int32, bool)`
+`func (o *O11ySeries) GetValuesOk() (*[]interface{}, bool)`
 
-GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
+GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRequests
+### SetValues
 
-`func (o *O11ySeries) SetRequests(v int32)`
+`func (o *O11ySeries) SetValues(v []interface{})`
 
-SetRequests sets Requests field to given value.
+SetValues sets Values field to given value.
 
-### HasRequests
+### HasValues
 
-`func (o *O11ySeries) HasRequests() bool`
+`func (o *O11ySeries) HasValues() bool`
 
-HasRequests returns a boolean if a field has been set.
-
-### GetTokens
-
-`func (o *O11ySeries) GetTokens() int32`
-
-GetTokens returns the Tokens field if non-nil, zero value otherwise.
-
-### GetTokensOk
-
-`func (o *O11ySeries) GetTokensOk() (*int32, bool)`
-
-GetTokensOk returns a tuple with the Tokens field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTokens
-
-`func (o *O11ySeries) SetTokens(v int32)`
-
-SetTokens sets Tokens field to given value.
-
-### HasTokens
-
-`func (o *O11ySeries) HasTokens() bool`
-
-HasTokens returns a boolean if a field has been set.
-
-### GetTs
-
-`func (o *O11ySeries) GetTs() string`
-
-GetTs returns the Ts field if non-nil, zero value otherwise.
-
-### GetTsOk
-
-`func (o *O11ySeries) GetTsOk() (*string, bool)`
-
-GetTsOk returns a tuple with the Ts field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTs
-
-`func (o *O11ySeries) SetTs(v string)`
-
-SetTs sets Ts field to given value.
-
-### HasTs
-
-`func (o *O11ySeries) HasTs() bool`
-
-HasTs returns a boolean if a field has been set.
+HasValues returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

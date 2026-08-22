@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -184,220 +183,6 @@ func (a *PlatformAPIService) DeletePlatformProjectsByProjectAppsByAppDomainsByHo
 	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/domains/{host}"
 	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host"+"}", url.PathEscape(parameterValueToString(r.host, "host")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type PlatformAPIDeletePlatformSitesBySlugRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-}
-
-func (r PlatformAPIDeletePlatformSitesBySlugRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeletePlatformSitesBySlugExecute(r)
-}
-
-/*
-DeletePlatformSitesBySlug Deletes a project and takes its site off the internet.
-
-Deletes a project and takes its site off the internet.
-
-The metadata delete is authoritative and everything after it is best-effort,
-in this order: the public `<slug>` subdomain binding is released so the slug is
-free to reclaim, the release rows are dropped so a reclaimed slug never
-inherits the previous owner's rollback menu, the git source is retired on
-every copy it has so a reclaimed slug never adopts a repository left behind
-(visibility.go), the S3 origin is purged under BOTH `<org>/<slug>/` and the
-site's sibling release space, and the edge cache-tag is flushed. A failure in
-any of those is logged and the delete still answers 204 — resurrecting a
-project because a purge missed would be worse than a leaked prefix.
-
-Scope: a validated principal is required (403 without one) and the project is
-resolved within that principal's org, so another tenant's slug is a 404 and
-nothing of theirs is touched.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return PlatformAPIDeletePlatformSitesBySlugRequest
-*/
-func (a *PlatformAPIService) DeletePlatformSitesBySlug(ctx context.Context, slug string) PlatformAPIDeletePlatformSitesBySlugRequest {
-	return PlatformAPIDeletePlatformSitesBySlugRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-func (a *PlatformAPIService) DeletePlatformSitesBySlugExecute(r PlatformAPIDeletePlatformSitesBySlugRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.DeletePlatformSitesBySlug")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type PlatformAPIDeletePlatformSitesBySlugDomainsByHostRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-	host       string
-}
-
-func (r PlatformAPIDeletePlatformSitesBySlugDomainsByHostRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeletePlatformSitesBySlugDomainsByHostExecute(r)
-}
-
-/*
-DeletePlatformSitesBySlugDomainsByHost Gives a custom hostname back, so the name is free to reuse.
-
-Gives a custom hostname back, so the name is free to reuse.
-
-A claim is FIRST-COME and global, so an add-only surface was not ownership but
-a leak: a customer who mistyped a domain, or claimed one they later moved
-elsewhere, could neither reuse it nor let anyone else. This is the third
-writer that closes it. The release is scoped to (host, org, slug), so it can
-only ever drop THIS tenant's own claim, and it is IDEMPOTENT: releasing a host
-we do not hold is a clean 204, never a 404 that would let a caller probe which
-hosts other tenants hold. The edge cache-tag is flushed, since the host stops
-routing here.
-
-Scope: a validated principal is required (403 without one) and the site is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project the host is attached to, from the path.
-	@param host Host is the custom hostname, from the path. It is cleaned to its canonical form (lowercased, trailing dot dropped) before anything is looked up.
-	@return PlatformAPIDeletePlatformSitesBySlugDomainsByHostRequest
-*/
-func (a *PlatformAPIService) DeletePlatformSitesBySlugDomainsByHost(ctx context.Context, slug string, host string) PlatformAPIDeletePlatformSitesBySlugDomainsByHostRequest {
-	return PlatformAPIDeletePlatformSitesBySlugDomainsByHostRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-		host:       host,
-	}
-}
-
-// Execute executes the request
-func (a *PlatformAPIService) DeletePlatformSitesBySlugDomainsByHostExecute(r PlatformAPIDeletePlatformSitesBySlugDomainsByHostRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.DeletePlatformSitesBySlugDomainsByHost")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/domains/{host}"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"host"+"}", url.PathEscape(parameterValueToString(r.host, "host")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -723,6 +508,113 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatf
 	return localVarHTTPResponse, nil
 }
 
+type PlatformAPIGetPlatformBuildsRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+}
+
+func (r PlatformAPIGetPlatformBuildsRequest) Execute() (*BuildBoard, *http.Response, error) {
+	return r.ApiService.GetPlatformBuildsExecute(r)
+}
+
+/*
+GetPlatformBuilds Returns real build records for your org.
+
+Returns real build records for your org.
+
+It lists the org's BuildKit build records — the git build step behind a deploy —
+each with the repo it built, the short commit, its status, when it started and
+how long it took. These are real records or an honest empty list; a build appears
+here because one ran, never because a page needed a row. Builds are created only
+by /deploy and the push-to-deploy hook. Requires a validated principal; 403
+without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PlatformAPIGetPlatformBuildsRequest
+*/
+func (a *PlatformAPIService) GetPlatformBuilds(ctx context.Context) PlatformAPIGetPlatformBuildsRequest {
+	return PlatformAPIGetPlatformBuildsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BuildBoard
+func (a *PlatformAPIService) GetPlatformBuildsExecute(r PlatformAPIGetPlatformBuildsRequest) (*BuildBoard, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BuildBoard
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformBuilds")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/builds"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PlatformAPIGetPlatformCdRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
@@ -899,6 +791,114 @@ func (a *PlatformAPIService) GetPlatformCiExecute(r PlatformAPIGetPlatformCiRequ
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type PlatformAPIGetPlatformEnvironmentsRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+}
+
+func (r PlatformAPIGetPlatformEnvironmentsRequest) Execute() (*EnvironmentBoard, *http.Response, error) {
+	return r.ApiService.GetPlatformEnvironmentsExecute(r)
+}
+
+/*
+GetPlatformEnvironments Returns your deploy targets, and what is running on each.
+
+Returns your deploy targets, and what is running on each.
+
+It returns the org's environments — the distinct deploy targets its applications
+name, `production` for anything that names none — each aggregating the apps that
+target it, a rolled-up status and when it last changed.
+
+An environment is DERIVED, not stored: there is nothing to create or delete here,
+and an environment exists exactly as long as an app points at it. Requires a
+validated principal; 403 without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PlatformAPIGetPlatformEnvironmentsRequest
+*/
+func (a *PlatformAPIService) GetPlatformEnvironments(ctx context.Context) PlatformAPIGetPlatformEnvironmentsRequest {
+	return PlatformAPIGetPlatformEnvironmentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return EnvironmentBoard
+func (a *PlatformAPIService) GetPlatformEnvironmentsExecute(r PlatformAPIGetPlatformEnvironmentsRequest) (*EnvironmentBoard, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EnvironmentBoard
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformEnvironments")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/environments"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type PlatformAPIGetPlatformFleetRequest struct {
@@ -1289,6 +1289,112 @@ func (a *PlatformAPIService) GetPlatformHealthExecute(r PlatformAPIGetPlatformHe
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIGetPlatformPipelinesRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+}
+
+func (r PlatformAPIGetPlatformPipelinesRequest) Execute() (*PipelineBoard, *http.Response, error) {
+	return r.ApiService.GetPlatformPipelinesExecute(r)
+}
+
+/*
+GetPlatformPipelines Returns one build-and-deploy pipeline per app, with its latest run.
+
+Returns one build-and-deploy pipeline per app, with its latest run.
+
+It returns one pipeline per application in the caller's org — its repo or image
+source, its current status, and when its most recent deployment ran and how long
+it took. A pipeline is a PROJECTION of an app plus its newest deployment, not a
+separate record: it comes into existence with the app and is triggered only
+through /deploy, never here. Requires a validated principal; 403 without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PlatformAPIGetPlatformPipelinesRequest
+*/
+func (a *PlatformAPIService) GetPlatformPipelines(ctx context.Context) PlatformAPIGetPlatformPipelinesRequest {
+	return PlatformAPIGetPlatformPipelinesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PipelineBoard
+func (a *PlatformAPIService) GetPlatformPipelinesExecute(r PlatformAPIGetPlatformPipelinesRequest) (*PipelineBoard, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PipelineBoard
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformPipelines")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/pipelines"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2219,30 +2325,31 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDomainsExecute
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PlatformAPIGetPlatformSitesRequest struct {
+type PlatformAPIGetPlatformReleasesRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
 }
 
-func (r PlatformAPIGetPlatformSitesRequest) Execute() ([]ProjectsProject, *http.Response, error) {
-	return r.ApiService.GetPlatformSitesExecute(r)
+func (r PlatformAPIGetPlatformReleasesRequest) Execute() (*ReleaseBoard, *http.Response, error) {
+	return r.ApiService.GetPlatformReleasesExecute(r)
 }
 
 /*
-GetPlatformSites Returns every project your org owns.
+GetPlatformReleases Returns the versions that actually reached the cluster.
 
-Returns every project your org owns.
+Returns the versions that actually reached the cluster.
 
-Each row carries the slug, name, framework, visibility, status and live URL —
-the same rows console and the builder render, because there is only one store
-behind both. It requires a validated principal (403 without one) and is keyed
-by that principal's org, so it never contains another tenant's project.
+It lists the org's releases: the deployments that were genuinely applied to the
+cluster, with the app they belong to, their version, environment, status and when
+they were released. A deployment that failed or is still building is NOT a
+release and is excluded — reaching the cluster is what makes one. Requires a
+validated principal; 403 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PlatformAPIGetPlatformSitesRequest
+	@return PlatformAPIGetPlatformReleasesRequest
 */
-func (a *PlatformAPIService) GetPlatformSites(ctx context.Context) PlatformAPIGetPlatformSitesRequest {
-	return PlatformAPIGetPlatformSitesRequest{
+func (a *PlatformAPIService) GetPlatformReleases(ctx context.Context) PlatformAPIGetPlatformReleasesRequest {
+	return PlatformAPIGetPlatformReleasesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2250,21 +2357,21 @@ func (a *PlatformAPIService) GetPlatformSites(ctx context.Context) PlatformAPIGe
 
 // Execute executes the request
 //
-//	@return []ProjectsProject
-func (a *PlatformAPIService) GetPlatformSitesExecute(r PlatformAPIGetPlatformSitesRequest) ([]ProjectsProject, *http.Response, error) {
+//	@return ReleaseBoard
+func (a *PlatformAPIService) GetPlatformReleasesExecute(r PlatformAPIGetPlatformReleasesRequest) (*ReleaseBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProjectsProject
+		localVarReturnValue *ReleaseBoard
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformSites")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformReleases")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/platform/sites"
+	localVarPath := localBasePath + "/v1/platform/releases"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2287,700 +2394,6 @@ func (a *PlatformAPIService) GetPlatformSitesExecute(r PlatformAPIGetPlatformSit
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIGetPlatformSitesBySlugRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-}
-
-func (r PlatformAPIGetPlatformSitesBySlugRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.GetPlatformSitesBySlugExecute(r)
-}
-
-/*
-GetPlatformSitesBySlug Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
-
-Returns one project of yours by slug — its settings, its live URL
-and the deployment currently serving it.
-
-Scope: a validated principal is required (403 without one) and the lookup is
-keyed by (org, slug), so another tenant's slug is a 404 exactly like a
-nonexistent one.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return PlatformAPIGetPlatformSitesBySlugRequest
-*/
-func (a *PlatformAPIService) GetPlatformSitesBySlug(ctx context.Context, slug string) PlatformAPIGetPlatformSitesBySlugRequest {
-	return PlatformAPIGetPlatformSitesBySlugRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsProject
-func (a *PlatformAPIService) GetPlatformSitesBySlugExecute(r PlatformAPIGetPlatformSitesBySlugRequest) (*ProjectsProject, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsProject
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformSitesBySlug")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIGetPlatformSitesBySlugDeploymentsRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-}
-
-func (r PlatformAPIGetPlatformSitesBySlugDeploymentsRequest) Execute() ([]ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.GetPlatformSitesBySlugDeploymentsExecute(r)
-}
-
-/*
-GetPlatformSitesBySlugDeployments Returns a project's deploy history, newest version first.
-
-Returns a project's deploy history, newest version first.
-
-Every deploy of the project is a row — uploads, generated sites, and git/CI
-builds alike — carrying its version, status, source, commit, live URL, file
-count and byte count. The short-lived upload grant a queued git deployment was
-handed is NOT replayed here: it exists only on the 202 that minted it, so a
-grant cannot outlive its build by being fetched again.
-
-Scope: a validated principal is required (403 without one) and the project is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return PlatformAPIGetPlatformSitesBySlugDeploymentsRequest
-*/
-func (a *PlatformAPIService) GetPlatformSitesBySlugDeployments(ctx context.Context, slug string) PlatformAPIGetPlatformSitesBySlugDeploymentsRequest {
-	return PlatformAPIGetPlatformSitesBySlugDeploymentsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []ProjectsDeployment
-func (a *PlatformAPIService) GetPlatformSitesBySlugDeploymentsExecute(r PlatformAPIGetPlatformSitesBySlugDeploymentsRequest) ([]ProjectsDeployment, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ProjectsDeployment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformSitesBySlugDeployments")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/deployments"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIGetPlatformSitesBySlugDeploymentsByIdRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-	id         string
-}
-
-func (r PlatformAPIGetPlatformSitesBySlugDeploymentsByIdRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.GetPlatformSitesBySlugDeploymentsByIdExecute(r)
-}
-
-/*
-GetPlatformSitesBySlugDeploymentsById Returns one deployment of a project by id.
-
-Returns one deployment of a project by id.
-
-It is how a console follows a build: the status (`queued`, `uploading`,
-`live`, `error`), the message a failure left, and the URL and prefix it went
-live at. Like the history, it never replays the upload grant.
-
-Scope: a validated principal is required (403 without one). Both the project
-and the deployment are resolved within that principal's org, so a deployment
-of another project — or of another tenant — is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project the deployment belongs to, from the path.
-	@param id ID is the deployment id, from the path. A deployment of another project — or of another tenant's project — is not found.
-	@return PlatformAPIGetPlatformSitesBySlugDeploymentsByIdRequest
-*/
-func (a *PlatformAPIService) GetPlatformSitesBySlugDeploymentsById(ctx context.Context, slug string, id string) PlatformAPIGetPlatformSitesBySlugDeploymentsByIdRequest {
-	return PlatformAPIGetPlatformSitesBySlugDeploymentsByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsDeployment
-func (a *PlatformAPIService) GetPlatformSitesBySlugDeploymentsByIdExecute(r PlatformAPIGetPlatformSitesBySlugDeploymentsByIdRequest) (*ProjectsDeployment, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsDeployment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformSitesBySlugDeploymentsById")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/deployments/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIGetPlatformSitesBySlugDomainsRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-}
-
-func (r PlatformAPIGetPlatformSitesBySlugDomainsRequest) Execute() (*ProjectsDomains, *http.Response, error) {
-	return r.ApiService.GetPlatformSitesBySlugDomainsExecute(r)
-}
-
-/*
-GetPlatformSitesBySlugDomains Returns every custom hostname this site holds: the live ones, plus any pending claim with the DNS records it still owes.
-
-Returns every custom hostname this site holds: the live ones, plus
-any pending claim with the DNS records it still owes.
-
-`domains` is the routing answer — the hosts that are verified right now —
-while `claims` is the full panel, one row per host, each saying whether it is
-live or pending and, if pending, exactly what to publish.
-
-Scope: a validated principal is required (403 without one) and the site is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return PlatformAPIGetPlatformSitesBySlugDomainsRequest
-*/
-func (a *PlatformAPIService) GetPlatformSitesBySlugDomains(ctx context.Context, slug string) PlatformAPIGetPlatformSitesBySlugDomainsRequest {
-	return PlatformAPIGetPlatformSitesBySlugDomainsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsDomains
-func (a *PlatformAPIService) GetPlatformSitesBySlugDomainsExecute(r PlatformAPIGetPlatformSitesBySlugDomainsRequest) (*ProjectsDomains, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsDomains
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformSitesBySlugDomains")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/domains"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIGetPlatformSitesBySlugReleasesRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-}
-
-func (r PlatformAPIGetPlatformSitesBySlugReleasesRequest) Execute() ([]ProjectsRelease, *http.Response, error) {
-	return r.ApiService.GetPlatformSitesBySlugReleasesExecute(r)
-}
-
-/*
-GetPlatformSitesBySlugReleases Returns a site's releases newest-first, marking the active one — the rollback menu.
-
-Returns a site's releases newest-first, marking the active one —
-the rollback menu.
-
-Each row carries the release id to activate, the source it was promoted from,
-its object and byte counts, and the URL if it is the one serving. Retention
-bounds the list, so it is the set that can actually still be rolled back to,
-not a full history.
-
-Scope: a validated principal is required (403 without one) and the site is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return PlatformAPIGetPlatformSitesBySlugReleasesRequest
-*/
-func (a *PlatformAPIService) GetPlatformSitesBySlugReleases(ctx context.Context, slug string) PlatformAPIGetPlatformSitesBySlugReleasesRequest {
-	return PlatformAPIGetPlatformSitesBySlugReleasesRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []ProjectsRelease
-func (a *PlatformAPIService) GetPlatformSitesBySlugReleasesExecute(r PlatformAPIGetPlatformSitesBySlugReleasesRequest) ([]ProjectsRelease, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []ProjectsRelease
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformSitesBySlugReleases")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/releases"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPatchPlatformSitesBySlugRequest struct {
-	ctx            context.Context
-	ApiService     *PlatformAPIService
-	slug           string
-	projectsUpdate *ProjectsUpdate
-}
-
-func (r PlatformAPIPatchPlatformSitesBySlugRequest) ProjectsUpdate(projectsUpdate ProjectsUpdate) PlatformAPIPatchPlatformSitesBySlugRequest {
-	r.projectsUpdate = &projectsUpdate
-	return r
-}
-
-func (r PlatformAPIPatchPlatformSitesBySlugRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.PatchPlatformSitesBySlugExecute(r)
-}
-
-/*
-PatchPlatformSitesBySlug Changes a project's settings, and only the settings you send.
-
-Changes a project's settings, and only the settings you send.
-
-Every field is optional and absent means "leave it": `name` may not be blanked,
-`framework` must stay a known build hint, and `cacheControl` is capped at 256
-characters with no newlines (it becomes a response header). `visibility` flips
-public/private under the same rule as create — public is free, private needs a
-funded org. `upstream` and `license` are free-text credit for third-party work,
-and sending "" clears one. Changing anything reconciles the project's canonical
-git repo, so a visibility change reaches the source and not just the listing.
-
-`hidden`/`hiddenReason` are platform MODERATION and are ignored unless the
-caller is a platform admin; they remove a project from the public catalogue
-without touching the publisher's own visibility choice, so un-hiding restores
-exactly what they asked for.
-
-Scope: a validated principal is required (403 without one) and the project is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project to update, from the path. The URL is the addressing authority — a `slug` in the body cannot move the write to another project.
-	@return PlatformAPIPatchPlatformSitesBySlugRequest
-*/
-func (a *PlatformAPIService) PatchPlatformSitesBySlug(ctx context.Context, slug string) PlatformAPIPatchPlatformSitesBySlugRequest {
-	return PlatformAPIPatchPlatformSitesBySlugRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsProject
-func (a *PlatformAPIService) PatchPlatformSitesBySlugExecute(r PlatformAPIPatchPlatformSitesBySlugRequest) (*ProjectsProject, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsProject
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PatchPlatformSitesBySlug")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.projectsUpdate == nil {
-		return localVarReturnValue, nil, reportError("projectsUpdate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.projectsUpdate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3209,6 +2622,120 @@ func (a *PlatformAPIService) PostPlatformFleetByAppDeployExecute(r PlatformAPIPo
 	}
 	// body params
 	localVarPostBody = r.restartRef
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformHookRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+	push       *Push
+}
+
+func (r PlatformAPIPostPlatformHookRequest) Push(push Push) PlatformAPIPostPlatformHookRequest {
+	r.push = &push
+	return r
+}
+
+func (r PlatformAPIPostPlatformHookRequest) Execute() (*Verdict, *http.Response, error) {
+	return r.ApiService.PostPlatformHookExecute(r)
+}
+
+/*
+PostPlatformHook Receive a push from the forge and trigger its build
+
+The forge's push-to-deploy door. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two seams a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.
+
+PUBLIC at the JWT layer, because the forge carries no Hanzo session: AUTHENTICATION IS THE SIGNATURE. The HMAC covers the raw bytes and is verified BEFORE the payload is parsed, so an unauthenticated body is never decoded. The secret is read from KMS; a deployment that cannot read it answers 503 and processes nothing, rather than trusting a delivery it could not check. The body is read UNCOMPRESSED — a request declaring a Content-Encoding is refused 415 before it is touched, because decoding one is unbounded work bought with a few bytes and no credential. A bad signature is 401, a payload over 8 MiB is 413, and a malformed one 400.
+
+A verified push that reaches both seams answers 200 with fired true and the NUMBER OF BUILDS it launched — zero is ordinary, since most pushes track no application, and it is the answer 'fired' cannot give. A push that could not be dispatched answers 500: the delivery page shows it red, and the Replay that prompts reaches a fresh attempt rather than being declined as already landed.
+
+The deliveries deliberately ignored answer 200 with a reason and nothing else: a payload that is not a push, a ref DELETE (a zero `after` has no commit to build), a BOT-authored push (release automation pushes as the forge's own Actions user, and a release must never rebuild itself), a push from a forge namespace that maps to no org, and a redelivery of a push already fired. Branches and tags both reach the build trigger, because releases are cut by tag and filtering here would silently stop publishing.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PlatformAPIPostPlatformHookRequest
+*/
+func (a *PlatformAPIService) PostPlatformHook(ctx context.Context) PlatformAPIPostPlatformHookRequest {
+	return PlatformAPIPostPlatformHookRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Verdict
+func (a *PlatformAPIService) PostPlatformHookExecute(r PlatformAPIPostPlatformHookRequest) (*Verdict, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Verdict
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformHook")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/hook"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.push
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4412,52 +3939,200 @@ func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStopExecute(r
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PlatformAPIPostPlatformSitesRequest struct {
+type PlatformAPIPostPlatformRunRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+	runReq     *RunReq
+}
+
+func (r PlatformAPIPostPlatformRunRequest) RunReq(runReq RunReq) PlatformAPIPostPlatformRunRequest {
+	r.runReq = &runReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformRunRequest) Execute() (*RunView, *http.Response, error) {
+	return r.ApiService.PostPlatformRunExecute(r)
+}
+
+/*
+PostPlatformRun Runs a container image and gives back a URL.
+
+Runs a container image and gives back a URL.
+
+The one-call shortcut over project → app → deploy: give it a `name` and an
+`image` and it creates or updates an image-source application in your org's
+DEFAULT project, deploys it through the same operator Service-CR writer
+everything else uses, and answers its id, name, live URL, status and shape.
+Re-running the same name UPDATES it in place, so the call is idempotent by name.
+
+What it produces is a first-class application, not a special object: it is
+listable, stoppable and redeployable through the /v1/platform routes like any
+other app.
+
+`minScale` is the replica floor. `maxScale` above it declares an autoscaling
+ceiling; `maxScale: 0` means no autoscaler at all — a fixed run at the floor.
+Both are clamped to the deployment's limits. `runtime` and `shape` are accepted
+for the client contract and echoed back: the image is the runtime unit and sizing
+is the operator's default.
+
+It is BILLING-GATED before it touches the cluster: a flat per-run fee is
+authorized against the org's own prepaid balance first, so an org that cannot pay
+is refused without anything being created. An unreachable cluster is 503 — a run
+never reports a URL it did not create. Secret env is sealed into KMS and fails
+closed without it.
+
+Requires a validated principal; 403 without one. The org is resolved from that
+validated identity and is what both pays and owns the namespace — it is never
+read from the body.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PlatformAPIPostPlatformRunRequest
+*/
+func (a *PlatformAPIService) PostPlatformRun(ctx context.Context) PlatformAPIPostPlatformRunRequest {
+	return PlatformAPIPostPlatformRunRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RunView
+func (a *PlatformAPIService) PostPlatformRunExecute(r PlatformAPIPostPlatformRunRequest) (*RunView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RunView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformRun")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/run"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.runReq == nil {
+		return localVarReturnValue, nil, reportError("runReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.runReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformRunnerRequest struct {
 	ctx            context.Context
 	ApiService     *PlatformAPIService
-	projectsCreate *ProjectsCreate
+	runnerBuildReq *RunnerBuildReq
 }
 
-func (r PlatformAPIPostPlatformSitesRequest) ProjectsCreate(projectsCreate ProjectsCreate) PlatformAPIPostPlatformSitesRequest {
-	r.projectsCreate = &projectsCreate
+func (r PlatformAPIPostPlatformRunnerRequest) RunnerBuildReq(runnerBuildReq RunnerBuildReq) PlatformAPIPostPlatformRunnerRequest {
+	r.runnerBuildReq = &runnerBuildReq
 	return r
 }
 
-func (r PlatformAPIPostPlatformSitesRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesExecute(r)
+func (r PlatformAPIPostPlatformRunnerRequest) Execute() (*RunnerBuildResp, *http.Response, error) {
+	return r.ApiService.PostPlatformRunnerExecute(r)
 }
 
 /*
-PostPlatformSites Creates a project — the handle a site is deployed and served under — and answers 201 with it in `draft`.
+PostPlatformRunner Triggers a native build — an image, or the binaries a repo declares.
 
-Creates a project — the handle a site is deployed and served
-under — and answers 201 with it in `draft`.
+Triggers a native build — an image, or the binaries a repo declares.
 
-`name` is required; `slug` is derived from the name when omitted and is the
-identifier that matters — it becomes the S3 key segment, the public host
-`<slug>.hanzo.app`, and the handle every later call addresses, so it must
-match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$` and may not be a reserved label
-such as `api` or `admin`. `framework` is a build hint from a closed set,
-defaulting to `static`; it never gates a deploy, it only tells CI how to build
-a linked repo.
+The fabric's own build trigger, and what `hanzo build` and git-push-to-deploy
+call. It answers 202 with the build job id: a queued build, not a pushed
+artifact.
 
-Two defaults are worth knowing: the analytics beacon is ON unless `analytics`
-is explicitly false, and `visibility` is `public` unless asked otherwise.
-Publishing publicly is free; PRIVATE is the paid feature, and an unfunded org
-asking for it is refused rather than quietly published as public. Creation
-also provisions the project's data space and a canonical git repo, both
-best-effort — neither can fail the create.
+Two lanes, and a build is exactly one of them. The IMAGE lane takes `repo` and
+the output `image` and launches a BuildKit Job that pushes it. The ARTIFACT lane
+takes `binaries` — the same recipe the repo's hanzo.yml declares — and publishes
+to object storage instead; it must carry no `image`, because a build produces
+binaries or an image, never both.
 
-Scope: a validated principal is required (403 without one) and the project is
-created in THAT principal's org. The slug is unique per org, so a slug already
-used in the caller's own org is a 409 while the same slug in another org is
-irrelevant.
+PRIVILEGED, and A BUILD BELONGS TO THE ORGANIZATION ITS CREDENTIAL NAMES. Two
+credentials, never a third:
+
+  - one that NAMES an organization — a person who administers it (the `hanzo
+    build` path, so one IAM login authorizes a build with no separate build
+    token), or that organization's own machine identity (the pipeline path). The
+    build is attributed to that org and confined to what it owns.
+  - the shared build-callback token, compared in constant time. It names NO
+    organization, which is both why the fabric's own release can publish across
+    brands with it and why anything that CAN name one is read first.
+
+Both are bounded by the owned-registry allowlist. The org path is bounded again,
+by the org: the image's registry namespace must be one that organization owns, so
+it publishes into its own brand and can never overwrite another's through the
+shared push credential. The same confinement applies to the artifact lane's repo
+owner. There is no request field naming an organization — the attribution is read
+off the credential, so there is nothing for a caller to write it with.
+
+The output image is parsed and validated as a single well-formed OCI ref before
+any authorization decision reads it, so a crafted ref cannot smuggle a
+build-exporter attribute past the check.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PlatformAPIPostPlatformSitesRequest
+	@return PlatformAPIPostPlatformRunnerRequest
 */
-func (a *PlatformAPIService) PostPlatformSites(ctx context.Context) PlatformAPIPostPlatformSitesRequest {
-	return PlatformAPIPostPlatformSitesRequest{
+func (a *PlatformAPIService) PostPlatformRunner(ctx context.Context) PlatformAPIPostPlatformRunnerRequest {
+	return PlatformAPIPostPlatformRunnerRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4465,27 +4140,27 @@ func (a *PlatformAPIService) PostPlatformSites(ctx context.Context) PlatformAPIP
 
 // Execute executes the request
 //
-//	@return ProjectsProject
-func (a *PlatformAPIService) PostPlatformSitesExecute(r PlatformAPIPostPlatformSitesRequest) (*ProjectsProject, *http.Response, error) {
+//	@return RunnerBuildResp
+func (a *PlatformAPIService) PostPlatformRunnerExecute(r PlatformAPIPostPlatformRunnerRequest) (*RunnerBuildResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProjectsProject
+		localVarReturnValue *RunnerBuildResp
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSites")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformRunner")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/platform/sites"
+	localVarPath := localBasePath + "/v1/platform/runner"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.projectsCreate == nil {
-		return localVarReturnValue, nil, reportError("projectsCreate is required and must be specified")
+	if r.runnerBuildReq == nil {
+		return localVarReturnValue, nil, reportError("runnerBuildReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4506,1163 +4181,7 @@ func (a *PlatformAPIService) PostPlatformSitesExecute(r PlatformAPIPostPlatformS
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.projectsCreate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugDeployRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-	body       *os.File
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDeployRequest) Body(body *os.File) PlatformAPIPostPlatformSitesBySlugDeployRequest {
-	r.body = body
-	return r
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDeployRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugDeployExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugDeploy Upload a built site as one archive and serve it
-
-Takes a built site live at `https://<slug>.hanzo.app` in one call. The body is the site itself — a `zip` or `tar.gz` holding `index.html` at its root (or a single wrapper directory that does), sent raw or as a multipart file part. It is unpacked to the site's own storage prefix and served immediately, answering the finished deployment.
-
-It is bounded by the edge body limit (16 MiB by default), and that bound is the whole reason the other path exists: an oversized POST is refused by the server BEFORE any handler runs and surfaces as an opaque `400 Error when parsing request` that reads like a malformed payload rather than a size cap. A site too large for one archive opens a deployment with `POST /v1/sites/{slug}/deployments` instead and writes its files straight to storage against the scoped grant that answers with — no body limit, and no bytes through this API at all.
-
-Billing is fail-closed and fails FIRST: the hosting gate runs before anything is parsed or uploaded, so an unfunded org is 402 and an unreachable commerce is 503 with nothing written. The debit lands only on success — a failed upload is never billed and never flips the live site — and a redeploy answers the SAME URL, because slug and apex are stable.
-
-Scope: a validated principal is required (403 without one) and the site is resolved within that principal's org, so another tenant's slug is a 404. Object storage must be configured (503); an archive that does not walk is a 400 and one over the size cap is a 413.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug
-	@return PlatformAPIPostPlatformSitesBySlugDeployRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugDeploy(ctx context.Context, slug string) PlatformAPIPostPlatformSitesBySlugDeployRequest {
-	return PlatformAPIPostPlatformSitesBySlugDeployRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsDeployment
-func (a *PlatformAPIService) PostPlatformSitesBySlugDeployExecute(r PlatformAPIPostPlatformSitesBySlugDeployRequest) (*ProjectsDeployment, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsDeployment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugDeploy")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/deploy"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/octet-stream"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.body
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugDeploymentsRequest struct {
-	ctx                 context.Context
-	ApiService          *PlatformAPIService
-	slug                string
-	projectsDeployStart *ProjectsDeployStart
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDeploymentsRequest) ProjectsDeployStart(projectsDeployStart ProjectsDeployStart) PlatformAPIPostPlatformSitesBySlugDeploymentsRequest {
-	r.projectsDeployStart = &projectsDeployStart
-	return r
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDeploymentsRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugDeploymentsExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugDeployments Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
-
-Opens a deployment and hands back a short-lived, prefix-scoped
-grant to write its bytes straight to object storage. Answers 202.
-
-This is the path for a site too large to send as one archive: a real export is
-hundreds of megabytes against a 16 MiB body limit, so the bytes deliberately do
-NOT pass through the API. The answer carries `bucket`, `prefix` and `upload` —
-a presigned POST policy that S3 itself confines to this site's prefix
-(starts-with `<org>/<slug>/`), expires in 30 minutes and bounds each object.
-So a build writes its own files and holds no standing bucket credential; there
-is nothing to rotate and nothing that leaks between tenants. Never guess the
-prefix — it is server-derived, and a guessed one lands where nothing is served.
-
-The deployment is `queued` until POST .../deployments/{id}/complete flips it
-live (or error). That completion is also where DELETION happens: the grant
-authorizes writes only, so a build cannot remove a file, and cloud reconciles
-the prefix against the `keys` manifest the completion carries. A build that
-dies before completing leaves the deployment queued rather than a half-live
-site.
-
-The grant is on the 202 and NOWHERE else — it is never stored and never
-replayed on a later read, so it cannot outlive the build it was minted for. A
-deployment whose grant could not be minted is still created and still
-completable; it simply carries no `upload`, and a caller with no other way to
-write should treat that as the failure it is.
-
-Billing: the hosting gate runs BEFORE anything is created (402 unfunded, 503
-commerce unreachable), and the debit lands on the completion that goes live —
-never on a queued or failed build.
-
-Scope: a validated principal is required (403 without one) and the site is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the site to deploy, from the path.
-	@return PlatformAPIPostPlatformSitesBySlugDeploymentsRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugDeployments(ctx context.Context, slug string) PlatformAPIPostPlatformSitesBySlugDeploymentsRequest {
-	return PlatformAPIPostPlatformSitesBySlugDeploymentsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsDeployment
-func (a *PlatformAPIService) PostPlatformSitesBySlugDeploymentsExecute(r PlatformAPIPostPlatformSitesBySlugDeploymentsRequest) (*ProjectsDeployment, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsDeployment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugDeployments")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/deployments"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.projectsDeployStart == nil {
-		return localVarReturnValue, nil, reportError("projectsDeployStart is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.projectsDeployStart
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugDeploymentsByIdCompleteRequest struct {
-	ctx              context.Context
-	ApiService       *PlatformAPIService
-	slug             string
-	id               string
-	projectsComplete *ProjectsComplete
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDeploymentsByIdCompleteRequest) ProjectsComplete(projectsComplete ProjectsComplete) PlatformAPIPostPlatformSitesBySlugDeploymentsByIdCompleteRequest {
-	r.projectsComplete = &projectsComplete
-	return r
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDeploymentsByIdCompleteRequest) Execute() (*ProjectsDeployment, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugDeploymentsByIdCompleteExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugDeploymentsByIdComplete CompleteDeployment is the CI completion hook that flips a queued git deployment to live (or error) once CI has synced the built site to S3.
-
-CompleteDeployment is the CI completion hook that flips a queued git
-deployment to live (or error) once CI has synced the built site to S3.
-
-`status` must be `live` or `error`. On a LIVE completion the public host is
-claimed FIRST, so the deployment reports the URL it actually OWNS — a
-CI-supplied `liveUrl` is a hint that can refine that URL but can never assert
-a subdomain another tenant holds. `keys` is the manifest CI just uploaded,
-relative to the deployment prefix: cloud reconciles the prefix against it so a
-page deleted from the build actually stops serving. Omit `keys` and nothing is
-deleted — the prefix only grows. Reconciliation runs only on a live completion
-(pruning against a failed build's manifest would delete the site the last good
-build is still serving) and is best-effort, so a stale leftover never turns a
-successful deploy into a 500. A live completion is also the one billable
-moment on the git path; an error completion bills nothing.
-
-Scope: a validated principal is required (403 without one). CI authenticates
-with an org-scoped token through the gateway, so the deployment is resolved
-within that principal's org and another tenant's slug or deployment id is a
-404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project the deployment belongs to, from the path.
-	@param id ID is the queued deployment to complete, from the path.
-	@return PlatformAPIPostPlatformSitesBySlugDeploymentsByIdCompleteRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugDeploymentsByIdComplete(ctx context.Context, slug string, id string) PlatformAPIPostPlatformSitesBySlugDeploymentsByIdCompleteRequest {
-	return PlatformAPIPostPlatformSitesBySlugDeploymentsByIdCompleteRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsDeployment
-func (a *PlatformAPIService) PostPlatformSitesBySlugDeploymentsByIdCompleteExecute(r PlatformAPIPostPlatformSitesBySlugDeploymentsByIdCompleteRequest) (*ProjectsDeployment, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsDeployment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugDeploymentsByIdComplete")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/deployments/{id}/complete"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.projectsComplete == nil {
-		return localVarReturnValue, nil, reportError("projectsComplete is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.projectsComplete
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugDomainsRequest struct {
-	ctx                 context.Context
-	ApiService          *PlatformAPIService
-	slug                string
-	projectsDomainsBind *ProjectsDomainsBind
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDomainsRequest) ProjectsDomainsBind(projectsDomainsBind ProjectsDomainsBind) PlatformAPIPostPlatformSitesBySlugDomainsRequest {
-	r.projectsDomainsBind = &projectsDomainsBind
-	return r
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDomainsRequest) Execute() (*ProjectsBoundDomains, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugDomainsExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugDomains Attaches one or more CUSTOM public hostnames to this org's site.
-
-Attaches one or more CUSTOM public hostnames to this org's site.
-
-Binding a host you do not own would let you shadow it at the edge, so which
-outcome you get depends on whether ownership is already established: a SuperAdmin
-vouches (the operator manages the customer's DNS, so its bind IS the proof) and
-binds VERIFIED immediately; every other caller, INCLUDING an admin of the
-deployment's own brand org, has the host CLAIMED as pending and gets the DNS
-challenge back in `bound[].records`. A pending claim HOLDS the name so nobody
-else can take it, but it does not route until POST .../domains/{host}/verify
-proves control.
-
-A hostname we operate is refused to a non-vouched caller (those are assigned
-by the platform, never claimed), a host another site already holds is a 409,
-and a name the platform holds is a 400 for EVERY caller — a vouch skips the
-ownership proof, never the host table's own invariant. Claims and binds are
-idempotent for the same
-(org, slug), and re-claiming returns the SAME token rather than invalidating a
-record the customer has already published. The edge cache-tag is flushed
-afterwards so a newly-verified host serves the current build immediately.
-
-Scope: a validated principal is required (403 without one) and the site is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the site the hosts attach to, from the path.
-	@return PlatformAPIPostPlatformSitesBySlugDomainsRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugDomains(ctx context.Context, slug string) PlatformAPIPostPlatformSitesBySlugDomainsRequest {
-	return PlatformAPIPostPlatformSitesBySlugDomainsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsBoundDomains
-func (a *PlatformAPIService) PostPlatformSitesBySlugDomainsExecute(r PlatformAPIPostPlatformSitesBySlugDomainsRequest) (*ProjectsBoundDomains, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsBoundDomains
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugDomains")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/domains"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.projectsDomainsBind == nil {
-		return localVarReturnValue, nil, reportError("projectsDomainsBind is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.projectsDomainsBind
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugDomainsByHostVerifyRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-	host       string
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugDomainsByHostVerifyRequest) Execute() (*ProjectsDomain, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugDomainsByHostVerifyExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugDomainsByHostVerify Checks the DNS challenge for a pending custom hostname and, when it passes, promotes the host so it begins routing at the edge.
-
-Checks the DNS challenge for a pending custom hostname and, when
-it passes, promotes the host so it begins routing at the edge.
-
-It answers 200 either way, with the host's honest current state: verified once
-the TXT record is found, still pending — with the records to publish and the
-resolver's own explanation in `detail` — when it is not. A not-yet is not an
-error: the check ran, DNS simply has not propagated, and the customer retries.
-An already-verified host is returned unchanged without re-resolving. On a
-successful promotion the edge cache-tag is flushed, since the host routes as
-of that moment.
-
-Scope: a validated principal is required (403 without one). Both the site and
-the claim are resolved within that principal's org, so a host claimed by
-another tenant is "not claimed by this site".
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project the host is attached to, from the path.
-	@param host Host is the custom hostname, from the path. It is cleaned to its canonical form (lowercased, trailing dot dropped) before anything is looked up.
-	@return PlatformAPIPostPlatformSitesBySlugDomainsByHostVerifyRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugDomainsByHostVerify(ctx context.Context, slug string, host string) PlatformAPIPostPlatformSitesBySlugDomainsByHostVerifyRequest {
-	return PlatformAPIPostPlatformSitesBySlugDomainsByHostVerifyRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-		host:       host,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsDomain
-func (a *PlatformAPIService) PostPlatformSitesBySlugDomainsByHostVerifyExecute(r PlatformAPIPostPlatformSitesBySlugDomainsByHostVerifyRequest) (*ProjectsDomain, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsDomain
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugDomainsByHostVerify")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/domains/{host}/verify"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host"+"}", url.PathEscape(parameterValueToString(r.host, "host")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugPublishRequest struct {
-	ctx             context.Context
-	ApiService      *PlatformAPIService
-	slug            string
-	projectsPublish *ProjectsPublish
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugPublishRequest) ProjectsPublish(projectsPublish ProjectsPublish) PlatformAPIPostPlatformSitesBySlugPublishRequest {
-	r.projectsPublish = &projectsPublish
-	return r
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugPublishRequest) Execute() (*ProjectsRelease, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugPublishExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugPublish Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
-
-Promotes a build output into a new release AND goes live with it —
-create+activate in one call, which is the 99% path.
-
-It is exactly the two halves in sequence with no extra semantics, so the
-staged flow and the one-shot flow can never drift apart: `source` is promoted
-under the same org-relative rule and the same guards CreateRelease applies,
-then the site's pointer is flipped to it, the public host is claimed and the
-edge is purged. Idempotent on unchanged bytes — same manifest, same release id,
-no copy — and billed once, after the release exists.
-
-Scope: a validated principal is required (403 without one) and the site is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the site to publish, from the path.
-	@return PlatformAPIPostPlatformSitesBySlugPublishRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugPublish(ctx context.Context, slug string) PlatformAPIPostPlatformSitesBySlugPublishRequest {
-	return PlatformAPIPostPlatformSitesBySlugPublishRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsRelease
-func (a *PlatformAPIService) PostPlatformSitesBySlugPublishExecute(r PlatformAPIPostPlatformSitesBySlugPublishRequest) (*ProjectsRelease, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsRelease
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugPublish")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/publish"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.projectsPublish == nil {
-		return localVarReturnValue, nil, reportError("projectsPublish is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.projectsPublish
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugPurgeRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugPurgeRequest) Execute() (*ProjectsProject, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugPurgeExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugPurge Flushes the site's edge cache without redeploying anything.
-
-Flushes the site's edge cache without redeploying anything.
-
-It invalidates the edge cache-tag `site-<org>-<slug>` and stamps `lastPurgeAt`
-(unix seconds), and it NEVER writes or deletes the S3 origin — the live build
-keeps serving; only stale copies held at the edge drop, so the next request
-re-fetches the current artifact from origin. Idempotent, and an edge that is
-unconfigured or failing is not fatal: `lastPurgeAt` is still stamped and the
-answer is still the updated project.
-
-Scope: a validated principal is required (403 without one) and the project is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
-	@return PlatformAPIPostPlatformSitesBySlugPurgeRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugPurge(ctx context.Context, slug string) PlatformAPIPostPlatformSitesBySlugPurgeRequest {
-	return PlatformAPIPostPlatformSitesBySlugPurgeRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsProject
-func (a *PlatformAPIService) PostPlatformSitesBySlugPurgeExecute(r PlatformAPIPostPlatformSitesBySlugPurgeRequest) (*ProjectsProject, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsProject
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugPurge")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/purge"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugReleasesRequest struct {
-	ctx             context.Context
-	ApiService      *PlatformAPIService
-	slug            string
-	projectsPublish *ProjectsPublish
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugReleasesRequest) ProjectsPublish(projectsPublish ProjectsPublish) PlatformAPIPostPlatformSitesBySlugReleasesRequest {
-	r.projectsPublish = &projectsPublish
-	return r
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugReleasesRequest) Execute() (*ProjectsRelease, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugReleasesExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugReleases Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
-
-Promotes a build output into a new immutable release WITHOUT
-serving it — the staged half of publishing, for when you want to check a
-release before it goes live. Answers 201.
-
-`source` is a path RELATIVE to your org's own storage space: the org segment
-is prepended server-side from the validated principal and the bucket is never
-in the request at all, so a server-side copy can only ever reach bytes your
-org already owns. The prefix is listed, content-addressed (SHA-256 over the
-sorted manifest of key/size/etag), and copied into an immutable
-`<org>/.releases/<slug>/<id>/` prefix; the row is written LAST, so a partial
-copy is unreachable rather than merely unlikely. Re-publishing an unchanged
-source is idempotent BY CONSTRUCTION — same bytes, same id, no copy at all.
-
-The source must contain index.html at its root and stay under the same file
-and byte caps an artifact deploy does (413 past them); a source that changes
-mid-copy is a 409 and the release is abandoned. Each publish also reclaims
-releases past the retention depth, so a site's release space stays bounded.
-This is the billable half — the hosting gate runs before any copy, and the
-debit lands once the release exists.
-
-Scope: a validated principal is required (403 without one) and the site is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the site to publish, from the path.
-	@return PlatformAPIPostPlatformSitesBySlugReleasesRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugReleases(ctx context.Context, slug string) PlatformAPIPostPlatformSitesBySlugReleasesRequest {
-	return PlatformAPIPostPlatformSitesBySlugReleasesRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsRelease
-func (a *PlatformAPIService) PostPlatformSitesBySlugReleasesExecute(r PlatformAPIPostPlatformSitesBySlugReleasesRequest) (*ProjectsRelease, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsRelease
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugReleases")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/releases"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.projectsPublish == nil {
-		return localVarReturnValue, nil, reportError("projectsPublish is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.projectsPublish
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformSitesBySlugReleasesByReleaseActivateRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	slug       string
-	release    string
-}
-
-func (r PlatformAPIPostPlatformSitesBySlugReleasesByReleaseActivateRequest) Execute() (*ProjectsRelease, *http.Response, error) {
-	return r.ApiService.PostPlatformSitesBySlugReleasesByReleaseActivateExecute(r)
-}
-
-/*
-PostPlatformSitesBySlugReleasesByReleaseActivate Points the site at an existing release — the go-live, and equally the ROLLBACK.
-
-Points the site at an existing release — the go-live, and
-equally the ROLLBACK.
-
-Aim it at an older release and the site serves that one again: releases are
-immutable and retained to the retention depth, so nothing is rebuilt or
-re-copied and the flip is one atomic statement. Before the flip, two
-conditions run in the order that gives each its own honest answer — the ROW
-says whether this release exists for this tenant at all (404, with no signal
-about a foreign id), and only then do the BYTES say whether it can still serve
-(410 GONE when retention has reclaimed them; that rollback target is not
-coming back, so publish again). Going live also claims the public host and
-purges the edge, so the release is reachable and no cached predecessor is
-served. NOT billed: no new content is produced, only a pointer moved.
-
-Scope: a validated principal is required (403 without one) and the site is
-resolved within that principal's org, so another tenant's slug is a 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug Slug is the site the release belongs to, from the path.
-	@param release Release is the content-addressed release id (\"rel_\" + 32 hex chars), from the path. Anything that is not that shape is not found, rather than being interpolated into a storage prefix.
-	@return PlatformAPIPostPlatformSitesBySlugReleasesByReleaseActivateRequest
-*/
-func (a *PlatformAPIService) PostPlatformSitesBySlugReleasesByReleaseActivate(ctx context.Context, slug string, release string) PlatformAPIPostPlatformSitesBySlugReleasesByReleaseActivateRequest {
-	return PlatformAPIPostPlatformSitesBySlugReleasesByReleaseActivateRequest{
-		ApiService: a,
-		ctx:        ctx,
-		slug:       slug,
-		release:    release,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ProjectsRelease
-func (a *PlatformAPIService) PostPlatformSitesBySlugReleasesByReleaseActivateExecute(r PlatformAPIPostPlatformSitesBySlugReleasesByReleaseActivateRequest) (*ProjectsRelease, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ProjectsRelease
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformSitesBySlugReleasesByReleaseActivate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/sites/{slug}/releases/{release}/activate"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"release"+"}", url.PathEscape(parameterValueToString(r.release, "release")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
+	localVarPostBody = r.runnerBuildReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

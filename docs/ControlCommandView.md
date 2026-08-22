@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Command** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
+**Command** | Pointer to **string** | Command is what was asked, from a closed four: pause, resume, stop, message. It is an INTENT — the poller decides what to do about it, and the session&#39;s status changes only when the poller reports back that it did. | [optional] 
+**Message** | Pointer to **string** | Message is the text that came with the command: what to say into the run for &#x60;message&#x60;, and the cancellation reason for &#x60;stop&#x60;. Up to 16 KiB. Empty on a bare pause or resume. | [optional] 
 **Payload** | Pointer to **interface{}** |  | [optional] 
-**Seq** | Pointer to **int32** |  | [optional] 
+**Seq** | Pointer to **int32** | Seq is this command&#39;s position in the session&#39;s log — the same monotonic number every other turn is ordered by, so a command sits in the transcript where it was issued. Send the highest one you applied back as &#x60;after&#x60; and it is never redelivered. | [optional] 
 
 ## Methods
 

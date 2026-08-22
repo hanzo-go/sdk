@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &ArgoAppList{}
 
 // ArgoAppList struct for ArgoAppList
 type ArgoAppList struct {
-	ApiVersion *string       `json:"apiVersion,omitempty"`
-	Items      []ArgoApp     `json:"items,omitempty"`
-	Kind       *string       `json:"kind,omitempty"`
-	Metadata   *ArgoListMeta `json:"metadata,omitempty"`
+	// APIVersion is the constant \"argoproj.io/v1alpha1\".
+	ApiVersion *string `json:"apiVersion,omitempty"`
+	// Items is one entry per operator App CR the caller may see — its own org's, or every platform namespace's for a SuperAdmin — followed, for a SuperAdmin only, by every Hanzo CD Application in the cluster. Empty (never null) rather than absent when the caller owns nothing.
+	Items []ArgoApp `json:"items,omitempty"`
+	// Kind is the constant \"ApplicationList\".
+	Kind *string `json:"kind,omitempty"`
+	// Metadata is the list envelope the SPA expects; it carries no resume point.
+	Metadata *ArgoListMeta `json:"metadata,omitempty"`
 }
 
 // NewArgoAppList instantiates a new ArgoAppList object

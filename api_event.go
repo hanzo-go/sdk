@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -22,6 +22,1021 @@ import (
 
 // EventAPIService EventAPI service
 type EventAPIService service
+
+type EventAPIGetEventErrorsRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+	limit      *int32
+}
+
+// Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default.
+func (r EventAPIGetEventErrorsRequest) Limit(limit int32) EventAPIGetEventErrorsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r EventAPIGetEventErrorsRequest) Execute() (*ErrorList, *http.Response, error) {
+	return r.ApiService.GetEventErrorsExecute(r)
+}
+
+/*
+GetEventErrors Errors returns the caller org's most recently captured errors, newest first.
+
+Errors returns the caller org's most recently captured errors, newest first. The
+error-tracking read view over event.error — the plane table the write core's error
+facts land in (errors are DELIBERATELY not on event.event) — each with its captured
+exception surfaced from the attributes map as a first-class field.
+
+The org is the validated principal's — never a parameter — and this read requires a
+real bearer, NEVER the write-only publishable key: pk- can attribute a write and can
+read nothing. 403 without a validated bearer, 503 when the warehouse is unreachable.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIGetEventErrorsRequest
+*/
+func (a *EventAPIService) GetEventErrors(ctx context.Context) EventAPIGetEventErrorsRequest {
+	return EventAPIGetEventErrorsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ErrorList
+func (a *EventAPIService) GetEventErrorsExecute(r EventAPIGetEventErrorsRequest) (*ErrorList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ErrorList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventErrors")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/errors"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type EventAPIGetEventHealthRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+}
+
+func (r EventAPIGetEventHealthRequest) Execute() (*HealthReport, *http.Response, error) {
+	return r.ApiService.GetEventHealthExecute(r)
+}
+
+/*
+GetEventHealth Health reports whether the event plane can take a write and the warehouse can answer a read.
+
+Health reports whether the event plane can take a write and the warehouse can
+answer a read.
+
+It reports the analytics subsystem's own liveness in BOTH directions: plane is
+the event plane it WRITES (the bus and the JetStream stream every accepted
+event is published to, both named in the report), and datastore is the
+warehouse it READS, with each read lens's table reported as it is provisioned
+(the LLM usage ledger and the product-event table).
+
+EITHER ONE DOWN IS A 503, and the report says WHICH — they are probed
+independently and never collapse into a single bit. This endpoint used to
+report the read half only, and answered 200/ok while every POST /v1/event
+failed on a stream that could not bind: a total ingest outage behind a green
+probe. A readiness gate here now gates on the write path too.
+
+plane.ready IS A REAL PROBE and walks the ingest path itself — the same
+connection and the same stream a publish uses — so it cannot answer ready while
+a publish would 503. plane.reason carries the plane's own error text when it is
+false.
+
+datastore IS NOT PROBED WITH A QUERY. It is the state of the process's own
+shared client — established, and not since closed — so a warehouse accepting
+connections and failing reads still reports true. Degraded CARRIES the report
+(status, the failing half, reason) as its body rather than an error envelope,
+so a gate reads the cause off the same object it got at 200.
+
+A MISSING LENS TABLE IS NOT A FAILURE and never moves the status: a lens
+reported available:false answers honest-empty rather than erroring, so a fresh
+deployment whose collector has not emitted yet is legitimately 200 with the
+product-event lens unavailable. The lens block is reported whenever the
+warehouse is REACHABLE — including on a report degraded by the plane, where the
+tables genuinely were probed — and is absent only when the warehouse is not,
+having nothing to say about tables it could not reach.
+
+Unauthenticated on purpose — liveness has to be probe-able — and it reads NO
+tenant data: table existence and stream presence only, never a row and never an
+event.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIGetEventHealthRequest
+*/
+func (a *EventAPIService) GetEventHealth(ctx context.Context) EventAPIGetEventHealthRequest {
+	return EventAPIGetEventHealthRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return HealthReport
+func (a *EventAPIService) GetEventHealthExecute(r EventAPIGetEventHealthRequest) (*HealthReport, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *HealthReport
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventHealth")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/health"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v HealthReport
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type EventAPIGetEventInsightsEventsRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+	limit      *int32
+}
+
+// Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default.
+func (r EventAPIGetEventInsightsEventsRequest) Limit(limit int32) EventAPIGetEventInsightsEventsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r EventAPIGetEventInsightsEventsRequest) Execute() (*EventList, *http.Response, error) {
+	return r.ApiService.GetEventInsightsEventsExecute(r)
+}
+
+/*
+GetEventInsightsEvents Returns the caller org's most recent product events, newest first.
+
+Returns the caller org's most recent product events, newest first.
+The console's raw-event view over event.event — the same table the capture doors
+fill — one row per stored event, with the row's attributes returned as the
+properties object.
+
+The org is the validated principal's — never a parameter — and a read requires a
+real bearer, never the write-only publishable key. 403 without a validated bearer,
+503 when the warehouse is unreachable.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIGetEventInsightsEventsRequest
+*/
+func (a *EventAPIService) GetEventInsightsEvents(ctx context.Context) EventAPIGetEventInsightsEventsRequest {
+	return EventAPIGetEventInsightsEventsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return EventList
+func (a *EventAPIService) GetEventInsightsEventsExecute(r EventAPIGetEventInsightsEventsRequest) (*EventList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EventList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventInsightsEvents")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/insights/events"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type EventAPIGetEventInsightsHealthRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+}
+
+func (r EventAPIGetEventInsightsHealthRequest) Execute() (*InsightsStatus, *http.Response, error) {
+	return r.ApiService.GetEventInsightsHealthExecute(r)
+}
+
+/*
+GetEventInsightsHealth Reports that the unified insights surface is serving.
+
+Reports that the unified insights surface is serving. It reads no
+tenant data and consults no dependency, so it answers 200 unconditionally and needs
+no principal — liveness must be probe-able. The warehouse-connectivity probe is a
+different question and lives at GET /v1/event/health.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIGetEventInsightsHealthRequest
+*/
+func (a *EventAPIService) GetEventInsightsHealth(ctx context.Context) EventAPIGetEventInsightsHealthRequest {
+	return EventAPIGetEventInsightsHealthRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return InsightsStatus
+func (a *EventAPIService) GetEventInsightsHealthExecute(r EventAPIGetEventInsightsHealthRequest) (*InsightsStatus, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InsightsStatus
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventInsightsHealth")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/insights/health"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type EventAPIGetEventOverviewRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+	range_     *string
+	start      *string
+	end        *string
+}
+
+// Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400.
+func (r EventAPIGetEventOverviewRequest) Range_(range_ string) EventAPIGetEventOverviewRequest {
+	r.range_ = &range_
+	return r
+}
+
+// Start is the inclusive lower bound of a custom window, RFC3339. Requires end.
+func (r EventAPIGetEventOverviewRequest) Start(start string) EventAPIGetEventOverviewRequest {
+	r.start = &start
+	return r
+}
+
+// End is the exclusive upper bound of a custom window, RFC3339. Requires start.
+func (r EventAPIGetEventOverviewRequest) End(end string) EventAPIGetEventOverviewRequest {
+	r.end = &end
+	return r
+}
+
+func (r EventAPIGetEventOverviewRequest) Execute() (*Overview, *http.Response, error) {
+	return r.ApiService.GetEventOverviewExecute(r)
+}
+
+/*
+GetEventOverview Overview returns the caller org's analytics KPIs for one time window.
+
+Overview returns the caller org's analytics KPIs for one time window. Three lenses
+over one warehouse: llm is the live per-org LLM usage ledger (requests, tokens,
+spend, models, providers, errors) and is always real; web (pageviews, visitors,
+sessions) and commerce (orders, revenue, AOV) read the product-event table and
+report available=false rather than fabricating zeros when it holds nothing yet.
+
+The org is the validated principal's — never a parameter — so a caller can only
+ever read its own tenant. 403 without a validated bearer, 400 on an unknown range,
+503 when the warehouse is unreachable.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIGetEventOverviewRequest
+*/
+func (a *EventAPIService) GetEventOverview(ctx context.Context) EventAPIGetEventOverviewRequest {
+	return EventAPIGetEventOverviewRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Overview
+func (a *EventAPIService) GetEventOverviewExecute(r EventAPIGetEventOverviewRequest) (*Overview, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Overview
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventOverview")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/overview"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.range_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "range", r.range_, "form", "")
+	}
+	if r.start != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "form", "")
+	}
+	if r.end != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "end", r.end, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type EventAPIGetEventTagJsRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+}
+
+func (r EventAPIGetEventTagJsRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.GetEventTagJsExecute(r)
+}
+
+/*
+GetEventTagJs The Hanzo event tag — the one-line install for a surface with no bundler
+
+Serves the browser tag that autocaptures pageviews (initial and SPA) and uncaught errors onto the canonical wire at POST /v1/event.
+
+Install is one line, and it is the same line for a Hanzo property and for a customer's own page:
+
+	<script defer src="https://api.hanzo.ai/v1/event/tag.js" data-key="pk-…"></script>
+
+`data-key` is the publishable key the project mints; `data-product` optionally names the emitting surface. The key may also ride the src as `?key=` for a host that strips data attributes.
+
+WITHOUT A KEY THE TAG SENDS NOTHING. A keyless beacon is accepted 200 into $public, a reserved tenant the owning org cannot read — so silence is the honest failure, and the tag picks it rather than reporting success into a tenant nobody reads.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIGetEventTagJsRequest
+*/
+func (a *EventAPIService) GetEventTagJs(ctx context.Context) EventAPIGetEventTagJsRequest {
+	return EventAPIGetEventTagJsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return *os.File
+func (a *EventAPIService) GetEventTagJsExecute(r EventAPIGetEventTagJsRequest) (*os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventTagJs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/tag.js"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/javascript"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type EventAPIGetEventTimeseriesRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+	range_     *string
+	start      *string
+	end        *string
+}
+
+// Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400.
+func (r EventAPIGetEventTimeseriesRequest) Range_(range_ string) EventAPIGetEventTimeseriesRequest {
+	r.range_ = &range_
+	return r
+}
+
+// Start is the inclusive lower bound of a custom window, RFC3339. Requires end.
+func (r EventAPIGetEventTimeseriesRequest) Start(start string) EventAPIGetEventTimeseriesRequest {
+	r.start = &start
+	return r
+}
+
+// End is the exclusive upper bound of a custom window, RFC3339. Requires start.
+func (r EventAPIGetEventTimeseriesRequest) End(end string) EventAPIGetEventTimeseriesRequest {
+	r.end = &end
+	return r
+}
+
+func (r EventAPIGetEventTimeseriesRequest) Execute() (*Timeseries, *http.Response, error) {
+	return r.ApiService.GetEventTimeseriesExecute(r)
+}
+
+/*
+GetEventTimeseries Timeseries returns the caller org's LLM usage over time as an evenly-spaced series.
+
+Timeseries returns the caller org's LLM usage over time as an evenly-spaced series.
+One point per hour or per day — the bucket the window implies, 24h giving hours and
+7d/30d giving days — carrying requests, total tokens and spend in cents. Empty
+buckets are filled with zeros so a client charts a continuous line.
+
+The org is the validated principal's — never a parameter. 403 without a validated
+bearer, 400 on an unknown range, 503 when the warehouse is unreachable.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIGetEventTimeseriesRequest
+*/
+func (a *EventAPIService) GetEventTimeseries(ctx context.Context) EventAPIGetEventTimeseriesRequest {
+	return EventAPIGetEventTimeseriesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Timeseries
+func (a *EventAPIService) GetEventTimeseriesExecute(r EventAPIGetEventTimeseriesRequest) (*Timeseries, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Timeseries
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventTimeseries")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/timeseries"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.range_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "range", r.range_, "form", "")
+	}
+	if r.start != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "form", "")
+	}
+	if r.end != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "end", r.end, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type EventAPIGetEventTopRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+	range_     *string
+	start      *string
+	end        *string
+	limit      *int32
+}
+
+// Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400.
+func (r EventAPIGetEventTopRequest) Range_(range_ string) EventAPIGetEventTopRequest {
+	r.range_ = &range_
+	return r
+}
+
+// Start is the inclusive lower bound of a custom window, RFC3339. Requires end.
+func (r EventAPIGetEventTopRequest) Start(start string) EventAPIGetEventTopRequest {
+	r.start = &start
+	return r
+}
+
+// End is the exclusive upper bound of a custom window, RFC3339. Requires start.
+func (r EventAPIGetEventTopRequest) End(end string) EventAPIGetEventTopRequest {
+	r.end = &end
+	return r
+}
+
+// Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default.
+func (r EventAPIGetEventTopRequest) Limit(limit int32) EventAPIGetEventTopRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r EventAPIGetEventTopRequest) Execute() (*Top, *http.Response, error) {
+	return r.ApiService.GetEventTopExecute(r)
+}
+
+/*
+GetEventTop Top returns the caller org's ranked lenses for one window, five of them at once.
+
+Top returns the caller org's ranked lenses for one window, five of them at once.
+models ranks LLM models by spend and is always real; products ranks commerce orders
+by revenue; topPages ranks requested paths, topReferrers the external referrer
+domains ("(direct)" for a missing or same-origin one) and topSources the utm_source
+campaigns ("(none)" when absent), each by pageviews. Every lens carries each row's
+share of the in-window total, so a top-N honestly shows the long tail.
+
+The four event lenses report available=false rather than fabricating zeros when the
+product-event table holds nothing yet. The org is the validated principal's — never
+a parameter. 403 without a validated bearer, 400 on an unknown range, 503 when the
+warehouse is unreachable.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIGetEventTopRequest
+*/
+func (a *EventAPIService) GetEventTop(ctx context.Context) EventAPIGetEventTopRequest {
+	return EventAPIGetEventTopRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Top
+func (a *EventAPIService) GetEventTopExecute(r EventAPIGetEventTopRequest) (*Top, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Top
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventTop")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/top"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.range_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "range", r.range_, "form", "")
+	}
+	if r.start != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "form", "")
+	}
+	if r.end != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "end", r.end, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type EventAPIPostEventRequest struct {
 	ctx              context.Context
@@ -49,7 +1064,7 @@ ONE door for every wire a Hanzo surface emits, dispatched by the SHAPE of the bo
 
 WHAT THE CALLER PRESENTS DECIDES WHAT IT MAY WRITE, and the door itself grants nothing. A validated bearer or an org API key writes the full event at full fidelity. A PUBLISHABLE key (pk-, on Authorization: Bearer, x-hanzo-ingest-key, or ?ingest_key= for navigator.sendBeacon, which cannot set headers) does the same, and is the credential a browser bundle ships: it is deliberately NOT a secret, it resolves WHICH tenant a beacon belongs to and nothing more. A pk- never authenticates and can READ NOTHING — not this org's errors, not a lens, not any other route on this API — so a leaked one lets a stranger write into your stream, and never lets one read out of it. Reading these rows back always takes a real bearer. A Hanzo Team workspace token resolves its org at REDUCED capability: the signed account names the person, so a `distinctId` in the body cannot pin events on a colleague.
 
-NO CREDENTIAL IS REFUSED: a write the server cannot attribute to a project is 401 `ingest_key_required`, and a credential that IS presented but resolves to no project is 403 `ingest_key_unknown`. Nothing is filed under a shared tenant — events nobody can read are worse than events nobody sent, because the caller is told it succeeded. A browser bundle therefore always ships a pk-, which is what /v1/event.js takes.
+NO CREDENTIAL IS REFUSED: a write the server cannot attribute to a project is 401 `ingest_key_required`, and a credential that IS presented but resolves to no project is 403 `ingest_key_unknown`. Nothing is filed under a shared tenant — events nobody can read are worse than events nobody sent, because the caller is told it succeeded. A browser bundle therefore always ships a pk-, which is what /v1/event/tag.js takes.
 
 A REDUCED principal — a Hanzo Team workspace token — writes through the PROJECTION into its own org: narrowed to what the SERVER can name (pageviews and errors, plus the closed autocapture vocabulary $click, $input, $change, $submit, $view), where every one of those names is resolved through a server-owned table and stored as that table's value, so the name on the wire is never the name in the row. Stripped, too, to the fields the projection names, so revenue, personId, groupId and every property but the element annotation cannot reach a row — and an exception is carried only on an error, never on an interaction, so a click cannot ship a stack trace into a row's attributes. It does NOT name the person: the signed account is the identity, so a `distinctId` in the body cannot pin events on a colleague. Everything refused is counted in `dropped`.
 
@@ -353,4 +1368,120 @@ func (a *EventAPIService) PostEventByProjectStoreExecute(r EventAPIPostEventByPr
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type EventAPIPostEventReplayRequest struct {
+	ctx        context.Context
+	ApiService *EventAPIService
+	replayBody *ReplayBody
+}
+
+func (r EventAPIPostEventReplayRequest) ReplayBody(replayBody ReplayBody) EventAPIPostEventReplayRequest {
+	r.replayBody = &replayBody
+	return r
+}
+
+func (r EventAPIPostEventReplayRequest) Execute() (*CaptureResult, *http.Response, error) {
+	return r.ApiService.PostEventReplayExecute(r)
+}
+
+/*
+PostEventReplay Record a session-replay snapshot batch
+
+Accepts a batch of rrweb events from a browser recorder and hands it to the session-replay pipeline, which stores the recording and derives the session summary a player reads back.
+
+ONE REQUEST IS ONE BATCH, and it is all-or-nothing: the recording is made durable before this answers, so a 200 {"accepted":1} means stored and never "buffered somewhere". There is no partial count, because a half-written recording is not a recording.
+
+`sessionId` is REQUIRED and bounded — at most 70 characters of ASCII letters, digits or '-'. It is the key every batch of one visit is grouped and ordered by, so an id outside that grammar is refused 400 here rather than accepted and dropped further down. `windowId` separates two tabs of one session and `distinctId` attributes the recording to a person; both are optional. `events` is the rrweb batch, each element a raw eventWithTime object, carried VERBATIM — the summary (click, keypress and mouse-activity counts, size) is derived downstream from exactly these bytes, so nothing is re-encoded or dropped.
+
+THE CALLER'S CREDENTIAL DECIDES THE TENANT, and the body never does: the recording lands in the org the presented credential resolves to. It takes the SAME credentials as /v1/event — a validated bearer, an org API key, or a publishable pk- key on Authorization: Bearer, x-hanzo-ingest-key or ?ingest_key= — so a browser bundle already holding a pk- for events needs nothing new to record. A caller that presents nothing is 401 `ingest_key_required`; one whose key resolves to no project is 403 `ingest_key_unknown`; a reduced principal (a Hanzo Team workspace token) is 403 `insufficient_capability`, because a full-fidelity screen recording has no projected form that is safe for a guest to write into a host org.
+
+BOUNDS: 413 over 512 KiB of body, and that is the only bound on one batch — a recorder is expected to chunk a long session rather than send it whole, and the cap is the size one message can carry rather than an arbitrary number. 503 when the pipeline cannot take the batch: honest unavailability the caller can retry, never a 200 over a discarded recording.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return EventAPIPostEventReplayRequest
+*/
+func (a *EventAPIService) PostEventReplay(ctx context.Context) EventAPIPostEventReplayRequest {
+	return EventAPIPostEventReplayRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return CaptureResult
+func (a *EventAPIService) PostEventReplayExecute(r EventAPIPostEventReplayRequest) (*CaptureResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptureResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.PostEventReplay")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/event/replay"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.replayBody
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

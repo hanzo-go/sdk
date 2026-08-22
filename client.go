@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -48,13 +48,11 @@ type APIClient struct {
 
 	// API Services
 
-	AdminAPI *AdminAPIService
+	AccountAPI *AccountAPIService
 
-	AdsAPI *AdsAPIService
+	AdAPI *AdAPIService
 
-	AffiliatesAPI *AffiliatesAPIService
-
-	AgentAPI *AgentAPIService
+	AffiliateAPI *AffiliateAPIService
 
 	AgentsAPI *AgentsAPIService
 
@@ -62,25 +60,15 @@ type APIClient struct {
 
 	AllowanceAPI *AllowanceAPIService
 
-	AnalyticsAPI *AnalyticsAPIService
-
-	AppearanceAPI *AppearanceAPIService
-
 	AskAPI *AskAPIService
-
-	AudioAPI *AudioAPIService
 
 	AuditAPI *AuditAPIService
 
-	AuthorsAPI *AuthorsAPIService
+	AuthorAPI *AuthorAPIService
 
 	AuthzAPI *AuthzAPIService
 
 	AutoAPI *AutoAPIService
-
-	AutomationsAPI *AutomationsAPIService
-
-	AvatarAPI *AvatarAPIService
 
 	BaseAPI *BaseAPIService
 
@@ -94,49 +82,23 @@ type APIClient struct {
 
 	BotAPI *BotAPIService
 
-	BotsAPI *BotsAPIService
-
-	BuildsAPI *BuildsAPIService
-
 	CampaignAPI *CampaignAPIService
 
 	CaptableAPI *CaptableAPIService
 
-	CartAPI *CartAPIService
-
 	CatalogAPI *CatalogAPIService
-
-	ChainsAPI *ChainsAPIService
 
 	ChannelsAPI *ChannelsAPIService
 
-	ChatAPI *ChatAPIService
-
-	CloudAPI *CloudAPIService
-
 	CloudflareAPI *CloudflareAPIService
 
-	ClustersAPI *ClustersAPIService
-
 	CodeAPI *CodeAPIService
-
-	CodingAPI *CodingAPIService
-
-	CommandsAPI *CommandsAPIService
 
 	CommerceAPI *CommerceAPIService
 
 	CompanyAPI *CompanyAPIService
 
-	CompatAPI *CompatAPIService
-
-	CompletionsAPI *CompletionsAPIService
-
 	ComplianceAPI *ComplianceAPIService
-
-	ComputeAPI *ComputeAPIService
-
-	ConnectorsAPI *ConnectorsAPIService
 
 	ContentAPI *ContentAPIService
 
@@ -144,65 +106,33 @@ type APIClient struct {
 
 	CrmAPI *CrmAPIService
 
-	CsrfAPI *CsrfAPIService
-
 	DataroomAPI *DataroomAPIService
 
-	DefaultAPI *DefaultAPIService
+	DatasetAPI *DatasetAPIService
 
 	DeployAPI *DeployAPIService
 
-	DestinationsAPI *DestinationsAPIService
-
-	DevBridgeAPI *DevBridgeAPIService
-
-	DnsAPI *DnsAPIService
-
-	DocsAPI *DocsAPIService
-
-	DocumentsAPI *DocumentsAPIService
+	DestinationAPI *DestinationAPIService
 
 	DomainAPI *DomainAPIService
 
-	DownloadAPI *DownloadAPIService
-
-	EdgeAPI *EdgeAPIService
-
-	EmbedAPI *EmbedAPIService
-
-	EmbeddingsAPI *EmbeddingsAPIService
-
-	EnablementAPI *EnablementAPIService
-
 	EngineAPI *EngineAPIService
 
-	EntitlementsAPI *EntitlementsAPIService
-
-	EnvironmentsAPI *EnvironmentsAPIService
-
-	ErrorsAPI *ErrorsAPIService
+	EntitlementAPI *EntitlementAPIService
 
 	EsignAPI *EsignAPIService
 
-	EvalsAPI *EvalsAPIService
+	EvalAPI *EvalAPIService
 
 	EventAPI *EventAPIService
 
 	ExecAPI *ExecAPIService
 
-	ExperimentsAPI *ExperimentsAPIService
+	ExperimentAPI *ExperimentAPIService
 
-	FeedbackAPI *FeedbackAPIService
-
-	FilesAPI *FilesAPIService
-
-	FinanceAPI *FinanceAPIService
-
-	FinetuneAPI *FinetuneAPIService
+	ExplorerAPI *ExplorerAPIService
 
 	FlagsAPI *FlagsAPIService
-
-	FleetAPI *FleetAPIService
 
 	FlowAPI *FlowAPIService
 
@@ -214,9 +144,7 @@ type APIClient struct {
 
 	GitAPI *GitAPIService
 
-	GitWebhookAPI *GitWebhookAPIService
-
-	GpusAPI *GpusAPIService
+	GraphAPI *GraphAPIService
 
 	GuideAPI *GuideAPIService
 
@@ -224,155 +152,97 @@ type APIClient struct {
 
 	IamAPI *IamAPIService
 
-	ImagesAPI *ImagesAPIService
-
 	IndexAPI *IndexAPIService
-
-	IndexersAPI *IndexersAPIService
 
 	IngressAPI *IngressAPIService
 
-	InsightsAPI *InsightsAPIService
-
-	InstallPatchAPI *InstallPatchAPIService
-
-	InstancesAPI *InstancesAPIService
-
 	IntegrationsAPI *IntegrationsAPIService
 
-	K8sAPI *K8sAPIService
-
-	KbAPI *KbAPIService
-
-	KeysAPI *KeysAPIService
-
 	KmsAPI *KmsAPIService
+
+	KnowledgeAPI *KnowledgeAPIService
+
+	KvAPI *KvAPIService
+
+	LabelAPI *LabelAPIService
+
+	LeaderboardAPI *LeaderboardAPIService
 
 	LegalAPI *LegalAPIService
 
 	LicensingAPI *LicensingAPIService
 
-	LinksAPI *LinksAPIService
+	LinkAPI *LinkAPIService
 
-	LogsAPI *LogsAPIService
-
-	MachinesAPI *MachinesAPIService
+	LspAPI *LspAPIService
 
 	MarketingAPI *MarketingAPIService
 
 	MarketplaceAPI *MarketplaceAPIService
 
-	McpAPI *McpAPIService
-
 	MeetAPI *MeetAPIService
-
-	MemoryAPI *MemoryAPIService
-
-	MeshAPI *MeshAPIService
-
-	MessagesAPI *MessagesAPIService
 
 	MetricsAPI *MetricsAPIService
 
 	MlAPI *MlAPIService
 
-	ModelsAPI *ModelsAPIService
-
 	MqAPI *MqAPIService
 
-	NetworksAPI *NetworksAPIService
+	NetworkAPI *NetworkAPIService
+
+	NodeAPI *NodeAPIService
 
 	NotifyAPI *NotifyAPIService
 
 	O11yAPI *O11yAPIService
 
-	OraclesAPI *OraclesAPIService
+	OpenapiAPI *OpenapiAPIService
 
-	OrgAPI *OrgAPIService
-
-	OrgsAPI *OrgsAPIService
-
-	PaymentsAPI *PaymentsAPIService
-
-	PipelinesAPI *PipelinesAPIService
-
-	PlansAPI *PlansAPIService
+	PlanAPI *PlanAPIService
 
 	PlatformAPI *PlatformAPIService
 
-	PluginsAPI *PluginsAPIService
-
-	PrefsAPI *PrefsAPIService
+	PrefAPI *PrefAPIService
 
 	PricingAPI *PricingAPIService
 
 	ProjectsAPI *ProjectsAPIService
 
-	PromptsAPI *PromptsAPIService
+	PromptAPI *PromptAPIService
+
+	ProvisioningAPI *ProvisioningAPIService
 
 	PubsubAPI *PubsubAPIService
 
-	QueryAPI *QueryAPIService
+	ReferenceAPI *ReferenceAPIService
 
-	QueryMultipleAPI *QueryMultipleAPIService
-
-	RagAPI *RagAPIService
-
-	ReferralsAPI *ReferralsAPIService
+	ReferralAPI *ReferralAPIService
 
 	RegistryAPI *RegistryAPIService
 
-	ReleasesAPI *ReleasesAPIService
-
-	ReplayAPI *ReplayAPIService
-
-	RerankAPI *RerankAPIService
-
-	ResearchAPI *ResearchAPIService
-
-	ResponsesAPI *ResponsesAPIService
-
 	RiskAPI *RiskAPIService
-
-	RouterAPI *RouterAPIService
-
-	RpcAPI *RpcAPIService
-
-	RunAPI *RunAPIService
-
-	RunnerAPI *RunnerAPIService
 
 	S3API *S3APIService
 
-	SandboxesAPI *SandboxesAPIService
+	SandboxAPI *SandboxAPIService
 
 	SbomAPI *SbomAPIService
-
-	ScrapeAPI *ScrapeAPIService
 
 	SearchAPI *SearchAPIService
 
 	SecurityAPI *SecurityAPIService
 
-	SentinelAPI *SentinelAPIService
+	SeoAPI *SeoAPIService
 
 	SettingsAPI *SettingsAPIService
 
 	ShareAPI *ShareAPIService
 
-	SitesAPI *SitesAPIService
-
-	SkillsAPI *SkillsAPIService
-
 	SocialAPI *SocialAPIService
 
-	StoreAPI *StoreAPIService
-
-	SummaryAPI *SummaryAPIService
+	StandingAPI *StandingAPIService
 
 	SyncAPI *SyncAPIService
-
-	TagsAPI *TagsAPIService
 
 	TasksAPI *TasksAPIService
 
@@ -382,37 +252,31 @@ type APIClient struct {
 
 	TelAPI *TelAPIService
 
-	TemplatesAPI *TemplatesAPIService
+	TemplateAPI *TemplateAPIService
 
 	TodoAPI *TodoAPIService
 
-	TokensAPI *TokensAPIService
-
 	ToolsAPI *ToolsAPIService
-
-	TracesAPI *TracesAPIService
-
-	TrafficAPI *TrafficAPIService
 
 	TranslateAPI *TranslateAPIService
 
-	UploadAPI *UploadAPIService
+	TreasuryAPI *TreasuryAPIService
+
+	TrustAPI *TrustAPIService
 
 	UsageAPI *UsageAPIService
 
-	ValidatorsAPI *ValidatorsAPIService
+	ValidatorAPI *ValidatorAPIService
 
-	VectorAPI *VectorAPIService
+	VisorAPI *VisorAPIService
 
-	VideosAPI *VideosAPIService
+	WalletAPI *WalletAPIService
 
-	WalletsAPI *WalletsAPIService
+	Web3API *Web3APIService
 
-	WebhooksAPI *WebhooksAPIService
+	WebhookAPI *WebhookAPIService
 
 	WebsearchAPI *WebsearchAPIService
-
-	WecomBotAPI *WecomBotAPIService
 
 	WorldAPI *WorldAPIService
 
@@ -435,189 +299,121 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.AdminAPI = (*AdminAPIService)(&c.common)
-	c.AdsAPI = (*AdsAPIService)(&c.common)
-	c.AffiliatesAPI = (*AffiliatesAPIService)(&c.common)
-	c.AgentAPI = (*AgentAPIService)(&c.common)
+	c.AccountAPI = (*AccountAPIService)(&c.common)
+	c.AdAPI = (*AdAPIService)(&c.common)
+	c.AffiliateAPI = (*AffiliateAPIService)(&c.common)
 	c.AgentsAPI = (*AgentsAPIService)(&c.common)
 	c.AiAPI = (*AiAPIService)(&c.common)
 	c.AllowanceAPI = (*AllowanceAPIService)(&c.common)
-	c.AnalyticsAPI = (*AnalyticsAPIService)(&c.common)
-	c.AppearanceAPI = (*AppearanceAPIService)(&c.common)
 	c.AskAPI = (*AskAPIService)(&c.common)
-	c.AudioAPI = (*AudioAPIService)(&c.common)
 	c.AuditAPI = (*AuditAPIService)(&c.common)
-	c.AuthorsAPI = (*AuthorsAPIService)(&c.common)
+	c.AuthorAPI = (*AuthorAPIService)(&c.common)
 	c.AuthzAPI = (*AuthzAPIService)(&c.common)
 	c.AutoAPI = (*AutoAPIService)(&c.common)
-	c.AutomationsAPI = (*AutomationsAPIService)(&c.common)
-	c.AvatarAPI = (*AvatarAPIService)(&c.common)
 	c.BaseAPI = (*BaseAPIService)(&c.common)
 	c.BenchmarkAPI = (*BenchmarkAPIService)(&c.common)
 	c.BillingAPI = (*BillingAPIService)(&c.common)
 	c.BlueprintAPI = (*BlueprintAPIService)(&c.common)
 	c.BooksAPI = (*BooksAPIService)(&c.common)
 	c.BotAPI = (*BotAPIService)(&c.common)
-	c.BotsAPI = (*BotsAPIService)(&c.common)
-	c.BuildsAPI = (*BuildsAPIService)(&c.common)
 	c.CampaignAPI = (*CampaignAPIService)(&c.common)
 	c.CaptableAPI = (*CaptableAPIService)(&c.common)
-	c.CartAPI = (*CartAPIService)(&c.common)
 	c.CatalogAPI = (*CatalogAPIService)(&c.common)
-	c.ChainsAPI = (*ChainsAPIService)(&c.common)
 	c.ChannelsAPI = (*ChannelsAPIService)(&c.common)
-	c.ChatAPI = (*ChatAPIService)(&c.common)
-	c.CloudAPI = (*CloudAPIService)(&c.common)
 	c.CloudflareAPI = (*CloudflareAPIService)(&c.common)
-	c.ClustersAPI = (*ClustersAPIService)(&c.common)
 	c.CodeAPI = (*CodeAPIService)(&c.common)
-	c.CodingAPI = (*CodingAPIService)(&c.common)
-	c.CommandsAPI = (*CommandsAPIService)(&c.common)
 	c.CommerceAPI = (*CommerceAPIService)(&c.common)
 	c.CompanyAPI = (*CompanyAPIService)(&c.common)
-	c.CompatAPI = (*CompatAPIService)(&c.common)
-	c.CompletionsAPI = (*CompletionsAPIService)(&c.common)
 	c.ComplianceAPI = (*ComplianceAPIService)(&c.common)
-	c.ComputeAPI = (*ComputeAPIService)(&c.common)
-	c.ConnectorsAPI = (*ConnectorsAPIService)(&c.common)
 	c.ContentAPI = (*ContentAPIService)(&c.common)
 	c.CrawlAPI = (*CrawlAPIService)(&c.common)
 	c.CrmAPI = (*CrmAPIService)(&c.common)
-	c.CsrfAPI = (*CsrfAPIService)(&c.common)
 	c.DataroomAPI = (*DataroomAPIService)(&c.common)
-	c.DefaultAPI = (*DefaultAPIService)(&c.common)
+	c.DatasetAPI = (*DatasetAPIService)(&c.common)
 	c.DeployAPI = (*DeployAPIService)(&c.common)
-	c.DestinationsAPI = (*DestinationsAPIService)(&c.common)
-	c.DevBridgeAPI = (*DevBridgeAPIService)(&c.common)
-	c.DnsAPI = (*DnsAPIService)(&c.common)
-	c.DocsAPI = (*DocsAPIService)(&c.common)
-	c.DocumentsAPI = (*DocumentsAPIService)(&c.common)
+	c.DestinationAPI = (*DestinationAPIService)(&c.common)
 	c.DomainAPI = (*DomainAPIService)(&c.common)
-	c.DownloadAPI = (*DownloadAPIService)(&c.common)
-	c.EdgeAPI = (*EdgeAPIService)(&c.common)
-	c.EmbedAPI = (*EmbedAPIService)(&c.common)
-	c.EmbeddingsAPI = (*EmbeddingsAPIService)(&c.common)
-	c.EnablementAPI = (*EnablementAPIService)(&c.common)
 	c.EngineAPI = (*EngineAPIService)(&c.common)
-	c.EntitlementsAPI = (*EntitlementsAPIService)(&c.common)
-	c.EnvironmentsAPI = (*EnvironmentsAPIService)(&c.common)
-	c.ErrorsAPI = (*ErrorsAPIService)(&c.common)
+	c.EntitlementAPI = (*EntitlementAPIService)(&c.common)
 	c.EsignAPI = (*EsignAPIService)(&c.common)
-	c.EvalsAPI = (*EvalsAPIService)(&c.common)
+	c.EvalAPI = (*EvalAPIService)(&c.common)
 	c.EventAPI = (*EventAPIService)(&c.common)
 	c.ExecAPI = (*ExecAPIService)(&c.common)
-	c.ExperimentsAPI = (*ExperimentsAPIService)(&c.common)
-	c.FeedbackAPI = (*FeedbackAPIService)(&c.common)
-	c.FilesAPI = (*FilesAPIService)(&c.common)
-	c.FinanceAPI = (*FinanceAPIService)(&c.common)
-	c.FinetuneAPI = (*FinetuneAPIService)(&c.common)
+	c.ExperimentAPI = (*ExperimentAPIService)(&c.common)
+	c.ExplorerAPI = (*ExplorerAPIService)(&c.common)
 	c.FlagsAPI = (*FlagsAPIService)(&c.common)
-	c.FleetAPI = (*FleetAPIService)(&c.common)
 	c.FlowAPI = (*FlowAPIService)(&c.common)
 	c.FrameworkAPI = (*FrameworkAPIService)(&c.common)
 	c.FunctionsAPI = (*FunctionsAPIService)(&c.common)
 	c.GatewayAPI = (*GatewayAPIService)(&c.common)
 	c.GitAPI = (*GitAPIService)(&c.common)
-	c.GitWebhookAPI = (*GitWebhookAPIService)(&c.common)
-	c.GpusAPI = (*GpusAPIService)(&c.common)
+	c.GraphAPI = (*GraphAPIService)(&c.common)
 	c.GuideAPI = (*GuideAPIService)(&c.common)
 	c.HelpAPI = (*HelpAPIService)(&c.common)
 	c.IamAPI = (*IamAPIService)(&c.common)
-	c.ImagesAPI = (*ImagesAPIService)(&c.common)
 	c.IndexAPI = (*IndexAPIService)(&c.common)
-	c.IndexersAPI = (*IndexersAPIService)(&c.common)
 	c.IngressAPI = (*IngressAPIService)(&c.common)
-	c.InsightsAPI = (*InsightsAPIService)(&c.common)
-	c.InstallPatchAPI = (*InstallPatchAPIService)(&c.common)
-	c.InstancesAPI = (*InstancesAPIService)(&c.common)
 	c.IntegrationsAPI = (*IntegrationsAPIService)(&c.common)
-	c.K8sAPI = (*K8sAPIService)(&c.common)
-	c.KbAPI = (*KbAPIService)(&c.common)
-	c.KeysAPI = (*KeysAPIService)(&c.common)
 	c.KmsAPI = (*KmsAPIService)(&c.common)
+	c.KnowledgeAPI = (*KnowledgeAPIService)(&c.common)
+	c.KvAPI = (*KvAPIService)(&c.common)
+	c.LabelAPI = (*LabelAPIService)(&c.common)
+	c.LeaderboardAPI = (*LeaderboardAPIService)(&c.common)
 	c.LegalAPI = (*LegalAPIService)(&c.common)
 	c.LicensingAPI = (*LicensingAPIService)(&c.common)
-	c.LinksAPI = (*LinksAPIService)(&c.common)
-	c.LogsAPI = (*LogsAPIService)(&c.common)
-	c.MachinesAPI = (*MachinesAPIService)(&c.common)
+	c.LinkAPI = (*LinkAPIService)(&c.common)
+	c.LspAPI = (*LspAPIService)(&c.common)
 	c.MarketingAPI = (*MarketingAPIService)(&c.common)
 	c.MarketplaceAPI = (*MarketplaceAPIService)(&c.common)
-	c.McpAPI = (*McpAPIService)(&c.common)
 	c.MeetAPI = (*MeetAPIService)(&c.common)
-	c.MemoryAPI = (*MemoryAPIService)(&c.common)
-	c.MeshAPI = (*MeshAPIService)(&c.common)
-	c.MessagesAPI = (*MessagesAPIService)(&c.common)
 	c.MetricsAPI = (*MetricsAPIService)(&c.common)
 	c.MlAPI = (*MlAPIService)(&c.common)
-	c.ModelsAPI = (*ModelsAPIService)(&c.common)
 	c.MqAPI = (*MqAPIService)(&c.common)
-	c.NetworksAPI = (*NetworksAPIService)(&c.common)
+	c.NetworkAPI = (*NetworkAPIService)(&c.common)
+	c.NodeAPI = (*NodeAPIService)(&c.common)
 	c.NotifyAPI = (*NotifyAPIService)(&c.common)
 	c.O11yAPI = (*O11yAPIService)(&c.common)
-	c.OraclesAPI = (*OraclesAPIService)(&c.common)
-	c.OrgAPI = (*OrgAPIService)(&c.common)
-	c.OrgsAPI = (*OrgsAPIService)(&c.common)
-	c.PaymentsAPI = (*PaymentsAPIService)(&c.common)
-	c.PipelinesAPI = (*PipelinesAPIService)(&c.common)
-	c.PlansAPI = (*PlansAPIService)(&c.common)
+	c.OpenapiAPI = (*OpenapiAPIService)(&c.common)
+	c.PlanAPI = (*PlanAPIService)(&c.common)
 	c.PlatformAPI = (*PlatformAPIService)(&c.common)
-	c.PluginsAPI = (*PluginsAPIService)(&c.common)
-	c.PrefsAPI = (*PrefsAPIService)(&c.common)
+	c.PrefAPI = (*PrefAPIService)(&c.common)
 	c.PricingAPI = (*PricingAPIService)(&c.common)
 	c.ProjectsAPI = (*ProjectsAPIService)(&c.common)
-	c.PromptsAPI = (*PromptsAPIService)(&c.common)
+	c.PromptAPI = (*PromptAPIService)(&c.common)
+	c.ProvisioningAPI = (*ProvisioningAPIService)(&c.common)
 	c.PubsubAPI = (*PubsubAPIService)(&c.common)
-	c.QueryAPI = (*QueryAPIService)(&c.common)
-	c.QueryMultipleAPI = (*QueryMultipleAPIService)(&c.common)
-	c.RagAPI = (*RagAPIService)(&c.common)
-	c.ReferralsAPI = (*ReferralsAPIService)(&c.common)
+	c.ReferenceAPI = (*ReferenceAPIService)(&c.common)
+	c.ReferralAPI = (*ReferralAPIService)(&c.common)
 	c.RegistryAPI = (*RegistryAPIService)(&c.common)
-	c.ReleasesAPI = (*ReleasesAPIService)(&c.common)
-	c.ReplayAPI = (*ReplayAPIService)(&c.common)
-	c.RerankAPI = (*RerankAPIService)(&c.common)
-	c.ResearchAPI = (*ResearchAPIService)(&c.common)
-	c.ResponsesAPI = (*ResponsesAPIService)(&c.common)
 	c.RiskAPI = (*RiskAPIService)(&c.common)
-	c.RouterAPI = (*RouterAPIService)(&c.common)
-	c.RpcAPI = (*RpcAPIService)(&c.common)
-	c.RunAPI = (*RunAPIService)(&c.common)
-	c.RunnerAPI = (*RunnerAPIService)(&c.common)
 	c.S3API = (*S3APIService)(&c.common)
-	c.SandboxesAPI = (*SandboxesAPIService)(&c.common)
+	c.SandboxAPI = (*SandboxAPIService)(&c.common)
 	c.SbomAPI = (*SbomAPIService)(&c.common)
-	c.ScrapeAPI = (*ScrapeAPIService)(&c.common)
 	c.SearchAPI = (*SearchAPIService)(&c.common)
 	c.SecurityAPI = (*SecurityAPIService)(&c.common)
-	c.SentinelAPI = (*SentinelAPIService)(&c.common)
+	c.SeoAPI = (*SeoAPIService)(&c.common)
 	c.SettingsAPI = (*SettingsAPIService)(&c.common)
 	c.ShareAPI = (*ShareAPIService)(&c.common)
-	c.SitesAPI = (*SitesAPIService)(&c.common)
-	c.SkillsAPI = (*SkillsAPIService)(&c.common)
 	c.SocialAPI = (*SocialAPIService)(&c.common)
-	c.StoreAPI = (*StoreAPIService)(&c.common)
-	c.SummaryAPI = (*SummaryAPIService)(&c.common)
+	c.StandingAPI = (*StandingAPIService)(&c.common)
 	c.SyncAPI = (*SyncAPIService)(&c.common)
-	c.TagsAPI = (*TagsAPIService)(&c.common)
 	c.TasksAPI = (*TasksAPIService)(&c.common)
 	c.TaxonomyAPI = (*TaxonomyAPIService)(&c.common)
 	c.TeamAPI = (*TeamAPIService)(&c.common)
 	c.TelAPI = (*TelAPIService)(&c.common)
-	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)
+	c.TemplateAPI = (*TemplateAPIService)(&c.common)
 	c.TodoAPI = (*TodoAPIService)(&c.common)
-	c.TokensAPI = (*TokensAPIService)(&c.common)
 	c.ToolsAPI = (*ToolsAPIService)(&c.common)
-	c.TracesAPI = (*TracesAPIService)(&c.common)
-	c.TrafficAPI = (*TrafficAPIService)(&c.common)
 	c.TranslateAPI = (*TranslateAPIService)(&c.common)
-	c.UploadAPI = (*UploadAPIService)(&c.common)
+	c.TreasuryAPI = (*TreasuryAPIService)(&c.common)
+	c.TrustAPI = (*TrustAPIService)(&c.common)
 	c.UsageAPI = (*UsageAPIService)(&c.common)
-	c.ValidatorsAPI = (*ValidatorsAPIService)(&c.common)
-	c.VectorAPI = (*VectorAPIService)(&c.common)
-	c.VideosAPI = (*VideosAPIService)(&c.common)
-	c.WalletsAPI = (*WalletsAPIService)(&c.common)
-	c.WebhooksAPI = (*WebhooksAPIService)(&c.common)
+	c.ValidatorAPI = (*ValidatorAPIService)(&c.common)
+	c.VisorAPI = (*VisorAPIService)(&c.common)
+	c.WalletAPI = (*WalletAPIService)(&c.common)
+	c.Web3API = (*Web3APIService)(&c.common)
+	c.WebhookAPI = (*WebhookAPIService)(&c.common)
 	c.WebsearchAPI = (*WebsearchAPIService)(&c.common)
-	c.WecomBotAPI = (*WecomBotAPIService)(&c.common)
 	c.WorldAPI = (*WorldAPIService)(&c.common)
 	c.X402API = (*X402APIService)(&c.common)
 

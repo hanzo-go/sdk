@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CheckedAt** | Pointer to **string** | CheckedAt is when the underlying availability read was taken, RFC3339 UTC. Not part of the status-page schema the panel parses (which ignores unknown fields); it is here because a status document with no timestamp cannot be told apart from a stale one. | [optional] 
-**InProgressMaintenances** | Pointer to [**[]O11yStatusMaintenance**](O11yStatusMaintenance.md) |  | [optional] 
-**OngoingIncidents** | Pointer to [**[]O11yStatusIncident**](O11yStatusIncident.md) |  | [optional] 
-**PageTitle** | Pointer to **string** |  | [optional] 
+**InProgressMaintenances** | Pointer to [**[]O11yStatusMaintenance**](O11yStatusMaintenance.md) | InProgressMaintenances is always empty: this platform has no maintenance scheduling plane, so \&quot;nothing is running\&quot; is a true statement rather than a placeholder. | [optional] 
+**OngoingIncidents** | Pointer to [**[]O11yStatusIncident**](O11yStatusIncident.md) | OngoingIncidents is one entry per service that failed its health probe, sorted by name. Empty means every probed service answered — which is a measurement, not an absence of reports. | [optional] 
+**PageTitle** | Pointer to **string** | PageTitle is the brand&#39;s own status-page title, resolved per request from the Host — a lux caller must never be shown Hanzo&#39;s. | [optional] 
 **PageUrl** | Pointer to **string** | PageURL is the HUMAN status page — an HTML page for people, distinct from this JSON endpoint. Every link in this document points there. | [optional] 
-**ScheduledMaintenances** | Pointer to [**[]O11yStatusMaintenance**](O11yStatusMaintenance.md) |  | [optional] 
+**ScheduledMaintenances** | Pointer to [**[]O11yStatusMaintenance**](O11yStatusMaintenance.md) | ScheduledMaintenances is always empty, for the same reason. | [optional] 
 
 ## Methods
 

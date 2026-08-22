@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &Ran{}
 
 // Ran struct for Ran
 type Ran struct {
-	ExitCode *int32  `json:"exitCode,omitempty"`
-	Stderr   *string `json:"stderr,omitempty"`
-	Stdout   *string `json:"stdout,omitempty"`
+	// ExitCode is the PROGRAM's own status — 0 succeeded, anything else is what it returned, and a Command runs under `sh -c` so its shell's conventions apply. A command that never reached an exit does not arrive here at all: a timeout or a stop cancels the channel, and that is an error on the call rather than a code of ours invented to fill this field.
+	ExitCode *int32 `json:"exitCode,omitempty"`
+	// Stderr is standard error, kept apart from Stdout so a caller reading a program's OUTPUT is not reading its diagnostics as data. Same 1 MiB cap, same redaction. A program that failed usually says why here and nowhere else.
+	Stderr *string `json:"stderr,omitempty"`
+	// Stdout is what the program wrote to standard output, collected whole rather than streamed — to watch it arrive instead, name a RunIn.Session and read that session's feed. Capped at 1 MiB, past which it ends in \"[truncated at 1MiB]\". Every string named in RunIn.Blind is replaced by \"[redacted]\" before it gets here, and before it reaches the session.
+	Stdout *string `json:"stdout,omitempty"`
 }
 
 // NewRan instantiates a new Ran object

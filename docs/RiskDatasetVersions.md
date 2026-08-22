@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]RiskDataset**](RiskDataset.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Items** | Pointer to [**[]RiskDataset**](RiskDataset.md) | Items is every version of it, newest first — including the disposed ones, whose record outlives their rows. Never null. | [optional] 
+**Name** | Pointer to **string** | Name is the dataset these versions belong to, as the register holds it. | [optional] 
 
 ## Methods
 

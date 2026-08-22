@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -24,9 +24,10 @@ type PoolCreate struct {
 	// ClusterID is the cluster to add the pool to, from the URL path.
 	ClusterId *string `json:"clusterId,omitempty"`
 	// Count is how many nodes the pool starts with.
-	Count    *int32 `json:"count,omitempty"`
+	Count *int32 `json:"count,omitempty"`
+	// MaxNodes is the ceiling the autoscaler may not grow the pool past, and so the bound on what this pool can spend. Ignored unless AutoScale is set.
 	MaxNodes *int32 `json:"maxNodes,omitempty"`
-	// MinNodes and MaxNodes bound the autoscaler; they are ignored unless AutoScale is set.
+	// MinNodes is the floor the autoscaler may not shrink the pool below. Ignored unless AutoScale is set.
 	MinNodes *int32 `json:"minNodes,omitempty"`
 	// Name is the pool's name.
 	Name *string `json:"name,omitempty"`

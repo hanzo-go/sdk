@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,22 @@ var _ MappedNullable = &O11yStatusIncident{}
 
 // O11yStatusIncident struct for O11yStatusIncident
 type O11yStatusIncident struct {
+	// AffectedComponents is what this incident covers. It is COUNTED rather than classified: some services down is a partial outage and every probed service down is a full one, because deciding that one service is critical and another is not would need a judgement nobody has measured.
 	AffectedComponents []O11yStatusComponent `json:"affected_components,omitempty"`
 	// CurrentWorstImpact is the incident's impact on the PLATFORM, which is not the same question as the component's own condition above.
 	CurrentWorstImpact *string `json:"current_worst_impact,omitempty"`
-	Id                 *string `json:"id,omitempty"`
+	// ID is derived from the service, so the same outage keeps one id across reads rather than being reported as a new incident every 15 seconds.
+	Id *string `json:"id,omitempty"`
 	// LastUpdateAt is when the failing measurement this incident reports was read, RFC3339 UTC.
-	LastUpdateAt      *string `json:"last_update_at,omitempty"`
+	LastUpdateAt *string `json:"last_update_at,omitempty"`
+	// LastUpdateMessage says what was observed, not what is being done about it — there is no operator writing updates here, only the probe that failed.
 	LastUpdateMessage *string `json:"last_update_message,omitempty"`
-	Name              *string `json:"name,omitempty"`
-	Status            *string `json:"status,omitempty"`
-	Url               *string `json:"url,omitempty"`
+	// Name is the one-line headline, built from the service that stopped answering.
+	Name *string `json:"name,omitempty"`
+	// Status is always \"investigating\" — the member of the client's closed set that means detected, cause not yet established, which is exactly what an automated prober knows. Nothing here ever claims \"identified\": that would assert a diagnosis no measurement made.
+	Status *string `json:"status,omitempty"`
+	// URL points at the HUMAN status page, not back at this JSON. Every link in this document goes to the same place.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewO11yStatusIncident instantiates a new O11yStatusIncident object

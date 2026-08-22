@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,14 +19,22 @@ var _ MappedNullable = &GithubSearchHit{}
 
 // GithubSearchHit struct for GithubSearchHit
 type GithubSearchHit struct {
-	CloneUrl      *string `json:"clone_url,omitempty"`
+	// CloneURL is the repository's https git remote.
+	CloneUrl *string `json:"clone_url,omitempty"`
+	// DefaultBranch is the branch a clone checks out.
 	DefaultBranch *string `json:"default_branch,omitempty"`
-	Description   *string `json:"description,omitempty"`
-	FullName      *string `json:"full_name,omitempty"`
-	HtmlUrl       *string `json:"html_url,omitempty"`
-	Language      *string `json:"language,omitempty"`
-	Private       *bool   `json:"private,omitempty"`
-	Stars         *int32  `json:"stars,omitempty"`
+	// Description is the blurb the repository's owner wrote. Empty when it has none.
+	Description *string `json:"description,omitempty"`
+	// FullName is the repository's \"owner/repo\" on GitHub. Finding it here does NOT make it forkable: githubFork takes a repo the org's installation was granted, and a hit from the public index usually is not one.
+	FullName *string `json:"full_name,omitempty"`
+	// HTMLURL is the repository's page on github.com.
+	HtmlUrl *string `json:"html_url,omitempty"`
+	// Language is the primary language GitHub detected from the file mix (\"Go\", \"TypeScript\"). Empty when GitHub attributes none.
+	Language *string `json:"language,omitempty"`
+	// Private is GitHub's visibility flag, passed through. This op reads the public index — the org's token only charges the rate limit to the installation — so it is false for everything a search can reach.
+	Private *bool `json:"private,omitempty"`
+	// Stars is GitHub's stargazers_count as the SEARCH INDEX held it when the query ran — a snapshot, not a live count off the repository.
+	Stars *int32 `json:"stars,omitempty"`
 }
 
 // NewGithubSearchHit instantiates a new GithubSearchHit object

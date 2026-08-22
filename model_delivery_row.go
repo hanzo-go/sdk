@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,24 @@ var _ MappedNullable = &DeliveryRow{}
 
 // DeliveryRow struct for DeliveryRow
 type DeliveryRow struct {
-	Attempt    *int32  `json:"attempt,omitempty"`
-	Created    *string `json:"created,omitempty"`
-	Delivery   *string `json:"delivery,omitempty"`
-	DurationMs *int32  `json:"durationMs,omitempty"`
-	Endpoint   *string `json:"endpoint,omitempty"`
-	Error      *string `json:"error,omitempty"`
-	HttpStatus *int32  `json:"httpStatus,omitempty"`
-	Status     *string `json:"status,omitempty"`
-	Subject    *string `json:"subject,omitempty"`
+	// Attempt is which try this row is, starting at 1. The ladder waits 1s, then 5s, then 25s before the next one.
+	Attempt *int32 `json:"attempt,omitempty"`
+	// Created is when the attempt was made, RFC3339 in UTC.
+	Created *string `json:"created,omitempty"`
+	// DeliveryID groups the attempts for ONE event to ONE endpoint. Rows sharing it are the same delivery being retried, not separate events.
+	Delivery *string `json:"delivery,omitempty"`
+	// DurationMs is how long this attempt took end to end, in MILLISECONDS.
+	DurationMs *int32 `json:"durationMs,omitempty"`
+	// EndpointID is which subscriber this attempt was for.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Error says what went wrong on a non-ok attempt. Empty on success.
+	Error *string `json:"error,omitempty"`
+	// HTTPStatus is what the subscriber answered. ZERO means it never answered — a refused connection, a DNS failure or a timeout — which is why a zero here is not a 200.
+	HttpStatus *int32 `json:"httpStatus,omitempty"`
+	// Status is \"ok\" when the subscriber accepted it, \"retrying\" while a further attempt will follow, and \"failed\" when none will. Exactly one row of a delivery is terminal.
+	Status *string `json:"status,omitempty"`
+	// Subject is the event that was delivered (\"commerce.order.created\"). A manual test send carries \"webhook.test\".
+	Subject *string `json:"subject,omitempty"`
 }
 
 // NewDeliveryRow instantiates a new DeliveryRow object

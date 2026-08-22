@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,19 @@ var _ MappedNullable = &EventView{}
 
 // EventView struct for EventView
 type EventView struct {
-	Actor     *string     `json:"actor,omitempty"`
-	CreatedAt *string     `json:"createdAt,omitempty"`
-	Id        *string     `json:"id,omitempty"`
-	Kind      *string     `json:"kind,omitempty"`
-	Payload   interface{} `json:"payload,omitempty"`
-	Seq       *int32      `json:"seq,omitempty"`
-	SessionId *string     `json:"sessionId,omitempty"`
+	// Actor is who produced the turn. A write that names nobody takes the calling principal, so this is rarely empty in practice.
+	Actor *string `json:"actor,omitempty"`
+	// CreatedAt is when the turn was recorded, RFC 3339 in UTC to the second. Seconds are coarse enough that two turns can share one, which is why Seq and not this is the order.
+	CreatedAt *string `json:"createdAt,omitempty"`
+	// ID is the event's own handle, minted as \"evt_\" + 32 hex characters. It identifies the turn; Seq is what ORDERS it.
+	Id *string `json:"id,omitempty"`
+	// Kind is what the turn IS, from a closed six: message (a model turn), tool-call, spawn (a subagent started), log, status, control (a steering command the running surface consumes). Anything else is refused at the write.
+	Kind    *string     `json:"kind,omitempty"`
+	Payload interface{} `json:"payload,omitempty"`
+	// Seq is the turn's position in this session's log: monotonic from 1, assigned by the store inside the insert, and unique PER SESSION rather than globally. It is the cursor a reader resumes from after a reconnect — ask for everything after your last-seen seq.
+	Seq *int32 `json:"seq,omitempty"`
+	// SessionID is the session this turn belongs to. Carried on every event so a stream frame stands alone — a subscriber watching a whole tree gets turns from several sessions down one connection.
+	SessionId *string `json:"sessionId,omitempty"`
 }
 
 // NewEventView instantiates a new EventView object

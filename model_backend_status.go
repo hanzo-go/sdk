@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &BackendStatus{}
 
 // BackendStatus struct for BackendStatus
 type BackendStatus struct {
-	Error  *string `json:"error,omitempty"`
-	Hits   *int32  `json:"hits,omitempty"`
-	Name   *string `json:"name,omitempty"`
+	// Error is the failure text from a leg whose status is degraded — the reason a configured backend could not answer. Absent otherwise.
+	Error *string `json:"error,omitempty"`
+	// Hits is how many results this leg returned, counted BEFORE fusion, so it is not the number that survived into Response.Hits — fusion merges what both legs found and the caller's limit and offset then page it. 0 for a leg that did not run.
+	Hits *int32 `json:"hits,omitempty"`
+	// Name is which leg this reports: \"index\", the lexical store, \"vector\", the semantic one, or \"code\", the org's own repositories. Match.Backend uses the same three names.
+	Name *string `json:"name,omitempty"`
+	// Status is one of ok, degraded, disabled, skipped — four distinct operational facts that are never collapsed. It ran and answered; it is configured and FAILED (Error says how, and only this one is a fault); this deployment never provisioned it; or the request's mode excluded it.
 	Status *string `json:"status,omitempty"`
-	TookMs *int32  `json:"took_ms,omitempty"`
+	// TookMS is how long this leg took, in milliseconds, timed around its own call and excluding fusion. 0 for a leg that was skipped or is disabled, since nothing was called.
+	TookMs *int32 `json:"took_ms,omitempty"`
 }
 
 // NewBackendStatus instantiates a new BackendStatus object

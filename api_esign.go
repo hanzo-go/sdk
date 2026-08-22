@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -27,14 +27,19 @@ type EsignAPIGetEsignDocumentsRequest struct {
 	ApiService *EsignAPIService
 }
 
-func (r EsignAPIGetEsignDocumentsRequest) Execute() (*http.Response, error) {
+func (r EsignAPIGetEsignDocumentsRequest) Execute() (*EsignDocuments, *http.Response, error) {
 	return r.ApiService.GetEsignDocumentsExecute(r)
 }
 
 /*
-GetEsignDocuments Your org's documents, newest first
+GetEsignDocuments Returns your org's documents, newest first.
 
-Lists the caller org's documents with their status, recipients and timestamps, newest first, capped at 200 — there is no paging, so treat it as the recent window rather than a complete export. Requires a validated principal (403 without one) and reads the caller's own tenant store, so no other org's documents can appear in it.
+Returns your org's documents, newest first.
+
+Each carries its status, recipients and field layout. The listing is capped at
+200 and there is no paging, so treat it as the recent window rather than a
+complete export. It reads the caller's own tenant store, so no other org's
+documents can appear in it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EsignAPIGetEsignDocumentsRequest
@@ -47,16 +52,19 @@ func (a *EsignAPIService) GetEsignDocuments(ctx context.Context) EsignAPIGetEsig
 }
 
 // Execute executes the request
-func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRequest) (*http.Response, error) {
+//
+//	@return EsignDocuments
+func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRequest) (*EsignDocuments, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignDocuments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignDocuments")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/documents"
@@ -75,7 +83,7 @@ func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -84,19 +92,19 @@ func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -104,10 +112,19 @@ func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIGetEsignDocumentsByIdRequest struct {
@@ -116,17 +133,23 @@ type EsignAPIGetEsignDocumentsByIdRequest struct {
 	id         string
 }
 
-func (r EsignAPIGetEsignDocumentsByIdRequest) Execute() (*http.Response, error) {
+func (r EsignAPIGetEsignDocumentsByIdRequest) Execute() (*EsignDocument, *http.Response, error) {
 	return r.ApiService.GetEsignDocumentsByIdExecute(r)
 }
 
 /*
-GetEsignDocumentsById One document with its recipients and field layout
+GetEsignDocumentsById Returns one document with its recipients and field layout.
 
-Answers the document, its recipients with each one's read and signing status, and every field with its type, page and position — the view a sender's UI renders, and where the field ids come from. Requires a validated principal (403 without one) and resolves the id in the caller's OWN tenant store, so another org's document id is a 404 rather than a refusal that would confirm it exists.
+Returns one document with its recipients and field layout.
+
+It answers the document, its recipients with each one's read and signing status,
+and every field with its type, page and position — the view a sender's UI
+renders, and where the field ids come from. The id is resolved in the caller's
+OWN tenant store, so another org's document id is a 404 rather than a refusal
+that would confirm it exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the document to act on. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id belonging to another tenant is simply not found.
 	@return EsignAPIGetEsignDocumentsByIdRequest
 */
 func (a *EsignAPIService) GetEsignDocumentsById(ctx context.Context, id string) EsignAPIGetEsignDocumentsByIdRequest {
@@ -138,16 +161,19 @@ func (a *EsignAPIService) GetEsignDocumentsById(ctx context.Context, id string) 
 }
 
 // Execute executes the request
-func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumentsByIdRequest) (*http.Response, error) {
+//
+//	@return EsignDocument
+func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumentsByIdRequest) (*EsignDocument, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignDocument
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignDocumentsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/documents/{id}"
@@ -167,7 +193,7 @@ func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -176,19 +202,19 @@ func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumen
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -196,10 +222,19 @@ func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIGetEsignDocumentsByIdAuditRequest struct {
@@ -208,19 +243,26 @@ type EsignAPIGetEsignDocumentsByIdAuditRequest struct {
 	id         string
 }
 
-func (r EsignAPIGetEsignDocumentsByIdAuditRequest) Execute() (*http.Response, error) {
+func (r EsignAPIGetEsignDocumentsByIdAuditRequest) Execute() (*EsignTrail, *http.Response, error) {
 	return r.ApiService.GetEsignDocumentsByIdAuditExecute(r)
 }
 
 /*
-GetEsignDocumentsByIdAudit The document's full audit trail, oldest first
+GetEsignDocumentsByIdAudit Returns the document's full audit trail, oldest first.
 
-Answers every recorded event for the document in order — created, recipient added, field created, sent, opened, each field inserted, each recipient completed or rejected, and completion — with the actor and timestamp on each. This is the evidence record behind a signature, so it is append-only and nothing in the surface edits it.
+Returns the document's full audit trail, oldest first.
 
-Requires a validated principal (403 without one) and resolves the id in the caller's OWN tenant store, so another org's document id is a 404.
+It answers every recorded event for the document in order — created, recipient
+added, field created, sent, opened, each field inserted, each recipient
+completed or rejected, and completion — with the actor and timestamp on each.
+This is the evidence record behind a signature, so it is append-only and nothing
+in the surface edits it.
+
+The id is resolved in the caller's OWN tenant store, so another org's document
+id is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the document to act on. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id belonging to another tenant is simply not found.
 	@return EsignAPIGetEsignDocumentsByIdAuditRequest
 */
 func (a *EsignAPIService) GetEsignDocumentsByIdAudit(ctx context.Context, id string) EsignAPIGetEsignDocumentsByIdAuditRequest {
@@ -232,16 +274,19 @@ func (a *EsignAPIService) GetEsignDocumentsByIdAudit(ctx context.Context, id str
 }
 
 // Execute executes the request
-func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDocumentsByIdAuditRequest) (*http.Response, error) {
+//
+//	@return EsignTrail
+func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDocumentsByIdAuditRequest) (*EsignTrail, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignTrail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignDocumentsByIdAudit")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/documents/{id}/audit"
@@ -261,7 +306,7 @@ func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -270,19 +315,19 @@ func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -290,10 +335,19 @@ func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIGetEsignDocumentsByIdDownloadRequest struct {
@@ -302,19 +356,26 @@ type EsignAPIGetEsignDocumentsByIdDownloadRequest struct {
 	id         string
 }
 
-func (r EsignAPIGetEsignDocumentsByIdDownloadRequest) Execute() (*http.Response, error) {
+func (r EsignAPIGetEsignDocumentsByIdDownloadRequest) Execute() (*EsignPDF, *http.Response, error) {
 	return r.ApiService.GetEsignDocumentsByIdDownloadExecute(r)
 }
 
 /*
-GetEsignDocumentsByIdDownload Download the document — the sealed PDF once it is complete
+GetEsignDocumentsByIdDownload Returns the document — the sealed PDF once it is complete.
 
-Answers the document's current PDF as base64 with a `sealed` flag and a filename. Before completion that is the original upload; once every signer has finished it is the SEALED artifact — the field values rendered onto the page and a real x509 PKCS#7 digital signature applied — and `sealed` is true. There is one `pdfBase64` field either way, so `sealed` is what tells you which you are holding.
+Returns the document — the sealed PDF once it is complete.
 
-Requires a validated principal (403 without one) and resolves the id in the caller's OWN tenant store, so another org's document id is a 404.
+It answers the document's current PDF as base64 with a sealed flag and a
+filename. Before completion that is the original upload; once every signer has
+finished it is the SEALED artifact, with the field values rendered onto the page
+and a real x509 PKCS#7 digital signature applied. There is one pdfBase64 field
+either way, so sealed is what tells you which you are holding.
+
+The id is resolved in the caller's OWN tenant store, so another org's document
+id is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the document to act on. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id belonging to another tenant is simply not found.
 	@return EsignAPIGetEsignDocumentsByIdDownloadRequest
 */
 func (a *EsignAPIService) GetEsignDocumentsByIdDownload(ctx context.Context, id string) EsignAPIGetEsignDocumentsByIdDownloadRequest {
@@ -326,16 +387,19 @@ func (a *EsignAPIService) GetEsignDocumentsByIdDownload(ctx context.Context, id 
 }
 
 // Execute executes the request
-func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsignDocumentsByIdDownloadRequest) (*http.Response, error) {
+//
+//	@return EsignPDF
+func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsignDocumentsByIdDownloadRequest) (*EsignPDF, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignPDF
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignDocumentsByIdDownload")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/documents/{id}/download"
@@ -355,7 +419,7 @@ func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsig
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -364,19 +428,19 @@ func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsig
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -384,10 +448,19 @@ func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsig
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIGetEsignHealthRequest struct {
@@ -395,14 +468,20 @@ type EsignAPIGetEsignHealthRequest struct {
 	ApiService *EsignAPIService
 }
 
-func (r EsignAPIGetEsignHealthRequest) Execute() (*http.Response, error) {
+func (r EsignAPIGetEsignHealthRequest) Execute() (*EsignHealth, *http.Response, error) {
 	return r.ApiService.GetEsignHealthExecute(r)
 }
 
 /*
-GetEsignHealth Whether the e-signature surface is mounted
+GetEsignHealth Reports whether the e-signature surface is mounted.
 
-Answers ok whenever the subsystem is mounted. It is unauthenticated and takes no tenant, and it is deliberately shallow: it is registered before the document host is built, so it still answers on a deployment that came up WITHOUT object storage and therefore serves nothing else. Read it as reachability, never as a promise that documents can be stored.
+Reports whether the e-signature surface is mounted.
+
+It answers ok whenever the subsystem is mounted, takes no tenant and needs no
+principal. It is deliberately shallow: it is registered before the document host
+is built, so it still answers on a deployment that came up WITHOUT object
+storage and therefore serves nothing else. Read it as reachability, never as a
+promise that documents can be stored.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EsignAPIGetEsignHealthRequest
@@ -415,16 +494,19 @@ func (a *EsignAPIService) GetEsignHealth(ctx context.Context) EsignAPIGetEsignHe
 }
 
 // Execute executes the request
-func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest) (*http.Response, error) {
+//
+//	@return EsignHealth
+func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest) (*EsignHealth, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignHealth")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/health"
@@ -443,7 +525,7 @@ func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -452,19 +534,19 @@ func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -472,10 +554,19 @@ func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIGetEsignOByOrgSignByTokenRequest struct {
@@ -485,16 +576,26 @@ type EsignAPIGetEsignOByOrgSignByTokenRequest struct {
 	token      string
 }
 
-func (r EsignAPIGetEsignOByOrgSignByTokenRequest) Execute() (*http.Response, error) {
+func (r EsignAPIGetEsignOByOrgSignByTokenRequest) Execute() (*EsignSession, *http.Response, error) {
 	return r.ApiService.GetEsignOByOrgSignByTokenExecute(r)
 }
 
 /*
-GetEsignOByOrgSignByToken Open a document you were asked to sign, using your signing link
+GetEsignOByOrgSignByToken Opens a document you were asked to sign, using your signing link.
 
-Answers the document, the recipient it identifies, the fields THAT recipient must fill, and the PDF to display. The first open also marks the recipient as having opened it and records that on the audit trail, so this read has a side effect by design.
+Opens a document you were asked to sign, using your signing link.
 
-This is the signer's door and it takes NO account: the signing token is the entire credential, and it names the recipient, so a signer sees only their own fields and never the other recipients' tokens. The token resolves to its owning tenant FIRST, before any per-tenant store is opened, and the `:org` segment is only checked against that answer. An unknown or wrong-org token is one and the same 404, never a hint that some other document exists.
+It answers the document, the recipient the link identifies, the fields THAT
+recipient must fill, and the PDF to display. The first open also marks the
+recipient as having opened it and records that on the audit trail, so this read
+has a side effect by design.
+
+This door takes NO account: the signing token is the entire credential, and it
+names the recipient, so a signer sees only their own fields and never the other
+recipients' tokens. The token resolves to its owning tenant FIRST, before any
+per-tenant store is opened, and the org segment is only checked against that
+answer. An unknown or wrong-org token is one and the same 404, never a hint that
+some other document exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param org
@@ -511,16 +612,19 @@ func (a *EsignAPIService) GetEsignOByOrgSignByToken(ctx context.Context, org str
 }
 
 // Execute executes the request
-func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOByOrgSignByTokenRequest) (*http.Response, error) {
+//
+//	@return EsignSession
+func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOByOrgSignByTokenRequest) (*EsignSession, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignSession
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignOByOrgSignByToken")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/o/{org}/sign/{token}"
@@ -541,7 +645,7 @@ func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -550,19 +654,19 @@ func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOBy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -570,29 +674,51 @@ func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIPostEsignDocumentsRequest struct {
-	ctx        context.Context
-	ApiService *EsignAPIService
+	ctx           context.Context
+	ApiService    *EsignAPIService
+	esignUploadIn *EsignUploadIn
 }
 
-func (r EsignAPIPostEsignDocumentsRequest) Execute() (*http.Response, error) {
+func (r EsignAPIPostEsignDocumentsRequest) EsignUploadIn(esignUploadIn EsignUploadIn) EsignAPIPostEsignDocumentsRequest {
+	r.esignUploadIn = &esignUploadIn
+	return r
+}
+
+func (r EsignAPIPostEsignDocumentsRequest) Execute() (*EsignDocument, *http.Response, error) {
 	return r.ApiService.PostEsignDocumentsExecute(r)
 }
 
 /*
-PostEsignDocuments Upload a PDF and open a draft ready for recipients and fields
+PostEsignDocuments Uploads a PDF and opens a draft ready for recipients and fields.
 
-Creates a document from a base64 PDF and answers 201 with it in `DRAFT` — the state where recipients and fields may still be added, and the only state they may. `title` and `pdfBase64` are required; `signingOrder` chooses `PARALLEL` (the default, everyone may sign at once) or `SEQUENTIAL`, and that choice is fixed for the document's life.
+Uploads a PDF and opens a draft ready for recipients and fields.
 
-The bytes go to object storage, not into the tenant database, and the ORIGINAL is kept under its own key so it survives sealing untouched — a completed document can always be compared against what was uploaded. Creation is recorded on the audit trail.
+It answers 201 with the document in DRAFT — the state where recipients and
+fields may still be added, and the only state they may. The bytes go to object
+storage rather than into the tenant database, and the original is kept under its
+own key so it survives sealing untouched: a completed document can always be
+compared against what was uploaded. Creation is recorded on the audit trail.
 
-This is the sender's door: a validated principal is required (403 without one) and the document lands in that principal's OWN org. Isolation is physical rather than a filter — each tenant has its own store — so another org's document id is simply not there. Bodies over 32 MiB are refused with 413.
+This is the sender's door: a validated principal is required, and the document
+lands in that principal's OWN org. Isolation is physical rather than a filter —
+each tenant has its own store — so another org's document id is simply not
+there. A body over 32 MiB is refused with 413.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EsignAPIPostEsignDocumentsRequest
@@ -605,16 +731,19 @@ func (a *EsignAPIService) PostEsignDocuments(ctx context.Context) EsignAPIPostEs
 }
 
 // Execute executes the request
-func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocumentsRequest) (*http.Response, error) {
+//
+//	@return EsignDocument
+func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocumentsRequest) (*EsignDocument, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignDocument
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignDocuments")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/documents"
@@ -622,9 +751,12 @@ func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocuments
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.esignUploadIn == nil {
+		return localVarReturnValue, nil, reportError("esignUploadIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -633,28 +765,30 @@ func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocuments
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.esignUploadIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -662,28 +796,50 @@ func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocuments
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIPostEsignDocumentsByIdFieldsRequest struct {
-	ctx        context.Context
-	ApiService *EsignAPIService
-	id         string
+	ctx          context.Context
+	ApiService   *EsignAPIService
+	id           string
+	esignFieldIn *EsignFieldIn
 }
 
-func (r EsignAPIPostEsignDocumentsByIdFieldsRequest) Execute() (*http.Response, error) {
+func (r EsignAPIPostEsignDocumentsByIdFieldsRequest) EsignFieldIn(esignFieldIn EsignFieldIn) EsignAPIPostEsignDocumentsByIdFieldsRequest {
+	r.esignFieldIn = &esignFieldIn
+	return r
+}
+
+func (r EsignAPIPostEsignDocumentsByIdFieldsRequest) Execute() (*EsignPlacement, *http.Response, error) {
 	return r.ApiService.PostEsignDocumentsByIdFieldsExecute(r)
 }
 
 /*
-PostEsignDocumentsByIdFields Place a field on the page for one recipient to fill
+PostEsignDocumentsByIdFields Places a field on the page for one recipient to fill.
 
-Adds a field — a signature, date, name, email or text box — at a page and position for ONE named recipient, and answers 201 with its id. `recipientId` and a valid `type` are required, and the recipient must belong to this document (400 otherwise); page defaults to 1 and position defaults to the origin.
+Places a field on the page for one recipient to fill.
 
-Fields are what make a recipient signable: a document cannot be sent while any signing recipient has none. Only while DRAFT — adding a field to a sent document is a 409. Requires a validated principal (403 without one), acts only on the caller's own tenant, and an unknown document is a 404. The addition is recorded on the audit trail.
+It adds a signature, date, name, email or text box at a page and position for
+ONE named recipient, and answers 201 with its id. The recipient must belong to
+this document; one from elsewhere is refused.
+
+Fields are what make a recipient signable: a document cannot be sent while any
+signing recipient has none. Only while DRAFT — adding a field to a sent document
+is a 409 — and an unknown document is a 404. The addition is recorded on the
+audit trail.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -698,16 +854,19 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFields(ctx context.Context, id s
 }
 
 // Execute executes the request
-func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsignDocumentsByIdFieldsRequest) (*http.Response, error) {
+//
+//	@return EsignPlacement
+func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsignDocumentsByIdFieldsRequest) (*EsignPlacement, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignPlacement
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignDocumentsByIdFields")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/documents/{id}/fields"
@@ -716,9 +875,12 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsig
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.esignFieldIn == nil {
+		return localVarReturnValue, nil, reportError("esignFieldIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -727,28 +889,30 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsig
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.esignFieldIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -756,28 +920,50 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsig
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIPostEsignDocumentsByIdRecipientsRequest struct {
-	ctx        context.Context
-	ApiService *EsignAPIService
-	id         string
+	ctx              context.Context
+	ApiService       *EsignAPIService
+	id               string
+	esignRecipientIn *EsignRecipientIn
 }
 
-func (r EsignAPIPostEsignDocumentsByIdRecipientsRequest) Execute() (*http.Response, error) {
+func (r EsignAPIPostEsignDocumentsByIdRecipientsRequest) EsignRecipientIn(esignRecipientIn EsignRecipientIn) EsignAPIPostEsignDocumentsByIdRecipientsRequest {
+	r.esignRecipientIn = &esignRecipientIn
+	return r
+}
+
+func (r EsignAPIPostEsignDocumentsByIdRecipientsRequest) Execute() (*EsignInvite, *http.Response, error) {
 	return r.ApiService.PostEsignDocumentsByIdRecipientsExecute(r)
 }
 
 /*
-PostEsignDocumentsByIdRecipients Add someone to a draft and mint their signing token
+PostEsignDocumentsByIdRecipients Adds someone to a draft and mints their signing token.
 
-Adds a recipient and answers 201 with their id and their signing TOKEN — the crypto-random capability that is the only credential the signer's door accepts, so this response is where the signing link is built from. `email` is required; `role` defaults to `SIGNER`, and a `CC` recipient is recorded as already complete because they are never asked to sign. `signingOrder` sets this recipient's position for a sequential document.
+Adds someone to a draft and mints their signing token.
 
-Only while DRAFT: adding a recipient to a document already sent is a 409, because the field layout and the turn order were fixed when it went out. Requires a validated principal (403 without one), acts only on the caller's own tenant, and an unknown document is a 404. The addition is recorded on the audit trail.
+It answers 201 with the recipient's id and their signing TOKEN — the
+crypto-random capability that is the only credential the signer's door accepts —
+so this response is where the signing link is built from. A CC recipient is
+recorded as already complete, because they are never asked to sign.
+
+Only while DRAFT: adding a recipient to a document already sent is a 409,
+because the field layout and the turn order were fixed when it went out. An
+unknown document is a 404. The addition is recorded on the audit trail.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -792,16 +978,19 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipients(ctx context.Context, 
 }
 
 // Execute executes the request
-func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPostEsignDocumentsByIdRecipientsRequest) (*http.Response, error) {
+//
+//	@return EsignInvite
+func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPostEsignDocumentsByIdRecipientsRequest) (*EsignInvite, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignInvite
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignDocumentsByIdRecipients")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/documents/{id}/recipients"
@@ -810,9 +999,12 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.esignRecipientIn == nil {
+		return localVarReturnValue, nil, reportError("esignRecipientIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -821,28 +1013,30 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.esignRecipientIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -850,10 +1044,19 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIPostEsignDocumentsByIdSendRequest struct {
@@ -862,19 +1065,28 @@ type EsignAPIPostEsignDocumentsByIdSendRequest struct {
 	id         string
 }
 
-func (r EsignAPIPostEsignDocumentsByIdSendRequest) Execute() (*http.Response, error) {
+func (r EsignAPIPostEsignDocumentsByIdSendRequest) Execute() (*EsignLinks, *http.Response, error) {
 	return r.ApiService.PostEsignDocumentsByIdSendExecute(r)
 }
 
 /*
-PostEsignDocumentsByIdSend Send the document out and get each signer's link
+PostEsignDocumentsByIdSend Sends the document out and answers each signer's link.
 
-Moves the document from `DRAFT` to `PENDING` and answers the signing tokens — one per signing recipient, with the path to hand them — which is how the links reach the people who must sign. Nothing is emailed by this call; delivering the links is the caller's.
+Sends the document out and answers each signer's link.
 
-It refuses to send an unsignable document: no recipients at all is a 400, and so is any signing recipient with no fields to fill, named in the error. Re-sending an already-pending document is allowed and re-issues the same links rather than restarting anything; a completed document is a 409. Requires a validated principal (403 without one) and acts only on the caller's own tenant; an unknown document is a 404. The send is recorded on the audit trail.
+It moves the document from DRAFT to PENDING and answers the signing tokens — one
+per signing recipient, with the path to hand them — which is how the links reach
+the people who must sign. Nothing is emailed by this call; delivering the links
+is the caller's.
+
+It refuses to send an unsignable document: no recipients at all is a 400, and so
+is any signing recipient with no fields to fill, named in the error. Re-sending
+an already-pending document is allowed and re-issues the same links rather than
+restarting anything; a completed document is a 409, and an unknown one a 404.
+The send is recorded on the audit trail.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the document to send. The URL is the addressing authority.
 	@return EsignAPIPostEsignDocumentsByIdSendRequest
 */
 func (a *EsignAPIService) PostEsignDocumentsByIdSend(ctx context.Context, id string) EsignAPIPostEsignDocumentsByIdSendRequest {
@@ -886,16 +1098,19 @@ func (a *EsignAPIService) PostEsignDocumentsByIdSend(ctx context.Context, id str
 }
 
 // Execute executes the request
-func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignDocumentsByIdSendRequest) (*http.Response, error) {
+//
+//	@return EsignLinks
+func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignDocumentsByIdSendRequest) (*EsignLinks, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignLinks
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignDocumentsByIdSend")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/documents/{id}/send"
@@ -915,7 +1130,7 @@ func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignD
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -924,19 +1139,19 @@ func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignD
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -944,10 +1159,19 @@ func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignD
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIPostEsignOByOrgSignByTokenCompleteRequest struct {
@@ -957,16 +1181,30 @@ type EsignAPIPostEsignOByOrgSignByTokenCompleteRequest struct {
 	token      string
 }
 
-func (r EsignAPIPostEsignOByOrgSignByTokenCompleteRequest) Execute() (*http.Response, error) {
+func (r EsignAPIPostEsignOByOrgSignByTokenCompleteRequest) Execute() (*EsignCompletion, *http.Response, error) {
 	return r.ApiService.PostEsignOByOrgSignByTokenCompleteExecute(r)
 }
 
 /*
-PostEsignOByOrgSignByTokenComplete Finish signing — and seal the document if you were the last
+PostEsignOByOrgSignByTokenComplete Finishes your signing — and seals the document if you were the last.
 
-Marks this recipient as done and answers whether the DOCUMENT sealed with it. When every signing recipient has completed, sealing happens right here in the same call: the collected values are rendered onto the PDF, a real x509 PKCS#7 signature is applied, the sealed bytes are stored beside the untouched original, and the document moves to `COMPLETED`. Until then the answer is the recipient's own completion with the document still pending.
+Finishes your signing — and seals the document if you were the
+last.
 
-It refuses to complete a half-filled signature: a recipient with any unfilled field is a 400 naming how many remain. A document not out for signature is a 409, as is a recipient who has already completed, and under SEQUENTIAL order a signer out of turn is a 403. The token is the whole credential — no account, and a token that does not resolve under `:org` is a 404. Sealing and completion are one transaction, so a failure anywhere leaves the document exactly as it was.
+It marks this recipient as done and answers whether the DOCUMENT sealed with it.
+When every signing recipient has completed, sealing happens right here in the
+same call: the collected values are rendered onto the PDF, a real x509 PKCS#7
+signature is applied, the sealed bytes are stored beside the untouched original,
+and the document moves to COMPLETED. Until then the answer is the recipient's
+own completion with the document still pending.
+
+It refuses to complete a half-filled signature: a recipient with any unfilled
+field is a 400 naming how many remain. A document not out for signature is a
+409, as is a recipient who has already completed, and under SEQUENTIAL order a
+signer out of turn is a 403. The token is the whole credential — no account, and
+a token that does not resolve under the org segment is a 404. Sealing and
+completion are one transaction, so a failure anywhere leaves the document
+exactly as it was.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param org
@@ -983,16 +1221,19 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenComplete(ctx context.Context
 }
 
 // Execute executes the request
-func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPostEsignOByOrgSignByTokenCompleteRequest) (*http.Response, error) {
+//
+//	@return EsignCompletion
+func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPostEsignOByOrgSignByTokenCompleteRequest) (*EsignCompletion, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignCompletion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignOByOrgSignByTokenComplete")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/o/{org}/sign/{token}/complete"
@@ -1013,7 +1254,7 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1022,19 +1263,19 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1042,30 +1283,57 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest struct {
-	ctx        context.Context
-	ApiService *EsignAPIService
-	org        string
-	token      string
-	fieldId    string
+	ctx          context.Context
+	ApiService   *EsignAPIService
+	org          string
+	token        string
+	fieldId      string
+	esignValueIn *EsignValueIn
 }
 
-func (r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) Execute() (*http.Response, error) {
+func (r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) EsignValueIn(esignValueIn EsignValueIn) EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest {
+	r.esignValueIn = &esignValueIn
+	return r
+}
+
+func (r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) Execute() (*EsignInsertion, *http.Response, error) {
 	return r.ApiService.PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r)
 }
 
 /*
-PostEsignOByOrgSignByTokenFieldsByFieldid Fill in one of your fields
+PostEsignOByOrgSignByTokenFieldsByFieldid Fills in one of your fields.
 
-Records a value for one field and marks it inserted. A signature field takes `value` with `isBase64` true for drawn image bytes, or false for a typed signature; a date, name or email field falls back to today, the recipient's name or their email when `value` is omitted; any other type requires one.
+Fills in one of your fields.
 
-Nothing is sealed here — filling every field still leaves the document pending until the completion call. The token is the whole credential and it bounds what can be written: a field belonging to another recipient is refused with 401 even under a valid token, an unknown field is a 404, and a field already filled is a 409. A document not out for signature is a 409, as is a recipient who has already completed or rejected. Under SEQUENTIAL order a signer whose turn has not come is refused 403 until every earlier signer has signed. Each insertion is recorded on the audit trail.
+It records a value for one field and marks it inserted. A signature field takes
+a value with isBase64 true for drawn image bytes, or false for a typed
+signature; a date, name or email field falls back to today, the recipient's name
+or their email when the value is omitted; any other type requires one.
+
+Nothing is sealed here — filling every field still leaves the document pending
+until the completion call. The token is the whole credential and it bounds what
+can be written: a field belonging to another recipient is refused with 401 even
+under a valid token, an unknown field is a 404, and a field already filled is a
+409. A document not out for signature is a 409, as is a recipient who has
+already completed or rejected. Under SEQUENTIAL order a signer whose turn has
+not come is refused 403 until every earlier signer has signed. Each insertion is
+recorded on the audit trail.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param org
@@ -1084,16 +1352,19 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldid(ctx context.
 }
 
 // Execute executes the request
-func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) (*http.Response, error) {
+//
+//	@return EsignInsertion
+func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) (*EsignInsertion, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignInsertion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignOByOrgSignByTokenFieldsByFieldid")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/o/{org}/sign/{token}/fields/{fieldId}"
@@ -1104,9 +1375,12 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r Esi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.esignValueIn == nil {
+		return localVarReturnValue, nil, reportError("esignValueIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1115,28 +1389,30 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r Esi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.esignValueIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1144,29 +1420,52 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r Esi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type EsignAPIPostEsignOByOrgSignByTokenRejectRequest struct {
-	ctx        context.Context
-	ApiService *EsignAPIService
-	org        string
-	token      string
+	ctx           context.Context
+	ApiService    *EsignAPIService
+	org           string
+	token         string
+	esignRejectIn *EsignRejectIn
 }
 
-func (r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) Execute() (*http.Response, error) {
+func (r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) EsignRejectIn(esignRejectIn EsignRejectIn) EsignAPIPostEsignOByOrgSignByTokenRejectRequest {
+	r.esignRejectIn = &esignRejectIn
+	return r
+}
+
+func (r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) Execute() (*EsignRejection, *http.Response, error) {
 	return r.ApiService.PostEsignOByOrgSignByTokenRejectExecute(r)
 }
 
 /*
-PostEsignOByOrgSignByTokenReject Decline to sign, with an optional reason
+PostEsignOByOrgSignByTokenReject Declines to sign, with an optional reason.
 
-Records this recipient's refusal and moves the WHOLE DOCUMENT to `REJECTED` — one declining signer ends it for everyone, and there is no route back: the document cannot then be signed or completed. An optional `reason` is stored and written onto the audit trail with the rejection, which is what the sender sees.
+Declines to sign, with an optional reason.
 
-A document not out for signature is a 409, and so is a recipient who has already signed or already rejected — a refusal cannot be taken back or repeated. The token is the whole credential; one that does not resolve under `:org` is a 404.
+It records this recipient's refusal and moves the WHOLE DOCUMENT to REJECTED —
+one declining signer ends it for everyone, and there is no route back: the
+document cannot then be signed or completed. An optional reason is stored and
+written onto the audit trail with the rejection, which is what the sender sees.
+
+A document not out for signature is a 409, and so is a recipient who has already
+signed or already rejected — a refusal cannot be taken back or repeated. The
+token is the whole credential; one that does not resolve under the org segment
+is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param org
@@ -1183,16 +1482,19 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenReject(ctx context.Context, 
 }
 
 // Execute executes the request
-func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) (*http.Response, error) {
+//
+//	@return EsignRejection
+func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) (*EsignRejection, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EsignRejection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignOByOrgSignByTokenReject")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/esign/o/{org}/sign/{token}/reject"
@@ -1202,9 +1504,12 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.esignRejectIn == nil {
+		return localVarReturnValue, nil, reportError("esignRejectIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1213,28 +1518,30 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.esignRejectIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1242,8 +1549,17 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

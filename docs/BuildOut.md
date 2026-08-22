@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bytes** | Pointer to **int32** |  | [optional] 
-**Generated** | Pointer to **bool** |  | [optional] 
-**Plugin** | Pointer to [**AuthoredPlugin**](AuthoredPlugin.md) |  | [optional] 
+**Bytes** | Pointer to **int32** | Bytes is the size of the bundled CommonJS the runtime will execute. | [optional] 
+**Generated** | Pointer to **bool** | Generated is whether a model wrote the source from a spec, rather than the caller posting the source itself. | [optional] 
+**Plugin** | Pointer to [**AuthoredPlugin**](AuthoredPlugin.md) | Plugin is the plugin as stored, with its derived id and build time. | [optional] 
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | ID is the sandbox to interrupt, from an earlier lease. Every command running in it stops; the lease itself survives, so the checkout and the half-written files are still there to read. Use EndIn to give the computer back. | [optional] 
 
 ## Methods
 

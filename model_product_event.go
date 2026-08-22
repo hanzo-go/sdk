@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -34,7 +34,7 @@ type ProductEvent struct {
 	SessionId *string `json:"sessionId,omitempty"`
 	// Timestamp is when the event happened, RFC3339 UTC.
 	Timestamp *string `json:"timestamp,omitempty"`
-	// Type is the row's kind — the plane's discriminator: page, track, identify or group. (Errors are not here at all: they land on event.error and are read at /v1/errors.)
+	// Type is the row's kind — the plane's discriminator: page, track, identify or group. (Errors are not here at all: they land on event.error and are read at /v1/event/errors.)
 	Type *string `json:"type,omitempty"`
 	// URL is the full page address the event fired on. Omitted when absent.
 	Url *string `json:"url,omitempty"`

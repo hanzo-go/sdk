@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,16 @@ var _ MappedNullable = &GithubForkOut{}
 
 // GithubForkOut struct for GithubForkOut
 type GithubForkOut struct {
-	CloneUrl      *string `json:"clone_url,omitempty"`
+	// CloneURL is the fork's https git remote. GitHub populates a new fork in the background, so a clone issued the moment this answers can still find it empty.
+	CloneUrl *string `json:"clone_url,omitempty"`
+	// DefaultBranch is the branch the fork checks out, inherited from upstream.
 	DefaultBranch *string `json:"default_branch,omitempty"`
 	// Existing reports that the fork was already there. GitHub answers 202 either way, so without this a caller cannot tell \"made you one\" from \"you had one\".
-	Existing *bool   `json:"existing,omitempty"`
+	Existing *bool `json:"existing,omitempty"`
+	// FullName is the fork's \"owner/repo\". The owner is the account it landed in — the request's org, or the installation's own account when none was named.
 	FullName *string `json:"full_name,omitempty"`
-	HtmlUrl  *string `json:"html_url,omitempty"`
+	// HTMLURL is the fork's page on github.com.
+	HtmlUrl *string `json:"html_url,omitempty"`
 }
 
 // NewGithubForkOut instantiates a new GithubForkOut object

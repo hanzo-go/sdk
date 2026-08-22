@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EndLine** | Pointer to **int32** |  | [optional] 
-**File** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Line** | Pointer to **int32** |  | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
+**EndLine** | Pointer to **int32** | EndLine is the last line of the span, inclusive. It equals Line for a one-line span rather than being zero or absent. | [optional] 
+**File** | Pointer to **string** | File is the path inside the repo, relative to its root and never absolute. | [optional] 
+**Kind** | Pointer to **string** | Kind is what the indexer decided this chunk IS — \&quot;func\&quot;, \&quot;method\&quot;, \&quot;type\&quot;, \&quot;struct\&quot;, \&quot;interface\&quot;, \&quot;var\&quot;, \&quot;const\&quot;, or \&quot;block\&quot; for a run of code that declares nothing. Absent when the chunker could not classify it. | [optional] 
+**Line** | Pointer to **int32** | Line is where the span starts, 1-based, as an editor counts. | [optional] 
+**Repo** | Pointer to **string** | Repo is the indexed repository the span was found in, as it was indexed (\&quot;owner/name\&quot;). A search may be scoped to one repo or run across all of them, so this is how a caller tells the results apart. | [optional] 
 **Role** | Pointer to **string** | context: match | definition | caller | [optional] 
-**Score** | Pointer to **float32** |  | [optional] 
-**Snippet** | Pointer to **string** |  | [optional] 
-**Symbol** | Pointer to **string** |  | [optional] 
-**Tier** | Pointer to **string** |  | [optional] 
+**Score** | Pointer to **float32** | Score ranks this span against the OTHERS IN THE SAME RESPONSE and means nothing across responses or between tiers: the hybrid tier&#39;s number is a reciprocal-rank fusion sum (Σ 1/(60+rank), so tenths at best), the symbol tier&#39;s is a descending position count, and the text and semantic tiers pass through bm25 and cosine. Compare within a list; never threshold on it. | [optional] 
+**Snippet** | Pointer to **string** | Snippet is the code itself: a bounded excerpt on /search, the whole chunk on /context — which is why the same type serves both and why a /context span is the one an agent pastes into its window. | [optional] 
+**Symbol** | Pointer to **string** | Symbol is the declared name, when the span declares one. Absent on a block. | [optional] 
+**Tier** | Pointer to **string** | Tier is which retrieval produced the span: \&quot;hybrid\&quot; (the default — all three fused), \&quot;text\&quot; (trigram/FTS), \&quot;regex\&quot;, \&quot;semantic\&quot; (vector), or \&quot;symbol\&quot;. It is what explains a Score, so the two travel together. | [optional] 
 
 ## Methods
 

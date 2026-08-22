@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Amount** | Pointer to **string** | exact 18-dp USD (money.Amount string) | [optional] 
-**From** | Pointer to **string** | payer address | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Network** | Pointer to **string** |  | [optional] 
-**Nonce** | Pointer to **string** |  | [optional] 
-**Payee** | Pointer to **string** | recipient address | [optional] 
-**PayeeOrg** | Pointer to **string** |  | [optional] 
-**Payer** | Pointer to **string** | payer ORG (the debited ledger) | [optional] 
-**Resource** | Pointer to **string** |  | [optional] 
-**SettledAt** | Pointer to **int32** |  | [optional] 
-**SettledVia** | Pointer to **string** | \&quot;ledger\&quot; (live) | \&quot;chain\&quot; (seam) | [optional] 
-**TxHash** | Pointer to **string** |  | [optional] 
+**Amount** | Pointer to **string** | Amount is what actually moved, as an exact 18-decimal-place USD string. It is NOT the atomic-unit figure the client signed: the challenge quotes the asset&#39;s own units (USDC&#39;s 6 dp) and truncates to fit them, while the ledger moves this exact value. | [optional] 
+**From** | Pointer to **string** | From is the payer&#39;s EVM address: the account that signed the EIP-3009 authorization, recovered from the signature rather than taken on trust. | [optional] 
+**Id** | Pointer to **string** | ID is the settle-once key: \&quot;x402_\&quot; + keccak(from|nonce) in hex. It is DERIVED, not minted, so a client that re-submits the same authorization addresses the same settlement and is served again for free rather than charged twice. It is also the id GET /v1/x402/settlements/:id takes. | [optional] 
+**Network** | Pointer to **string** | Network is the CAIP-2 identifier the payment was settled under, e.g. \&quot;eip155:36963\&quot;. Its eip155 reference is the chain id in the EIP-712 domain the payer signed, so it is not a label — changing it invalidates the signature. | [optional] 
+**Nonce** | Pointer to **string** | Nonce is the client-chosen nonce from the authorization, hex — up to 32 bytes, left-padded to the contract&#39;s bytes32. It is the replay anchor: the token contract refuses a second on-chain transfer for one (from, nonce), and this rail refuses a second settlement for the same pair, so a ledger settlement inherits the identical guarantee. | [optional] 
+**Payee** | Pointer to **string** | Payee is the recipient&#39;s EVM address — the &#x60;payTo&#x60; the challenge advertised and the authorization named. A payment to any other address never settles. | [optional] 
+**PayeeOrg** | Pointer to **string** | PayeeOrg is the tenant that owns the recipient wallet, resolved at settlement. It is who got PAID, as Payer is who paid. | [optional] 
+**Payer** | Pointer to **string** | Payer is the payer ORG — the tenant whose ledger was debited — and not an address. It is the org the request was authenticated as, so it answers who is billed, which the payer address alone cannot. | [optional] 
+**Resource** | Pointer to **string** | Resource is what was paid for, in the same spelling the price table and the challenge used: the request path for a priced route, \&quot;tool:&lt;id&gt;\&quot; for a priced tool. | [optional] 
+**SettledAt** | Pointer to **int32** | SettledAt is when this settlement was CLAIMED, in unix seconds — the moment the authorization was accepted, which is also the moment the time window it carried stopped applying. A settlement finished later by reconciliation keeps this instant. | [optional] 
+**SettledVia** | Pointer to **string** | SettledVia is which rail moved the money: \&quot;ledger\&quot;, the live default, or \&quot;chain\&quot; when the authorization is broadcast. Those two values and no others. | [optional] 
+**TxHash** | Pointer to **string** | TxHash is the chain transaction hash, present only for a \&quot;chain\&quot; settlement. Empty on a ledger settlement — that is the normal case today, and it means the money moved without a chain, not that it failed. The wire&#39;s PAYMENT-RESPONSE &#x60;transaction&#x60; falls back to ID when this is empty. | [optional] 
 
 ## Methods
 

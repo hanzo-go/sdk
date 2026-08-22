@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Category** | Pointer to **string** |  | [optional] 
-**CounselReview** | Pointer to **bool** |  | [optional] 
-**Fields** | Pointer to [**[]Field**](Field.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Origin** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Category** | Pointer to **string** | Category is the corporate need the template serves: formation, equity, ops or sales. Formation and equity are the securities-class categories, which is what forces counselReview. | [optional] 
+**CounselReview** | Pointer to **bool** | CounselReview marks a template whose rendered documents open with the counsel notice. True for every formation and equity template whatever an override sends: the engine prepends the notice and no caller can suppress it. | [optional] 
+**Fields** | Pointer to [**[]Field**](Field.md) | Fields declares the merge fields the body consumes — every key a generation must supply, each with its human label. All are REQUIRED: a missing one is refused rather than rendered as a blank into a contract. | [optional] 
+**Id** | Pointer to **string** | ID is the template&#39;s stable id and the path segment that fetches its body — \&quot;nda\&quot;, \&quot;msa\&quot;, \&quot;safe\&quot;. An override keeps the built-in&#39;s id. | [optional] 
+**Origin** | Pointer to **string** | Origin is \&quot;builtin\&quot; for a template the platform ships or \&quot;org\&quot; for one this org saved. It separates the catalog every tenant sees from this tenant&#39;s own. | [optional] 
+**Title** | Pointer to **string** | Title is the display name, e.g. \&quot;Mutual Non-Disclosure Agreement\&quot;. A generated document inherits it. | [optional] 
+**Version** | Pointer to **int32** | Version is which version of this template the caller&#39;s org resolves to. A built-in is version 1; the org&#39;s first override is 2 and each save increments, so an override version never collides with the built-in&#39;s. | [optional] 
 
 ## Methods
 

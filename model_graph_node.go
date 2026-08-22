@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -22,7 +22,8 @@ type GraphNode struct {
 	// \"<doctype>:<name>\" — globally unique, click-to-open key
 	Id *string `json:"id,omitempty"`
 	// the document name (empty for synthetic nodes)
-	Name    *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// Project is the project scope the underlying document was saved under. Absent for a document saved with none, and for the synthetic nodes — unresolved link targets and connectors belong to no project. When ?project= narrows the graph, every page, memory and source node carries that value.
 	Project *string `json:"project,omitempty"`
 	// display label
 	Title *string `json:"title,omitempty"`

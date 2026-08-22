@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &Completion{}
 
 // Completion struct for Completion
 type Completion struct {
+	// Detail is the server's short elaboration, typically the type or signature.
 	Detail *string `json:"detail,omitempty"`
-	Kind   *int32  `json:"kind,omitempty"`
-	Label  *string `json:"label,omitempty"`
+	// Kind is the LSP CompletionItemKind number (2 method, 3 function, 5 field, 6 variable, …), passed through as the protocol spells it.
+	Kind *int32 `json:"kind,omitempty"`
+	// Label is the text a client would insert, and what an editor lists.
+	Label *string `json:"label,omitempty"`
 }
 
 // NewCompletion instantiates a new Completion object

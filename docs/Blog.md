@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CaseStudy** | Pointer to **string** |  | [optional] 
-**How** | Pointer to **string** |  | [optional] 
-**Slug** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Why** | Pointer to **string** |  | [optional] 
+**CaseStudy** | Pointer to **string** | CaseStudy is one worked instance — somebody who ran it, and what happened. | [optional] 
+**How** | Pointer to **string** | How is the run book: the steps to execute the tactic. | [optional] 
+**Slug** | Pointer to **string** | Slug is the post&#39;s address — the last path segment it is published at. | [optional] 
+**Title** | Pointer to **string** | Title is the post&#39;s headline. | [optional] 
+**Why** | Pointer to **string** | Why is the mechanism: the reason the tactic works, stated as a principle rather than as instructions. | [optional] 
 
 ## Methods
 

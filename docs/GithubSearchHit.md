@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CloneUrl** | Pointer to **string** |  | [optional] 
-**DefaultBranch** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**FullName** | Pointer to **string** |  | [optional] 
-**HtmlUrl** | Pointer to **string** |  | [optional] 
-**Language** | Pointer to **string** |  | [optional] 
-**Private** | Pointer to **bool** |  | [optional] 
-**Stars** | Pointer to **int32** |  | [optional] 
+**CloneUrl** | Pointer to **string** | CloneURL is the repository&#39;s https git remote. | [optional] 
+**DefaultBranch** | Pointer to **string** | DefaultBranch is the branch a clone checks out. | [optional] 
+**Description** | Pointer to **string** | Description is the blurb the repository&#39;s owner wrote. Empty when it has none. | [optional] 
+**FullName** | Pointer to **string** | FullName is the repository&#39;s \&quot;owner/repo\&quot; on GitHub. Finding it here does NOT make it forkable: githubFork takes a repo the org&#39;s installation was granted, and a hit from the public index usually is not one. | [optional] 
+**HtmlUrl** | Pointer to **string** | HTMLURL is the repository&#39;s page on github.com. | [optional] 
+**Language** | Pointer to **string** | Language is the primary language GitHub detected from the file mix (\&quot;Go\&quot;, \&quot;TypeScript\&quot;). Empty when GitHub attributes none. | [optional] 
+**Private** | Pointer to **bool** | Private is GitHub&#39;s visibility flag, passed through. This op reads the public index — the org&#39;s token only charges the rate limit to the installation — so it is false for everything a search can reach. | [optional] 
+**Stars** | Pointer to **int32** | Stars is GitHub&#39;s stargazers_count as the SEARCH INDEX held it when the query ran — a snapshot, not a live count off the repository. | [optional] 
 
 ## Methods
 

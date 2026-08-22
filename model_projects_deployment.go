@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,22 +19,36 @@ var _ MappedNullable = &ProjectsDeployment{}
 
 // ProjectsDeployment struct for ProjectsDeployment
 type ProjectsDeployment struct {
-	Bucket    *string `json:"bucket,omitempty"`
-	Bytes     *int32  `json:"bytes,omitempty"`
-	Commit    *string `json:"commit,omitempty"`
-	CreatedAt *int32  `json:"createdAt,omitempty"`
-	Files     *int32  `json:"files,omitempty"`
-	Id        *string `json:"id,omitempty"`
-	LiveUrl   *string `json:"liveUrl,omitempty"`
-	Message   *string `json:"message,omitempty"`
-	Prefix    *string `json:"prefix,omitempty"`
+	// Bucket is the object-store bucket its files were written to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Bytes is their total size in bytes.
+	Bytes *int32 `json:"bytes,omitempty"`
+	// Commit is the revision that was built, for a deployment that came from a repository. Absent for an uploaded artifact, which has no revision.
+	Commit *string `json:"commit,omitempty"`
+	// CreatedAt is when the deployment was queued, as Unix seconds.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// Files is how many objects the deployment published.
+	Files *int32 `json:"files,omitempty"`
+	// ID identifies this one deployment attempt, and is what CI quotes back to complete it.
+	Id *string `json:"id,omitempty"`
+	// LiveURL is where this deployment serves, once it is live.
+	LiveUrl *string `json:"liveUrl,omitempty"`
+	// Message is what happened, in words — the build's own note, or on a failure why it failed.
+	Message *string `json:"message,omitempty"`
+	// Prefix is the key prefix within that bucket holding EXACTLY this deployment's objects — the unit an upload grant is scoped to, so a grant for one deployment cannot write over another.
+	Prefix *string `json:"prefix,omitempty"`
+	// ProjectID is the project this deployment belongs to.
 	ProjectId *string `json:"projectId,omitempty"`
-	Source    *string `json:"source,omitempty"`
-	Status    *string `json:"status,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
+	// Source is what caused the deployment — a git push, an uploaded artifact, a generated site.
+	Source *string `json:"source,omitempty"`
+	// Status is where the attempt got to — queued, live, or failed. A deployment that is live is not necessarily the one SERVING: the project's own currentDeploymentId says which is.
+	Status *string `json:"status,omitempty"`
+	// UpdatedAt is when it last changed state, as Unix seconds — so the gap between the two is how long the build took.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 	// Upload is the prefix-scoped, short-lived S3 write grant handed to CI with a queued git deployment, so it needs no bucket credential (grant.go). Present ONLY on the 202 that creates the deployment — it is never stored and never replayed on a later read, so a grant cannot outlive the build it was minted for by being fetched again.
-	Upload  *ProjectsUploadGrant `json:"upload,omitempty"`
-	Version *int32               `json:"version,omitempty"`
+	Upload *ProjectsUploadGrant `json:"upload,omitempty"`
+	// Version counts deployments of this project from 1, so the history reads as an ordered sequence rather than by timestamp. It is per project, not global.
+	Version *int32 `json:"version,omitempty"`
 }
 
 // NewProjectsDeployment instantiates a new ProjectsDeployment object

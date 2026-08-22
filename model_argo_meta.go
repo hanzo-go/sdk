@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &ArgoMeta{}
 
 // ArgoMeta struct for ArgoMeta
 type ArgoMeta struct {
-	CreationTimestamp *string           `json:"creationTimestamp,omitempty"`
-	Labels            map[string]string `json:"labels,omitempty"`
-	Name              *string           `json:"name,omitempty"`
-	Namespace         *string           `json:"namespace,omitempty"`
-	Uid               *string           `json:"uid,omitempty"`
+	// CreationTimestamp is when the source object was created, RFC 3339 to the second. Empty for a synthesized project.
+	CreationTimestamp *string `json:"creationTimestamp,omitempty"`
+	// Labels are the labels this projection puts on the row, not the source object's full label set. An application projected from an App CR carries hanzo.ai/instance (its name), hanzo.ai/env (main, test or dev, from the namespace it was read from) and hanzo.ai/org when the CR declares a tenant. A Hanzo CD Application carries the CR's own labels verbatim. A project reflected from IAM carries hanzo.ai/org alone.
+	Labels map[string]string `json:"labels,omitempty"`
+	// Name is the projected object's name: the App CR's metadata.name for an application, the CD Application's name for a CD row, and the IAM project name for a project.
+	Name *string `json:"name,omitempty"`
+	// Namespace is the namespace the source object was read from — the tenant or platform namespace for an App CR, CD's controller namespace for a CD row. Empty for a project synthesized here, which lives in no namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// UID is the k8s metadata.uid of the source object, which is what the SPA keys a row on across refreshes. Empty for a synthesized project — there is no object to take one from.
+	Uid *string `json:"uid,omitempty"`
 }
 
 // NewArgoMeta instantiates a new ArgoMeta object

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,6 +19,7 @@ var _ MappedNullable = &EnrollmentList{}
 
 // EnrollmentList struct for EnrollmentList
 type EnrollmentList struct {
+	// Data is the page: every contact walking this ONE sequence, in any state — active, completed and canceled walks all appear, since the history of who was reached is the point. An empty array when nobody has been enrolled.
 	Data []Enrollment `json:"data,omitempty"`
 }
 

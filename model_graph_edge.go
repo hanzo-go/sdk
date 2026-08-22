@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,12 @@ var _ MappedNullable = &GraphEdge{}
 
 // GraphEdge struct for GraphEdge
 type GraphEdge struct {
+	// From is the id of the node the edge starts at: the child page for a parent edge, the page holding the wikilink for a link edge, the kb-source for a provenance edge. Always one of Nodes.
 	From *string `json:"from,omitempty"`
 	// parent | link | provenance
 	Kind *string `json:"kind,omitempty"`
-	To   *string `json:"to,omitempty"`
+	// To is the id of the node the edge points at: the parent page, the linked page, the kb-connector. Always one of Nodes — a wikilink matching no page points at a synthetic \"unresolved:<lowercased title>\" node rather than dangling.
+	To *string `json:"to,omitempty"`
 }
 
 // NewGraphEdge instantiates a new GraphEdge object

@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bucket** | Pointer to **string** |  | [optional] 
-**Bytes** | Pointer to **int32** |  | [optional] 
-**Commit** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**Files** | Pointer to **int32** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**LiveUrl** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
-**Prefix** | Pointer to **string** |  | [optional] 
-**ProjectId** | Pointer to **string** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**Bucket** | Pointer to **string** | Bucket is the object-store bucket its files were written to. | [optional] 
+**Bytes** | Pointer to **int32** | Bytes is their total size in bytes. | [optional] 
+**Commit** | Pointer to **string** | Commit is the revision that was built, for a deployment that came from a repository. Absent for an uploaded artifact, which has no revision. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is when the deployment was queued, as Unix seconds. | [optional] 
+**Files** | Pointer to **int32** | Files is how many objects the deployment published. | [optional] 
+**Id** | Pointer to **string** | ID identifies this one deployment attempt, and is what CI quotes back to complete it. | [optional] 
+**LiveUrl** | Pointer to **string** | LiveURL is where this deployment serves, once it is live. | [optional] 
+**Message** | Pointer to **string** | Message is what happened, in words — the build&#39;s own note, or on a failure why it failed. | [optional] 
+**Prefix** | Pointer to **string** | Prefix is the key prefix within that bucket holding EXACTLY this deployment&#39;s objects — the unit an upload grant is scoped to, so a grant for one deployment cannot write over another. | [optional] 
+**ProjectId** | Pointer to **string** | ProjectID is the project this deployment belongs to. | [optional] 
+**Source** | Pointer to **string** | Source is what caused the deployment — a git push, an uploaded artifact, a generated site. | [optional] 
+**Status** | Pointer to **string** | Status is where the attempt got to — queued, live, or failed. A deployment that is live is not necessarily the one SERVING: the project&#39;s own currentDeploymentId says which is. | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is when it last changed state, as Unix seconds — so the gap between the two is how long the build took. | [optional] 
 **Upload** | Pointer to [**ProjectsUploadGrant**](ProjectsUploadGrant.md) | Upload is the prefix-scoped, short-lived S3 write grant handed to CI with a queued git deployment, so it needs no bucket credential (grant.go). Present ONLY on the 202 that creates the deployment — it is never stored and never replayed on a later read, so a grant cannot outlive the build it was minted for by being fetched again. | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Version** | Pointer to **int32** | Version counts deployments of this project from 1, so the history reads as an ordered sequence rather than by timestamp. It is per project, not global. | [optional] 
 
 ## Methods
 

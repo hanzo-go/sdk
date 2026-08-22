@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,18 @@ var _ MappedNullable = &Call{}
 
 // Call struct for Call
 type Call struct {
+	// Agent names the Hanzo assistant handling the call. Set means the call was answered by that assistant rather than connected to a person.
 	Agent *string `json:"agent,omitempty"`
-	From  *string `json:"from,omitempty"`
-	Id    *string `json:"id,omitempty"`
-	Org   *string `json:"org,omitempty"`
-	// queued | ringing | answered | completed | failed
+	// From is the calling number in E.164. It must be one this org holds: a carrier refuses an origination from a number nobody proved they own.
+	From *string `json:"from,omitempty"`
+	// ID is the carrier's handle for the call — what a hangup or a lookup names.
+	Id *string `json:"id,omitempty"`
+	// Org is the tenant the call was placed for or received by.
+	Org *string `json:"org,omitempty"`
+	// Status is where the call is: \"queued\", \"ringing\", \"answered\", \"completed\" or \"failed\". Only the last two are terminal.
 	Status *string `json:"status,omitempty"`
-	To     *string `json:"to,omitempty"`
+	// To is the called number in E.164.
+	To *string `json:"to,omitempty"`
 }
 
 // NewCall instantiates a new Call object

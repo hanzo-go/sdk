@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Instance** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Instance** | Pointer to **string** | Instance binds a DEDICATED add-on to the app instance whose &lt;instance&gt;-addons Secret receives the &lt;KIND&gt;_URL (e.g. \&quot;commerce\&quot;). Optional: empty means \&quot;not instance-bound\&quot; — the DSN is returned once and wired by the caller. | [optional] 
+**Name** | Pointer to **string** | Name is the org-unique slug for the new resource, matching ^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$. Every physical name derives from it. | [optional] 
 
 ## Methods
 

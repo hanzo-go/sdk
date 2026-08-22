@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &GitOpsDeploy{}
 
 // GitOpsDeploy struct for GitOpsDeploy
 type GitOpsDeploy struct {
-	Automated  *bool   `json:"automated,omitempty"`
+	// Automated is whether CD started this deploy itself, from its own polling of the tracked git ref (initiatedBy.automated), rather than someone asking for it.
+	Automated *bool `json:"automated,omitempty"`
+	// DeployedAt is when the apply finished, RFC 3339. Absent when CD recorded none.
 	DeployedAt *string `json:"deployedAt,omitempty"`
-	Id         *int32  `json:"id,omitempty"`
-	Revision   *string `json:"revision,omitempty"`
-	StartedAt  *string `json:"startedAt,omitempty"`
+	// ID is CD's own sequence number for this deploy (status.history[].id). It increases with every applied revision, so the largest id in `history` is the most recent deploy — which is the first entry, since the list is reversed.
+	Id *int32 `json:"id,omitempty"`
+	// Revision is the git commit this deploy applied, as CD recorded it.
+	Revision *string `json:"revision,omitempty"`
+	// StartedAt is when CD began applying the revision (deployStartedAt), RFC 3339. Absent when CD recorded none.
+	StartedAt *string `json:"startedAt,omitempty"`
 }
 
 // NewGitOpsDeploy instantiates a new GitOpsDeploy object

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**External** | Pointer to **bool** |  | [optional] 
-**Path** | Pointer to **string** |  | [optional] 
-**Range** | Pointer to [**Range**](Range.md) |  | [optional] 
+**External** | Pointer to **bool** | External is true when the answer left the repository — the case a static index cannot answer, and the reason this service resolves through dependencies. | [optional] 
+**Path** | Pointer to **string** | Path is repo-relative while External is false, and the module coordinate (\&quot;golang.org/x/mod@v0.14.0/semver/semver.go\&quot;) once it is true. | [optional] 
+**Range** | Pointer to [**Range**](Range.md) | Range is the span inside that file, in LSP positions. | [optional] 
 
 ## Methods
 

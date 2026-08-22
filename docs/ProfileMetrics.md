@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Funnel** | Pointer to [**Funnel**](Funnel.md) |  | [optional] 
-**LaunchProgress** | Pointer to [**ProgressView**](ProgressView.md) |  | [optional] 
-**Records** | Pointer to **int32** |  | [optional] 
-**RevenueCents** | Pointer to **int32** |  | [optional] 
+**Funnel** | Pointer to [**Funnel**](Funnel.md) | Funnel is what the org&#39;s analytics observed over the trailing window. Read its &#x60;available&#x60; first: an org with no analytics reports zeros here, and zero traffic and no measurement are different facts. | [optional] 
+**LaunchProgress** | Pointer to [**ProgressView**](ProgressView.md) | LaunchProgress is the org&#39;s own position in the launch checklist, folded in so a profile carries both what the org has BUILT and what it has DONE. | [optional] 
+**Records** | Pointer to **int32** | Records is how many business records the org holds — the volume that tells a real book of customers from an empty account. It feeds the &#x60;customers&#x60; signal, which crosses at a threshold rather than at one row. | [optional] 
+**RevenueCents** | Pointer to **int32** | RevenueCents is the org&#39;s money OF RECORD — what its books say, in whole cents, never a float and never a display string. This is the number the scaling stage is decided on; funnel.revenue is the beacon&#39;s separate, unreconciled view of the same business. Zero when the org has none, and also zero when the books could not be read, which is why the &#x60;revenue&#x60; signal beside it is the thing to trust. | [optional] 
 
 ## Methods
 

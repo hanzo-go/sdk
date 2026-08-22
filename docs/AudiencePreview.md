@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Available** | Pointer to **bool** | Available is false when the roster or the warehouse could not be read; the counts are then zero because nothing was measured, not because the cohort is empty, and Reason says which read failed. | [optional] 
 **Count** | Pointer to **int32** | Count is the cohort size: distinct warehouse identifiers for an event audience, mailable customers for an event-less (whole-org) one. | [optional] 
-**Deliverable** | Pointer to **int32** | Deliverable is how many de-duplicated addresses a send would reach, and Unmatched how many cohort identifiers named no customer. Unmatched is reported rather than hidden: it is the honest explanation for a cohort of 500 that mails 3. | [optional] 
-**Reason** | Pointer to **string** |  | [optional] 
+**Deliverable** | Pointer to **int32** | Deliverable is how many de-duplicated mailboxes a send would reach. Two customers sharing an address count once, so it is &lt;&#x3D; Count. | [optional] 
+**Reason** | Pointer to **string** | Reason is the error text of the read that failed: the org&#39;s roster could not be loaded (\&quot;identity store unavailable…\&quot;), or the cohort query had no warehouse to run against (\&quot;analytics warehouse not configured\&quot;). Absent when the evaluation succeeded, so its presence and Available&#x3D;false are one fact seen twice. | [optional] 
 **Sample** | Pointer to **[]string** | Sample is up to 1000 cohort IDENTIFIERS — never addresses, which product analytics does not hold. Empty for an event-less (whole-org) audience. | [optional] 
 **Source** | Pointer to **string** | Source names where the cohort was read: the events table for an event audience, \&quot;iam:&lt;org&gt;\&quot; for the whole-org one. | [optional] 
-**Unmatched** | Pointer to **int32** |  | [optional] 
+**Unmatched** | Pointer to **int32** | Unmatched is how many cohort identifiers named nobody on the org&#39;s roster and so have no address to mail. It is reported rather than hidden: it is the honest explanation for a cohort of 500 that mails 3. Always 0 for an event-less (whole-org) audience, which starts from the roster and has nothing to match. | [optional] 
 
 ## Methods
 

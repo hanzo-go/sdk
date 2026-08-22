@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,24 @@ var _ MappedNullable = &GpuView{}
 
 // GpuView struct for GpuView
 type GpuView struct {
-	Id       *string `json:"id,omitempty"`
+	// ID is the card's address: its host machine's id, \"#\", and the card's ordinal within that machine (\"gpu-1#0\"). Stable for as long as the machine is, and the only id a single accelerator has — providers do not name cards.
+	Id *string `json:"id,omitempty"`
+	// Location is where the card physically sits, which for every source today is the same value Region carries — the console renders it in its own column.
 	Location *string `json:"location,omitempty"`
-	Machine  *string `json:"machine,omitempty"`
-	Memory   *string `json:"memory,omitempty"`
-	Model    *string `json:"model,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	// Provider distinguishes a BYO accelerator (\"byo\") from a Visor-provisioned one (the machine's real provider). Memory is VRAM when known (BYO reports it from nvidia-smi; Visor's machine object carries none, so it stays empty and the UI renders \"—\"). Both are additive + omitempty: existing rows are unaffected and the console normalizer ignores fields it does not read.
+	// Machine is the id of the machine holding this card, addressable as-is on /v1/visor/machines/:id.
+	Machine *string `json:"machine,omitempty"`
+	// Memory is the card's VRAM as its own tooling reported it (\"122880 MiB\") — a display string in the reporter's units, not a byte count. BYO cards carry it (nvidia-smi); Visor's machine object states no VRAM, so a rented card leaves it empty and the console renders \"—\" rather than a fabricated 0.
+	Memory *string `json:"memory,omitempty"`
+	// Model is the accelerator: the model token read out of the size slug for a Visor GPU droplet (\"H100\", \"MI300X\"), or the name nvidia-smi reported for a BYO card (\"NVIDIA GB10\").
+	Model *string `json:"model,omitempty"`
+	// Name is the HOST MACHINE's display name, not the card's — every card in a gpu-h100x8 node repeats it. Model is what says which accelerator this is.
+	Name *string `json:"name,omitempty"`
+	// Provider distinguishes a BYO accelerator (\"byo\") from a Visor-provisioned one (the host machine's real provider). It is what tells a card the org owns from a card the org rents.
 	Provider *string `json:"provider,omitempty"`
-	Region   *string `json:"region,omitempty"`
-	Status   *string `json:"status,omitempty"`
+	// Region is the host machine's provider region slug; \"on-prem\" for a BYO card.
+	Region *string `json:"region,omitempty"`
+	// Status is the HOST MACHINE's lifecycle state, because nothing upstream reports a card's own health. A card reads running because its machine does.
+	Status *string `json:"status,omitempty"`
 }
 
 // NewGpuView instantiates a new GpuView object

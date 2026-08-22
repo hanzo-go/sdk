@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BuildCommand** | Pointer to **string** |  | [optional] 
-**DestinationDir** | Pointer to **string** |  | [optional] 
-**RootDir** | Pointer to **string** |  | [optional] 
+**BuildCommand** | Pointer to **string** | BuildCommand is what Cloudflare runs to build the site (\&quot;npm run build\&quot;). Omitted means no build step: the repository is published as it stands. | [optional] 
+**DestinationDir** | Pointer to **string** | DestinationDir is the directory the build leaves the site in (\&quot;dist\&quot;), relative to RootDir. It is what gets served. | [optional] 
+**RootDir** | Pointer to **string** | RootDir is where in the repository the build runs, for a project that is not at the repository root. Omitted means the root. | [optional] 
 
 ## Methods
 

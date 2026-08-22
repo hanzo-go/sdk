@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,18 @@ var _ MappedNullable = &PagesDeploymentConfig{}
 
 // PagesDeploymentConfig struct for PagesDeploymentConfig
 type PagesDeploymentConfig struct {
-	CompatibilityDate  *string                   `json:"compatibility_date,omitempty"`
-	CompatibilityFlags []string                  `json:"compatibility_flags,omitempty"`
-	D1Databases        map[string]PagesD1Binding `json:"d1_databases,omitempty"`
-	EnvVars            map[string]PagesEnvVar    `json:"env_vars,omitempty"`
-	KvNamespaces       map[string]PagesKVBinding `json:"kv_namespaces,omitempty"`
-	R2Buckets          map[string]PagesR2Binding `json:"r2_buckets,omitempty"`
+	// CompatibilityDate pins which Workers runtime behaviour the functions run under, as a date (\"2024-01-01\"). It is a pin, not a version: the runtime keeps that date's semantics for code deployed against it.
+	CompatibilityDate *string `json:"compatibility_date,omitempty"`
+	// CompatibilityFlags turn individual runtime behaviours on or off ahead of, or behind, the date above (\"nodejs_compat\").
+	CompatibilityFlags []string `json:"compatibility_flags,omitempty"`
+	// D1Databases binds D1 databases in, keyed by binding name.
+	D1Databases map[string]PagesD1Binding `json:"d1_databases,omitempty"`
+	// EnvVars are the environment variables the functions see, KEYED BY VARIABLE NAME. The key is the name; the value carries the value and whether it is a secret.
+	EnvVars map[string]PagesEnvVar `json:"env_vars,omitempty"`
+	// KVNamespaces binds KV namespaces into the functions, KEYED BY THE BINDING NAME the code reads (`env.SESSIONS`). Same shape for the two below.
+	KvNamespaces map[string]PagesKVBinding `json:"kv_namespaces,omitempty"`
+	// R2Buckets binds R2 buckets in, keyed by binding name.
+	R2Buckets map[string]PagesR2Binding `json:"r2_buckets,omitempty"`
 }
 
 // NewPagesDeploymentConfig instantiates a new PagesDeploymentConfig object

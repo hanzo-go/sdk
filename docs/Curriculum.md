@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Steps** | Pointer to [**[]JourneyStep**](JourneyStep.md) |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
+**Steps** | Pointer to [**[]JourneyStep**](JourneyStep.md) | Steps are the enabled steps in authoring order. Order is the tiebreak the next-step logic walks, so it is part of the contract rather than cosmetic. | [optional] 
+**Title** | Pointer to **string** | Title is the playbook&#39;s name as it heads the checklist. | [optional] 
+**Version** | Pointer to **string** | Version identifies the authored playbook this journey was projected from, so two orgs on different playbooks can be told apart. It is the blueprint&#39;s own &#x60;version&#x60; string, not the store&#39;s numeric revision. | [optional] 
 
 ## Methods
 

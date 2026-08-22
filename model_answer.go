@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -20,17 +20,27 @@ var _ MappedNullable = &Answer{}
 // Answer struct for Answer
 type Answer struct {
 	// Cold reports that this request paid to PREPARE the revision — the tree write, the dependency fetch and the language server's first index. It is the billed event, surfaced so a caller can see what it was charged for.
-	Cold        *bool        `json:"cold,omitempty"`
+	Cold *bool `json:"cold,omitempty"`
+	// Completions is complete's answer: the candidates at the position, typed and resolved through the repository's dependencies rather than guessed from text.
 	Completions []Completion `json:"completions,omitempty"`
+	// Diagnostics is diagnostics' answer: every problem the server finds in the whole file, position ignored. Empty means it found none.
 	Diagnostics []Diagnostic `json:"diagnostics,omitempty"`
-	Hover       *string      `json:"hover,omitempty"`
-	Lang        *string      `json:"lang,omitempty"`
-	Locations   []Location   `json:"locations,omitempty"`
-	Op          *string      `json:"op,omitempty"`
-	Path        *string      `json:"path,omitempty"`
-	Repo        *string      `json:"repo,omitempty"`
-	Rev         *string      `json:"rev,omitempty"`
-	Symbols     []Symbol     `json:"symbols,omitempty"`
+	// Hover is hover's answer: the type and documentation as the language server itself renders them, so it is prose meant to be shown, not parsed.
+	Hover *string `json:"hover,omitempty"`
+	// Lang is the language the server that answered speaks (\"go\"), as the daemon reports it. Empty when the daemon named none.
+	Lang *string `json:"lang,omitempty"`
+	// Locations is locate's answer: where the symbol is defined, referenced, typed or implemented, per the relation asked for. Empty means the server resolved nothing there, which is an answer.
+	Locations []Location `json:"locations,omitempty"`
+	// Op is the question that was asked: hover, locate, symbols, diagnostics or complete. It names which result field below is the populated one.
+	Op *string `json:"op,omitempty"`
+	// Path is the repo-relative file the question was about, echoed back.
+	Path *string `json:"path,omitempty"`
+	// Repo is the repository the question was about, echoed back.
+	Repo *string `json:"repo,omitempty"`
+	// Rev is the RESOLVED commit sha, never the branch or tag that was asked for. It is what makes an answer re-askable: a branch moves, this does not.
+	Rev *string `json:"rev,omitempty"`
+	// Symbols is symbols' answer: the file's whole outline, position ignored.
+	Symbols []Symbol `json:"symbols,omitempty"`
 }
 
 // NewAnswer instantiates a new Answer object

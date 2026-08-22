@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -22,9 +22,11 @@ type RedeemResult struct {
 	// AlreadyRedeemed is true when this org had already taken the promo and the call was an idempotent replay.
 	AlreadyRedeemed *bool `json:"alreadyRedeemed,omitempty"`
 	// ChargeCents is what month one costs after the discount, DiscountCents the discount that produced it. Both are quoted figures against the org's derived plan — NOTHING WAS CREDITED and no wallet moved.
-	ChargeCents   *int32      `json:"chargeCents,omitempty"`
-	DiscountCents *int32      `json:"discountCents,omitempty"`
-	Redemption    *Redemption `json:"redemption,omitempty"`
+	ChargeCents *int32 `json:"chargeCents,omitempty"`
+	// DiscountCents is the discount claimed for month one, in USD cents, at the single-seat floor. It is the same figure recorded on the Redemption, and it is evidence an admin may later grant against — not a balance.
+	DiscountCents *int32 `json:"discountCents,omitempty"`
+	// Redemption is the row that was recorded — the org's claim on this promo, with the server-derived plan and seat count. On a replay it is the ORIGINAL row, so its redeemedAt is when the org first took the promo, not now.
+	Redemption *Redemption `json:"redemption,omitempty"`
 }
 
 // NewRedeemResult instantiates a new RedeemResult object

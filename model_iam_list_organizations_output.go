@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,7 @@ var _ MappedNullable = &IamListOrganizationsOutput{}
 
 // IamListOrganizationsOutput struct for IamListOrganizationsOutput
 type IamListOrganizationsOutput struct {
-	Count         *int32            `json:"count,omitempty"`
+	Cursor        *string           `json:"cursor,omitempty"`
 	Organizations []IamOrganization `json:"organizations,omitempty"`
 }
 
@@ -40,36 +40,36 @@ func NewIamListOrganizationsOutputWithDefaults() *IamListOrganizationsOutput {
 	return &this
 }
 
-// GetCount returns the Count field value if set, zero value otherwise.
-func (o *IamListOrganizationsOutput) GetCount() int32 {
-	if o == nil || IsNil(o.Count) {
-		var ret int32
+// GetCursor returns the Cursor field value if set, zero value otherwise.
+func (o *IamListOrganizationsOutput) GetCursor() string {
+	if o == nil || IsNil(o.Cursor) {
+		var ret string
 		return ret
 	}
-	return *o.Count
+	return *o.Cursor
 }
 
-// GetCountOk returns a tuple with the Count field value if set, nil otherwise
+// GetCursorOk returns a tuple with the Cursor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamListOrganizationsOutput) GetCountOk() (*int32, bool) {
-	if o == nil || IsNil(o.Count) {
+func (o *IamListOrganizationsOutput) GetCursorOk() (*string, bool) {
+	if o == nil || IsNil(o.Cursor) {
 		return nil, false
 	}
-	return o.Count, true
+	return o.Cursor, true
 }
 
-// HasCount returns a boolean if a field has been set.
-func (o *IamListOrganizationsOutput) HasCount() bool {
-	if o != nil && !IsNil(o.Count) {
+// HasCursor returns a boolean if a field has been set.
+func (o *IamListOrganizationsOutput) HasCursor() bool {
+	if o != nil && !IsNil(o.Cursor) {
 		return true
 	}
 
 	return false
 }
 
-// SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *IamListOrganizationsOutput) SetCount(v int32) {
-	o.Count = &v
+// SetCursor gets a reference to the given string and assigns it to the Cursor field.
+func (o *IamListOrganizationsOutput) SetCursor(v string) {
+	o.Cursor = &v
 }
 
 // GetOrganizations returns the Organizations field value if set, zero value otherwise.
@@ -114,8 +114,8 @@ func (o IamListOrganizationsOutput) MarshalJSON() ([]byte, error) {
 
 func (o IamListOrganizationsOutput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Count) {
-		toSerialize["count"] = o.Count
+	if !IsNil(o.Cursor) {
+		toSerialize["cursor"] = o.Cursor
 	}
 	if !IsNil(o.Organizations) {
 		toSerialize["organizations"] = o.Organizations

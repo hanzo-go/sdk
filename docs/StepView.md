@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Args** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Args** | Pointer to **map[string]map[string]interface{}** | Args are the tool&#39;s default arguments, merged under whatever the caller passes at run time. | [optional] 
 **Automatable** | Pointer to **bool** | Automatable is true when the Business AI can run this step (it names a tool). | [optional] 
 **Available** | Pointer to **bool** | Available is true when every dependency is done or skipped. | [optional] 
 **BlockedBy** | Pointer to **[]string** | BlockedBy lists the unfinished dependencies keeping the step unavailable. | [optional] 
 **Deps** | Pointer to **[]string** | Dependencies are step ids that must be done/skipped before this step is available. The wire key is &#x60;deps&#x60; (the blueprint contract). | [optional] 
 **Detail** | Pointer to **string** | Detail is the prose/juncture — what the Guide asks or explains here. | [optional] 
-**Draft** | Pointer to **string** |  | [optional] 
-**DraftInto** | Pointer to **string** |  | [optional] 
+**Draft** | Pointer to **string** | Draft, when set, is the prompt the embedded AI answers first; its output is folded into one of Args before the tool runs. | [optional] 
+**DraftInto** | Pointer to **string** | DraftInto names the argument the drafted text lands in. Empty means \&quot;brief\&quot;. | [optional] 
 **Enabled** | Pointer to **bool** | Enabled is the admin on/off lever; absent reads as enabled. | [optional] 
 **Id** | Pointer to **string** | ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). | [optional] 
 **Section** | Pointer to **string** | Section is the phase (section id) this step groups under. | [optional] 
 **Signal** | Pointer to **string** | Signal names the machine detector that auto-marks this step done. | [optional] 
 **Source** | Pointer to **string** | Source records what marked the state: manual, auto (detected) or agent. | [optional] 
 **State** | Pointer to **string** | State is the step&#39;s per-org lifecycle state: todo|in_progress|done|skipped. | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Tool** | Pointer to **string** | Tool is the MCP tool the Business AI runs for \&quot;do it for me\&quot;; Args are its default arguments, Draft an optional AI prompt whose output fills the DraftInto arg (default \&quot;brief\&quot;). | [optional] 
+**Title** | Pointer to **string** | Title is the one-line quest as a person reads it in the checklist. | [optional] 
+**Tool** | Pointer to **string** | Tool is the MCP tool the Business AI runs for \&quot;do it for me\&quot;. A step naming none can only be completed by a person. | [optional] 
 
 ## Methods
 

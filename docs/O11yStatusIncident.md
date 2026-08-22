@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AffectedComponents** | Pointer to [**[]O11yStatusComponent**](O11yStatusComponent.md) |  | [optional] 
+**AffectedComponents** | Pointer to [**[]O11yStatusComponent**](O11yStatusComponent.md) | AffectedComponents is what this incident covers. It is COUNTED rather than classified: some services down is a partial outage and every probed service down is a full one, because deciding that one service is critical and another is not would need a judgement nobody has measured. | [optional] 
 **CurrentWorstImpact** | Pointer to **string** | CurrentWorstImpact is the incident&#39;s impact on the PLATFORM, which is not the same question as the component&#39;s own condition above. | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | ID is derived from the service, so the same outage keeps one id across reads rather than being reported as a new incident every 15 seconds. | [optional] 
 **LastUpdateAt** | Pointer to **string** | LastUpdateAt is when the failing measurement this incident reports was read, RFC3339 UTC. | [optional] 
-**LastUpdateMessage** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**LastUpdateMessage** | Pointer to **string** | LastUpdateMessage says what was observed, not what is being done about it — there is no operator writing updates here, only the probe that failed. | [optional] 
+**Name** | Pointer to **string** | Name is the one-line headline, built from the service that stopped answering. | [optional] 
+**Status** | Pointer to **string** | Status is always \&quot;investigating\&quot; — the member of the client&#39;s closed set that means detected, cause not yet established, which is exactly what an automated prober knows. Nothing here ever claims \&quot;identified\&quot;: that would assert a diagnosis no measurement made. | [optional] 
+**Url** | Pointer to **string** | URL points at the HUMAN status page, not back at this JSON. Every link in this document goes to the same place. | [optional] 
 
 ## Methods
 

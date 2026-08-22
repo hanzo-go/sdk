@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,10 @@ var _ MappedNullable = &SessionDetail{}
 
 // SessionDetail struct for SessionDetail
 type SessionDetail struct {
-	Account         *string        `json:"account,omitempty"`
-	Actor           *string        `json:"actor,omitempty"`
-	Agent           *string        `json:"agent,omitempty"`
+	Account *string `json:"account,omitempty"`
+	Actor   *string `json:"actor,omitempty"`
+	Agent   *string `json:"agent,omitempty"`
+	// Children is the session's DIRECT children, one level down, each with its own counts. The promoted `children` integer beside it is how many there are; this is who they are. For the whole subtree, read the tree.
 	ChildSessions   []SessionView  `json:"childSessions,omitempty"`
 	Children        *int32         `json:"children,omitempty"`
 	CreatedAt       *string        `json:"createdAt,omitempty"`
@@ -36,17 +37,18 @@ type SessionDetail struct {
 	Project         *string        `json:"project,omitempty"`
 	Provider        *string        `json:"provider,omitempty"`
 	Published       *bool          `json:"published,omitempty"`
-	RecentEvents    []EventView    `json:"recentEvents,omitempty"`
-	Repo            *string        `json:"repo,omitempty"`
-	RootSessionId   *string        `json:"rootSessionId,omitempty"`
-	StartedAt       *string        `json:"startedAt,omitempty"`
-	Status          *string        `json:"status,omitempty"`
-	Target          *string        `json:"target,omitempty"`
-	TaskRunId       *string        `json:"taskRunId,omitempty"`
-	TaskWorkflowId  *string        `json:"taskWorkflowId,omitempty"`
-	Terminal        *string        `json:"terminal,omitempty"`
-	Title           *string        `json:"title,omitempty"`
-	UpdatedAt       *string        `json:"updatedAt,omitempty"`
+	// RecentEvents is the 50 most recent turns, OLDEST of those first — a transcript to read down, not a feed. The promoted `events` integer says how many the log holds in total; page the rest from a seq.
+	RecentEvents   []EventView `json:"recentEvents,omitempty"`
+	Repo           *string     `json:"repo,omitempty"`
+	RootSessionId  *string     `json:"rootSessionId,omitempty"`
+	StartedAt      *string     `json:"startedAt,omitempty"`
+	Status         *string     `json:"status,omitempty"`
+	Target         *string     `json:"target,omitempty"`
+	TaskRunId      *string     `json:"taskRunId,omitempty"`
+	TaskWorkflowId *string     `json:"taskWorkflowId,omitempty"`
+	Terminal       *string     `json:"terminal,omitempty"`
+	Title          *string     `json:"title,omitempty"`
+	UpdatedAt      *string     `json:"updatedAt,omitempty"`
 }
 
 // NewSessionDetail instantiates a new SessionDetail object

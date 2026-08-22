@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,18 @@ var _ MappedNullable = &BoardItem{}
 
 // BoardItem struct for BoardItem
 type BoardItem struct {
-	Doctype   *string `json:"doctype,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	Project   *string `json:"project,omitempty"`
-	Status    *string `json:"status,omitempty"`
-	Title     *string `json:"title,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
+	// DocType is which content type the row came from: Campaign, SocialPost or Asset. The board spans all three at once, so this is what tells them apart.
+	Doctype *string `json:"doctype,omitempty"`
+	// Name is the document within that type. (doctype, name) is the pair every /v1/content write addresses an item by.
+	Name *string `json:"name,omitempty"`
+	// Project is the brand/site sub-scope within the org. Absent for an item held at org level rather than under one brand.
+	Project *string `json:"project,omitempty"`
+	// Status is the lifecycle state: draft, in_review, approved, queued, published or archived. It decides what a reader may see — the public site pulls exactly \"published\" and nothing else — so it is a visibility fact, not a workflow label.
+	Status *string `json:"status,omitempty"`
+	// Title is the item's headline, read from its type's own title field. Empty for a document that has none.
+	Title *string `json:"title,omitempty"`
+	// UpdatedAt is unix seconds of the document's last write, and the key the board sorts on, newest first.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 }
 
 // NewBoardItem instantiates a new BoardItem object

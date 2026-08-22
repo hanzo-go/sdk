@@ -13,14 +13,23 @@ Method | HTTP request | Description
 [**GetDataroomDocumentsByIdFile**](DataroomAPI.md#GetDataroomDocumentsByIdFile) | **Get** /v1/dataroom/documents/{id}/file | Download a document&#39;s bytes as its owner
 [**GetDataroomHealth**](DataroomAPI.md#GetDataroomHealth) | **Get** /v1/dataroom/health | Liveness of the dataroom subsystem
 [**GetDataroomLinks**](DataroomAPI.md#GetDataroomLinks) | **Get** /v1/dataroom/links | Returns every live share link in the caller org&#39;s own store, newest first, with the controls a visitor will meet: whether an address is required, whether a password is set, the allow and deny lists, whether download is permitted, and when the link expires.
+[**GetDataroomTrust**](DataroomAPI.md#GetDataroomTrust) | **Get** /v1/dataroom/trust | Answers the caller org&#39;s OWN trust centre: its settings, every item it holds in both tiers, the requests waiting on it, and the grants it has made.
+[**GetDataroomTrustCenterBySlug**](DataroomAPI.md#GetDataroomTrustCenterBySlug) | **Get** /v1/dataroom/trust/center/{slug} | Answers an org&#39;s public trust centre: its name, the text a party must accept to ask for a document, and every item it publishes.
+[**GetDataroomTrustCenterBySlugFileByItem**](DataroomAPI.md#GetDataroomTrustCenterBySlugFileByItem) | **Get** /v1/dataroom/trust/center/{slug}/file/{item} | Read a public trust-centre item&#39;s bytes
 [**GetDataroomViewByLinkid**](DataroomAPI.md#GetDataroomViewByLinkid) | **Get** /v1/dataroom/view/{linkId} | What a share link&#39;s visitor sees before authenticating
 [**GetDataroomViewByLinkidDocumentByDocumentidFile**](DataroomAPI.md#GetDataroomViewByLinkidDocumentByDocumentidFile) | **Get** /v1/dataroom/view/{linkId}/document/{documentId}/file | Read a document&#39;s bytes as an authorised link visitor
+[**PatchDataroomTrustArtifactsById**](DataroomAPI.md#PatchDataroomTrustArtifactsById) | **Patch** /v1/dataroom/trust/artifacts/{id} | Amend changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
 [**PostDataroomDatarooms**](DataroomAPI.md#PostDataroomDatarooms) | **Post** /v1/dataroom/datarooms | Opens a new data room for the caller org and answers with it, including the short public id it is addressed by.
 [**PostDataroomDataroomsByIdDocuments**](DataroomAPI.md#PostDataroomDataroomsByIdDocuments) | **Post** /v1/dataroom/datarooms/{id}/documents | Puts an already-uploaded document into one of the caller org&#39;s data rooms and answers with the new membership id.
 [**PostDataroomDocuments**](DataroomAPI.md#PostDataroomDocuments) | **Post** /v1/dataroom/documents | Upload a document&#39;s bytes and record it
 [**PostDataroomLinks**](DataroomAPI.md#PostDataroomLinks) | **Post** /v1/dataroom/links | Grants access: it mints a public share link over one data room (&#x60;dataroomId&#x60;) or one document (&#x60;documentId&#x60;) — one of the two is required — and answers with the link, whose &#x60;id&#x60; is the token a visitor opens it with.
+[**PostDataroomTrustArtifacts**](DataroomAPI.md#PostDataroomTrustArtifacts) | **Post** /v1/dataroom/trust/artifacts | Publish puts an item on the caller org&#39;s trust centre and answers with it.
+[**PostDataroomTrustCenterBySlugRequests**](DataroomAPI.md#PostDataroomTrustCenterBySlugRequests) | **Post** /v1/dataroom/trust/center/{slug}/requests | Records a request to read what an independent auditor signed, and answers with its id.
+[**PostDataroomTrustRequestsByIdGrant**](DataroomAPI.md#PostDataroomTrustRequestsByIdGrant) | **Post** /v1/dataroom/trust/requests/{id}/grant | Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+[**PostDataroomTrustRequestsByIdRefuse**](DataroomAPI.md#PostDataroomTrustRequestsByIdRefuse) | **Post** /v1/dataroom/trust/requests/{id}/refuse | Refuse answers a request by declining it, recording who declined and why.
 [**PostDataroomViewByLinkidAuthenticate**](DataroomAPI.md#PostDataroomViewByLinkidAuthenticate) | **Post** /v1/dataroom/view/{linkId}/authenticate | Pass a share link&#39;s gates and open a viewing session
 [**PostDataroomViewByLinkidPageview**](DataroomAPI.md#PostDataroomViewByLinkidPageview) | **Post** /v1/dataroom/view/{linkId}/pageview | Record one page-view against an open viewing session
+[**PutDataroomTrust**](DataroomAPI.md#PutDataroomTrust) | **Put** /v1/dataroom/trust | SetCenter opens, publishes or withdraws the caller org&#39;s trust centre and answers with the centre as it now stands.
 
 
 
@@ -614,6 +623,208 @@ Other parameters are passed through a pointer to a apiGetDataroomLinksRequest st
 [[Back to README]](../README.md)
 
 
+## GetDataroomTrust
+
+> TrustDesk GetDataroomTrust(ctx).Execute()
+
+Answers the caller org's OWN trust centre: its settings, every item it holds in both tiers, the requests waiting on it, and the grants it has made.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataroomAPI.GetDataroomTrust(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomTrust``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDataroomTrust`: TrustDesk
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomTrust`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDataroomTrustRequest struct via the builder pattern
+
+
+### Return type
+
+[**TrustDesk**](TrustDesk.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetDataroomTrustCenterBySlug
+
+> TrustPage GetDataroomTrustCenterBySlug(ctx, slug).Execute()
+
+Answers an org's public trust centre: its name, the text a party must accept to ask for a document, and every item it publishes.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the centre's public address. It resolves only for an org that has published; anything else is not found, so this cannot be used to learn which orgs exist.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataroomAPI.GetDataroomTrustCenterBySlug(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomTrustCenterBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDataroomTrustCenterBySlug`: TrustPage
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomTrustCenterBySlug`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the centre&#39;s public address. It resolves only for an org that has published; anything else is not found, so this cannot be used to learn which orgs exist. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDataroomTrustCenterBySlugRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**TrustPage**](TrustPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetDataroomTrustCenterBySlugFileByItem
+
+> GetDataroomTrustCenterBySlugFileByItem(ctx, slug, item).Execute()
+
+Read a public trust-centre item's bytes
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | 
+	item := "item_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DataroomAPI.GetDataroomTrustCenterBySlugFileByItem(context.Background(), slug, item).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomTrustCenterBySlugFileByItem``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** |  | 
+**item** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDataroomTrustCenterBySlugFileByItemRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetDataroomViewByLinkid
 
 > GetDataroomViewByLinkid(ctx, linkId).Execute()
@@ -747,6 +958,78 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchDataroomTrustArtifactsById
+
+> TrustItemView PatchDataroomTrustArtifactsById(ctx, id).TrustEdit(trustEdit).Execute()
+
+Amend changes an item on the caller org's trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the item to change, taken from the path.
+	trustEdit := *openapiclient.NewTrustEdit() // TrustEdit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataroomAPI.PatchDataroomTrustArtifactsById(context.Background(), id).TrustEdit(trustEdit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PatchDataroomTrustArtifactsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchDataroomTrustArtifactsById`: TrustItemView
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PatchDataroomTrustArtifactsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the item to change, taken from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchDataroomTrustArtifactsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **trustEdit** | [**TrustEdit**](TrustEdit.md) |  | 
+
+### Return type
+
+[**TrustItemView**](TrustItemView.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1016,6 +1299,288 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostDataroomTrustArtifacts
+
+> TrustItemView PostDataroomTrustArtifacts(ctx).TrustPublish(trustPublish).Execute()
+
+Publish puts an item on the caller org's trust centre and answers with it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	trustPublish := *openapiclient.NewTrustPublish() // TrustPublish | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustArtifacts(context.Background()).TrustPublish(trustPublish).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomTrustArtifacts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostDataroomTrustArtifacts`: TrustItemView
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomTrustArtifacts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostDataroomTrustArtifactsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **trustPublish** | [**TrustPublish**](TrustPublish.md) |  | 
+
+### Return type
+
+[**TrustItemView**](TrustItemView.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostDataroomTrustCenterBySlugRequests
+
+> TrustAsked PostDataroomTrustCenterBySlugRequests(ctx, slug).TrustAsk(trustAsk).Execute()
+
+Records a request to read what an independent auditor signed, and answers with its id.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the centre's public address, taken from the path.
+	trustAsk := *openapiclient.NewTrustAsk() // TrustAsk | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustCenterBySlugRequests(context.Background(), slug).TrustAsk(trustAsk).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomTrustCenterBySlugRequests``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostDataroomTrustCenterBySlugRequests`: TrustAsked
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomTrustCenterBySlugRequests`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the centre&#39;s public address, taken from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostDataroomTrustCenterBySlugRequestsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **trustAsk** | [**TrustAsk**](TrustAsk.md) |  | 
+
+### Return type
+
+[**TrustAsked**](TrustAsked.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostDataroomTrustRequestsByIdGrant
+
+> TrustGranted PostDataroomTrustRequestsByIdGrant(ctx, id).TrustDecision(trustDecision).Execute()
+
+Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the request to answer, taken from the path.
+	trustDecision := *openapiclient.NewTrustDecision() // TrustDecision | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustRequestsByIdGrant(context.Background(), id).TrustDecision(trustDecision).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomTrustRequestsByIdGrant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostDataroomTrustRequestsByIdGrant`: TrustGranted
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomTrustRequestsByIdGrant`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the request to answer, taken from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostDataroomTrustRequestsByIdGrantRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **trustDecision** | [**TrustDecision**](TrustDecision.md) |  | 
+
+### Return type
+
+[**TrustGranted**](TrustGranted.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostDataroomTrustRequestsByIdRefuse
+
+> TrustRefused PostDataroomTrustRequestsByIdRefuse(ctx, id).TrustDecision(trustDecision).Execute()
+
+Refuse answers a request by declining it, recording who declined and why.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the request to answer, taken from the path.
+	trustDecision := *openapiclient.NewTrustDecision() // TrustDecision | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustRequestsByIdRefuse(context.Background(), id).TrustDecision(trustDecision).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomTrustRequestsByIdRefuse``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostDataroomTrustRequestsByIdRefuse`: TrustRefused
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomTrustRequestsByIdRefuse`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the request to answer, taken from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostDataroomTrustRequestsByIdRefuseRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **trustDecision** | [**TrustDecision**](TrustDecision.md) |  | 
+
+### Return type
+
+[**TrustRefused**](TrustRefused.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostDataroomViewByLinkidAuthenticate
 
 > PostDataroomViewByLinkidAuthenticate(ctx, linkId).Execute()
@@ -1146,6 +1711,72 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutDataroomTrust
+
+> TrustDesk PutDataroomTrust(ctx).TrustSettings(trustSettings).Execute()
+
+SetCenter opens, publishes or withdraws the caller org's trust centre and answers with the centre as it now stands.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	trustSettings := *openapiclient.NewTrustSettings() // TrustSettings | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataroomAPI.PutDataroomTrust(context.Background()).TrustSettings(trustSettings).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PutDataroomTrust``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutDataroomTrust`: TrustDesk
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PutDataroomTrust`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutDataroomTrustRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **trustSettings** | [**TrustSettings**](TrustSettings.md) |  | 
+
+### Return type
+
+[**TrustDesk**](TrustDesk.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

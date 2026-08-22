@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,7 @@ var _ MappedNullable = &CodeFile{}
 
 // CodeFile struct for CodeFile
 type CodeFile struct {
-	// ID is the file's path RELATIVE to its session's artifact directory, which is also how it is fetched: GET /v1/download/{session}/{id}.
+	// ID is the file's path RELATIVE to its session's artifact directory, which is also how it is fetched: GET /v1/exec/download/{session}/{id}.
 	Id *string `json:"id,omitempty"`
 	// Name is the display name. On an ANSWER it carries the `{session}/{id}` identifier whole, because the client matches on that prefix.
 	Name *string `json:"name,omitempty"`

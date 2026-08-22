@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Number**](Number.md) |  | [optional] 
+**Data** | Pointer to [**[]Number**](Number.md) | Data is the numbers, and which numbers depends on the route: a search answers what the carrier has available, a list answers what this org already holds. | [optional] 
 
 ## Methods
 

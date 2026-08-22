@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,14 +19,23 @@ var _ MappedNullable = &GLRow{}
 
 // GLRow struct for GLRow
 type GLRow struct {
-	Account    *string `json:"account,omitempty"`
-	Against    *string `json:"against,omitempty"`
-	Credit     *int32  `json:"credit,omitempty"`
-	Debit      *int32  `json:"debit,omitempty"`
-	Id         *int32  `json:"id,omitempty"`
-	PostingAt  *string `json:"postingAt,omitempty"`
-	Remarks    *string `json:"remarks,omitempty"`
-	SourceId   *string `json:"sourceId,omitempty"`
+	// Account is the chart-of-accounts number this leg posts to.
+	Account *string `json:"account,omitempty"`
+	// Against names the OTHER accounts in the same voucher — the contra side of this leg — so a single row reads as an entry rather than as half of one.
+	Against *string `json:"against,omitempty"`
+	// Credit is the amount credited to that account, in whole cents.
+	Credit *int32 `json:"credit,omitempty"`
+	// Debit is the amount debited to that account, in whole cents. Exactly one of debit and credit is non-zero on a leg; a negative amount is never used to mean the other side.
+	Debit *int32 `json:"debit,omitempty"`
+	// ID is the entry's position in the ledger. The ledger is append-only, so ids ascend with posting order and a higher id is a later entry.
+	Id *int32 `json:"id,omitempty"`
+	// PostingAt is the accounting date this entry belongs to — what the reports window on, which need not be when the row was written.
+	PostingAt *string `json:"postingAt,omitempty"`
+	// Remarks is the memo carried onto the entry, for a human reading the ledger.
+	Remarks *string `json:"remarks,omitempty"`
+	// SourceID identifies that originating record within its kind.
+	SourceId *string `json:"sourceId,omitempty"`
+	// SourceKind is what caused the posting: a bank line, a scanned document, a commerce sale. With sourceId it traces the entry back to the thing that produced it.
 	SourceKind *string `json:"sourceKind,omitempty"`
 }
 

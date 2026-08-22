@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,7 +23,7 @@ type PromptMeta struct {
 	Labels []string `json:"labels,omitempty"`
 	// LastUpdatedAt is when the newest version was appended, RFC 3339 UTC. Empty only if the record carries no timestamp at all.
 	LastUpdatedAt *string `json:"lastUpdatedAt,omitempty"`
-	// Name is the prompt's org-unique handle and the URL segment it is fetched by: GET /v1/prompts/<name>.
+	// Name is the prompt's org-unique handle and the URL segment it is fetched by: GET /v1/prompt/<name>.
 	Name *string `json:"name,omitempty"`
 	// Tags is the second free-form taxonomy under the same rules as Labels. Nothing in this service interprets either; they are yours to organize by.
 	Tags []string `json:"tags,omitempty"`

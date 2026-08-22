@@ -9,7 +9,6 @@ Method | HTTP request | Description
 [**GetFlagsDefs**](FlagsAPI.md#GetFlagsDefs) | **Get** /v1/flags/defs | Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
 [**GetFlagsDefsByKey**](FlagsAPI.md#GetFlagsDefsByKey) | **Get** /v1/flags/defs/{key} | Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
 [**GetFlagsHealth**](FlagsAPI.md#GetFlagsHealth) | **Get** /v1/flags/health | Health reports that the flag engine is serving.
-[**GetFlagsWaitlist**](FlagsAPI.md#GetFlagsWaitlist) | **Get** /v1/flags/waitlist | Reports whether ONE host is currently gated by the launch waitlist.
 [**PostFlags**](FlagsAPI.md#PostFlags) | **Post** /v1/flags | Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 [**PostFlagsDecide**](FlagsAPI.md#PostFlagsDecide) | **Post** /v1/flags/decide | Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 [**PutFlagsDefsByKey**](FlagsAPI.md#PutFlagsDefsByKey) | **Put** /v1/flags/defs/{key} | Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
@@ -329,72 +328,6 @@ Other parameters are passed through a pointer to a apiGetFlagsHealthRequest stru
 ### Return type
 
 [**HealthOut**](HealthOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetFlagsWaitlist
-
-> WaitlistModeView GetFlagsWaitlist(ctx).Host(host).Execute()
-
-Reports whether ONE host is currently gated by the launch waitlist.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	host := "host_example" // string | Host is the host to resolve, e.g. \"chat.hanzo.ai\". Defaults to the request's own Host header when omitted, which is what lets a guard running on the governed host ask about itself with no argument. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlagsAPI.GetFlagsWaitlist(context.Background()).Host(host).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlagsAPI.GetFlagsWaitlist``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetFlagsWaitlist`: WaitlistModeView
-	fmt.Fprintf(os.Stdout, "Response from `FlagsAPI.GetFlagsWaitlist`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetFlagsWaitlistRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **host** | **string** | Host is the host to resolve, e.g. \&quot;chat.hanzo.ai\&quot;. Defaults to the request&#39;s own Host header when omitted, which is what lets a guard running on the governed host ask about itself with no argument. | 
-
-### Return type
-
-[**WaitlistModeView**](WaitlistModeView.md)
 
 ### Authorization
 

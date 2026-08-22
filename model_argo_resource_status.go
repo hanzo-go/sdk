@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,20 @@ var _ MappedNullable = &ArgoResourceStatus{}
 
 // ArgoResourceStatus struct for ArgoResourceStatus
 type ArgoResourceStatus struct {
-	Group     *string     `json:"group,omitempty"`
-	Health    *ArgoHealth `json:"health,omitempty"`
-	Kind      *string     `json:"kind,omitempty"`
-	Name      *string     `json:"name,omitempty"`
-	Namespace *string     `json:"namespace,omitempty"`
-	Status    *string     `json:"status,omitempty"`
-	Version   *string     `json:"version,omitempty"`
+	// Group is the object's API group: empty for the core group (Pod, Service, ConfigMap), otherwise apps, networking.k8s.io, autoscaling or policy — and hanzo.ai for the App CR itself.
+	Group *string `json:"group,omitempty"`
+	// Health is this object's own health, derived from its live state by the same rule the resource tree uses.
+	Health *ArgoHealth `json:"health,omitempty"`
+	// Kind is the object kind — App, Deployment, ReplicaSet, Pod, Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget, ConfigMap. Never Secret: the walk that produces these does not visit them.
+	Kind *string `json:"kind,omitempty"`
+	// Name is the object's metadata.name.
+	Name *string `json:"name,omitempty"`
+	// Namespace is the namespace the object was found in — the same one for every entry of an application, since the walk is confined to it.
+	Namespace *string `json:"namespace,omitempty"`
+	// Status is the APPLICATION's sync verdict repeated on every row, not a per-object one. The operator owns these children, so no child has a desired state of its own to compare against.
+	Status *string `json:"status,omitempty"`
+	// Version is the object's API version as the live object reports it: v1 for every kind here except the HorizontalPodAutoscaler, which is autoscaling/v2.
+	Version *string `json:"version,omitempty"`
 }
 
 // NewArgoResourceStatus instantiates a new ArgoResourceStatus object

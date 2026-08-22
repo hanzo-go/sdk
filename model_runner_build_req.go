@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -37,8 +37,6 @@ type RunnerBuildReq struct {
 	Dockerfile *string `json:"dockerfile,omitempty"`
 	// Image is the output image ref to push. Required on the image lane, and it must target a registry namespace the caller's org owns.
 	Image *string `json:"image,omitempty"`
-	// OrgID attributes the build to an org. On the IAM path it defaults to the caller's own validated org, and a foreign one is refused unless the caller is a platform SuperAdmin.
-	OrganizationId *string `json:"organizationId,omitempty"`
 	// OS is the target operating system for the artifact lane.
 	Os *string `json:"os,omitempty"`
 	// Ref is the git ref to build when no SHA is given.
@@ -356,38 +354,6 @@ func (o *RunnerBuildReq) SetImage(v string) {
 	o.Image = &v
 }
 
-// GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
-func (o *RunnerBuildReq) GetOrganizationId() string {
-	if o == nil || IsNil(o.OrganizationId) {
-		var ret string
-		return ret
-	}
-	return *o.OrganizationId
-}
-
-// GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RunnerBuildReq) GetOrganizationIdOk() (*string, bool) {
-	if o == nil || IsNil(o.OrganizationId) {
-		return nil, false
-	}
-	return o.OrganizationId, true
-}
-
-// HasOrganizationId returns a boolean if a field has been set.
-func (o *RunnerBuildReq) HasOrganizationId() bool {
-	if o != nil && !IsNil(o.OrganizationId) {
-		return true
-	}
-
-	return false
-}
-
-// SetOrganizationId gets a reference to the given string and assigns it to the OrganizationId field.
-func (o *RunnerBuildReq) SetOrganizationId(v string) {
-	o.OrganizationId = &v
-}
-
 // GetOs returns the Os field value if set, zero value otherwise.
 func (o *RunnerBuildReq) GetOs() string {
 	if o == nil || IsNil(o.Os) {
@@ -584,9 +550,6 @@ func (o RunnerBuildReq) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Image) {
 		toSerialize["image"] = o.Image
-	}
-	if !IsNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
 	}
 	if !IsNil(o.Os) {
 		toSerialize["os"] = o.Os

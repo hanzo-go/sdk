@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,6 +19,7 @@ var _ MappedNullable = &CrawlRequest{}
 
 // CrawlRequest struct for CrawlRequest
 type CrawlRequest struct {
+	// URL is the page to read, absolute and http or https — no other scheme is dialled. It is resolved from inside the cluster, so an address that turns out to be loopback, link-local, private or multicast is refused at the dialer, redirects included. Empty is not an error status: the answer comes back with success false and the reason in error.
 	Url *string `json:"url,omitempty"`
 }
 

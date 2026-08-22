@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Capacity** | Pointer to **string** |  | [optional] 
-**Host** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
-**Metrics** | Pointer to [**Metrics**](Metrics.md) |  | [optional] 
-**Spec** | Pointer to [**Spec**](Spec.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Capacity** | Pointer to **string** | Capacity is a human summary of the machine&#39;s size, up to 256 characters. Prose only; a scheduler reads Spec. | [optional] 
+**Host** | Pointer to **string** | Host is the hostname sessions on this machine will report. It is what makes a re-link IDEMPOTENT: the same (org, host, owner) refreshes the existing row and answers 200, while a request with no host always creates a new target and answers 201. It never adopts a row owned by somebody else. | [optional] 
+**Kind** | Pointer to **string** | Kind is laptop | cloud | gpu | cluster | machine. Empty registers a &#x60;machine&#x60;; anything outside the five is a 400. | [optional] 
+**Label** | Pointer to **string** | Label is the name to show for this machine, up to 128 characters. REQUIRED — it is the only field here a person reads. | [optional] 
+**Metrics** | Pointer to [**Metrics**](Metrics.md) | Metrics is a live sample, and sending one IS A HEARTBEAT: it refreshes the row and starts the 90-second liveness window, and it is appended to the fleet series as one point. Its own &#x60;at&#x60; is ignored — the server stamps the time, so a client can never age or backdate its own machine. Omit it to register a machine without claiming it is alive. | [optional] 
+**Spec** | Pointer to [**Spec**](Spec.md) | Spec is the machine&#39;s static capability — os, arch, cores, RAM, accelerators. Every field is bounded on write and at most 32 accelerators are accepted, so what comes back may be clamped. Omit it for a destination nothing probes. | [optional] 
+**Status** | Pointer to **string** | Status is online | offline | draining. Empty registers &#x60;online&#x60;. It states INTENT — a heartbeat is what decides whether an online machine is actually reachable, so declaring online does not make it so. | [optional] 
 
 ## Methods
 

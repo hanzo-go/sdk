@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -482,6 +482,98 @@ func (a *CommerceAPIService) DeleteCommerceNoteByNoteidExecute(r CommerceAPIDele
 	return localVarHTTPResponse, nil
 }
 
+type CommerceAPIDeleteCommercePlansEntriesBySlugRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	slug       string
+}
+
+func (r CommerceAPIDeleteCommercePlansEntriesBySlugRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCommercePlansEntriesBySlugExecute(r)
+}
+
+/*
+DeleteCommercePlansEntriesBySlug Remove a plan from the authority
+
+Deletes the addressed plan and answers 204. It removes the plan from the catalog buyers choose from; it does not touch subscriptions already sold against it, which keep their stored plan id. PLATFORM admin only — an org-level admin is refused 403 — and an unknown slug is 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug
+	@return CommerceAPIDeleteCommercePlansEntriesBySlugRequest
+*/
+func (a *CommerceAPIService) DeleteCommercePlansEntriesBySlug(ctx context.Context, slug string) CommerceAPIDeleteCommercePlansEntriesBySlugRequest {
+	return CommerceAPIDeleteCommercePlansEntriesBySlugRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) DeleteCommercePlansEntriesBySlugExecute(r CommerceAPIDeleteCommercePlansEntriesBySlugRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.DeleteCommercePlansEntriesBySlug")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/plans/entries/{slug}"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type CommerceAPIDeleteCommerceProductByProductidRequest struct {
 	ctx        context.Context
 	ApiService *CommerceAPIService
@@ -524,6 +616,98 @@ func (a *CommerceAPIService) DeleteCommerceProductByProductidExecute(r CommerceA
 
 	localVarPath := localBasePath + "/v1/commerce/product/{productid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"productid"+"}", url.PathEscape(parameterValueToString(r.productid, "productid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIDeleteCommerceRatesEntriesBySlugRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	slug       string
+}
+
+func (r CommerceAPIDeleteCommerceRatesEntriesBySlugRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCommerceRatesEntriesBySlugExecute(r)
+}
+
+/*
+DeleteCommerceRatesEntriesBySlug Remove a rate outright
+
+Deletes the row. ARCHIVING is usually what is wanted instead — a deleted rate cannot price a historical charge, so a past invoice that has to re-resolve its rate finds nothing to read. Reach for status=archived unless the rate never priced anything. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug
+	@return CommerceAPIDeleteCommerceRatesEntriesBySlugRequest
+*/
+func (a *CommerceAPIService) DeleteCommerceRatesEntriesBySlug(ctx context.Context, slug string) CommerceAPIDeleteCommerceRatesEntriesBySlugRequest {
+	return CommerceAPIDeleteCommerceRatesEntriesBySlugRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) DeleteCommerceRatesEntriesBySlugExecute(r CommerceAPIDeleteCommerceRatesEntriesBySlugRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.DeleteCommerceRatesEntriesBySlug")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/rates/entries/{slug}"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -800,6 +984,194 @@ func (a *CommerceAPIService) DeleteCommerceStocklocationByStocklocationidExecute
 
 	localVarPath := localBasePath + "/v1/commerce/stocklocation/{stocklocationid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"stocklocationid"+"}", url.PathEscape(parameterValueToString(r.stocklocationid, "stocklocationid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIDeleteCommerceStoreByStoreidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIDeleteCommerceStoreByStoreidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCommerceStoreByStoreidExecute(r)
+}
+
+/*
+DeleteCommerceStoreByStoreid Delete a storefront, keeping a recoverable copy
+
+Removes the addressed store and answers 204 with no body. Before the live row goes, the entity is written once more under a tombstone kind, so the deletion leaves a recoverable copy rather than destroying the record outright; the store's listing overrides live inside that row and go with it. The id is resolved inside the caller org's own namespace, so an unknown or foreign id is 404. Requires an admin or store-write token.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIDeleteCommerceStoreByStoreidRequest
+*/
+func (a *CommerceAPIService) DeleteCommerceStoreByStoreid(ctx context.Context, storeid string) CommerceAPIDeleteCommerceStoreByStoreidRequest {
+	return CommerceAPIDeleteCommerceStoreByStoreidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) DeleteCommerceStoreByStoreidExecute(r CommerceAPIDeleteCommerceStoreByStoreidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.DeleteCommerceStoreByStoreid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIDeleteCommerceStoreByStoreidListingByKeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	key        string
+}
+
+func (r CommerceAPIDeleteCommerceStoreByStoreidListingByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCommerceStoreByStoreidListingByKeyExecute(r)
+}
+
+/*
+DeleteCommerceStoreByStoreidListingByKey Remove a listing override
+
+Drops the key from the store's listing map and re-saves the store, answering 204 with no body. It UN-OVERRIDES rather than deletes: the product, variant or bundle itself is untouched and simply reverts to its catalog values on this storefront. A key that is not present is 404, and so is a store id outside the caller org's namespace. Admin-gated.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param key
+	@return CommerceAPIDeleteCommerceStoreByStoreidListingByKeyRequest
+*/
+func (a *CommerceAPIService) DeleteCommerceStoreByStoreidListingByKey(ctx context.Context, storeid string, key string) CommerceAPIDeleteCommerceStoreByStoreidListingByKeyRequest {
+	return CommerceAPIDeleteCommerceStoreByStoreidListingByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) DeleteCommerceStoreByStoreidListingByKeyExecute(r CommerceAPIDeleteCommerceStoreByStoreidListingByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.DeleteCommerceStoreByStoreidListingByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/listing/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1586,6 +1958,240 @@ func (a *CommerceAPIService) DeleteCommerceWebhookByWebhookidExecute(r CommerceA
 	return localVarHTTPResponse, nil
 }
 
+type CommerceAPIDiscardCartRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	id         string
+}
+
+func (r CommerceAPIDiscardCartRequest) Execute() (*Cart, *http.Response, error) {
+	return r.ApiService.DiscardCartExecute(r)
+}
+
+/*
+DiscardCart Discard a cart the shopper abandoned
+
+Discards a cart the shopper abandoned, and answers it in its final state.
+
+A discarded cart is CLOSED, not deleted: the row stays, so abandoned-basket
+reporting and any follow-up that keys on it still have something to read. It
+stops being a cart anything will check out, which is the point — it is how a
+storefront says "this basket is over" without destroying the evidence that it
+existed.
+
+Discarding is idempotent: a cart already discarded answers its stored state
+rather than failing, so a retry is safe.
+
+The cart is resolved inside the caller's own org namespace, so another tenant's
+id answers 404.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the cart's id, as the open call answered it.
+	@return CommerceAPIDiscardCartRequest
+*/
+func (a *CommerceAPIService) DiscardCart(ctx context.Context, id string) CommerceAPIDiscardCartRequest {
+	return CommerceAPIDiscardCartRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Cart
+func (a *CommerceAPIService) DiscardCartExecute(r CommerceAPIDiscardCartRequest) (*Cart, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Cart
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.DiscardCart")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/cart/{id}/discard"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCartRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	id         string
+}
+
+func (r CommerceAPIGetCartRequest) Execute() (*Cart, *http.Response, error) {
+	return r.ApiService.GetCartExecute(r)
+}
+
+/*
+GetCart Read one cart with its lines and totals
+
+Reads one cart: its lines, its status and what it comes to.
+
+This is what a storefront calls to render the basket, and what a support agent
+calls to see what a shopper is looking at. The totals are the cart's STORED
+tally — shipping and tax stay zero until checkout resolves a shipping option
+and a tax region, so a cart total before checkout is the merchandise total and
+is meant to be.
+
+The org scopes the read by construction: the store is namespaced to it, so a
+cart id belonging to another tenant is simply not found rather than found and
+then filtered, and answers 404 rather than 403 so the id space cannot be probed.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the cart's id, as the open call answered it.
+	@return CommerceAPIGetCartRequest
+*/
+func (a *CommerceAPIService) GetCart(ctx context.Context, id string) CommerceAPIGetCartRequest {
+	return CommerceAPIGetCartRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Cart
+func (a *CommerceAPIService) GetCartExecute(r CommerceAPIGetCartRequest) (*Cart, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Cart
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCart")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/cart/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type CommerceAPIGetCommerceAdminCatalogRequest struct {
 	ctx        context.Context
 	ApiService *CommerceAPIService
@@ -1712,6 +2318,94 @@ func (a *CommerceAPIService) GetCommerceCatalogExecute(r CommerceAPIGetCommerceC
 	}
 
 	localVarPath := localBasePath + "/v1/commerce/catalog"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceCatalogEntriesRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIGetCommerceCatalogEntriesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceCatalogEntriesExecute(r)
+}
+
+/*
+GetCommerceCatalogEntries The raw catalog entries, including the unpublished ones
+
+Returns every catalog row as stored — the admin view, which unlike the public projection includes entries that are not published. It is cross-tenant platform data, so the gate is a PLATFORM admin: an org-level admin is refused 403 no matter how privileged they are inside their own org, enforced by the handler itself and not only by the route's token middleware.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIGetCommerceCatalogEntriesRequest
+*/
+func (a *CommerceAPIService) GetCommerceCatalogEntries(ctx context.Context) CommerceAPIGetCommerceCatalogEntriesRequest {
+	return CommerceAPIGetCommerceCatalogEntriesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceCatalogEntriesExecute(r CommerceAPIGetCommerceCatalogEntriesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceCatalogEntries")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/catalog/entries"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1980,6 +2674,94 @@ func (a *CommerceAPIService) GetCommerceCurrenciesExecute(r CommerceAPIGetCommer
 	}
 
 	localVarPath := localBasePath + "/v1/commerce/currencies"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceDepositsRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIGetCommerceDepositsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceDepositsExecute(r)
+}
+
+/*
+GetCommerceDeposits Read the crypto deposit watcher's runtime state, asset by asset
+
+Reports whether the deposit watcher is running, its poll interval, and one row per armed asset: chain, token, contract, pooled address and the last block that asset's cursor reached. That last block is the only way to see a watcher that is up but no longer advancing, which is what a stalled deposit rail looks like from outside. SuperAdmin only — the reserved admin org's owner claim; an authenticated caller without it is refused 403 and an anonymous one 401. It is READ-ONLY by design: arming an asset stays a CRYPTO_DEPOSIT_* deployment act and is deliberately not a button here, so there is nothing on this surface that can start crediting a customer's balance. The asset's RPC endpoint is reduced to scheme://host before it is returned, because a managed node URL carries its API key in the path or query and echoing it verbatim would publish that credential to every reader of this status.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIGetCommerceDepositsRequest
+*/
+func (a *CommerceAPIService) GetCommerceDeposits(ctx context.Context) CommerceAPIGetCommerceDepositsRequest {
+	return CommerceAPIGetCommerceDepositsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceDepositsExecute(r CommerceAPIGetCommerceDepositsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceDeposits")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/deposits"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2388,6 +3170,113 @@ func (a *CommerceAPIService) GetCommerceDiscountByDiscountidExecute(r CommerceAP
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceHealthRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIGetCommerceHealthRequest) Execute() (*Liveness, *http.Response, error) {
+	return r.ApiService.GetCommerceHealthExecute(r)
+}
+
+/*
+GetCommerceHealth Answers ok whenever the commerce subsystem is mounted.
+
+Answers ok whenever the commerce subsystem is mounted. It is registered
+before the module embed boots, so it keeps answering even when the embed
+failed and every business route serves the fail-closed 503 — which is the
+point: it reports that the process is reachable, never that the money plane
+is healthy. Unauthenticated: a probe that needs a credential is a probe that
+reports the credential.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIGetCommerceHealthRequest
+*/
+func (a *CommerceAPIService) GetCommerceHealth(ctx context.Context) CommerceAPIGetCommerceHealthRequest {
+	return CommerceAPIGetCommerceHealthRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Liveness
+func (a *CommerceAPIService) GetCommerceHealthExecute(r CommerceAPIGetCommerceHealthRequest) (*Liveness, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Liveness
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceHealth")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/health"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CommerceAPIGetCommerceMovieRequest struct {
@@ -2838,6 +3727,94 @@ func (a *CommerceAPIService) GetCommerceOrgExecute(r CommerceAPIGetCommerceOrgRe
 	return localVarHTTPResponse, nil
 }
 
+type CommerceAPIGetCommercePlansEntriesRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIGetCommercePlansEntriesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommercePlansEntriesExecute(r)
+}
+
+/*
+GetCommercePlansEntries The raw plan authority rows
+
+Returns every plan row as stored — the administrative view behind the public plan catalog. The plan authority is cross-tenant pricing data, so the gate is a PLATFORM admin enforced by the handler itself: an org-level admin is refused 403 no matter what they may do inside their own org.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIGetCommercePlansEntriesRequest
+*/
+func (a *CommerceAPIService) GetCommercePlansEntries(ctx context.Context) CommerceAPIGetCommercePlansEntriesRequest {
+	return CommerceAPIGetCommercePlansEntriesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommercePlansEntriesExecute(r CommerceAPIGetCommercePlansEntriesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommercePlansEntries")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/plans/entries"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type CommerceAPIGetCommerceProductRequest struct {
 	ctx        context.Context
 	ApiService *CommerceAPIService
@@ -2968,6 +3945,94 @@ func (a *CommerceAPIService) GetCommerceProductByProductidExecute(r CommerceAPIG
 
 	localVarPath := localBasePath + "/v1/commerce/product/{productid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"productid"+"}", url.PathEscape(parameterValueToString(r.productid, "productid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceRatesEntriesRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIGetCommerceRatesEntriesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceRatesEntriesExecute(r)
+}
+
+/*
+GetCommerceRatesEntries List what one unit of each metered thing costs
+
+Returns the rate authority's rows — the prices every metered charge resolves against. Narrow with ?product= to show one surface at a time rather than every rate at once. SuperAdmin only: a rate is cross-tenant money, so the handler asks for the reserved admin org's owner claim itself rather than trusting the bundle's token gate.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIGetCommerceRatesEntriesRequest
+*/
+func (a *CommerceAPIService) GetCommerceRatesEntries(ctx context.Context) CommerceAPIGetCommerceRatesEntriesRequest {
+	return CommerceAPIGetCommerceRatesEntriesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceRatesEntriesExecute(r CommerceAPIGetCommerceRatesEntriesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceRatesEntries")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/rates/entries"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3508,6 +4573,838 @@ func (a *CommerceAPIService) GetCommerceStocklocationByStocklocationidExecute(r 
 
 	localVarPath := localBasePath + "/v1/commerce/stocklocation/{stocklocationid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"stocklocationid"+"}", url.PathEscape(parameterValueToString(r.stocklocationid, "stocklocationid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIGetCommerceStoreRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreExecute(r)
+}
+
+/*
+GetCommerceStore List your org's storefronts as a page
+
+Answers a pagination envelope — page, display, the rows, and a total count — read from the caller org's OWN namespaced database, so one tenant can never list another's stores. Sorting defaults to the store slug and is overridable with sort; display is the page size and page applies only alongside it, and either one that is not a positive integer is refused rather than silently ignored. The limit query overrides the reported COUNT only and never the rows returned. A request that resolves no org namespace is served an empty page, never an unscoped scan. Readable with an admin token, a store-scoped token, or the anonymous published storefront key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIGetCommerceStoreRequest
+*/
+func (a *CommerceAPIService) GetCommerceStore(ctx context.Context) CommerceAPIGetCommerceStoreRequest {
+	return CommerceAPIGetCommerceStoreRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreExecute(r CommerceAPIGetCommerceStoreRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStore")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreAccessRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIGetCommerceStoreAccessRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreAccessExecute(r)
+}
+
+/*
+GetCommerceStoreAccess Whether a store is entitled to trade, and why
+
+Answers allowed, the store id, and a status of trial, active, payment_required, store_required or unavailable — the entitlement check a merchant surface gates on. The rule that surprises people is that entitlement is PER STORE, not per org: the store needs its own current subscription on the entry plan, either trialing with a trial end still ahead or active with a period end still ahead, so an org-wide balance or a sibling store's plan unlocks nothing here. The store comes from the X-Store-Id header and otherwise falls back to the org's first store; neither resolving is store_required with allowed false, and a backing-store failure is 503 with status unavailable — a retry signal, not a denial.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIGetCommerceStoreAccessRequest
+*/
+func (a *CommerceAPIService) GetCommerceStoreAccess(ctx context.Context) CommerceAPIGetCommerceStoreAccessRequest {
+	return CommerceAPIGetCommerceStoreAccessRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreAccessExecute(r CommerceAPIGetCommerceStoreAccessRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStoreAccess")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/access"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreByStoreidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIGetCommerceStoreByStoreidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreByStoreidExecute(r)
+}
+
+/*
+GetCommerceStoreByStoreid Fetch one storefront
+
+Reads the addressed store from the caller org's own namespaced database, so an id belonging to another tenant is simply absent there and answers 404 rather than leaking its existence. The body is the stored entity including its embedded listing override map. Readable with an admin or store-read token and also with the anonymous published storefront key, which is what lets a logged-out storefront resolve the store it is rendering.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIGetCommerceStoreByStoreidRequest
+*/
+func (a *CommerceAPIService) GetCommerceStoreByStoreid(ctx context.Context, storeid string) CommerceAPIGetCommerceStoreByStoreidRequest {
+	return CommerceAPIGetCommerceStoreByStoreidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreByStoreidExecute(r CommerceAPIGetCommerceStoreByStoreidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStoreByStoreid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreByStoreidBundleByKeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	key        string
+}
+
+func (r CommerceAPIGetCommerceStoreByStoreidBundleByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreByStoreidBundleByKeyExecute(r)
+}
+
+/*
+GetCommerceStoreByStoreidBundleByKey Fetch a bundle as this storefront sells it
+
+Returns the stored bundle with the store's listing for it laid over the top — every non-empty listing field wins, and the currency is forced to the store's own — so the caller reads what this storefront actually sells rather than the catalog-wide record. The overlay is keyed by the item's ID: a listing filed only under a slug or SKU does not reach it, unlike the listing reads, which do fall back to those. An unknown store or key is 404. Readable with an admin token or the anonymous published storefront key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param key
+	@return CommerceAPIGetCommerceStoreByStoreidBundleByKeyRequest
+*/
+func (a *CommerceAPIService) GetCommerceStoreByStoreidBundleByKey(ctx context.Context, storeid string, key string) CommerceAPIGetCommerceStoreByStoreidBundleByKeyRequest {
+	return CommerceAPIGetCommerceStoreByStoreidBundleByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreByStoreidBundleByKeyExecute(r CommerceAPIGetCommerceStoreByStoreidBundleByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStoreByStoreidBundleByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/bundle/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreByStoreidListingRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIGetCommerceStoreByStoreidListingRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreByStoreidListingExecute(r)
+}
+
+/*
+GetCommerceStoreByStoreidListing The storefront's whole listing override map
+
+Returns every override this store applies to catalog items — name, price, list price, media, availability and the hidden flag — keyed by product or variant id, in one read. A listing is an OVERRIDE, not a product: the catalog item exists independently and this map only says how this storefront presents it. Read from the caller org's own namespaced database, so a store id belonging to another tenant is 404. Readable with an admin token or the anonymous published storefront key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIGetCommerceStoreByStoreidListingRequest
+*/
+func (a *CommerceAPIService) GetCommerceStoreByStoreidListing(ctx context.Context, storeid string) CommerceAPIGetCommerceStoreByStoreidListingRequest {
+	return CommerceAPIGetCommerceStoreByStoreidListingRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreByStoreidListingExecute(r CommerceAPIGetCommerceStoreByStoreidListingRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStoreByStoreidListing")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/listing"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreByStoreidListingByKeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	key        string
+}
+
+func (r CommerceAPIGetCommerceStoreByStoreidListingByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreByStoreidListingByKeyExecute(r)
+}
+
+/*
+GetCommerceStoreByStoreidListingByKey Fetch one listing override, by item id or by its slug or SKU
+
+Looks the key up in the store's listing map first and, failing that, matches it against each listing's slug and then its SKU — so a storefront holding only a product's URL slug can still resolve the override. That fallback is unique to the listing reads; the item overlay routes match by id alone. A key matching none of the three is 404, as is a store id outside the caller org's namespace. Readable with an admin token or the anonymous published storefront key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param key
+	@return CommerceAPIGetCommerceStoreByStoreidListingByKeyRequest
+*/
+func (a *CommerceAPIService) GetCommerceStoreByStoreidListingByKey(ctx context.Context, storeid string, key string) CommerceAPIGetCommerceStoreByStoreidListingByKeyRequest {
+	return CommerceAPIGetCommerceStoreByStoreidListingByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreByStoreidListingByKeyExecute(r CommerceAPIGetCommerceStoreByStoreidListingByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStoreByStoreidListingByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/listing/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreByStoreidProductByKeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	key        string
+}
+
+func (r CommerceAPIGetCommerceStoreByStoreidProductByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreByStoreidProductByKeyExecute(r)
+}
+
+/*
+GetCommerceStoreByStoreidProductByKey Fetch a product as this storefront sells it
+
+Returns the stored product with the store's listing for it laid over the top — non-empty listing fields replace the catalog values and the currency is forced to the store's own — which is what lets two storefronts sell the same catalog product at their own price, name and media. The overlay is keyed by the product's ID, so a listing filed only under a slug or SKU does not apply here. An unknown store or key is 404. Readable with an admin token or the anonymous published storefront key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param key
+	@return CommerceAPIGetCommerceStoreByStoreidProductByKeyRequest
+*/
+func (a *CommerceAPIService) GetCommerceStoreByStoreidProductByKey(ctx context.Context, storeid string, key string) CommerceAPIGetCommerceStoreByStoreidProductByKeyRequest {
+	return CommerceAPIGetCommerceStoreByStoreidProductByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreByStoreidProductByKeyExecute(r CommerceAPIGetCommerceStoreByStoreidProductByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStoreByStoreidProductByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/product/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreByStoreidVariantByKeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	key        string
+}
+
+func (r CommerceAPIGetCommerceStoreByStoreidVariantByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreByStoreidVariantByKeyExecute(r)
+}
+
+/*
+GetCommerceStoreByStoreidVariantByKey Fetch a variant as this storefront sells it
+
+Returns the stored variant with the store's listing for it overlaid — non-empty listing fields replace the catalog values and the currency is forced to the store's own — which is what makes per-storefront pricing of a shared variant possible. The overlay is keyed by the variant's ID, never by its slug or SKU. An unknown store or key is 404. Readable with an admin token or the anonymous published storefront key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param key
+	@return CommerceAPIGetCommerceStoreByStoreidVariantByKeyRequest
+*/
+func (a *CommerceAPIService) GetCommerceStoreByStoreidVariantByKey(ctx context.Context, storeid string, key string) CommerceAPIGetCommerceStoreByStoreidVariantByKeyRequest {
+	return CommerceAPIGetCommerceStoreByStoreidVariantByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreByStoreidVariantByKeyExecute(r CommerceAPIGetCommerceStoreByStoreidVariantByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStoreByStoreidVariantByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/variant/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIGetCommerceStoreCurrentRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIGetCommerceStoreCurrentRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetCommerceStoreCurrentExecute(r)
+}
+
+/*
+GetCommerceStoreCurrent Resolve your org's active storefront without naming an id
+
+Returns the caller org's store resolved FROM THE AUTHENTICATED ORG rather than from a path id — which is how an admin dashboard or a storefront edge learns the store id it should then read and write against. An X-Store-Id header selects a specific store, resolved only inside the caller's own namespace, so a foreign id cannot cross the tenant boundary and answers 404 instead. With no header the org's first store is returned, and an org that has none yet has its canonical default provisioned lazily and idempotently, carrying no payment credentials. Only when there is no org in context, or provisioning fails, does it fall back to a placeholder store literally named default, which a storefront edge should treat as unconfigured.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIGetCommerceStoreCurrentRequest
+*/
+func (a *CommerceAPIService) GetCommerceStoreCurrent(ctx context.Context) CommerceAPIGetCommerceStoreCurrentRequest {
+	return CommerceAPIGetCommerceStoreCurrentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) GetCommerceStoreCurrentExecute(r CommerceAPIGetCommerceStoreCurrentRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetCommerceStoreCurrent")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/current"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4998,6 +6895,244 @@ func (a *CommerceAPIService) GetCommerceWebhookByWebhookidExecute(r CommerceAPIG
 	return localVarHTTPResponse, nil
 }
 
+type CommerceAPIGetPaymentRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	id         string
+}
+
+func (r CommerceAPIGetPaymentRequest) Execute() (*PaymentRecord, *http.Response, error) {
+	return r.ApiService.GetPaymentExecute(r)
+}
+
+/*
+GetPayment Read one settled payment by its id
+
+Reads one settled payment out of the caller's org ledger.
+
+The org scopes the read by construction — the ledger is namespaced to it — so
+an id belonging to another tenant is simply not found rather than found and
+then filtered. A ledger row that is not a payment is likewise not found, so
+this cannot be used to walk the org's usage debits.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the ledger transaction id a payment returned.
+	@return CommerceAPIGetPaymentRequest
+*/
+func (a *CommerceAPIService) GetPayment(ctx context.Context, id string) CommerceAPIGetPaymentRequest {
+	return CommerceAPIGetPaymentRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PaymentRecord
+func (a *CommerceAPIService) GetPaymentExecute(r CommerceAPIGetPaymentRequest) (*PaymentRecord, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaymentRecord
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.GetPayment")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/payments/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CommerceAPIOpenCartRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	cartOpen   *CartOpen
+}
+
+func (r CommerceAPIOpenCartRequest) CartOpen(cartOpen CartOpen) CommerceAPIOpenCartRequest {
+	r.cartOpen = &cartOpen
+	return r
+}
+
+func (r CommerceAPIOpenCartRequest) Execute() (*Cart, *http.Response, error) {
+	return r.ApiService.OpenCartExecute(r)
+}
+
+/*
+OpenCart Open a cart for a shopper to fill
+
+Opens an empty cart for a shopper to fill, and answers it with its new id.
+
+This is the first step of a sale: hold the id, add items to it with
+setCartItem, then hand it to checkout. Every field of the request is optional —
+an empty body opens a perfectly good anonymous cart — and the fields exist only
+to pre-fill what is already known about the shopper.
+
+The STORE defaults to the org's own default storefront, so a merchant selling
+through one storefront never has to name it. The CURRENCY defaults to usd; note
+that checkout overrides it with the store's own currency when the sale is
+authorized, so a currency set here is a hint rather than a commitment.
+
+The cart is created in the CALLER'S OWN org namespace, taken from the validated
+principal and never from the body, so a cart can never be opened on another
+tenant's books.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIOpenCartRequest
+*/
+func (a *CommerceAPIService) OpenCart(ctx context.Context) CommerceAPIOpenCartRequest {
+	return CommerceAPIOpenCartRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Cart
+func (a *CommerceAPIService) OpenCartExecute(r CommerceAPIOpenCartRequest) (*Cart, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Cart
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.OpenCart")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/cart"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.cartOpen == nil {
+		return localVarReturnValue, nil, reportError("cartOpen is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.cartOpen
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type CommerceAPIPatchCommerceCollectionByCollectionidRequest struct {
 	ctx          context.Context
 	ApiService   *CommerceAPIService
@@ -5826,6 +7961,194 @@ func (a *CommerceAPIService) PatchCommerceStocklocationByStocklocationidExecute(
 	return localVarHTTPResponse, nil
 }
 
+type CommerceAPIPatchCommerceStoreByStoreidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPatchCommerceStoreByStoreidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchCommerceStoreByStoreidExecute(r)
+}
+
+/*
+PatchCommerceStoreByStoreid Change part of a storefront
+
+Loads the stored store and decodes the body over it, so only the fields the body names change and everything else keeps its stored value — the difference from the full replace, which clears what it is not told. Answers the merged entity. The id is resolved inside the caller org's own namespace, so an unknown or foreign id is 404. Requires an admin token, or one holding both store read and store write.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPatchCommerceStoreByStoreidRequest
+*/
+func (a *CommerceAPIService) PatchCommerceStoreByStoreid(ctx context.Context, storeid string) CommerceAPIPatchCommerceStoreByStoreidRequest {
+	return CommerceAPIPatchCommerceStoreByStoreidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PatchCommerceStoreByStoreidExecute(r CommerceAPIPatchCommerceStoreByStoreidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PatchCommerceStoreByStoreid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPatchCommerceStoreByStoreidListingByKeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	key        string
+}
+
+func (r CommerceAPIPatchCommerceStoreByStoreidListingByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchCommerceStoreByStoreidListingByKeyExecute(r)
+}
+
+/*
+PatchCommerceStoreByStoreidListingByKey Confirm a listing override exists and re-save the store
+
+Requires the key to already be present — an absent one is 404 — and answers the store's listing map at 200. Read the behaviour before relying on it: the decoded body is applied to a COPY taken out of the map and is never assigned back, so the stored listing is unchanged and the map returned is exactly the map that was already there. An actual edit to an existing listing has to go through the upsert, which does write its result back into the store. A body that fails to decode is still 400. Admin-gated and namespaced to the caller's org.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param key
+	@return CommerceAPIPatchCommerceStoreByStoreidListingByKeyRequest
+*/
+func (a *CommerceAPIService) PatchCommerceStoreByStoreidListingByKey(ctx context.Context, storeid string, key string) CommerceAPIPatchCommerceStoreByStoreidListingByKeyRequest {
+	return CommerceAPIPatchCommerceStoreByStoreidListingByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PatchCommerceStoreByStoreidListingByKeyExecute(r CommerceAPIPatchCommerceStoreByStoreidListingByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PatchCommerceStoreByStoreidListingByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/listing/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type CommerceAPIPatchCommerceSubmissionBySubmissionidRequest struct {
 	ctx          context.Context
 	ApiService   *CommerceAPIService
@@ -6512,6 +8835,358 @@ func (a *CommerceAPIService) PatchCommerceWebhookByWebhookidExecute(r CommerceAP
 
 	localVarPath := localBasePath + "/v1/commerce/webhook/{webhookid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"webhookid"+"}", url.PathEscape(parameterValueToString(r.webhookid, "webhookid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceCatalogEntriesRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommerceCatalogEntriesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceCatalogEntriesExecute(r)
+}
+
+/*
+PostCommerceCatalogEntries Add a catalog entry
+
+Creates a catalog row from the body and answers it at 201. The slug is required and is the globally-unique catalog key, so a second entry claiming a slug already in use is refused 409 rather than shadowing the first. PLATFORM admin only — this is cross-tenant pricing and packaging data, and an org-level admin is refused 403.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommerceCatalogEntriesRequest
+*/
+func (a *CommerceAPIService) PostCommerceCatalogEntries(ctx context.Context) CommerceAPIPostCommerceCatalogEntriesRequest {
+	return CommerceAPIPostCommerceCatalogEntriesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceCatalogEntriesExecute(r CommerceAPIPostCommerceCatalogEntriesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceCatalogEntries")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/catalog/entries"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceCatalogModelsRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommerceCatalogModelsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceCatalogModelsExecute(r)
+}
+
+/*
+PostCommerceCatalogModels Land a syncer's view of the model catalog: upstream costs and machine facts
+
+Takes a batch of model rows and upserts each one's upstream COST and machine-observable facts, answering what was created and changed. It deliberately touches nothing a human owns — not the retail price, not the markup, not the entitlement tier — so a sync can never overwrite an administrator's pricing decision. The gate is a PLATFORM principal rather than a platform ADMIN, because the caller is normally a scheduled job holding the internal service token, which carries platform scope but no admin claim.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommerceCatalogModelsRequest
+*/
+func (a *CommerceAPIService) PostCommerceCatalogModels(ctx context.Context) CommerceAPIPostCommerceCatalogModelsRequest {
+	return CommerceAPIPostCommerceCatalogModelsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceCatalogModelsExecute(r CommerceAPIPostCommerceCatalogModelsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceCatalogModels")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/catalog/models"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceCatalogModelsRefreshRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommerceCatalogModelsRefreshRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceCatalogModelsRefreshExecute(r)
+}
+
+/*
+PostCommerceCatalogModelsRefresh Refresh the model catalog by reading the upstream provider
+
+Pulls the upstream model list and lands it through the same upsert the push door uses, so the rule that a sync owns cost and an administrator owns price holds no matter which door a row came through. It takes no body — the upstream is READ rather than told. If that upstream cannot be read the call answers 502 and writes NOTHING: a sync that cannot see its source must never conclude the source is empty, because that conclusion would withdraw every model on sale. The gate is a PLATFORM principal so the scheduled job's service token qualifies.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommerceCatalogModelsRefreshRequest
+*/
+func (a *CommerceAPIService) PostCommerceCatalogModelsRefresh(ctx context.Context) CommerceAPIPostCommerceCatalogModelsRefreshRequest {
+	return CommerceAPIPostCommerceCatalogModelsRefreshRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceCatalogModelsRefreshExecute(r CommerceAPIPostCommerceCatalogModelsRefreshRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceCatalogModelsRefresh")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/catalog/models/refresh"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceCatalogSeedRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommerceCatalogSeedRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceCatalogSeedExecute(r)
+}
+
+/*
+PostCommerceCatalogSeed Seed the embedded catalog, without disturbing edits already made
+
+Upserts the shipped catalog seed and answers how many entries it created. It is idempotent and non-destructive — an entry an administrator has since edited is left alone — so it is safe to run against a live catalog to fill in what is missing. PLATFORM admin only; an org-level admin is refused 403.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommerceCatalogSeedRequest
+*/
+func (a *CommerceAPIService) PostCommerceCatalogSeed(ctx context.Context) CommerceAPIPostCommerceCatalogSeedRequest {
+	return CommerceAPIPostCommerceCatalogSeedRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceCatalogSeedExecute(r CommerceAPIPostCommerceCatalogSeedRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceCatalogSeed")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/catalog/seed"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -7462,6 +10137,182 @@ func (a *CommerceAPIService) PostCommerceNoteByNoteidExecute(r CommerceAPIPostCo
 	return localVarHTTPResponse, nil
 }
 
+type CommerceAPIPostCommercePlansEntriesRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommercePlansEntriesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommercePlansEntriesExecute(r)
+}
+
+/*
+PostCommercePlansEntries Add a subscription plan
+
+Creates a plan from the body and answers it at 201. The slug is required and globally unique — a duplicate is 409 — and the row is marked authoritative on creation, so the corrective seed will leave it alone. Price, annual price and the contact-sales flag are stored exactly as sent, never coerced, so the difference between a free plan and a quote-only plan survives. PLATFORM admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommercePlansEntriesRequest
+*/
+func (a *CommerceAPIService) PostCommercePlansEntries(ctx context.Context) CommerceAPIPostCommercePlansEntriesRequest {
+	return CommerceAPIPostCommercePlansEntriesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommercePlansEntriesExecute(r CommerceAPIPostCommercePlansEntriesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommercePlansEntries")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/plans/entries"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommercePlansSeedRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommercePlansSeedRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommercePlansSeedExecute(r)
+}
+
+/*
+PostCommercePlansSeed Seed the embedded plan catalog, without overwriting administrative edits
+
+Upserts the shipped plan rows and answers how many were created and how many corrected. It is idempotent and non-destructive — a row an administrator authored or edited is left as it stands — so it is safe against a live authority and fills only what is missing or has drifted. PLATFORM admin only, and a deployment with no seed source wired answers 500 rather than quietly seeding nothing.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommercePlansSeedRequest
+*/
+func (a *CommerceAPIService) PostCommercePlansSeed(ctx context.Context) CommerceAPIPostCommercePlansSeedRequest {
+	return CommerceAPIPostCommercePlansSeedRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommercePlansSeedExecute(r CommerceAPIPostCommercePlansSeedRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommercePlansSeed")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/plans/seed"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type CommerceAPIPostCommerceProductRequest struct {
 	ctx        context.Context
 	ApiService *CommerceAPIService
@@ -7592,6 +10443,182 @@ func (a *CommerceAPIService) PostCommerceProductByProductidExecute(r CommerceAPI
 
 	localVarPath := localBasePath + "/v1/commerce/product/{productid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"productid"+"}", url.PathEscape(parameterValueToString(r.productid, "productid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceRatesEntriesRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommerceRatesEntriesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceRatesEntriesExecute(r)
+}
+
+/*
+PostCommerceRatesEntries Add a rate
+
+Creates one rate. Product AND meter are both required, because together they are the identity: a rate keyed on the metered thing alone would let one product's price overwrite another's under the same name. A slug that already exists is refused rather than silently replaced. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommerceRatesEntriesRequest
+*/
+func (a *CommerceAPIService) PostCommerceRatesEntries(ctx context.Context) CommerceAPIPostCommerceRatesEntriesRequest {
+	return CommerceAPIPostCommerceRatesEntriesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceRatesEntriesExecute(r CommerceAPIPostCommerceRatesEntriesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceRatesEntries")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/rates/entries"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceRatesImportRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommerceRatesImportRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceRatesImportExecute(r)
+}
+
+/*
+PostCommerceRatesImport Load the published price document, reconciling rather than replacing
+
+Takes an array of rates and seeds the authority from it. This is the seed, driven from admin rather than compiled in, because 506 published prices in an embed made a price change wait for a build. It RECONCILES: a row that matches is left alone, a row that has drifted is corrected, and a row an operator edited is skipped — so importing the same document twice is a no-op and importing a corrected one moves exactly the rows that changed. Answers what it received, created, corrected and left unchanged, so an import that changes nothing reads as nothing to do rather than as a failure. An empty array is refused 400. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommerceRatesImportRequest
+*/
+func (a *CommerceAPIService) PostCommerceRatesImport(ctx context.Context) CommerceAPIPostCommerceRatesImportRequest {
+	return CommerceAPIPostCommerceRatesImportRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceRatesImportExecute(r CommerceAPIPostCommerceRatesImportRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceRatesImport")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/rates/import"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8132,6 +11159,1782 @@ func (a *CommerceAPIService) PostCommerceStocklocationByStocklocationidExecute(r
 
 	localVarPath := localBasePath + "/v1/commerce/stocklocation/{stocklocationid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"stocklocationid"+"}", url.PathEscape(parameterValueToString(r.stocklocationid, "stocklocationid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommerceStoreRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreExecute(r)
+}
+
+/*
+PostCommerceStore Create a storefront
+
+Creates a store from the body inside the caller org's own namespaced database, so the row is physically isolated to that tenant from its first write, and answers it at 201 with a Location header naming its id. Requires an admin or store-write token: the anonymous published storefront key may READ stores but never create one. A body that fails to decode is 400.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommerceStoreRequest
+*/
+func (a *CommerceAPIService) PostCommerceStore(ctx context.Context) CommerceAPIPostCommerceStoreRequest {
+	return CommerceAPIPostCommerceStoreRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreExecute(r CommerceAPIPostCommerceStoreRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStore")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreid Method-override tunnel for clients that cannot send PUT, PATCH or DELETE
+
+Re-dispatches the request into the handler the intended verb would have reached, taking that verb from a _method form value or query parameter and then from the X-HTTP-Method-Override header, the header winning when both are present. Only PUT, PATCH and DELETE are accepted; anything else resolves to 405. The trap is the default: naming NO override at all is treated as a partial update, never as a create. Authorization is whatever the underlying operation requires, since the real handler runs.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPostCommerceStoreByStoreidRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreid(ctx context.Context, storeid string) CommerceAPIPostCommerceStoreByStoreidRequest {
+	return CommerceAPIPostCommerceStoreByStoreidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidExecute(r CommerceAPIPostCommerceStoreByStoreidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidAuthorizeRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidAuthorizeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidAuthorizeExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidAuthorize Authorize a new order against a storefront, holding the funds without settling them
+
+Tallies a new order for the addressed store from the user, payment and order body, reserves its items, runs the processor authorization and answers the saved order with a Location header pointing at it. The gate is a token carrying admin or published scope, so a published storefront key is enough; no token is 401 and a token with neither bit is 403. The store is loaded BEFORE any payment work and its currency OVERRIDES whatever the body asked for, so a store that will not load ends the call with 500 and nothing is charged. On any authorization failure the reservations are released and the order and payment are persisted as cancelled, so a failed attempt still leaves a durable record. Capture is a separate call.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPostCommerceStoreByStoreidAuthorizeRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidAuthorize(ctx context.Context, storeid string) CommerceAPIPostCommerceStoreByStoreidAuthorizeRequest {
+	return CommerceAPIPostCommerceStoreByStoreidAuthorizeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidAuthorizeExecute(r CommerceAPIPostCommerceStoreByStoreidAuthorizeRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidAuthorize")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/authorize"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidAuthorizeByOrderidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	orderid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidAuthorizeByOrderidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidAuthorizeByOrderidExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidAuthorizeByOrderid Authorize an order that already exists, holding the funds without settling them
+
+Continues the order named in the path rather than minting a new one, holding funds for it. The order is loaded from the caller org's own store, so an id belonging to another tenant is a 404. The rule most callers get wrong is that the body's order object is MERGED onto the loaded order before the tally — this is not a read-only reference, and a field sent here overwrites what is stored. The gate, the store resolution and the currency override behave exactly as on the bodiless-id sibling, and settling is still the capture call's job.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param orderid
+	@return CommerceAPIPostCommerceStoreByStoreidAuthorizeByOrderidRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidAuthorizeByOrderid(ctx context.Context, storeid string, orderid string) CommerceAPIPostCommerceStoreByStoreidAuthorizeByOrderidRequest {
+	return CommerceAPIPostCommerceStoreByStoreidAuthorizeByOrderidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		orderid:    orderid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidAuthorizeByOrderidExecute(r CommerceAPIPostCommerceStoreByStoreidAuthorizeByOrderidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidAuthorizeByOrderid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/authorize/{orderid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"orderid"+"}", url.PathEscape(parameterValueToString(r.orderid, "orderid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidCaptureByOrderidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	orderid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidCaptureByOrderidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidCaptureByOrderidExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCaptureByOrderid Capture a previously authorized order and settle the payment
+
+Settles the order named in the path — the second half of the two-step flow — and answers the updated order with a Location header. Dispatch follows the order's STORED payment type, and a successful capture is the moment the rest of the system learns about the sale: order and payment rows are updated, coupon redemptions, referral, cart and stats are written, the confirmation email goes out, and the paid and completed events are emitted. A capture failure releases the order's inventory reservations and answers 400, so a failed settlement never leaves items held.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param orderid
+	@return CommerceAPIPostCommerceStoreByStoreidCaptureByOrderidRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCaptureByOrderid(ctx context.Context, storeid string, orderid string) CommerceAPIPostCommerceStoreByStoreidCaptureByOrderidRequest {
+	return CommerceAPIPostCommerceStoreByStoreidCaptureByOrderidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		orderid:    orderid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCaptureByOrderidExecute(r CommerceAPIPostCommerceStoreByStoreidCaptureByOrderidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCaptureByOrderid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/capture/{orderid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"orderid"+"}", url.PathEscape(parameterValueToString(r.orderid, "orderid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidChargeRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidChargeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidChargeExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCharge Authorize and capture a new order in one call
+
+Runs authorization and capture back to back against a freshly created order — the one-step flow for callers with no reason to hold funds. It takes the authorize body and inherits every authorize rule: the store's currency wins over the body, the items are reserved before the processor is called, and the amount bounds the processor enforces still apply. There is no order id on this address, so it can never continue an existing order. Either half failing answers 400, and the capture side effects — confirmation email, redemptions, stats, the paid and completed events — run only when both halves succeed.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPostCommerceStoreByStoreidChargeRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCharge(ctx context.Context, storeid string) CommerceAPIPostCommerceStoreByStoreidChargeRequest {
+	return CommerceAPIPostCommerceStoreByStoreidChargeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidChargeExecute(r CommerceAPIPostCommerceStoreByStoreidChargeRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCharge")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/charge"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidCheckoutAuthorizeExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCheckoutAuthorize Authorize a new order against a storefront, holding the funds — the checkout spelling
+
+Authorizes a new order for the addressed store and holds the funds, answering the saved order with a Location header. It binds the identical handler as the shorter authorize address, so the two are ONE operation at two spellings and not two behaviours; the checkout prefix is the newer one. Every rule carries over: admin or published scope on the token, the store loaded first with its currency overriding the body, items reserved before the processor call, and reservations released with the order persisted cancelled on failure. Nothing is settled here.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutAuthorize(ctx context.Context, storeid string) CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeRequest {
+	return CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutAuthorizeExecute(r CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCheckoutAuthorize")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/checkout/authorize"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeByOrderidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	orderid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeByOrderidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidCheckoutAuthorizeByOrderidExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid Authorize an existing order, holding the funds — the checkout spelling
+
+Continues the order named in the path rather than minting one, and shares its handler byte for byte with the unprefixed authorize-by-id address. The order is loaded from the caller org's own store, so another tenant's id is a 404, and the body's order object is merged onto the loaded row before the tally — a field sent here overwrites what is stored. Store resolution, the token gate and the currency override behave as on every other authorize address; settle with the capture address and the same order id.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param orderid
+	@return CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeByOrderidRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid(ctx context.Context, storeid string, orderid string) CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeByOrderidRequest {
+	return CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeByOrderidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		orderid:    orderid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutAuthorizeByOrderidExecute(r CommerceAPIPostCommerceStoreByStoreidCheckoutAuthorizeByOrderidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/checkout/authorize/{orderid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"orderid"+"}", url.PathEscape(parameterValueToString(r.orderid, "orderid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidCheckoutCaptureByOrderidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	orderid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidCheckoutCaptureByOrderidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidCheckoutCaptureByOrderidExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCheckoutCaptureByOrderid Capture a previously authorized order and settle it — the checkout spelling
+
+Settles the authorized order named in the path and answers the updated order with a Location header, running the same handler as the unprefixed capture address. Dispatch follows the order's stored payment type. Success is what triggers the downstream work — order and payment updates, redemptions, referral, cart and stats, the confirmation email, and the paid and completed events — while a failure releases the order's inventory reservations and answers 400.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param orderid
+	@return CommerceAPIPostCommerceStoreByStoreidCheckoutCaptureByOrderidRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutCaptureByOrderid(ctx context.Context, storeid string, orderid string) CommerceAPIPostCommerceStoreByStoreidCheckoutCaptureByOrderidRequest {
+	return CommerceAPIPostCommerceStoreByStoreidCheckoutCaptureByOrderidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		orderid:    orderid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutCaptureByOrderidExecute(r CommerceAPIPostCommerceStoreByStoreidCheckoutCaptureByOrderidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCheckoutCaptureByOrderid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/checkout/capture/{orderid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"orderid"+"}", url.PathEscape(parameterValueToString(r.orderid, "orderid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidCheckoutChargeRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidCheckoutChargeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidCheckoutChargeExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCheckoutCharge Authorize and capture a new order in one call — the checkout spelling
+
+Performs authorization and capture back to back against a newly created order for the addressed store, on the same handler as the unprefixed charge address. It takes the authorize body and inherits every authorize rule, including the store's currency winning over the body and the items being reserved before the processor is called. There is no order id on this address, so it can never continue an existing order. Either half failing answers 400, and the capture side effects run only when both succeed.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPostCommerceStoreByStoreidCheckoutChargeRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutCharge(ctx context.Context, storeid string) CommerceAPIPostCommerceStoreByStoreidCheckoutChargeRequest {
+	return CommerceAPIPostCommerceStoreByStoreidCheckoutChargeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutChargeExecute(r CommerceAPIPostCommerceStoreByStoreidCheckoutChargeRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCheckoutCharge")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/checkout/charge"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	payKey     string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey PayPal cancel by pay key — refuses, exactly as the unprefixed address does
+
+Meant to void the payments carrying the given pay key, stamp them cancelled and cancel the order, but the shared checkout handler resolves its order from an ORDER ID path parameter this route does not carry. The result is an untyped order and a cancel dispatch that refuses with 400 before the pay key lookup ever runs. Token gate, namespacing and store resolution happen first, so a missing token is still 401 and an unloadable store still 500. It is the same handler as the unprefixed cancel address, with the same outcome.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param payKey
+	@return CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey(ctx context.Context, storeid string, payKey string) CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyRequest {
+	return CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		payKey:     payKey,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyExecute(r CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/checkout/paypal/cancel/{payKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"payKey"+"}", url.PathEscape(parameterValueToString(r.payKey, "payKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	payKey     string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey PayPal confirm by pay key — refuses, exactly as the unprefixed address does
+
+Meant to mark the payments carrying the given pay key as paid and set the order to paid, it cannot reach that work from this address: the shared checkout handler takes its order from an ORDER ID path parameter this route does not carry, so the order is always fresh and untyped and the confirm dispatch refuses with 400 before the pay key is queried. The token gate, the namespace middleware and the store lookup all run ahead of that, so authentication and store failures surface first. Behaviour is identical to the unprefixed confirm address; the checkout prefix changes nothing here.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param payKey
+	@return CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey(ctx context.Context, storeid string, payKey string) CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyRequest {
+	return CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		payKey:     payKey,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyExecute(r CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/checkout/paypal/confirm/{payKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"payKey"+"}", url.PathEscape(parameterValueToString(r.payKey, "payKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalPayRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalPayRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidCheckoutPaypalPayExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidCheckoutPaypalPay Start a PayPal authorization for a new order — the checkout spelling
+
+Begins a PayPal authorization by running the ordinary store authorize flow, since the route binds that exact handler — body, store resolution, tally, reservations and failure behaviour are the authorize address's, unchanged. The processor is chosen from the body's payment type, so this path reaches PayPal only when that type says so. A successful PayPal authorization stamps a pay key onto the payment, which is the key the confirm and cancel addresses filter on. Build against the plain authorize address instead.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalPayRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutPaypalPay(ctx context.Context, storeid string) CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalPayRequest {
+	return CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalPayRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidCheckoutPaypalPayExecute(r CommerceAPIPostCommerceStoreByStoreidCheckoutPaypalPayRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidCheckoutPaypalPay")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/checkout/paypal/pay"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidListingByKeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	key        string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidListingByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidListingByKeyExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidListingByKey Add a listing override under a new key
+
+Creates the override and answers the store's ENTIRE listing map at 201 with a Location header — not just the entry that was added. A key already present is refused 400: creation never silently overwrites, so changing an existing listing has to be an explicit replace. The stored listing has its currency stamped from the store's own, which the replace path does not do. The key is matched exactly here, with none of the slug or SKU fallback the read allows. Admin-gated and resolved inside the caller org's namespace.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param key
+	@return CommerceAPIPostCommerceStoreByStoreidListingByKeyRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidListingByKey(ctx context.Context, storeid string, key string) CommerceAPIPostCommerceStoreByStoreidListingByKeyRequest {
+	return CommerceAPIPostCommerceStoreByStoreidListingByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidListingByKeyExecute(r CommerceAPIPostCommerceStoreByStoreidListingByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidListingByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/listing/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidPaypalCancelByPaykeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	payKey     string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidPaypalCancelByPaykeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidPaypalCancelByPaykeyExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidPaypalCancelByPaykey PayPal cancel by pay key — refuses, because a pay key alone does not identify the order
+
+Intended to void the payments carrying the given pay key, stamp them cancelled and cancel the order, it never reaches that work: the shared checkout handler reads its order from an ORDER ID path parameter this route does not carry, leaving an untyped order that the cancel dispatch refuses with 400 before the pay key lookup runs. Authentication, namespacing and store resolution happen ahead of the refusal, so a missing token is 401 and an unloadable store 500. Cancelling a real PayPal authorization needs an address that carries the order id.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param payKey
+	@return CommerceAPIPostCommerceStoreByStoreidPaypalCancelByPaykeyRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidPaypalCancelByPaykey(ctx context.Context, storeid string, payKey string) CommerceAPIPostCommerceStoreByStoreidPaypalCancelByPaykeyRequest {
+	return CommerceAPIPostCommerceStoreByStoreidPaypalCancelByPaykeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		payKey:     payKey,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidPaypalCancelByPaykeyExecute(r CommerceAPIPostCommerceStoreByStoreidPaypalCancelByPaykeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidPaypalCancelByPaykey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/paypal/cancel/{payKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"payKey"+"}", url.PathEscape(parameterValueToString(r.payKey, "payKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidPaypalConfirmByPaykeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	payKey     string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidPaypalConfirmByPaykeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidPaypalConfirmByPaykeyExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidPaypalConfirmByPaykey PayPal confirm by pay key — refuses, because a pay key alone does not identify the order
+
+Intended to mark every payment carrying the given pay key as paid and flip the order to paid, it cannot do that from this address and does not pretend to: the shared checkout handler resolves its order from an ORDER ID path parameter that this route does not carry, so it always works against a fresh untyped order and the confirm dispatch refuses it with 400 before the pay key is ever queried. The token gate, the namespace and the store lookup all run ahead of that, so a missing token is still 401 and an unloadable store still 500. Drive a PayPal return through an address that carries the order id.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param payKey
+	@return CommerceAPIPostCommerceStoreByStoreidPaypalConfirmByPaykeyRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidPaypalConfirmByPaykey(ctx context.Context, storeid string, payKey string) CommerceAPIPostCommerceStoreByStoreidPaypalConfirmByPaykeyRequest {
+	return CommerceAPIPostCommerceStoreByStoreidPaypalConfirmByPaykeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		payKey:     payKey,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidPaypalConfirmByPaykeyExecute(r CommerceAPIPostCommerceStoreByStoreidPaypalConfirmByPaykeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidPaypalConfirmByPaykey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/paypal/confirm/{payKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"payKey"+"}", url.PathEscape(parameterValueToString(r.payKey, "payKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidPaypalPayRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidPaypalPayRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidPaypalPayExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidPaypalPay Start a PayPal authorization for a new order
+
+Runs the ordinary store authorize flow — the route binds that very handler, so the body, the store resolution, the tally, the reservations and the failure behaviour are the authorize address's, unchanged. It reaches PayPal only when the body's payment type says so; nothing about this path forces the processor, so a card-typed payment posted here authorizes on the card processor instead. A successful PayPal authorization stamps a pay key onto the payment, which is the key the confirm and cancel addresses filter on. It is the older entry point; the plain authorize address is the one to build against.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPostCommerceStoreByStoreidPaypalPayRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidPaypalPay(ctx context.Context, storeid string) CommerceAPIPostCommerceStoreByStoreidPaypalPayRequest {
+	return CommerceAPIPostCommerceStoreByStoreidPaypalPayRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidPaypalPayExecute(r CommerceAPIPostCommerceStoreByStoreidPaypalPayRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidPaypalPay")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/paypal/pay"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreByStoreidTrialRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPostCommerceStoreByStoreidTrialRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreByStoreidTrialExecute(r)
+}
+
+/*
+PostCommerceStoreByStoreidTrial Start this store's no-card trial on the entry plan
+
+Creates a trialing subscription for the addressed store on the entry plan and grants that plan's trial credit, answering 201 when this call actually started one and 200 with a reason otherwise — not_new when the store already has billing history, trial_not_configured when no entry plan is wired. The window is always the SEVEN-DAY no-card trial, because this address never presents a card; the longer card-present window is reached only by adding a card afterwards. Entitlement is per store while the billing subject is the org, so every store an org owns takes its own trial. Admin-gated and namespaced to the caller's org: no resolvable store is 404 with store_required, and a backing-store failure is 503.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPostCommerceStoreByStoreidTrialRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreByStoreidTrial(ctx context.Context, storeid string) CommerceAPIPostCommerceStoreByStoreidTrialRequest {
+	return CommerceAPIPostCommerceStoreByStoreidTrialRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreByStoreidTrialExecute(r CommerceAPIPostCommerceStoreByStoreidTrialRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreByStoreidTrial")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/trial"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPostCommerceStoreTokenRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+}
+
+func (r CommerceAPIPostCommerceStoreTokenRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceStoreTokenExecute(r)
+}
+
+/*
+PostCommerceStoreToken Mint your org's least-privilege storefront read key
+
+Answers a freshly minted token carrying ONLY the published-read permission — enough for a logged-out shopper's storefront to read your published catalog and nothing more, with no write and no admin scope. It is org-bound, signed with the org's own secret and subject to the org id, so unlike a shared service token it can never act on another tenant. Minting ROTATES rather than accumulates: the previous storefront token is dropped first and is invalid immediately, so re-minting is how you revoke. Admin is enforced by the handler as well as the route, because the route's token gate does not apply on the identity path and a plain member must not be able to mint their org's key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPIPostCommerceStoreTokenRequest
+*/
+func (a *CommerceAPIService) PostCommerceStoreToken(ctx context.Context) CommerceAPIPostCommerceStoreTokenRequest {
+	return CommerceAPIPostCommerceStoreTokenRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceStoreTokenExecute(r CommerceAPIPostCommerceStoreTokenRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceStoreToken")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/token"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9622,6 +14425,98 @@ func (a *CommerceAPIService) PostCommerceWebhookByWebhookidExecute(r CommerceAPI
 	return localVarHTTPResponse, nil
 }
 
+type CommerceAPIPostCommerceWebhooksByProviderRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	provider   string
+}
+
+func (r CommerceAPIPostCommerceWebhooksByProviderRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCommerceWebhooksByProviderExecute(r)
+}
+
+/*
+PostCommerceWebhooksByProvider Payment-provider webhook intake for settlement and subscription lifecycle events
+
+Accepts a payment provider's event, verifies it, records it for audit, and applies subscription lifecycle changes to the matching local row. There is no bearer here and there cannot be: the provider's SIGNATURE over the body IS the authentication, so a request with no recognized signature header is 400 and one whose signature does not verify is 401. The provider path segment is only a hint for dashboard configuration — verification picks the processor regardless of what the URL says. Redelivery is safe: an event id already recorded is acknowledged as a duplicate without re-applying any side effect, which matters because providers retry for days until they see a 2xx.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider
+	@return CommerceAPIPostCommerceWebhooksByProviderRequest
+*/
+func (a *CommerceAPIService) PostCommerceWebhooksByProvider(ctx context.Context, provider string) CommerceAPIPostCommerceWebhooksByProviderRequest {
+	return CommerceAPIPostCommerceWebhooksByProviderRequest{
+		ApiService: a,
+		ctx:        ctx,
+		provider:   provider,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PostCommerceWebhooksByProviderExecute(r CommerceAPIPostCommerceWebhooksByProviderRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PostCommerceWebhooksByProvider")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/webhooks/{provider}"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type CommerceAPIPutCommerceCollectionByCollectionidRequest struct {
 	ctx          context.Context
 	ApiService   *CommerceAPIService
@@ -10082,6 +14977,98 @@ func (a *CommerceAPIService) PutCommerceNoteByNoteidExecute(r CommerceAPIPutComm
 	return localVarHTTPResponse, nil
 }
 
+type CommerceAPIPutCommercePlansEntriesBySlugRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	slug       string
+}
+
+func (r CommerceAPIPutCommercePlansEntriesBySlugRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutCommercePlansEntriesBySlugExecute(r)
+}
+
+/*
+PutCommercePlansEntriesBySlug Edit a plan, leaving the fields you omit alone
+
+Loads the addressed plan, applies the body over it and answers the stored result, so a partial edit never silently zeroes a price or the contact-sales flag. The slug is IMMUTABLE: a body naming a different slug is rejected outright before anything is written, because a rename would orphan every subscription that stored the old id — deprecate and create instead. An admin edit marks the row authoritative so the seed stops correcting it. PLATFORM admin only; an unknown slug is 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug
+	@return CommerceAPIPutCommercePlansEntriesBySlugRequest
+*/
+func (a *CommerceAPIService) PutCommercePlansEntriesBySlug(ctx context.Context, slug string) CommerceAPIPutCommercePlansEntriesBySlugRequest {
+	return CommerceAPIPutCommercePlansEntriesBySlugRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PutCommercePlansEntriesBySlugExecute(r CommerceAPIPutCommercePlansEntriesBySlugRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PutCommercePlansEntriesBySlug")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/plans/entries/{slug}"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type CommerceAPIPutCommerceProductByProductidRequest struct {
 	ctx        context.Context
 	ApiService *CommerceAPIService
@@ -10124,6 +15111,98 @@ func (a *CommerceAPIService) PutCommerceProductByProductidExecute(r CommerceAPIP
 
 	localVarPath := localBasePath + "/v1/commerce/product/{productid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"productid"+"}", url.PathEscape(parameterValueToString(r.productid, "productid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPutCommerceRatesEntriesBySlugRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	slug       string
+}
+
+func (r CommerceAPIPutCommerceRatesEntriesBySlugRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutCommerceRatesEntriesBySlugExecute(r)
+}
+
+/*
+PutCommerceRatesEntriesBySlug Edit a rate, and mark it as operator-set
+
+Edits one rate and MARKS it edited, which is the whole contract with the importer: an operator's price outranks the document it came from, so a later import leaves this row alone. Without that mark a price set here would apply, work, and silently revert on the next import. Only the editable fields move; identity and bookkeeping are not writable from the body. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug
+	@return CommerceAPIPutCommerceRatesEntriesBySlugRequest
+*/
+func (a *CommerceAPIService) PutCommerceRatesEntriesBySlug(ctx context.Context, slug string) CommerceAPIPutCommerceRatesEntriesBySlugRequest {
+	return CommerceAPIPutCommerceRatesEntriesBySlugRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PutCommerceRatesEntriesBySlugExecute(r CommerceAPIPutCommerceRatesEntriesBySlugRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PutCommerceRatesEntriesBySlug")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/rates/entries/{slug}"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -10400,6 +15479,194 @@ func (a *CommerceAPIService) PutCommerceStocklocationByStocklocationidExecute(r 
 
 	localVarPath := localBasePath + "/v1/commerce/stocklocation/{stocklocationid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"stocklocationid"+"}", url.PathEscape(parameterValueToString(r.stocklocationid, "stocklocationid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPutCommerceStoreByStoreidRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+}
+
+func (r CommerceAPIPutCommerceStoreByStoreidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutCommerceStoreByStoreidExecute(r)
+}
+
+/*
+PutCommerceStoreByStoreid Replace a storefront outright
+
+This is a true REPLACEMENT, not a merge: the stored key is preserved but the body is decoded onto a fresh entity, so every field the body omits is written back as its zero value. Use the partial update when you mean to change part of a store. The id is resolved inside the caller org's own namespace, so an unknown or foreign id is a 404 before anything is written. Requires an admin token, or one holding both store read and store write.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@return CommerceAPIPutCommerceStoreByStoreidRequest
+*/
+func (a *CommerceAPIService) PutCommerceStoreByStoreid(ctx context.Context, storeid string) CommerceAPIPutCommerceStoreByStoreidRequest {
+	return CommerceAPIPutCommerceStoreByStoreidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PutCommerceStoreByStoreidExecute(r CommerceAPIPutCommerceStoreByStoreidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PutCommerceStoreByStoreid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CommerceAPIPutCommerceStoreByStoreidListingByKeyRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	storeid    string
+	key        string
+}
+
+func (r CommerceAPIPutCommerceStoreByStoreidListingByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutCommerceStoreByStoreidListingByKeyExecute(r)
+}
+
+/*
+PutCommerceStoreByStoreidListingByKey Upsert a listing override
+
+Decodes the body over the existing listing when the key is present, so fields it omits keep their stored values, and builds the listing from the body alone when the key is new. Answers 200 when it replaced something and 201 with a Location header when it created it; either way the body is the store's entire listing map, not the single entry. Unlike creation, this path does NOT restamp the listing's currency from the store. Admin-gated, with the store resolved inside the caller org's namespace.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param storeid
+	@param key
+	@return CommerceAPIPutCommerceStoreByStoreidListingByKeyRequest
+*/
+func (a *CommerceAPIService) PutCommerceStoreByStoreidListingByKey(ctx context.Context, storeid string, key string) CommerceAPIPutCommerceStoreByStoreidListingByKeyRequest {
+	return CommerceAPIPutCommerceStoreByStoreidListingByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		storeid:    storeid,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *CommerceAPIService) PutCommerceStoreByStoreidListingByKeyExecute(r CommerceAPIPutCommerceStoreByStoreidListingByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PutCommerceStoreByStoreidListingByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/store/{storeid}/listing/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"storeid"+"}", url.PathEscape(parameterValueToString(r.storeid, "storeid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -11184,4 +16451,280 @@ func (a *CommerceAPIService) PutCommerceWebhookByWebhookidExecute(r CommerceAPIP
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type CommerceAPISetCartItemRequest struct {
+	ctx         context.Context
+	ApiService  *CommerceAPIService
+	id          string
+	cartItemSet *CartItemSet
+}
+
+func (r CommerceAPISetCartItemRequest) CartItemSet(cartItemSet CartItemSet) CommerceAPISetCartItemRequest {
+	r.cartItemSet = &cartItemSet
+	return r
+}
+
+func (r CommerceAPISetCartItemRequest) Execute() (*Cart, *http.Response, error) {
+	return r.ApiService.SetCartItemExecute(r)
+}
+
+/*
+SetCartItem Set one item's quantity in a cart; zero removes it
+
+Sets how many of one item a cart holds, and answers the whole updated cart.
+
+This is the ONE way a cart's contents change. The quantity is the RESULT, not a
+delta: sending 3 leaves 3 however many were there before, so a retry is safe and
+a double-submit cannot double an order. ZERO REMOVES the line — there is
+deliberately no separate delete, because removal is the same act at the boundary
+value and a second spelling would be a second set of edge cases.
+
+Name the item with EITHER product OR variant, never both. Prefer variant for
+anything sold in sizes, colours or tiers: the price and the stock belong to the
+variant, so a product-level line on a varianted product prices the wrong thing.
+Either may be given as an id or as the human key — a product's URL slug, a
+variant's SKU — which is what lets a storefront add to cart straight from a
+product page URL without a lookup first.
+
+The item's price and name are CACHED onto the line as it is added, so the cart
+keeps the price the shopper was shown even if the catalog moves underneath it.
+
+An item that resolves to nothing in the catalog is refused 400 and the cart is
+left exactly as it was; nothing is partially applied.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the cart to amend, from the path.
+	@return CommerceAPISetCartItemRequest
+*/
+func (a *CommerceAPIService) SetCartItem(ctx context.Context, id string) CommerceAPISetCartItemRequest {
+	return CommerceAPISetCartItemRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Cart
+func (a *CommerceAPIService) SetCartItemExecute(r CommerceAPISetCartItemRequest) (*Cart, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Cart
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.SetCartItem")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/cart/{id}/item"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.cartItemSet == nil {
+		return localVarReturnValue, nil, reportError("cartItemSet is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.cartItemSet
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CommerceAPITakePaymentRequest struct {
+	ctx        context.Context
+	ApiService *CommerceAPIService
+	paymentIn  *PaymentIn
+}
+
+func (r CommerceAPITakePaymentRequest) PaymentIn(paymentIn PaymentIn) CommerceAPITakePaymentRequest {
+	r.paymentIn = &paymentIn
+	return r
+}
+
+func (r CommerceAPITakePaymentRequest) Execute() (*PaymentOut, *http.Response, error) {
+	return r.ApiService.TakePaymentExecute(r)
+}
+
+/*
+TakePayment Take a card payment and credit the org's balance
+
+Takes a payment: charges a single-use card token and credits the caller's org
+balance, exactly once.
+
+This is the operation behind "collect money from a customer". It runs the SAME
+core the console's card top-up runs (commerce billing.TakePayment), so the
+server-side amount bounds, the idempotency guard and the ledger credit are
+shared rather than reimplemented — a second charge path would eventually
+double-charge somebody.
+
+The ORG is the caller's, taken from the validated principal and never from the
+input, so a payment can only ever credit the account of whoever made the call.
+
+A payment is RISK-SCREENED before the card is charged, so this can be refused
+without any money moving: 403 means the screen did not authorise it, and 503 means
+the screen could not reach a decision — that one is worth retrying, and no charge
+was attempted either way.
+
+Send an idempotencyKey. An agent retries by construction, and the key is what
+turns a retry into a replay of the first receipt instead of a second charge.
+
+The answer states whether it settled in SANDBOX or live mode (`test`), and
+carries the processor's own reference (`processorRef`) so the charge can be
+reconciled against the processor rather than taken on trust.
+
+A named builder, not a closure, so zipdoc can lift this prose into the registry.
+
+It BUILDS the handler rather than being it, because the screen has to sit inside
+the value every projection of this op dispatches to — see exposePayments. `charge`
+is the money move, `take` is the screened door onto it, and the only registrable
+one is the second.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return CommerceAPITakePaymentRequest
+*/
+func (a *CommerceAPIService) TakePayment(ctx context.Context) CommerceAPITakePaymentRequest {
+	return CommerceAPITakePaymentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PaymentOut
+func (a *CommerceAPIService) TakePaymentExecute(r CommerceAPITakePaymentRequest) (*PaymentOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaymentOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.TakePayment")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/commerce/payments"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.paymentIn == nil {
+		return localVarReturnValue, nil, reportError("paymentIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.paymentIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

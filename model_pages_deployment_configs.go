@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,9 @@ var _ MappedNullable = &PagesDeploymentConfigs{}
 
 // PagesDeploymentConfigs struct for PagesDeploymentConfigs
 type PagesDeploymentConfigs struct {
-	Preview    *PagesDeploymentConfig `json:"preview,omitempty"`
+	// Preview is the config every branch build other than the production branch runs under. It is a SEPARATE set of bindings and variables, which is what lets a preview point at test data.
+	Preview *PagesDeploymentConfig `json:"preview,omitempty"`
+	// Production is the config the production branch builds under.
 	Production *PagesDeploymentConfig `json:"production,omitempty"`
 }
 

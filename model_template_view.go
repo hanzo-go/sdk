@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,20 @@ var _ MappedNullable = &TemplateView{}
 
 // TemplateView struct for TemplateView
 type TemplateView struct {
-	Category      *string `json:"category,omitempty"`
-	CounselReview *bool   `json:"counselReview,omitempty"`
-	Fields        []Field `json:"fields,omitempty"`
-	Id            *string `json:"id,omitempty"`
-	Origin        *string `json:"origin,omitempty"`
-	Title         *string `json:"title,omitempty"`
-	Version       *int32  `json:"version,omitempty"`
+	// Category is the corporate need the template serves: formation, equity, ops or sales. Formation and equity are the securities-class categories, which is what forces counselReview.
+	Category *string `json:"category,omitempty"`
+	// CounselReview marks a template whose rendered documents open with the counsel notice. True for every formation and equity template whatever an override sends: the engine prepends the notice and no caller can suppress it.
+	CounselReview *bool `json:"counselReview,omitempty"`
+	// Fields declares the merge fields the body consumes — every key a generation must supply, each with its human label. All are REQUIRED: a missing one is refused rather than rendered as a blank into a contract.
+	Fields []Field `json:"fields,omitempty"`
+	// ID is the template's stable id and the path segment that fetches its body — \"nda\", \"msa\", \"safe\". An override keeps the built-in's id.
+	Id *string `json:"id,omitempty"`
+	// Origin is \"builtin\" for a template the platform ships or \"org\" for one this org saved. It separates the catalog every tenant sees from this tenant's own.
+	Origin *string `json:"origin,omitempty"`
+	// Title is the display name, e.g. \"Mutual Non-Disclosure Agreement\". A generated document inherits it.
+	Title *string `json:"title,omitempty"`
+	// Version is which version of this template the caller's org resolves to. A built-in is version 1; the org's first override is 2 and each save increments, so an override version never collides with the built-in's.
+	Version *int32 `json:"version,omitempty"`
 }
 
 // NewTemplateView instantiates a new TemplateView object

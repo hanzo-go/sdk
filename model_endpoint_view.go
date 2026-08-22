@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &EndpointView{}
 
 // EndpointView struct for EndpointView
 type EndpointView struct {
+	// Connector names a connected account from the org's connector registry, when the endpoint reaches its provider through one. Absent means the locator stands on its own; the pair below is always sufficient either way.
 	Connector *string `json:"connector,omitempty"`
-	Locator   *string `json:"locator,omitempty"`
-	Provider  *string `json:"provider,omitempty"`
+	// Locator addresses the thing INSIDE that provider, in the provider's own terms — an https clone URL for a hosted forge, a bare repository name for hanzo-git. It never carries a credential.
+	Locator *string `json:"locator,omitempty"`
+	// Provider is the concrete integration: \"github\", \"gitlab\" or \"hanzo-git\".
+	Provider *string `json:"provider,omitempty"`
 }
 
 // NewEndpointView instantiates a new EndpointView object

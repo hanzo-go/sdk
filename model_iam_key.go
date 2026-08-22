@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -20,11 +20,15 @@ var _ MappedNullable = &IamKey{}
 
 // IamKey struct for IamKey
 type IamKey struct {
-	// AccessKey (pk-*) is the publishable identifier and lookup index; AccessSecret (sk-*) is the confidential secret.
-	AccessKey    *string    `json:"accessKey,omitempty"`
-	AccessSecret *string    `json:"accessSecret,omitempty"`
-	Application  *string    `json:"application,omitempty"`
-	CreatedAt    *time.Time `json:"createdAt,omitempty"`
+	// AccessKey (pk-*) is the publishable identifier and lookup index; AccessSecret (sk-*) is the confidential secret. AccessSecret IS NOT PERSISTED for a key minted at or after the digest change: it carries the secret out to its holder once, in the mint response, and the row keeps only AccessSecretDigest. It stays on the struct because that one-time reveal is the whole point of minting, and it stays in the schema because rows written before the change still hold a plaintext secret that the resolver drains on first use.
+	AccessKey    *string `json:"accessKey,omitempty"`
+	AccessSecret *string `json:"accessSecret,omitempty"`
+	// AccessSecretDigest is how a presented secret finds its key: the resolver digests what the caller sent and looks THAT up. It is what lets the row hold no plaintext and still be found in one indexed read — a salted hash cannot be looked up by value, which is the reason the plaintext was here.
+	AccessSecretDigest *string `json:"accessSecretDigest,omitempty"`
+	// Act is the durable, opt-in grant that lets this key act FOR a user in its own org — the credential behind as(): presenting it authorizes minting a short-lived, user-bound token for a member of the key's tenant. Default false, so a server key mints nothing on anyone's behalf until the grant is set deliberately — the capability is never inherited by every key. It is confined at mint time to the key's OWN Owner, and a reserved-org or SuperAdmin target is refused, so the grant reaches only ordinary members of the one tenant that holds the key.
+	Act         *bool      `json:"act,omitempty"`
+	Application *string    `json:"application,omitempty"`
+	CreatedAt   *time.Time `json:"createdAt,omitempty"`
 	// CreatedTime and UpdatedTime are RFC3339 audit stamps carried as strings for byte-parity with the v1 row (orm.Model separately tracks CreatedAt / UpdatedAt as time.Time for the store's own lifecycle).
 	CreatedTime *string `json:"createdTime,omitempty"`
 	Deleted     *bool   `json:"deleted,omitempty"`
@@ -126,6 +130,70 @@ func (o *IamKey) HasAccessSecret() bool {
 // SetAccessSecret gets a reference to the given string and assigns it to the AccessSecret field.
 func (o *IamKey) SetAccessSecret(v string) {
 	o.AccessSecret = &v
+}
+
+// GetAccessSecretDigest returns the AccessSecretDigest field value if set, zero value otherwise.
+func (o *IamKey) GetAccessSecretDigest() string {
+	if o == nil || IsNil(o.AccessSecretDigest) {
+		var ret string
+		return ret
+	}
+	return *o.AccessSecretDigest
+}
+
+// GetAccessSecretDigestOk returns a tuple with the AccessSecretDigest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamKey) GetAccessSecretDigestOk() (*string, bool) {
+	if o == nil || IsNil(o.AccessSecretDigest) {
+		return nil, false
+	}
+	return o.AccessSecretDigest, true
+}
+
+// HasAccessSecretDigest returns a boolean if a field has been set.
+func (o *IamKey) HasAccessSecretDigest() bool {
+	if o != nil && !IsNil(o.AccessSecretDigest) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccessSecretDigest gets a reference to the given string and assigns it to the AccessSecretDigest field.
+func (o *IamKey) SetAccessSecretDigest(v string) {
+	o.AccessSecretDigest = &v
+}
+
+// GetAct returns the Act field value if set, zero value otherwise.
+func (o *IamKey) GetAct() bool {
+	if o == nil || IsNil(o.Act) {
+		var ret bool
+		return ret
+	}
+	return *o.Act
+}
+
+// GetActOk returns a tuple with the Act field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamKey) GetActOk() (*bool, bool) {
+	if o == nil || IsNil(o.Act) {
+		return nil, false
+	}
+	return o.Act, true
+}
+
+// HasAct returns a boolean if a field has been set.
+func (o *IamKey) HasAct() bool {
+	if o != nil && !IsNil(o.Act) {
+		return true
+	}
+
+	return false
+}
+
+// SetAct gets a reference to the given bool and assigns it to the Act field.
+func (o *IamKey) SetAct(v bool) {
+	o.Act = &v
 }
 
 // GetApplication returns the Application field value if set, zero value otherwise.
@@ -655,6 +723,12 @@ func (o IamKey) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AccessSecret) {
 		toSerialize["accessSecret"] = o.AccessSecret
+	}
+	if !IsNil(o.AccessSecretDigest) {
+		toSerialize["accessSecretDigest"] = o.AccessSecretDigest
+	}
+	if !IsNil(o.Act) {
+		toSerialize["act"] = o.Act
 	}
 	if !IsNil(o.Application) {
 		toSerialize["application"] = o.Application

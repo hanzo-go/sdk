@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,26 +19,38 @@ var _ MappedNullable = &RegisterReq{}
 
 // RegisterReq struct for RegisterReq
 type RegisterReq struct {
+	// Account is which subscription or API account under that provider served the run, up to 256 characters. It is what lets a revoke of that login stop exactly the sessions it was paying for.
 	Account *string `json:"account,omitempty"`
-	Actor   *string `json:"actor,omitempty"`
-	Agent   *string `json:"agent,omitempty"`
-	Cwd     *string `json:"cwd,omitempty"`
+	// Actor is the \"org/sub\" identity to record the session under, up to 256 characters. Omit it and the calling principal is used, which is almost always what you want: it is what a login revoke matches on to stop this session.
+	Actor *string `json:"actor,omitempty"`
+	// Agent is the label the surface opening this session calls itself by (\"hanzo-dev\"). REQUIRED, up to 128 characters, and free text — nothing resolves it against a defined agent.
+	Agent *string `json:"agent,omitempty"`
+	// Cwd is the directory the session starts in, up to 1024 characters. It can be moved later, because a linked shell walks around.
+	Cwd *string `json:"cwd,omitempty"`
 	// Execution context — where this session runs (all optional).
-	Host            *string `json:"host,omitempty"`
+	Host *string `json:"host,omitempty"`
+	// ParentSessionID makes this a subagent of that session: it inherits the parent's root, so one flow stays one tree. The parent must exist IN THE SAME ORG — a foreign or unknown id is a 400, never a tree across tenants. Empty opens a root session.
 	ParentSessionId *string `json:"parentSessionId,omitempty"`
 	// The readable build (provenance.go): which product this session builds, and whether its story may be read by the world.
 	Project *string `json:"project,omitempty"`
 	// Account tag — the linked AI account this session ran under (login manager).
-	Provider       *string `json:"provider,omitempty"`
-	Published      *bool   `json:"published,omitempty"`
-	Repo           *string `json:"repo,omitempty"`
-	Status         *string `json:"status,omitempty"`
-	Target         *string `json:"target,omitempty"`
-	TaskRunId      *string `json:"taskRunId,omitempty"`
+	Provider *string `json:"provider,omitempty"`
+	// Published opens this session's story to the public build route. It is refused without a Project, because that route is keyed on (org, project) — a build with no product is not a story anyone can open. False keeps it org-only.
+	Published *bool `json:"published,omitempty"`
+	// Repo is the code being worked on, up to 512 characters. A label the surface states; nothing resolves it against the forge.
+	Repo *string `json:"repo,omitempty"`
+	// Status opens the session in one of running, paused, done or error. Empty means running. A TERMINAL status here (done, error) records a session that has already finished — its end time is stamped now — and nothing can move it afterwards.
+	Status *string `json:"status,omitempty"`
+	// Target names a run-target the org has registered. Unlike Host and Repo it IS resolved: a target that does not exist in this org is a 400, so a session can never claim to run on another tenant's machine. Empty names no machine.
+	Target *string `json:"target,omitempty"`
+	// TaskRunID is that workflow's particular run, same bound. Recorded, not resolved: this surface does not check the workflow exists.
+	TaskRunId *string `json:"taskRunId,omitempty"`
+	// TaskWorkflowID links this session to the hanzoai/tasks workflow that executes it, up to 256 characters. Set it and control commands are forwarded to that engine; leave it and the running surface polls for them instead.
 	TaskWorkflowId *string `json:"taskWorkflowId,omitempty"`
 	// Terminal is the URL this session's live terminal is published at, so the console can watch it. Optional — a session that publishes nothing is still a session.
 	Terminal *string `json:"terminal,omitempty"`
-	Title    *string `json:"title,omitempty"`
+	// Title is the human line a card shows, up to 512 characters. Optional, and changeable later.
+	Title *string `json:"title,omitempty"`
 }
 
 // NewRegisterReq instantiates a new RegisterReq object

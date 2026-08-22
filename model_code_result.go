@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,7 @@ var _ MappedNullable = &CodeResult{}
 
 // CodeResult struct for CodeResult
 type CodeResult struct {
-	// Files are what this run CREATED OR CHANGED, decided by mtime against a marker taken before the program started — so it is the run's output, not a listing of the directory. Fetch each from GET /v1/download/{session}/{id}.
+	// Files are what this run CREATED OR CHANGED, decided by mtime against a marker taken before the program started — so it is the run's output, not a listing of the directory. Fetch each from GET /v1/exec/download/{session}/{id}.
 	Files []CodeFile `json:"files,omitempty"`
 	// SessionID is the sandbox this run used — the one that was passed in, or the fresh one that was leased. Pass it to the next run to keep the filesystem.
 	SessionId *string `json:"session_id,omitempty"`

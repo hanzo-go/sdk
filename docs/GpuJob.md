@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attempt** | Pointer to **int32** |  | [optional] 
-**CloseTime** | Pointer to **string** |  | [optional] 
-**FailureCause** | Pointer to **string** |  | [optional] 
-**Gpu** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
-**LastHeartbeat** | Pointer to **string** |  | [optional] 
-**LeaseExpiry** | Pointer to **string** |  | [optional] 
-**RunId** | Pointer to **string** |  | [optional] 
-**StartTime** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** | queued|running|completed|failed|canceled | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
-**Worker** | Pointer to **string** |  | [optional] 
+**Attempt** | Pointer to **int32** | Attempt is which try this is, counting from 1. Above 1 means the job was retried after a failed or abandoned run. | [optional] 
+**CloseTime** | Pointer to **string** | CloseTime is when the job reached a terminal state, RFC 3339. Empty means it is still live — queued, running or stalled. | [optional] 
+**FailureCause** | Pointer to **string** | FailureCause is the engine&#39;s reason the job failed. Empty unless it did. | [optional] 
+**Gpu** | Pointer to **string** | GPU is the node this job is aimed AT — the lane \&quot;gpu:&lt;node&gt;\&quot; it was submitted on. Empty means the shared any-GPU lane: it was not aimed anywhere and the first free worker takes it. | [optional] 
+**Id** | Pointer to **string** | ID is the job&#39;s id, and the id the cancel route takes. The dispatcher sets it equal to the render&#39;s prompt id, so it is the same value the studio knows the job by. | [optional] 
+**Label** | Pointer to **string** | Label is the cheap human name for the render — the output filename prefix lifted out of the submitted graph. Empty when the graph carried none. The graph itself is never in this list; the tasks describe endpoint serves it. | [optional] 
+**LastHeartbeat** | Pointer to **string** | LastHeartbeat is the claiming worker&#39;s most recent beat on this job, RFC 3339 — the evidence a long render is still alive rather than wedged. | [optional] 
+**LeaseExpiry** | Pointer to **string** | LeaseExpiry is when the worker&#39;s claim lapses, RFC 3339. Past it with the job still STARTED, the claimant is presumed dead and Status reads \&quot;stalled\&quot;. | [optional] 
+**RunId** | Pointer to **string** | RunID identifies this execution of the job. It equals ID for a job the dispatcher submitted, which is why a cancel that omits it still works. | [optional] 
+**StartTime** | Pointer to **string** | StartTime is when a worker began executing the job, RFC 3339. Empty while it is still queued. | [optional] 
+**Status** | Pointer to **string** | Status is the job&#39;s lifecycle state: queued, running, completed, failed or canceled — plus \&quot;stalled\&quot;, which is this surface&#39;s own reading of a job that is STARTED whose worker died: its lease has elapsed and no reaper has taken it back yet. Without it such a job reads \&quot;running\&quot; forever. An engine state this surface does not recognize passes through lower-cased rather than being coerced into one of these. | [optional] 
+**Type** | Pointer to **string** | Type is the work being done (\&quot;studio.render\&quot;) — what the claiming worker has to be able to execute. | [optional] 
+**Worker** | Pointer to **string** | Worker is the node that actually CLAIMED the job, which is not always the one it was aimed at: a shared-lane job has no GPU but does have a Worker once picked up. Empty while the job is still waiting. | [optional] 
 
 ## Methods
 

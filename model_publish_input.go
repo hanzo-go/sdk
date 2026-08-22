@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,11 @@ var _ MappedNullable = &PublishInput{}
 
 // PublishInput struct for PublishInput
 type PublishInput struct {
+	// DocType is the content type holding the item: Campaign, SocialPost or Asset. Any other name is refused as an unknown content type.
 	Doctype *string `json:"doctype,omitempty"`
-	Name    *string `json:"name,omitempty"`
-	// \"\" = now
+	// Name is the document within that type — the item to distribute. Its caption, media and channel list come off the stored document, so this names WHICH item and says nothing about what goes out.
+	Name *string `json:"name,omitempty"`
+	// ScheduleAt hands a future go-live to the channel's own scheduler, as an ISO-8601 time. Empty posts now.
 	ScheduleAt *string `json:"scheduleAt,omitempty"`
 }
 

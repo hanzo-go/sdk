@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Provider** | Pointer to **string** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
-**Spec** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Name is the plugin&#39;s name: one lowercase path segment (a-z0-9, _ or -), and the id the runtime loads it by. | [optional] 
+**Provider** | Pointer to **string** | Provider is the connectors provider whose credential the plugin reads at run time. Empty for a plugin that needs none. | [optional] 
+**Source** | Pointer to **string** | Source is TypeScript to build as-is. Exactly one of Source or Spec. | [optional] 
+**Spec** | Pointer to **string** | Spec is API documentation — an OpenAPI document, or prose describing the endpoints — that the generator turns into Source. The generated source is returned in the response, so a caller can read what will run before it runs. | [optional] 
 
 ## Methods
 

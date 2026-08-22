@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &UsagePoint{}
 
 // UsagePoint struct for UsagePoint
 type UsagePoint struct {
-	Date       *string `json:"date,omitempty"`
-	Requests   *int32  `json:"requests,omitempty"`
-	SpendCents *int32  `json:"spendCents,omitempty"`
-	Tokens     *int32  `json:"tokens,omitempty"`
+	// Requests is how many LLM calls fell in this bucket.
+	Requests *int32 `json:"requests,omitempty"`
+	// SpendCents is what they cost, in cents.
+	SpendCents *int32 `json:"spendCents,omitempty"`
+	// T is the bucket's start, RFC3339 UTC, aligned to the interval.
+	T *string `json:"t,omitempty"`
+	// Tokens is prompt plus completion tokens over those calls.
+	Tokens *int32 `json:"tokens,omitempty"`
 }
 
 // NewUsagePoint instantiates a new UsagePoint object
@@ -40,38 +44,6 @@ func NewUsagePoint() *UsagePoint {
 func NewUsagePointWithDefaults() *UsagePoint {
 	this := UsagePoint{}
 	return &this
-}
-
-// GetDate returns the Date field value if set, zero value otherwise.
-func (o *UsagePoint) GetDate() string {
-	if o == nil || IsNil(o.Date) {
-		var ret string
-		return ret
-	}
-	return *o.Date
-}
-
-// GetDateOk returns a tuple with the Date field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UsagePoint) GetDateOk() (*string, bool) {
-	if o == nil || IsNil(o.Date) {
-		return nil, false
-	}
-	return o.Date, true
-}
-
-// HasDate returns a boolean if a field has been set.
-func (o *UsagePoint) HasDate() bool {
-	if o != nil && !IsNil(o.Date) {
-		return true
-	}
-
-	return false
-}
-
-// SetDate gets a reference to the given string and assigns it to the Date field.
-func (o *UsagePoint) SetDate(v string) {
-	o.Date = &v
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
@@ -138,6 +110,38 @@ func (o *UsagePoint) SetSpendCents(v int32) {
 	o.SpendCents = &v
 }
 
+// GetT returns the T field value if set, zero value otherwise.
+func (o *UsagePoint) GetT() string {
+	if o == nil || IsNil(o.T) {
+		var ret string
+		return ret
+	}
+	return *o.T
+}
+
+// GetTOk returns a tuple with the T field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsagePoint) GetTOk() (*string, bool) {
+	if o == nil || IsNil(o.T) {
+		return nil, false
+	}
+	return o.T, true
+}
+
+// HasT returns a boolean if a field has been set.
+func (o *UsagePoint) HasT() bool {
+	if o != nil && !IsNil(o.T) {
+		return true
+	}
+
+	return false
+}
+
+// SetT gets a reference to the given string and assigns it to the T field.
+func (o *UsagePoint) SetT(v string) {
+	o.T = &v
+}
+
 // GetTokens returns the Tokens field value if set, zero value otherwise.
 func (o *UsagePoint) GetTokens() int32 {
 	if o == nil || IsNil(o.Tokens) {
@@ -180,14 +184,14 @@ func (o UsagePoint) MarshalJSON() ([]byte, error) {
 
 func (o UsagePoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Date) {
-		toSerialize["date"] = o.Date
-	}
 	if !IsNil(o.Requests) {
 		toSerialize["requests"] = o.Requests
 	}
 	if !IsNil(o.SpendCents) {
 		toSerialize["spendCents"] = o.SpendCents
+	}
+	if !IsNil(o.T) {
+		toSerialize["t"] = o.T
 	}
 	if !IsNil(o.Tokens) {
 		toSerialize["tokens"] = o.Tokens

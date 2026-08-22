@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
-**Secret** | Pointer to **bool** |  | [optional] 
-**Value** | Pointer to **string** |  | [optional] 
+**Key** | Pointer to **string** | Key is the variable&#39;s name in the container, which must match &#x60;^[A-Za-z_][A-Za-z0-9_]*$&#x60;. For a sealed value it is also the last segment of the KMS ref, so it is what identifies the value across a round trip. | [optional] 
+**Secret** | Pointer to **bool** | Secret says the value lives in KMS and never in the database. A caller may only ADD secrecy: the server seals a value whose key or shape looks like a credential anyway (secretshape.go), so an entry can come back secret that was not sent that way. | [optional] 
+**Value** | Pointer to **string** | Value is the plaintext, and it is WRITE-ONLY once the entry is secret: a sealed value reads back as \&quot;\&quot;, and sending \&quot;\&quot; again KEEPS what is sealed rather than wiping it. Only a non-empty value seals a new one. | [optional] 
 
 ## Methods
 

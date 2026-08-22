@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,17 @@ var _ MappedNullable = &SampleIngest{}
 
 // SampleIngest struct for SampleIngest
 type SampleIngest struct {
+	// GPUModel names the representative accelerator (\"GB10\"); GPUs carries how many. A heterogeneous host names its first card rather than inventing a summary.
 	GpuModel *string `json:"gpuModel,omitempty"`
 	// GPUUtil is accelerator utilization as a fraction 0..1; the warehouse clamps anything outside that.
 	GpuUtil *float32 `json:"gpuUtil,omitempty"`
-	// GPUs is how many accelerators the reading covers, GPUModel the representative model name.
+	// GPUs is how many accelerators this reading covers.
 	Gpus *int32 `json:"gpus,omitempty"`
 	// Host is the node's hostname, for display.
-	Host    *string `json:"host,omitempty"`
-	MemFree *int32  `json:"memFree,omitempty"`
-	// MemUsed and MemFree are host memory in bytes.
+	Host *string `json:"host,omitempty"`
+	// MemFree is host memory still available, in BYTES.
+	MemFree *int32 `json:"memFree,omitempty"`
+	// MemUsed is host memory in use, in BYTES.
 	MemUsed *int32 `json:"memUsed,omitempty"`
 	// Unit is the reporting node's own id — the same id it registered under, and the key the board joins this series onto. Required.
 	Unit *string `json:"unit,omitempty"`

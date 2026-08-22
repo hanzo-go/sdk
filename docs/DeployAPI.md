@@ -4,7 +4,6 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetDeployAccountCanIByWildcard1**](DeployAPI.md#GetDeployAccountCanIByWildcard1) | **Get** /v1/deploy/account/can-i/{wildcard1} | Compatibility answer the console UI asks before enabling its buttons
 [**GetDeployApplications**](DeployAPI.md#GetDeployApplications) | **Get** /v1/deploy/applications | Returns the fleet as an argocd ApplicationList: one projected Application per operator App CR, carrying the image tag the CR DECLARES, the tag actually RUNNING in the cluster&#39;s Deployment, the reconciled health, and the sync verdict those two produce (declared &#x3D;&#x3D; running ⇒ Synced, both known and different ⇒ OutOfSync, either unknown ⇒ Unknown).
 [**GetDeployApplicationsByName**](DeployAPI.md#GetDeployApplicationsByName) | **Get** /v1/deploy/applications/{name} | Returns ONE projected argocd Application by name, with status.resources filled in from its reconciled resource tree — which is what makes it the detail view rather than a row of the list.
 [**GetDeployApplicationsByNameResourceTree**](DeployAPI.md#GetDeployApplicationsByNameResourceTree) | **Get** /v1/deploy/applications/{name}/resource-tree | Returns one application&#39;s argocd ApplicationTree: the objects the operator reconciled from its App CR, reached by ownerRef — the Deployment and, under it, the ReplicaSet and Pods, plus the Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMaps it owns — each node carrying its parent edges and its health.
@@ -26,74 +25,6 @@ Method | HTTP request | Description
 [**PostDeployLogout**](DeployAPI.md#PostDeployLogout) | **Post** /v1/deploy/logout | End the console session on this host
 [**PostDeployReconcile**](DeployAPI.md#PostDeployReconcile) | **Post** /v1/deploy/reconcile | Render the configured git source and apply it to the cluster, once
 
-
-
-## GetDeployAccountCanIByWildcard1
-
-> GetDeployAccountCanIByWildcard1(ctx, wildcard1).Execute()
-
-Compatibility answer the console UI asks before enabling its buttons
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	wildcard1 := "wildcard1_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.GetDeployAccountCanIByWildcard1(context.Background(), wildcard1).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployAccountCanIByWildcard1``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wildcard1** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetDeployAccountCanIByWildcard1Request struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## GetDeployApplications

@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bound** | Pointer to [**[]ProjectsDomain**](ProjectsDomain.md) | Bound is the result of THIS call, one row per host in the request: live for an already-vouched host, pending with the DNS records to publish otherwise. | [optional] 
 **Domains** | Pointer to **[]string** | Domains are the hostnames that are VERIFIED and routing right now, after this bind. | [optional] 
-**Org** | Pointer to **string** | Org and Slug identify the site the hosts were bound to. | [optional] 
-**Slug** | Pointer to **string** |  | [optional] 
+**Org** | Pointer to **string** | Org is the organisation that owns the site. | [optional] 
+**Slug** | Pointer to **string** | Slug is the site the hosts were bound to. | [optional] 
 
 ## Methods
 

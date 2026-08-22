@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,7 +23,7 @@ type CreateEndpointIn struct {
 	Description *string `json:"description,omitempty"`
 	// Events are NATS subject patterns to subscribe to (e.g. \"commerce.order.>\"). An empty or omitted list means EVERY event on the platform bus. Max 64 patterns, each max 256 bytes.
 	Events []string `json:"events,omitempty"`
-	// Status is \"active\" or \"disabled\". Empty defaults to active. A disabled endpoint receives no bus deliveries, but can still be exercised with POST /v1/webhooks/{id}/test.
+	// Status is \"active\" or \"disabled\". Empty defaults to active. A disabled endpoint receives no bus deliveries, but can still be exercised with POST /v1/webhook/{id}/test.
 	Status *string `json:"status,omitempty"`
 	// URL is the https:// address each matching event is POSTed to. Required, max 2048 bytes; http:// and every other scheme is refused, because a webhook carries signed event data and must not travel in the clear.
 	Url *string `json:"url,omitempty"`

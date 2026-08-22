@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -16,10 +16,105 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // ExecAPIService ExecAPI service
 type ExecAPIService service
+
+type ExecAPIGetExecFilesBySidRequest struct {
+	ctx        context.Context
+	ApiService *ExecAPIService
+	sid        string
+}
+
+func (r ExecAPIGetExecFilesBySidRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetExecFilesBySidExecute(r)
+}
+
+/*
+GetExecFilesBySid List the files in an execution session
+
+Lists what a session's sandbox holds — the uploads a run can read and the artifacts it produced — each then fetched from /v1/exec/download.
+
+It answers a BARE JSON ARRAY of {name, lastModified}, where `name` is the same {session_id}/{fileId} identifier download takes, because that is what the client matches on. An object wrapper would be a wire change, which is why this is not a typed operation.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sid
+	@return ExecAPIGetExecFilesBySidRequest
+*/
+func (a *ExecAPIService) GetExecFilesBySid(ctx context.Context, sid string) ExecAPIGetExecFilesBySidRequest {
+	return ExecAPIGetExecFilesBySidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		sid:        sid,
+	}
+}
+
+// Execute executes the request
+func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecAPIService.GetExecFilesBySid")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/exec/files/{sid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"sid"+"}", url.PathEscape(parameterValueToString(r.sid, "sid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
 
 type ExecAPIPostExecRequest struct {
 	ctx        context.Context
@@ -56,11 +151,11 @@ status.
 Runs are stateful through `session_id`. Omit it and the run gets a fresh sandbox
 whose id comes back on the answer; pass that id again and the next run sees the
 same filesystem, so a program can write a file one call and read it the next.
-`files` names bytes already uploaded to a session (POST /v1/upload), copied in
+`files` names bytes already uploaded to a session (POST /v1/exec/upload), copied in
 before the program starts. `files` on the ANSWER is what the program created or
 changed, by comparison against a marker taken at start — so it is the run's real
 output, not a listing of the directory — and each is fetched from
-GET /v1/download/{session}/{name}.
+GET /v1/exec/download/{session}/{name}.
 
 The tenant is the caller's, never the body's, at every door. A typed op is also
 an MCP tool and an op-plane op; MCP's tools/call invokes it directly, with no
@@ -198,6 +293,96 @@ func (a *ExecAPIService) PostExecProgrammaticExecute(r ExecAPIPostExecProgrammat
 	}
 
 	localVarPath := localBasePath + "/v1/exec/programmatic"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ExecAPIPostExecUploadRequest struct {
+	ctx        context.Context
+	ApiService *ExecAPIService
+}
+
+func (r ExecAPIPostExecUploadRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostExecUploadExecute(r)
+}
+
+/*
+PostExecUpload Upload a file into an execution session
+
+Takes a multipart upload and writes the file into the session's sandbox, so a later run can read it. Answers the session id and the identifier the file is addressed by; `session_id` in the form joins an existing session instead of opening one.
+
+The body is multipart/form-data, which is why this is not a typed operation: every non-empty typed body is decoded as JSON.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ExecAPIPostExecUploadRequest
+*/
+func (a *ExecAPIService) PostExecUpload(ctx context.Context) ExecAPIPostExecUploadRequest {
+	return ExecAPIPostExecUploadRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ExecAPIService) PostExecUploadExecute(r ExecAPIPostExecUploadRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecAPIService.PostExecUpload")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/exec/upload"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

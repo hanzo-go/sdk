@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &BuildOut{}
 
 // BuildOut struct for BuildOut
 type BuildOut struct {
-	Bytes     *int32          `json:"bytes,omitempty"`
-	Generated *bool           `json:"generated,omitempty"`
-	Plugin    *AuthoredPlugin `json:"plugin,omitempty"`
+	// Bytes is the size of the bundled CommonJS the runtime will execute.
+	Bytes *int32 `json:"bytes,omitempty"`
+	// Generated is whether a model wrote the source from a spec, rather than the caller posting the source itself.
+	Generated *bool `json:"generated,omitempty"`
+	// Plugin is the plugin as stored, with its derived id and build time.
+	Plugin *AuthoredPlugin `json:"plugin,omitempty"`
 }
 
 // NewBuildOut instantiates a new BuildOut object

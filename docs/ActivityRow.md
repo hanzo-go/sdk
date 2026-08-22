@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
-**Actor** | Pointer to **string** |  | [optional] 
-**At** | Pointer to **string** |  | [optional] 
-**Detail** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **int32** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
+**Action** | Pointer to **string** | Action is one of created, updated, deleted. | [optional] 
+**Actor** | Pointer to **string** | Actor is the email of the principal who made the change. Empty for a write by an in-process composer; a project key can never appear here, because evaluating flags is all a key may do. | [optional] 
+**At** | Pointer to **string** | At is when the change was made, RFC 3339 UTC. | [optional] 
+**Detail** | Pointer to **string** | Detail is free-form context about the change. Nothing writes it today, so it is absent from every row the store serves. | [optional] 
+**Id** | Pointer to **int32** | ID is the log&#39;s own sequence number, rising with each entry. The log is served newest-first, which is this descending. | [optional] 
+**Key** | Pointer to **string** | Key is the flag that changed. It survives a delete, so the log still names flags the definition store no longer holds. | [optional] 
 
 ## Methods
 

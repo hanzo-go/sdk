@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -28,10 +28,11 @@ type ClusterDetailView struct {
 	NodeCount     *int32         `json:"nodeCount,omitempty"`
 	NodePools     []NodePoolView `json:"nodePools,omitempty"`
 	NodeSize      *string        `json:"nodeSize,omitempty"`
-	Nodes         []MachineView  `json:"nodes,omitempty"`
-	NvidiaGpu     *int32         `json:"nvidiaGpu,omitempty"`
-	Region        *string        `json:"region,omitempty"`
-	Status        *string        `json:"status,omitempty"`
+	// Nodes is every worker node in the cluster, each in the same shape the machines surface uses — a node IS a machine, addressable by its own id. This is the individual hardware behind the pool counts above.
+	Nodes     []MachineView `json:"nodes,omitempty"`
+	NvidiaGpu *int32        `json:"nvidiaGpu,omitempty"`
+	Region    *string       `json:"region,omitempty"`
+	Status    *string       `json:"status,omitempty"`
 }
 
 // NewClusterDetailView instantiates a new ClusterDetailView object

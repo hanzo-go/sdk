@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -24,14 +24,17 @@ type PatchSessionIn struct {
 	// ID is the session to update, from the path.
 	Id *string `json:"id,omitempty"`
 	// Project tags the product this session built; Published is the author's decision to let anyone read the story (provenance.go). Both are pointers so \"absent\" and \"cleared\" are different requests.
-	Project   *string `json:"project,omitempty"`
-	Published *bool   `json:"published,omitempty"`
-	Status    *string `json:"status,omitempty"`
+	Project *string `json:"project,omitempty"`
+	// Published opens the session's story to the public build route; false withdraws it, and withdrawing is always allowed. PUBLISHING is refused unless the session names a Project — the one set in this same request, or the one already stored — because that route is keyed on (org, project). It widens READ access to what is already there and grants nothing else.
+	Published *bool `json:"published,omitempty"`
+	// Status moves the session to running, paused, done or error. A session that has already finished refuses any change with 409 — done and error are monotonic — and moving INTO one stamps the end time. This is the surface REPORTING what happened; a control command never writes it.
+	Status *string `json:"status,omitempty"`
 	// Target re-dispatches a session to a run-target (the #48 association). \"\" detaches.
 	Target *string `json:"target,omitempty"`
 	// Terminal publishes (or, with \"\", withdraws) the URL this session's live terminal can be watched at. A pointer so \"absent\" and \"withdrawn\" are different requests: a session that stops sharing must be able to say so.
 	Terminal *string `json:"terminal,omitempty"`
-	Title    *string `json:"title,omitempty"`
+	// Title rewrites the human line, up to 512 characters — usually because the work turned out to be something other than what it was opened as.
+	Title *string `json:"title,omitempty"`
 }
 
 // NewPatchSessionIn instantiates a new PatchSessionIn object

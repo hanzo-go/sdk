@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Args** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**Err** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Ok** | Pointer to **bool** |  | [optional] 
-**Result** | Pointer to **string** |  | [optional] 
-**StepId** | Pointer to **string** |  | [optional] 
-**Tool** | Pointer to **string** |  | [optional] 
+**Args** | Pointer to **string** | Args is the JSON the tool was called with, recorded as TEXT exactly as sent — including whatever the AI drafted into it — so a run can be read back and reproduced. It is a string, not an object. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is when the run was recorded, as Unix seconds. The ledger is read newest-first on this column. | [optional] 
+**Err** | Pointer to **string** | Err is why the run failed, when it did. Empty on a successful run. | [optional] 
+**Id** | Pointer to **string** | ID identifies this one execution. The ledger is append-only, so an id is never reused and never updated. | [optional] 
+**Ok** | Pointer to **bool** | OK is whether the tool ran to completion. It is the ledger&#39;s own verdict, not the tool&#39;s opinion of the outcome — a tool that succeeded at reporting bad news is ok. | [optional] 
+**Result** | Pointer to **string** | Result is the tool&#39;s own answer, likewise recorded as JSON text. Present on a failed run too, where the tool answered but the answer was a refusal. | [optional] 
+**StepId** | Pointer to **string** | StepID is the checklist step the Business AI was acting on. | [optional] 
+**Tool** | Pointer to **string** | Tool is the MCP tool that was dispatched, by name. | [optional] 
 
 ## Methods
 

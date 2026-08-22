@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Slug** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Name is the site&#39;s display name. | [optional] 
+**Slug** | Pointer to **string** | Slug is the site&#39;s handle — also the label of the host it serves at. | [optional] 
+**Status** | Pointer to **string** | Status is the project&#39;s state behind the site — whether it is serving, still building, or failed its last build. A site that is listed is not necessarily one that answers. | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the project last changed, as Unix seconds. | [optional] 
+**Url** | Pointer to **string** | URL is the pretty address readers use, not the object-store path behind it. | [optional] 
 
 ## Methods
 

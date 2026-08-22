@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &ContextBundle{}
 
 // ContextBundle struct for ContextBundle
 type ContextBundle struct {
-	BudgetTokens *int32  `json:"budgetTokens,omitempty"`
-	Query        *string `json:"query,omitempty"`
-	Repo         *string `json:"repo,omitempty"`
-	Spans        []Span  `json:"spans,omitempty"`
-	UsedTokens   *int32  `json:"usedTokens,omitempty"`
+	// BudgetTokens is the ceiling the caller asked for. Packing stops under it, so this is a bound and not a target.
+	BudgetTokens *int32 `json:"budgetTokens,omitempty"`
+	// Query is the ask this bundle was packed for, echoed back so a cached or forwarded bundle still says what it answers.
+	Query *string `json:"query,omitempty"`
+	// Repo narrows the retrieval to one repository. Absent means every indexed repo was searched.
+	Repo *string `json:"repo,omitempty"`
+	// Spans are the packed chunks, most relevant first, each expanded with the definitions it calls and its notable callers. The top match is always present even if it had to be truncated to fit, so a matched query never comes back with nothing.
+	Spans []Span `json:"spans,omitempty"`
+	// UsedTokens is what the returned spans actually cost, by the same estimate the packer used (roughly one token per four characters — an estimate, not a tokenizer's count, so size a real window with headroom).
+	UsedTokens *int32 `json:"usedTokens,omitempty"`
 }
 
 // NewContextBundle instantiates a new ContextBundle object

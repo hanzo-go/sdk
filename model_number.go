@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,22 @@ var _ MappedNullable = &Number{}
 
 // Number struct for Number
 type Number struct {
-	// voice | sms | mms | fax
-	Capable  []string `json:"capable,omitempty"`
-	Country  *string  `json:"country,omitempty"`
-	Currency *string  `json:"currency,omitempty"`
-	E164     *string  `json:"e164,omitempty"`
-	Id       *string  `json:"id,omitempty"`
-	// minor units, as the carrier quoted it
-	Monthly *int32  `json:"monthly,omitempty"`
-	Org     *string `json:"org,omitempty"`
-	Type    *string `json:"type,omitempty"`
+	// Capable is what the number can carry: any of \"voice\", \"sms\", \"mms\", \"fax\". A number missing \"sms\" cannot send one no matter what this platform does.
+	Capable []string `json:"capable,omitempty"`
+	// Country is the ISO 3166-1 alpha-2 code the number is issued under. Numbering is national, so this is what makes a search answerable at all.
+	Country *string `json:"country,omitempty"`
+	// Currency is the ISO 4217 code Monthly is denominated in. Without it the number beside it means nothing, so the two are always read together.
+	Currency *string `json:"currency,omitempty"`
+	// E164 is the number in E.164: a leading + and digits only, no spaces or dashes. That is what a carrier accepts and what a search result must be bought by.
+	E164 *string `json:"e164,omitempty"`
+	// ID is the carrier's handle for the number, and the id every route here addresses it by. It is not the number itself — see E164.
+	Id *string `json:"id,omitempty"`
+	// Monthly is the recurring rental in the MINOR unit of Currency (cents for USD), exactly as the carrier quoted it. It is a price, not a charge: nothing is billed by this field.
+	Monthly *int32 `json:"monthly,omitempty"`
+	// Org is the tenant holding the number. A search result carries none — nobody holds it yet — which is how an available number is told from a held one.
+	Org *string `json:"org,omitempty"`
+	// Type is what kind of number it is: \"local\", \"national\", \"tollfree\" or \"mobile\". It decides both price and what a carrier will let it originate.
+	Type *string `json:"type,omitempty"`
 }
 
 // NewNumber instantiates a new Number object

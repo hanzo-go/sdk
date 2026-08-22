@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -25,7 +25,7 @@ type Enrollment struct {
 	Channel *string `json:"channel,omitempty"`
 	// CurrentStep is the index of the step that sends next.
 	CurrentStep *int32 `json:"currentStep,omitempty"`
-	// EnrolledAt and UpdatedAt are unix seconds.
+	// EnrolledAt is unix seconds when the contact joined the walk, and orders the enrollment list (newest first).
 	EnrolledAt *int32 `json:"enrolledAt,omitempty"`
 	// ID is the server-assigned enrollment id (\"enr_\" + 128 random bits).
 	Id *string `json:"id,omitempty"`
@@ -34,8 +34,9 @@ type Enrollment struct {
 	// SequenceID is the sequence being walked.
 	SequenceId *string `json:"sequenceId,omitempty"`
 	// Status is active, completed or canceled.
-	Status    *string `json:"status,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// UpdatedAt is unix seconds of the last move: the drip engine writes it each time it advances the walk a step, completes it or cancels it. Together with Status it says when the walk last did anything, which is how a stalled enrollment is told from a finished one.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 }
 
 // NewEnrollment instantiates a new Enrollment object

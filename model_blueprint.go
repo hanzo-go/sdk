@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,24 @@ var _ MappedNullable = &Blueprint{}
 
 // Blueprint struct for Blueprint
 type Blueprint struct {
-	Brand   *string `json:"brand,omitempty"`
-	Enabled *bool   `json:"enabled,omitempty"`
-	// the 64-principle spine (Zen of Hanzo archetypes)
-	Principles []Principle   `json:"principles,omitempty"`
-	Sections   []Section     `json:"sections,omitempty"`
-	Steps      []JourneyStep `json:"steps,omitempty"`
-	Strategies []Strategy    `json:"strategies,omitempty"`
-	Templates  []Page        `json:"templates,omitempty"`
-	Title      *string       `json:"title,omitempty"`
-	Version    *string       `json:"version,omitempty"`
+	// Brand is the white-label key this playbook serves. Empty is the shared default every unbranded deployment falls back to.
+	Brand *string `json:"brand,omitempty"`
+	// Enabled is the whole-playbook lever. Absent reads as ON; an explicit false makes resolution skip this playbook entirely and fall through to the next tier, rather than serving an empty journey.
+	Enabled *bool `json:"enabled,omitempty"`
+	// Principles are the fixed 64-archetype spine a tactic files under. It is authored data an operator organises the corpus by; nothing in the checklist engine reads it.
+	Principles []Principle `json:"principles,omitempty"`
+	// Sections are the journey's ordered phases.
+	Sections []Section `json:"sections,omitempty"`
+	// Steps are every checklist item, disabled ones included — this is the authored document, not the projection an org runs.
+	Steps []JourneyStep `json:"steps,omitempty"`
+	// Strategies are the tactics corpus the recommendation reads narrow.
+	Strategies []Strategy `json:"strategies,omitempty"`
+	// Templates are the reusable prompts and snippets steps reference by id.
+	Templates []Page `json:"templates,omitempty"`
+	// Title is the playbook's name as a person reads it.
+	Title *string `json:"title,omitempty"`
+	// Version is the playbook's own name for this edition of its content, chosen by whoever authored it. It travels onto every journey projected from it. The store's numeric revision is a separate value and lives beside it.
+	Version *string `json:"version,omitempty"`
 }
 
 // NewBlueprint instantiates a new Blueprint object

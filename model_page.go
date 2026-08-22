@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &Page{}
 
 // Page struct for Page
 type Page struct {
-	Body    *string `json:"body,omitempty"`
-	Enabled *bool   `json:"enabled,omitempty"`
-	Id      *string `json:"id,omitempty"`
-	Title   *string `json:"title,omitempty"`
+	// Body is the reusable prompt or snippet itself. It may carry {placeholder} tokens for the client-specific bits — {client_name}, {domain}, {product} — which are substituted where the template is used, not here.
+	Body *string `json:"body,omitempty"`
+	// Enabled is the admin lever. Absent reads as ON; an explicit false withdraws the template from org-facing reads.
+	Enabled *bool `json:"enabled,omitempty"`
+	// ID is the slug a step references to pull this template in.
+	Id *string `json:"id,omitempty"`
+	// Title names the template in the authoring plane and in a picker.
+	Title *string `json:"title,omitempty"`
 }
 
 // NewPage instantiates a new Page object

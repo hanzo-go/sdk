@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -520,20 +520,28 @@ func (a *MlAPIService) PatchMlModelsByNameExecute(r MlAPIPatchMlModelsByNameRequ
 type MlAPIPostMlModelsRequest struct {
 	ctx        context.Context
 	ApiService *MlAPIService
+	mlCreate   *MlCreate
 }
 
-func (r MlAPIPostMlModelsRequest) Execute() (*http.Response, error) {
+func (r MlAPIPostMlModelsRequest) MlCreate(mlCreate MlCreate) MlAPIPostMlModelsRequest {
+	r.mlCreate = &mlCreate
+	return r
+}
+
+func (r MlAPIPostMlModelsRequest) Execute() (*MlResource, *http.Response, error) {
 	return r.ApiService.PostMlModelsExecute(r)
 }
 
 /*
-PostMlModels Deploy an inference model
+PostMlModels Deploys one inference model for the caller's org, and answers 201 with the model as Kubernetes admitted it.
 
-Deploys a model into the caller's own tenant namespace and answers the created resource, 201. The spec is the kserve InferenceService spec, relayed as given, so anything kserve serves is deployable here without this layer knowing what it is.
+Deploys one inference model for the caller's org, and answers 201
+with the model as Kubernetes admitted it.
 
-THE BALANCE GATE RUNS FIRST, before a namespace or a resource exists, so an unfunded org cannot start GPU compute and then be billed for it. It fails CLOSED: a commerce that cannot be reached refuses rather than admits. The refusal carries the fleet's nested error body — the 402 shape a funded-balance client already parses — which is precisely why this route is not a typed op. On success the submission fee is debited from the caller org's own ledger, asynchronously and best-effort; ongoing GPU-hour cost is metered elsewhere.
-
-The tenant namespace is derived from the VALIDATED org and project — never from a field — and the mapping is injective in both, so two tenants can never land in one namespace. An unvalidated caller is refused before any of that. The name must be a DNS-1123 label; a name already taken in the tenant's namespace is a 409.
+The `spec` is a kserve InferenceService spec, passed through unchanged — this
+plane owns the tenancy, the billing and the namespace, and kserve owns what a
+model IS. An unfunded org is refused BEFORE anything is created, so nobody runs
+free GPU compute and nobody is charged for a resource that was never made.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MlAPIPostMlModelsRequest
@@ -546,16 +554,19 @@ func (a *MlAPIService) PostMlModels(ctx context.Context) MlAPIPostMlModelsReques
 }
 
 // Execute executes the request
-func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*http.Response, error) {
+//
+//	@return MlResource
+func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*MlResource, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MlResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MlAPIService.PostMlModels")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/ml/models"
@@ -563,9 +574,12 @@ func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*http.Re
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.mlCreate == nil {
+		return localVarReturnValue, nil, reportError("mlCreate is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -574,28 +588,30 @@ func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*http.Re
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.mlCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -603,10 +619,19 @@ func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*http.Re
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type MlAPIPostMlModelsByNamePredictRequest struct {

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -20,14 +20,19 @@ var _ MappedNullable = &ProjectsCreate{}
 // ProjectsCreate struct for ProjectsCreate
 type ProjectsCreate struct {
 	// Analytics is the opt-OUT for the wired-by-default analytics beacon: absent (nil) ⇒ ON (the default); explicit false ⇒ off. A pointer so \"unset\" is distinguishable from \"false\" — the only way to turn the default off.
-	Analytics   *bool               `json:"analytics,omitempty"`
-	Description *string             `json:"description,omitempty"`
-	Framework   *string             `json:"framework,omitempty"`
-	License     *string             `json:"license,omitempty"`
-	Name        *string             `json:"name,omitempty"`
-	Repo        *ProjectsCreateRepo `json:"repo,omitempty"`
-	Slug        *string             `json:"slug,omitempty"`
-	// Upstream/License credit the third-party work this project was published from. Taken from any caller: disclaiming authorship can only cost the publisher credit, so it needs no gate (see Project.Upstream).
+	Analytics *bool `json:"analytics,omitempty"`
+	// Description is the one-line summary, copied onto anything forked from this project.
+	Description *string `json:"description,omitempty"`
+	// Framework is a BUILD HINT from a closed set, defaulting to static. It tells CI how to build a linked repo and never gates a deploy.
+	Framework *string `json:"framework,omitempty"`
+	// License is the terms that upstream work carries.
+	License *string `json:"license,omitempty"`
+	// Name is the project's display name and the only REQUIRED field. When slug is omitted it is also what the slug is derived from.
+	Name *string             `json:"name,omitempty"`
+	Repo *ProjectsCreateRepo `json:"repo,omitempty"`
+	// Slug is the handle everything else addresses this project by: the public host `<slug>.hanzo.app`, the object-store key segment, and the path parameter of every later call. Derived from the name when omitted. It is a hostname label, so it is constrained and reserved labels such as `api` or `admin` are refused.
+	Slug *string `json:"slug,omitempty"`
+	// Upstream credits the third-party work this project was published from. It is accepted from any caller: giving away credit can only cost the publisher, so it needs no gate.
 	Upstream *string `json:"upstream,omitempty"`
 	// Visibility is \"public\" (the default when absent) or \"private\". Publishing publicly is ungated — that is the point of a community. Going PRIVATE is the paid feature, so an unfunded org asking for it is refused rather than silently downgraded (see resolve).
 	Visibility *string `json:"visibility,omitempty"`

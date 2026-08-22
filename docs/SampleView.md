@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**At** | Pointer to **string** |  | [optional] 
-**CostCents** | Pointer to **int32** |  | [optional] 
-**Cpus** | Pointer to **int32** |  | [optional] 
-**GpuModel** | Pointer to **string** |  | [optional] 
-**GpuUtil** | Pointer to **float32** |  | [optional] 
-**Gpus** | Pointer to **int32** |  | [optional] 
-**Host** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Load1** | Pointer to **float32** |  | [optional] 
-**Load5** | Pointer to **float32** |  | [optional] 
-**Load15** | Pointer to **float32** |  | [optional] 
-**MemFree** | Pointer to **int32** |  | [optional] 
-**MemUsed** | Pointer to **int32** |  | [optional] 
-**Memory** | Pointer to **int32** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
-**Unit** | Pointer to **string** |  | [optional] 
+**At** | Pointer to **string** | At is when the reading was MEASURED, RFC 3339 in UTC — the x-axis a chart plots against. The series is returned oldest first, so it only increases. | [optional] 
+**CostCents** | Pointer to **int32** | CostCents is what this unit resold for over the hour the reading falls in, in whole US cents. 0 means UNPRICED, not free: the operator&#39;s own machines — a linked run-target, a dialed-in BYO worker — are metered for utilization and never resold, so only a priced source ever fills it. | [optional] 
+**Cpus** | Pointer to **int32** | CPUs is logical cores. The static capability rides every row on purpose: a chart can size load against cores without joining a registry whose row may since have been rewritten or the unit deregistered. | [optional] 
+**GpuModel** | Pointer to **string** | GPUModel names the representative accelerator (\&quot;GB10\&quot;); GPUs carries how many. | [optional] 
+**GpuUtil** | Pointer to **float32** | GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy. Anything a reporter sends outside 0..1 is clamped into it on write. | [optional] 
+**Gpus** | Pointer to **int32** | GPUs is how many accelerators the reading covers. | [optional] 
+**Host** | Pointer to **string** | Host is the hostname the unit reported at the time of the reading. | [optional] 
+**Kind** | Pointer to **string** | Kind is what the measured unit is: laptop, cloud, gpu, cluster, machine or worker. | [optional] 
+**Load1** | Pointer to **float32** | Load1 is the 1-minute load average — runnable processes, not a percentage. | [optional] 
+**Load5** | Pointer to **float32** | Load5 is the 5-minute load average, the same units as Load1. | [optional] 
+**Load15** | Pointer to **float32** | Load15 is the 15-minute load average, the same units as Load1. | [optional] 
+**MemFree** | Pointer to **int32** | MemFree is host memory available, in BYTES, as reported rather than derived. | [optional] 
+**MemUsed** | Pointer to **int32** | MemUsed is host memory in use, in BYTES. | [optional] 
+**Memory** | Pointer to **int32** | Memory is total system RAM in BYTES at the time of the reading. | [optional] 
+**Source** | Pointer to **string** | Source is the plane that reported the reading: \&quot;agent\&quot;, \&quot;byo\&quot; or \&quot;visor\&quot; — the same vocabulary the board&#39;s rows carry, and what ?source&#x3D; narrows on. | [optional] 
+**Unit** | Pointer to **string** | Unit is the source&#39;s own id for the measured unit. With Source it is the key the chart groups by, and the key the board joins a unit&#39;s latest reading on. | [optional] 
 
 ## Methods
 

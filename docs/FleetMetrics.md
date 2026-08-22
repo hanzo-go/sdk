@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**At** | Pointer to **string** |  | [optional] 
-**GpuUtil** | Pointer to **float32** |  | [optional] 
-**Load1** | Pointer to **float32** |  | [optional] 
-**MemFree** | Pointer to **int32** |  | [optional] 
-**MemUsed** | Pointer to **int32** |  | [optional] 
+**At** | Pointer to **string** | At is when this reading was MEASURED, RFC 3339 in UTC — not when the board was built. A console decides staleness by comparing it to now; the board deliberately does not decide that for it. | [optional] 
+**GpuUtil** | Pointer to **float32** | GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy, never 42. Across all of the unit&#39;s cards, not one of them. | [optional] 
+**Load1** | Pointer to **float32** | Load1 is the host&#39;s 1-minute load average — runnable processes, not a percentage, so it is read against the unit&#39;s core count and can exceed 1. | [optional] 
+**MemFree** | Pointer to **int32** | MemFree is host memory still available, in BYTES. It is what the source reported, not fleetSpec.Memory minus MemUsed. | [optional] 
+**MemUsed** | Pointer to **int32** | MemUsed is host memory in use, in BYTES. | [optional] 
 
 ## Methods
 

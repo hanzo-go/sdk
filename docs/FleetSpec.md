@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Arch** | Pointer to **string** |  | [optional] 
-**Cpus** | Pointer to **int32** |  | [optional] 
-**GpuModel** | Pointer to **string** |  | [optional] 
-**Gpus** | Pointer to **int32** |  | [optional] 
-**Memory** | Pointer to **int32** |  | [optional] 
-**Os** | Pointer to **string** |  | [optional] 
+**Arch** | Pointer to **string** | Arch is the CPU architecture, amd64 or arm64, and it is what decides whether a binary built for the fleet will run here. Only the sources that report one carry it (a linked run-target, a BYO worker). | [optional] 
+**Cpus** | Pointer to **int32** | CPUs is logical cores on the unit. | [optional] 
+**GpuModel** | Pointer to **string** | GPUModel names the FIRST accelerator (\&quot;NVIDIA GB10\&quot;) as the representative of the set; GPUs carries how many. Empty for a cluster, whose cards are counted rather than modelled, and for a unit with none. | [optional] 
+**Gpus** | Pointer to **int32** | GPUs is how many accelerators the unit has. For a cluster it is the vendor totals summed across every node, so it counts cards, not machines. | [optional] 
+**Memory** | Pointer to **int32** | Memory is total system RAM in BYTES — not GB, and not what is free right now (fleetMetrics carries that). Absent when the source reports no RAM figure. | [optional] 
+**Os** | Pointer to **string** | OS is the operating system the unit runs: linux, darwin or windows. Empty when the source does not report one — a cluster row does not. | [optional] 
 
 ## Methods
 

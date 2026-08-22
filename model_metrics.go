@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,9 +23,12 @@ type Metrics struct {
 	At *int32 `json:"at,omitempty"`
 	// 0..1 aggregate utilization
 	GpuUtil *float32 `json:"gpuUtil,omitempty"`
-	Load1   *float32 `json:"load1,omitempty"`
-	Load5   *float32 `json:"load5,omitempty"`
-	Load15  *float32 `json:"load15,omitempty"`
+	// Load1 is the machine's own one-minute load average — a count of runnable and uninterruptible tasks, NOT a percentage and NOT already divided by core count, so it is read against Spec.CPUs: 8.0 is idle on 16 cores and swamped on 4. Coerced finite and non-negative on write, so 0 means either genuinely idle or nothing reported.
+	Load1 *float32 `json:"load1,omitempty"`
+	// Load5 is the same figure averaged over five minutes.
+	Load5 *float32 `json:"load5,omitempty"`
+	// Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking.
+	Load15 *float32 `json:"load15,omitempty"`
 	// bytes
 	MemFree *int32 `json:"memFree,omitempty"`
 	// bytes

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Arch** | Pointer to **string** | native target, e.g. \&quot;gfx1151\&quot; | [optional] 
-**MemoryTotal** | Pointer to **string** | VRAM (or unified pool), e.g. \&quot;122880 MiB\&quot; | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Unified** | Pointer to **bool** | unified CPU/GPU memory pool (APU / SoC) | [optional] 
+**Arch** | Pointer to **string** | Arch is the card&#39;s native compile target (\&quot;gfx1151\&quot;), which is what a kernel has to be built for. AMD reports one; NVIDIA cards leave it empty. | [optional] 
+**MemoryTotal** | Pointer to **string** | MemoryTotal is the card&#39;s VRAM in the units the host reported it in (\&quot;122880 MiB\&quot;) — a display string, not a byte count. On a unified part it is the shared CPU/GPU pool, so it is not memory reserved for the GPU. | [optional] 
+**Name** | Pointer to **string** | Name is the card&#39;s model exactly as its own tooling named it (\&quot;NVIDIA GB10\&quot;), never normalized — an operator matches what they see here against what nvidia-smi tells them on the box. | [optional] 
+**Unified** | Pointer to **bool** | Unified reports that CPU and GPU share one memory pool (an APU or SoC), so MemoryTotal is not private to the GPU and the host competes for it. | [optional] 
 
 ## Methods
 

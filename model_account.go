@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &Account{}
 
 // Account struct for Account
 type Account struct {
-	Name   *string `json:"name,omitempty"`
+	// Name is the account's human name, for a statement's line label.
+	Name *string `json:"name,omitempty"`
+	// Number is the posting key every voucher leg, rule and report references — stable, and the reason the chart is a fixed value rather than a table anybody can edit. It looks numeric and is a string: \"1000\" sorts and compares as text.
 	Number *string `json:"number,omitempty"`
-	Party  *string `json:"party,omitempty"`
-	Type   *string `json:"type,omitempty"`
+	// Party marks the account as carrying a SUBLEDGER — receivable is money owed to us, payable money we owe — so a leg posted here also writes a payment-ledger row against a counterparty. Absent means no subledger: a bank, wallet, revenue or cost account tracks no counterparty at all.
+	Party *string `json:"party,omitempty"`
+	// Type is the account's fundamental class, which is also its NORMAL balance side: asset and expense are debit-normal, liability, income and equity credit-normal.
+	Type *string `json:"type,omitempty"`
 }
 
 // NewAccount instantiates a new Account object

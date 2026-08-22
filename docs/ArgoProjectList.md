@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]ArgoProject**](ArgoProject.md) |  | [optional] 
-**Metadata** | Pointer to [**ArgoListMeta**](ArgoListMeta.md) |  | [optional] 
+**Items** | Pointer to [**[]ArgoProject**](ArgoProject.md) | Items is the projects visible to the caller — its own organization&#39;s, or every organization&#39;s for a SuperAdmin. A project named \&quot;default\&quot; is always present and is prepended when IAM does not carry one, because that is what an application with no project label groups under. | [optional] 
+**Metadata** | Pointer to [**ArgoListMeta**](ArgoListMeta.md) | Metadata is the list envelope the SPA expects; it carries no resume point. | [optional] 
 
 ## Methods
 

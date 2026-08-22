@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Commands** | Pointer to **[]string** | Commands is the command list the node reported. Same standing as Caps: a self-report, checked again at the socket before anything runs. | [optional] 
 **ConnectedAt** | Pointer to **string** | ConnectedAt is when this node&#39;s socket was established, RFC3339 UTC. | [optional] 
 **DisplayName** | Pointer to **string** | DisplayName is the human name the node reported for itself. | [optional] 
-**Id** | Pointer to **string** | ID is the node&#39;s own identifier within the org — the value POST /v1/bot/nodes/{id}/invoke addresses it by. | [optional] 
+**Id** | Pointer to **string** | ID is the node&#39;s own identifier within the org — the value POST /v1/node/{id}/invoke addresses it by. | [optional] 
 **Platform** | Pointer to **string** | Platform is the operating system and architecture the node reported. | [optional] 
 **Version** | Pointer to **string** | Version is the node agent&#39;s own version string. | [optional] 
 

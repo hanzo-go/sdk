@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**End** | Pointer to [**Position**](Position.md) |  | [optional] 
-**Start** | Pointer to [**Position**](Position.md) |  | [optional] 
+**End** | Pointer to [**Position**](Position.md) | End is the position just past the span, excluded — the range is half-open, so an empty range has Start equal to End. | [optional] 
+**Start** | Pointer to [**Position**](Position.md) | Start is the first position in the span, included. | [optional] 
 
 ## Methods
 

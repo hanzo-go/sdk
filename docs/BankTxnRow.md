@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** |  | [optional] 
-**Connector** | Pointer to **string** |  | [optional] 
-**Currency** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Direction** | Pointer to **string** |  | [optional] 
-**ExternalId** | Pointer to **string** |  | [optional] 
-**MatchedVoucher** | Pointer to **string** |  | [optional] 
-**Merchant** | Pointer to **string** |  | [optional] 
-**PostedAt** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**AmountCents** | Pointer to **int32** | AmountCents is the size of the movement in whole cents, always POSITIVE — direction carries the sign, so a caller must read both to know which way money went. | [optional] 
+**Connector** | Pointer to **string** | Connector names the feed this row arrived on — which bank or processor connection it was synced from. With externalId it is the row&#39;s identity, so re-syncing the same statement never books a second copy. | [optional] 
+**Currency** | Pointer to **string** | Currency is the ISO code the bank reported the line in. | [optional] 
+**Description** | Pointer to **string** | Description is the statement memo as the bank wrote it. | [optional] 
+**Direction** | Pointer to **string** | Direction is which way the money moved: an inflow into the account or an outflow from it, from the org&#39;s point of view. | [optional] 
+**ExternalId** | Pointer to **string** | ExternalID is the bank&#39;s OWN id for the line, carried verbatim. It is unique only within its connector. | [optional] 
+**MatchedVoucher** | Pointer to **string** | MatchedVoucher names the ledger voucher this line was reconciled against — the bill it paid, or the settlement it cleared. Absent when nothing matched, which for an inflow is what raises a question. | [optional] 
+**Merchant** | Pointer to **string** | Merchant is the counterparty the feed identified, where it did. | [optional] 
+**PostedAt** | Pointer to **string** | PostedAt is the bank&#39;s posting date for the line, not when we synced it. | [optional] 
+**Status** | Pointer to **string** | Status is where the line got to: posted (an outflow booked straight to an expense), settled (an outflow that paid down a scanned bill), reconciled (an inflow that cleared a pending settlement), transfer (a move between the org&#39;s own accounts, recorded but with no effect on the books), or unmatched (an inflow nobody could place, which is waiting on a human answer). | [optional] 
 
 ## Methods
 

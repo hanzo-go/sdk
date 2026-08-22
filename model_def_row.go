@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -20,10 +20,14 @@ var _ MappedNullable = &DefRow{}
 // DefRow struct for DefRow
 type DefRow struct {
 	Definition interface{} `json:"definition,omitempty"`
-	Key        *string     `json:"key,omitempty"`
-	UpdatedAt  *string     `json:"updated_at,omitempty"`
-	UpdatedBy  *string     `json:"updated_by,omitempty"`
-	Version    *int32      `json:"version,omitempty"`
+	// Key is the flag's primary key in the caller's (org, project) store, and the name evaluation looks it up by. On a write it is taken from the URL, never from the body: the stored document's own \"key\" is forced to match.
+	Key *string `json:"key,omitempty"`
+	// UpdatedAt is when the definition was last written, RFC 3339 UTC.
+	UpdatedAt *string `json:"updated_at,omitempty"`
+	// UpdatedBy is the email of the principal who last wrote it. Empty when the write came from an in-process composer (an experiment registering its own assignment flag) rather than from a signed-in person.
+	UpdatedBy *string `json:"updated_by,omitempty"`
+	// Version is 1 when the key was created and rises by one on every overwrite. It counts writes, not content changes: re-storing an identical document bumps it.
+	Version *int32 `json:"version,omitempty"`
 }
 
 // NewDefRow instantiates a new DefRow object

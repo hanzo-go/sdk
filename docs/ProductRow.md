@@ -4,22 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cluster** | Pointer to **string** | hanzo-k8s | [optional] 
-**DeclaredTag** | Pointer to **string** | spec.image.tag on the App CR (declared truth) | [optional] 
-**Drift** | Pointer to **bool** | any drift flag present | [optional] 
-**DriftSeverity** | Pointer to **string** | ok|yellow|red (rolled-up) | [optional] 
-**Env** | Pointer to **string** | main|test|dev (lifecycle namespace) | [optional] 
-**Health** | Pointer to **string** | green|yellow|red|unknown | [optional] 
-**Kind** | Pointer to **string** | operator App CR spec.role (sql|kv|generic|ingress) or \&quot;\&quot; | [optional] 
-**LatestTag** | Pointer to **string** | newest released tag (GH release reader — empty until wired) | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** | k8s namespace | [optional] 
-**Org** | Pointer to **string** | image namespace (hanzoai|luxfi|docker.io/…) | [optional] 
-**Phase** | Pointer to **string** | operator status.phase (Running/Creating/…) | [optional] 
-**Repo** | Pointer to **string** | owner/repo image coordinate | [optional] 
-**RunningTag** | Pointer to **string** | observed from the live Deployment | [optional] 
-**Tier** | Pointer to **string** | derived: cloud|data|edge|daemon|paas|app (grouping) | [optional] 
-**Updated** | Pointer to **string** |  | [optional] 
+**Orders** | Pointer to **int32** | Orders is how many order_completed events carried it. | [optional] 
+**ProductId** | Pointer to **string** | ProductID is the product the order events named. | [optional] 
+**Revenue** | Pointer to **float32** | Revenue is the total they carried, in the events&#39; own currency unit. | [optional] 
+**Units** | Pointer to **int32** | Units is the summed quantity sold. | [optional] 
 
 ## Methods
 
@@ -40,405 +28,105 @@ NewProductRowWithDefaults instantiates a new ProductRow object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetCluster
+### GetOrders
 
-`func (o *ProductRow) GetCluster() string`
+`func (o *ProductRow) GetOrders() int32`
 
-GetCluster returns the Cluster field if non-nil, zero value otherwise.
+GetOrders returns the Orders field if non-nil, zero value otherwise.
 
-### GetClusterOk
+### GetOrdersOk
 
-`func (o *ProductRow) GetClusterOk() (*string, bool)`
+`func (o *ProductRow) GetOrdersOk() (*int32, bool)`
 
-GetClusterOk returns a tuple with the Cluster field if it's non-nil, zero value otherwise
+GetOrdersOk returns a tuple with the Orders field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCluster
+### SetOrders
 
-`func (o *ProductRow) SetCluster(v string)`
+`func (o *ProductRow) SetOrders(v int32)`
 
-SetCluster sets Cluster field to given value.
+SetOrders sets Orders field to given value.
 
-### HasCluster
+### HasOrders
 
-`func (o *ProductRow) HasCluster() bool`
+`func (o *ProductRow) HasOrders() bool`
 
-HasCluster returns a boolean if a field has been set.
+HasOrders returns a boolean if a field has been set.
 
-### GetDeclaredTag
+### GetProductId
 
-`func (o *ProductRow) GetDeclaredTag() string`
+`func (o *ProductRow) GetProductId() string`
 
-GetDeclaredTag returns the DeclaredTag field if non-nil, zero value otherwise.
+GetProductId returns the ProductId field if non-nil, zero value otherwise.
 
-### GetDeclaredTagOk
+### GetProductIdOk
 
-`func (o *ProductRow) GetDeclaredTagOk() (*string, bool)`
+`func (o *ProductRow) GetProductIdOk() (*string, bool)`
 
-GetDeclaredTagOk returns a tuple with the DeclaredTag field if it's non-nil, zero value otherwise
+GetProductIdOk returns a tuple with the ProductId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDeclaredTag
+### SetProductId
 
-`func (o *ProductRow) SetDeclaredTag(v string)`
+`func (o *ProductRow) SetProductId(v string)`
 
-SetDeclaredTag sets DeclaredTag field to given value.
+SetProductId sets ProductId field to given value.
 
-### HasDeclaredTag
+### HasProductId
 
-`func (o *ProductRow) HasDeclaredTag() bool`
+`func (o *ProductRow) HasProductId() bool`
 
-HasDeclaredTag returns a boolean if a field has been set.
+HasProductId returns a boolean if a field has been set.
 
-### GetDrift
+### GetRevenue
 
-`func (o *ProductRow) GetDrift() bool`
+`func (o *ProductRow) GetRevenue() float32`
 
-GetDrift returns the Drift field if non-nil, zero value otherwise.
+GetRevenue returns the Revenue field if non-nil, zero value otherwise.
 
-### GetDriftOk
+### GetRevenueOk
 
-`func (o *ProductRow) GetDriftOk() (*bool, bool)`
+`func (o *ProductRow) GetRevenueOk() (*float32, bool)`
 
-GetDriftOk returns a tuple with the Drift field if it's non-nil, zero value otherwise
+GetRevenueOk returns a tuple with the Revenue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDrift
+### SetRevenue
 
-`func (o *ProductRow) SetDrift(v bool)`
+`func (o *ProductRow) SetRevenue(v float32)`
 
-SetDrift sets Drift field to given value.
+SetRevenue sets Revenue field to given value.
 
-### HasDrift
+### HasRevenue
 
-`func (o *ProductRow) HasDrift() bool`
+`func (o *ProductRow) HasRevenue() bool`
 
-HasDrift returns a boolean if a field has been set.
+HasRevenue returns a boolean if a field has been set.
 
-### GetDriftSeverity
+### GetUnits
 
-`func (o *ProductRow) GetDriftSeverity() string`
+`func (o *ProductRow) GetUnits() int32`
 
-GetDriftSeverity returns the DriftSeverity field if non-nil, zero value otherwise.
+GetUnits returns the Units field if non-nil, zero value otherwise.
 
-### GetDriftSeverityOk
+### GetUnitsOk
 
-`func (o *ProductRow) GetDriftSeverityOk() (*string, bool)`
+`func (o *ProductRow) GetUnitsOk() (*int32, bool)`
 
-GetDriftSeverityOk returns a tuple with the DriftSeverity field if it's non-nil, zero value otherwise
+GetUnitsOk returns a tuple with the Units field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDriftSeverity
+### SetUnits
 
-`func (o *ProductRow) SetDriftSeverity(v string)`
+`func (o *ProductRow) SetUnits(v int32)`
 
-SetDriftSeverity sets DriftSeverity field to given value.
+SetUnits sets Units field to given value.
 
-### HasDriftSeverity
+### HasUnits
 
-`func (o *ProductRow) HasDriftSeverity() bool`
+`func (o *ProductRow) HasUnits() bool`
 
-HasDriftSeverity returns a boolean if a field has been set.
-
-### GetEnv
-
-`func (o *ProductRow) GetEnv() string`
-
-GetEnv returns the Env field if non-nil, zero value otherwise.
-
-### GetEnvOk
-
-`func (o *ProductRow) GetEnvOk() (*string, bool)`
-
-GetEnvOk returns a tuple with the Env field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnv
-
-`func (o *ProductRow) SetEnv(v string)`
-
-SetEnv sets Env field to given value.
-
-### HasEnv
-
-`func (o *ProductRow) HasEnv() bool`
-
-HasEnv returns a boolean if a field has been set.
-
-### GetHealth
-
-`func (o *ProductRow) GetHealth() string`
-
-GetHealth returns the Health field if non-nil, zero value otherwise.
-
-### GetHealthOk
-
-`func (o *ProductRow) GetHealthOk() (*string, bool)`
-
-GetHealthOk returns a tuple with the Health field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHealth
-
-`func (o *ProductRow) SetHealth(v string)`
-
-SetHealth sets Health field to given value.
-
-### HasHealth
-
-`func (o *ProductRow) HasHealth() bool`
-
-HasHealth returns a boolean if a field has been set.
-
-### GetKind
-
-`func (o *ProductRow) GetKind() string`
-
-GetKind returns the Kind field if non-nil, zero value otherwise.
-
-### GetKindOk
-
-`func (o *ProductRow) GetKindOk() (*string, bool)`
-
-GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetKind
-
-`func (o *ProductRow) SetKind(v string)`
-
-SetKind sets Kind field to given value.
-
-### HasKind
-
-`func (o *ProductRow) HasKind() bool`
-
-HasKind returns a boolean if a field has been set.
-
-### GetLatestTag
-
-`func (o *ProductRow) GetLatestTag() string`
-
-GetLatestTag returns the LatestTag field if non-nil, zero value otherwise.
-
-### GetLatestTagOk
-
-`func (o *ProductRow) GetLatestTagOk() (*string, bool)`
-
-GetLatestTagOk returns a tuple with the LatestTag field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLatestTag
-
-`func (o *ProductRow) SetLatestTag(v string)`
-
-SetLatestTag sets LatestTag field to given value.
-
-### HasLatestTag
-
-`func (o *ProductRow) HasLatestTag() bool`
-
-HasLatestTag returns a boolean if a field has been set.
-
-### GetName
-
-`func (o *ProductRow) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *ProductRow) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *ProductRow) SetName(v string)`
-
-SetName sets Name field to given value.
-
-### HasName
-
-`func (o *ProductRow) HasName() bool`
-
-HasName returns a boolean if a field has been set.
-
-### GetNamespace
-
-`func (o *ProductRow) GetNamespace() string`
-
-GetNamespace returns the Namespace field if non-nil, zero value otherwise.
-
-### GetNamespaceOk
-
-`func (o *ProductRow) GetNamespaceOk() (*string, bool)`
-
-GetNamespaceOk returns a tuple with the Namespace field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNamespace
-
-`func (o *ProductRow) SetNamespace(v string)`
-
-SetNamespace sets Namespace field to given value.
-
-### HasNamespace
-
-`func (o *ProductRow) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
-
-### GetOrg
-
-`func (o *ProductRow) GetOrg() string`
-
-GetOrg returns the Org field if non-nil, zero value otherwise.
-
-### GetOrgOk
-
-`func (o *ProductRow) GetOrgOk() (*string, bool)`
-
-GetOrgOk returns a tuple with the Org field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrg
-
-`func (o *ProductRow) SetOrg(v string)`
-
-SetOrg sets Org field to given value.
-
-### HasOrg
-
-`func (o *ProductRow) HasOrg() bool`
-
-HasOrg returns a boolean if a field has been set.
-
-### GetPhase
-
-`func (o *ProductRow) GetPhase() string`
-
-GetPhase returns the Phase field if non-nil, zero value otherwise.
-
-### GetPhaseOk
-
-`func (o *ProductRow) GetPhaseOk() (*string, bool)`
-
-GetPhaseOk returns a tuple with the Phase field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPhase
-
-`func (o *ProductRow) SetPhase(v string)`
-
-SetPhase sets Phase field to given value.
-
-### HasPhase
-
-`func (o *ProductRow) HasPhase() bool`
-
-HasPhase returns a boolean if a field has been set.
-
-### GetRepo
-
-`func (o *ProductRow) GetRepo() string`
-
-GetRepo returns the Repo field if non-nil, zero value otherwise.
-
-### GetRepoOk
-
-`func (o *ProductRow) GetRepoOk() (*string, bool)`
-
-GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRepo
-
-`func (o *ProductRow) SetRepo(v string)`
-
-SetRepo sets Repo field to given value.
-
-### HasRepo
-
-`func (o *ProductRow) HasRepo() bool`
-
-HasRepo returns a boolean if a field has been set.
-
-### GetRunningTag
-
-`func (o *ProductRow) GetRunningTag() string`
-
-GetRunningTag returns the RunningTag field if non-nil, zero value otherwise.
-
-### GetRunningTagOk
-
-`func (o *ProductRow) GetRunningTagOk() (*string, bool)`
-
-GetRunningTagOk returns a tuple with the RunningTag field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRunningTag
-
-`func (o *ProductRow) SetRunningTag(v string)`
-
-SetRunningTag sets RunningTag field to given value.
-
-### HasRunningTag
-
-`func (o *ProductRow) HasRunningTag() bool`
-
-HasRunningTag returns a boolean if a field has been set.
-
-### GetTier
-
-`func (o *ProductRow) GetTier() string`
-
-GetTier returns the Tier field if non-nil, zero value otherwise.
-
-### GetTierOk
-
-`func (o *ProductRow) GetTierOk() (*string, bool)`
-
-GetTierOk returns a tuple with the Tier field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTier
-
-`func (o *ProductRow) SetTier(v string)`
-
-SetTier sets Tier field to given value.
-
-### HasTier
-
-`func (o *ProductRow) HasTier() bool`
-
-HasTier returns a boolean if a field has been set.
-
-### GetUpdated
-
-`func (o *ProductRow) GetUpdated() string`
-
-GetUpdated returns the Updated field if non-nil, zero value otherwise.
-
-### GetUpdatedOk
-
-`func (o *ProductRow) GetUpdatedOk() (*string, bool)`
-
-GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdated
-
-`func (o *ProductRow) SetUpdated(v string)`
-
-SetUpdated sets Updated field to given value.
-
-### HasUpdated
-
-`func (o *ProductRow) HasUpdated() bool`
-
-HasUpdated returns a boolean if a field has been set.
+HasUnits returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

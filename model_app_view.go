@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,34 +19,57 @@ var _ MappedNullable = &AppView{}
 
 // AppView struct for AppView
 type AppView struct {
-	BuildType           *string      `json:"buildType,omitempty"`
-	CreatedAt           *int32       `json:"createdAt,omitempty"`
-	CurrentDeploymentId *string      `json:"currentDeploymentId,omitempty"`
-	Description         *string      `json:"description,omitempty"`
-	Dockerfile          *string      `json:"dockerfile,omitempty"`
-	Domains             []string     `json:"domains,omitempty"`
-	Env                 []EnvVarJSON `json:"env,omitempty"`
-	Environment         *string      `json:"environment,omitempty"`
-	Health              *string      `json:"health,omitempty"`
-	Id                  *string      `json:"id,omitempty"`
-	Image               *ImageView   `json:"image,omitempty"`
-	Name                *string      `json:"name,omitempty"`
-	Namespace           *string      `json:"namespace,omitempty"`
-	Org                 *string      `json:"org,omitempty"`
-	Phase               *string      `json:"phase,omitempty"`
-	Port                *int32       `json:"port,omitempty"`
-	ProjectId           *string      `json:"projectId,omitempty"`
-	Replicas            *int32       `json:"replicas,omitempty"`
-	Repo                *GitSource   `json:"repo,omitempty"`
-	// \"\"|pending|syncing|ready|failed (secrets.go)
+	// BuildType is how a git app builds: `pack`, the zero-config default that detects the project, or `dockerfile`. An image app carries `image`, which means it never builds.
+	BuildType *string `json:"buildType,omitempty"`
+	// CreatedAt is when the app was created, unix seconds.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// CurrentDeploymentID is the deployment that is live — the pointer a deploy advances monotonically by version, so it never regresses to an older one. Empty until the first deploy reaches the cluster.
+	CurrentDeploymentId *string `json:"currentDeploymentId,omitempty"`
+	// Description is free text about what the app is. Nothing derives from it.
+	Description *string `json:"description,omitempty"`
+	// Dockerfile is the path inside the repo to build from, for buildType `dockerfile`. The build path keys off its presence, and it is validated at create against the same allowlist the privileged build enforces.
+	Dockerfile *string `json:"dockerfile,omitempty"`
+	// Domains are the ingress hosts rendered into the app's CR, its own `<slug>.<org>.<sites host>` first. That one is seeded at create and cannot be removed; a custom host joins only after add-domain and DNS verification.
+	Domains []string `json:"domains,omitempty"`
+	// Env is the app's environment variables, with every SECRET value masked to \"\" — the plaintext is in KMS and this surface never echoes it. That masking is why an empty secret value means \"keep what is sealed\" when posted back.
+	Env []EnvVarJSON `json:"env,omitempty"`
+	// Environment is the deploy target this app names, `production` when none was given. It is a LABEL: /v1/platform/environments derives the environment list from the apps that name one, so an environment exists as long as an app points at it and no route creates or deletes one.
+	Environment *string `json:"environment,omitempty"`
+	// Health rolls ready-vs-desired replicas up to a colour: green (all ready), yellow (some ready, or deliberately scaled to zero), red (none), or \"\" when the cluster reports no replica counts at all — unknown, never a guessed green.
+	Health *string `json:"health,omitempty"`
+	// ID is the server-minted application id (`app_…`). Routes address an app by project and slug; this is the key its deployments and builds carry.
+	Id *string `json:"id,omitempty"`
+	// Image is the image a source `image` app runs. For a git app only the tag is filled, stamped by the deploy that went live; the built ref is on the deployment.
+	Image *ImageView `json:"image,omitempty"`
+	// Name is the display name. It is not an address — the slug is.
+	Name *string `json:"name,omitempty"`
+	// Namespace is where the app's cluster objects live, `tenant-<org>`. It is derived from the validated org and is never accepted from a request.
+	Namespace *string `json:"namespace,omitempty"`
+	// Org is the tenant that owns the app. It comes from the validated identity, never from the request, and it is the boundary every route is scoped to.
+	Org *string `json:"org,omitempty"`
+	// Phase is the operator's own `status.phase` for the app's Service CR, read from the cluster on this request. Empty when there is no CR yet or the cluster could not be read.
+	Phase *string `json:"phase,omitempty"`
+	// Port is the container port traffic is sent to. 8080 when the create asked for none, or for one outside 1–65535.
+	Port *int32 `json:"port,omitempty"`
+	// ProjectID is the IAM project the app lives under, and it is that project's NAME — the (org,name) key IAM identifies it by, which is also what the `:project` path segment carries. There is no platform-minted project id.
+	ProjectId *string `json:"projectId,omitempty"`
+	// Replicas is how many copies the CR declares. It is CLAMPED to the deployment's ceiling rather than refused, so it can be below what was asked.
+	Replicas *int32 `json:"replicas,omitempty"`
+	// Repo is the git origin a source `git` app builds from, and the repo+branch a landed push has to match to build it.
+	Repo *GitSource `json:"repo,omitempty"`
+	// SecretSync is how far the app's secret env has got into the cluster: \"\"|pending|syncing|ready|failed (secrets.go). It is best-effort and never fails a deploy, so `pending` is ordinary right after one.
 	SecretSync *string `json:"secretSync,omitempty"`
-	// honest reason when not ready
+	// SecretSyncDetail is the honest reason when the sync is not ready — a missing CRD, an RBAC grant, a per-tenant credential. Empty when it is.
 	SecretSyncDetail *string `json:"secretSyncDetail,omitempty"`
-	Slug             *string `json:"slug,omitempty"`
-	Source           *string `json:"source,omitempty"`
-	Status           *string `json:"status,omitempty"`
-	// GiB; absent means stateless
+	// Slug is the app's identity in the cluster: the operator CR's name, the first label of its default host, and the `:app` path segment. Unique per project.
+	Slug *string `json:"slug,omitempty"`
+	// Source is what the app deploys FROM: `git`, which builds Repo, or `image`, which runs Image as it is. It decides whether a deploy builds at all.
+	Source *string `json:"source,omitempty"`
+	// Status is the lifecycle THIS store records: draft (created, nothing in the cluster yet), building, deploying, live, stopped or error. What the cluster itself says is Phase and Health.
+	Status *string `json:"status,omitempty"`
+	// StorageGB is the persistent volume size in GiB. Absent means stateless — no volume at all — and it is clamped like Replicas.
 	StorageGb *int32 `json:"storageGb,omitempty"`
+	// UpdatedAt is when it last changed, unix seconds. Every lifecycle transition moves it, so it tracks deploys as well as edits.
 	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 }
 

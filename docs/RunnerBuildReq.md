@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **DockerTarget** | Pointer to **string** | DockerTarget is the multi-stage build target to stop at. | [optional] 
 **Dockerfile** | Pointer to **string** | Dockerfile is the path to build from; empty uses the zero-config frontend. | [optional] 
 **Image** | Pointer to **string** | Image is the output image ref to push. Required on the image lane, and it must target a registry namespace the caller&#39;s org owns. | [optional] 
-**OrganizationId** | Pointer to **string** | OrgID attributes the build to an org. On the IAM path it defaults to the caller&#39;s own validated org, and a foreign one is refused unless the caller is a platform SuperAdmin. | [optional] 
 **Os** | Pointer to **string** | OS is the target operating system for the artifact lane. | [optional] 
 **Ref** | Pointer to **string** | Ref is the git ref to build when no SHA is given. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository clone URL to build. Required on the image lane. | [optional] 
@@ -263,31 +262,6 @@ SetImage sets Image field to given value.
 `func (o *RunnerBuildReq) HasImage() bool`
 
 HasImage returns a boolean if a field has been set.
-
-### GetOrganizationId
-
-`func (o *RunnerBuildReq) GetOrganizationId() string`
-
-GetOrganizationId returns the OrganizationId field if non-nil, zero value otherwise.
-
-### GetOrganizationIdOk
-
-`func (o *RunnerBuildReq) GetOrganizationIdOk() (*string, bool)`
-
-GetOrganizationIdOk returns a tuple with the OrganizationId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrganizationId
-
-`func (o *RunnerBuildReq) SetOrganizationId(v string)`
-
-SetOrganizationId sets OrganizationId field to given value.
-
-### HasOrganizationId
-
-`func (o *RunnerBuildReq) HasOrganizationId() bool`
-
-HasOrganizationId returns a boolean if a field has been set.
 
 ### GetOs
 

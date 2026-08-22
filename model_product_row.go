@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,36 +19,14 @@ var _ MappedNullable = &ProductRow{}
 
 // ProductRow struct for ProductRow
 type ProductRow struct {
-	// hanzo-k8s
-	Cluster *string `json:"cluster,omitempty"`
-	// spec.image.tag on the App CR (declared truth)
-	DeclaredTag *string `json:"declaredTag,omitempty"`
-	// any drift flag present
-	Drift *bool `json:"drift,omitempty"`
-	// ok|yellow|red (rolled-up)
-	DriftSeverity *string `json:"driftSeverity,omitempty"`
-	// main|test|dev (lifecycle namespace)
-	Env *string `json:"env,omitempty"`
-	// green|yellow|red|unknown
-	Health *string `json:"health,omitempty"`
-	// operator App CR spec.role (sql|kv|generic|ingress) or \"\"
-	Kind *string `json:"kind,omitempty"`
-	// newest released tag (GH release reader — empty until wired)
-	LatestTag *string `json:"latestTag,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	// k8s namespace
-	Namespace *string `json:"namespace,omitempty"`
-	// image namespace (hanzoai|luxfi|docker.io/…)
-	Org *string `json:"org,omitempty"`
-	// operator status.phase (Running/Creating/…)
-	Phase *string `json:"phase,omitempty"`
-	// owner/repo image coordinate
-	Repo *string `json:"repo,omitempty"`
-	// observed from the live Deployment
-	RunningTag *string `json:"runningTag,omitempty"`
-	// derived: cloud|data|edge|daemon|paas|app (grouping)
-	Tier    *string `json:"tier,omitempty"`
-	Updated *string `json:"updated,omitempty"`
+	// Orders is how many order_completed events carried it.
+	Orders *int32 `json:"orders,omitempty"`
+	// ProductID is the product the order events named.
+	ProductId *string `json:"productId,omitempty"`
+	// Revenue is the total they carried, in the events' own currency unit.
+	Revenue *float32 `json:"revenue,omitempty"`
+	// Units is the summed quantity sold.
+	Units *int32 `json:"units,omitempty"`
 }
 
 // NewProductRow instantiates a new ProductRow object
@@ -68,516 +46,132 @@ func NewProductRowWithDefaults() *ProductRow {
 	return &this
 }
 
-// GetCluster returns the Cluster field value if set, zero value otherwise.
-func (o *ProductRow) GetCluster() string {
-	if o == nil || IsNil(o.Cluster) {
+// GetOrders returns the Orders field value if set, zero value otherwise.
+func (o *ProductRow) GetOrders() int32 {
+	if o == nil || IsNil(o.Orders) {
+		var ret int32
+		return ret
+	}
+	return *o.Orders
+}
+
+// GetOrdersOk returns a tuple with the Orders field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductRow) GetOrdersOk() (*int32, bool) {
+	if o == nil || IsNil(o.Orders) {
+		return nil, false
+	}
+	return o.Orders, true
+}
+
+// HasOrders returns a boolean if a field has been set.
+func (o *ProductRow) HasOrders() bool {
+	if o != nil && !IsNil(o.Orders) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrders gets a reference to the given int32 and assigns it to the Orders field.
+func (o *ProductRow) SetOrders(v int32) {
+	o.Orders = &v
+}
+
+// GetProductId returns the ProductId field value if set, zero value otherwise.
+func (o *ProductRow) GetProductId() string {
+	if o == nil || IsNil(o.ProductId) {
 		var ret string
 		return ret
 	}
-	return *o.Cluster
+	return *o.ProductId
 }
 
-// GetClusterOk returns a tuple with the Cluster field value if set, nil otherwise
+// GetProductIdOk returns a tuple with the ProductId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductRow) GetClusterOk() (*string, bool) {
-	if o == nil || IsNil(o.Cluster) {
+func (o *ProductRow) GetProductIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ProductId) {
 		return nil, false
 	}
-	return o.Cluster, true
+	return o.ProductId, true
 }
 
-// HasCluster returns a boolean if a field has been set.
-func (o *ProductRow) HasCluster() bool {
-	if o != nil && !IsNil(o.Cluster) {
+// HasProductId returns a boolean if a field has been set.
+func (o *ProductRow) HasProductId() bool {
+	if o != nil && !IsNil(o.ProductId) {
 		return true
 	}
 
 	return false
 }
 
-// SetCluster gets a reference to the given string and assigns it to the Cluster field.
-func (o *ProductRow) SetCluster(v string) {
-	o.Cluster = &v
+// SetProductId gets a reference to the given string and assigns it to the ProductId field.
+func (o *ProductRow) SetProductId(v string) {
+	o.ProductId = &v
 }
 
-// GetDeclaredTag returns the DeclaredTag field value if set, zero value otherwise.
-func (o *ProductRow) GetDeclaredTag() string {
-	if o == nil || IsNil(o.DeclaredTag) {
-		var ret string
+// GetRevenue returns the Revenue field value if set, zero value otherwise.
+func (o *ProductRow) GetRevenue() float32 {
+	if o == nil || IsNil(o.Revenue) {
+		var ret float32
 		return ret
 	}
-	return *o.DeclaredTag
+	return *o.Revenue
 }
 
-// GetDeclaredTagOk returns a tuple with the DeclaredTag field value if set, nil otherwise
+// GetRevenueOk returns a tuple with the Revenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductRow) GetDeclaredTagOk() (*string, bool) {
-	if o == nil || IsNil(o.DeclaredTag) {
+func (o *ProductRow) GetRevenueOk() (*float32, bool) {
+	if o == nil || IsNil(o.Revenue) {
 		return nil, false
 	}
-	return o.DeclaredTag, true
+	return o.Revenue, true
 }
 
-// HasDeclaredTag returns a boolean if a field has been set.
-func (o *ProductRow) HasDeclaredTag() bool {
-	if o != nil && !IsNil(o.DeclaredTag) {
+// HasRevenue returns a boolean if a field has been set.
+func (o *ProductRow) HasRevenue() bool {
+	if o != nil && !IsNil(o.Revenue) {
 		return true
 	}
 
 	return false
 }
 
-// SetDeclaredTag gets a reference to the given string and assigns it to the DeclaredTag field.
-func (o *ProductRow) SetDeclaredTag(v string) {
-	o.DeclaredTag = &v
+// SetRevenue gets a reference to the given float32 and assigns it to the Revenue field.
+func (o *ProductRow) SetRevenue(v float32) {
+	o.Revenue = &v
 }
 
-// GetDrift returns the Drift field value if set, zero value otherwise.
-func (o *ProductRow) GetDrift() bool {
-	if o == nil || IsNil(o.Drift) {
-		var ret bool
+// GetUnits returns the Units field value if set, zero value otherwise.
+func (o *ProductRow) GetUnits() int32 {
+	if o == nil || IsNil(o.Units) {
+		var ret int32
 		return ret
 	}
-	return *o.Drift
+	return *o.Units
 }
 
-// GetDriftOk returns a tuple with the Drift field value if set, nil otherwise
+// GetUnitsOk returns a tuple with the Units field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductRow) GetDriftOk() (*bool, bool) {
-	if o == nil || IsNil(o.Drift) {
+func (o *ProductRow) GetUnitsOk() (*int32, bool) {
+	if o == nil || IsNil(o.Units) {
 		return nil, false
 	}
-	return o.Drift, true
+	return o.Units, true
 }
 
-// HasDrift returns a boolean if a field has been set.
-func (o *ProductRow) HasDrift() bool {
-	if o != nil && !IsNil(o.Drift) {
+// HasUnits returns a boolean if a field has been set.
+func (o *ProductRow) HasUnits() bool {
+	if o != nil && !IsNil(o.Units) {
 		return true
 	}
 
 	return false
 }
 
-// SetDrift gets a reference to the given bool and assigns it to the Drift field.
-func (o *ProductRow) SetDrift(v bool) {
-	o.Drift = &v
-}
-
-// GetDriftSeverity returns the DriftSeverity field value if set, zero value otherwise.
-func (o *ProductRow) GetDriftSeverity() string {
-	if o == nil || IsNil(o.DriftSeverity) {
-		var ret string
-		return ret
-	}
-	return *o.DriftSeverity
-}
-
-// GetDriftSeverityOk returns a tuple with the DriftSeverity field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetDriftSeverityOk() (*string, bool) {
-	if o == nil || IsNil(o.DriftSeverity) {
-		return nil, false
-	}
-	return o.DriftSeverity, true
-}
-
-// HasDriftSeverity returns a boolean if a field has been set.
-func (o *ProductRow) HasDriftSeverity() bool {
-	if o != nil && !IsNil(o.DriftSeverity) {
-		return true
-	}
-
-	return false
-}
-
-// SetDriftSeverity gets a reference to the given string and assigns it to the DriftSeverity field.
-func (o *ProductRow) SetDriftSeverity(v string) {
-	o.DriftSeverity = &v
-}
-
-// GetEnv returns the Env field value if set, zero value otherwise.
-func (o *ProductRow) GetEnv() string {
-	if o == nil || IsNil(o.Env) {
-		var ret string
-		return ret
-	}
-	return *o.Env
-}
-
-// GetEnvOk returns a tuple with the Env field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetEnvOk() (*string, bool) {
-	if o == nil || IsNil(o.Env) {
-		return nil, false
-	}
-	return o.Env, true
-}
-
-// HasEnv returns a boolean if a field has been set.
-func (o *ProductRow) HasEnv() bool {
-	if o != nil && !IsNil(o.Env) {
-		return true
-	}
-
-	return false
-}
-
-// SetEnv gets a reference to the given string and assigns it to the Env field.
-func (o *ProductRow) SetEnv(v string) {
-	o.Env = &v
-}
-
-// GetHealth returns the Health field value if set, zero value otherwise.
-func (o *ProductRow) GetHealth() string {
-	if o == nil || IsNil(o.Health) {
-		var ret string
-		return ret
-	}
-	return *o.Health
-}
-
-// GetHealthOk returns a tuple with the Health field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetHealthOk() (*string, bool) {
-	if o == nil || IsNil(o.Health) {
-		return nil, false
-	}
-	return o.Health, true
-}
-
-// HasHealth returns a boolean if a field has been set.
-func (o *ProductRow) HasHealth() bool {
-	if o != nil && !IsNil(o.Health) {
-		return true
-	}
-
-	return false
-}
-
-// SetHealth gets a reference to the given string and assigns it to the Health field.
-func (o *ProductRow) SetHealth(v string) {
-	o.Health = &v
-}
-
-// GetKind returns the Kind field value if set, zero value otherwise.
-func (o *ProductRow) GetKind() string {
-	if o == nil || IsNil(o.Kind) {
-		var ret string
-		return ret
-	}
-	return *o.Kind
-}
-
-// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetKindOk() (*string, bool) {
-	if o == nil || IsNil(o.Kind) {
-		return nil, false
-	}
-	return o.Kind, true
-}
-
-// HasKind returns a boolean if a field has been set.
-func (o *ProductRow) HasKind() bool {
-	if o != nil && !IsNil(o.Kind) {
-		return true
-	}
-
-	return false
-}
-
-// SetKind gets a reference to the given string and assigns it to the Kind field.
-func (o *ProductRow) SetKind(v string) {
-	o.Kind = &v
-}
-
-// GetLatestTag returns the LatestTag field value if set, zero value otherwise.
-func (o *ProductRow) GetLatestTag() string {
-	if o == nil || IsNil(o.LatestTag) {
-		var ret string
-		return ret
-	}
-	return *o.LatestTag
-}
-
-// GetLatestTagOk returns a tuple with the LatestTag field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetLatestTagOk() (*string, bool) {
-	if o == nil || IsNil(o.LatestTag) {
-		return nil, false
-	}
-	return o.LatestTag, true
-}
-
-// HasLatestTag returns a boolean if a field has been set.
-func (o *ProductRow) HasLatestTag() bool {
-	if o != nil && !IsNil(o.LatestTag) {
-		return true
-	}
-
-	return false
-}
-
-// SetLatestTag gets a reference to the given string and assigns it to the LatestTag field.
-func (o *ProductRow) SetLatestTag(v string) {
-	o.LatestTag = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *ProductRow) GetName() string {
-	if o == nil || IsNil(o.Name) {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *ProductRow) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *ProductRow) SetName(v string) {
-	o.Name = &v
-}
-
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
-func (o *ProductRow) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
-		var ret string
-		return ret
-	}
-	return *o.Namespace
-}
-
-// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
-		return nil, false
-	}
-	return o.Namespace, true
-}
-
-// HasNamespace returns a boolean if a field has been set.
-func (o *ProductRow) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
-func (o *ProductRow) SetNamespace(v string) {
-	o.Namespace = &v
-}
-
-// GetOrg returns the Org field value if set, zero value otherwise.
-func (o *ProductRow) GetOrg() string {
-	if o == nil || IsNil(o.Org) {
-		var ret string
-		return ret
-	}
-	return *o.Org
-}
-
-// GetOrgOk returns a tuple with the Org field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetOrgOk() (*string, bool) {
-	if o == nil || IsNil(o.Org) {
-		return nil, false
-	}
-	return o.Org, true
-}
-
-// HasOrg returns a boolean if a field has been set.
-func (o *ProductRow) HasOrg() bool {
-	if o != nil && !IsNil(o.Org) {
-		return true
-	}
-
-	return false
-}
-
-// SetOrg gets a reference to the given string and assigns it to the Org field.
-func (o *ProductRow) SetOrg(v string) {
-	o.Org = &v
-}
-
-// GetPhase returns the Phase field value if set, zero value otherwise.
-func (o *ProductRow) GetPhase() string {
-	if o == nil || IsNil(o.Phase) {
-		var ret string
-		return ret
-	}
-	return *o.Phase
-}
-
-// GetPhaseOk returns a tuple with the Phase field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetPhaseOk() (*string, bool) {
-	if o == nil || IsNil(o.Phase) {
-		return nil, false
-	}
-	return o.Phase, true
-}
-
-// HasPhase returns a boolean if a field has been set.
-func (o *ProductRow) HasPhase() bool {
-	if o != nil && !IsNil(o.Phase) {
-		return true
-	}
-
-	return false
-}
-
-// SetPhase gets a reference to the given string and assigns it to the Phase field.
-func (o *ProductRow) SetPhase(v string) {
-	o.Phase = &v
-}
-
-// GetRepo returns the Repo field value if set, zero value otherwise.
-func (o *ProductRow) GetRepo() string {
-	if o == nil || IsNil(o.Repo) {
-		var ret string
-		return ret
-	}
-	return *o.Repo
-}
-
-// GetRepoOk returns a tuple with the Repo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetRepoOk() (*string, bool) {
-	if o == nil || IsNil(o.Repo) {
-		return nil, false
-	}
-	return o.Repo, true
-}
-
-// HasRepo returns a boolean if a field has been set.
-func (o *ProductRow) HasRepo() bool {
-	if o != nil && !IsNil(o.Repo) {
-		return true
-	}
-
-	return false
-}
-
-// SetRepo gets a reference to the given string and assigns it to the Repo field.
-func (o *ProductRow) SetRepo(v string) {
-	o.Repo = &v
-}
-
-// GetRunningTag returns the RunningTag field value if set, zero value otherwise.
-func (o *ProductRow) GetRunningTag() string {
-	if o == nil || IsNil(o.RunningTag) {
-		var ret string
-		return ret
-	}
-	return *o.RunningTag
-}
-
-// GetRunningTagOk returns a tuple with the RunningTag field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetRunningTagOk() (*string, bool) {
-	if o == nil || IsNil(o.RunningTag) {
-		return nil, false
-	}
-	return o.RunningTag, true
-}
-
-// HasRunningTag returns a boolean if a field has been set.
-func (o *ProductRow) HasRunningTag() bool {
-	if o != nil && !IsNil(o.RunningTag) {
-		return true
-	}
-
-	return false
-}
-
-// SetRunningTag gets a reference to the given string and assigns it to the RunningTag field.
-func (o *ProductRow) SetRunningTag(v string) {
-	o.RunningTag = &v
-}
-
-// GetTier returns the Tier field value if set, zero value otherwise.
-func (o *ProductRow) GetTier() string {
-	if o == nil || IsNil(o.Tier) {
-		var ret string
-		return ret
-	}
-	return *o.Tier
-}
-
-// GetTierOk returns a tuple with the Tier field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetTierOk() (*string, bool) {
-	if o == nil || IsNil(o.Tier) {
-		return nil, false
-	}
-	return o.Tier, true
-}
-
-// HasTier returns a boolean if a field has been set.
-func (o *ProductRow) HasTier() bool {
-	if o != nil && !IsNil(o.Tier) {
-		return true
-	}
-
-	return false
-}
-
-// SetTier gets a reference to the given string and assigns it to the Tier field.
-func (o *ProductRow) SetTier(v string) {
-	o.Tier = &v
-}
-
-// GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *ProductRow) GetUpdated() string {
-	if o == nil || IsNil(o.Updated) {
-		var ret string
-		return ret
-	}
-	return *o.Updated
-}
-
-// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProductRow) GetUpdatedOk() (*string, bool) {
-	if o == nil || IsNil(o.Updated) {
-		return nil, false
-	}
-	return o.Updated, true
-}
-
-// HasUpdated returns a boolean if a field has been set.
-func (o *ProductRow) HasUpdated() bool {
-	if o != nil && !IsNil(o.Updated) {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdated gets a reference to the given string and assigns it to the Updated field.
-func (o *ProductRow) SetUpdated(v string) {
-	o.Updated = &v
+// SetUnits gets a reference to the given int32 and assigns it to the Units field.
+func (o *ProductRow) SetUnits(v int32) {
+	o.Units = &v
 }
 
 func (o ProductRow) MarshalJSON() ([]byte, error) {
@@ -590,53 +184,17 @@ func (o ProductRow) MarshalJSON() ([]byte, error) {
 
 func (o ProductRow) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Cluster) {
-		toSerialize["cluster"] = o.Cluster
+	if !IsNil(o.Orders) {
+		toSerialize["orders"] = o.Orders
 	}
-	if !IsNil(o.DeclaredTag) {
-		toSerialize["declaredTag"] = o.DeclaredTag
+	if !IsNil(o.ProductId) {
+		toSerialize["productId"] = o.ProductId
 	}
-	if !IsNil(o.Drift) {
-		toSerialize["drift"] = o.Drift
+	if !IsNil(o.Revenue) {
+		toSerialize["revenue"] = o.Revenue
 	}
-	if !IsNil(o.DriftSeverity) {
-		toSerialize["driftSeverity"] = o.DriftSeverity
-	}
-	if !IsNil(o.Env) {
-		toSerialize["env"] = o.Env
-	}
-	if !IsNil(o.Health) {
-		toSerialize["health"] = o.Health
-	}
-	if !IsNil(o.Kind) {
-		toSerialize["kind"] = o.Kind
-	}
-	if !IsNil(o.LatestTag) {
-		toSerialize["latestTag"] = o.LatestTag
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if !IsNil(o.Org) {
-		toSerialize["org"] = o.Org
-	}
-	if !IsNil(o.Phase) {
-		toSerialize["phase"] = o.Phase
-	}
-	if !IsNil(o.Repo) {
-		toSerialize["repo"] = o.Repo
-	}
-	if !IsNil(o.RunningTag) {
-		toSerialize["runningTag"] = o.RunningTag
-	}
-	if !IsNil(o.Tier) {
-		toSerialize["tier"] = o.Tier
-	}
-	if !IsNil(o.Updated) {
-		toSerialize["updated"] = o.Updated
+	if !IsNil(o.Units) {
+		toSerialize["units"] = o.Units
 	}
 	return toSerialize, nil
 }

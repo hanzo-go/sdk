@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bytes** | Pointer to **int32** |  | [optional] 
-**Commit** | Pointer to **string** |  | [optional] 
-**Files** | Pointer to **int32** |  | [optional] 
+**Bytes** | Pointer to **int32** | Bytes is their total size in bytes. | [optional] 
+**Commit** | Pointer to **string** | Commit is the revision that was built, recorded on the deployment. | [optional] 
+**Files** | Pointer to **int32** | Files is how many objects CI published. | [optional] 
 **Id** | Pointer to **string** | ID is the queued deployment to complete, from the path. | [optional] 
 **Keys** | Pointer to **[]string** | Keys is the manifest CI just uploaded, RELATIVE to the deployment prefix. It is what replaces &#x60;aws s3 sync --delete&#x60;: an upload grant authorizes writes only, so CI cannot remove a file, and cloud reconciles the prefix against this list instead (grant.go). Omit it and nothing is deleted — the prefix only grows, which is the old pre-grant behaviour and a safe default. | [optional] 
-**LiveUrl** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
+**LiveUrl** | Pointer to **string** | LiveURL is a HINT at the address the site should serve at. The public host is claimed by cloud first, so this can refine the URL a deployment reports but can never assert a subdomain another tenant holds. | [optional] 
+**Message** | Pointer to **string** | Message is what happened, in words — on an error completion, why it failed. | [optional] 
 **Slug** | Pointer to **string** | Slug is the project the deployment belongs to, from the path. | [optional] 
-**Status** | Pointer to **string** | live | error | [optional] 
+**Status** | Pointer to **string** | Status is how the build ended: &#x60;live&#x60; if it succeeded, &#x60;error&#x60; if it did not. Nothing else is accepted. | [optional] 
 
 ## Methods
 

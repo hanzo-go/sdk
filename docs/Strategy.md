@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
-**Blog** | Pointer to [**Blog**](Blog.md) | long-form explainer (nil for un-blogged tactics) | [optional] 
-**Category** | Pointer to **string** |  | [optional] 
-**Enabled** | Pointer to **bool** |  | [optional] 
-**Era** | Pointer to **string** | modern | heritage | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Principle** | Pointer to **string** | the spine slug this tactic files under | [optional] 
-**Source** | Pointer to **string** | provenance / attribution | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**Workload** | Pointer to **string** |  | [optional] 
+**Action** | Pointer to **string** | Action is the tactic itself: the thing to go and do, stated imperatively. | [optional] 
+**Blog** | Pointer to [**Blog**](Blog.md) | Blog is the tactic&#39;s long-form explainer; absent for tactics that have none. | [optional] 
+**Category** | Pointer to **string** | Category is the growth discipline the tactic belongs to — the axis &#x60;?category&#x3D;&#x60; narrows the corpus on, and one of the facets a caller browses by. | [optional] 
+**Enabled** | Pointer to **bool** | Enabled is the admin lever. Absent reads as ON; an explicit false drops the tactic from every org-facing corpus read while leaving it in the document. | [optional] 
+**Era** | Pointer to **string** | Era separates an AI-era tactic (&#x60;modern&#x60;) from a classical one (&#x60;heritage&#x60;). | [optional] 
+**Id** | Pointer to **string** | ID is the tactic&#39;s stable slug, unique across the corpus. | [optional] 
+**Principle** | Pointer to **string** | Principle is the spine slug this tactic files under (a Principle.Slug). | [optional] 
+**Source** | Pointer to **string** | Source is where the tactic came from — the attribution a reader is owed. | [optional] 
+**Tags** | Pointer to **[]string** | Tags are PRECONDITIONS, not labels — every one must be satisfied by the org&#39;s observed profile before the tactic surfaces, so an untagged tactic is universally applicable. Two vocabularies: &#x60;stage:&lt;research|formed|launched| activated|scaling&gt;&#x60; reads the org&#39;s growth stage, &#x60;has:&lt;capability&gt;&#x60; reads an observed signal. | [optional] 
+**Workload** | Pointer to **string** | Workload is how much effort running the tactic costs, so a corpus can be narrowed to what an org has the hands for right now. | [optional] 
 
 ## Methods
 

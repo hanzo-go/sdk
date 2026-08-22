@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CacheControl** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Framework** | Pointer to **string** |  | [optional] 
+**CacheControl** | Pointer to **string** | CacheControl replaces the Cache-Control policy the edge serves this site&#39;s HTML under. Absent leaves it. | [optional] 
+**Description** | Pointer to **string** | Description replaces the one-line summary. Absent leaves it. | [optional] 
+**Framework** | Pointer to **string** | Framework replaces the build hint. It affects the NEXT build only — nothing already deployed is rebuilt. | [optional] 
 **Hidden** | Pointer to **bool** | Hidden is MODERATION, and the only admin-gated field on this body: it pulls a public project out of the catalogue from admin.hanzo.ai without editing the publisher&#39;s own visibility choice, so un-hiding restores exactly what they asked for. A tenant sending it is ignored. | [optional] 
-**HiddenReason** | Pointer to **string** |  | [optional] 
-**License** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Repo** | Pointer to [**ProjectsCreateRepo**](ProjectsCreateRepo.md) |  | [optional] 
+**HiddenReason** | Pointer to **string** | HiddenReason records WHY moderation hid it, so the action can be explained and reviewed later. Admin-gated like hidden itself. | [optional] 
+**License** | Pointer to **string** | License is the terms that upstream work carries, with the same clear-versus- leave rule. | [optional] 
+**Name** | Pointer to **string** | Name replaces the display name. Absent leaves it; the slug never moves with it. | [optional] 
+**Repo** | Pointer to [**ProjectsUpdateRepo**](ProjectsUpdateRepo.md) |  | [optional] 
 **Slug** | Pointer to **string** | Slug is the project to update, from the path. The URL is the addressing authority — a &#x60;slug&#x60; in the body cannot move the write to another project. | [optional] 
-**Tags** | Pointer to **map[string]string** | Tags sets the site&#39;s browser tag config: platform slug → non-secret pixel id (e.g. {\&quot;ga4\&quot;:\&quot;G-…\&quot;,\&quot;meta\&quot;:\&quot;…\&quot;}). track.js injects these first-party and the server CAPI reads them, per site. Absent LEAVES them; a present object REPLACES the set (send {} to clear). The ids are public — they ship in the page — so this is not the SECRET path (a CAPI token is sealed via POST /v1/destinations). | [optional] 
-**Upstream** | Pointer to **string** | Upstream/License credit the third-party work this app was published from — settable after the fact, because the demos that need crediting most are the ones already live. Pointers so \&quot;\&quot; clears a credit and absent leaves it. | [optional] 
+**Tags** | Pointer to **map[string]string** | Tags sets the site&#39;s browser tag config: platform slug → non-secret pixel id (e.g. {\&quot;ga4\&quot;:\&quot;G-…\&quot;,\&quot;meta\&quot;:\&quot;…\&quot;}). track.js injects these first-party and the server CAPI reads them, per site. Absent LEAVES them; a present object REPLACES the set (send {} to clear). The ids are public — they ship in the page — so this is not the SECRET path (a CAPI token is sealed via POST /v1/destination). | [optional] 
+**Upstream** | Pointer to **string** | Upstream credits the third-party work this project was published from, and is settable after the fact because the live demos are the ones that most need crediting. An explicit empty string CLEARS the credit; absent leaves it. | [optional] 
 **Visibility** | Pointer to **string** | Visibility flips an existing project between \&quot;public\&quot; and \&quot;private\&quot;. Same ONE rule as at create: public is free, private needs a paid plan. | [optional] 
 
 ## Methods
@@ -213,20 +213,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetRepo
 
-`func (o *ProjectsUpdate) GetRepo() ProjectsCreateRepo`
+`func (o *ProjectsUpdate) GetRepo() ProjectsUpdateRepo`
 
 GetRepo returns the Repo field if non-nil, zero value otherwise.
 
 ### GetRepoOk
 
-`func (o *ProjectsUpdate) GetRepoOk() (*ProjectsCreateRepo, bool)`
+`func (o *ProjectsUpdate) GetRepoOk() (*ProjectsUpdateRepo, bool)`
 
 GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepo
 
-`func (o *ProjectsUpdate) SetRepo(v ProjectsCreateRepo)`
+`func (o *ProjectsUpdate) SetRepo(v ProjectsUpdateRepo)`
 
 SetRepo sets Repo field to given value.
 

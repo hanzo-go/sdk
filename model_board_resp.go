@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -25,7 +25,7 @@ type BoardResp struct {
 	Available *bool `json:"available,omitempty"`
 	// Current is the live state of each lane — the dash headline.
 	Current []ReadingView `json:"current,omitempty"`
-	// From and To are the resolved [from, to) window, RFC 3339 UTC.
+	// From is when the resolved window opens, RFC 3339 UTC.
 	From *string `json:"from,omitempty"`
 	// Provider is the provider whose meter answered.
 	Provider *string `json:"provider,omitempty"`
@@ -35,7 +35,8 @@ type BoardResp struct {
 	Scope *string `json:"scope,omitempty"`
 	// Source is always \"account\": the provider's own meter, not a Hanzo charge.
 	Source *string `json:"source,omitempty"`
-	To     *string `json:"to,omitempty"`
+	// To is where it closes, EXCLUSIVE, RFC 3339 UTC — the instant the read was served, so the window walks forward with the clock and two reads a minute apart do not cover the same period.
+	To *string `json:"to,omitempty"`
 	// Windows is every window instance in range, newest first.
 	Windows []ReadingView `json:"windows,omitempty"`
 }

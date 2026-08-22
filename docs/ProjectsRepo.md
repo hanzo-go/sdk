@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Branch** | Pointer to **string** |  | [optional] 
-**Provider** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**Branch** | Pointer to **string** | Branch is the ref a push has to touch for this project to rebuild. Pushes to any other branch are ignored. | [optional] 
+**Provider** | Pointer to **string** | Provider is the forge the URL was recognised as — it decides which webhook and which credential reach the repository, and is DERIVED from the URL rather than chosen by the caller. | [optional] 
+**Url** | Pointer to **string** | URL is the clone address of the repository this project builds from. | [optional] 
 
 ## Methods
 

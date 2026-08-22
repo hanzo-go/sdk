@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Files** | Pointer to [**[]ProjectsFile**](ProjectsFile.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Slug** | Pointer to **string** |  | [optional] 
+**Files** | Pointer to [**[]ProjectsFile**](ProjectsFile.md) | Files is the whole site, inline — every file it consists of. It REPLACES what is there rather than merging, so an omitted file is a deleted one. | [optional] 
+**Name** | Pointer to **string** | Name is the site&#39;s display name. | [optional] 
+**Slug** | Pointer to **string** | Slug is the handle and public host label to publish under. | [optional] 
 
 ## Methods
 

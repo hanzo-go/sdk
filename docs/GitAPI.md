@@ -8,8 +8,12 @@ Method | HTTP request | Description
 [**DeleteGitReposByName**](GitAPI.md#DeleteGitReposByName) | **Delete** /v1/git/repos/{name} | Removes a repo&#39;s metadata and purges its storage.
 [**DeleteGitReposByNameMirrorsById**](GitAPI.md#DeleteGitReposByNameMirrorsById) | **Delete** /v1/git/repos/{name}/mirrors/{id} | Removes one outbound mirror target; later pushes stop being forwarded to it.
 [**DeleteGitReposByNameSubscriptionsById**](GitAPI.md#DeleteGitReposByNameSubscriptionsById) | **Delete** /v1/git/repos/{name}/subscriptions/{id} | Removes one Slack subscription from a repo; the notifier stops posting that repo&#39;s events to that channel.
+[**GetGit**](GitAPI.md#GetGit) | **Get** /v1/git | Browse your org&#39;s repositories
 [**GetGitByOrgByProjectByRepoInfoRefs**](GitAPI.md#GetGitByOrgByProjectByRepoInfoRefs) | **Get** /v1/git/{org}/{project}/{repo}/info/refs | Advertise a repository&#39;s refs to a git client
+[**GetGitByOrgByRepo**](GitAPI.md#GetGitByOrgByRepo) | **Get** /v1/git/{org}/{repo} | Open a repository&#39;s home page
+[**GetGitByOrgByRepoCommits**](GitAPI.md#GetGitByOrgByRepoCommits) | **Get** /v1/git/{org}/{repo}/commits | Read a repository&#39;s commit log
 [**GetGitByOrgByRepoInfoRefs**](GitAPI.md#GetGitByOrgByRepoInfoRefs) | **Get** /v1/git/{org}/{repo}/info/refs | Advertise a repository&#39;s refs to a git client
+[**GetGitExplore**](GitAPI.md#GetGitExplore) | **Get** /v1/git/explore | Discover public repositories across every org
 [**GetGitKeys**](GitAPI.md#GetGitKeys) | **Get** /v1/git/keys | Returns the SSH public keys registered to the caller&#39;s org — the keys that authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60;.
 [**GetGitRepos**](GitAPI.md#GetGitRepos) | **Get** /v1/git/repos | Returns the repos in the caller&#39;s scope, most recently updated first.
 [**GetGitReposByName**](GitAPI.md#GetGitReposByName) | **Get** /v1/git/repos/{name} | Returns one repo with its live ref state: every branch name and the resolved HEAD commit.
@@ -325,6 +329,65 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetGit
+
+> GetGit(ctx).Execute()
+
+Browse your org's repositories
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.GetGit(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetGitByOrgByProjectByRepoInfoRefs
 
 > GetGitByOrgByProjectByRepoInfoRefs(ctx, org, project, repo).Execute()
@@ -399,6 +462,148 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetGitByOrgByRepo
+
+> GetGitByOrgByRepo(ctx, org, repo).Execute()
+
+Open a repository's home page
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	org := "org_example" // string | 
+	repo := "repo_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.GetGitByOrgByRepo(context.Background(), org, repo).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitByOrgByRepo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**org** | **string** |  | 
+**repo** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitByOrgByRepoRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitByOrgByRepoCommits
+
+> GetGitByOrgByRepoCommits(ctx, org, repo).Execute()
+
+Read a repository's commit log
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	org := "org_example" // string | 
+	repo := "repo_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.GetGitByOrgByRepoCommits(context.Background(), org, repo).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitByOrgByRepoCommits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**org** | **string** |  | 
+**repo** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitByOrgByRepoCommitsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetGitByOrgByRepoInfoRefs
 
 > GetGitByOrgByRepoInfoRefs(ctx, org, repo).Execute()
@@ -450,6 +655,65 @@ Other parameters are passed through a pointer to a apiGetGitByOrgByRepoInfoRefsR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitExplore
+
+> GetGitExplore(ctx).Execute()
+
+Discover public repositories across every org
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GitAPI.GetGitExplore(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitExplore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitExploreRequest struct via the builder pattern
 
 
 ### Return type

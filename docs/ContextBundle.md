@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BudgetTokens** | Pointer to **int32** |  | [optional] 
-**Query** | Pointer to **string** |  | [optional] 
-**Repo** | Pointer to **string** |  | [optional] 
-**Spans** | Pointer to [**[]Span**](Span.md) |  | [optional] 
-**UsedTokens** | Pointer to **int32** |  | [optional] 
+**BudgetTokens** | Pointer to **int32** | BudgetTokens is the ceiling the caller asked for. Packing stops under it, so this is a bound and not a target. | [optional] 
+**Query** | Pointer to **string** | Query is the ask this bundle was packed for, echoed back so a cached or forwarded bundle still says what it answers. | [optional] 
+**Repo** | Pointer to **string** | Repo narrows the retrieval to one repository. Absent means every indexed repo was searched. | [optional] 
+**Spans** | Pointer to [**[]Span**](Span.md) | Spans are the packed chunks, most relevant first, each expanded with the definitions it calls and its notable callers. The top match is always present even if it had to be truncated to fit, so a matched query never comes back with nothing. | [optional] 
+**UsedTokens** | Pointer to **int32** | UsedTokens is what the returned spans actually cost, by the same estimate the packer used (roughly one token per four characters — an estimate, not a tokenizer&#39;s count, so size a real window with headroom). | [optional] 
 
 ## Methods
 

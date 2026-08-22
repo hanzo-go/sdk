@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ActiveWindows** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**AssignedWindows** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**CanSync** | Pointer to **bool** |  | [optional] 
+**ActiveWindows** | Pointer to **[]map[string]interface{}** | ActiveWindows are the sync windows in force right now. Always null: this platform declares none, so nothing is ever in force. | [optional] 
+**AssignedWindows** | Pointer to **[]map[string]interface{}** | AssignedWindows are the windows configured for this application at all, whether or not currently in force. Always null, for the same reason. | [optional] 
+**CanSync** | Pointer to **bool** | CanSync is whether a sync would be permitted at this moment. Always true — with no windows there is nothing to deny it. A caller must not read this as \&quot;a sync will succeed\&quot;; it only means no window is blocking one. | [optional] 
 
 ## Methods
 

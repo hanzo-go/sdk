@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**Email** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Ref** | Pointer to **string** | the org&#39;s own opaque external id for this subject | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is when the subject was first recorded, Unix SECONDS. | [optional] 
+**Email** | Pointer to **string** | Email is the party&#39;s address, when the org supplied one. It is PII: sealed at rest, returned only to the owning org, and never copied into a check record. | [optional] 
+**Id** | Pointer to **string** | ID is the opaque handle every other record uses to point at this party. It is the only reference that leaves this type, which is what keeps the PII in one place: a check, an accreditation and an audit row all carry the id and none of them carry the name. | [optional] 
+**Kind** | Pointer to **string** | Kind is what is being verified: \&quot;individual\&quot; (a natural person, so KYC) or \&quot;business\&quot; (a legal entity, so KYB). It decides which provider flow runs. | [optional] 
+**Name** | Pointer to **string** | Name is the party&#39;s name, under the same PII rule as Email. For a business it is the legal entity name rather than a trading name, since that is what a provider verifies against. | [optional] 
+**Org** | Pointer to **string** | Org is the tenant that is doing the verifying — the party who must answer for this record, not the party being verified. A subject is returned only to it. | [optional] 
+**Ref** | Pointer to **string** | Ref is the org&#39;s OWN identifier for this party, carried so a caller can match a subject back to their system without keeping a second mapping. Opaque here: nothing in this plane parses or enforces it. | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is when the subject&#39;s own fields last changed, Unix seconds. A check moving to a new status does not touch it — that history lives on the check. | [optional] 
 
 ## Methods
 

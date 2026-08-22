@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Lang** | Pointer to **string** |  | [optional] 
-**Path** | Pointer to **string** |  | [optional] 
-**Symbols** | Pointer to **int32** |  | [optional] 
+**Lang** | Pointer to **string** | Lang is the language the indexer parsed the file as (\&quot;go\&quot;, \&quot;python\&quot;, …), or empty when it recognised none — in which case Symbols is 0 because nothing was extracted, not because the file declares nothing. | [optional] 
+**Path** | Pointer to **string** | Path is the file, relative to the repo root. The list is ordered by it, so a reader can see module layout without sorting. | [optional] 
+**Symbols** | Pointer to **int32** | Symbols is how many top-level declarations the file defines. A file with none is still listed: the file set is the authority here and the counts decorate it. | [optional] 
 
 ## Methods
 

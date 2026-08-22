@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Initial** | Pointer to **string** |  | [optional] 
-**Live** | Pointer to **string** |  | [optional] 
-**States** | Pointer to **[]string** |  | [optional] 
-**Transitions** | Pointer to **map[string][]string** |  | [optional] 
+**Initial** | Pointer to **string** | Initial is the state a fresh document starts in — \&quot;draft\&quot;. A stored document with no status at all is read as this too. | [optional] 
+**Live** | Pointer to **string** | Live is the ONE state that is publicly readable — \&quot;published\&quot;. The site pulls only documents in it, so reaching Live IS site-publish; every other state is invisible to a reader. | [optional] 
+**States** | Pointer to **[]string** | States is every lifecycle state in canonical order: draft, in_review, approved, queued, published, archived. The console lays its board columns out in exactly this order, so the order is part of the answer. | [optional] 
+**Transitions** | Pointer to **map[string][]string** | Transitions maps each state to the states it may move to. A target absent from a state&#39;s list is REFUSED, at the endpoint and again at the storage boundary — this is the whole rule, not a hint for the UI. A state never lists itself; a move that changes nothing is always legal. | [optional] 
 
 ## Methods
 

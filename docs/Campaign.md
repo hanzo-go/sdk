@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Budget** | Pointer to **int32** | Budget and Spend are minor units (USD cents), clamped to &gt;&#x3D; 0. | [optional] 
+**Budget** | Pointer to **int32** | Budget is what the campaign is allowed to cost, in USD cents. A negative value is clamped to 0; nothing enforces the ceiling here. | [optional] 
 **Channel** | Pointer to **string** | Channel is the delivery surface: email, sms, social, meta, google or tiktok. Empty means email. | [optional] 
-**CreatedAt** | Pointer to **int32** | CreatedAt and UpdatedAt are unix seconds, both server-assigned. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is unix seconds when the campaign was registered. Server-assigned and never rewritten — an update leaves it as it was. | [optional] 
 **Id** | Pointer to **string** | ID is the server-assigned campaign id (\&quot;camp_\&quot; + 128 random bits). | [optional] 
 **Name** | Pointer to **string** | Name is the campaign&#39;s label. Required, trimmed, capped at 1024 bytes. | [optional] 
 **Objective** | Pointer to **string** | Objective is the free-text goal (\&quot;signups\&quot;), capped at 1024 bytes. | [optional] 
 **ScheduledAt** | Pointer to **int32** | ScheduledAt is the unix send time; 0 means unscheduled. Setting it on a campaign with no explicit status makes that status \&quot;scheduled\&quot;. | [optional] 
-**Spend** | Pointer to **int32** |  | [optional] 
+**Spend** | Pointer to **int32** | Spend is what the campaign has cost so far, in USD cents, clamped to &gt;&#x3D; 0. The CALLER owns it: no send, ad buy or invoice moves it, so it changes only when create or update carries a new value. It is summed across the org&#39;s campaigns into GET /v1/marketing/summary. | [optional] 
 **Status** | Pointer to **string** | Status is the lifecycle: draft, scheduled, active, paused or completed. Empty means draft. | [optional] 
-**UpdatedAt** | Pointer to **int32** |  | [optional] 
+**UpdatedAt** | Pointer to **int32** | UpdatedAt is unix seconds of the last write. Server-assigned on create and on every update or schedule change, and the campaign list is ordered by it, newest first. | [optional] 
 
 ## Methods
 

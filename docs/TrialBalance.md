@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Balanced** | Pointer to **bool** |  | [optional] 
-**From** | Pointer to **string** |  | [optional] 
-**Rows** | Pointer to [**[]TrialBalanceRow**](TrialBalanceRow.md) |  | [optional] 
-**To** | Pointer to **string** |  | [optional] 
-**TotalCredit** | Pointer to **int32** |  | [optional] 
-**TotalDebit** | Pointer to **int32** |  | [optional] 
+**Balanced** | Pointer to **bool** | Balanced is the proof this report exists to give: whether total debits equal total credits. It is computed from the rows above, never assumed, and false means the ledger itself is broken rather than that the report is wrong. | [optional] 
+**From** | Pointer to **string** | From is the posting time the window opens at, as it was asked for. Absent means the report runs from the beginning of the ledger. | [optional] 
+**Rows** | Pointer to [**[]TrialBalanceRow**](TrialBalanceRow.md) | Rows are the accounts that MOVED in one of the windows. An account that never moved is omitted rather than listed at zero, so this is shorter than the chart. | [optional] 
+**To** | Pointer to **string** | To is the posting time the window closes at, inclusive. Absent means \&quot;up to now\&quot; — every posting the ledger holds. | [optional] 
+**TotalCredit** | Pointer to **int32** | TotalCredit is the sum of every row&#39;s closing credit column, in cents. | [optional] 
+**TotalDebit** | Pointer to **int32** | TotalDebit is the sum of every row&#39;s CLOSING debit column, in cents. | [optional] 
 
 ## Methods
 

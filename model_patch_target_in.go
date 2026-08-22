@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,22 @@ var _ MappedNullable = &PatchTargetIn{}
 
 // PatchTargetIn struct for PatchTargetIn
 type PatchTargetIn struct {
+	// Capacity rewrites the human summary, up to 256 characters. \"\" clears it.
 	Capacity *string `json:"capacity,omitempty"`
-	Host     *string `json:"host,omitempty"`
+	// Host re-points the hostname sessions are matched by. Moving it moves the load: the session counts follow the new name from the next read.
+	Host *string `json:"host,omitempty"`
 	// ID is the target to update, from the path.
-	Id    *string `json:"id,omitempty"`
-	Kind  *string `json:"kind,omitempty"`
+	Id *string `json:"id,omitempty"`
+	// Kind re-files it under laptop | cloud | gpu | cluster | machine.
+	Kind *string `json:"kind,omitempty"`
+	// Label renames the machine, up to 128 characters. Empty STRING is refused — a target with no name is a row nobody can pick out of a fleet.
 	Label *string `json:"label,omitempty"`
-	// present => a heartbeat; the server stamps its time
+	// Metrics replaces the live sample, and sending one IS A HEARTBEAT: the server stamps the time and appends the point to the fleet series. Sending an all-zero sample CLEARS the heartbeat — the machine goes back to having no liveness fact at all, and its stored status is taken at face value again.
 	Metrics *Metrics `json:"metrics,omitempty"`
-	Spec    *Spec    `json:"spec,omitempty"`
-	Status  *string  `json:"status,omitempty"`
+	// Spec replaces the static capability whole, sanitized and clamped the same way a register's is.
+	Spec *Spec `json:"spec,omitempty"`
+	// Status sets operator INTENT: online | offline | draining. Draining is how a machine is taken out of dispatch without ending what is already on it. What comes back may still read offline, because the heartbeat outranks the intent.
+	Status *string `json:"status,omitempty"`
 }
 
 // NewPatchTargetIn instantiates a new PatchTargetIn object

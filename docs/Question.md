@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | Pointer to **string** |  | [optional] 
-**Amount** | Pointer to **string** | formatted figure ($…) | [optional] 
-**Id** | Pointer to **string** | the source transaction id it concerns | [optional] 
-**Kind** | Pointer to **string** | outlier|reversal|roundoff|uncosted|overdrawn | [optional] 
-**PostedAt** | Pointer to **string** |  | [optional] 
-**Text** | Pointer to **string** | the specific question to ask the founder | [optional] 
+**Account** | Pointer to **string** | Account is the chart number the questioned entry posted to, where one applies. | [optional] 
+**Amount** | Pointer to **string** | Amount is the figure that makes the question concrete, already FORMATTED for display with its currency symbol — a string, not cents, and not for arithmetic. | [optional] 
+**Id** | Pointer to **string** | ID is the source transaction the question is about, so answering it leads straight back to the entry that raised it. | [optional] 
+**Kind** | Pointer to **string** | Kind is what looked wrong: outlier (a charge far above the usual), reversal (a posting undone), roundoff (a balancing plug big enough to be worth explaining), uncosted (revenue booked with no cost matched to it), or overdrawn (a wallet spent past its balance). | [optional] 
+**PostedAt** | Pointer to **string** | PostedAt anchors the question in time — when the entry it concerns posted. | [optional] 
+**Text** | Pointer to **string** | Text is the question itself, written for a founder to answer directly. | [optional] 
 
 ## Methods
 

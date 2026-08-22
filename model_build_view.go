@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,17 +19,28 @@ var _ MappedNullable = &BuildView{}
 
 // BuildView struct for BuildView
 type BuildView struct {
-	Agent     *string     `json:"agent,omitempty"`
-	EndedAt   *string     `json:"endedAt,omitempty"`
-	Model     *string     `json:"model,omitempty"`
-	Org       *string     `json:"org,omitempty"`
-	Project   *string     `json:"project,omitempty"`
-	Repo      *string     `json:"repo,omitempty"`
-	Session   *string     `json:"session,omitempty"`
-	StartedAt *string     `json:"startedAt,omitempty"`
-	Status    *string     `json:"status,omitempty"`
-	Title     *string     `json:"title,omitempty"`
-	Turns     []BuildTurn `json:"turns,omitempty"`
+	// Agent is the label the surface that did the work calls itself by.
+	Agent *string `json:"agent,omitempty"`
+	// EndedAt is when it finished, same format. Empty means it has not — the build is still going.
+	EndedAt *string `json:"endedAt,omitempty"`
+	// Model is the model that did the work, taken from the FIRST turn whose body names one — a transcript states it, this route does not resolve it. Empty when no turn said.
+	Model *string `json:"model,omitempty"`
+	// Org is the org that published this build, echoed from the URL. It is part of the build's public ADDRESS and not a tenant key — this route is anonymous, and the only rows it can reach are ones an author explicitly published.
+	Org *string `json:"org,omitempty"`
+	// Project is the product's slug, the other half of that address.
+	Project *string `json:"project,omitempty"`
+	// Repo is the repository the work was done in, as the session reported it.
+	Repo *string `json:"repo,omitempty"`
+	// Session is the id of the agent session this story IS — the same value a produced commit carries in its `Hanzo-Session:` trailer, which is what ties the repository's history to this page.
+	Session *string `json:"session,omitempty"`
+	// StartedAt is when the session opened, RFC 3339 in UTC.
+	StartedAt *string `json:"startedAt,omitempty"`
+	// Status is the session's own: running, paused, done or error. A build can be read while it is still being written, so this is not always terminal — and an `error` build is still a readable story, not a missing page.
+	Status *string `json:"status,omitempty"`
+	// Title is the human line the session was opened or renamed with. Empty when nobody gave it one.
+	Title *string `json:"title,omitempty"`
+	// Turns is the whole transcript, oldest first, capped at 1000: a published build is a story to read down, not an archive to page.
+	Turns []BuildTurn `json:"turns,omitempty"`
 	// Verify is the exact command that re-derives every commit binding below straight from git, so nothing here has to be taken on trust.
 	Verify *string `json:"verify,omitempty"`
 }

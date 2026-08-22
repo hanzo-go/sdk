@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Detail** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **int32** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Range** | Pointer to [**Range**](Range.md) |  | [optional] 
+**Detail** | Pointer to **string** | Detail is the server&#39;s short elaboration, typically the signature. Absent when it offered none. | [optional] 
+**Kind** | Pointer to **int32** | Kind is the LSP SymbolKind number (5 class, 6 method, 12 function, 23 struct, …), passed through rather than translated to a word — these callers already speak LSP, and inventing a second vocabulary is how the two drift. | [optional] 
+**Name** | Pointer to **string** | Name is the declared identifier. | [optional] 
+**Range** | Pointer to [**Range**](Range.md) | Range is the declaration&#39;s span in the file. | [optional] 
 
 ## Methods
 

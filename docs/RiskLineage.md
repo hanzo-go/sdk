@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Dataset** | Pointer to **string** |  | [optional] 
+**Dataset** | Pointer to **string** | Dataset is the dataset traced. | [optional] 
 **Digest** | Pointer to **string** | Digest is the version&#39;s fingerprint, repeated here so a lineage answer is self-contained. | [optional] 
-**From** | Pointer to **string** | From and To are the window actually read — To is the window&#39;s end pulled back by the maturity horizon, which is usually earlier than the spec&#39;s. | [optional] 
+**From** | Pointer to **string** | From is where the window actually read opens, RFC 3339. Same as the spec&#39;s. | [optional] 
 **Holds** | Pointer to **int32** | Holds is what the source holds for the same window NOW. The difference between it and Rows is the whole of the reproducibility claim. | [optional] 
 **Oversize** | Pointer to **int32** | Oversize is how many subjects the window held that were too large to represent when this version was built. It is part of the fingerprint, so it is part of what \&quot;reproducible\&quot; is measured over. | [optional] 
-**Refusal** | Pointer to **string** |  | [optional] 
-**Reproducible** | Pointer to **bool** | Reproducible is true when the source still holds what this version was built from. Refusal says why not, when it is false. | [optional] 
+**Refusal** | Pointer to **string** | Refusal says which way it failed — the window expired, or the source now holds a different count. Absent when Reproducible is true. | [optional] 
+**Reproducible** | Pointer to **bool** | Reproducible is true when the source still holds what this version was built from — measured by asking it again, not recalled. False is ordinary: the source is fed by a rollup that runs behind the events, so \&quot;it holds more now\&quot; is the common case and it means re-running the spec would not produce this version. | [optional] 
 **Retention** | Pointer to **string** | Retention is the source&#39;s own expiry rule as the store reports it, read at materialisation time rather than assumed. A source whose retention is shorter than this window cannot re-derive it. | [optional] 
-**Rows** | Pointer to **int32** | Rows and Subjects are what the source held for that window at materialisation time. | [optional] 
+**Rows** | Pointer to **int32** | Rows is how many rows the source held for that window at materialisation time. Holds is the same question asked now, and the difference between them is the whole of the reproducibility claim. | [optional] 
 **Share** | Pointer to **int32** | Share is the fraction of subjects admitted, in thousandths. | [optional] 
 **Source** | Pointer to **string** | Source is the plane the rows were derived from. | [optional] 
-**Subjects** | Pointer to **int32** |  | [optional] 
-**To** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Subjects** | Pointer to **int32** | Subjects is how many distinct subjects those rows belonged to. It is the real sample size — the row count flatters it whenever a subject is active. | [optional] 
+**To** | Pointer to **string** | To is where it ends: the spec&#39;s own end pulled BACK by the maturity horizon, so it is usually earlier than the spec says. This is the window a reproduction has to ask for — asking the spec&#39;s would not return these rows. | [optional] 
+**Version** | Pointer to **int32** | Version is the version traced — the one asked for, or the newest published one when the request named none. | [optional] 
 
 ## Methods
 

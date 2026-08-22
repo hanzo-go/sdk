@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Files** | Pointer to [**[]CodeFile**](CodeFile.md) | Files are what this run CREATED OR CHANGED, decided by mtime against a marker taken before the program started — so it is the run&#39;s output, not a listing of the directory. Fetch each from GET /v1/download/{session}/{id}. | [optional] 
+**Files** | Pointer to [**[]CodeFile**](CodeFile.md) | Files are what this run CREATED OR CHANGED, decided by mtime against a marker taken before the program started — so it is the run&#39;s output, not a listing of the directory. Fetch each from GET /v1/exec/download/{session}/{id}. | [optional] 
 **SessionId** | Pointer to **string** | SessionID is the sandbox this run used — the one that was passed in, or the fresh one that was leased. Pass it to the next run to keep the filesystem. | [optional] 
 **Stderr** | Pointer to **string** | Stderr is what the program wrote to standard error, INCLUDING a compiler&#39;s diagnostics and the trace of a program that exited non-zero. Its presence is not a failed call. | [optional] 
 **Stdout** | Pointer to **string** | Stdout is what the program wrote to standard output. | [optional] 

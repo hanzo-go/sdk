@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -31,10 +31,12 @@ type DestinationStatus struct {
 	Enabled *bool `json:"enabled,omitempty"`
 	// Fields are the non-secret inputs this platform needs, which the console card renders and the connect body fills.
 	Fields []DestinationField `json:"fields,omitempty"`
-	// Live is whether a credential resolves RIGHT NOW: a KMS-sealed secret for this org, else the integrations connection named by the platform's Fallback, else no credential needed at all (a public-ingest sink like Umami). False on a connected destination whose secret has gone missing — Connected && !Live is exactly the \"reconnect me\" state.
+	// Live is whether a credential resolves RIGHT NOW: a KMS-sealed secret for this org, else the integrations connection named by the platform's Fallback, else no credential needed at all (a public-ingest sink like Analytics). False on a connected destination whose secret has gone missing — Connected && !Live is exactly the \"reconnect me\" state.
 	Live *bool `json:"live,omitempty"`
 	// the platform's display name (\"Google Analytics 4\")
 	Name *string `json:"name,omitempty"`
+	// Pixel is whether the hosted tag can inject a browser pixel for this platform, so a console offers a per-SITE pixel input for exactly these. False means the platform receives conversions server-side only, and an input would promise an injection that never happens. Derived from the tag's own map (event.BrowserTags), never restated — a second list is how a console offers a pixel nothing fires.
+	Pixel *bool `json:"pixel,omitempty"`
 	// the platform slug, and the path segment every route addresses it by
 	Platform *string `json:"platform,omitempty"`
 	// Secrets are the KMS secret NAMES this platform custodies for the org — names only, never values. The connect body accepts each under its camelCase form.
@@ -314,6 +316,38 @@ func (o *DestinationStatus) SetName(v string) {
 	o.Name = &v
 }
 
+// GetPixel returns the Pixel field value if set, zero value otherwise.
+func (o *DestinationStatus) GetPixel() bool {
+	if o == nil || IsNil(o.Pixel) {
+		var ret bool
+		return ret
+	}
+	return *o.Pixel
+}
+
+// GetPixelOk returns a tuple with the Pixel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DestinationStatus) GetPixelOk() (*bool, bool) {
+	if o == nil || IsNil(o.Pixel) {
+		return nil, false
+	}
+	return o.Pixel, true
+}
+
+// HasPixel returns a boolean if a field has been set.
+func (o *DestinationStatus) HasPixel() bool {
+	if o != nil && !IsNil(o.Pixel) {
+		return true
+	}
+
+	return false
+}
+
+// SetPixel gets a reference to the given bool and assigns it to the Pixel field.
+func (o *DestinationStatus) SetPixel(v bool) {
+	o.Pixel = &v
+}
+
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *DestinationStatus) GetPlatform() string {
 	if o == nil || IsNil(o.Platform) {
@@ -411,6 +445,9 @@ func (o DestinationStatus) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Pixel) {
+		toSerialize["pixel"] = o.Pixel
 	}
 	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform

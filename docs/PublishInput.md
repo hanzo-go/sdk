@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Doctype** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**ScheduleAt** | Pointer to **string** | \&quot;\&quot; &#x3D; now | [optional] 
+**Doctype** | Pointer to **string** | DocType is the content type holding the item: Campaign, SocialPost or Asset. Any other name is refused as an unknown content type. | [optional] 
+**Name** | Pointer to **string** | Name is the document within that type — the item to distribute. Its caption, media and channel list come off the stored document, so this names WHICH item and says nothing about what goes out. | [optional] 
+**ScheduleAt** | Pointer to **string** | ScheduleAt hands a future go-live to the channel&#39;s own scheduler, as an ISO-8601 time. Empty posts now. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,9 +23,11 @@ type ActivityView struct {
 	Agent *string `json:"agent,omitempty"`
 	// RFC3339 UTC
 	At *string `json:"at,omitempty"`
+	// ID identifies the event, and its shape says which kind it is: a run event carries the run's own id, while an agent event is the agent id suffixed \":created\" or \":updated\". Unique within a feed, and not an address — there is nothing to fetch it by.
 	Id *string `json:"id,omitempty"`
 	// invoked|failed|created|updated (from real events)
-	Kind    *string `json:"kind,omitempty"`
+	Kind *string `json:"kind,omitempty"`
+	// Message is the line to render, already bounded: \"Invoked <model>\" for a run that worked, the run's own error truncated to 200 characters for one that did not (or \"Run failed\" when it said nothing), and a fixed phrase for the two agent events. Nothing here is invented — every event is a row that exists.
 	Message *string `json:"message,omitempty"`
 }
 

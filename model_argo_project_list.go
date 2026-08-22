@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,9 @@ var _ MappedNullable = &ArgoProjectList{}
 
 // ArgoProjectList struct for ArgoProjectList
 type ArgoProjectList struct {
-	Items    []ArgoProject `json:"items,omitempty"`
+	// Items is the projects visible to the caller — its own organization's, or every organization's for a SuperAdmin. A project named \"default\" is always present and is prepended when IAM does not carry one, because that is what an application with no project label groups under.
+	Items []ArgoProject `json:"items,omitempty"`
+	// Metadata is the list envelope the SPA expects; it carries no resume point.
 	Metadata *ArgoListMeta `json:"metadata,omitempty"`
 }
 

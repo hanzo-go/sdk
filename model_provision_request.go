@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,8 +19,10 @@ var _ MappedNullable = &ProvisionRequest{}
 
 // ProvisionRequest struct for ProvisionRequest
 type ProvisionRequest struct {
+	// Instance binds a DEDICATED add-on to the app instance whose <instance>-addons Secret receives the <KIND>_URL (e.g. \"commerce\"). Optional: empty means \"not instance-bound\" — the DSN is returned once and wired by the caller.
 	Instance *string `json:"instance,omitempty"`
-	Name     *string `json:"name,omitempty"`
+	// Name is the org-unique slug for the new resource, matching ^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$. Every physical name derives from it.
+	Name *string `json:"name,omitempty"`
 }
 
 // NewProvisionRequest instantiates a new ProvisionRequest object

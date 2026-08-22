@@ -4,16 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Action** | Pointer to **string** |  | [optional] 
+**ClientIp** | Pointer to **string** |  | [optional] 
 **CreatedTime** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**DisplayName** | Pointer to **string** |  | [optional] 
-**IsDefault** | Pointer to **bool** |  | [optional] 
-**Metadata** | Pointer to **string** |  | [optional] 
+**IsTriggered** | Pointer to **bool** |  | [optional] 
+**Language** | Pointer to **string** |  | [optional] 
+**Method** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**Object** | Pointer to **string** |  | [optional] 
 **Organization** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**Workspace** | Pointer to **string** |  | [optional] 
+**RequestUri** | Pointer to **string** |  | [optional] 
+**Response** | Pointer to **string** |  | [optional] 
+**StatusCode** | Pointer to **int32** |  | [optional] 
+**User** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -33,6 +37,56 @@ will change when the set of required properties is changed
 NewIamInputWithDefaults instantiates a new IamInput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAction
+
+`func (o *IamInput) GetAction() string`
+
+GetAction returns the Action field if non-nil, zero value otherwise.
+
+### GetActionOk
+
+`func (o *IamInput) GetActionOk() (*string, bool)`
+
+GetActionOk returns a tuple with the Action field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAction
+
+`func (o *IamInput) SetAction(v string)`
+
+SetAction sets Action field to given value.
+
+### HasAction
+
+`func (o *IamInput) HasAction() bool`
+
+HasAction returns a boolean if a field has been set.
+
+### GetClientIp
+
+`func (o *IamInput) GetClientIp() string`
+
+GetClientIp returns the ClientIp field if non-nil, zero value otherwise.
+
+### GetClientIpOk
+
+`func (o *IamInput) GetClientIpOk() (*string, bool)`
+
+GetClientIpOk returns a tuple with the ClientIp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientIp
+
+`func (o *IamInput) SetClientIp(v string)`
+
+SetClientIp sets ClientIp field to given value.
+
+### HasClientIp
+
+`func (o *IamInput) HasClientIp() bool`
+
+HasClientIp returns a boolean if a field has been set.
 
 ### GetCreatedTime
 
@@ -59,105 +113,80 @@ SetCreatedTime sets CreatedTime field to given value.
 
 HasCreatedTime returns a boolean if a field has been set.
 
-### GetDescription
+### GetIsTriggered
 
-`func (o *IamInput) GetDescription() string`
+`func (o *IamInput) GetIsTriggered() bool`
 
-GetDescription returns the Description field if non-nil, zero value otherwise.
+GetIsTriggered returns the IsTriggered field if non-nil, zero value otherwise.
 
-### GetDescriptionOk
+### GetIsTriggeredOk
 
-`func (o *IamInput) GetDescriptionOk() (*string, bool)`
+`func (o *IamInput) GetIsTriggeredOk() (*bool, bool)`
 
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+GetIsTriggeredOk returns a tuple with the IsTriggered field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDescription
+### SetIsTriggered
 
-`func (o *IamInput) SetDescription(v string)`
+`func (o *IamInput) SetIsTriggered(v bool)`
 
-SetDescription sets Description field to given value.
+SetIsTriggered sets IsTriggered field to given value.
 
-### HasDescription
+### HasIsTriggered
 
-`func (o *IamInput) HasDescription() bool`
+`func (o *IamInput) HasIsTriggered() bool`
 
-HasDescription returns a boolean if a field has been set.
+HasIsTriggered returns a boolean if a field has been set.
 
-### GetDisplayName
+### GetLanguage
 
-`func (o *IamInput) GetDisplayName() string`
+`func (o *IamInput) GetLanguage() string`
 
-GetDisplayName returns the DisplayName field if non-nil, zero value otherwise.
+GetLanguage returns the Language field if non-nil, zero value otherwise.
 
-### GetDisplayNameOk
+### GetLanguageOk
 
-`func (o *IamInput) GetDisplayNameOk() (*string, bool)`
+`func (o *IamInput) GetLanguageOk() (*string, bool)`
 
-GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
+GetLanguageOk returns a tuple with the Language field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDisplayName
+### SetLanguage
 
-`func (o *IamInput) SetDisplayName(v string)`
+`func (o *IamInput) SetLanguage(v string)`
 
-SetDisplayName sets DisplayName field to given value.
+SetLanguage sets Language field to given value.
 
-### HasDisplayName
+### HasLanguage
 
-`func (o *IamInput) HasDisplayName() bool`
+`func (o *IamInput) HasLanguage() bool`
 
-HasDisplayName returns a boolean if a field has been set.
+HasLanguage returns a boolean if a field has been set.
 
-### GetIsDefault
+### GetMethod
 
-`func (o *IamInput) GetIsDefault() bool`
+`func (o *IamInput) GetMethod() string`
 
-GetIsDefault returns the IsDefault field if non-nil, zero value otherwise.
+GetMethod returns the Method field if non-nil, zero value otherwise.
 
-### GetIsDefaultOk
+### GetMethodOk
 
-`func (o *IamInput) GetIsDefaultOk() (*bool, bool)`
+`func (o *IamInput) GetMethodOk() (*string, bool)`
 
-GetIsDefaultOk returns a tuple with the IsDefault field if it's non-nil, zero value otherwise
+GetMethodOk returns a tuple with the Method field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsDefault
+### SetMethod
 
-`func (o *IamInput) SetIsDefault(v bool)`
+`func (o *IamInput) SetMethod(v string)`
 
-SetIsDefault sets IsDefault field to given value.
+SetMethod sets Method field to given value.
 
-### HasIsDefault
+### HasMethod
 
-`func (o *IamInput) HasIsDefault() bool`
+`func (o *IamInput) HasMethod() bool`
 
-HasIsDefault returns a boolean if a field has been set.
-
-### GetMetadata
-
-`func (o *IamInput) GetMetadata() string`
-
-GetMetadata returns the Metadata field if non-nil, zero value otherwise.
-
-### GetMetadataOk
-
-`func (o *IamInput) GetMetadataOk() (*string, bool)`
-
-GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMetadata
-
-`func (o *IamInput) SetMetadata(v string)`
-
-SetMetadata sets Metadata field to given value.
-
-### HasMetadata
-
-`func (o *IamInput) HasMetadata() bool`
-
-HasMetadata returns a boolean if a field has been set.
+HasMethod returns a boolean if a field has been set.
 
 ### GetName
 
@@ -183,6 +212,31 @@ SetName sets Name field to given value.
 `func (o *IamInput) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetObject
+
+`func (o *IamInput) GetObject() string`
+
+GetObject returns the Object field if non-nil, zero value otherwise.
+
+### GetObjectOk
+
+`func (o *IamInput) GetObjectOk() (*string, bool)`
+
+GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObject
+
+`func (o *IamInput) SetObject(v string)`
+
+SetObject sets Object field to given value.
+
+### HasObject
+
+`func (o *IamInput) HasObject() bool`
+
+HasObject returns a boolean if a field has been set.
 
 ### GetOrganization
 
@@ -234,55 +288,105 @@ SetOwner sets Owner field to given value.
 
 HasOwner returns a boolean if a field has been set.
 
-### GetTags
+### GetRequestUri
 
-`func (o *IamInput) GetTags() []string`
+`func (o *IamInput) GetRequestUri() string`
 
-GetTags returns the Tags field if non-nil, zero value otherwise.
+GetRequestUri returns the RequestUri field if non-nil, zero value otherwise.
 
-### GetTagsOk
+### GetRequestUriOk
 
-`func (o *IamInput) GetTagsOk() (*[]string, bool)`
+`func (o *IamInput) GetRequestUriOk() (*string, bool)`
 
-GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+GetRequestUriOk returns a tuple with the RequestUri field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTags
+### SetRequestUri
 
-`func (o *IamInput) SetTags(v []string)`
+`func (o *IamInput) SetRequestUri(v string)`
 
-SetTags sets Tags field to given value.
+SetRequestUri sets RequestUri field to given value.
 
-### HasTags
+### HasRequestUri
 
-`func (o *IamInput) HasTags() bool`
+`func (o *IamInput) HasRequestUri() bool`
 
-HasTags returns a boolean if a field has been set.
+HasRequestUri returns a boolean if a field has been set.
 
-### GetWorkspace
+### GetResponse
 
-`func (o *IamInput) GetWorkspace() string`
+`func (o *IamInput) GetResponse() string`
 
-GetWorkspace returns the Workspace field if non-nil, zero value otherwise.
+GetResponse returns the Response field if non-nil, zero value otherwise.
 
-### GetWorkspaceOk
+### GetResponseOk
 
-`func (o *IamInput) GetWorkspaceOk() (*string, bool)`
+`func (o *IamInput) GetResponseOk() (*string, bool)`
 
-GetWorkspaceOk returns a tuple with the Workspace field if it's non-nil, zero value otherwise
+GetResponseOk returns a tuple with the Response field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetWorkspace
+### SetResponse
 
-`func (o *IamInput) SetWorkspace(v string)`
+`func (o *IamInput) SetResponse(v string)`
 
-SetWorkspace sets Workspace field to given value.
+SetResponse sets Response field to given value.
 
-### HasWorkspace
+### HasResponse
 
-`func (o *IamInput) HasWorkspace() bool`
+`func (o *IamInput) HasResponse() bool`
 
-HasWorkspace returns a boolean if a field has been set.
+HasResponse returns a boolean if a field has been set.
+
+### GetStatusCode
+
+`func (o *IamInput) GetStatusCode() int32`
+
+GetStatusCode returns the StatusCode field if non-nil, zero value otherwise.
+
+### GetStatusCodeOk
+
+`func (o *IamInput) GetStatusCodeOk() (*int32, bool)`
+
+GetStatusCodeOk returns a tuple with the StatusCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatusCode
+
+`func (o *IamInput) SetStatusCode(v int32)`
+
+SetStatusCode sets StatusCode field to given value.
+
+### HasStatusCode
+
+`func (o *IamInput) HasStatusCode() bool`
+
+HasStatusCode returns a boolean if a field has been set.
+
+### GetUser
+
+`func (o *IamInput) GetUser() string`
+
+GetUser returns the User field if non-nil, zero value otherwise.
+
+### GetUserOk
+
+`func (o *IamInput) GetUserOk() (*string, bool)`
+
+GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUser
+
+`func (o *IamInput) SetUser(v string)`
+
+SetUser sets User field to given value.
+
+### HasUser
+
+`func (o *IamInput) HasUser() bool`
+
+HasUser returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

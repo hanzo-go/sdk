@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**From** | Pointer to **string** |  | [optional] 
+**From** | Pointer to **string** | From is the id of the node the edge starts at: the child page for a parent edge, the page holding the wikilink for a link edge, the kb-source for a provenance edge. Always one of Nodes. | [optional] 
 **Kind** | Pointer to **string** | parent | link | provenance | [optional] 
-**To** | Pointer to **string** |  | [optional] 
+**To** | Pointer to **string** | To is the id of the node the edge points at: the parent page, the linked page, the kb-connector. Always one of Nodes — a wikilink matching no page points at a synthetic \&quot;unresolved:&lt;lowercased title&gt;\&quot; node rather than dangling. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,26 @@ var _ MappedNullable = &BuildSummary{}
 
 // BuildSummary struct for BuildSummary
 type BuildSummary struct {
-	Agent     *string `json:"agent,omitempty"`
-	EndedAt   *string `json:"endedAt,omitempty"`
-	Org       *string `json:"org,omitempty"`
-	Project   *string `json:"project,omitempty"`
-	Repo      *string `json:"repo,omitempty"`
-	Session   *string `json:"session,omitempty"`
+	// Agent is the label the surface that did the work calls itself by.
+	Agent *string `json:"agent,omitempty"`
+	// EndedAt is when it finished, same format. Empty means it is still going.
+	EndedAt *string `json:"endedAt,omitempty"`
+	// Org and Project are the build's public ADDRESS — the pair the full story is read at, and the pair a visitor sees in the URL bar. Not a tenant key: this index is anonymous and lists only what authors published.
+	Org *string `json:"org,omitempty"`
+	// Project is the product's slug, the second half of that address.
+	Project *string `json:"project,omitempty"`
+	// Repo is the repository the work was done in, as the session reported it.
+	Repo *string `json:"repo,omitempty"`
+	// Session is the agent session behind the build, and the value its commits name in their `Hanzo-Session:` trailer.
+	Session *string `json:"session,omitempty"`
+	// StartedAt is when the session opened, RFC 3339 in UTC.
 	StartedAt *string `json:"startedAt,omitempty"`
-	Status    *string `json:"status,omitempty"`
-	Title     *string `json:"title,omitempty"`
-	Turns     *int32  `json:"turns,omitempty"`
+	// Status is the session's own: running, paused, done or error — so a card can show a build still being written.
+	Status *string `json:"status,omitempty"`
+	// Title is the human line for the card. Sent even when empty, like every field here, because that is what this route has always sent.
+	Title *string `json:"title,omitempty"`
+	// Turns is HOW MANY turns the transcript holds — a COUNT, unlike the `turn` on each turn of the full story, which is that turn's position. The full read returns at most 1000 of them; this number is not capped.
+	Turns *int32 `json:"turns,omitempty"`
 }
 
 // NewBuildSummary instantiates a new BuildSummary object

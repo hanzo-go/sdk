@@ -24,7 +24,6 @@ Method | HTTP request | Description
 [**GetCloudflareZones**](CloudflareAPI.md#GetCloudflareZones) | **Get** /v1/cloudflare/zones | Lists the Cloudflare zones the org&#39;s connected API token can see, paged and filtered by the query parameters Cloudflare itself accepts.
 [**GetCloudflareZonesByZone**](CloudflareAPI.md#GetCloudflareZonesByZone) | **Get** /v1/cloudflare/zones/{zone} | Reads one Cloudflare zone the org&#39;s token can see.
 [**GetCloudflareZonesByZoneAnalytics**](CloudflareAPI.md#GetCloudflareZonesByZoneAnalytics) | **Get** /v1/cloudflare/zones/{zone}/analytics | Reads a zone&#39;s Cloudflare traffic dashboard — requests, bandwidth, threats and pageviews over the since/until window.
-[**PostCloudflareAiRunByWildcard1**](CloudflareAPI.md#PostCloudflareAiRunByWildcard1) | **Post** /v1/cloudflare/ai/run/{wildcard1} | Run a Cloudflare Workers AI model and get its output back
 [**PostCloudflareD1Databases**](CloudflareAPI.md#PostCloudflareD1Databases) | **Post** /v1/cloudflare/d1/databases | Creates a D1 database on the org&#39;s Cloudflare account.
 [**PostCloudflareD1DatabasesByDatabaseQuery**](CloudflareAPI.md#PostCloudflareD1DatabasesByDatabaseQuery) | **Post** /v1/cloudflare/d1/databases/{database}/query | Run a SQL statement against a D1 database
 [**PostCloudflareKvNamespaces**](CloudflareAPI.md#PostCloudflareKvNamespaces) | **Post** /v1/cloudflare/kv/namespaces | KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
@@ -1435,74 +1434,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCloudflareAiRunByWildcard1
-
-> PostCloudflareAiRunByWildcard1(ctx, wildcard1).Execute()
-
-Run a Cloudflare Workers AI model and get its output back
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	wildcard1 := "wildcard1_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CloudflareAPI.PostCloudflareAiRunByWildcard1(context.Background(), wildcard1).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareAiRunByWildcard1``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wildcard1** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCloudflareAiRunByWildcard1Request struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

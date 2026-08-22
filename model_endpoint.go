@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,18 +19,28 @@ var _ MappedNullable = &Endpoint{}
 
 // Endpoint struct for Endpoint
 type Endpoint struct {
+	// CreatedAt is when the endpoint was registered, RFC3339 in UTC — stored in that spelling because it sorts as a string.
 	Created *string `json:"created,omitempty"`
-	// Deliveries7d / Failures7d are cheap usage counters computed from the delivery log over usageWindow (not stored columns) and populated ONLY on list/get. They are 0 when there is no delivery history — never omitempty, so the console always sees them.
-	Deliveries7d *int32   `json:"deliveries7d,omitempty"`
-	Description  *string  `json:"description,omitempty"`
-	Events       []string `json:"events,omitempty"`
-	Failures7d   *int32   `json:"failures7d,omitempty"`
-	Id           *string  `json:"id,omitempty"`
-	Org          *string  `json:"org,omitempty"`
-	Secret       *string  `json:"secret,omitempty"`
-	Status       *string  `json:"status,omitempty"`
-	Updated      *string  `json:"updated,omitempty"`
-	Url          *string  `json:"url,omitempty"`
+	// Deliveries7d is how many deliveries SETTLED in the trailing 7 days — the attempts that ended ok or failed, so a delivery still retrying is in neither counter yet. It is counted from the log at read time rather than stored, and it is filled only on a list or a get; a create answers 0 because there is no history, which is why it is never omitted.
+	Deliveries7d *int32 `json:"deliveries7d,omitempty"`
+	// Description is the operator's own label for the endpoint. Never sent anywhere.
+	Description *string `json:"description,omitempty"`
+	// Events are the subject patterns this endpoint subscribes to (\"commerce.order.>\"). An EMPTY list means every event, not none.
+	Events []string `json:"events,omitempty"`
+	// Failures7d is how many of those settled as failed — the subscriber never accepted it and no further attempt will be made. It is the numerator to Deliveries7d, over the same window.
+	Failures7d *int32 `json:"failures7d,omitempty"`
+	// ID is the endpoint's handle, server-minted and stable for its life. It is what every other route here addresses.
+	Id *string `json:"id,omitempty"`
+	// Org is the tenant that owns the endpoint, taken from the validated principal rather than from any request field.
+	Org *string `json:"org,omitempty"`
+	// Secret is the HMAC-SHA256 signing key a subscriber recomputes the signature with. It is returned exactly ONCE, on create: a later read of the endpoint omits it, so a lost secret is replaced rather than recovered.
+	Secret *string `json:"secret,omitempty"`
+	// Status is \"active\" or \"disabled\" — nothing else is accepted. A disabled endpoint keeps its subscription and receives no deliveries, except a manual test send, which goes out anyway.
+	Status *string `json:"status,omitempty"`
+	// UpdatedAt is when its url, events, status or description last changed.
+	Updated *string `json:"updated,omitempty"`
+	// URL is where the POST goes. Changing it is the one edit that redirects an org's events, which is why it is never bindable from a query string.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewEndpoint instantiates a new Endpoint object

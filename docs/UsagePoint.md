@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Date** | Pointer to **string** |  | [optional] 
-**Requests** | Pointer to **int32** |  | [optional] 
-**SpendCents** | Pointer to **int32** |  | [optional] 
-**Tokens** | Pointer to **int32** |  | [optional] 
+**Requests** | Pointer to **int32** | Requests is how many LLM calls fell in this bucket. | [optional] 
+**SpendCents** | Pointer to **int32** | SpendCents is what they cost, in cents. | [optional] 
+**T** | Pointer to **string** | T is the bucket&#39;s start, RFC3339 UTC, aligned to the interval. | [optional] 
+**Tokens** | Pointer to **int32** | Tokens is prompt plus completion tokens over those calls. | [optional] 
 
 ## Methods
 
@@ -27,31 +27,6 @@ will change when the set of required properties is changed
 NewUsagePointWithDefaults instantiates a new UsagePoint object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetDate
-
-`func (o *UsagePoint) GetDate() string`
-
-GetDate returns the Date field if non-nil, zero value otherwise.
-
-### GetDateOk
-
-`func (o *UsagePoint) GetDateOk() (*string, bool)`
-
-GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDate
-
-`func (o *UsagePoint) SetDate(v string)`
-
-SetDate sets Date field to given value.
-
-### HasDate
-
-`func (o *UsagePoint) HasDate() bool`
-
-HasDate returns a boolean if a field has been set.
 
 ### GetRequests
 
@@ -102,6 +77,31 @@ SetSpendCents sets SpendCents field to given value.
 `func (o *UsagePoint) HasSpendCents() bool`
 
 HasSpendCents returns a boolean if a field has been set.
+
+### GetT
+
+`func (o *UsagePoint) GetT() string`
+
+GetT returns the T field if non-nil, zero value otherwise.
+
+### GetTOk
+
+`func (o *UsagePoint) GetTOk() (*string, bool)`
+
+GetTOk returns a tuple with the T field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetT
+
+`func (o *UsagePoint) SetT(v string)`
+
+SetT sets T field to given value.
+
+### HasT
+
+`func (o *UsagePoint) HasT() bool`
+
+HasT returns a boolean if a field has been set.
 
 ### GetTokens
 

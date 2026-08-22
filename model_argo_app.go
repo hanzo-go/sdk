@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &ArgoApp{}
 
 // ArgoApp struct for ArgoApp
 type ArgoApp struct {
-	ApiVersion *string     `json:"apiVersion,omitempty"`
-	Kind       *string     `json:"kind,omitempty"`
-	Metadata   *ArgoMeta   `json:"metadata,omitempty"`
-	Spec       *ArgoSpec   `json:"spec,omitempty"`
-	Status     *ArgoStatus `json:"status,omitempty"`
+	// APIVersion is the constant \"argoproj.io/v1alpha1\" — the shape, not the source. These are projections of operator App CRs and Hanzo CD Applications; no argoproj.io object is stored anywhere behind this plane.
+	ApiVersion *string `json:"apiVersion,omitempty"`
+	// Kind is the constant \"Application\".
+	Kind *string `json:"kind,omitempty"`
+	// Metadata is the projected object's identity.
+	Metadata *ArgoMeta `json:"metadata,omitempty"`
+	// Spec is the desired state: where it comes from, where it lands, what project it belongs to.
+	Spec *ArgoSpec `json:"spec,omitempty"`
+	// Status is what was observed: the sync verdict, the health, and the owned objects when this is a detail read.
+	Status *ArgoStatus `json:"status,omitempty"`
 }
 
 // NewArgoApp instantiates a new ArgoApp object

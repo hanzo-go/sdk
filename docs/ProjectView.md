@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Applications** | Pointer to **int32** |  | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Slug** | Pointer to **string** |  | [optional] 
+**Applications** | Pointer to **int32** | Applications is how many platform apps this org has under the project, counted per request. It is the one fact IAM cannot answer about a project. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is IAM&#39;s creation time as unix seconds. 0 when IAM&#39;s timestamp is absent or unparseable — never a fabricated time. | [optional] 
+**Description** | Pointer to **string** | Description is IAM&#39;s free text about the project. Nothing derives from it. | [optional] 
+**Name** | Pointer to **string** | Name is IAM&#39;s display name, falling back to the slug when the project has none, so this is never empty. | [optional] 
+**Org** | Pointer to **string** | Org is the project&#39;s IAM owner, and the tenant every app under it deploys into. It comes from the validated identity, never from the request. | [optional] 
+**Slug** | Pointer to **string** | Slug is the project&#39;s IAM name — half of the (org,name) identity, the &#x60;:project&#x60; path segment, and the scope key an app is filed under. It is the project&#39;s address; Name is not. | [optional] 
 
 ## Methods
 

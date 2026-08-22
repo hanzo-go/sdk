@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -2308,102 +2308,6 @@ func (a *CloudflareAPIService) GetCloudflareZonesByZoneAnalyticsExecute(r Cloudf
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type CloudflareAPIPostCloudflareAiRunByWildcard1Request struct {
-	ctx        context.Context
-	ApiService *CloudflareAPIService
-	wildcard1  string
-}
-
-func (r CloudflareAPIPostCloudflareAiRunByWildcard1Request) Execute() (*http.Response, error) {
-	return r.ApiService.PostCloudflareAiRunByWildcard1Execute(r)
-}
-
-/*
-PostCloudflareAiRunByWildcard1 Run a Cloudflare Workers AI model and get its output back
-
-Runs a Workers AI model — the model id is the rest of the path, e.g. `@cf/meta/llama-3.1-8b-instruct` — on the org's OWN Cloudflare account and relays the model's output. The request body is whatever the chosen model takes (a prompt, chat messages, a base64 audio clip) and is forwarded unchanged; the response is the model's own, which for an image or audio model is BYTES under Cloudflare's content type rather than JSON. Both halves are why this is not a typed op.
-
-It is the ONE PRICED route on this plane, because a run is inference rather than passthrough. The org's own token already paid Cloudflare for the compute, so Hanzo debits only the thin BYO routing fee — never the full inference cost — and meters it on the SAME `ai` product axis and per-project caps as every other model call, so Workers AI spend sums with LLM spend. The fee has a floor, so every run leaves a usage row even for a modality that reports no tokens, and it emits one gen_ai span with `gen_ai.system = cloudflare`.
-
-Gated by BALANCE, not by the admin bit that guards the destructive verbs here: a validated org is enough, and a frozen, broke or over-cap org is refused with the fleet-wide 402/503 billing contract BEFORE any byte reaches Cloudflare — no run, and no account discovery either. An empty or oversized body is 400, as is a model id that is not a plain Cloudflare model path; 503 if the org has never connected a Cloudflare token.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param wildcard1
-	@return CloudflareAPIPostCloudflareAiRunByWildcard1Request
-*/
-func (a *CloudflareAPIService) PostCloudflareAiRunByWildcard1(ctx context.Context, wildcard1 string) CloudflareAPIPostCloudflareAiRunByWildcard1Request {
-	return CloudflareAPIPostCloudflareAiRunByWildcard1Request{
-		ApiService: a,
-		ctx:        ctx,
-		wildcard1:  wildcard1,
-	}
-}
-
-// Execute executes the request
-func (a *CloudflareAPIService) PostCloudflareAiRunByWildcard1Execute(r CloudflareAPIPostCloudflareAiRunByWildcard1Request) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CloudflareAPIService.PostCloudflareAiRunByWildcard1")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/cloudflare/ai/run/{wildcard1}"
-	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type CloudflareAPIPostCloudflareD1DatabasesRequest struct {

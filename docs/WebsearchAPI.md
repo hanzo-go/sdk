@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**DeleteWebsearchSearch**](WebsearchAPI.md#DeleteWebsearchSearch) | **Delete** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
 [**GetWebsearchSearch**](WebsearchAPI.md#GetWebsearchSearch) | **Get** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
 [**PatchWebsearchSearch**](WebsearchAPI.md#PatchWebsearchSearch) | **Patch** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
+[**PostWebsearchScrape**](WebsearchAPI.md#PostWebsearchScrape) | **Post** /v1/websearch/scrape | Fetch one page and get its extracted markdown, in the firecrawl envelope.
 [**PostWebsearchSearch**](WebsearchAPI.md#PostWebsearchSearch) | **Post** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
 [**PutWebsearchSearch**](WebsearchAPI.md#PutWebsearchSearch) | **Put** /v1/websearch/search | Keyless web meta-search, in the SearXNG JSON envelope.
 [**SearchWeb**](WebsearchAPI.md#SearchWeb) | **Post** /v1/websearch | Search the live web
@@ -170,6 +171,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPatchWebsearchSearchRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostWebsearchScrape
+
+> PostWebsearchScrape(ctx).Execute()
+
+Fetch one page and get its extracted markdown, in the firecrawl envelope.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.WebsearchAPI.PostWebsearchScrape(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.PostWebsearchScrape``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostWebsearchScrapeRequest struct via the builder pattern
 
 
 ### Return type

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Nonce** | Pointer to **string** | Nonce is the value GET /v1/validators/challenge issued for this slot. | [optional] 
+**Nonce** | Pointer to **string** | Nonce is the value GET /v1/validator/challenge issued for this slot. | [optional] 
 **Signature** | Pointer to **string** | Signature is the wallet&#39;s personal_sign over the challenge message, hex with a 0x prefix. | [optional] 
 **TokenId** | Pointer to **int32** | TokenID is the Validator-tier GenesisNFT token id being claimed. It IS the validator slot. | [optional] 
 

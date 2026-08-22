@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,8 +19,11 @@ var _ MappedNullable = &DriftFlag{}
 
 // DriftFlag struct for DriftFlag
 type DriftFlag struct {
-	Kind     *string `json:"kind,omitempty"`
-	Message  *string `json:"message,omitempty"`
+	// Kind is which finding this is, one of stale, un-rolled, floating-declared, floating-running, no-release or zero-assets. It is what code matches on, and the kinds are independent — one row can carry several at once.
+	Kind *string `json:"kind,omitempty"`
+	// Message is the finding in words, naming the tags that produced it (\"running v1.2.3 has not rolled to declared v1.2.4\"). For display: match on Kind.
+	Message *string `json:"message,omitempty"`
+	// Severity is this ONE finding's weight — yellow for stale and un-rolled, red for the other four. It is a constant of the kind (severityOf), never a judgement about the row, so the same kind always weighs the same.
 	Severity *string `json:"severity,omitempty"`
 }
 

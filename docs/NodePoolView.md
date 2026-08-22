@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AutoScale** | Pointer to **bool** |  | [optional] 
-**Count** | Pointer to **int32** |  | [optional] 
-**MaxNodes** | Pointer to **int32** |  | [optional] 
-**MinNodes** | Pointer to **int32** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**PoolId** | Pointer to **string** |  | [optional] 
-**Size** | Pointer to **string** |  | [optional] 
+**AutoScale** | Pointer to **bool** | AutoScale reports whether the provider&#39;s cluster autoscaler owns this pool&#39;s size, moving Count between MinNodes and MaxNodes as workloads demand. False means Count changes only when someone scales the pool. | [optional] 
+**Count** | Pointer to **int32** | Count is how many nodes the pool has right now. Always present, so 0 means a pool that is genuinely empty rather than a figure the provider withheld. | [optional] 
+**MaxNodes** | Pointer to **int32** | MaxNodes is the ceiling the autoscaler will not grow the pool past, and so the bound on what this pool can cost. Read it only with AutoScale set. | [optional] 
+**MinNodes** | Pointer to **int32** | MinNodes is the floor the autoscaler will not shrink the pool below. Read it only with AutoScale set — the provider ignores it otherwise. | [optional] 
+**Name** | Pointer to **string** | Name is the pool&#39;s name as the provider knows it. | [optional] 
+**PoolId** | Pointer to **string** | PoolID is the provider&#39;s id for the pool — the value the scale and delete routes address it by. It falls back to the pool&#39;s name when the provider answered without one, so it is always something the routes accept. | [optional] 
+**Size** | Pointer to **string** | Size is the provider size slug every node in the pool runs at (\&quot;s-4vcpu-8gb\&quot;, \&quot;gpu-h100x8-640gb\&quot;). One pool is one size — a mixed cluster is several pools. | [optional] 
 
 ## Methods
 

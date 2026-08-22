@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Hosts** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**Nodes** | Pointer to [**[]ArgoNode**](ArgoNode.md) |  | [optional] 
-**OrphanedNodes** | Pointer to [**[]ArgoNode**](ArgoNode.md) |  | [optional] 
+**Hosts** | Pointer to **[]map[string]interface{}** | Hosts is ArgoCD&#39;s per-node machine inventory. Always empty: this plane projects applications and serves no cluster-node view. | [optional] 
+**Nodes** | Pointer to [**[]ArgoNode**](ArgoNode.md) | Nodes is the FLAT node list, root first: the App CR, then the objects the operator owns, then their ReplicaSets and Pods. The hierarchy is in ParentRefs, not in the ordering. | [optional] 
+**OrphanedNodes** | Pointer to [**[]ArgoNode**](ArgoNode.md) | OrphanedNodes are objects in the namespace belonging to no application. Always empty: this walk reaches an object only THROUGH ownership from the App CR, so it can never hold one that is orphaned. | [optional] 
 
 ## Methods
 

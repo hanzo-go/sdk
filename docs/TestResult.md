@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Delivered** | Pointer to **bool** |  | [optional] 
-**DurationMs** | Pointer to **int32** |  | [optional] 
-**Error** | Pointer to **string** |  | [optional] 
-**HttpStatus** | Pointer to **int32** |  | [optional] 
+**Delivered** | Pointer to **bool** | Delivered is whether the subscriber accepted the test POST. It is the whole answer: the send is synchronous and is not retried. | [optional] 
+**DurationMs** | Pointer to **int32** | DurationMs is how long the single attempt took, in MILLISECONDS. | [optional] 
+**Error** | Pointer to **string** | Error says what stopped it. Empty when delivered. | [optional] 
+**HttpStatus** | Pointer to **int32** | HTTPStatus is what the subscriber answered, or 0 if it never answered. | [optional] 
 
 ## Methods
 

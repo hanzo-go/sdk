@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,15 @@ var _ MappedNullable = &CatalogEntry{}
 
 // CatalogEntry struct for CatalogEntry
 type CatalogEntry struct {
-	Configured  *bool   `json:"configured,omitempty"`
+	// Configured is whether THIS DEPLOYMENT holds the OAuth client credentials for the provider. False means Connect would dead-end, so the console can offer it disabled instead of broken. It is deployment-wide and says nothing about whether the caller's org has connected the source — that is the connector list's `status`.
+	Configured *bool `json:"configured,omitempty"`
+	// Description is one line of shop copy: what connecting this source pulls in. Native connectors carry written prose; a piece-backed one reads \"activepieces connector (<piece>)\".
 	Description *string `json:"description,omitempty"`
+	// DisplayName is the label to show a person. First-party connectors carry a written name (\"GitHub\", \"Google Drive\"); a piece-backed one falls back to the provider capitalized, because the rich activepieces metadata lives behind a cross-service call this read will not make.
 	DisplayName *string `json:"displayName,omitempty"`
 	// \"native\" | \"piece\"
-	Kind     *string `json:"kind,omitempty"`
+	Kind *string `json:"kind,omitempty"`
+	// Provider is the source's id and the address every connector op takes it by (/v1/knowledge/connectors/:provider). One of github, slack, google, notion.
 	Provider *string `json:"provider,omitempty"`
 }
 

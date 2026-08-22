@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**GetPricingCompute**](PricingAPI.md#GetPricingCompute) | **Get** /v1/pricing/compute | Returns the compute section of the catalog: the cloud provider and region the prices are quoted for, the monthly markup applied to them, the full instance-size tier list and the named presets.
 [**GetPricingComputePresets**](PricingAPI.md#GetPricingComputePresets) | **Get** /v1/pricing/compute/presets | Returns just the named compute sizes — the short, human-labelled list (\&quot;Starter\&quot;, \&quot;Pro\&quot;) a size picker renders, each carrying its provider slug, vCPU, memory, disk and price.
 [**GetPricingDatastore**](PricingAPI.md#GetPricingDatastore) | **Get** /v1/pricing/datastore | Returns the Hanzo Datastore rate card: the tier list, the per-GB storage and egress usage rates, the annual discount and the trial.
+[**GetPricingEnablement**](PricingAPI.md#GetPricingEnablement) | **Get** /v1/pricing/enablement | Returns what the caller&#39;s org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
 [**GetPricingFeatured**](PricingAPI.md#GetPricingFeatured) | **Get** /v1/pricing/featured | Returns the models the catalog highlights, filtered to what the caller&#39;s org may see.
 [**GetPricingFree**](PricingAPI.md#GetPricingFree) | **Get** /v1/pricing/free | Returns the models that cost nothing to call, filtered to what the caller&#39;s org may see.
 [**GetPricingGpu**](PricingAPI.md#GetPricingGpu) | **Get** /v1/pricing/gpu | ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPU, host memory and hourly price.
@@ -28,6 +29,8 @@ Method | HTTP request | Description
 [**GetPricingSubscriptions**](PricingAPI.md#GetPricingSubscriptions) | **Get** /v1/pricing/subscriptions | Returns the API subscription plans — the account-level tiers a customer subscribes to, each with its monthly and annual price, included credit, rate limits and feature list.
 [**GetPricingSummary**](PricingAPI.md#GetPricingSummary) | **Get** /v1/pricing/summary | Returns the catalog&#39;s headline statistics — model counts by family and the provider directory.
 [**GetPricingTools**](PricingAPI.md#GetPricingTools) | **Get** /v1/pricing/tools | Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+[**PostPricingEnablementOptin**](PricingAPI.md#PostPricingEnablementOptin) | **Post** /v1/pricing/enablement/optin | Opts the caller&#39;s OWN org into a beta item.
+[**PostPricingEnablementOptout**](PricingAPI.md#PostPricingEnablementOptout) | **Post** /v1/pricing/enablement/optout | Removes the caller&#39;s OWN org from a beta item&#39;s grant list, the reverse of OptIntoBeta and idempotent.
 [**PostPricingSync**](PricingAPI.md#PostPricingSync) | **Post** /v1/pricing/sync | Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
 
 
@@ -627,6 +630,67 @@ Other parameters are passed through a pointer to a apiGetPricingDatastoreRequest
 ### Return type
 
 **map[string]map[string]interface{}**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPricingEnablement
+
+> EnablementBoard GetPricingEnablement(ctx).Execute()
+
+Returns what the caller's org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.GetPricingEnablement(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingEnablement``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPricingEnablement`: EnablementBoard
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingEnablement`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPricingEnablementRequest struct via the builder pattern
+
+
+### Return type
+
+[**EnablementBoard**](EnablementBoard.md)
 
 ### Authorization
 
@@ -1498,6 +1562,138 @@ Other parameters are passed through a pointer to a apiGetPricingToolsRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostPricingEnablementOptin
+
+> UserEnablementItem PostPricingEnablementOptin(ctx).EnablementOptRef(enablementOptRef).Execute()
+
+Opts the caller's OWN org into a beta item.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	enablementOptRef := *openapiclient.NewEnablementOptRef() // EnablementOptRef | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.PostPricingEnablementOptin(context.Background()).EnablementOptRef(enablementOptRef).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.PostPricingEnablementOptin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostPricingEnablementOptin`: UserEnablementItem
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.PostPricingEnablementOptin`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostPricingEnablementOptinRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enablementOptRef** | [**EnablementOptRef**](EnablementOptRef.md) |  | 
+
+### Return type
+
+[**UserEnablementItem**](UserEnablementItem.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostPricingEnablementOptout
+
+> UserEnablementItem PostPricingEnablementOptout(ctx).EnablementOptRef(enablementOptRef).Execute()
+
+Removes the caller's OWN org from a beta item's grant list, the reverse of OptIntoBeta and idempotent.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	enablementOptRef := *openapiclient.NewEnablementOptRef() // EnablementOptRef | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.PostPricingEnablementOptout(context.Background()).EnablementOptRef(enablementOptRef).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.PostPricingEnablementOptout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostPricingEnablementOptout`: UserEnablementItem
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.PostPricingEnablementOptout`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostPricingEnablementOptoutRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enablementOptRef** | [**EnablementOptRef**](EnablementOptRef.md) |  | 
+
+### Return type
+
+[**UserEnablementItem**](UserEnablementItem.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

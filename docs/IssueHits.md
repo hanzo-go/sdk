@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** |  | [optional] 
-**Issues** | Pointer to [**[]IssueHit**](IssueHit.md) |  | [optional] 
+**Count** | Pointer to **int32** | Count is how many rows Issues carries — the size of THIS answer after the cap, not how many issues matched. A count equal to the limit means there are probably more; there is no total and no cursor. | [optional] 
+**Issues** | Pointer to [**[]IssueHit**](IssueHit.md) | Issues are the matching rows grouped by status and oldest-first within a group, capped by the search&#39;s limit (50 by default, 200 at most). The cap is applied to that order, so a broad search returns the head of it rather than a sample. | [optional] 
 
 ## Methods
 

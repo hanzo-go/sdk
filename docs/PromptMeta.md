@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Labels** | Pointer to **[]string** | Labels is the creator&#39;s free-form taxonomy, stored as given after trimming and de-duplication. Always present, &#x60;[]&#x60; when none — never null. | [optional] 
 **LastUpdatedAt** | Pointer to **string** | LastUpdatedAt is when the newest version was appended, RFC 3339 UTC. Empty only if the record carries no timestamp at all. | [optional] 
-**Name** | Pointer to **string** | Name is the prompt&#39;s org-unique handle and the URL segment it is fetched by: GET /v1/prompts/&lt;name&gt;. | [optional] 
+**Name** | Pointer to **string** | Name is the prompt&#39;s org-unique handle and the URL segment it is fetched by: GET /v1/prompt/&lt;name&gt;. | [optional] 
 **Tags** | Pointer to **[]string** | Tags is the second free-form taxonomy under the same rules as Labels. Nothing in this service interprets either; they are yours to organize by. | [optional] 
 **Type** | Pointer to **string** | Type labels the template&#39;s kind, \&quot;text\&quot; unless the creator said otherwise. It is the CURRENT version&#39;s type; earlier versions may carry a different one. | [optional] 
 **Versions** | Pointer to **[]int32** | Versions lists every version NUMBER this prompt has, newest first, capped at the last 100. The highest is the current one. (On a metrics row the same key is a count, not a list.) | [optional] 

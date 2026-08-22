@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -22,27 +22,27 @@ import (
 // MqAPIService MqAPI service
 type MqAPIService service
 
-type MqAPIDeleteMqStreamsByNameRequest struct {
+type MqAPIDeleteMqStreamByNameRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	name       string
 }
 
-func (r MqAPIDeleteMqStreamsByNameRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteMqStreamsByNameExecute(r)
+func (r MqAPIDeleteMqStreamByNameRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteMqStreamByNameExecute(r)
 }
 
 /*
-DeleteMqStreamsByName Removes a stream with all its messages and consumers.
+DeleteMqStreamByName Removes a stream with all its messages and consumers.
 
 Removes a stream with all its messages and consumers. Irreversible.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the stream name, from the path.
-	@return MqAPIDeleteMqStreamsByNameRequest
+	@return MqAPIDeleteMqStreamByNameRequest
 */
-func (a *MqAPIService) DeleteMqStreamsByName(ctx context.Context, name string) MqAPIDeleteMqStreamsByNameRequest {
-	return MqAPIDeleteMqStreamsByNameRequest{
+func (a *MqAPIService) DeleteMqStreamByName(ctx context.Context, name string) MqAPIDeleteMqStreamByNameRequest {
+	return MqAPIDeleteMqStreamByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -50,19 +50,19 @@ func (a *MqAPIService) DeleteMqStreamsByName(ctx context.Context, name string) M
 }
 
 // Execute executes the request
-func (a *MqAPIService) DeleteMqStreamsByNameExecute(r MqAPIDeleteMqStreamsByNameRequest) (*http.Response, error) {
+func (a *MqAPIService) DeleteMqStreamByNameExecute(r MqAPIDeleteMqStreamByNameRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.DeleteMqStreamsByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.DeleteMqStreamByName")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{name}"
+	localVarPath := localBasePath + "/v1/mq/stream/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -114,29 +114,29 @@ func (a *MqAPIService) DeleteMqStreamsByNameExecute(r MqAPIDeleteMqStreamsByName
 	return localVarHTTPResponse, nil
 }
 
-type MqAPIDeleteMqStreamsByNameMessagesBySeqRequest struct {
+type MqAPIDeleteMqStreamByNameMessageBySeqRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	name       string
 	seq        int32
 }
 
-func (r MqAPIDeleteMqStreamsByNameMessagesBySeqRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteMqStreamsByNameMessagesBySeqExecute(r)
+func (r MqAPIDeleteMqStreamByNameMessageBySeqRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteMqStreamByNameMessageBySeqExecute(r)
 }
 
 /*
-DeleteMqStreamsByNameMessagesBySeq Erases one message by sequence; the sequence gap remains.
+DeleteMqStreamByNameMessageBySeq Erases one message by sequence; the sequence gap remains.
 
 Erases one message by sequence; the sequence gap remains.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the stream name, from the path.
 	@param seq Seq is the message's stream sequence, from the path.
-	@return MqAPIDeleteMqStreamsByNameMessagesBySeqRequest
+	@return MqAPIDeleteMqStreamByNameMessageBySeqRequest
 */
-func (a *MqAPIService) DeleteMqStreamsByNameMessagesBySeq(ctx context.Context, name string, seq int32) MqAPIDeleteMqStreamsByNameMessagesBySeqRequest {
-	return MqAPIDeleteMqStreamsByNameMessagesBySeqRequest{
+func (a *MqAPIService) DeleteMqStreamByNameMessageBySeq(ctx context.Context, name string, seq int32) MqAPIDeleteMqStreamByNameMessageBySeqRequest {
+	return MqAPIDeleteMqStreamByNameMessageBySeqRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -145,19 +145,19 @@ func (a *MqAPIService) DeleteMqStreamsByNameMessagesBySeq(ctx context.Context, n
 }
 
 // Execute executes the request
-func (a *MqAPIService) DeleteMqStreamsByNameMessagesBySeqExecute(r MqAPIDeleteMqStreamsByNameMessagesBySeqRequest) (*http.Response, error) {
+func (a *MqAPIService) DeleteMqStreamByNameMessageBySeqExecute(r MqAPIDeleteMqStreamByNameMessageBySeqRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.DeleteMqStreamsByNameMessagesBySeq")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.DeleteMqStreamByNameMessageBySeq")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{name}/messages/{seq}"
+	localVarPath := localBasePath + "/v1/mq/stream/{name}/message/{seq}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"seq"+"}", url.PathEscape(parameterValueToString(r.seq, "seq")), -1)
 
@@ -210,19 +210,19 @@ func (a *MqAPIService) DeleteMqStreamsByNameMessagesBySeqExecute(r MqAPIDeleteMq
 	return localVarHTTPResponse, nil
 }
 
-type MqAPIDeleteMqStreamsByStreamConsumersByNameRequest struct {
+type MqAPIDeleteMqStreamByStreamConsumerByNameRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	stream     string
 	name       string
 }
 
-func (r MqAPIDeleteMqStreamsByStreamConsumersByNameRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteMqStreamsByStreamConsumersByNameExecute(r)
+func (r MqAPIDeleteMqStreamByStreamConsumerByNameRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteMqStreamByStreamConsumerByNameExecute(r)
 }
 
 /*
-DeleteMqStreamsByStreamConsumersByName Removes a consumer and its delivery state; unacknowledged messages stay in the stream.
+DeleteMqStreamByStreamConsumerByName Removes a consumer and its delivery state; unacknowledged messages stay in the stream.
 
 Removes a consumer and its delivery state; unacknowledged messages
 stay in the stream.
@@ -230,10 +230,10 @@ stay in the stream.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param stream Stream is the stream name, from the path.
 	@param name Name is the consumer name, from the path.
-	@return MqAPIDeleteMqStreamsByStreamConsumersByNameRequest
+	@return MqAPIDeleteMqStreamByStreamConsumerByNameRequest
 */
-func (a *MqAPIService) DeleteMqStreamsByStreamConsumersByName(ctx context.Context, stream string, name string) MqAPIDeleteMqStreamsByStreamConsumersByNameRequest {
-	return MqAPIDeleteMqStreamsByStreamConsumersByNameRequest{
+func (a *MqAPIService) DeleteMqStreamByStreamConsumerByName(ctx context.Context, stream string, name string) MqAPIDeleteMqStreamByStreamConsumerByNameRequest {
+	return MqAPIDeleteMqStreamByStreamConsumerByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stream:     stream,
@@ -242,19 +242,19 @@ func (a *MqAPIService) DeleteMqStreamsByStreamConsumersByName(ctx context.Contex
 }
 
 // Execute executes the request
-func (a *MqAPIService) DeleteMqStreamsByStreamConsumersByNameExecute(r MqAPIDeleteMqStreamsByStreamConsumersByNameRequest) (*http.Response, error) {
+func (a *MqAPIService) DeleteMqStreamByStreamConsumerByNameExecute(r MqAPIDeleteMqStreamByStreamConsumerByNameRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.DeleteMqStreamsByStreamConsumersByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.DeleteMqStreamByStreamConsumerByName")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{stream}/consumers/{name}"
+	localVarPath := localBasePath + "/v1/mq/stream/{stream}/consumer/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"stream"+"}", url.PathEscape(parameterValueToString(r.stream, "stream")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
@@ -507,7 +507,7 @@ func (a *MqAPIService) GetMqInfoExecute(r MqAPIGetMqInfoRequest) (*InfoOut, *htt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIGetMqStreamsRequest struct {
+type MqAPIGetMqStreamRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	limit      *int32
@@ -515,31 +515,31 @@ type MqAPIGetMqStreamsRequest struct {
 }
 
 // Limit caps the streams returned (1–1000, default 100).
-func (r MqAPIGetMqStreamsRequest) Limit(limit int32) MqAPIGetMqStreamsRequest {
+func (r MqAPIGetMqStreamRequest) Limit(limit int32) MqAPIGetMqStreamRequest {
 	r.limit = &limit
 	return r
 }
 
 // Offset skips that many streams, name-ordered.
-func (r MqAPIGetMqStreamsRequest) Offset(offset int32) MqAPIGetMqStreamsRequest {
+func (r MqAPIGetMqStreamRequest) Offset(offset int32) MqAPIGetMqStreamRequest {
 	r.offset = &offset
 	return r
 }
 
-func (r MqAPIGetMqStreamsRequest) Execute() (*Streams, *http.Response, error) {
-	return r.ApiService.GetMqStreamsExecute(r)
+func (r MqAPIGetMqStreamRequest) Execute() (*Streams, *http.Response, error) {
+	return r.ApiService.GetMqStreamExecute(r)
 }
 
 /*
-GetMqStreams Returns the org's streams, name-ordered, with their live state.
+GetMqStream Returns the org's streams, name-ordered, with their live state.
 
 Returns the org's streams, name-ordered, with their live state.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MqAPIGetMqStreamsRequest
+	@return MqAPIGetMqStreamRequest
 */
-func (a *MqAPIService) GetMqStreams(ctx context.Context) MqAPIGetMqStreamsRequest {
-	return MqAPIGetMqStreamsRequest{
+func (a *MqAPIService) GetMqStream(ctx context.Context) MqAPIGetMqStreamRequest {
+	return MqAPIGetMqStreamRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -548,7 +548,7 @@ func (a *MqAPIService) GetMqStreams(ctx context.Context) MqAPIGetMqStreamsReques
 // Execute executes the request
 //
 //	@return Streams
-func (a *MqAPIService) GetMqStreamsExecute(r MqAPIGetMqStreamsRequest) (*Streams, *http.Response, error) {
+func (a *MqAPIService) GetMqStreamExecute(r MqAPIGetMqStreamRequest) (*Streams, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -556,12 +556,12 @@ func (a *MqAPIService) GetMqStreamsExecute(r MqAPIGetMqStreamsRequest) (*Streams
 		localVarReturnValue *Streams
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreams")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStream")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams"
+	localVarPath := localBasePath + "/v1/mq/stream"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -627,27 +627,27 @@ func (a *MqAPIService) GetMqStreamsExecute(r MqAPIGetMqStreamsRequest) (*Streams
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIGetMqStreamsByNameRequest struct {
+type MqAPIGetMqStreamByNameRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	name       string
 }
 
-func (r MqAPIGetMqStreamsByNameRequest) Execute() (*Stream, *http.Response, error) {
-	return r.ApiService.GetMqStreamsByNameExecute(r)
+func (r MqAPIGetMqStreamByNameRequest) Execute() (*Stream, *http.Response, error) {
+	return r.ApiService.GetMqStreamByNameExecute(r)
 }
 
 /*
-GetMqStreamsByName Returns one stream's configuration and live state.
+GetMqStreamByName Returns one stream's configuration and live state.
 
 Returns one stream's configuration and live state.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the stream name, from the path.
-	@return MqAPIGetMqStreamsByNameRequest
+	@return MqAPIGetMqStreamByNameRequest
 */
-func (a *MqAPIService) GetMqStreamsByName(ctx context.Context, name string) MqAPIGetMqStreamsByNameRequest {
-	return MqAPIGetMqStreamsByNameRequest{
+func (a *MqAPIService) GetMqStreamByName(ctx context.Context, name string) MqAPIGetMqStreamByNameRequest {
+	return MqAPIGetMqStreamByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -657,7 +657,7 @@ func (a *MqAPIService) GetMqStreamsByName(ctx context.Context, name string) MqAP
 // Execute executes the request
 //
 //	@return Stream
-func (a *MqAPIService) GetMqStreamsByNameExecute(r MqAPIGetMqStreamsByNameRequest) (*Stream, *http.Response, error) {
+func (a *MqAPIService) GetMqStreamByNameExecute(r MqAPIGetMqStreamByNameRequest) (*Stream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -665,12 +665,12 @@ func (a *MqAPIService) GetMqStreamsByNameExecute(r MqAPIGetMqStreamsByNameReques
 		localVarReturnValue *Stream
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamsByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamByName")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{name}"
+	localVarPath := localBasePath + "/v1/mq/stream/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -731,7 +731,7 @@ func (a *MqAPIService) GetMqStreamsByNameExecute(r MqAPIGetMqStreamsByNameReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIGetMqStreamsByNameMessagesRequest struct {
+type MqAPIGetMqStreamByNameMessageRequest struct {
 	ctx           context.Context
 	ApiService    *MqAPIService
 	name          string
@@ -742,45 +742,45 @@ type MqAPIGetMqStreamsByNameMessagesRequest struct {
 }
 
 // Seq reads the message at this sequence (with next_by_subject: the walk&#39;s start).
-func (r MqAPIGetMqStreamsByNameMessagesRequest) Seq(seq int32) MqAPIGetMqStreamsByNameMessagesRequest {
+func (r MqAPIGetMqStreamByNameMessageRequest) Seq(seq int32) MqAPIGetMqStreamByNameMessageRequest {
 	r.seq = &seq
 	return r
 }
 
 // LastBySubject reads the newest message on this org-relative subject.
-func (r MqAPIGetMqStreamsByNameMessagesRequest) LastBySubject(lastBySubject string) MqAPIGetMqStreamsByNameMessagesRequest {
+func (r MqAPIGetMqStreamByNameMessageRequest) LastBySubject(lastBySubject string) MqAPIGetMqStreamByNameMessageRequest {
 	r.lastBySubject = &lastBySubject
 	return r
 }
 
 // NextBySubject walks forward from seq collecting messages on this org-relative subject (wildcards supported).
-func (r MqAPIGetMqStreamsByNameMessagesRequest) NextBySubject(nextBySubject string) MqAPIGetMqStreamsByNameMessagesRequest {
+func (r MqAPIGetMqStreamByNameMessageRequest) NextBySubject(nextBySubject string) MqAPIGetMqStreamByNameMessageRequest {
 	r.nextBySubject = &nextBySubject
 	return r
 }
 
 // Limit caps a next_by_subject walk (1–1000, default 100).
-func (r MqAPIGetMqStreamsByNameMessagesRequest) Limit(limit int32) MqAPIGetMqStreamsByNameMessagesRequest {
+func (r MqAPIGetMqStreamByNameMessageRequest) Limit(limit int32) MqAPIGetMqStreamByNameMessageRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r MqAPIGetMqStreamsByNameMessagesRequest) Execute() (*ReadOut, *http.Response, error) {
-	return r.ApiService.GetMqStreamsByNameMessagesExecute(r)
+func (r MqAPIGetMqStreamByNameMessageRequest) Execute() (*ReadOut, *http.Response, error) {
+	return r.ApiService.GetMqStreamByNameMessageExecute(r)
 }
 
 /*
-GetMqStreamsByNameMessages Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
+GetMqStreamByNameMessage Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
 
 Reads stored messages without a consumer: by sequence, by newest on a
 subject, or walking a subject forward from a sequence.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the stream name, from the path.
-	@return MqAPIGetMqStreamsByNameMessagesRequest
+	@return MqAPIGetMqStreamByNameMessageRequest
 */
-func (a *MqAPIService) GetMqStreamsByNameMessages(ctx context.Context, name string) MqAPIGetMqStreamsByNameMessagesRequest {
-	return MqAPIGetMqStreamsByNameMessagesRequest{
+func (a *MqAPIService) GetMqStreamByNameMessage(ctx context.Context, name string) MqAPIGetMqStreamByNameMessageRequest {
+	return MqAPIGetMqStreamByNameMessageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -790,7 +790,7 @@ func (a *MqAPIService) GetMqStreamsByNameMessages(ctx context.Context, name stri
 // Execute executes the request
 //
 //	@return ReadOut
-func (a *MqAPIService) GetMqStreamsByNameMessagesExecute(r MqAPIGetMqStreamsByNameMessagesRequest) (*ReadOut, *http.Response, error) {
+func (a *MqAPIService) GetMqStreamByNameMessageExecute(r MqAPIGetMqStreamByNameMessageRequest) (*ReadOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -798,12 +798,12 @@ func (a *MqAPIService) GetMqStreamsByNameMessagesExecute(r MqAPIGetMqStreamsByNa
 		localVarReturnValue *ReadOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamsByNameMessages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamByNameMessage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{name}/messages"
+	localVarPath := localBasePath + "/v1/mq/stream/{name}/message"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -876,7 +876,7 @@ func (a *MqAPIService) GetMqStreamsByNameMessagesExecute(r MqAPIGetMqStreamsByNa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIGetMqStreamsByStreamConsumersRequest struct {
+type MqAPIGetMqStreamByStreamConsumerRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	stream     string
@@ -885,32 +885,32 @@ type MqAPIGetMqStreamsByStreamConsumersRequest struct {
 }
 
 // Limit caps the consumers returned (1–1000, default 100).
-func (r MqAPIGetMqStreamsByStreamConsumersRequest) Limit(limit int32) MqAPIGetMqStreamsByStreamConsumersRequest {
+func (r MqAPIGetMqStreamByStreamConsumerRequest) Limit(limit int32) MqAPIGetMqStreamByStreamConsumerRequest {
 	r.limit = &limit
 	return r
 }
 
 // Offset skips that many consumers, name-ordered.
-func (r MqAPIGetMqStreamsByStreamConsumersRequest) Offset(offset int32) MqAPIGetMqStreamsByStreamConsumersRequest {
+func (r MqAPIGetMqStreamByStreamConsumerRequest) Offset(offset int32) MqAPIGetMqStreamByStreamConsumerRequest {
 	r.offset = &offset
 	return r
 }
 
-func (r MqAPIGetMqStreamsByStreamConsumersRequest) Execute() (*PickOut, *http.Response, error) {
-	return r.ApiService.GetMqStreamsByStreamConsumersExecute(r)
+func (r MqAPIGetMqStreamByStreamConsumerRequest) Execute() (*PickOut, *http.Response, error) {
+	return r.ApiService.GetMqStreamByStreamConsumerExecute(r)
 }
 
 /*
-GetMqStreamsByStreamConsumers Returns a stream's consumers, name-ordered, with delivery state.
+GetMqStreamByStreamConsumer Returns a stream's consumers, name-ordered, with delivery state.
 
 Returns a stream's consumers, name-ordered, with delivery state.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param stream Stream is the stream name, from the path.
-	@return MqAPIGetMqStreamsByStreamConsumersRequest
+	@return MqAPIGetMqStreamByStreamConsumerRequest
 */
-func (a *MqAPIService) GetMqStreamsByStreamConsumers(ctx context.Context, stream string) MqAPIGetMqStreamsByStreamConsumersRequest {
-	return MqAPIGetMqStreamsByStreamConsumersRequest{
+func (a *MqAPIService) GetMqStreamByStreamConsumer(ctx context.Context, stream string) MqAPIGetMqStreamByStreamConsumerRequest {
+	return MqAPIGetMqStreamByStreamConsumerRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stream:     stream,
@@ -920,7 +920,7 @@ func (a *MqAPIService) GetMqStreamsByStreamConsumers(ctx context.Context, stream
 // Execute executes the request
 //
 //	@return PickOut
-func (a *MqAPIService) GetMqStreamsByStreamConsumersExecute(r MqAPIGetMqStreamsByStreamConsumersRequest) (*PickOut, *http.Response, error) {
+func (a *MqAPIService) GetMqStreamByStreamConsumerExecute(r MqAPIGetMqStreamByStreamConsumerRequest) (*PickOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -928,12 +928,12 @@ func (a *MqAPIService) GetMqStreamsByStreamConsumersExecute(r MqAPIGetMqStreamsB
 		localVarReturnValue *PickOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamsByStreamConsumers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamByStreamConsumer")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{stream}/consumers"
+	localVarPath := localBasePath + "/v1/mq/stream/{stream}/consumer"
 	localVarPath = strings.Replace(localVarPath, "{"+"stream"+"}", url.PathEscape(parameterValueToString(r.stream, "stream")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1000,29 +1000,29 @@ func (a *MqAPIService) GetMqStreamsByStreamConsumersExecute(r MqAPIGetMqStreamsB
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIGetMqStreamsByStreamConsumersByNameRequest struct {
+type MqAPIGetMqStreamByStreamConsumerByNameRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	stream     string
 	name       string
 }
 
-func (r MqAPIGetMqStreamsByStreamConsumersByNameRequest) Execute() (*Consumer, *http.Response, error) {
-	return r.ApiService.GetMqStreamsByStreamConsumersByNameExecute(r)
+func (r MqAPIGetMqStreamByStreamConsumerByNameRequest) Execute() (*Consumer, *http.Response, error) {
+	return r.ApiService.GetMqStreamByStreamConsumerByNameExecute(r)
 }
 
 /*
-GetMqStreamsByStreamConsumersByName Returns one consumer's configuration and delivery state.
+GetMqStreamByStreamConsumerByName Returns one consumer's configuration and delivery state.
 
 Returns one consumer's configuration and delivery state.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param stream Stream is the stream name, from the path.
 	@param name Name is the consumer name, from the path.
-	@return MqAPIGetMqStreamsByStreamConsumersByNameRequest
+	@return MqAPIGetMqStreamByStreamConsumerByNameRequest
 */
-func (a *MqAPIService) GetMqStreamsByStreamConsumersByName(ctx context.Context, stream string, name string) MqAPIGetMqStreamsByStreamConsumersByNameRequest {
-	return MqAPIGetMqStreamsByStreamConsumersByNameRequest{
+func (a *MqAPIService) GetMqStreamByStreamConsumerByName(ctx context.Context, stream string, name string) MqAPIGetMqStreamByStreamConsumerByNameRequest {
+	return MqAPIGetMqStreamByStreamConsumerByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stream:     stream,
@@ -1033,7 +1033,7 @@ func (a *MqAPIService) GetMqStreamsByStreamConsumersByName(ctx context.Context, 
 // Execute executes the request
 //
 //	@return Consumer
-func (a *MqAPIService) GetMqStreamsByStreamConsumersByNameExecute(r MqAPIGetMqStreamsByStreamConsumersByNameRequest) (*Consumer, *http.Response, error) {
+func (a *MqAPIService) GetMqStreamByStreamConsumerByNameExecute(r MqAPIGetMqStreamByStreamConsumerByNameRequest) (*Consumer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1041,12 +1041,12 @@ func (a *MqAPIService) GetMqStreamsByStreamConsumersByNameExecute(r MqAPIGetMqSt
 		localVarReturnValue *Consumer
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamsByStreamConsumersByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamByStreamConsumerByName")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{stream}/consumers/{name}"
+	localVarPath := localBasePath + "/v1/mq/stream/{stream}/consumer/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"stream"+"}", url.PathEscape(parameterValueToString(r.stream, "stream")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
@@ -1108,31 +1108,31 @@ func (a *MqAPIService) GetMqStreamsByStreamConsumersByNameExecute(r MqAPIGetMqSt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIPostMqStreamsRequest struct {
+type MqAPIPostMqStreamRequest struct {
 	ctx          context.Context
 	ApiService   *MqAPIService
 	streamConfig *StreamConfig
 }
 
-func (r MqAPIPostMqStreamsRequest) StreamConfig(streamConfig StreamConfig) MqAPIPostMqStreamsRequest {
+func (r MqAPIPostMqStreamRequest) StreamConfig(streamConfig StreamConfig) MqAPIPostMqStreamRequest {
 	r.streamConfig = &streamConfig
 	return r
 }
 
-func (r MqAPIPostMqStreamsRequest) Execute() (*Stream, *http.Response, error) {
-	return r.ApiService.PostMqStreamsExecute(r)
+func (r MqAPIPostMqStreamRequest) Execute() (*Stream, *http.Response, error) {
+	return r.ApiService.PostMqStreamExecute(r)
 }
 
 /*
-PostMqStreams Creates a durable stream in the org's namespace and returns it.
+PostMqStream Creates a durable stream in the org's namespace and returns it.
 
 Creates a durable stream in the org's namespace and returns it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return MqAPIPostMqStreamsRequest
+	@return MqAPIPostMqStreamRequest
 */
-func (a *MqAPIService) PostMqStreams(ctx context.Context) MqAPIPostMqStreamsRequest {
-	return MqAPIPostMqStreamsRequest{
+func (a *MqAPIService) PostMqStream(ctx context.Context) MqAPIPostMqStreamRequest {
+	return MqAPIPostMqStreamRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1141,7 +1141,7 @@ func (a *MqAPIService) PostMqStreams(ctx context.Context) MqAPIPostMqStreamsRequ
 // Execute executes the request
 //
 //	@return Stream
-func (a *MqAPIService) PostMqStreamsExecute(r MqAPIPostMqStreamsRequest) (*Stream, *http.Response, error) {
+func (a *MqAPIService) PostMqStreamExecute(r MqAPIPostMqStreamRequest) (*Stream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1149,12 +1149,12 @@ func (a *MqAPIService) PostMqStreamsExecute(r MqAPIPostMqStreamsRequest) (*Strea
 		localVarReturnValue *Stream
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreams")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStream")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams"
+	localVarPath := localBasePath + "/v1/mq/stream"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1219,33 +1219,33 @@ func (a *MqAPIService) PostMqStreamsExecute(r MqAPIPostMqStreamsRequest) (*Strea
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIPostMqStreamsByNamePurgeRequest struct {
+type MqAPIPostMqStreamByNamePurgeRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	name       string
 	purge      *Purge
 }
 
-func (r MqAPIPostMqStreamsByNamePurgeRequest) Purge(purge Purge) MqAPIPostMqStreamsByNamePurgeRequest {
+func (r MqAPIPostMqStreamByNamePurgeRequest) Purge(purge Purge) MqAPIPostMqStreamByNamePurgeRequest {
 	r.purge = &purge
 	return r
 }
 
-func (r MqAPIPostMqStreamsByNamePurgeRequest) Execute() (*PurgeOut, *http.Response, error) {
-	return r.ApiService.PostMqStreamsByNamePurgeExecute(r)
+func (r MqAPIPostMqStreamByNamePurgeRequest) Execute() (*PurgeOut, *http.Response, error) {
+	return r.ApiService.PostMqStreamByNamePurgeExecute(r)
 }
 
 /*
-PostMqStreamsByNamePurge Removes messages from a stream, leaving its consumers in place.
+PostMqStreamByNamePurge Removes messages from a stream, leaving its consumers in place.
 
 Removes messages from a stream, leaving its consumers in place.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the stream name, from the path.
-	@return MqAPIPostMqStreamsByNamePurgeRequest
+	@return MqAPIPostMqStreamByNamePurgeRequest
 */
-func (a *MqAPIService) PostMqStreamsByNamePurge(ctx context.Context, name string) MqAPIPostMqStreamsByNamePurgeRequest {
-	return MqAPIPostMqStreamsByNamePurgeRequest{
+func (a *MqAPIService) PostMqStreamByNamePurge(ctx context.Context, name string) MqAPIPostMqStreamByNamePurgeRequest {
+	return MqAPIPostMqStreamByNamePurgeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -1255,7 +1255,7 @@ func (a *MqAPIService) PostMqStreamsByNamePurge(ctx context.Context, name string
 // Execute executes the request
 //
 //	@return PurgeOut
-func (a *MqAPIService) PostMqStreamsByNamePurgeExecute(r MqAPIPostMqStreamsByNamePurgeRequest) (*PurgeOut, *http.Response, error) {
+func (a *MqAPIService) PostMqStreamByNamePurgeExecute(r MqAPIPostMqStreamByNamePurgeRequest) (*PurgeOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1263,12 +1263,12 @@ func (a *MqAPIService) PostMqStreamsByNamePurgeExecute(r MqAPIPostMqStreamsByNam
 		localVarReturnValue *PurgeOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamsByNamePurge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamByNamePurge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{name}/purge"
+	localVarPath := localBasePath + "/v1/mq/stream/{name}/purge"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1334,33 +1334,33 @@ func (a *MqAPIService) PostMqStreamsByNamePurgeExecute(r MqAPIPostMqStreamsByNam
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIPostMqStreamsByStreamConsumersRequest struct {
+type MqAPIPostMqStreamByStreamConsumerRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	stream     string
 	makeIn     *MakeIn
 }
 
-func (r MqAPIPostMqStreamsByStreamConsumersRequest) MakeIn(makeIn MakeIn) MqAPIPostMqStreamsByStreamConsumersRequest {
+func (r MqAPIPostMqStreamByStreamConsumerRequest) MakeIn(makeIn MakeIn) MqAPIPostMqStreamByStreamConsumerRequest {
 	r.makeIn = &makeIn
 	return r
 }
 
-func (r MqAPIPostMqStreamsByStreamConsumersRequest) Execute() (*Consumer, *http.Response, error) {
-	return r.ApiService.PostMqStreamsByStreamConsumersExecute(r)
+func (r MqAPIPostMqStreamByStreamConsumerRequest) Execute() (*Consumer, *http.Response, error) {
+	return r.ApiService.PostMqStreamByStreamConsumerExecute(r)
 }
 
 /*
-PostMqStreamsByStreamConsumers Creates a durable pull consumer on a stream and returns it.
+PostMqStreamByStreamConsumer Creates a durable pull consumer on a stream and returns it.
 
 Creates a durable pull consumer on a stream and returns it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param stream Stream is the stream name, from the path.
-	@return MqAPIPostMqStreamsByStreamConsumersRequest
+	@return MqAPIPostMqStreamByStreamConsumerRequest
 */
-func (a *MqAPIService) PostMqStreamsByStreamConsumers(ctx context.Context, stream string) MqAPIPostMqStreamsByStreamConsumersRequest {
-	return MqAPIPostMqStreamsByStreamConsumersRequest{
+func (a *MqAPIService) PostMqStreamByStreamConsumer(ctx context.Context, stream string) MqAPIPostMqStreamByStreamConsumerRequest {
+	return MqAPIPostMqStreamByStreamConsumerRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stream:     stream,
@@ -1370,7 +1370,7 @@ func (a *MqAPIService) PostMqStreamsByStreamConsumers(ctx context.Context, strea
 // Execute executes the request
 //
 //	@return Consumer
-func (a *MqAPIService) PostMqStreamsByStreamConsumersExecute(r MqAPIPostMqStreamsByStreamConsumersRequest) (*Consumer, *http.Response, error) {
+func (a *MqAPIService) PostMqStreamByStreamConsumerExecute(r MqAPIPostMqStreamByStreamConsumerRequest) (*Consumer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1378,12 +1378,12 @@ func (a *MqAPIService) PostMqStreamsByStreamConsumersExecute(r MqAPIPostMqStream
 		localVarReturnValue *Consumer
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamsByStreamConsumers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamByStreamConsumer")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{stream}/consumers"
+	localVarPath := localBasePath + "/v1/mq/stream/{stream}/consumer"
 	localVarPath = strings.Replace(localVarPath, "{"+"stream"+"}", url.PathEscape(parameterValueToString(r.stream, "stream")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1449,7 +1449,7 @@ func (a *MqAPIService) PostMqStreamsByStreamConsumersExecute(r MqAPIPostMqStream
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIPostMqStreamsByStreamConsumersByNameNextRequest struct {
+type MqAPIPostMqStreamByStreamConsumerByNameNextRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	stream     string
@@ -1457,17 +1457,17 @@ type MqAPIPostMqStreamsByStreamConsumersByNameNextRequest struct {
 	nextIn     *NextIn
 }
 
-func (r MqAPIPostMqStreamsByStreamConsumersByNameNextRequest) NextIn(nextIn NextIn) MqAPIPostMqStreamsByStreamConsumersByNameNextRequest {
+func (r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) NextIn(nextIn NextIn) MqAPIPostMqStreamByStreamConsumerByNameNextRequest {
 	r.nextIn = &nextIn
 	return r
 }
 
-func (r MqAPIPostMqStreamsByStreamConsumersByNameNextRequest) Execute() (*ReadOut, *http.Response, error) {
-	return r.ApiService.PostMqStreamsByStreamConsumersByNameNextExecute(r)
+func (r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) Execute() (*ReadOut, *http.Response, error) {
+	return r.ApiService.PostMqStreamByStreamConsumerByNameNextExecute(r)
 }
 
 /*
-PostMqStreamsByStreamConsumersByNameNext Pulls the consumer's next batch.
+PostMqStreamByStreamConsumerByNameNext Pulls the consumer's next batch.
 
 Pulls the consumer's next batch. Delivered messages are acknowledged on
 delivery — the broker will not redeliver what this call returns; an empty
@@ -1476,10 +1476,10 @@ wait answers 408.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param stream Stream is the stream name, from the path.
 	@param name Name is the consumer name, from the path.
-	@return MqAPIPostMqStreamsByStreamConsumersByNameNextRequest
+	@return MqAPIPostMqStreamByStreamConsumerByNameNextRequest
 */
-func (a *MqAPIService) PostMqStreamsByStreamConsumersByNameNext(ctx context.Context, stream string, name string) MqAPIPostMqStreamsByStreamConsumersByNameNextRequest {
-	return MqAPIPostMqStreamsByStreamConsumersByNameNextRequest{
+func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNext(ctx context.Context, stream string, name string) MqAPIPostMqStreamByStreamConsumerByNameNextRequest {
+	return MqAPIPostMqStreamByStreamConsumerByNameNextRequest{
 		ApiService: a,
 		ctx:        ctx,
 		stream:     stream,
@@ -1490,7 +1490,7 @@ func (a *MqAPIService) PostMqStreamsByStreamConsumersByNameNext(ctx context.Cont
 // Execute executes the request
 //
 //	@return ReadOut
-func (a *MqAPIService) PostMqStreamsByStreamConsumersByNameNextExecute(r MqAPIPostMqStreamsByStreamConsumersByNameNextRequest) (*ReadOut, *http.Response, error) {
+func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNextExecute(r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) (*ReadOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1498,12 +1498,12 @@ func (a *MqAPIService) PostMqStreamsByStreamConsumersByNameNextExecute(r MqAPIPo
 		localVarReturnValue *ReadOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamsByStreamConsumersByNameNext")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamByStreamConsumerByNameNext")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{stream}/consumers/{name}/next"
+	localVarPath := localBasePath + "/v1/mq/stream/{stream}/consumer/{name}/next"
 	localVarPath = strings.Replace(localVarPath, "{"+"stream"+"}", url.PathEscape(parameterValueToString(r.stream, "stream")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
@@ -1570,34 +1570,34 @@ func (a *MqAPIService) PostMqStreamsByStreamConsumersByNameNextExecute(r MqAPIPo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type MqAPIPutMqStreamsByNameRequest struct {
+type MqAPIPutMqStreamByNameRequest struct {
 	ctx          context.Context
 	ApiService   *MqAPIService
 	name         string
 	streamConfig *StreamConfig
 }
 
-func (r MqAPIPutMqStreamsByNameRequest) StreamConfig(streamConfig StreamConfig) MqAPIPutMqStreamsByNameRequest {
+func (r MqAPIPutMqStreamByNameRequest) StreamConfig(streamConfig StreamConfig) MqAPIPutMqStreamByNameRequest {
 	r.streamConfig = &streamConfig
 	return r
 }
 
-func (r MqAPIPutMqStreamsByNameRequest) Execute() (*Stream, *http.Response, error) {
-	return r.ApiService.PutMqStreamsByNameExecute(r)
+func (r MqAPIPutMqStreamByNameRequest) Execute() (*Stream, *http.Response, error) {
+	return r.ApiService.PutMqStreamByNameExecute(r)
 }
 
 /*
-PutMqStreamsByName Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
+PutMqStreamByName Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
 
 Reconfigures an existing stream; the path names the stream, and the
 immutable fields (storage, retention) must restate what they are.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the stream name, unique within the org (alphanumeric, hyphens, underscores).
-	@return MqAPIPutMqStreamsByNameRequest
+	@return MqAPIPutMqStreamByNameRequest
 */
-func (a *MqAPIService) PutMqStreamsByName(ctx context.Context, name string) MqAPIPutMqStreamsByNameRequest {
-	return MqAPIPutMqStreamsByNameRequest{
+func (a *MqAPIService) PutMqStreamByName(ctx context.Context, name string) MqAPIPutMqStreamByNameRequest {
+	return MqAPIPutMqStreamByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
 		name:       name,
@@ -1607,7 +1607,7 @@ func (a *MqAPIService) PutMqStreamsByName(ctx context.Context, name string) MqAP
 // Execute executes the request
 //
 //	@return Stream
-func (a *MqAPIService) PutMqStreamsByNameExecute(r MqAPIPutMqStreamsByNameRequest) (*Stream, *http.Response, error) {
+func (a *MqAPIService) PutMqStreamByNameExecute(r MqAPIPutMqStreamByNameRequest) (*Stream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -1615,12 +1615,12 @@ func (a *MqAPIService) PutMqStreamsByNameExecute(r MqAPIPutMqStreamsByNameReques
 		localVarReturnValue *Stream
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PutMqStreamsByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PutMqStreamByName")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/mq/streams/{name}"
+	localVarPath := localBasePath + "/v1/mq/stream/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)

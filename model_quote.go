@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,19 +19,24 @@ var _ MappedNullable = &Quote{}
 
 // Quote struct for Quote
 type Quote struct {
+	// ChargeCents is what month one costs after the discount, in USD cents, totalled over the seats quoted. On team that is a multiple of the seat count, so it is not ListCents minus DiscountCents.
 	ChargeCents *int32 `json:"chargeCents,omitempty"`
-	// Code, Plan and Seats echo what was quoted.
-	Code          *string `json:"code,omitempty"`
-	DiscountCents *int32  `json:"discountCents,omitempty"`
+	// Code is the promo that was priced, as stored.
+	Code *string `json:"code,omitempty"`
+	// DiscountCents is what the promo takes off month one, in USD cents. The promo rate reaches at most TeamSeatCap seats; seats past the cap bill at full list and add nothing here. It is arithmetic only — quoting credits nothing, counts nothing and reserves nothing.
+	DiscountCents *int32 `json:"discountCents,omitempty"`
 	// Eligible says whether a redeem would be accepted right now; Reason says why not when it would not.
 	Eligible *bool `json:"eligible,omitempty"`
-	// ListCents is the undiscounted month price, ChargeCents what would be charged, DiscountCents the difference — all in USD cents.
-	ListCents *int32  `json:"listCents,omitempty"`
-	Plan      *string `json:"plan,omitempty"`
-	Reason    *string `json:"reason,omitempty"`
+	// ListCents is the undiscounted month price in USD cents: PER SEAT on team, the whole month on pro and max, 0 for a plan with no list price.
+	ListCents *int32 `json:"listCents,omitempty"`
+	// Plan is the tier priced, lower-cased and trimmed: pro, max or team. Unlike a redemption's plan this one comes from the REQUEST — quoting has no side effects, so it will happily price a plan the caller does not hold.
+	Plan *string `json:"plan,omitempty"`
+	// Reason is why Eligible is false, drawn from: \"promo redemption is closed\" (the subsystem is off, which is how it ships), \"promo redemption cap reached\", \"promo is not active\", \"plan is free or unknown; nothing to discount\", \"promo does not cover plan <plan>\". Absent when Eligible is true.
+	Reason *string `json:"reason,omitempty"`
 	// Remaining is how many redemptions are left under the fleet-wide cap.
 	Remaining *int32 `json:"remaining,omitempty"`
-	Seats     *int32 `json:"seats,omitempty"`
+	// Seats is the seat count priced; a request of 0 or less was read as 1. It only bites on team, the one per-seat plan — pro and max are single-seat and ignore it.
+	Seats *int32 `json:"seats,omitempty"`
 }
 
 // NewQuote instantiates a new Quote object

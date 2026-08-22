@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -743,102 +743,6 @@ func (a *TeamAPIService) GetTeamBillingUiExecute(r TeamAPIGetTeamBillingUiReques
 	return localVarHTTPResponse, nil
 }
 
-type TeamAPIGetTeamBillingUiByWildcard1Request struct {
-	ctx        context.Context
-	ApiService *TeamAPIService
-	wildcard1  string
-}
-
-func (r TeamAPIGetTeamBillingUiByWildcard1Request) Execute() (*http.Response, error) {
-	return r.ApiService.GetTeamBillingUiByWildcard1Execute(r)
-}
-
-/*
-GetTeamBillingUiByWildcard1 Load an asset of the wallet page
-
-Serves one file of the embedded wallet bundle — a content-hashed script or stylesheet under assets/, an icon, or the page shell itself.
-
-A path that names NO REAL FILE falls back to the shell instead of 404ing, which is what makes a deep link into the page's own routes survive a hard refresh. So a 200 here is not proof the asset exists — a typo answers HTML.
-
-assets/ is immutable for a year (the names carry the content hash); the shell is no-cache, so a deploy is picked up on the next load. Gated exactly like the page: 401 without a verified session, 503 when the bundle was never built.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param wildcard1
-	@return TeamAPIGetTeamBillingUiByWildcard1Request
-*/
-func (a *TeamAPIService) GetTeamBillingUiByWildcard1(ctx context.Context, wildcard1 string) TeamAPIGetTeamBillingUiByWildcard1Request {
-	return TeamAPIGetTeamBillingUiByWildcard1Request{
-		ApiService: a,
-		ctx:        ctx,
-		wildcard1:  wildcard1,
-	}
-}
-
-// Execute executes the request
-func (a *TeamAPIService) GetTeamBillingUiByWildcard1Execute(r TeamAPIGetTeamBillingUiByWildcard1Request) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamBillingUiByWildcard1")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/team/billing/ui/{wildcard1}"
-	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type TeamAPIGetTeamBotsRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
@@ -940,6 +844,102 @@ func (a *TeamAPIService) GetTeamBotsExecute(r TeamAPIGetTeamBotsRequest) (*BotRo
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamCollaboratorRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+}
+
+func (r TeamAPIGetTeamCollaboratorRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetTeamCollaboratorExecute(r)
+}
+
+/*
+GetTeamCollaborator Open the live collaborative-editing socket
+
+Upgrades to the hocuspocus WebSocket the Team editor syncs its Y.js documents over: binary frames of document name, message type and payload, with ONE socket multiplexing every document a tab has open. The server is a relay and an ordered update log, not a CRDT engine — it replays the log to each joining peer and broadcasts every update to the rest, which converges because Y.js updates are commutative and idempotent. There is no body; the response is a protocol upgrade.
+
+BOTH LANES SHARE ONE ROOT. The client derives them from one configured URL — this socket at its root, the markup-snapshot RPC one segment in — so pointing the editor at this service is one value, and the two lanes cannot drift apart.
+
+AUTH IS IN-BAND, PER DOCUMENT, NOT ON THE UPGRADE. The handshake gates only on browser Origin (403 outside the team surfaces; no Origin at all is admitted, which is what a non-browser sends), and then the first frame for a document must be an Auth message carrying the same session or workspace token every other team route verifies — a browser WebSocket cannot set an Authorization header, which is why the token rides inside the protocol. Anything else on an unauthenticated document is answered with one permission denial and nothing further.
+
+Every document is authorized on its own: the document's workspace must be the token's workspace when the token pins one, and the caller must be a member of it. A mismatch, an unknown workspace and a non-member deny alike with "document not found". Rooms are keyed by org and workspace and the persisted log's key embeds both, so a foreign document id can neither join a room nor read a blob.
+
+The server pings every twenty seconds and drops a socket silent for sixty, so a backgrounded tab — whose JS timers are throttled but whose network stack still auto-pongs — stays connected instead of dying into a reconnect loop.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIGetTeamCollaboratorRequest
+*/
+func (a *TeamAPIService) GetTeamCollaborator(ctx context.Context) TeamAPIGetTeamCollaboratorRequest {
+	return TeamAPIGetTeamCollaboratorRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *TeamAPIService) GetTeamCollaboratorExecute(r TeamAPIGetTeamCollaboratorRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamCollaborator")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/collaborator"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type TeamAPIGetTeamFilesByWorkspaceByFilenameRequest struct {
@@ -1535,6 +1535,136 @@ func (a *TeamAPIService) PostTeamBotsSyncExecute(r TeamAPIPostTeamBotsSyncReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamCollaboratorRpcByDocumentidRequest struct {
+	ctx           context.Context
+	ApiService    *TeamAPIService
+	documentId    string
+	collabRequest *CollabRequest
+}
+
+func (r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) CollabRequest(collabRequest CollabRequest) TeamAPIPostTeamCollaboratorRpcByDocumentidRequest {
+	r.collabRequest = &collabRequest
+	return r
+}
+
+func (r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) Execute() (*CollabResult, *http.Response, error) {
+	return r.ApiService.PostTeamCollaboratorRpcByDocumentidExecute(r)
+}
+
+/*
+PostTeamCollaboratorRpcByDocumentid CollabRPC is the collaborative-markup snapshot plane the Team front's editor speaks: createContent stores a document field's markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
+
+CollabRPC is the collaborative-markup snapshot plane the Team front's editor
+speaks: createContent stores a document field's markup at a fresh, immutable
+blob ref and returns it, updateContent stores a new snapshot and answers
+nothing, and getContent reads back the exact snapshot a ref names.
+
+createContent ALSO seeds the live-editing update log from the front-supplied
+Y.js update, so a dialog-authored description is visible in the collaborative
+editor — which replays that log — and not only in snapshot reads.
+updateContent never touches that log: peers may be live-editing the document,
+and their edits are not this call's to overwrite.
+
+Every call is scoped to the caller's VERIFIED session or workspace token: the
+documentId's workspace must be the token's workspace when the token names one,
+and the caller must be a member of it. An unknown workspace, another tenant's
+workspace and a workspace the caller is not in all answer the same 404, so a
+probe learns nothing about what exists.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param documentId DocumentID addresses the document field, as \"<workspaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
+	@return TeamAPIPostTeamCollaboratorRpcByDocumentidRequest
+*/
+func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentid(ctx context.Context, documentId string) TeamAPIPostTeamCollaboratorRpcByDocumentidRequest {
+	return TeamAPIPostTeamCollaboratorRpcByDocumentidRequest{
+		ApiService: a,
+		ctx:        ctx,
+		documentId: documentId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return CollabResult
+func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentidExecute(r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) (*CollabResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollabResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamCollaboratorRpcByDocumentid")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/collaborator/rpc/{documentId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"documentId"+"}", url.PathEscape(parameterValueToString(r.documentId, "documentId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.collabRequest == nil {
+		return localVarReturnValue, nil, reportError("collabRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.collabRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

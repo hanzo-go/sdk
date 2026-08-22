@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]CatalogEntry**](CatalogEntry.md) | Data is every starter prompt, each importable as-is with POST /v1/prompts. | [optional] 
+**Data** | Pointer to [**[]CatalogEntry**](CatalogEntry.md) | Data is every starter prompt, each importable as-is with POST /v1/prompt. | [optional] 
 
 ## Methods
 

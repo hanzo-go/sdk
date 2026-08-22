@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**Detail** | Pointer to **string** |  | [optional] 
-**Host** | Pointer to **string** |  | [optional] 
-**Records** | Pointer to [**[]Record**](Record.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
-**Verified** | Pointer to **bool** |  | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is when the host was claimed, as Unix seconds — not when it went live. | [optional] 
+**Detail** | Pointer to **string** | Detail is what is holding the claim up, in words a person can act on. | [optional] 
+**Host** | Pointer to **string** | Host is the custom hostname claimed for this site. | [optional] 
+**Records** | Pointer to [**[]Record**](Record.md) | Records are EXACTLY the DNS records to publish to prove ownership and route the host. Present only while pending, because a live host has already proved it; absent is therefore \&quot;nothing left to do\&quot;, not \&quot;we cannot say what to do\&quot;. | [optional] 
+**Status** | Pointer to **string** | Status is &#x60;live&#x60; when the edge answers for this host now, &#x60;pending&#x60; while the claim is waiting on DNS proof of ownership. A pending host is claimed but serves nothing. | [optional] 
+**Url** | Pointer to **string** | URL is where the host will serve once it is live — present on a pending claim too, so a console can show the destination before it works. | [optional] 
+**Verified** | Pointer to **bool** | Verified is the same fact as a boolean, for a caller that only needs the yes or no. It cannot disagree with status. | [optional] 
 
 ## Methods
 

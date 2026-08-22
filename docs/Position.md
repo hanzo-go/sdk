@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Character** | Pointer to **int32** |  | [optional] 
-**Line** | Pointer to **int32** |  | [optional] 
+**Character** | Pointer to **int32** | Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification: not a byte offset and not a rune index. An emoji before the cursor counts as one here and as two in Go&#39;s arithmetic. | [optional] 
+**Line** | Pointer to **int32** | Line is 0-BASED, per the LSP specification — one less than the line an editor shows a human. | [optional] 
 
 ## Methods
 

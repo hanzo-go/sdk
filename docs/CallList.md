@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Call**](Call.md) |  | [optional] 
+**Data** | Pointer to [**[]Call**](Call.md) | Data is this org&#39;s own calls, newest first — what this platform placed or received on its behalf, which is our record rather than the carrier&#39;s. | [optional] 
 
 ## Methods
 

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Dataset** | Pointer to **string** |  | [optional] 
+**Dataset** | Pointer to **string** | Dataset is the dataset the page was read from. | [optional] 
 **Digest** | Pointer to **string** | Digest is the version&#39;s fingerprint. An exported page that did not carry it would be bytes with no way to say which dataset they are. | [optional] 
 **Dims** | Pointer to **[]string** | Dims names what each coordinate of Point means, in Point&#39;s own order. | [optional] 
-**Limit** | Pointer to **int32** |  | [optional] 
-**Offset** | Pointer to **int32** | Offset and Limit are the page actually served, which may be smaller than the one asked for. | [optional] 
+**Limit** | Pointer to **int32** | Limit is the page size actually served: the one asked for, clamped to the plane&#39;s own bound of 5000. Fewer rows than Limit means the version ended. | [optional] 
+**Offset** | Pointer to **int32** | Offset is where this page starts in the version&#39;s own row order, which is by row id and therefore stable forever. | [optional] 
 **Rows** | Pointer to [**[]RiskDatasetRow**](RiskDatasetRow.md) | Rows is the page. Never null. | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Version** | Pointer to **int32** | Version is which published version it was read from — the one asked for, or the newest published one when the request named none. | [optional] 
 
 ## Methods
 

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApiVersion** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Metadata** | Pointer to [**ArgoMeta**](ArgoMeta.md) |  | [optional] 
-**Spec** | Pointer to [**ArgoProjectSpec**](ArgoProjectSpec.md) |  | [optional] 
+**ApiVersion** | Pointer to **string** | APIVersion is the constant \&quot;argoproj.io/v1alpha1\&quot;. A project here is an IAM resource wearing that shape; no argoproj.io object is stored behind it. | [optional] 
+**Kind** | Pointer to **string** | Kind is the constant \&quot;AppProject\&quot;. | [optional] 
+**Metadata** | Pointer to [**ArgoMeta**](ArgoMeta.md) | Metadata is the project&#39;s identity: its name is the key an application&#39;s spec.project matches, and is the same string an App CR carries in its app.kubernetes.io/part-of label. | [optional] 
+**Spec** | Pointer to [**ArgoProjectSpec**](ArgoProjectSpec.md) | Spec is the fence the SPA displays — repos, destinations, admitted kinds. | [optional] 
 **Status** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods

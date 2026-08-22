@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,9 @@ var _ MappedNullable = &RpcError{}
 
 // RpcError struct for RpcError
 type RpcError struct {
-	Code    *int32  `json:"code,omitempty"`
+	// Code is the JSON-RPC error code the chain reported, passed through as it came. -32603 (internal error) is the one value this deployment mints itself, for an upstream that could not be reached at all.
+	Code *int32 `json:"code,omitempty"`
+	// Message is the chain's own explanation, e.g. \"execution reverted\". It is \"upstream unavailable\" when the deployment minted the error rather than the chain — that is the one message this side writes.
 	Message *string `json:"message,omitempty"`
 }
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,13 @@ var _ MappedNullable = &ResourceUsage{}
 
 // ResourceUsage struct for ResourceUsage
 type ResourceUsage struct {
-	CostCents      *float32 `json:"costCents,omitempty"`
-	CpuVcpuHours   *float32 `json:"cpuVcpuHours,omitempty"`
-	MemGbHours     *float32 `json:"memGbHours,omitempty"`
+	// CostCents would be the window's spend in cents. Always null here — the money a run costs is the metering ledger's, joined by the run id, and repeating it from this side would be a second number that could disagree with the bill.
+	CostCents *float32 `json:"costCents,omitempty"`
+	// CPUVcpuHours would be vCPU-hours over the window. Always null: this store holds agent definitions and run I/O, and nothing here meters a CPU. Null is the honest answer and 0 would be a claim.
+	CpuVcpuHours *float32 `json:"cpuVcpuHours,omitempty"`
+	// MemGbHours would be gigabyte-hours of memory. Always null, same reason.
+	MemGbHours *float32 `json:"memGbHours,omitempty"`
+	// StorageIoBytes would be bytes moved to and from storage. Always null, same reason.
 	StorageIoBytes *float32 `json:"storageIoBytes,omitempty"`
 }
 

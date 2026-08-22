@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,22 +19,38 @@ var _ MappedNullable = &SampleView{}
 
 // SampleView struct for SampleView
 type SampleView struct {
-	At        *string  `json:"at,omitempty"`
-	CostCents *int32   `json:"costCents,omitempty"`
-	Cpus      *int32   `json:"cpus,omitempty"`
-	GpuModel  *string  `json:"gpuModel,omitempty"`
-	GpuUtil   *float32 `json:"gpuUtil,omitempty"`
-	Gpus      *int32   `json:"gpus,omitempty"`
-	Host      *string  `json:"host,omitempty"`
-	Kind      *string  `json:"kind,omitempty"`
-	Load1     *float32 `json:"load1,omitempty"`
-	Load5     *float32 `json:"load5,omitempty"`
-	Load15    *float32 `json:"load15,omitempty"`
-	MemFree   *int32   `json:"memFree,omitempty"`
-	MemUsed   *int32   `json:"memUsed,omitempty"`
-	Memory    *int32   `json:"memory,omitempty"`
-	Source    *string  `json:"source,omitempty"`
-	Unit      *string  `json:"unit,omitempty"`
+	// At is when the reading was MEASURED, RFC 3339 in UTC — the x-axis a chart plots against. The series is returned oldest first, so it only increases.
+	At *string `json:"at,omitempty"`
+	// CostCents is what this unit resold for over the hour the reading falls in, in whole US cents. 0 means UNPRICED, not free: the operator's own machines — a linked run-target, a dialed-in BYO worker — are metered for utilization and never resold, so only a priced source ever fills it.
+	CostCents *int32 `json:"costCents,omitempty"`
+	// CPUs is logical cores. The static capability rides every row on purpose: a chart can size load against cores without joining a registry whose row may since have been rewritten or the unit deregistered.
+	Cpus *int32 `json:"cpus,omitempty"`
+	// GPUModel names the representative accelerator (\"GB10\"); GPUs carries how many.
+	GpuModel *string `json:"gpuModel,omitempty"`
+	// GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy. Anything a reporter sends outside 0..1 is clamped into it on write.
+	GpuUtil *float32 `json:"gpuUtil,omitempty"`
+	// GPUs is how many accelerators the reading covers.
+	Gpus *int32 `json:"gpus,omitempty"`
+	// Host is the hostname the unit reported at the time of the reading.
+	Host *string `json:"host,omitempty"`
+	// Kind is what the measured unit is: laptop, cloud, gpu, cluster, machine or worker.
+	Kind *string `json:"kind,omitempty"`
+	// Load1 is the 1-minute load average — runnable processes, not a percentage.
+	Load1 *float32 `json:"load1,omitempty"`
+	// Load5 is the 5-minute load average, the same units as Load1.
+	Load5 *float32 `json:"load5,omitempty"`
+	// Load15 is the 15-minute load average, the same units as Load1.
+	Load15 *float32 `json:"load15,omitempty"`
+	// MemFree is host memory available, in BYTES, as reported rather than derived.
+	MemFree *int32 `json:"memFree,omitempty"`
+	// MemUsed is host memory in use, in BYTES.
+	MemUsed *int32 `json:"memUsed,omitempty"`
+	// Memory is total system RAM in BYTES at the time of the reading.
+	Memory *int32 `json:"memory,omitempty"`
+	// Source is the plane that reported the reading: \"agent\", \"byo\" or \"visor\" — the same vocabulary the board's rows carry, and what ?source= narrows on.
+	Source *string `json:"source,omitempty"`
+	// Unit is the source's own id for the measured unit. With Source it is the key the chart groups by, and the key the board joins a unit's latest reading on.
+	Unit *string `json:"unit,omitempty"`
 }
 
 // NewSampleView instantiates a new SampleView object

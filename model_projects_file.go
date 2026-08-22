@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,8 +19,10 @@ var _ MappedNullable = &ProjectsFile{}
 
 // ProjectsFile struct for ProjectsFile
 type ProjectsFile struct {
+	// Content is the file's whole text, inline. There is no upload step and no reference to fetch: a site is sent as its bytes, and each file and the site as a whole are size-bounded.
 	Content *string `json:"content,omitempty"`
-	Path    *string `json:"path,omitempty"`
+	// Path is where the file lands in the site, RELATIVE to its root — so \"index.html\" is the page served at /. Leading slashes and any attempt to escape the root are refused.
+	Path *string `json:"path,omitempty"`
 }
 
 // NewProjectsFile instantiates a new ProjectsFile object

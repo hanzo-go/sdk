@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,11 @@ var _ MappedNullable = &PoolScale{}
 
 // PoolScale struct for PoolScale
 type PoolScale struct {
-	// ClusterID and PoolID address the pool, from the URL path.
+	// ClusterID is the cluster holding the pool, from the URL path.
 	ClusterId *string `json:"clusterId,omitempty"`
 	// Count is the node count to scale TO — an absolute target, not a delta, and never negative.
-	Count  *int32  `json:"count,omitempty"`
+	Count *int32 `json:"count,omitempty"`
+	// PoolID is the pool to resize, from the URL path — the `poolId` a cluster read reports for it. Required.
 	PoolId *string `json:"poolId,omitempty"`
 	// Provider is the cloud the cluster lives on. Required; body or ?provider=.
 	Provider *string `json:"provider,omitempty"`

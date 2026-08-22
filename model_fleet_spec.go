@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,18 @@ var _ MappedNullable = &FleetSpec{}
 
 // FleetSpec struct for FleetSpec
 type FleetSpec struct {
-	Arch     *string `json:"arch,omitempty"`
-	Cpus     *int32  `json:"cpus,omitempty"`
+	// Arch is the CPU architecture, amd64 or arm64, and it is what decides whether a binary built for the fleet will run here. Only the sources that report one carry it (a linked run-target, a BYO worker).
+	Arch *string `json:"arch,omitempty"`
+	// CPUs is logical cores on the unit.
+	Cpus *int32 `json:"cpus,omitempty"`
+	// GPUModel names the FIRST accelerator (\"NVIDIA GB10\") as the representative of the set; GPUs carries how many. Empty for a cluster, whose cards are counted rather than modelled, and for a unit with none.
 	GpuModel *string `json:"gpuModel,omitempty"`
-	Gpus     *int32  `json:"gpus,omitempty"`
-	Memory   *int32  `json:"memory,omitempty"`
-	Os       *string `json:"os,omitempty"`
+	// GPUs is how many accelerators the unit has. For a cluster it is the vendor totals summed across every node, so it counts cards, not machines.
+	Gpus *int32 `json:"gpus,omitempty"`
+	// Memory is total system RAM in BYTES — not GB, and not what is free right now (fleetMetrics carries that). Absent when the source reports no RAM figure.
+	Memory *int32 `json:"memory,omitempty"`
+	// OS is the operating system the unit runs: linux, darwin or windows. Empty when the source does not report one — a cluster row does not.
+	Os *string `json:"os,omitempty"`
 }
 
 // NewFleetSpec instantiates a new FleetSpec object

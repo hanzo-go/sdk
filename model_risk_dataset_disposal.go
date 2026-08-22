@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,11 @@ var _ MappedNullable = &RiskDatasetDisposal{}
 
 // RiskDatasetDisposal struct for RiskDatasetDisposal
 type RiskDatasetDisposal struct {
+	// Dataset is the dataset that was disposed of. The NAME survives: declaring it again continues the version count rather than starting over at 1.
 	Dataset *string `json:"dataset,omitempty"`
-	Rows    *int32  `json:"rows,omitempty"`
-	// Versions is how many versions went, and Rows how many rows they held between them, as the register recorded them.
+	// Rows is how many rows they held between them, as the REGISTER recorded them when each was materialised — not a count of what the drop deleted, which is gone by the time this answers.
+	Rows *int32 `json:"rows,omitempty"`
+	// Versions is how many versions went.
 	Versions *int32 `json:"versions,omitempty"`
 }
 

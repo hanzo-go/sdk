@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Code** | Pointer to **string** | Code is the promo redeemed. | [optional] 
 **DiscountCents** | Pointer to **int32** | DiscountCents is the month-one discount this redemption CLAIMS, in USD cents. It is a recorded figure, NOT a balance: nothing was credited and no wallet moved. An admin granting against this claim is what would make it money, and that decision happens on the admin surface, not here. | [optional] 
-**Plan** | Pointer to **string** | Plan and Seats are what was redeemed against. Both are DERIVED server-side — Plan from the org&#39;s live paid subscription, Seats from claimSeats — and neither is ever read from the request. | [optional] 
+**Plan** | Pointer to **string** | Plan is the tier redeemed against: pro, max or team. It is DERIVED from the org&#39;s live ACTIVE/TRIALING subscription, never read from the request, so it is what the org actually holds rather than what it claimed. | [optional] 
 **RedeemedAt** | Pointer to **int32** | RedeemedAt is unix seconds. | [optional] 
-**Seats** | Pointer to **int32** |  | [optional] 
+**Seats** | Pointer to **int32** | Seats is the seat count the claim was priced at, and it is ALWAYS 1. No server-side authority on this surface answers \&quot;how many seats\&quot;, and the caller&#39;s own number is exactly the input that once inflated these claims, so a redemption records the single-seat floor and an admin resolves the real count against subscription data at grant time. | [optional] 
 
 ## Methods
 

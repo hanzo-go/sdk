@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,22 @@ var _ MappedNullable = &Extracted{}
 
 // Extracted struct for Extracted
 type Extracted struct {
-	// proposed slug (software|cloud|office|…)
+	// Category is the expense bucket the SCANNER guessed, as a slug — a hint only. Vendor rules override it whenever they know better, so this is the model's reading and not the account the entry will land on.
 	Category *string `json:"category,omitempty"`
+	// Currency is the ISO code the document is denominated in.
 	Currency *string `json:"currency,omitempty"`
-	// YYYY-MM-DD
-	IssuedAt   *string    `json:"issuedAt,omitempty"`
-	LineItems  []LineItem `json:"lineItems,omitempty"`
-	Merchant   *string    `json:"merchant,omitempty"`
-	Note       *string    `json:"note,omitempty"`
-	TaxCents   *int32     `json:"taxCents,omitempty"`
-	TotalCents *int32     `json:"totalCents,omitempty"`
+	// IssuedAt is the document's OWN date as YYYY-MM-DD — when the bill was issued, which is not when it was uploaded or when it will post.
+	IssuedAt *string `json:"issuedAt,omitempty"`
+	// LineItems are the individual lines read off the document, where it had any. They need not sum to totalCents: a document may carry lines the scanner could not read, and the total is taken from the total.
+	LineItems []LineItem `json:"lineItems,omitempty"`
+	// Merchant is the supplier as printed on the document.
+	Merchant *string `json:"merchant,omitempty"`
+	// Note is anything else worth carrying from the document that has no field of its own.
+	Note *string `json:"note,omitempty"`
+	// TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it.
+	TaxCents *int32 `json:"taxCents,omitempty"`
+	// TotalCents is the document total in whole cents, tax INCLUDED.
+	TotalCents *int32 `json:"totalCents,omitempty"`
 }
 
 // NewExtracted instantiates a new Extracted object

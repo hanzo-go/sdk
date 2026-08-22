@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,15 @@ var _ MappedNullable = &ArgoProject{}
 
 // ArgoProject struct for ArgoProject
 type ArgoProject struct {
-	ApiVersion *string                `json:"apiVersion,omitempty"`
-	Kind       *string                `json:"kind,omitempty"`
-	Metadata   *ArgoMeta              `json:"metadata,omitempty"`
-	Spec       *ArgoProjectSpec       `json:"spec,omitempty"`
-	Status     map[string]interface{} `json:"status,omitempty"`
+	// APIVersion is the constant \"argoproj.io/v1alpha1\". A project here is an IAM resource wearing that shape; no argoproj.io object is stored behind it.
+	ApiVersion *string `json:"apiVersion,omitempty"`
+	// Kind is the constant \"AppProject\".
+	Kind *string `json:"kind,omitempty"`
+	// Metadata is the project's identity: its name is the key an application's spec.project matches, and is the same string an App CR carries in its app.kubernetes.io/part-of label.
+	Metadata *ArgoMeta `json:"metadata,omitempty"`
+	// Spec is the fence the SPA displays — repos, destinations, admitted kinds.
+	Spec   *ArgoProjectSpec       `json:"spec,omitempty"`
+	Status map[string]interface{} `json:"status,omitempty"`
 }
 
 // NewArgoProject instantiates a new ArgoProject object

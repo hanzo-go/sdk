@@ -4,9 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConvertedOrgs** | Pointer to **int32** | ConvertedOrgs is how many distinct referred orgs have produced positive commission at least once — a referral that actually spent. | [optional] 
-**RatePct** | Pointer to **float32** | RatePct is convertedOrgs over referredOrgs as a PERCENTAGE, 0–100, and the one non-integer figure on this board. It is 0 when nothing has been referred yet, not undefined. | [optional] 
-**ReferredOrgs** | Pointer to **int32** | ReferredOrgs is how many attribution edges exist fleet-wide — one per referred org, first-touch, so it is also the count of distinct referred orgs. | [optional] 
+**Available** | Pointer to **bool** | Available separates \&quot;this org has no traffic\&quot; from \&quot;we could not ask\&quot;. False means the warehouse was unreachable or the org has emitted nothing at all, and every count below is then a placeholder zero rather than a measurement — a caller must read this before reading any of them. | [optional] 
+**Orders** | Pointer to **int32** | Orders counts completed orders in the window — purchases, not carts started. | [optional] 
+**Pageviews** | Pointer to **int32** | Pageviews counts page events in the window, one per view rather than per person, so a single visitor reading ten pages counts ten. | [optional] 
+**Revenue** | Pointer to **float32** | Revenue is the sum of the amounts those orders reported, in whatever currency the beacon stamped on them (major units, e.g. 49.5 for $49.50) — NOT cents, and not converted to a single currency. Contrast revenueCents on the profile, which is the money of record. | [optional] 
+**Signups** | Pointer to **int32** | Signups counts completed signups in the window, the step where an anonymous visitor becomes somebody with an account. | [optional] 
+**Visitors** | Pointer to **int32** | Visitors is the number of DISTINCT people seen in the window, counted by the beacon&#39;s distinct id — so it is unique visitors, not sessions and not views. | [optional] 
+**WindowDays** | Pointer to **int32** | WindowDays is the length of the trailing window every count covers, so a reader knows whether 40 signups is a month or a day. | [optional] 
 
 ## Methods
 
@@ -27,80 +31,180 @@ NewFunnelWithDefaults instantiates a new Funnel object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetConvertedOrgs
+### GetAvailable
 
-`func (o *Funnel) GetConvertedOrgs() int32`
+`func (o *Funnel) GetAvailable() bool`
 
-GetConvertedOrgs returns the ConvertedOrgs field if non-nil, zero value otherwise.
+GetAvailable returns the Available field if non-nil, zero value otherwise.
 
-### GetConvertedOrgsOk
+### GetAvailableOk
 
-`func (o *Funnel) GetConvertedOrgsOk() (*int32, bool)`
+`func (o *Funnel) GetAvailableOk() (*bool, bool)`
 
-GetConvertedOrgsOk returns a tuple with the ConvertedOrgs field if it's non-nil, zero value otherwise
+GetAvailableOk returns a tuple with the Available field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetConvertedOrgs
+### SetAvailable
 
-`func (o *Funnel) SetConvertedOrgs(v int32)`
+`func (o *Funnel) SetAvailable(v bool)`
 
-SetConvertedOrgs sets ConvertedOrgs field to given value.
+SetAvailable sets Available field to given value.
 
-### HasConvertedOrgs
+### HasAvailable
 
-`func (o *Funnel) HasConvertedOrgs() bool`
+`func (o *Funnel) HasAvailable() bool`
 
-HasConvertedOrgs returns a boolean if a field has been set.
+HasAvailable returns a boolean if a field has been set.
 
-### GetRatePct
+### GetOrders
 
-`func (o *Funnel) GetRatePct() float32`
+`func (o *Funnel) GetOrders() int32`
 
-GetRatePct returns the RatePct field if non-nil, zero value otherwise.
+GetOrders returns the Orders field if non-nil, zero value otherwise.
 
-### GetRatePctOk
+### GetOrdersOk
 
-`func (o *Funnel) GetRatePctOk() (*float32, bool)`
+`func (o *Funnel) GetOrdersOk() (*int32, bool)`
 
-GetRatePctOk returns a tuple with the RatePct field if it's non-nil, zero value otherwise
+GetOrdersOk returns a tuple with the Orders field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRatePct
+### SetOrders
 
-`func (o *Funnel) SetRatePct(v float32)`
+`func (o *Funnel) SetOrders(v int32)`
 
-SetRatePct sets RatePct field to given value.
+SetOrders sets Orders field to given value.
 
-### HasRatePct
+### HasOrders
 
-`func (o *Funnel) HasRatePct() bool`
+`func (o *Funnel) HasOrders() bool`
 
-HasRatePct returns a boolean if a field has been set.
+HasOrders returns a boolean if a field has been set.
 
-### GetReferredOrgs
+### GetPageviews
 
-`func (o *Funnel) GetReferredOrgs() int32`
+`func (o *Funnel) GetPageviews() int32`
 
-GetReferredOrgs returns the ReferredOrgs field if non-nil, zero value otherwise.
+GetPageviews returns the Pageviews field if non-nil, zero value otherwise.
 
-### GetReferredOrgsOk
+### GetPageviewsOk
 
-`func (o *Funnel) GetReferredOrgsOk() (*int32, bool)`
+`func (o *Funnel) GetPageviewsOk() (*int32, bool)`
 
-GetReferredOrgsOk returns a tuple with the ReferredOrgs field if it's non-nil, zero value otherwise
+GetPageviewsOk returns a tuple with the Pageviews field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferredOrgs
+### SetPageviews
 
-`func (o *Funnel) SetReferredOrgs(v int32)`
+`func (o *Funnel) SetPageviews(v int32)`
 
-SetReferredOrgs sets ReferredOrgs field to given value.
+SetPageviews sets Pageviews field to given value.
 
-### HasReferredOrgs
+### HasPageviews
 
-`func (o *Funnel) HasReferredOrgs() bool`
+`func (o *Funnel) HasPageviews() bool`
 
-HasReferredOrgs returns a boolean if a field has been set.
+HasPageviews returns a boolean if a field has been set.
+
+### GetRevenue
+
+`func (o *Funnel) GetRevenue() float32`
+
+GetRevenue returns the Revenue field if non-nil, zero value otherwise.
+
+### GetRevenueOk
+
+`func (o *Funnel) GetRevenueOk() (*float32, bool)`
+
+GetRevenueOk returns a tuple with the Revenue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRevenue
+
+`func (o *Funnel) SetRevenue(v float32)`
+
+SetRevenue sets Revenue field to given value.
+
+### HasRevenue
+
+`func (o *Funnel) HasRevenue() bool`
+
+HasRevenue returns a boolean if a field has been set.
+
+### GetSignups
+
+`func (o *Funnel) GetSignups() int32`
+
+GetSignups returns the Signups field if non-nil, zero value otherwise.
+
+### GetSignupsOk
+
+`func (o *Funnel) GetSignupsOk() (*int32, bool)`
+
+GetSignupsOk returns a tuple with the Signups field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSignups
+
+`func (o *Funnel) SetSignups(v int32)`
+
+SetSignups sets Signups field to given value.
+
+### HasSignups
+
+`func (o *Funnel) HasSignups() bool`
+
+HasSignups returns a boolean if a field has been set.
+
+### GetVisitors
+
+`func (o *Funnel) GetVisitors() int32`
+
+GetVisitors returns the Visitors field if non-nil, zero value otherwise.
+
+### GetVisitorsOk
+
+`func (o *Funnel) GetVisitorsOk() (*int32, bool)`
+
+GetVisitorsOk returns a tuple with the Visitors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVisitors
+
+`func (o *Funnel) SetVisitors(v int32)`
+
+SetVisitors sets Visitors field to given value.
+
+### HasVisitors
+
+`func (o *Funnel) HasVisitors() bool`
+
+HasVisitors returns a boolean if a field has been set.
+
+### GetWindowDays
+
+`func (o *Funnel) GetWindowDays() int32`
+
+GetWindowDays returns the WindowDays field if non-nil, zero value otherwise.
+
+### GetWindowDaysOk
+
+`func (o *Funnel) GetWindowDaysOk() (*int32, bool)`
+
+GetWindowDaysOk returns a tuple with the WindowDays field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWindowDays
+
+`func (o *Funnel) SetWindowDays(v int32)`
+
+SetWindowDays sets WindowDays field to given value.
+
+### HasWindowDays
+
+`func (o *Funnel) HasWindowDays() bool`
+
+HasWindowDays returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

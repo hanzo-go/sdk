@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,12 @@ var _ MappedNullable = &O11yMetricsResponse{}
 
 // O11yMetricsResponse struct for O11yMetricsResponse
 type O11yMetricsResponse struct {
-	Product *string                        `json:"product,omitempty"`
-	Range   *O11yAvailabilityResponseRange `json:"range,omitempty"`
-	Series  *O11yMetricsResponseSeries     `json:"series,omitempty"`
-	Summary *O11yMetricsResponseSummary    `json:"summary,omitempty"`
-	Usage   *O11yMetricsResponseUsage      `json:"usage,omitempty"`
+	// Product is the service these numbers are about, echoed back.
+	Product *string                     `json:"product,omitempty"`
+	Range   *O11yMetricsResponseRange   `json:"range,omitempty"`
+	Series  *O11yMetricsResponseSeries  `json:"series,omitempty"`
+	Summary *O11yMetricsResponseSummary `json:"summary,omitempty"`
+	Usage   *O11yMetricsResponseUsage   `json:"usage,omitempty"`
 }
 
 // NewO11yMetricsResponse instantiates a new O11yMetricsResponse object
@@ -76,9 +77,9 @@ func (o *O11yMetricsResponse) SetProduct(v string) {
 }
 
 // GetRange returns the Range field value if set, zero value otherwise.
-func (o *O11yMetricsResponse) GetRange() O11yAvailabilityResponseRange {
+func (o *O11yMetricsResponse) GetRange() O11yMetricsResponseRange {
 	if o == nil || IsNil(o.Range) {
-		var ret O11yAvailabilityResponseRange
+		var ret O11yMetricsResponseRange
 		return ret
 	}
 	return *o.Range
@@ -86,7 +87,7 @@ func (o *O11yMetricsResponse) GetRange() O11yAvailabilityResponseRange {
 
 // GetRangeOk returns a tuple with the Range field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yMetricsResponse) GetRangeOk() (*O11yAvailabilityResponseRange, bool) {
+func (o *O11yMetricsResponse) GetRangeOk() (*O11yMetricsResponseRange, bool) {
 	if o == nil || IsNil(o.Range) {
 		return nil, false
 	}
@@ -102,8 +103,8 @@ func (o *O11yMetricsResponse) HasRange() bool {
 	return false
 }
 
-// SetRange gets a reference to the given O11yAvailabilityResponseRange and assigns it to the Range field.
-func (o *O11yMetricsResponse) SetRange(v O11yAvailabilityResponseRange) {
+// SetRange gets a reference to the given O11yMetricsResponseRange and assigns it to the Range field.
+func (o *O11yMetricsResponse) SetRange(v O11yMetricsResponseRange) {
 	o.Range = &v
 }
 

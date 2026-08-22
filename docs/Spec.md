@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Arch** | Pointer to **string** | amd64 | arm64 | ... | [optional] 
 **Cpus** | Pointer to **int32** | logical cores | [optional] 
-**Gpus** | Pointer to [**[]GPU**](GPU.md) |  | [optional] 
+**Gpus** | Pointer to [**[]GPU**](GPU.md) | GPUs is every accelerator the machine advertises, one entry each, capped at 32 on write. Empty means the probe found none — and that is the answer a Need is checked against, so a machine with no entry here clears no accelerator floor. The list is not vendor-filtered: what satisfies a job is counts and VRAM, never a brand (see Need). | [optional] 
 **Memory** | Pointer to **int32** | total RAM, bytes | [optional] 
 **Os** | Pointer to **string** | linux | darwin | windows | [optional] 
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Range** | Pointer to **string** | echoes the requested window (24H|7D|30D) | [optional] 
-**Resource** | Pointer to [**ResourceUsage**](ResourceUsage.md) |  | [optional] 
+**Resource** | Pointer to [**ResourceUsage**](ResourceUsage.md) | Resource is the Resource Usage panel&#39;s rollup, and every field of it is currently null — see resourceUsage. It is present rather than omitted so a panel renders \&quot;—\&quot; instead of guessing. | [optional] 
 **Series** | Pointer to [**[]SeriesLine**](SeriesLine.md) | per-agent invocation histogram (real) | [optional] 
 
 ## Methods

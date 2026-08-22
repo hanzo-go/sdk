@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &ArgoTree{}
 
 // ArgoTree struct for ArgoTree
 type ArgoTree struct {
-	Hosts         []map[string]interface{} `json:"hosts,omitempty"`
-	Nodes         []ArgoNode               `json:"nodes,omitempty"`
-	OrphanedNodes []ArgoNode               `json:"orphanedNodes,omitempty"`
+	// Hosts is ArgoCD's per-node machine inventory. Always empty: this plane projects applications and serves no cluster-node view.
+	Hosts []map[string]interface{} `json:"hosts,omitempty"`
+	// Nodes is the FLAT node list, root first: the App CR, then the objects the operator owns, then their ReplicaSets and Pods. The hierarchy is in ParentRefs, not in the ordering.
+	Nodes []ArgoNode `json:"nodes,omitempty"`
+	// OrphanedNodes are objects in the namespace belonging to no application. Always empty: this walk reaches an object only THROUGH ownership from the App CR, so it can never hold one that is orphaned.
+	OrphanedNodes []ArgoNode `json:"orphanedNodes,omitempty"`
 }
 
 // NewArgoTree instantiates a new ArgoTree object

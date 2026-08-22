@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**PostCompany**](CompanyAPI.md#PostCompany) | **Post** /v1/company | Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
 [**PostCompanyAdvance**](CompanyAPI.md#PostCompanyAdvance) | **Post** /v1/company/advance | Advance runs the ONE guarded transition of the formation machine.
 [**PostCompanyDocuments**](CompanyAPI.md#PostCompanyDocuments) | **Post** /v1/company/documents | Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing seam.
+[**PostCompanyEin**](CompanyAPI.md#PostCompanyEin) | **Post** /v1/company/ein | Opens the EIN application and answers what it owes.
 [**PostCompanyEsign**](CompanyAPI.md#PostCompanyEsign) | **Post** /v1/company/esign | Sends the generated formation documents for signature by every founder and records the provider&#39;s reference on the formation.
 [**PostCompanyEsignComplete**](CompanyAPI.md#PostCompanyEsignComplete) | **Post** /v1/company/esign/complete | Records whether the formation documents have been signed.
 [**PostCompanyFounders**](CompanyAPI.md#PostCompanyFounders) | **Post** /v1/company/founders | Replaces the formation&#39;s founders.
@@ -23,8 +24,9 @@ Method | HTTP request | Description
 [**PostCompanyKyc**](CompanyAPI.md#PostCompanyKyc) | **Post** /v1/company/kyc | StartKYC opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
 [**PostCompanyKycDecision**](CompanyAPI.md#PostCompanyKycDecision) | **Post** /v1/company/kyc/decision | DecideKYC records a privileged reviewer&#39;s MANUAL decision on a founder&#39;s KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
 [**PostCompanyKycRefresh**](CompanyAPI.md#PostCompanyKycRefresh) | **Post** /v1/company/kyc/refresh | RefreshKYC reconciles each pending founder&#39;s KYC with the WIRED provider — the PULL path to a provider-reported terminal status.
-[**PostCompanyPayment**](CompanyAPI.md#PostCompanyPayment) | **Post** /v1/company/payment | Charge the one-time formation fee and mark the formation paid
+[**PostCompanyPayment**](CompanyAPI.md#PostCompanyPayment) | **Post** /v1/company/payment | Charges the caller&#39;s own org the one-time Hanzo Company formation fee.
 [**PostCompanySkip**](CompanyAPI.md#PostCompanySkip) | **Post** /v1/company/skip | Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+[**PostCompanyTariff**](CompanyAPI.md#PostCompanyTariff) | **Post** /v1/company/tariff | Itemises what a formation costs before anyone commits to it.
 [**PutCompanyStructure**](CompanyAPI.md#PutCompanyStructure) | **Put** /v1/company/structure | Records the entity kind, the state of formation and the proposed name.
 
 
@@ -475,6 +477,72 @@ Other parameters are passed through a pointer to a apiPostCompanyDocumentsReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCompanyEin
+
+> EIN PostCompanyEin(ctx).EinIn(einIn).Execute()
+
+Opens the EIN application and answers what it owes.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	einIn := *openapiclient.NewEinIn() // EinIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CompanyAPI.PostCompanyEin(context.Background()).EinIn(einIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyEin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCompanyEin`: EIN
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyEin`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCompanyEinRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **einIn** | [**EinIn**](EinIn.md) |  | 
+
+### Return type
+
+[**EIN**](EIN.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1258,7 +1326,7 @@ Other parameters are passed through a pointer to a apiPostCompanyKycRefreshReque
 
 > FormationView PostCompanyPayment(ctx).Execute()
 
-Charge the one-time formation fee and mark the formation paid
+Charges the caller's own org the one-time Hanzo Company formation fee.
 
 
 
@@ -1369,6 +1437,72 @@ Other parameters are passed through a pointer to a apiPostCompanySkipRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCompanyTariff
+
+> Tariff PostCompanyTariff(ctx).TariffIn(tariffIn).Execute()
+
+Itemises what a formation costs before anyone commits to it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	tariffIn := *openapiclient.NewTariffIn() // TariffIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CompanyAPI.PostCompanyTariff(context.Background()).TariffIn(tariffIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyTariff``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCompanyTariff`: Tariff
+	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyTariff`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCompanyTariffRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tariffIn** | [**TariffIn**](TariffIn.md) |  | 
+
+### Return type
+
+[**Tariff**](Tariff.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

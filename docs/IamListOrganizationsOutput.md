@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Count** | Pointer to **int32** |  | [optional] 
+**Cursor** | Pointer to **string** |  | [optional] 
 **Organizations** | Pointer to [**[]IamOrganization**](IamOrganization.md) |  | [optional] 
 
 ## Methods
@@ -26,30 +26,30 @@ NewIamListOrganizationsOutputWithDefaults instantiates a new IamListOrganization
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetCount
+### GetCursor
 
-`func (o *IamListOrganizationsOutput) GetCount() int32`
+`func (o *IamListOrganizationsOutput) GetCursor() string`
 
-GetCount returns the Count field if non-nil, zero value otherwise.
+GetCursor returns the Cursor field if non-nil, zero value otherwise.
 
-### GetCountOk
+### GetCursorOk
 
-`func (o *IamListOrganizationsOutput) GetCountOk() (*int32, bool)`
+`func (o *IamListOrganizationsOutput) GetCursorOk() (*string, bool)`
 
-GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
+GetCursorOk returns a tuple with the Cursor field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCount
+### SetCursor
 
-`func (o *IamListOrganizationsOutput) SetCount(v int32)`
+`func (o *IamListOrganizationsOutput) SetCursor(v string)`
 
-SetCount sets Count field to given value.
+SetCursor sets Cursor field to given value.
 
-### HasCount
+### HasCursor
 
-`func (o *IamListOrganizationsOutput) HasCount() bool`
+`func (o *IamListOrganizationsOutput) HasCursor() bool`
 
-HasCount returns a boolean if a field has been set.
+HasCursor returns a boolean if a field has been set.
 
 ### GetOrganizations
 

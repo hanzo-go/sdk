@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Name is the R2 bucket this binding points at, by bucket name — R2 addresses buckets by name where KV and D1 use ids. The binding name the Worker code reads it as is the map key. | [optional] 
 
 ## Methods
 

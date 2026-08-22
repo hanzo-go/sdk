@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionState** | Pointer to [**ArgoConnectionState**](ArgoConnectionState.md) |  | [optional] 
-**Info** | Pointer to [**ArgoClusterInfo**](ArgoClusterInfo.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Server** | Pointer to **string** |  | [optional] 
+**ConnectionState** | Pointer to [**ArgoConnectionState**](ArgoConnectionState.md) | ConnectionState is whether the destination is reachable. | [optional] 
+**Info** | Pointer to [**ArgoClusterInfo**](ArgoClusterInfo.md) | Info is the connection state again plus the count of applications targeting this destination. | [optional] 
+**Name** | Pointer to **string** | Name is what the Destination column shows: \&quot;in-cluster\&quot; for this cluster, otherwise whatever spec.destination.name declares, falling back to the server URL when it declares none. | [optional] 
+**Server** | Pointer to **string** | Server is the destination&#39;s API URL, and the key the list is deduplicated by. https://kubernetes.default.svc is this cluster. | [optional] 
 
 ## Methods
 

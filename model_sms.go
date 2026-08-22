@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,13 +19,18 @@ var _ MappedNullable = &SMS{}
 
 // SMS struct for SMS
 type SMS struct {
+	// From is the sending number in E.164, and must be one this org holds.
 	From *string `json:"from,omitempty"`
-	Id   *string `json:"id,omitempty"`
-	Org  *string `json:"org,omitempty"`
-	// queued | sent | delivered | failed
+	// ID is the carrier's handle for the message.
+	Id *string `json:"id,omitempty"`
+	// Org is the tenant the message was sent for or received by.
+	Org *string `json:"org,omitempty"`
+	// Status is where the message is: \"queued\", \"sent\", \"delivered\" or \"failed\". \"sent\" means the carrier took it; \"delivered\" means the handset got it, and not every carrier or destination reports that.
 	Status *string `json:"status,omitempty"`
-	Text   *string `json:"text,omitempty"`
-	To     *string `json:"to,omitempty"`
+	// Text is the message body. Empty is legal when the message carried only media.
+	Text *string `json:"text,omitempty"`
+	// To is the receiving number in E.164.
+	To *string `json:"to,omitempty"`
 }
 
 // NewSMS instantiates a new SMS object

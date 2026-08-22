@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,16 +19,24 @@ var _ MappedNullable = &UpdateAgentIn{}
 
 // UpdateAgentIn struct for UpdateAgentIn
 type UpdateAgentIn struct {
-	ComputeRef    *string `json:"computeRef,omitempty"`
-	Description   *string `json:"description,omitempty"`
+	// ComputeRef re-binds (or, with \"\", unbinds) the visor machine. Opaque here.
+	ComputeRef *string `json:"computeRef,omitempty"`
+	// Description replaces the line other agents read in the tool catalogue.
+	Description *string `json:"description,omitempty"`
+	// ExecutionMode switches between one-shot and long-running. The RESULTING mode+schedule are validated together, so switching to long-running without a stored or supplied cron is refused rather than accepted into an agent the scheduler would skip forever. A switch INTO long-running counts against the per-org cap and can be a 409.
 	ExecutionMode *string `json:"executionMode,omitempty"`
-	Instructions  *string `json:"instructions,omitempty"`
-	Model         *string `json:"model,omitempty"`
+	// Instructions replaces the system prompt whole, up to 32 KiB. There is no append: a prompt is one text, and sending \"\" clears it.
+	Instructions *string `json:"instructions,omitempty"`
+	// Model re-points the agent at another model, checked against the gateway's served catalogue exactly as create checks it. Empty STRING is refused — say nothing to keep the current one. Past runs keep the model that served them.
+	Model *string `json:"model,omitempty"`
 	// Ref is the agent to update — its public id or org-unique name, from the path.
-	Ref              *string  `json:"ref,omitempty"`
-	Schedule         *string  `json:"schedule,omitempty"`
-	ServiceAccountId *string  `json:"serviceAccountId,omitempty"`
-	Tools            []string `json:"tools,omitempty"`
+	Ref *string `json:"ref,omitempty"`
+	// Schedule replaces the cron. It is validated against the mode this update leaves behind, and dropped if that mode is one-shot.
+	Schedule *string `json:"schedule,omitempty"`
+	// ServiceAccountID re-points (or, with \"\", clears) the IAM service account a scheduled run is billed as. Clearing it puts that spend back on the org.
+	ServiceAccountId *string `json:"serviceAccountId,omitempty"`
+	// Tools replaces the whole allow-list, it does not add to it. Sending [] takes every tool away, which is the only way to say that.
+	Tools []string `json:"tools,omitempty"`
 }
 
 // NewUpdateAgentIn instantiates a new UpdateAgentIn object

@@ -7,12 +7,12 @@ Name | Type | Description | Notes
 **Account** | Pointer to **string** | Account is the account the series narrows to, when one was named. | [optional] 
 **Available** | Pointer to **bool** | Available reports whether the warehouse answered; false is an honest \&quot;we have no data\&quot;, NOT zero usage. | [optional] 
 **Current** | Pointer to [**[]ReadingView**](ReadingView.md) | Current is the live state of each lane — the dash headline. | [optional] 
-**From** | Pointer to **string** | From and To are the resolved [from, to) window, RFC 3339 UTC. | [optional] 
+**From** | Pointer to **string** | From is when the resolved window opens, RFC 3339 UTC. | [optional] 
 **Provider** | Pointer to **string** | Provider is the provider whose meter answered. | [optional] 
 **Range** | Pointer to **string** | Range is the resolved period label. | [optional] 
 **Scope** | Pointer to **string** | Scope is always \&quot;user\&quot;: the caller&#39;s own linked accounts. | [optional] 
 **Source** | Pointer to **string** | Source is always \&quot;account\&quot;: the provider&#39;s own meter, not a Hanzo charge. | [optional] 
-**To** | Pointer to **string** |  | [optional] 
+**To** | Pointer to **string** | To is where it closes, EXCLUSIVE, RFC 3339 UTC — the instant the read was served, so the window walks forward with the clock and two reads a minute apart do not cover the same period. | [optional] 
 **Windows** | Pointer to [**[]ReadingView**](ReadingView.md) | Windows is every window instance in range, newest first. | [optional] 
 
 ## Methods

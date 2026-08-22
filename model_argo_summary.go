@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,6 +19,7 @@ var _ MappedNullable = &ArgoSummary{}
 
 // ArgoSummary struct for ArgoSummary
 type ArgoSummary struct {
+	// Images are the container images the application runs. One entry for an App CR, built from its spec.image as \"repository:tag\" — the bare repository when it declares no tag, and absent when it declares neither. Absent on a CD row, which tracks commits rather than images.
 	Images []string `json:"images,omitempty"`
 }
 

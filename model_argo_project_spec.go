@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &ArgoProjectSpec{}
 
 // ArgoProjectSpec struct for ArgoProjectSpec
 type ArgoProjectSpec struct {
-	ClusterResourceWhitelist []ArgoGroupKind   `json:"clusterResourceWhitelist,omitempty"`
-	Description              *string           `json:"description,omitempty"`
-	Destinations             []ArgoDestination `json:"destinations,omitempty"`
-	SourceRepos              []string          `json:"sourceRepos,omitempty"`
+	// ClusterResourceWhitelist are the cluster-scoped kinds it may create — [{group:\"*\", kind:\"*\"}] on a synthesized project.
+	ClusterResourceWhitelist []ArgoGroupKind `json:"clusterResourceWhitelist,omitempty"`
+	// Description is the project's human label: the IAM project's display name, or its description when it has no display name. Absent when IAM carries neither.
+	Description *string `json:"description,omitempty"`
+	// Destinations are the cluster/namespace pairs it may write to — a single {server:\"*\", namespace:\"*\"} on a synthesized project, for the same reason.
+	Destinations []ArgoDestination `json:"destinations,omitempty"`
+	// SourceRepos are the git repos applications in this project may pull from. [\"*\"] for every project this plane synthesizes or reflects from IAM: the boundary that actually holds on this platform is the IAM org, resolved before a row is ever projected, so the projected fence is deliberately permissive and is NOT an authorization statement.
+	SourceRepos []string `json:"sourceRepos,omitempty"`
 }
 
 // NewArgoProjectSpec instantiates a new ArgoProjectSpec object

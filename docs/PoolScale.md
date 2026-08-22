@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClusterId** | Pointer to **string** | ClusterID and PoolID address the pool, from the URL path. | [optional] 
+**ClusterId** | Pointer to **string** | ClusterID is the cluster holding the pool, from the URL path. | [optional] 
 **Count** | Pointer to **int32** | Count is the node count to scale TO — an absolute target, not a delta, and never negative. | [optional] 
-**PoolId** | Pointer to **string** |  | [optional] 
+**PoolId** | Pointer to **string** | PoolID is the pool to resize, from the URL path — the &#x60;poolId&#x60; a cluster read reports for it. Required. | [optional] 
 **Provider** | Pointer to **string** | Provider is the cloud the cluster lives on. Required; body or ?provider&#x3D;. | [optional] 
 
 ## Methods

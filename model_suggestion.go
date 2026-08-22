@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &Suggestion{}
 
 // Suggestion struct for Suggestion
 type Suggestion struct {
-	Automatable *bool   `json:"automatable,omitempty"`
-	Detail      *string `json:"detail,omitempty"`
-	Rationale   *string `json:"rationale,omitempty"`
-	StepId      *string `json:"stepId,omitempty"`
-	Title       *string `json:"title,omitempty"`
+	// Automatable is true when the step names a tool, so the Business AI can do it rather than only describe it.
+	Automatable *bool `json:"automatable,omitempty"`
+	// Detail is the step's own prose — what it asks for.
+	Detail *string `json:"detail,omitempty"`
+	// Rationale is why this step is being suggested NOW, written for the person reading it. It explains the ranking, not the step.
+	Rationale *string `json:"rationale,omitempty"`
+	// StepID is the checklist step being recommended — the id every step route takes, so a caller can act on the suggestion directly.
+	StepId *string `json:"stepId,omitempty"`
+	// Title is the step's own one-line quest.
+	Title *string `json:"title,omitempty"`
 	// Unlocks is how many downstream steps completing this one immediately makes available (its leverage) — the primary ranking key.
 	Unlocks *int32 `json:"unlocks,omitempty"`
 }

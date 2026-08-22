@@ -47,6 +47,7 @@ Method | HTTP request | Description
 [**DeleteMetricReductionRuleByID**](O11yAPI.md#DeleteMetricReductionRuleByID) | **Delete** /v1/o11y/metric_reduction_rules/{id} | Deletes a volume-control rule by its id.
 [**DeleteO11yExplorerViewsByViewid**](O11yAPI.md#DeleteO11yExplorerViewsByViewid) | **Delete** /v1/o11y/explorer/views/{viewId} | Deletes one saved explorer view by id.
 [**DeleteO11yReviewsById**](O11yAPI.md#DeleteO11yReviewsById) | **Delete** /v1/o11y/reviews/{id} | Removes one review queue and every item in it.
+[**DeleteO11ySentinelProjectsById**](O11yAPI.md#DeleteO11ySentinelProjectsById) | **Delete** /v1/o11y/sentinel/projects/{id} | Deletes one Sentry project of the caller&#39;s org.
 [**DeletePublicDashboard**](O11yAPI.md#DeletePublicDashboard) | **Delete** /v1/o11y/dashboards/{id}/public | Deletes the public-sharing config and disables public sharing of a dashboard.
 [**DeleteRole**](O11yAPI.md#DeleteRole) | **Delete** /v1/o11y/roles/{id} | Deletes a custom role.
 [**DeleteRoutePolicyByID**](O11yAPI.md#DeleteRoutePolicyByID) | **Delete** /v1/o11y/route_policies/{id} | Removes a route policy, by id.
@@ -160,6 +161,16 @@ Method | HTTP request | Description
 [**GetO11yReviews**](O11yAPI.md#GetO11yReviews) | **Get** /v1/o11y/reviews | Returns a page of the caller org&#39;s human-review queues, newest first, narrowed to the caller&#39;s project.
 [**GetO11yReviewsById**](O11yAPI.md#GetO11yReviewsById) | **Get** /v1/o11y/reviews/{id} | Returns one review queue with its pending and completed counts and its first page of items.
 [**GetO11yReviewsByIdItems**](O11yAPI.md#GetO11yReviewsByIdItems) | **Get** /v1/o11y/reviews/{id}/items | Returns a page of one review queue&#39;s items, newest first, optionally filtered to PENDING or COMPLETED.
+[**GetO11ySentinelEventsById**](O11yAPI.md#GetO11ySentinelEventsById) | **Get** /v1/o11y/sentinel/events/{id} | Returns one captured error event of a project, by its id.
+[**GetO11ySentinelIssues**](O11yAPI.md#GetO11ySentinelIssues) | **Get** /v1/o11y/sentinel/issues | Lists the caller&#39;s org&#39;s grouped error issues, optionally narrowed to one project and one time window, and filtered by status, level, environment, service, a free-text query and a sort.
+[**GetO11ySentinelIssuesById**](O11yAPI.md#GetO11ySentinelIssuesById) | **Get** /v1/o11y/sentinel/issues/{id} | Returns one grouped issue of the caller&#39;s org with its latest occurrence sample.
+[**GetO11ySentinelIssuesByIdEvents**](O11yAPI.md#GetO11ySentinelIssuesByIdEvents) | **Get** /v1/o11y/sentinel/issues/{id}/events | Lists one issue&#39;s captured occurrences, scoped to a project — a project is an isolation unit, so the caller declares which project&#39;s occurrences to read.
+[**GetO11ySentinelLogs**](O11yAPI.md#GetO11ySentinelLogs) | **Get** /v1/o11y/sentinel/logs | Lists a project&#39;s captured error events, newest first, optionally narrowed to those whose message or exception text contains a search string.
+[**GetO11ySentinelProjects**](O11yAPI.md#GetO11ySentinelProjects) | **Get** /v1/o11y/sentinel/projects | Lists the caller&#39;s org&#39;s Sentry projects, each with its freshly-derived DSN.
+[**GetO11ySentinelProjectsById**](O11yAPI.md#GetO11ySentinelProjectsById) | **Get** /v1/o11y/sentinel/projects/{id} | Returns one Sentry project of the caller&#39;s org, DSN included.
+[**GetO11ySentinelStats**](O11yAPI.md#GetO11ySentinelStats) | **Get** /v1/o11y/sentinel/stats | Returns a project&#39;s event-rate timeseries: one bucket per interval over the requested period, counting the events in it.
+[**GetO11ySentinelTraces**](O11yAPI.md#GetO11ySentinelTraces) | **Get** /v1/o11y/sentinel/traces | Lists the traces a project&#39;s captured errors reference, each with how many errors landed on it, when they started and stopped, and the latest message seen — the entry point for \&quot;which requests are failing\&quot;.
+[**GetO11ySentinelTracesById**](O11yAPI.md#GetO11ySentinelTracesById) | **Get** /v1/o11y/sentinel/traces/{id} | Returns one trace&#39;s captured errors for a project — every error event that carried the trace id, in the order the events plane holds them.
 [**GetO11yServicesList**](O11yAPI.md#GetO11yServicesList) | **Get** /v1/o11y/services/list | Lists the name of every service the trace store holds, with no window applied — the complete catalog, for pickers and autocomplete.
 [**GetO11ySessions**](O11yAPI.md#GetO11ySessions) | **Get** /v1/o11y/sessions | List the caller org&#39;s LLM sessions
 [**GetO11ySettingsApdex**](O11yAPI.md#GetO11ySettingsApdex) | **Get** /v1/o11y/settings/apdex | Returns apdex settings for the named services.
@@ -168,6 +179,7 @@ Method | HTTP request | Description
 [**GetO11yStatefulsetsAttributeValues**](O11yAPI.md#GetO11yStatefulsetsAttributeValues) | **Get** /v1/o11y/statefulsets/attribute_values | Lists the values one statefulset attribute key has taken, for building statefulset filters.
 [**GetO11yStats**](O11yAPI.md#GetO11yStats) | **Get** /v1/o11y/stats | Returns the collected usage statistics for the caller&#39;s org, as the stats reporter aggregates them — a map whose keys are the reporter&#39;s own counter names.
 [**GetO11yStatus**](O11yAPI.md#GetO11yStatus) | **Get** /v1/o11y/status | Reports whether a product&#39;s service is live: an in-cluster health probe with its measured latency, fused with the per-replica up inventory.
+[**GetO11ySummary**](O11yAPI.md#GetO11ySummary) | **Get** /v1/o11y/summary | Reports whether the platform is up.
 [**GetO11yTraces**](O11yAPI.md#GetO11yTraces) | **Get** /v1/o11y/traces | Lists the caller org&#39;s recent traces — one row per trace with its span count and wall-clock duration, most recently active first.
 [**GetO11yUsage**](O11yAPI.md#GetO11yUsage) | **Get** /v1/o11y/usage | Returns ingestion usage counts bucketed over the requested window, optionally narrowed to one service.
 [**GetO11yVersion**](O11yAPI.md#GetO11yVersion) | **Get** /v1/o11y/version | Reports the running build: its version, whether an enterprise edition is present (\&quot;N\&quot; in this build), and whether first-user setup has completed.
@@ -305,6 +317,9 @@ Method | HTTP request | Description
 [**PostO11yRegister**](O11yAPI.md#PostO11yRegister) | **Post** /v1/o11y/register | Creates the FIRST organization and its admin user.
 [**PostO11yReviews**](O11yAPI.md#PostO11yReviews) | **Post** /v1/o11y/reviews | Creates a human-review queue in the caller&#39;s org and project.
 [**PostO11yReviewsByIdItems**](O11yAPI.md#PostO11yReviewsByIdItems) | **Post** /v1/o11y/reviews/{id}/items | Enqueues traces, observations or sessions on a review queue.
+[**PostO11ySentinelDiscover**](O11yAPI.md#PostO11ySentinelDiscover) | **Post** /v1/o11y/sentinel/discover | Aggregates a project&#39;s captured errors into a table — the caller names the filters, the groupings and the aggregations, and gets back the columns and rows they asked for.
+[**PostO11ySentinelProjects**](O11yAPI.md#PostO11ySentinelProjects) | **Post** /v1/o11y/sentinel/projects | Creates a Sentry project under the caller&#39;s org and returns it, DSN included.
+[**PostO11ySentinelProjectsByIdKeysRotate**](O11yAPI.md#PostO11ySentinelProjectsByIdKeysRotate) | **Post** /v1/o11y/sentinel/projects/{id}/keys/rotate | Rotates a project&#39;s DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.
 [**PostO11yServiceEntryPointOperations**](O11yAPI.md#PostO11yServiceEntryPointOperations) | **Post** /v1/o11y/service/entry_point_operations | Returns one service&#39;s entry-point operations with the same latency and error profile topOperations reports.
 [**PostO11yServiceTopLevelOperations**](O11yAPI.md#PostO11yServiceTopLevelOperations) | **Post** /v1/o11y/service/top_level_operations | Maps each service to its entry-point span names — for the one service named in the request, or for every service when none is.
 [**PostO11yServiceTopOperations**](O11yAPI.md#PostO11yServiceTopOperations) | **Post** /v1/o11y/service/top_operations | Returns one service&#39;s heaviest operations in the window, each with p50/p95/p99 latency, how often it ran and how often it errored.
@@ -320,6 +335,7 @@ Method | HTTP request | Description
 [**PreviewMetricReductionRule**](O11yAPI.md#PreviewMetricReductionRule) | **Post** /v1/o11y/metric_reduction_rules/preview | Estimates the series reduction and the dashboards and alerts a candidate volume-control rule would touch, without persisting it.
 [**PutHost**](O11yAPI.md#PutHost) | **Put** /v1/o11y/zeus/hosts | Records the deployment&#39;s host in Zeus, overwriting any prior one.
 [**PutO11yExplorerViewsByViewid**](O11yAPI.md#PutO11yExplorerViewsByViewid) | **Put** /v1/o11y/explorer/views/{viewId} | Replaces one saved explorer view by id with the given view and echoes it back.
+[**PutO11ySentinelIssuesById**](O11yAPI.md#PutO11ySentinelIssuesById) | **Put** /v1/o11y/sentinel/issues/{id} | Changes an issue&#39;s lifecycle — resolve, ignore, reopen or assign — and returns the updated issue.
 [**PutProfile**](O11yAPI.md#PutProfile) | **Put** /v1/o11y/zeus/profiles | Records the deployment&#39;s profile in Zeus — how the team uses observability today and what they plan — overwriting any prior one.
 [**RemoveUserRoleByUserIDAndRoleID**](O11yAPI.md#RemoveUserRoleByUserIDAndRoleID) | **Delete** /v1/o11y/users/{id}/roles/{roleId} | Takes a role away from one org member, by user id and role id — someone else, never the caller.
 [**ResetPassword**](O11yAPI.md#ResetPassword) | **Post** /v1/o11y/resetPassword | Sets a new password for whoever the reset token was minted for, consuming the token.
@@ -3284,6 +3300,74 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteO11ySentinelProjectsById
+
+> DeleteO11ySentinelProjectsById(ctx, id).Execute()
+
+Deletes one Sentry project of the caller's org.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the project id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.O11yAPI.DeleteO11ySentinelProjectsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteO11ySentinelProjectsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the project id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteO11ySentinelProjectsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11091,6 +11175,721 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetO11ySentinelEventsById
+
+> O11yO11ySentryEventOut GetO11ySentinelEventsById(ctx, id).Project(project).Execute()
+
+Returns one captured error event of a project, by its id.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the event id.
+	project := "project_example" // string | Project is the project the event belongs to, by its id. Required.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelEventsById(context.Background(), id).Project(project).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelEventsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelEventsById`: O11yO11ySentryEventOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelEventsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the event id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelEventsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **project** | **string** | Project is the project the event belongs to, by its id. Required. | 
+
+### Return type
+
+[**O11yO11ySentryEventOut**](O11yO11ySentryEventOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelIssues
+
+> O11yO11yErrorIssuesOut GetO11ySentinelIssues(ctx).Status(status).Level(level).Environment(environment).ServiceName(serviceName).Query(query).Sort(sort).Offset(offset).Limit(limit).Project(project).Period(period).Execute()
+
+Lists the caller's org's grouped error issues, optionally narrowed to one project and one time window, and filtered by status, level, environment, service, a free-text query and a sort.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	status := "status_example" // string | Status narrows to one lifecycle state: unresolved, resolved or ignored. (optional)
+	level := "level_example" // string | Level narrows to one severity, e.g. error, warning, info. (optional)
+	environment := "environment_example" // string | Environment narrows to one deployment environment. (optional)
+	serviceName := "serviceName_example" // string | ServiceName narrows to one reporting service. (optional)
+	query := "query_example" // string | Query narrows to issues whose text contains it. (optional)
+	sort := "sort_example" // string | Sort orders the page, e.g. lastSeen, firstSeen, count. (optional)
+	offset := int32(56) // int32 | Offset is how many issues to skip. Zero starts at the first. (optional)
+	limit := int32(56) // int32 | Limit caps how many issues come back. Zero means the default. (optional)
+	project := "project_example" // string | Project narrows the org's issues to one project, by its id. (optional)
+	period := "period_example" // string | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelIssues(context.Background()).Status(status).Level(level).Environment(environment).ServiceName(serviceName).Query(query).Sort(sort).Offset(offset).Limit(limit).Project(project).Period(period).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelIssues``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelIssues`: O11yO11yErrorIssuesOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelIssues`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelIssuesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **string** | Status narrows to one lifecycle state: unresolved, resolved or ignored. | 
+ **level** | **string** | Level narrows to one severity, e.g. error, warning, info. | 
+ **environment** | **string** | Environment narrows to one deployment environment. | 
+ **serviceName** | **string** | ServiceName narrows to one reporting service. | 
+ **query** | **string** | Query narrows to issues whose text contains it. | 
+ **sort** | **string** | Sort orders the page, e.g. lastSeen, firstSeen, count. | 
+ **offset** | **int32** | Offset is how many issues to skip. Zero starts at the first. | 
+ **limit** | **int32** | Limit caps how many issues come back. Zero means the default. | 
+ **project** | **string** | Project narrows the org&#39;s issues to one project, by its id. | 
+ **period** | **string** | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. | 
+
+### Return type
+
+[**O11yO11yErrorIssuesOut**](O11yO11yErrorIssuesOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelIssuesById
+
+> O11yO11yErrorGettableIssueOut GetO11ySentinelIssuesById(ctx, id).Execute()
+
+Returns one grouped issue of the caller's org with its latest occurrence sample.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the issue id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelIssuesById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelIssuesById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelIssuesById`: O11yO11yErrorGettableIssueOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelIssuesById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the issue id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelIssuesByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**O11yO11yErrorGettableIssueOut**](O11yO11yErrorGettableIssueOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelIssuesByIdEvents
+
+> O11yO11ySentryIssueEventsOut GetO11ySentinelIssuesByIdEvents(ctx, id).Project(project).Limit(limit).Execute()
+
+Lists one issue's captured occurrences, scoped to a project — a project is an isolation unit, so the caller declares which project's occurrences to read.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the issue id.
+	project := "project_example" // string | Project is the project whose occurrences to read, by its id. Required.
+	limit := int32(56) // int32 | Limit caps how many occurrences come back. Zero means the default. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelIssuesByIdEvents(context.Background(), id).Project(project).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelIssuesByIdEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelIssuesByIdEvents`: O11yO11ySentryIssueEventsOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelIssuesByIdEvents`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the issue id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelIssuesByIdEventsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **project** | **string** | Project is the project whose occurrences to read, by its id. Required. | 
+ **limit** | **int32** | Limit caps how many occurrences come back. Zero means the default. | 
+
+### Return type
+
+[**O11yO11ySentryIssueEventsOut**](O11yO11ySentryIssueEventsOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelLogs
+
+> O11yO11yLogsOut GetO11ySentinelLogs(ctx).Project(project).Query(query).Period(period).Limit(limit).Execute()
+
+Lists a project's captured error events, newest first, optionally narrowed to those whose message or exception text contains a search string.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	project := "project_example" // string | Project is the project to read, as its id. Required.
+	query := "query_example" // string | Query narrows the page to events whose text contains it. (optional)
+	period := "period_example" // string | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. (optional)
+	limit := int32(56) // int32 | Limit caps how many events come back. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelLogs(context.Background()).Project(project).Query(query).Period(period).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelLogs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelLogs`: O11yO11yLogsOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelLogs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelLogsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project** | **string** | Project is the project to read, as its id. Required. | 
+ **query** | **string** | Query narrows the page to events whose text contains it. | 
+ **period** | **string** | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. | 
+ **limit** | **int32** | Limit caps how many events come back. | 
+
+### Return type
+
+[**O11yO11yLogsOut**](O11yO11yLogsOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelProjects
+
+> O11yO11ySentryProjectsOut GetO11ySentinelProjects(ctx).Execute()
+
+Lists the caller's org's Sentry projects, each with its freshly-derived DSN.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelProjects(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelProjects`: O11yO11ySentryProjectsOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelProjects`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelProjectsRequest struct via the builder pattern
+
+
+### Return type
+
+[**O11yO11ySentryProjectsOut**](O11yO11ySentryProjectsOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelProjectsById
+
+> O11yO11ySentryProjectOut GetO11ySentinelProjectsById(ctx, id).Execute()
+
+Returns one Sentry project of the caller's org, DSN included.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the project id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelProjectsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelProjectsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelProjectsById`: O11yO11ySentryProjectOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelProjectsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the project id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelProjectsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**O11yO11ySentryProjectOut**](O11yO11ySentryProjectOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelStats
+
+> O11yO11yStatsOut GetO11ySentinelStats(ctx).Project(project).Field(field).Period(period).Execute()
+
+Returns a project's event-rate timeseries: one bucket per interval over the requested period, counting the events in it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	project := "project_example" // string | Project is the project to read, as its id. Required.
+	field := "field_example" // string | Field is the dimension to count over. Empty counts all events. (optional)
+	period := "period_example" // string | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelStats(context.Background()).Project(project).Field(field).Period(period).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelStats``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelStats`: O11yO11yStatsOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelStats`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelStatsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project** | **string** | Project is the project to read, as its id. Required. | 
+ **field** | **string** | Field is the dimension to count over. Empty counts all events. | 
+ **period** | **string** | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. | 
+
+### Return type
+
+[**O11yO11yStatsOut**](O11yO11yStatsOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelTraces
+
+> O11yO11yTracesOut GetO11ySentinelTraces(ctx).Project(project).Period(period).Limit(limit).Execute()
+
+Lists the traces a project's captured errors reference, each with how many errors landed on it, when they started and stopped, and the latest message seen — the entry point for \"which requests are failing\".
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	project := "project_example" // string | Project is the project to read, as its id. Required.
+	period := "period_example" // string | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. (optional)
+	limit := int32(56) // int32 | Limit caps how many traces come back. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelTraces(context.Background()).Project(project).Period(period).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelTraces``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelTraces`: O11yO11yTracesOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelTraces`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelTracesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project** | **string** | Project is the project to read, as its id. Required. | 
+ **period** | **string** | Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d. | 
+ **limit** | **int32** | Limit caps how many traces come back. | 
+
+### Return type
+
+[**O11yO11yTracesOut**](O11yO11yTracesOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySentinelTracesById
+
+> O11yO11yTraceOut GetO11ySentinelTracesById(ctx, id).Project(project).Execute()
+
+Returns one trace's captured errors for a project — every error event that carried the trace id, in the order the events plane holds them.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the trace id.
+	project := "project_example" // string | Project is the project the trace's errors belong to. Required.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySentinelTracesById(context.Background(), id).Project(project).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySentinelTracesById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySentinelTracesById`: O11yO11yTraceOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySentinelTracesById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the trace id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySentinelTracesByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **project** | **string** | Project is the project the trace&#39;s errors belong to. Required. | 
+
+### Return type
+
+[**O11yO11yTraceOut**](O11yO11yTraceOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetO11yServicesList
 
 > []string GetO11yServicesList(ctx).Execute()
@@ -11606,6 +12405,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**O11yStatusResult**](O11yStatusResult.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetO11ySummary
+
+> O11yStatusSummary GetO11ySummary(ctx).Execute()
+
+Reports whether the platform is up.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.GetO11ySummary(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11ySummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetO11ySummary`: O11yStatusSummary
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11ySummary`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetO11ySummaryRequest struct via the builder pattern
+
+
+### Return type
+
+[**O11yStatusSummary**](O11yStatusSummary.md)
 
 ### Authorization
 
@@ -21013,6 +21873,208 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostO11ySentinelDiscover
+
+> O11yO11yDiscoverOut PostO11ySentinelDiscover(ctx).O11yO11yDiscoverIn(o11yO11yDiscoverIn).Execute()
+
+Aggregates a project's captured errors into a table — the caller names the filters, the groupings and the aggregations, and gets back the columns and rows they asked for.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	o11yO11yDiscoverIn := *openapiclient.NewO11yO11yDiscoverIn("Project_example") // O11yO11yDiscoverIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.PostO11ySentinelDiscover(context.Background()).O11yO11yDiscoverIn(o11yO11yDiscoverIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PostO11ySentinelDiscover``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostO11ySentinelDiscover`: O11yO11yDiscoverOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PostO11ySentinelDiscover`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostO11ySentinelDiscoverRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **o11yO11yDiscoverIn** | [**O11yO11yDiscoverIn**](O11yO11yDiscoverIn.md) |  | 
+
+### Return type
+
+[**O11yO11yDiscoverOut**](O11yO11yDiscoverOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostO11ySentinelProjects
+
+> O11yO11ySentryProjectOut PostO11ySentinelProjects(ctx).O11yO11ySentryPostableProject(o11yO11ySentryPostableProject).Execute()
+
+Creates a Sentry project under the caller's org and returns it, DSN included.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	o11yO11ySentryPostableProject := *openapiclient.NewO11yO11ySentryPostableProject("Name_example") // O11yO11ySentryPostableProject | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.PostO11ySentinelProjects(context.Background()).O11yO11ySentryPostableProject(o11yO11ySentryPostableProject).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PostO11ySentinelProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostO11ySentinelProjects`: O11yO11ySentryProjectOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PostO11ySentinelProjects`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostO11ySentinelProjectsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **o11yO11ySentryPostableProject** | [**O11yO11ySentryPostableProject**](O11yO11ySentryPostableProject.md) |  | 
+
+### Return type
+
+[**O11yO11ySentryProjectOut**](O11yO11ySentryProjectOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostO11ySentinelProjectsByIdKeysRotate
+
+> O11yO11ySentryProjectOut PostO11ySentinelProjectsByIdKeysRotate(ctx, id).Execute()
+
+Rotates a project's DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the project id.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.PostO11ySentinelProjectsByIdKeysRotate(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PostO11ySentinelProjectsByIdKeysRotate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostO11ySentinelProjectsByIdKeysRotate`: O11yO11ySentryProjectOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PostO11ySentinelProjectsByIdKeysRotate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the project id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostO11ySentinelProjectsByIdKeysRotateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**O11yO11ySentryProjectOut**](O11yO11ySentryProjectOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostO11yServiceEntryPointOperations
 
 > O11yO11yOperationsOut PostO11yServiceEntryPointOperations(ctx).O11yO11yOperationsIn(o11yO11yOperationsIn).Execute()
@@ -21992,6 +23054,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**O11yO11ySavedViewOut**](O11yO11ySavedViewOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutO11ySentinelIssuesById
+
+> O11yO11yErrorIssueOut PutO11ySentinelIssuesById(ctx, id).O11yO11ySentryUpdateIssueIn(o11yO11ySentryUpdateIssueIn).Execute()
+
+Changes an issue's lifecycle — resolve, ignore, reopen or assign — and returns the updated issue.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the issue id.
+	o11yO11ySentryUpdateIssueIn := *openapiclient.NewO11yO11ySentryUpdateIssueIn("Id_example") // O11yO11ySentryUpdateIssueIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.O11yAPI.PutO11ySentinelIssuesById(context.Background(), id).O11yO11ySentryUpdateIssueIn(o11yO11ySentryUpdateIssueIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PutO11ySentinelIssuesById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutO11ySentinelIssuesById`: O11yO11yErrorIssueOut
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PutO11ySentinelIssuesById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the issue id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutO11ySentinelIssuesByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **o11yO11ySentryUpdateIssueIn** | [**O11yO11ySentryUpdateIssueIn**](O11yO11ySentryUpdateIssueIn.md) |  | 
+
+### Return type
+
+[**O11yO11yErrorIssueOut**](O11yO11yErrorIssueOut.md)
 
 ### Authorization
 

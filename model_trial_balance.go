@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,18 @@ var _ MappedNullable = &TrialBalance{}
 
 // TrialBalance struct for TrialBalance
 type TrialBalance struct {
-	Balanced    *bool             `json:"balanced,omitempty"`
-	From        *string           `json:"from,omitempty"`
-	Rows        []TrialBalanceRow `json:"rows,omitempty"`
-	To          *string           `json:"to,omitempty"`
-	TotalCredit *int32            `json:"totalCredit,omitempty"`
-	TotalDebit  *int32            `json:"totalDebit,omitempty"`
+	// Balanced is the proof this report exists to give: whether total debits equal total credits. It is computed from the rows above, never assumed, and false means the ledger itself is broken rather than that the report is wrong.
+	Balanced *bool `json:"balanced,omitempty"`
+	// From is the posting time the window opens at, as it was asked for. Absent means the report runs from the beginning of the ledger.
+	From *string `json:"from,omitempty"`
+	// Rows are the accounts that MOVED in one of the windows. An account that never moved is omitted rather than listed at zero, so this is shorter than the chart.
+	Rows []TrialBalanceRow `json:"rows,omitempty"`
+	// To is the posting time the window closes at, inclusive. Absent means \"up to now\" — every posting the ledger holds.
+	To *string `json:"to,omitempty"`
+	// TotalCredit is the sum of every row's closing credit column, in cents.
+	TotalCredit *int32 `json:"totalCredit,omitempty"`
+	// TotalDebit is the sum of every row's CLOSING debit column, in cents.
+	TotalDebit *int32 `json:"totalDebit,omitempty"`
 }
 
 // NewTrialBalance instantiates a new TrialBalance object

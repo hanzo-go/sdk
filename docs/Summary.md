@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Calls** | Pointer to **int32** |  | [optional] 
-**Messages** | Pointer to **int32** |  | [optional] 
-**Numbers** | Pointer to **int32** |  | [optional] 
+**Calls** | Pointer to **int32** | Calls is how many calls this org has placed or received, over its whole history — a running total, not a window. | [optional] 
+**Messages** | Pointer to **int32** | Messages is the same running total for messages. | [optional] 
+**Numbers** | Pointer to **int32** | Numbers is how many numbers this org holds right now. | [optional] 
 
 ## Methods
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Content** | Pointer to **string** |  | [optional] 
-**Path** | Pointer to **string** |  | [optional] 
+**Content** | Pointer to **string** | Content is the file&#39;s whole text, inline. There is no upload step and no reference to fetch: a site is sent as its bytes, and each file and the site as a whole are size-bounded. | [optional] 
+**Path** | Pointer to **string** | Path is where the file lands in the site, RELATIVE to its root — so \&quot;index.html\&quot; is the page served at /. Leading slashes and any attempt to escape the root are refused. | [optional] 
 
 ## Methods
 

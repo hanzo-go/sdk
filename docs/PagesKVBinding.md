@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**NamespaceId** | Pointer to **string** |  | [optional] 
+**NamespaceId** | Pointer to **string** | NamespaceID is the KV namespace this binding points at, by Cloudflare&#39;s id rather than its title. The BINDING NAME — what the Worker code reads it as — is the map key this value sits under, not a field here. | [optional] 
 
 ## Methods
 

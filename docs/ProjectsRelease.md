@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Active** | Pointer to **bool** |  | [optional] 
-**Bytes** | Pointer to **int32** |  | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**Objects** | Pointer to **int32** |  | [optional] 
-**ReleaseId** | Pointer to **string** |  | [optional] 
-**Slug** | Pointer to **string** |  | [optional] 
-**Source** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** | Active is whether this is the release the site is SERVING right now. Exactly one release of a site is active; the others are kept so they can be activated again, until retention reclaims them. | [optional] 
+**Bytes** | Pointer to **int32** | Bytes is their total size in bytes. | [optional] 
+**CreatedAt** | Pointer to **int32** | CreatedAt is when the release was cut, as Unix seconds — not when it was last activated. | [optional] 
+**Objects** | Pointer to **int32** | Objects is how many files the release holds. | [optional] 
+**ReleaseId** | Pointer to **string** | ReleaseID is derived from a DIGEST of the release&#39;s own manifest, so identical content is the same release and a release can never be confused with another one. Activating an older id IS the rollback. | [optional] 
+**Slug** | Pointer to **string** | Slug is the site this release belongs to. | [optional] 
+**Source** | Pointer to **string** | Source is what the release was cut from — the build output or upload it was promoted out of. | [optional] 
+**Url** | Pointer to **string** | URL is where the site serves. Present only on the ACTIVE release, since an inactive one is not answering anywhere. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,14 +19,22 @@ var _ MappedNullable = &ProjectsRelease{}
 
 // ProjectsRelease struct for ProjectsRelease
 type ProjectsRelease struct {
-	Active    *bool   `json:"active,omitempty"`
-	Bytes     *int32  `json:"bytes,omitempty"`
-	CreatedAt *int32  `json:"createdAt,omitempty"`
-	Objects   *int32  `json:"objects,omitempty"`
+	// Active is whether this is the release the site is SERVING right now. Exactly one release of a site is active; the others are kept so they can be activated again, until retention reclaims them.
+	Active *bool `json:"active,omitempty"`
+	// Bytes is their total size in bytes.
+	Bytes *int32 `json:"bytes,omitempty"`
+	// CreatedAt is when the release was cut, as Unix seconds — not when it was last activated.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// Objects is how many files the release holds.
+	Objects *int32 `json:"objects,omitempty"`
+	// ReleaseID is derived from a DIGEST of the release's own manifest, so identical content is the same release and a release can never be confused with another one. Activating an older id IS the rollback.
 	ReleaseId *string `json:"releaseId,omitempty"`
-	Slug      *string `json:"slug,omitempty"`
-	Source    *string `json:"source,omitempty"`
-	Url       *string `json:"url,omitempty"`
+	// Slug is the site this release belongs to.
+	Slug *string `json:"slug,omitempty"`
+	// Source is what the release was cut from — the build output or upload it was promoted out of.
+	Source *string `json:"source,omitempty"`
+	// URL is where the site serves. Present only on the ACTIVE release, since an inactive one is not answering anywhere.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewProjectsRelease instantiates a new ProjectsRelease object

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Custom** | Pointer to **bool** |  | [optional] 
-**Funnel** | Pointer to [**Funnel**](Funnel.md) |  | [optional] 
-**Progress** | Pointer to [**ProgressView**](ProgressView.md) |  | [optional] 
-**Steps** | Pointer to [**[]StepView**](StepView.md) |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
+**Custom** | Pointer to **bool** | Custom is true when the org replaced the shared playbook with one of its own — the difference between \&quot;everyone&#39;s checklist\&quot; and \&quot;the one you authored\&quot;. | [optional] 
+**Funnel** | Pointer to [**Funnel**](Funnel.md) | Funnel is the org&#39;s analytics lens, present only where the read asked for it — absent means it was not requested, never that the org has no traffic. | [optional] 
+**Progress** | Pointer to [**ProgressView**](ProgressView.md) | Progress is how far through the journey the org is. | [optional] 
+**Steps** | Pointer to [**[]StepView**](StepView.md) | Steps are every enabled step with the org&#39;s own state folded in, in authoring order. | [optional] 
+**Title** | Pointer to **string** | Title is the playbook&#39;s name as it heads the checklist. | [optional] 
+**Version** | Pointer to **string** | Version identifies the playbook this journey came from, so a caller can tell that the checklist itself changed under them. | [optional] 
 
 ## Methods
 

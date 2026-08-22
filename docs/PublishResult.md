@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Channels** | Pointer to **[]string** |  | [optional] 
-**ExternalIds** | Pointer to **map[string]string** |  | [optional] 
-**Results** | Pointer to [**[]ChannelResult**](ChannelResult.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Channels** | Pointer to **[]string** | Channels is the channel list read off the content document — integration ids or provider names, as the item declares them. Empty when the item names none, which targets every connected, enabled channel. It is what was ASKED for; Results is what happened. | [optional] 
+**ExternalIds** | Pointer to **map[string]string** | ExternalIDs maps channel id → the post id that channel returned, merged with everything earlier publishes recorded. Successes only, and it is the idempotency ledger: a channel named here is skipped by every later publish of this item, so the map only ever grows. | [optional] 
+**Results** | Pointer to [**[]ChannelResult**](ChannelResult.md) | Results is the outcome per channel — which went out, which did not and why — covering the whole fan-out including failures, so partial success is never flattened into one verdict. A channel the org has not connected appears here as failed with \&quot;channel not connected\&quot;. | [optional] 
+**Status** | Pointer to **string** | Status is the ONE headline, drawn from: \&quot;distributed\&quot; (something is on record and went out now), \&quot;scheduled\&quot; (same, handed to the channel&#39;s own scheduler for later), \&quot;failed\&quot; (nothing is on record — this fan-out missed entirely and no earlier one landed), \&quot;in_progress\&quot; (another publisher holds the item, so this call posted NOTHING and the caller retries), and \&quot;not_configured\&quot; (no distribution edge is wired; a transition records it instead of failing). A partial fan-out is \&quot;distributed\&quot;/\&quot;scheduled\&quot;, never \&quot;failed\&quot; — the per-channel truth is in Results. | [optional] 
 
 ## Methods
 

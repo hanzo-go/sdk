@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,18 @@ var _ MappedNullable = &OverviewView{}
 
 // OverviewView struct for OverviewView
 type OverviewView struct {
-	Custom   *bool         `json:"custom,omitempty"`
-	Funnel   *Funnel       `json:"funnel,omitempty"`
+	// Custom is true when the org replaced the shared playbook with one of its own — the difference between \"everyone's checklist\" and \"the one you authored\".
+	Custom *bool `json:"custom,omitempty"`
+	// Funnel is the org's analytics lens, present only where the read asked for it — absent means it was not requested, never that the org has no traffic.
+	Funnel *Funnel `json:"funnel,omitempty"`
+	// Progress is how far through the journey the org is.
 	Progress *ProgressView `json:"progress,omitempty"`
-	Steps    []StepView    `json:"steps,omitempty"`
-	Title    *string       `json:"title,omitempty"`
-	Version  *string       `json:"version,omitempty"`
+	// Steps are every enabled step with the org's own state folded in, in authoring order.
+	Steps []StepView `json:"steps,omitempty"`
+	// Title is the playbook's name as it heads the checklist.
+	Title *string `json:"title,omitempty"`
+	// Version identifies the playbook this journey came from, so a caller can tell that the checklist itself changed under them.
+	Version *string `json:"version,omitempty"`
 }
 
 // NewOverviewView instantiates a new OverviewView object

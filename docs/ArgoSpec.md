@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Destination** | Pointer to [**ArgoDestination**](ArgoDestination.md) |  | [optional] 
-**Project** | Pointer to **string** |  | [optional] 
-**Source** | Pointer to [**ArgoSource**](ArgoSource.md) |  | [optional] 
+**Destination** | Pointer to [**ArgoDestination**](ArgoDestination.md) | Destination is which cluster and namespace it lands in. Zero-valued on a CD row: this projection reports CD&#39;s source, not its destination. | [optional] 
+**Project** | Pointer to **string** | Project is the AppProject this application is grouped and filtered under. For an App CR it is the app.kubernetes.io/part-of label — the IAM project name — falling back to \&quot;default\&quot; when the CR carries no such label. | [optional] 
+**Source** | Pointer to [**ArgoSource**](ArgoSource.md) | Source is where the desired state is declared. | [optional] 
 
 ## Methods
 

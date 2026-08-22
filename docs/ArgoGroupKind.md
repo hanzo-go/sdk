@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Group** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
+**Group** | Pointer to **string** | Group is the API group a project admits, \&quot;*\&quot; for any. Empty names the core group. | [optional] 
+**Kind** | Pointer to **string** | Kind is the kind it admits, \&quot;*\&quot; for any. | [optional] 
 
 ## Methods
 

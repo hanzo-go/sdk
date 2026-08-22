@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &VersionMeta{}
 
 // VersionMeta struct for VersionMeta
 type VersionMeta struct {
-	Brand     *string `json:"brand,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
-	Version   *int32  `json:"version,omitempty"`
+	// Brand is the white-label key this revision was authored under; empty is the shared base playbook. Revisions of two brands never share a number line.
+	Brand *string `json:"brand,omitempty"`
+	// UpdatedAt is when this revision was written, as Unix seconds — the \"who changed the playbook, and when\" half of the audit trail.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
+	// Version is the store's own revision counter for that brand, starting at 1 for the seeded playbook and incrementing on every edit. Nothing is overwritten, so the highest number is the live one and every lower number is still readable. It is not the playbook's authored `version` string.
+	Version *int32 `json:"version,omitempty"`
 }
 
 // NewVersionMeta instantiates a new VersionMeta object

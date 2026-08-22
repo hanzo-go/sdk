@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,19 +19,32 @@ var _ MappedNullable = &AgentView{}
 
 // AgentView struct for AgentView
 type AgentView struct {
-	ComputeRef       *string  `json:"computeRef,omitempty"`
-	CreatedAt        *string  `json:"createdAt,omitempty"`
-	Description      *string  `json:"description,omitempty"`
-	ExecutionMode    *string  `json:"executionMode,omitempty"`
-	Id               *string  `json:"id,omitempty"`
-	Model            *string  `json:"model,omitempty"`
-	Name             *string  `json:"name,omitempty"`
-	Runs             *int32   `json:"runs,omitempty"`
-	Schedule         *string  `json:"schedule,omitempty"`
-	ServiceAccountId *string  `json:"serviceAccountId,omitempty"`
-	Status           *string  `json:"status,omitempty"`
-	Tools            []string `json:"tools,omitempty"`
-	UpdatedAt        *string  `json:"updatedAt,omitempty"`
+	// ComputeRef is the visor machine this bot is bound to, opaque here: this package stores and echoes it, and the binding's lifecycle belongs elsewhere. Empty means unbound, which is what every one-shot agent is.
+	ComputeRef *string `json:"computeRef,omitempty"`
+	// CreatedAt is when the agent was defined, RFC 3339 in UTC to the second.
+	CreatedAt *string `json:"createdAt,omitempty"`
+	// Description is the one line another agent reads when deciding whether to call this one: the tool catalogue publishes it as the description of `agent_<name>`, falling back to \"agent <name>\" when it is empty. It is not part of the prompt — Instructions is — so writing the behaviour here reaches the caller and not the model.
+	Description *string `json:"description,omitempty"`
+	// ExecutionMode is one-shot or long-running, and it decides who may start this agent. one-shot runs only when something POSTs to it; long-running is additionally invoked by the scheduler on Schedule, once a minute against the cron. An org's long-running agents are capped, so a switch INTO it can be refused with 409.
+	ExecutionMode *string `json:"executionMode,omitempty"`
+	// ID is the agent's stable handle, minted here as \"agent_\" + 32 hex characters of crypto/rand. A caller cannot choose it, and it never changes — unlike Name, which is the other way to address the same agent.
+	Id *string `json:"id,omitempty"`
+	// Model is the Zen model this agent runs on, and it is always OUR name for it: writes normalize through cloud.ZenModel and the read normalizes again, so an upstream family name never leaves here even from a row written before that rule existed. A create that named none took the deployment's configured default, so this is where a caller learns which model it actually got.
+	Model *string `json:"model,omitempty"`
+	// Name is the agent's org-unique handle, matching ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$. It addresses the agent everywhere ID does, it is what a run row records, and it is the suffix of the `agent_<name>` tool other agents call this one by. Set once at create; no update route moves it, because moving it would orphan that history.
+	Name *string `json:"name,omitempty"`
+	// Runs is how many executions the org has recorded against this agent, counted at read time. The list and update reads count the WHOLE history; the detail read reports the size of the RecentRuns page it carries, which stops at 20 — so a detail row saying 20 means \"at least 20\", not \"exactly 20\".
+	Runs *int32 `json:"runs,omitempty"`
+	// Schedule is the 5-field cron the scheduler fires a long-running agent on, evaluated once a minute. Required for long-running and DROPPED for one-shot — a one-shot agent's schedule is not stored, so absence here is the mode's answer rather than a value nobody set.
+	Schedule *string `json:"schedule,omitempty"`
+	// ServiceAccountID is the IAM agent service account (<org>-<agent>) a scheduled run is billed AS. It is what makes an autonomous run attributable to a principal rather than only to the org; empty means the org itself wears the spend.
+	ServiceAccountId *string `json:"serviceAccountId,omitempty"`
+	// Status is the agent's readiness, and today it is \"ready\" on every row: an agent is a definition rather than a provisioned thing, so nothing transitions it. Server-set at create; no route accepts it.
+	Status *string `json:"status,omitempty"`
+	// Tools are the tool names this agent may call, and the list IS the authority: an agent that declares none gets none. The single entry \"*\" means whatever the fleet's tool door serves at the moment of the run, resolved per run rather than frozen here, which is how the default assistant reaches subsystems that shipped after it was defined. Empty array, never null.
+	Tools []string `json:"tools,omitempty"`
+	// UpdatedAt is the last time any field above was written, same format. It moves on an update to the DEFINITION and never on a run, so a busy agent nobody has edited keeps an old one.
+	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
 // NewAgentView instantiates a new AgentView object

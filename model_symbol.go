@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,10 +19,14 @@ var _ MappedNullable = &Symbol{}
 
 // Symbol struct for Symbol
 type Symbol struct {
+	// Detail is the server's short elaboration, typically the signature. Absent when it offered none.
 	Detail *string `json:"detail,omitempty"`
-	Kind   *int32  `json:"kind,omitempty"`
-	Name   *string `json:"name,omitempty"`
-	Range  *Range  `json:"range,omitempty"`
+	// Kind is the LSP SymbolKind number (5 class, 6 method, 12 function, 23 struct, …), passed through rather than translated to a word — these callers already speak LSP, and inventing a second vocabulary is how the two drift.
+	Kind *int32 `json:"kind,omitempty"`
+	// Name is the declared identifier.
+	Name *string `json:"name,omitempty"`
+	// Range is the declaration's span in the file.
+	Range *Range `json:"range,omitempty"`
 }
 
 // NewSymbol instantiates a new Symbol object

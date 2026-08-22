@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,12 +19,20 @@ var _ MappedNullable = &Funnel{}
 
 // Funnel struct for Funnel
 type Funnel struct {
-	// ConvertedOrgs is how many distinct referred orgs have produced positive commission at least once — a referral that actually spent.
-	ConvertedOrgs *int32 `json:"convertedOrgs,omitempty"`
-	// RatePct is convertedOrgs over referredOrgs as a PERCENTAGE, 0–100, and the one non-integer figure on this board. It is 0 when nothing has been referred yet, not undefined.
-	RatePct *float32 `json:"ratePct,omitempty"`
-	// ReferredOrgs is how many attribution edges exist fleet-wide — one per referred org, first-touch, so it is also the count of distinct referred orgs.
-	ReferredOrgs *int32 `json:"referredOrgs,omitempty"`
+	// Available separates \"this org has no traffic\" from \"we could not ask\". False means the warehouse was unreachable or the org has emitted nothing at all, and every count below is then a placeholder zero rather than a measurement — a caller must read this before reading any of them.
+	Available *bool `json:"available,omitempty"`
+	// Orders counts completed orders in the window — purchases, not carts started.
+	Orders *int32 `json:"orders,omitempty"`
+	// Pageviews counts page events in the window, one per view rather than per person, so a single visitor reading ten pages counts ten.
+	Pageviews *int32 `json:"pageviews,omitempty"`
+	// Revenue is the sum of the amounts those orders reported, in whatever currency the beacon stamped on them (major units, e.g. 49.5 for $49.50) — NOT cents, and not converted to a single currency. Contrast revenueCents on the profile, which is the money of record.
+	Revenue *float32 `json:"revenue,omitempty"`
+	// Signups counts completed signups in the window, the step where an anonymous visitor becomes somebody with an account.
+	Signups *int32 `json:"signups,omitempty"`
+	// Visitors is the number of DISTINCT people seen in the window, counted by the beacon's distinct id — so it is unique visitors, not sessions and not views.
+	Visitors *int32 `json:"visitors,omitempty"`
+	// WindowDays is the length of the trailing window every count covers, so a reader knows whether 40 signups is a month or a day.
+	WindowDays *int32 `json:"windowDays,omitempty"`
 }
 
 // NewFunnel instantiates a new Funnel object
@@ -44,100 +52,228 @@ func NewFunnelWithDefaults() *Funnel {
 	return &this
 }
 
-// GetConvertedOrgs returns the ConvertedOrgs field value if set, zero value otherwise.
-func (o *Funnel) GetConvertedOrgs() int32 {
-	if o == nil || IsNil(o.ConvertedOrgs) {
-		var ret int32
+// GetAvailable returns the Available field value if set, zero value otherwise.
+func (o *Funnel) GetAvailable() bool {
+	if o == nil || IsNil(o.Available) {
+		var ret bool
 		return ret
 	}
-	return *o.ConvertedOrgs
+	return *o.Available
 }
 
-// GetConvertedOrgsOk returns a tuple with the ConvertedOrgs field value if set, nil otherwise
+// GetAvailableOk returns a tuple with the Available field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetConvertedOrgsOk() (*int32, bool) {
-	if o == nil || IsNil(o.ConvertedOrgs) {
+func (o *Funnel) GetAvailableOk() (*bool, bool) {
+	if o == nil || IsNil(o.Available) {
 		return nil, false
 	}
-	return o.ConvertedOrgs, true
+	return o.Available, true
 }
 
-// HasConvertedOrgs returns a boolean if a field has been set.
-func (o *Funnel) HasConvertedOrgs() bool {
-	if o != nil && !IsNil(o.ConvertedOrgs) {
+// HasAvailable returns a boolean if a field has been set.
+func (o *Funnel) HasAvailable() bool {
+	if o != nil && !IsNil(o.Available) {
 		return true
 	}
 
 	return false
 }
 
-// SetConvertedOrgs gets a reference to the given int32 and assigns it to the ConvertedOrgs field.
-func (o *Funnel) SetConvertedOrgs(v int32) {
-	o.ConvertedOrgs = &v
+// SetAvailable gets a reference to the given bool and assigns it to the Available field.
+func (o *Funnel) SetAvailable(v bool) {
+	o.Available = &v
 }
 
-// GetRatePct returns the RatePct field value if set, zero value otherwise.
-func (o *Funnel) GetRatePct() float32 {
-	if o == nil || IsNil(o.RatePct) {
+// GetOrders returns the Orders field value if set, zero value otherwise.
+func (o *Funnel) GetOrders() int32 {
+	if o == nil || IsNil(o.Orders) {
+		var ret int32
+		return ret
+	}
+	return *o.Orders
+}
+
+// GetOrdersOk returns a tuple with the Orders field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Funnel) GetOrdersOk() (*int32, bool) {
+	if o == nil || IsNil(o.Orders) {
+		return nil, false
+	}
+	return o.Orders, true
+}
+
+// HasOrders returns a boolean if a field has been set.
+func (o *Funnel) HasOrders() bool {
+	if o != nil && !IsNil(o.Orders) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrders gets a reference to the given int32 and assigns it to the Orders field.
+func (o *Funnel) SetOrders(v int32) {
+	o.Orders = &v
+}
+
+// GetPageviews returns the Pageviews field value if set, zero value otherwise.
+func (o *Funnel) GetPageviews() int32 {
+	if o == nil || IsNil(o.Pageviews) {
+		var ret int32
+		return ret
+	}
+	return *o.Pageviews
+}
+
+// GetPageviewsOk returns a tuple with the Pageviews field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Funnel) GetPageviewsOk() (*int32, bool) {
+	if o == nil || IsNil(o.Pageviews) {
+		return nil, false
+	}
+	return o.Pageviews, true
+}
+
+// HasPageviews returns a boolean if a field has been set.
+func (o *Funnel) HasPageviews() bool {
+	if o != nil && !IsNil(o.Pageviews) {
+		return true
+	}
+
+	return false
+}
+
+// SetPageviews gets a reference to the given int32 and assigns it to the Pageviews field.
+func (o *Funnel) SetPageviews(v int32) {
+	o.Pageviews = &v
+}
+
+// GetRevenue returns the Revenue field value if set, zero value otherwise.
+func (o *Funnel) GetRevenue() float32 {
+	if o == nil || IsNil(o.Revenue) {
 		var ret float32
 		return ret
 	}
-	return *o.RatePct
+	return *o.Revenue
 }
 
-// GetRatePctOk returns a tuple with the RatePct field value if set, nil otherwise
+// GetRevenueOk returns a tuple with the Revenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetRatePctOk() (*float32, bool) {
-	if o == nil || IsNil(o.RatePct) {
+func (o *Funnel) GetRevenueOk() (*float32, bool) {
+	if o == nil || IsNil(o.Revenue) {
 		return nil, false
 	}
-	return o.RatePct, true
+	return o.Revenue, true
 }
 
-// HasRatePct returns a boolean if a field has been set.
-func (o *Funnel) HasRatePct() bool {
-	if o != nil && !IsNil(o.RatePct) {
+// HasRevenue returns a boolean if a field has been set.
+func (o *Funnel) HasRevenue() bool {
+	if o != nil && !IsNil(o.Revenue) {
 		return true
 	}
 
 	return false
 }
 
-// SetRatePct gets a reference to the given float32 and assigns it to the RatePct field.
-func (o *Funnel) SetRatePct(v float32) {
-	o.RatePct = &v
+// SetRevenue gets a reference to the given float32 and assigns it to the Revenue field.
+func (o *Funnel) SetRevenue(v float32) {
+	o.Revenue = &v
 }
 
-// GetReferredOrgs returns the ReferredOrgs field value if set, zero value otherwise.
-func (o *Funnel) GetReferredOrgs() int32 {
-	if o == nil || IsNil(o.ReferredOrgs) {
+// GetSignups returns the Signups field value if set, zero value otherwise.
+func (o *Funnel) GetSignups() int32 {
+	if o == nil || IsNil(o.Signups) {
 		var ret int32
 		return ret
 	}
-	return *o.ReferredOrgs
+	return *o.Signups
 }
 
-// GetReferredOrgsOk returns a tuple with the ReferredOrgs field value if set, nil otherwise
+// GetSignupsOk returns a tuple with the Signups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Funnel) GetReferredOrgsOk() (*int32, bool) {
-	if o == nil || IsNil(o.ReferredOrgs) {
+func (o *Funnel) GetSignupsOk() (*int32, bool) {
+	if o == nil || IsNil(o.Signups) {
 		return nil, false
 	}
-	return o.ReferredOrgs, true
+	return o.Signups, true
 }
 
-// HasReferredOrgs returns a boolean if a field has been set.
-func (o *Funnel) HasReferredOrgs() bool {
-	if o != nil && !IsNil(o.ReferredOrgs) {
+// HasSignups returns a boolean if a field has been set.
+func (o *Funnel) HasSignups() bool {
+	if o != nil && !IsNil(o.Signups) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferredOrgs gets a reference to the given int32 and assigns it to the ReferredOrgs field.
-func (o *Funnel) SetReferredOrgs(v int32) {
-	o.ReferredOrgs = &v
+// SetSignups gets a reference to the given int32 and assigns it to the Signups field.
+func (o *Funnel) SetSignups(v int32) {
+	o.Signups = &v
+}
+
+// GetVisitors returns the Visitors field value if set, zero value otherwise.
+func (o *Funnel) GetVisitors() int32 {
+	if o == nil || IsNil(o.Visitors) {
+		var ret int32
+		return ret
+	}
+	return *o.Visitors
+}
+
+// GetVisitorsOk returns a tuple with the Visitors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Funnel) GetVisitorsOk() (*int32, bool) {
+	if o == nil || IsNil(o.Visitors) {
+		return nil, false
+	}
+	return o.Visitors, true
+}
+
+// HasVisitors returns a boolean if a field has been set.
+func (o *Funnel) HasVisitors() bool {
+	if o != nil && !IsNil(o.Visitors) {
+		return true
+	}
+
+	return false
+}
+
+// SetVisitors gets a reference to the given int32 and assigns it to the Visitors field.
+func (o *Funnel) SetVisitors(v int32) {
+	o.Visitors = &v
+}
+
+// GetWindowDays returns the WindowDays field value if set, zero value otherwise.
+func (o *Funnel) GetWindowDays() int32 {
+	if o == nil || IsNil(o.WindowDays) {
+		var ret int32
+		return ret
+	}
+	return *o.WindowDays
+}
+
+// GetWindowDaysOk returns a tuple with the WindowDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Funnel) GetWindowDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.WindowDays) {
+		return nil, false
+	}
+	return o.WindowDays, true
+}
+
+// HasWindowDays returns a boolean if a field has been set.
+func (o *Funnel) HasWindowDays() bool {
+	if o != nil && !IsNil(o.WindowDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetWindowDays gets a reference to the given int32 and assigns it to the WindowDays field.
+func (o *Funnel) SetWindowDays(v int32) {
+	o.WindowDays = &v
 }
 
 func (o Funnel) MarshalJSON() ([]byte, error) {
@@ -150,14 +286,26 @@ func (o Funnel) MarshalJSON() ([]byte, error) {
 
 func (o Funnel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ConvertedOrgs) {
-		toSerialize["convertedOrgs"] = o.ConvertedOrgs
+	if !IsNil(o.Available) {
+		toSerialize["available"] = o.Available
 	}
-	if !IsNil(o.RatePct) {
-		toSerialize["ratePct"] = o.RatePct
+	if !IsNil(o.Orders) {
+		toSerialize["orders"] = o.Orders
 	}
-	if !IsNil(o.ReferredOrgs) {
-		toSerialize["referredOrgs"] = o.ReferredOrgs
+	if !IsNil(o.Pageviews) {
+		toSerialize["pageviews"] = o.Pageviews
+	}
+	if !IsNil(o.Revenue) {
+		toSerialize["revenue"] = o.Revenue
+	}
+	if !IsNil(o.Signups) {
+		toSerialize["signups"] = o.Signups
+	}
+	if !IsNil(o.Visitors) {
+		toSerialize["visitors"] = o.Visitors
+	}
+	if !IsNil(o.WindowDays) {
+		toSerialize["windowDays"] = o.WindowDays
 	}
 	return toSerialize, nil
 }

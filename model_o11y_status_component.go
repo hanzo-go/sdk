@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -21,8 +21,10 @@ var _ MappedNullable = &O11yStatusComponent{}
 type O11yStatusComponent struct {
 	// CurrentStatus is this component's own condition: \"full_outage\" for a service that did not answer its health probe at all.
 	CurrentStatus *string `json:"current_status,omitempty"`
-	Id            *string `json:"id,omitempty"`
-	Name          *string `json:"name,omitempty"`
+	// ID is the component's stable handle, which on this platform IS the service name — there is no separate component registry to allocate ids from.
+	Id *string `json:"id,omitempty"`
+	// Name is the service as the fleet prober knows it (the `service` label on hanzo_service_up), so a reader can match a component to what is being probed.
+	Name *string `json:"name,omitempty"`
 }
 
 // NewO11yStatusComponent instantiates a new O11yStatusComponent object

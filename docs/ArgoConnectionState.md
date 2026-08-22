@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AttemptedAt** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**AttemptedAt** | Pointer to **string** | AttemptedAt is when the connection was last probed. Always absent: nothing is probed, and a fabricated timestamp would claim a check that never ran. | [optional] 
+**Message** | Pointer to **string** | Message is why a connection failed. Always absent, since none does. | [optional] 
+**Status** | Pointer to **string** | Status is ArgoCD&#39;s ConnectionStatus — Successful, Failed or Unknown. Always Successful here: the destination is the cluster this process is already running in, so it is reachable by construction and there is no credential to probe. | [optional] 
 
 ## Methods
 

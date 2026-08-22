@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &RoutedRunOut{}
 
 // RoutedRunOut struct for RoutedRunOut
 type RoutedRunOut struct {
-	Base     *string `json:"base,omitempty"`
-	Branch   *string `json:"branch,omitempty"`
+	// Base is the branch to start FROM. Empty means the repository's default — resolve it on the machine, since the machine is the one holding the clone.
+	Base *string `json:"base,omitempty"`
+	// Branch is the ref the run must push its work to, and the ONLY one it is permitted to write: the forge's ref policy refuses anything else from this run's credential. It is decided at dispatch and exists before the work does.
+	Branch *string `json:"branch,omitempty"`
+	// CloneURL is how to fetch the repository. It carries NO credential — the machine authenticates with the git identity it already holds — which is why this whole shape is safe to hand to a claimed runner.
 	CloneUrl *string `json:"cloneUrl,omitempty"`
-	Project  *string `json:"project,omitempty"`
-	Prompt   *string `json:"prompt,omitempty"`
+	// Project is the product slug the run is filed under, so the machine can tag what it produces. Empty when the dispatch named none.
+	Project *string `json:"project,omitempty"`
+	// Prompt is the task, in full, as the person wrote it. There is no second field for context.
+	Prompt *string `json:"prompt,omitempty"`
 	// Repo is the repository to work in and CloneURL is how to fetch it.
 	Repo *string `json:"repo,omitempty"`
 	// SessionID is the live session opened at dispatch; the machine streams its turns into it.

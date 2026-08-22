@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Agent** | Pointer to **string** |  | [optional] 
-**From** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** | queued | ringing | answered | completed | failed | [optional] 
-**To** | Pointer to **string** |  | [optional] 
+**Agent** | Pointer to **string** | Agent names the Hanzo assistant handling the call. Set means the call was answered by that assistant rather than connected to a person. | [optional] 
+**From** | Pointer to **string** | From is the calling number in E.164. It must be one this org holds: a carrier refuses an origination from a number nobody proved they own. | [optional] 
+**Id** | Pointer to **string** | ID is the carrier&#39;s handle for the call — what a hangup or a lookup names. | [optional] 
+**Org** | Pointer to **string** | Org is the tenant the call was placed for or received by. | [optional] 
+**Status** | Pointer to **string** | Status is where the call is: \&quot;queued\&quot;, \&quot;ringing\&quot;, \&quot;answered\&quot;, \&quot;completed\&quot; or \&quot;failed\&quot;. Only the last two are terminal. | [optional] 
+**To** | Pointer to **string** | To is the called number in E.164. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &GitSource{}
 
 // GitSource struct for GitSource
 type GitSource struct {
-	Branch   *string `json:"branch,omitempty"`
+	// Branch is the branch a push-to-deploy build tracks, `main` when the create named none — a push to any other branch, and every tag push, builds nothing here. A deploy may name a commit instead, for that deploy alone.
+	Branch *string `json:"branch,omitempty"`
+	// Provider is derived from the URL — github, gitlab, bitbucket, or `git` for anything else. It is a label for display; no behaviour keys on it.
 	Provider *string `json:"provider,omitempty"`
-	Url      *string `json:"url,omitempty"`
+	// URL is the clone URL a git app builds from, stored as sent once the build path's allowlist accepted it (validateRepoURL). It is also what a landed push is MATCHED against, so a push to any other repo never builds this app.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewGitSource instantiates a new GitSource object

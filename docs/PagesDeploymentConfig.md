@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompatibilityDate** | Pointer to **string** |  | [optional] 
-**CompatibilityFlags** | Pointer to **[]string** |  | [optional] 
-**D1Databases** | Pointer to [**map[string]PagesD1Binding**](PagesD1Binding.md) |  | [optional] 
-**EnvVars** | Pointer to [**map[string]PagesEnvVar**](PagesEnvVar.md) |  | [optional] 
-**KvNamespaces** | Pointer to [**map[string]PagesKVBinding**](PagesKVBinding.md) |  | [optional] 
-**R2Buckets** | Pointer to [**map[string]PagesR2Binding**](PagesR2Binding.md) |  | [optional] 
+**CompatibilityDate** | Pointer to **string** | CompatibilityDate pins which Workers runtime behaviour the functions run under, as a date (\&quot;2024-01-01\&quot;). It is a pin, not a version: the runtime keeps that date&#39;s semantics for code deployed against it. | [optional] 
+**CompatibilityFlags** | Pointer to **[]string** | CompatibilityFlags turn individual runtime behaviours on or off ahead of, or behind, the date above (\&quot;nodejs_compat\&quot;). | [optional] 
+**D1Databases** | Pointer to [**map[string]PagesD1Binding**](PagesD1Binding.md) | D1Databases binds D1 databases in, keyed by binding name. | [optional] 
+**EnvVars** | Pointer to [**map[string]PagesEnvVar**](PagesEnvVar.md) | EnvVars are the environment variables the functions see, KEYED BY VARIABLE NAME. The key is the name; the value carries the value and whether it is a secret. | [optional] 
+**KvNamespaces** | Pointer to [**map[string]PagesKVBinding**](PagesKVBinding.md) | KVNamespaces binds KV namespaces into the functions, KEYED BY THE BINDING NAME the code reads (&#x60;env.SESSIONS&#x60;). Same shape for the two below. | [optional] 
+**R2Buckets** | Pointer to [**map[string]PagesR2Binding**](PagesR2Binding.md) | R2Buckets binds R2 buckets in, keyed by binding name. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,6 +19,7 @@ var _ MappedNullable = &PromoList{}
 
 // PromoList struct for PromoList
 type PromoList struct {
+	// Data is every promo in the deployment, oldest first, each with its live counters. The list is fleet-wide rather than per-org. It is normally EMPTY: nothing seeds a promo, and the migration purges the one that once shipped by accident.
 	Data []PromoStatus `json:"data,omitempty"`
 }
 

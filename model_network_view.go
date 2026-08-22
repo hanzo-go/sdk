@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,7 @@ var _ MappedNullable = &NetworkView{}
 
 // NetworkView struct for NetworkView
 type NetworkView struct {
-	// ID is the org-derived id of the overlay network — the key GET /v1/networks/{id} addresses.
+	// ID is the org-derived id of the overlay network — the key GET /v1/network/{id} addresses.
 	Id *string `json:"id,omitempty"`
 	// Name is the org the overlay belongs to.
 	Name *string `json:"name,omitempty"`

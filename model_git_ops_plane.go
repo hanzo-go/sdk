@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &GitOpsPlane{}
 
 // GitOpsPlane struct for GitOpsPlane
 type GitOpsPlane struct {
+	// Applications is every CD Application in the cluster, ordered by namespace then name. Empty (never null) when the plane is not installed, and equally empty when it is installed and tracks nothing — Installed is what separates those two.
 	Applications []GitOpsApp `json:"applications,omitempty"`
-	Installed    *bool       `json:"installed,omitempty"`
-	Reason       *string     `json:"reason,omitempty"`
+	// Installed is whether this cluster serves the CD Application CRD at all. False is a fact about the cluster, not a failure of the request: the caller says \"no CD plane here\" rather than rendering an error it cannot act on.
+	Installed *bool `json:"installed,omitempty"`
+	// Reason says why the plane is absent, in words a caller can show. Empty when Installed.
+	Reason *string `json:"reason,omitempty"`
 }
 
 // NewGitOpsPlane instantiates a new GitOpsPlane object

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GpuModel** | Pointer to **string** |  | [optional] 
+**GpuModel** | Pointer to **string** | GPUModel names the representative accelerator (\&quot;GB10\&quot;); GPUs carries how many. A heterogeneous host names its first card rather than inventing a summary. | [optional] 
 **GpuUtil** | Pointer to **float32** | GPUUtil is accelerator utilization as a fraction 0..1; the warehouse clamps anything outside that. | [optional] 
-**Gpus** | Pointer to **int32** | GPUs is how many accelerators the reading covers, GPUModel the representative model name. | [optional] 
+**Gpus** | Pointer to **int32** | GPUs is how many accelerators this reading covers. | [optional] 
 **Host** | Pointer to **string** | Host is the node&#39;s hostname, for display. | [optional] 
-**MemFree** | Pointer to **int32** |  | [optional] 
-**MemUsed** | Pointer to **int32** | MemUsed and MemFree are host memory in bytes. | [optional] 
+**MemFree** | Pointer to **int32** | MemFree is host memory still available, in BYTES. | [optional] 
+**MemUsed** | Pointer to **int32** | MemUsed is host memory in use, in BYTES. | [optional] 
 **Unit** | Pointer to **string** | Unit is the reporting node&#39;s own id — the same id it registered under, and the key the board joins this series onto. Required. | [optional] 
 
 ## Methods

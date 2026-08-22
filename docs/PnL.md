@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expense** | Pointer to [**[]PnLLine**](PnLLine.md) |  | [optional] 
-**From** | Pointer to **string** |  | [optional] 
-**Income** | Pointer to [**[]PnLLine**](PnLLine.md) |  | [optional] 
-**NetIncome** | Pointer to **int32** | TotalIncome − TotalExpense | [optional] 
-**To** | Pointer to **string** |  | [optional] 
-**TotalExpense** | Pointer to **int32** |  | [optional] 
-**TotalIncome** | Pointer to **int32** |  | [optional] 
+**Expense** | Pointer to [**[]PnLLine**](PnLLine.md) | Expense is the cost lines that moved in the period, one per account. | [optional] 
+**From** | Pointer to **string** | From opens the period and is EXCLUSIVE — movement strictly after it, matching the trial balance&#39;s opening boundary so the two reports agree on what belongs to a period. Absent means from the beginning of the ledger. | [optional] 
+**Income** | Pointer to [**[]PnLLine**](PnLLine.md) | Income is the revenue lines that moved in the period, one per account. Accounts that did not move are omitted rather than listed at zero. | [optional] 
+**NetIncome** | Pointer to **int32** | NetIncome is totalIncome minus totalExpense, in cents. Negative is a loss. | [optional] 
+**To** | Pointer to **string** | To closes the period and is inclusive. Absent means up to now. | [optional] 
+**TotalExpense** | Pointer to **int32** | TotalExpense is cost MATCHED to that revenue, in cents, including accrued infrastructure that has not been billed yet. | [optional] 
+**TotalIncome** | Pointer to **int32** | TotalIncome is revenue RECOGNIZED in the period, in cents — accrual, not cash, so a prepaid top-up is not in it until the credit is consumed. | [optional] 
 
 ## Methods
 

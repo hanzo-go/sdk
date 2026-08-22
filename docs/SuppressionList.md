@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Suppression**](Suppression.md) |  | [optional] 
+**Data** | Pointer to [**[]Suppression**](Suppression.md) | Data is the page: every (channel, address) this org&#39;s send gate refuses, newest opt-out first. Absence from it is not permission to mail someone — it only means no opt-out was recorded on that channel. | [optional] 
 
 ## Methods
 

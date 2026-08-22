@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Principles** | Pointer to **int32** |  | [optional] 
-**Sections** | Pointer to **int32** |  | [optional] 
-**Steps** | Pointer to **int32** |  | [optional] 
-**Strategies** | Pointer to **int32** |  | [optional] 
-**Templates** | Pointer to **int32** |  | [optional] 
+**Principles** | Pointer to **int32** | Principles is how many spine archetypes the playbook carries (64 in the shipped corpus). | [optional] 
+**Sections** | Pointer to **int32** | Sections is how many phases the journey has. | [optional] 
+**Steps** | Pointer to **int32** | Steps is how many checklist items the playbook holds, DISABLED ONES INCLUDED — this counts the authored document, not the journey an org runs, so it is normally larger than the &#x60;total&#x60; on a progress view. | [optional] 
+**Strategies** | Pointer to **int32** | Strategies is how many tactics the corpus holds, again counting disabled ones. | [optional] 
+**Templates** | Pointer to **int32** | Templates is how many reusable prompts the playbook carries. | [optional] 
 
 ## Methods
 

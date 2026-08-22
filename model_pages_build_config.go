@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &PagesBuildConfig{}
 
 // PagesBuildConfig struct for PagesBuildConfig
 type PagesBuildConfig struct {
-	BuildCommand   *string `json:"build_command,omitempty"`
+	// BuildCommand is what Cloudflare runs to build the site (\"npm run build\"). Omitted means no build step: the repository is published as it stands.
+	BuildCommand *string `json:"build_command,omitempty"`
+	// DestinationDir is the directory the build leaves the site in (\"dist\"), relative to RootDir. It is what gets served.
 	DestinationDir *string `json:"destination_dir,omitempty"`
-	RootDir        *string `json:"root_dir,omitempty"`
+	// RootDir is where in the repository the build runs, for a project that is not at the repository root. Omitted means the root.
+	RootDir *string `json:"root_dir,omitempty"`
 }
 
 // NewPagesBuildConfig instantiates a new PagesBuildConfig object

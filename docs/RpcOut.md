@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | Pointer to [**RpcError**](RpcError.md) |  | [optional] 
+**Error** | Pointer to [**RpcError**](RpcError.md) | Error is the JSON-RPC error object, present instead of Result. Its presence is the ONLY way a failure shows up here: the HTTP status stays 200, because that is what a standard JSON-RPC client parses. | [optional] 
 **Id** | Pointer to **interface{}** |  | [optional] 
-**Jsonrpc** | Pointer to **string** |  | [optional] 
+**Jsonrpc** | Pointer to **string** | JSONRPC is always \&quot;2.0\&quot;. An upstream that omits it has it filled in, so a client never has to cope with a response that is missing the one field telling it which protocol it is reading. | [optional] 
 **Result** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods

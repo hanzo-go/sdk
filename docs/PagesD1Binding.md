@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | ID is the D1 database this binding points at, by Cloudflare&#39;s uuid. The binding name the Worker code reads it as is the map key, not a field here. | [optional] 
 
 ## Methods
 

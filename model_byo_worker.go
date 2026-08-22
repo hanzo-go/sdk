@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,31 +19,47 @@ var _ MappedNullable = &ByoWorker{}
 
 // ByoWorker struct for ByoWorker
 type ByoWorker struct {
-	// Arch/CPUs/Memory are the connecting host's static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/fleet board renders a linked node's arch + cores + RAM like any other unit.
+	// Arch/CPUs/Memory are the connecting host's static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/visor/fleet board renders a linked node's arch + cores + RAM like any other unit.
 	Arch *string `json:"arch,omitempty"`
-	// Capabilities the worker advertises (\"studio.render\", \"engine.serve\"); Engine is present when it runs a hanzo-engine model server. Both additive + omitempty.
-	Capabilities  []string             `json:"capabilities,omitempty"`
-	CpuModel      *string              `json:"cpuModel,omitempty"`
-	Cpus          *int32               `json:"cpus,omitempty"`
-	Cuda          *string              `json:"cuda,omitempty"`
-	Driver        *string              `json:"driver,omitempty"`
-	Engine        *EngineAdvertisement `json:"engine,omitempty"`
-	FirstSeen     *string              `json:"firstSeen,omitempty"`
-	Gpus          []ByoGPU             `json:"gpus,omitempty"`
-	Hip           *string              `json:"hip,omitempty"`
-	Hostname      *string              `json:"hostname,omitempty"`
-	Id            *string              `json:"id,omitempty"`
-	JobQueue      *string              `json:"jobQueue,omitempty"`
-	LastHeartbeat *string              `json:"lastHeartbeat,omitempty"`
-	// \"on-prem\" (BYO has no cloud region)
+	// Capabilities is what this worker offers the org: \"studio.render\" when the node can render, \"engine.serve\" when it serves a model endpoint. A node advertises one only once it can honour it, so an absent list means a node that has dialed in but is not ready to serve any of them yet.
+	Capabilities []string `json:"capabilities,omitempty"`
+	// CPUModel is the processor as the host names it (\"Apple M3 Max\"), for display.
+	CpuModel *string `json:"cpuModel,omitempty"`
+	// CPUs is the host's logical core count.
+	Cpus *int32 `json:"cpus,omitempty"`
+	// Cuda is the host's CUDA toolkit version. NVIDIA hosts report it.
+	Cuda *string `json:"cuda,omitempty"`
+	// Driver is the host's NVIDIA kernel driver version — distinct from Cuda, and the one that bounds which CUDA versions can run on this box.
+	Driver *string `json:"driver,omitempty"`
+	// Engine is the hanzo-engine model server this node runs, when it runs one (`hanzo link --serve-engine`). Absent means the node takes jobs but serves no model endpoint.
+	Engine *EngineAdvertisement `json:"engine,omitempty"`
+	// FirstSeen is when this node first dialed in, RFC 3339 — the start of its presence record, which `hanzo unlink` ends.
+	FirstSeen *string `json:"firstSeen,omitempty"`
+	// GPUs are the accelerators the host found on itself. Empty is a real answer: a CPU-only machine can dial in and take non-GPU work.
+	Gpus []ByoGPU `json:"gpus,omitempty"`
+	// Hip is the host's HIP runtime version, the AMD counterpart to Cuda.
+	Hip *string `json:"hip,omitempty"`
+	// Hostname is what the host calls itself. It equals ID for any hostname already in the [a-z0-9-] alphabet, and differs when sanitizing had to change it.
+	Hostname *string `json:"hostname,omitempty"`
+	// ID is the node's id in the fleet — the sanitized hostname it registered under, which is also the `unit` its samples and its gpu-jobs lane key on. This is the id to use everywhere else on the compute surface.
+	Id *string `json:"id,omitempty"`
+	// JobQueue is the tasks NAMESPACE this worker claims render jobs out of — \"gpu-jobs\" unless `hanzo link` was pointed at another. Within it, a job aimed at this node alone rides the task-queue value \"gpu:<id>\".
+	JobQueue *string `json:"jobQueue,omitempty"`
+	// LastHeartbeat is the most recent beat this node sent, RFC 3339. It is what Status is computed from, so a reader can check the judgement.
+	LastHeartbeat *string `json:"lastHeartbeat,omitempty"`
+	// Location is always \"on-prem\" — a machine that dialed in has no cloud region, and inventing one would put it somewhere it is not.
 	Location *string `json:"location,omitempty"`
-	Memory   *int32  `json:"memory,omitempty"`
-	Os       *string `json:"os,omitempty"`
-	// always \"byo\"
+	// Memory is the host's total RAM in BYTES.
+	Memory *int32 `json:"memory,omitempty"`
+	// Os is the host's operating system: linux, darwin or windows.
+	Os *string `json:"os,omitempty"`
+	// Provider is always \"byo\": this machine is the operator's, not one Hanzo provisioned. It exists so a fold into the machines/GPUs pages says which rows are rented and which are the customer's own.
 	Provider *string `json:"provider,omitempty"`
-	Rocm     *string `json:"rocm,omitempty"`
-	// online | offline
-	Status  *string `json:"status,omitempty"`
+	// Rocm is the host's ROCm version. AMD hosts report it; empty otherwise.
+	Rocm *string `json:"rocm,omitempty"`
+	// Status is \"online\" when the last heartbeat landed within 90s, else \"offline\" — so it is a fact about heartbeat freshness, not about the box being powered on. A worker that has never beaten reads offline.
+	Status *string `json:"status,omitempty"`
+	// Version is the `hanzo` CLI version running on the node. It is what to check when a worker is missing a field a newer registration reports.
 	Version *string `json:"version,omitempty"`
 }
 

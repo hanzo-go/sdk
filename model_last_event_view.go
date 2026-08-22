@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,16 @@ var _ MappedNullable = &LastEventView{}
 
 // LastEventView struct for LastEventView
 type LastEventView struct {
-	Actor   *string `json:"actor,omitempty"`
-	At      *string `json:"at,omitempty"`
-	Kind    *string `json:"kind,omitempty"`
+	// Actor is who produced the turn, defaulted to the calling principal when the writer named nobody.
+	Actor *string `json:"actor,omitempty"`
+	// At is when the turn was recorded, RFC 3339 in UTC to the second.
+	At *string `json:"at,omitempty"`
+	// Kind is what the turn was, from the log's closed six: message, tool-call, spawn, log, status, control.
+	Kind *string `json:"kind,omitempty"`
+	// Preview is the first 240 bytes of the event's payload, cut without regard for the JSON inside it — it is a string to SHOW, never a value to parse. Read the detail or the stream for the whole payload.
 	Preview *string `json:"preview,omitempty"`
-	Seq     *int32  `json:"seq,omitempty"`
+	// Seq is that event's position in the session's log — monotonic from 1, per session. A reader holding it can ask the detail or stream reads for everything after it, so this doubles as the list's resume cursor.
+	Seq *int32 `json:"seq,omitempty"`
 }
 
 // NewLastEventView instantiates a new LastEventView object

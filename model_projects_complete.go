@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,18 +19,23 @@ var _ MappedNullable = &ProjectsComplete{}
 
 // ProjectsComplete struct for ProjectsComplete
 type ProjectsComplete struct {
-	Bytes  *int32  `json:"bytes,omitempty"`
+	// Bytes is their total size in bytes.
+	Bytes *int32 `json:"bytes,omitempty"`
+	// Commit is the revision that was built, recorded on the deployment.
 	Commit *string `json:"commit,omitempty"`
-	Files  *int32  `json:"files,omitempty"`
+	// Files is how many objects CI published.
+	Files *int32 `json:"files,omitempty"`
 	// ID is the queued deployment to complete, from the path.
 	Id *string `json:"id,omitempty"`
 	// Keys is the manifest CI just uploaded, RELATIVE to the deployment prefix. It is what replaces `aws s3 sync --delete`: an upload grant authorizes writes only, so CI cannot remove a file, and cloud reconciles the prefix against this list instead (grant.go). Omit it and nothing is deleted — the prefix only grows, which is the old pre-grant behaviour and a safe default.
-	Keys    []string `json:"keys,omitempty"`
-	LiveUrl *string  `json:"liveUrl,omitempty"`
-	Message *string  `json:"message,omitempty"`
+	Keys []string `json:"keys,omitempty"`
+	// LiveURL is a HINT at the address the site should serve at. The public host is claimed by cloud first, so this can refine the URL a deployment reports but can never assert a subdomain another tenant holds.
+	LiveUrl *string `json:"liveUrl,omitempty"`
+	// Message is what happened, in words — on an error completion, why it failed.
+	Message *string `json:"message,omitempty"`
 	// Slug is the project the deployment belongs to, from the path.
 	Slug *string `json:"slug,omitempty"`
-	// live | error
+	// Status is how the build ended: `live` if it succeeded, `error` if it did not. Nothing else is accepted.
 	Status *string `json:"status,omitempty"`
 }
 

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Automatable** | Pointer to **bool** |  | [optional] 
-**Detail** | Pointer to **string** |  | [optional] 
-**Rationale** | Pointer to **string** |  | [optional] 
-**StepId** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
+**Automatable** | Pointer to **bool** | Automatable is true when the step names a tool, so the Business AI can do it rather than only describe it. | [optional] 
+**Detail** | Pointer to **string** | Detail is the step&#39;s own prose — what it asks for. | [optional] 
+**Rationale** | Pointer to **string** | Rationale is why this step is being suggested NOW, written for the person reading it. It explains the ranking, not the step. | [optional] 
+**StepId** | Pointer to **string** | StepID is the checklist step being recommended — the id every step route takes, so a caller can act on the suggestion directly. | [optional] 
+**Title** | Pointer to **string** | Title is the step&#39;s own one-line quest. | [optional] 
 **Unlocks** | Pointer to **int32** | Unlocks is how many downstream steps completing this one immediately makes available (its leverage) — the primary ranking key. | [optional] 
 
 ## Methods

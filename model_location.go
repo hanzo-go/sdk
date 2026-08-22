@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &Location{}
 
 // Location struct for Location
 type Location struct {
-	External *bool   `json:"external,omitempty"`
-	Path     *string `json:"path,omitempty"`
-	Range    *Range  `json:"range,omitempty"`
+	// External is true when the answer left the repository — the case a static index cannot answer, and the reason this service resolves through dependencies.
+	External *bool `json:"external,omitempty"`
+	// Path is repo-relative while External is false, and the module coordinate (\"golang.org/x/mod@v0.14.0/semver/semver.go\") once it is true.
+	Path *string `json:"path,omitempty"`
+	// Range is the span inside that file, in LSP positions.
+	Range *Range `json:"range,omitempty"`
 }
 
 // NewLocation instantiates a new Location object

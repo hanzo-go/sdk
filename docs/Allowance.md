@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Plan** | Pointer to **string** | the tier the limit came from | [optional] 
 **Resets** | Pointer to **int32** | unix seconds; when the count starts again | [optional] 
 **Spent** | Pointer to **bool** | the subject is at the limit | [optional] 
-**Used** | Pointer to **int32** |  | [optional] 
+**Used** | Pointer to **int32** | Used is how many zero-priced calls this subject has been SERVED in the period ending at Resets — the UTC calendar day. Only a served call counts, so an admission check, a refusal, or a vendor that never answered leaves it where it stood. It stops AT Limit rather than climbing past it, so Limit-Used is what remains and never goes negative. | [optional] 
 
 ## Methods
 

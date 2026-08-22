@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -1182,6 +1182,226 @@ func (a *AiAPIService) DeleteAiNodesByOwnerByNameExecute(r AiAPIDeleteAiNodesByO
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIDeleteAiOrgSettingsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIDeleteAiOrgSettingsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAiOrgSettingsExecute(r)
+}
+
+/*
+DeleteAiOrgSettings The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIDeleteAiOrgSettingsRequest
+*/
+func (a *AiAPIService) DeleteAiOrgSettings(ctx context.Context) AiAPIDeleteAiOrgSettingsRequest {
+	return AiAPIDeleteAiOrgSettingsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAiOrgSettingsExecute(r AiAPIDeleteAiOrgSettingsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiOrgSettings")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIDeleteAiOrgSettingsListRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIDeleteAiOrgSettingsListRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAiOrgSettingsListExecute(r)
+}
+
+/*
+DeleteAiOrgSettingsList The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIDeleteAiOrgSettingsListRequest
+*/
+func (a *AiAPIService) DeleteAiOrgSettingsList(ctx context.Context) AiAPIDeleteAiOrgSettingsListRequest {
+	return AiAPIDeleteAiOrgSettingsListRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAiOrgSettingsListExecute(r AiAPIDeleteAiOrgSettingsListRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiOrgSettingsList")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings/list"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIDeleteAiProvidersByOwnerByNameRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -1420,6 +1640,642 @@ func (a *AiAPIService) DeleteAiRemoteConnectionsByOwnerByNameExecute(r AiAPIDele
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIDeleteAiRouterArtifactMetaRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIDeleteAiRouterArtifactMetaRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAiRouterArtifactMetaExecute(r)
+}
+
+/*
+DeleteAiRouterArtifactMeta The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIDeleteAiRouterArtifactMetaRequest
+*/
+func (a *AiAPIService) DeleteAiRouterArtifactMeta(ctx context.Context) AiAPIDeleteAiRouterArtifactMetaRequest {
+	return AiAPIDeleteAiRouterArtifactMetaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAiRouterArtifactMetaExecute(r AiAPIDeleteAiRouterArtifactMetaRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRouterArtifactMeta")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/artifact-meta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIDeleteAiRouterDataRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIDeleteAiRouterDataRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAiRouterDataExecute(r)
+}
+
+/*
+DeleteAiRouterData Router Data
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIDeleteAiRouterDataRequest
+*/
+func (a *AiAPIService) DeleteAiRouterData(ctx context.Context) AiAPIDeleteAiRouterDataRequest {
+	return AiAPIDeleteAiRouterDataRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAiRouterDataExecute(r AiAPIDeleteAiRouterDataRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRouterData")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/data"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIDeleteAiRouterDefaultsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIDeleteAiRouterDefaultsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAiRouterDefaultsExecute(r)
+}
+
+/*
+DeleteAiRouterDefaults The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIDeleteAiRouterDefaultsRequest
+*/
+func (a *AiAPIService) DeleteAiRouterDefaults(ctx context.Context) AiAPIDeleteAiRouterDefaultsRequest {
+	return AiAPIDeleteAiRouterDefaultsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAiRouterDefaultsExecute(r AiAPIDeleteAiRouterDefaultsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRouterDefaults")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/defaults"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIDeleteAiRouterLedgerRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIDeleteAiRouterLedgerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAiRouterLedgerExecute(r)
+}
+
+/*
+DeleteAiRouterLedger The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIDeleteAiRouterLedgerRequest
+*/
+func (a *AiAPIService) DeleteAiRouterLedger(ctx context.Context) AiAPIDeleteAiRouterLedgerRequest {
+	return AiAPIDeleteAiRouterLedgerRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAiRouterLedgerExecute(r AiAPIDeleteAiRouterLedgerRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRouterLedger")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/ledger"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIDeleteAiRouterPolicyRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIDeleteAiRouterPolicyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAiRouterPolicyExecute(r)
+}
+
+/*
+DeleteAiRouterPolicy The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIDeleteAiRouterPolicyRequest
+*/
+func (a *AiAPIService) DeleteAiRouterPolicy(ctx context.Context) AiAPIDeleteAiRouterPolicyRequest {
+	return AiAPIDeleteAiRouterPolicyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAiRouterPolicyExecute(r AiAPIDeleteAiRouterPolicyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRouterPolicy")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/policy"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIDeleteAiRouterRewardsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIDeleteAiRouterRewardsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAiRouterRewardsExecute(r)
+}
+
+/*
+DeleteAiRouterRewards The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIDeleteAiRouterRewardsRequest
+*/
+func (a *AiAPIService) DeleteAiRouterRewards(ctx context.Context) AiAPIDeleteAiRouterRewardsRequest {
+	return AiAPIDeleteAiRouterRewardsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAiRouterRewardsExecute(r AiAPIDeleteAiRouterRewardsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAiRouterRewards")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/rewards"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4696,6 +5552,536 @@ func (a *AiAPIService) GetAiFilesGlobalExecute(r AiAPIGetAiFilesGlobalRequest) (
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIGetAiFinetuneHfDatasetsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiFinetuneHfDatasetsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiFinetuneHfDatasetsExecute(r)
+}
+
+/*
+GetAiFinetuneHfDatasets Proxies a HuggingFace dataset search (dataset picker).
+
+Proxies a HuggingFace dataset search (dataset picker).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiFinetuneHfDatasetsRequest
+*/
+func (a *AiAPIService) GetAiFinetuneHfDatasets(ctx context.Context) AiAPIGetAiFinetuneHfDatasetsRequest {
+	return AiAPIGetAiFinetuneHfDatasetsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiFinetuneHfDatasetsExecute(r AiAPIGetAiFinetuneHfDatasetsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFinetuneHfDatasets")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/hf/datasets"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiFinetuneHfModelsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiFinetuneHfModelsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiFinetuneHfModelsExecute(r)
+}
+
+/*
+GetAiFinetuneHfModels Proxies a HuggingFace model search (base-model picker).
+
+Proxies a HuggingFace model search (base-model picker).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiFinetuneHfModelsRequest
+*/
+func (a *AiAPIService) GetAiFinetuneHfModels(ctx context.Context) AiAPIGetAiFinetuneHfModelsRequest {
+	return AiAPIGetAiFinetuneHfModelsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiFinetuneHfModelsExecute(r AiAPIGetAiFinetuneHfModelsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFinetuneHfModels")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/hf/models"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiFinetuneHfRepoRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiFinetuneHfRepoRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiFinetuneHfRepoExecute(r)
+}
+
+/*
+GetAiFinetuneHfRepo Returns a repo's detail (files, gated/private state).
+
+Returns a repo's detail (files, gated/private state). ?id=&kind=model|dataset
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiFinetuneHfRepoRequest
+*/
+func (a *AiAPIService) GetAiFinetuneHfRepo(ctx context.Context) AiAPIGetAiFinetuneHfRepoRequest {
+	return AiAPIGetAiFinetuneHfRepoRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiFinetuneHfRepoExecute(r AiAPIGetAiFinetuneHfRepoRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFinetuneHfRepo")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/hf/repo"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiFinetuneJobRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiFinetuneJobRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiFinetuneJobExecute(r)
+}
+
+/*
+GetAiFinetuneJob Returns one job with refreshed live status.
+
+Returns one job with refreshed live status. ?id=owner/name or ?name=
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiFinetuneJobRequest
+*/
+func (a *AiAPIService) GetAiFinetuneJob(ctx context.Context) AiAPIGetAiFinetuneJobRequest {
+	return AiAPIGetAiFinetuneJobRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiFinetuneJobExecute(r AiAPIGetAiFinetuneJobRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFinetuneJob")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/job"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiFinetuneJobsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiFinetuneJobsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiFinetuneJobsExecute(r)
+}
+
+/*
+GetAiFinetuneJobs Returns the org's jobs, refreshing live status for active ones.
+
+Returns the org's jobs, refreshing live status for active ones.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiFinetuneJobsRequest
+*/
+func (a *AiAPIService) GetAiFinetuneJobs(ctx context.Context) AiAPIGetAiFinetuneJobsRequest {
+	return AiAPIGetAiFinetuneJobsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiFinetuneJobsExecute(r AiAPIGetAiFinetuneJobsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFinetuneJobs")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/jobs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiFinetunePresetsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiFinetunePresetsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiFinetunePresetsExecute(r)
+}
+
+/*
+GetAiFinetunePresets Returns the new-job catalog plus, when a selection is passed (?baseModel&method&task&preset[&datasetExamples]), the recommended config so the console can render \"Recommended\" as a one-click, ready-to-run default.
+
+Returns the new-job catalog plus, when a selection is passed
+(?baseModel&method&task&preset[&datasetExamples]), the recommended config so the
+console can render "Recommended" as a one-click, ready-to-run default.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiFinetunePresetsRequest
+*/
+func (a *AiAPIService) GetAiFinetunePresets(ctx context.Context) AiAPIGetAiFinetunePresetsRequest {
+	return AiAPIGetAiFinetunePresetsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiFinetunePresetsExecute(r AiAPIGetAiFinetunePresetsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiFinetunePresets")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/presets"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIGetAiFormsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -5412,6 +6798,359 @@ func (a *AiAPIService) GetAiK8sStatusExecute(r AiAPIGetAiK8sStatusRequest) (*htt
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIGetAiMemoryFactsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiMemoryFactsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiMemoryFactsExecute(r)
+}
+
+/*
+GetAiMemoryFacts List the authenticated user's stored facts
+
+List the authenticated user's stored facts
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiMemoryFactsRequest
+*/
+func (a *AiAPIService) GetAiMemoryFacts(ctx context.Context) AiAPIGetAiMemoryFactsRequest {
+	return AiAPIGetAiMemoryFactsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiMemoryFactsExecute(r AiAPIGetAiMemoryFactsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiMemoryFacts")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/memory/facts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiMemoryListRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiMemoryListRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiMemoryListExecute(r)
+}
+
+/*
+GetAiMemoryList List the authenticated user's memories, newest first
+
+List the authenticated user's memories, newest first
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiMemoryListRequest
+*/
+func (a *AiAPIService) GetAiMemoryList(ctx context.Context) AiAPIGetAiMemoryListRequest {
+	return AiAPIGetAiMemoryListRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiMemoryListExecute(r AiAPIGetAiMemoryListRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiMemoryList")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/memory/list"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiMemoryRecallRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiMemoryRecallRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiMemoryRecallExecute(r)
+}
+
+/*
+GetAiMemoryRecall Recall recent/relevant memories for context injection; with q it
+
+Recall recent/relevant memories for context injection; with q it
+ranks semantically, without q it returns the most recent
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiMemoryRecallRequest
+*/
+func (a *AiAPIService) GetAiMemoryRecall(ctx context.Context) AiAPIGetAiMemoryRecallRequest {
+	return AiAPIGetAiMemoryRecallRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiMemoryRecallExecute(r AiAPIGetAiMemoryRecallRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiMemoryRecall")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/memory/recall"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiMemorySearchRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiMemorySearchRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiMemorySearchExecute(r)
+}
+
+/*
+GetAiMemorySearch Search the authenticated user's memories (semantic, text fallback)
+
+Search the authenticated user's memories (semantic, text fallback)
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiMemorySearchRequest
+*/
+func (a *AiAPIService) GetAiMemorySearch(ctx context.Context) AiAPIGetAiMemorySearchRequest {
+	return AiAPIGetAiMemorySearchRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiMemorySearchExecute(r AiAPIGetAiMemorySearchRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiMemorySearch")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/memory/search"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIGetAiMessagesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -6056,6 +7795,226 @@ func (a *AiAPIService) GetAiNodesByOwnerByNameTunnelExecute(r AiAPIGetAiNodesByO
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIGetAiOrgSettingsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiOrgSettingsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiOrgSettingsExecute(r)
+}
+
+/*
+GetAiOrgSettings The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiOrgSettingsRequest
+*/
+func (a *AiAPIService) GetAiOrgSettings(ctx context.Context) AiAPIGetAiOrgSettingsRequest {
+	return AiAPIGetAiOrgSettingsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiOrgSettingsExecute(r AiAPIGetAiOrgSettingsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiOrgSettings")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiOrgSettingsListRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiOrgSettingsListRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiOrgSettingsListExecute(r)
+}
+
+/*
+GetAiOrgSettingsList The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiOrgSettingsListRequest
+*/
+func (a *AiAPIService) GetAiOrgSettingsList(ctx context.Context) AiAPIGetAiOrgSettingsListRequest {
+	return AiAPIGetAiOrgSettingsListRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiOrgSettingsListExecute(r AiAPIGetAiOrgSettingsListRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiOrgSettingsList")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings/list"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIGetAiPrometheusRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -6364,6 +8323,95 @@ func (a *AiAPIService) GetAiProvidersGlobalExecute(r AiAPIGetAiProvidersGlobalRe
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers/global"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRagContextRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRagContextRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRagContextExecute(r)
+}
+
+/*
+GetAiRagContext Return every stored chunk of one file_id (full document context).
+
+Return every stored chunk of one file_id (full document context).
+Consolidates the retired chat-rag-api GET /documents/{id}/context.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRagContextRequest
+*/
+func (a *AiAPIService) GetAiRagContext(ctx context.Context) AiAPIGetAiRagContextRequest {
+	return AiAPIGetAiRagContextRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRagContextExecute(r AiAPIGetAiRagContextRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRagContext")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/rag/context"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -6904,6 +8952,933 @@ func (a *AiAPIService) GetAiRemoteConnectionsByOwnerByNameExecute(r AiAPIGetAiRe
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterArtifactMetaRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterArtifactMetaRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterArtifactMetaExecute(r)
+}
+
+/*
+GetAiRouterArtifactMeta The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterArtifactMetaRequest
+*/
+func (a *AiAPIService) GetAiRouterArtifactMeta(ctx context.Context) AiAPIGetAiRouterArtifactMetaRequest {
+	return AiAPIGetAiRouterArtifactMetaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterArtifactMetaExecute(r AiAPIGetAiRouterArtifactMetaRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterArtifactMeta")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/artifact-meta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterDataRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterDataRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterDataExecute(r)
+}
+
+/*
+GetAiRouterData Router Data
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterDataRequest
+*/
+func (a *AiAPIService) GetAiRouterData(ctx context.Context) AiAPIGetAiRouterDataRequest {
+	return AiAPIGetAiRouterDataRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterDataExecute(r AiAPIGetAiRouterDataRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterData")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/data"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterDefaultsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterDefaultsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterDefaultsExecute(r)
+}
+
+/*
+GetAiRouterDefaults The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterDefaultsRequest
+*/
+func (a *AiAPIService) GetAiRouterDefaults(ctx context.Context) AiAPIGetAiRouterDefaultsRequest {
+	return AiAPIGetAiRouterDefaultsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterDefaultsExecute(r AiAPIGetAiRouterDefaultsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterDefaults")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/defaults"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterHistoryRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterHistoryRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterHistoryExecute(r)
+}
+
+/*
+GetAiRouterHistory Returns the router-improvement time-series.
+
+Returns the router-improvement time-series. Two scopes, one route,
+mirroring /v1/ai/router/stats:
+
+  - ?scope=platform — PUBLIC-safe aggregate over ALL orgs, no authentication. Emits
+    the daily reward/cost-saved/adoption series (task mix included, model ids NOT)
+    and the retrain timeline. This is what world.hanzo.ai polls.
+  - default (org scope) — requires a signed-in principal, scoped to the caller's OWN
+    org (a super admin may pass ?org= to target another or "" for all).
+
+Window: ?days=N (default 30, capped at 90). Aggregates only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterHistoryRequest
+*/
+func (a *AiAPIService) GetAiRouterHistory(ctx context.Context) AiAPIGetAiRouterHistoryRequest {
+	return AiAPIGetAiRouterHistoryRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterHistoryExecute(r AiAPIGetAiRouterHistoryRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterHistory")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/history"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterJudgePanelRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterJudgePanelRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterJudgePanelExecute(r)
+}
+
+/*
+GetAiRouterJudgePanel Returns the LIVE Mean-Field Judge Panel state: the configured panel + dynamic judge posture (enabled/sample) resolved from the \"*\" GlobalDefaultOwner row, the live in-process per-judge calibration (weight/mean/n), and the static published benchmark.
+
+Returns the LIVE Mean-Field Judge Panel state: the configured
+panel + dynamic judge posture (enabled/sample) resolved from the "*"
+GlobalDefaultOwner row, the live in-process per-judge calibration (weight/mean/n),
+and the static published benchmark. PUBLIC-safe and platform-global (model ids +
+scalars only), so it rides the same unauthenticated, balance-exempt class as
+/v1/ai/router/stats?scope=platform — the world widget polls it with no auth. The judge
+state is a single in-process population (not per-org), so there is nothing to scope;
+?scope=platform is accepted for symmetry with router-stats.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterJudgePanelRequest
+*/
+func (a *AiAPIService) GetAiRouterJudgePanel(ctx context.Context) AiAPIGetAiRouterJudgePanelRequest {
+	return AiAPIGetAiRouterJudgePanelRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterJudgePanelExecute(r AiAPIGetAiRouterJudgePanelRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterJudgePanel")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/judge-panel"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterLedgerRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterLedgerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterLedgerExecute(r)
+}
+
+/*
+GetAiRouterLedger The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterLedgerRequest
+*/
+func (a *AiAPIService) GetAiRouterLedger(ctx context.Context) AiAPIGetAiRouterLedgerRequest {
+	return AiAPIGetAiRouterLedgerRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterLedgerExecute(r AiAPIGetAiRouterLedgerRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterLedger")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/ledger"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterPolicyRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterPolicyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterPolicyExecute(r)
+}
+
+/*
+GetAiRouterPolicy The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterPolicyRequest
+*/
+func (a *AiAPIService) GetAiRouterPolicy(ctx context.Context) AiAPIGetAiRouterPolicyRequest {
+	return AiAPIGetAiRouterPolicyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterPolicyExecute(r AiAPIGetAiRouterPolicyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterPolicy")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/policy"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterRewardsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterRewardsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterRewardsExecute(r)
+}
+
+/*
+GetAiRouterRewards The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterRewardsRequest
+*/
+func (a *AiAPIService) GetAiRouterRewards(ctx context.Context) AiAPIGetAiRouterRewardsRequest {
+	return AiAPIGetAiRouterRewardsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterRewardsExecute(r AiAPIGetAiRouterRewardsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterRewards")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/rewards"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterStatsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterStatsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiRouterStatsExecute(r)
+}
+
+/*
+GetAiRouterStats Returns the router observability aggregate.
+
+Returns the router observability aggregate. Two scopes, one route:
+
+  - ?scope=platform — PUBLIC-safe aggregate over ALL orgs, no authentication.
+    Emits rates, shares, per-task/per-model counts, throughput, and the cost
+    RATIO (saved_pct) + counterfactual model id, but NEVER absolute $ levels,
+    org identity, raw events, or feature vectors. This is what world.hanzo.ai
+    polls.
+  - default (org scope) — requires a signed-in principal; scoped to the caller's
+    OWN org (a super admin may pass ?org= to target another org or "" for all).
+    Carries the absolute $/MTok indices for the admin savings panel.
+
+Window: ?since= (RFC3339) or ?hours= (default 24, capped). Aggregates only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterStatsRequest
+*/
+func (a *AiAPIService) GetAiRouterStats(ctx context.Context) AiAPIGetAiRouterStatsRequest {
+	return AiAPIGetAiRouterStatsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiRouterStatsExecute(r AiAPIGetAiRouterStatsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterStats")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/stats"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8936,6 +11911,107 @@ func (a *AiAPIService) GetAiTemplatesByOwnerByNameExecute(r AiAPIGetAiTemplatesB
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIGetAiTrafficGlobeRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiTrafficGlobeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAiTrafficGlobeExecute(r)
+}
+
+/*
+GetAiTrafficGlobe Returns the PUBLIC live request-geo aggregate for the world.hanzo.ai \"Hanzo mode\" globe: WHERE requests to api.hanzo.ai are coming from, as country/region points with per-service-class counts, plus headline throughput rates.
+
+Returns the PUBLIC live request-geo aggregate for the
+world.hanzo.ai "Hanzo mode" globe: WHERE requests to api.hanzo.ai are coming from,
+as country/region points with per-service-class counts, plus headline throughput
+rates.
+
+It is AUTH-exempt and BALANCE-exempt exactly like /v1/ai/router/stats?scope=platform:
+  - auth: the controller name "traffic/globe" is neither a get-/update- CRUD name
+    nor a super-admin/present-credential endpoint, so the authz filter passes it
+    through, and this handler requires no principal.
+  - balance: isBalanceExempt("/v1/ai/traffic/...") returns true.
+
+It exposes ONLY aggregates — counts, rates, and country/region centroids — and
+NEVER any IP, per-request row, org, or user dimension (see object/traffic.go).
+Marketing telemetry; nothing sensitive.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiTrafficGlobeRequest
+*/
+func (a *AiAPIService) GetAiTrafficGlobe(ctx context.Context) AiAPIGetAiTrafficGlobeRequest {
+	return AiAPIGetAiTrafficGlobeRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetAiTrafficGlobeExecute(r AiAPIGetAiTrafficGlobeRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiTrafficGlobe")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/traffic/globe"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIGetAiTrainingContributionRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -10356,6 +13432,499 @@ func (a *AiAPIService) GetAiWorkflowsGlobalExecute(r AiAPIGetAiWorkflowsGlobalRe
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIGetModelsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetModelsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetModelsExecute(r)
+}
+
+/*
+GetModels Returns the list of available models from the routing table.
+
+Returns the list of available models from the routing table.
+
+PUBLIC BY DESIGN, AND IT DOES NOT AUTHENTICATE — that is the whole contract, so it
+is stated here rather than left to be inferred. The catalogue is the same for
+everyone (listAvailableModels takes no principal), docs.hanzo.ai fetches it from
+the browser, and every policy layer around it already says so out loud: the authz
+filter lists "models" as public, filter_balance refuses to gate it (a 402 here was
+a console-wide outage), the rate limiter excludes it, and cloud's spend.Reachable
+carries /v1/models/ as "the model catalog the shell reads for discovery".
+
+SO THE Authorization HEADER IS NOT AN ADMISSION CHECK HERE. It is read for ONE
+thing — annotating gated SKUs with the caller's own access standing — and
+annotation degrades to nothing when there is no verified principal.
+
+It used to hold a "require authentication" gate that authenticated nobody: it
+rejected an ABSENT credential and a MALFORMED one, then accepted any string that
+merely looked like a key. `Bearer sk-` followed by 36 zeroes returned 200 in
+production; so did a JWT three days expired. It was a shape check wearing an auth
+check's clothes, and its cost was diagnostic: /v1/models is the natural "is my auth
+working?" probe, and answering 200 to a dead credential sent people debugging the
+wrong system. A public endpoint must not appear to validate. Either check the
+credential or ignore it — this one ignores it, deliberately and visibly.
+
+Removing that gate discloses nothing new: the catalogue was already reachable by
+anyone willing to type three characters, so there is no confidentiality delta, only
+an honesty one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetModelsRequest
+*/
+func (a *AiAPIService) GetModels(ctx context.Context) AiAPIGetModelsRequest {
+	return AiAPIGetModelsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetModelsExecute(r AiAPIGetModelsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetModels")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/models"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetModelsByModelAccessRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	model      string
+}
+
+func (r AiAPIGetModelsByModelAccessRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetModelsByModelAccessExecute(r)
+}
+
+/*
+GetModelsByModelAccess Returns the caller's own standing for a gated model: \"granted\", \"requested\", or empty when they have never asked.
+
+Returns the caller's own standing for a gated model:
+"granted", "requested", or empty when they have never asked.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param model
+	@return AiAPIGetModelsByModelAccessRequest
+*/
+func (a *AiAPIService) GetModelsByModelAccess(ctx context.Context, model string) AiAPIGetModelsByModelAccessRequest {
+	return AiAPIGetModelsByModelAccessRequest{
+		ApiService: a,
+		ctx:        ctx,
+		model:      model,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetModelsByModelAccessExecute(r AiAPIGetModelsByModelAccessRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetModelsByModelAccess")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/models/{model}/access"
+	localVarPath = strings.Replace(localVarPath, "{"+"model"+"}", url.PathEscape(parameterValueToString(r.model, "model")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetModelsProvidersRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetModelsProvidersRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetModelsProvidersExecute(r)
+}
+
+/*
+GetModelsProviders Public, secret-free list of the providers serving the models that GET /v1/models lists — the same source, projected.
+
+Public, secret-free list of the providers serving the models that
+GET /v1/models lists — the same source, projected. Safe unauthenticated: no
+keys, URLs, or config are returned, and it reports a SET of names, never
+which provider serves which model.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetModelsProvidersRequest
+*/
+func (a *AiAPIService) GetModelsProviders(ctx context.Context) AiAPIGetModelsProvidersRequest {
+	return AiAPIGetModelsProvidersRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetModelsProvidersExecute(r AiAPIGetModelsProvidersRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetModelsProviders")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/models/providers"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetVideosByIdRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	id         string
+}
+
+func (r AiAPIGetVideosByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetVideosByIdExecute(r)
+}
+
+/*
+GetVideosById Implements GET /v1/videos/{id} — poll a job's status.
+
+Implements GET /v1/videos/{id} — poll a job's status.
+
+It authenticates the caller, verifies they OWN the job (the caller's billing
+subject must equal the job's), performs ONE upstream status poll, and — the
+first time the job is observed completed — settles the reservation with the
+actual cost and records the billable usage event (exactly once). Returns the
+OpenAI-shaped video object.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AiAPIGetVideosByIdRequest
+*/
+func (a *AiAPIService) GetVideosById(ctx context.Context, id string) AiAPIGetVideosByIdRequest {
+	return AiAPIGetVideosByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetVideosByIdExecute(r AiAPIGetVideosByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetVideosById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/videos/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGetVideosByIdContentRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	id         string
+}
+
+func (r AiAPIGetVideosByIdContentRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetVideosByIdContentExecute(r)
+}
+
+/*
+GetVideosByIdContent Implements GET /v1/videos/{id}/content — download the finished MP4.
+
+Implements GET /v1/videos/{id}/content — download the finished MP4.
+
+It authenticates + ownership-checks the caller, then proxies the upstream
+/content endpoint (bounded by the download concurrency ceiling) and streams the
+raw video bytes back inline. A successful download also bills the job once (for
+the client that downloads without first polling to completion) — idempotent
+with the poll path via job.markCompleted.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AiAPIGetVideosByIdContentRequest
+*/
+func (a *AiAPIService) GetVideosByIdContent(ctx context.Context, id string) AiAPIGetVideosByIdContentRequest {
+	return AiAPIGetVideosByIdContentRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) GetVideosByIdContentExecute(r AiAPIGetVideosByIdContentRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetVideosByIdContent")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/videos/{id}/content"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPatchAiArticlesByOwnerByNameRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -11220,6 +14789,226 @@ func (a *AiAPIService) PatchAiNodesByOwnerByNameExecute(r AiAPIPatchAiNodesByOwn
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIPatchAiOrgSettingsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPatchAiOrgSettingsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchAiOrgSettingsExecute(r)
+}
+
+/*
+PatchAiOrgSettings The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPatchAiOrgSettingsRequest
+*/
+func (a *AiAPIService) PatchAiOrgSettings(ctx context.Context) AiAPIPatchAiOrgSettingsRequest {
+	return AiAPIPatchAiOrgSettingsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PatchAiOrgSettingsExecute(r AiAPIPatchAiOrgSettingsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiOrgSettings")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPatchAiOrgSettingsListRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPatchAiOrgSettingsListRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchAiOrgSettingsListExecute(r)
+}
+
+/*
+PatchAiOrgSettingsList The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPatchAiOrgSettingsListRequest
+*/
+func (a *AiAPIService) PatchAiOrgSettingsList(ctx context.Context) AiAPIPatchAiOrgSettingsListRequest {
+	return AiAPIPatchAiOrgSettingsListRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PatchAiOrgSettingsListExecute(r AiAPIPatchAiOrgSettingsListRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiOrgSettingsList")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings/list"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPatchAiPreferencesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -11544,6 +15333,556 @@ func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPatch
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPatchAiRouterArtifactMetaRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPatchAiRouterArtifactMetaRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchAiRouterArtifactMetaExecute(r)
+}
+
+/*
+PatchAiRouterArtifactMeta The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPatchAiRouterArtifactMetaRequest
+*/
+func (a *AiAPIService) PatchAiRouterArtifactMeta(ctx context.Context) AiAPIPatchAiRouterArtifactMetaRequest {
+	return AiAPIPatchAiRouterArtifactMetaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PatchAiRouterArtifactMetaExecute(r AiAPIPatchAiRouterArtifactMetaRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiRouterArtifactMeta")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/artifact-meta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPatchAiRouterDefaultsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPatchAiRouterDefaultsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchAiRouterDefaultsExecute(r)
+}
+
+/*
+PatchAiRouterDefaults The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPatchAiRouterDefaultsRequest
+*/
+func (a *AiAPIService) PatchAiRouterDefaults(ctx context.Context) AiAPIPatchAiRouterDefaultsRequest {
+	return AiAPIPatchAiRouterDefaultsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PatchAiRouterDefaultsExecute(r AiAPIPatchAiRouterDefaultsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiRouterDefaults")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/defaults"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPatchAiRouterLedgerRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPatchAiRouterLedgerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchAiRouterLedgerExecute(r)
+}
+
+/*
+PatchAiRouterLedger The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPatchAiRouterLedgerRequest
+*/
+func (a *AiAPIService) PatchAiRouterLedger(ctx context.Context) AiAPIPatchAiRouterLedgerRequest {
+	return AiAPIPatchAiRouterLedgerRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PatchAiRouterLedgerExecute(r AiAPIPatchAiRouterLedgerRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiRouterLedger")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/ledger"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPatchAiRouterPolicyRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPatchAiRouterPolicyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchAiRouterPolicyExecute(r)
+}
+
+/*
+PatchAiRouterPolicy The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPatchAiRouterPolicyRequest
+*/
+func (a *AiAPIService) PatchAiRouterPolicy(ctx context.Context) AiAPIPatchAiRouterPolicyRequest {
+	return AiAPIPatchAiRouterPolicyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PatchAiRouterPolicyExecute(r AiAPIPatchAiRouterPolicyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiRouterPolicy")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/policy"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPatchAiRouterRewardsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPatchAiRouterRewardsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchAiRouterRewardsExecute(r)
+}
+
+/*
+PatchAiRouterRewards The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPatchAiRouterRewardsRequest
+*/
+func (a *AiAPIService) PatchAiRouterRewards(ctx context.Context) AiAPIPatchAiRouterRewardsRequest {
+	return AiAPIPatchAiRouterRewardsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PatchAiRouterRewardsExecute(r AiAPIPatchAiRouterRewardsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PatchAiRouterRewards")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/rewards"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -13640,6 +17979,100 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPost
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIPostAiFeedbackRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiFeedbackRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiFeedbackExecute(r)
+}
+
+/*
+PostAiFeedback Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop's quality signal.
+
+Attaches a per-request outcome reward to the routing decision
+that served request_id — the enso training loop's quality signal. Org-scoped via
+the same session-OR-Bearer principal the usage read uses (RequirePrincipal): the
+reward lands only on the caller's OWN org's event, so a request_id from another
+org (or unknown) is a 404 — cross-org writes are impossible and unknown ids are
+indistinguishable from foreign ones. Idempotent: a repeat overwrites. The body
+carries NO prompt text — only {request_id, reward|rating}.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiFeedbackRequest
+*/
+func (a *AiAPIService) PostAiFeedback(ctx context.Context) AiAPIPostAiFeedbackRequest {
+	return AiAPIPostAiFeedbackRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiFeedbackExecute(r AiAPIPostAiFeedbackRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiFeedback")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/feedback"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPostAiFilesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -13994,6 +18427,274 @@ func (a *AiAPIService) PostAiFilesUploadExecute(r AiAPIPostAiFilesUploadRequest)
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIPostAiFinetuneCancelRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiFinetuneCancelRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiFinetuneCancelExecute(r)
+}
+
+/*
+PostAiFinetuneCancel Deletes the TrainJob CR, meters the GPU-hours used so far, and marks the job cancelled.
+
+Deletes the TrainJob CR, meters the GPU-hours used so far, and
+marks the job cancelled. ?id= or ?name=
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiFinetuneCancelRequest
+*/
+func (a *AiAPIService) PostAiFinetuneCancel(ctx context.Context) AiAPIPostAiFinetuneCancelRequest {
+	return AiAPIPostAiFinetuneCancelRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiFinetuneCancelExecute(r AiAPIPostAiFinetuneCancelRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiFinetuneCancel")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/cancel"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiFinetuneDeployRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiFinetuneDeployRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiFinetuneDeployExecute(r)
+}
+
+/*
+PostAiFinetuneDeploy Serves a completed job's checkpoints and registers the result as a routable model on api.hanzo.ai.
+
+Serves a completed job's checkpoints and registers the result
+as a routable model on api.hanzo.ai. ?id= or ?name=
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiFinetuneDeployRequest
+*/
+func (a *AiAPIService) PostAiFinetuneDeploy(ctx context.Context) AiAPIPostAiFinetuneDeployRequest {
+	return AiAPIPostAiFinetuneDeployRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiFinetuneDeployExecute(r AiAPIPostAiFinetuneDeployRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiFinetuneDeploy")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/deploy"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiFinetuneJobsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiFinetuneJobsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiFinetuneJobsExecute(r)
+}
+
+/*
+PostAiFinetuneJobs Validates the request, resolves efficient defaults, persists the job, and submits a real TrainJob CR.
+
+Validates the request, resolves efficient defaults, persists the
+job, and submits a real TrainJob CR. A submit failure (e.g. no cluster wired) is
+surfaced honestly: the job is saved with status "failed" + the reason, never faked.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiFinetuneJobsRequest
+*/
+func (a *AiAPIService) PostAiFinetuneJobs(ctx context.Context) AiAPIPostAiFinetuneJobsRequest {
+	return AiAPIPostAiFinetuneJobsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiFinetuneJobsExecute(r AiAPIPostAiFinetuneJobsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiFinetuneJobs")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/finetune/jobs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPostAiFormsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -14120,6 +18821,270 @@ func (a *AiAPIService) PostAiGraphsExecute(r AiAPIPostAiGraphsRequest) (*http.Re
 	}
 
 	localVarPath := localBasePath + "/v1/ai/graphs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiMemoryDeleteRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiMemoryDeleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiMemoryDeleteExecute(r)
+}
+
+/*
+PostAiMemoryDelete Delete one of the authenticated user's memories
+
+Delete one of the authenticated user's memories
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiMemoryDeleteRequest
+*/
+func (a *AiAPIService) PostAiMemoryDelete(ctx context.Context) AiAPIPostAiMemoryDeleteRequest {
+	return AiAPIPostAiMemoryDeleteRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiMemoryDeleteExecute(r AiAPIPostAiMemoryDeleteRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiMemoryDelete")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/memory/delete"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiMemoryRememberRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiMemoryRememberRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiMemoryRememberExecute(r)
+}
+
+/*
+PostAiMemoryRemember Store a memory for the authenticated user
+
+Store a memory for the authenticated user
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiMemoryRememberRequest
+*/
+func (a *AiAPIService) PostAiMemoryRemember(ctx context.Context) AiAPIPostAiMemoryRememberRequest {
+	return AiAPIPostAiMemoryRememberRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiMemoryRememberExecute(r AiAPIPostAiMemoryRememberRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiMemoryRemember")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/memory/remember"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiMemoryUpdateRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiMemoryUpdateRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiMemoryUpdateExecute(r)
+}
+
+/*
+PostAiMemoryUpdate Update one of the authenticated user's memories
+
+Update one of the authenticated user's memories
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiMemoryUpdateRequest
+*/
+func (a *AiAPIService) PostAiMemoryUpdate(ctx context.Context) AiAPIPostAiMemoryUpdateRequest {
+	return AiAPIPostAiMemoryUpdateRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiMemoryUpdateExecute(r AiAPIPostAiMemoryUpdateRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiMemoryUpdate")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/memory/update"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -14440,6 +19405,226 @@ func (a *AiAPIService) PostAiNodesByOwnerByNameTunnelExecute(r AiAPIPostAiNodesB
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIPostAiOrgSettingsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiOrgSettingsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiOrgSettingsExecute(r)
+}
+
+/*
+PostAiOrgSettings The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiOrgSettingsRequest
+*/
+func (a *AiAPIService) PostAiOrgSettings(ctx context.Context) AiAPIPostAiOrgSettingsRequest {
+	return AiAPIPostAiOrgSettingsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiOrgSettingsExecute(r AiAPIPostAiOrgSettingsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiOrgSettings")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiOrgSettingsListRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiOrgSettingsListRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiOrgSettingsListExecute(r)
+}
+
+/*
+PostAiOrgSettingsList The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiOrgSettingsListRequest
+*/
+func (a *AiAPIService) PostAiOrgSettingsList(ctx context.Context) AiAPIPostAiOrgSettingsListRequest {
+	return AiAPIPostAiOrgSettingsListRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiOrgSettingsListExecute(r AiAPIPostAiOrgSettingsListRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiOrgSettingsList")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings/list"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPostAiProvidersRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -14564,6 +19749,462 @@ func (a *AiAPIService) PostAiProvidersMcpToolsExecute(r AiAPIPostAiProvidersMcpT
 	}
 
 	localVarPath := localBasePath + "/v1/ai/providers/mcp-tools"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRagDeleteRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRagDeleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRagDeleteExecute(r)
+}
+
+/*
+PostAiRagDelete Delete all chunks of one or more uploaded files (by file_id) from the owner's Search+Vector index.
+
+Delete all chunks of one or more uploaded files (by file_id) from
+the owner's Search+Vector index. Consolidates the retired chat-rag-api
+DELETE /documents.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRagDeleteRequest
+*/
+func (a *AiAPIService) PostAiRagDelete(ctx context.Context) AiAPIPostAiRagDeleteRequest {
+	return AiAPIPostAiRagDeleteRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRagDeleteExecute(r AiAPIPostAiRagDeleteRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRagDelete")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/rag/delete"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRagEmbedRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRagEmbedRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRagEmbedExecute(r)
+}
+
+/*
+PostAiRagEmbed Parse, chunk, and embed one uploaded file under its file_id into the unified Search+Vector index, scoped to the authenticated owner.
+
+Parse, chunk, and embed one uploaded file under its file_id into
+the unified Search+Vector index, scoped to the authenticated owner. Provide
+inline `content` or a `url` to fetch+parse (PDF/CSV/XLSX/PPTX/…). Re-embedding
+the same file_id replaces its chunks. Consolidates the retired chat-rag-api
+POST /embed and /local/embed.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRagEmbedRequest
+*/
+func (a *AiAPIService) PostAiRagEmbed(ctx context.Context) AiAPIPostAiRagEmbedRequest {
+	return AiAPIPostAiRagEmbedRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRagEmbedExecute(r AiAPIPostAiRagEmbedRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRagEmbed")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/rag/embed"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRagIngestRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRagIngestRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRagIngestExecute(r)
+}
+
+/*
+PostAiRagIngest Unified RAG ingest: parse + chunk + embed documents and pipe them to BOTH Hanzo Vector (semantic) AND Hanzo Search (keyword) under the tenant index {owner}-{store}-docs — the same index /v1/chat retrieval reads.
+
+Unified RAG ingest: parse + chunk + embed documents and pipe them
+to BOTH Hanzo Vector (semantic) AND Hanzo Search (keyword) under the tenant
+index {owner}-{store}-docs — the same index /v1/chat retrieval reads. The
+source is pluggable: "upload" (inline files/documents), "github" (index a
+repo), "crawl" (web), or "s3" (the store's object-storage space). The owner
+is bound to the authenticated principal; the client-supplied owner is never
+trusted.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRagIngestRequest
+*/
+func (a *AiAPIService) PostAiRagIngest(ctx context.Context) AiAPIPostAiRagIngestRequest {
+	return AiAPIPostAiRagIngestRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRagIngestExecute(r AiAPIPostAiRagIngestRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRagIngest")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/rag/ingest"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRagQueryRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRagQueryRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRagQueryExecute(r)
+}
+
+/*
+PostAiRagQuery Retrieve the top-K chunks relevant to a query, scoped to a single uploaded file (`file_id`).
+
+Retrieve the top-K chunks relevant to a query, scoped to a single
+uploaded file (`file_id`). Hybrid keyword+vector retrieval over the same
+index. Consolidates the retired chat-rag-api POST /query.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRagQueryRequest
+*/
+func (a *AiAPIService) PostAiRagQuery(ctx context.Context) AiAPIPostAiRagQueryRequest {
+	return AiAPIPostAiRagQueryRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRagQueryExecute(r AiAPIPostAiRagQueryRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRagQuery")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/rag/query"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRagQueryMultipleRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRagQueryMultipleRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRagQueryMultipleExecute(r)
+}
+
+/*
+PostAiRagQueryMultiple Retrieve the top-K chunks relevant to a query, scoped to a SET of uploaded files (`file_ids`).
+
+Retrieve the top-K chunks relevant to a query, scoped to a SET of
+uploaded files (`file_ids`). Consolidates the retired chat-rag-api POST
+/query_multiple. Shares one retrieval path with /rag/query.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRagQueryMultipleRequest
+*/
+func (a *AiAPIService) PostAiRagQueryMultiple(ctx context.Context) AiAPIPostAiRagQueryMultipleRequest {
+	return AiAPIPostAiRagQueryMultipleRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRagQueryMultipleExecute(r AiAPIPostAiRagQueryMultipleRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRagQueryMultiple")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/rag/query-multiple"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -15186,6 +20827,556 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStopExecute(r AiAPIPo
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}/stop"
 	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRouterArtifactMetaRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRouterArtifactMetaRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRouterArtifactMetaExecute(r)
+}
+
+/*
+PostAiRouterArtifactMeta The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRouterArtifactMetaRequest
+*/
+func (a *AiAPIService) PostAiRouterArtifactMeta(ctx context.Context) AiAPIPostAiRouterArtifactMetaRequest {
+	return AiAPIPostAiRouterArtifactMetaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRouterArtifactMetaExecute(r AiAPIPostAiRouterArtifactMetaRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRouterArtifactMeta")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/artifact-meta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRouterDefaultsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRouterDefaultsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRouterDefaultsExecute(r)
+}
+
+/*
+PostAiRouterDefaults The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRouterDefaultsRequest
+*/
+func (a *AiAPIService) PostAiRouterDefaults(ctx context.Context) AiAPIPostAiRouterDefaultsRequest {
+	return AiAPIPostAiRouterDefaultsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRouterDefaultsExecute(r AiAPIPostAiRouterDefaultsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRouterDefaults")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/defaults"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRouterLedgerRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRouterLedgerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRouterLedgerExecute(r)
+}
+
+/*
+PostAiRouterLedger The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRouterLedgerRequest
+*/
+func (a *AiAPIService) PostAiRouterLedger(ctx context.Context) AiAPIPostAiRouterLedgerRequest {
+	return AiAPIPostAiRouterLedgerRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRouterLedgerExecute(r AiAPIPostAiRouterLedgerRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRouterLedger")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/ledger"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRouterPolicyRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRouterPolicyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRouterPolicyExecute(r)
+}
+
+/*
+PostAiRouterPolicy The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRouterPolicyRequest
+*/
+func (a *AiAPIService) PostAiRouterPolicy(ctx context.Context) AiAPIPostAiRouterPolicyRequest {
+	return AiAPIPostAiRouterPolicyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRouterPolicyExecute(r AiAPIPostAiRouterPolicyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRouterPolicy")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/policy"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRouterRewardsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAiRouterRewardsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAiRouterRewardsExecute(r)
+}
+
+/*
+PostAiRouterRewards The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRouterRewardsRequest
+*/
+func (a *AiAPIService) PostAiRouterRewards(ctx context.Context) AiAPIPostAiRouterRewardsRequest {
+	return AiAPIPostAiRouterRewardsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAiRouterRewardsExecute(r AiAPIPostAiRouterRewardsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRouterRewards")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/rewards"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -16744,6 +22935,1572 @@ func (a *AiAPIService) PostAiWorkflowsExecute(r AiAPIPostAiWorkflowsRequest) (*h
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIPostAudioFoleyRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAudioFoleyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAudioFoleyExecute(r)
+}
+
+/*
+PostAudioFoley Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+
+Serves the generative audio verbs — /v1/audio/voice (TTS), /music,
+/foley — that the Zen family serves natively. It resolves the SKU and, for a Zen
+model, forwards to zen's matching verb billed per call at the discovered price.
+These verbs are Zen-native; a non-Zen model is rejected.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAudioFoleyRequest
+*/
+func (a *AiAPIService) PostAudioFoley(ctx context.Context) AiAPIPostAudioFoleyRequest {
+	return AiAPIPostAudioFoleyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAudioFoleyExecute(r AiAPIPostAudioFoleyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAudioFoley")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/foley"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAudioMusicRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAudioMusicRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAudioMusicExecute(r)
+}
+
+/*
+PostAudioMusic Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+
+Serves the generative audio verbs — /v1/audio/voice (TTS), /music,
+/foley — that the Zen family serves natively. It resolves the SKU and, for a Zen
+model, forwards to zen's matching verb billed per call at the discovered price.
+These verbs are Zen-native; a non-Zen model is rejected.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAudioMusicRequest
+*/
+func (a *AiAPIService) PostAudioMusic(ctx context.Context) AiAPIPostAudioMusicRequest {
+	return AiAPIPostAudioMusicRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAudioMusicExecute(r AiAPIPostAudioMusicRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAudioMusic")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/music"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAudioSpeechRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAudioSpeechRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAudioSpeechExecute(r)
+}
+
+/*
+PostAudioSpeech The OpenAI-compatible TTS endpoint (POST /v1/audio/speech).
+
+The OpenAI-compatible TTS endpoint (POST /v1/audio/speech). It
+authenticates the caller, resolves `model` to its TTS provider (the SAME model-route
+resolution the chat/images/video endpoints use — so a BYO node registered as a TTS
+provider works transparently), synthesizes the audio, and streams the bytes back.
+This is the ONE way to synthesize speech: OpenAI-shaped, with no store or
+message coupling, so a caller needs no chat to speak.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAudioSpeechRequest
+*/
+func (a *AiAPIService) PostAudioSpeech(ctx context.Context) AiAPIPostAudioSpeechRequest {
+	return AiAPIPostAudioSpeechRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAudioSpeechExecute(r AiAPIPostAudioSpeechRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAudioSpeech")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/speech"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAudioTranscriptionsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAudioTranscriptionsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAudioTranscriptionsExecute(r)
+}
+
+/*
+PostAudioTranscriptions The OpenAI-compatible STT endpoint (POST /v1/audio/transcriptions, multipart: file + model [+ language + response_format]).
+
+The OpenAI-compatible STT endpoint
+(POST /v1/audio/transcriptions, multipart: file + model [+ language +
+response_format]). It mirrors AudioSpeech exactly: authenticate the caller,
+resolve `model` to its STT provider through the SAME model-route resolution
+(so the in-cluster speech service — or any BYO node registered as an STT
+provider — works transparently), transcribe, and return the OpenAI body.
+This is the ONE way to transcribe: OpenAI-shaped, with no store coupling, so a
+caller needs no chat to be heard.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAudioTranscriptionsRequest
+*/
+func (a *AiAPIService) PostAudioTranscriptions(ctx context.Context) AiAPIPostAudioTranscriptionsRequest {
+	return AiAPIPostAudioTranscriptionsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAudioTranscriptionsExecute(r AiAPIPostAudioTranscriptionsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAudioTranscriptions")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/transcriptions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAudioVoiceRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAudioVoiceRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAudioVoiceExecute(r)
+}
+
+/*
+PostAudioVoice Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+
+Serves the generative audio verbs — /v1/audio/voice (TTS), /music,
+/foley — that the Zen family serves natively. It resolves the SKU and, for a Zen
+model, forwards to zen's matching verb billed per call at the discovered price.
+These verbs are Zen-native; a non-Zen model is rejected.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAudioVoiceRequest
+*/
+func (a *AiAPIService) PostAudioVoice(ctx context.Context) AiAPIPostAudioVoiceRequest {
+	return AiAPIPostAudioVoiceRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAudioVoiceExecute(r AiAPIPostAudioVoiceRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAudioVoice")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/voice"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostChatRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostChatRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostChatExecute(r)
+}
+
+/*
+PostChat Implements the OpenAI-compatible chat completions API
+
+Implements the OpenAI-compatible chat completions API
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostChatRequest
+*/
+func (a *AiAPIService) PostChat(ctx context.Context) AiAPIPostChatRequest {
+	return AiAPIPostChatRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostChatExecute(r AiAPIPostChatRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostChat")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/chat"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostChatCompletionsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostChatCompletionsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostChatCompletionsExecute(r)
+}
+
+/*
+PostChatCompletions Implements the OpenAI-compatible chat completions API
+
+Implements the OpenAI-compatible chat completions API
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostChatCompletionsRequest
+*/
+func (a *AiAPIService) PostChatCompletions(ctx context.Context) AiAPIPostChatCompletionsRequest {
+	return AiAPIPostChatCompletionsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostChatCompletionsExecute(r AiAPIPostChatCompletionsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostChatCompletions")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/chat/completions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostChatPublicRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostChatPublicRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostChatPublicExecute(r)
+}
+
+/*
+PostChatPublic Serves one completion to a caller with no account.
+
+Serves one completion to a caller with no account.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostChatPublicRequest
+*/
+func (a *AiAPIService) PostChatPublic(ctx context.Context) AiAPIPostChatPublicRequest {
+	return AiAPIPostChatPublicRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostChatPublicExecute(r AiAPIPostChatPublicRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostChatPublic")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/chat/public"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostCompletionsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostCompletionsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCompletionsExecute(r)
+}
+
+/*
+PostCompletions Implements the OpenAI-compatible chat completions API
+
+Implements the OpenAI-compatible chat completions API
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostCompletionsRequest
+*/
+func (a *AiAPIService) PostCompletions(ctx context.Context) AiAPIPostCompletionsRequest {
+	return AiAPIPostCompletionsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostCompletionsExecute(r AiAPIPostCompletionsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostCompletions")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/completions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostEmbeddingsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostEmbeddingsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostEmbeddingsExecute(r)
+}
+
+/*
+PostEmbeddings Implements POST /v1/embeddings (OpenAI-compatible).
+
+Implements POST /v1/embeddings (OpenAI-compatible).
+
+Body: {"model": "...", "input": "..."|["...", ...], "encoding_format"?, "dimensions"?}
+It authenticates the caller, resolves the model to its upstream provider via
+the shared routing table, rewrites the user-facing model name to the upstream
+id, and proxies the request to the provider's /embeddings endpoint verbatim.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostEmbeddingsRequest
+*/
+func (a *AiAPIService) PostEmbeddings(ctx context.Context) AiAPIPostEmbeddingsRequest {
+	return AiAPIPostEmbeddingsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostEmbeddingsExecute(r AiAPIPostEmbeddingsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostEmbeddings")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/embeddings"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostImagesGenerationsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostImagesGenerationsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostImagesGenerationsExecute(r)
+}
+
+/*
+PostImagesGenerations Implements POST /v1/images/generations (OpenAI-compatible).
+
+Implements POST /v1/images/generations (OpenAI-compatible).
+
+Body: {"model": "...", "prompt": "...", "n"?: int, "size"?: "1024x1024",
+
+	"response_format"?: "url"|"b64_json"}
+
+It authenticates the caller, resolves the model to its upstream provider via
+the shared routing table (zen3-image* → do-ai fal diffusion), reserves the
+per-image budget, generates the image(s) through the do-ai async image
+client, records usage for billing, and returns the OpenAI images response.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostImagesGenerationsRequest
+*/
+func (a *AiAPIService) PostImagesGenerations(ctx context.Context) AiAPIPostImagesGenerationsRequest {
+	return AiAPIPostImagesGenerationsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostImagesGenerationsExecute(r AiAPIPostImagesGenerationsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostImagesGenerations")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/images/generations"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostMessagesRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostMessagesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostMessagesExecute(r)
+}
+
+/*
+PostMessages Implements the Anthropic Messages API.
+
+Implements the Anthropic Messages API.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostMessagesRequest
+*/
+func (a *AiAPIService) PostMessages(ctx context.Context) AiAPIPostMessagesRequest {
+	return AiAPIPostMessagesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostMessagesExecute(r AiAPIPostMessagesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostMessages")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/messages"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostMessagesCountTokensRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostMessagesCountTokensRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostMessagesCountTokensExecute(r)
+}
+
+/*
+PostMessagesCountTokens Implements POST /v1/messages/count_tokens.
+
+Implements POST /v1/messages/count_tokens. Claude Code
+calls it before a request; it returns {"input_tokens": N} for the given
+model + messages + tools.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostMessagesCountTokensRequest
+*/
+func (a *AiAPIService) PostMessagesCountTokens(ctx context.Context) AiAPIPostMessagesCountTokensRequest {
+	return AiAPIPostMessagesCountTokensRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostMessagesCountTokensExecute(r AiAPIPostMessagesCountTokensRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostMessagesCountTokens")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/messages/count_tokens"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostModelsByModelAccessRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	model      string
+}
+
+func (r AiAPIPostModelsByModelAccessRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostModelsByModelAccessExecute(r)
+}
+
+/*
+PostModelsByModelAccess Records the caller's waitlist request for a gated model and answers their new standing.
+
+Records the caller's waitlist request for a gated model and
+answers their new standing. Authed, idempotent, and self-scoped: the row is keyed
+to the caller's own org and identity, never to a body-supplied owner.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param model
+	@return AiAPIPostModelsByModelAccessRequest
+*/
+func (a *AiAPIService) PostModelsByModelAccess(ctx context.Context, model string) AiAPIPostModelsByModelAccessRequest {
+	return AiAPIPostModelsByModelAccessRequest{
+		ApiService: a,
+		ctx:        ctx,
+		model:      model,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostModelsByModelAccessExecute(r AiAPIPostModelsByModelAccessRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostModelsByModelAccess")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/models/{model}/access"
+	localVarPath = strings.Replace(localVarPath, "{"+"model"+"}", url.PathEscape(parameterValueToString(r.model, "model")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostRerankRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostRerankRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostRerankExecute(r)
+}
+
+/*
+PostRerank Implements POST /v1/rerank (Cohere/Jina-compatible).
+
+Implements POST /v1/rerank (Cohere/Jina-compatible).
+
+Body: {"model": "...", "query": "...", "documents": ["...", ...]|[{"text":"..."}],
+
+	"top_n"?: int, "return_documents"?: bool}
+
+Response: {"object":"list","model":...,"results":[{"index","relevance_score","document"?}],"usage":{...}}
+
+Backend selection is provider-driven (one endpoint, one contract):
+
+  - If the model routes to a native rerank provider (Jina/Cohere/Voyage) the
+    request is proxied to that provider's /rerank endpoint.
+
+  - Otherwise scores are computed as a real bi-encoder ranking: embed the
+    query and documents through the resolved embedding model and rank by
+    cosine similarity. No rerank-specific key required.
+
+    @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+    @return AiAPIPostRerankRequest
+*/
+func (a *AiAPIService) PostRerank(ctx context.Context) AiAPIPostRerankRequest {
+	return AiAPIPostRerankRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostRerankExecute(r AiAPIPostRerankRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostRerank")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/rerank"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostResponsesRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostResponsesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostResponsesExecute(r)
+}
+
+/*
+PostResponses Implements POST /v1/responses.
+
+Implements POST /v1/responses. The converted request is completed by
+the chat path, which is handed a sink saying where the answer goes: a stream is
+translated as it is produced, a whole body is translated entire.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostResponsesRequest
+*/
+func (a *AiAPIService) PostResponses(ctx context.Context) AiAPIPostResponsesRequest {
+	return AiAPIPostResponsesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostResponsesExecute(r AiAPIPostResponsesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostResponses")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/responses"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostVideosGenerationsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostVideosGenerationsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostVideosGenerationsExecute(r)
+}
+
+/*
+PostVideosGenerations Implements POST /v1/videos/generations — the ASYNC create.
+
+Implements POST /v1/videos/generations — the ASYNC create.
+
+Body: {"model": "...", "prompt": "...", "size"?: "1280x720", "seconds"?: int}
+
+It authenticates the caller, resolves the model to its upstream provider via
+the shared routing table (zen3-video* / wan2-2-t2v-a14b → the spark-video
+backend), reserves the per-video budget (the balance gate), creates ONE
+upstream job, registers it in the in-pod store, and returns the OpenAI-shaped
+video object with status "queued" IMMEDIATELY. The client then polls
+GET /v1/videos/{id} and downloads GET /v1/videos/{id}/content. Nothing is
+billed here — the debit lands on completion.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostVideosGenerationsRequest
+*/
+func (a *AiAPIService) PostVideosGenerations(ctx context.Context) AiAPIPostVideosGenerationsRequest {
+	return AiAPIPostVideosGenerationsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostVideosGenerationsExecute(r AiAPIPostVideosGenerationsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostVideosGenerations")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/videos/generations"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPutAiArticlesByOwnerByNameRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -17608,6 +25365,226 @@ func (a *AiAPIService) PutAiNodesByOwnerByNameExecute(r AiAPIPutAiNodesByOwnerBy
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIPutAiOrgSettingsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPutAiOrgSettingsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutAiOrgSettingsExecute(r)
+}
+
+/*
+PutAiOrgSettings The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPutAiOrgSettingsRequest
+*/
+func (a *AiAPIService) PutAiOrgSettings(ctx context.Context) AiAPIPutAiOrgSettingsRequest {
+	return AiAPIPutAiOrgSettingsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PutAiOrgSettingsExecute(r AiAPIPutAiOrgSettingsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiOrgSettings")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPutAiOrgSettingsListRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPutAiOrgSettingsListRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutAiOrgSettingsListExecute(r)
+}
+
+/*
+PutAiOrgSettingsList The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPutAiOrgSettingsListRequest
+*/
+func (a *AiAPIService) PutAiOrgSettingsList(ctx context.Context) AiAPIPutAiOrgSettingsListRequest {
+	return AiAPIPutAiOrgSettingsListRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PutAiOrgSettingsListExecute(r AiAPIPutAiOrgSettingsListRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiOrgSettingsList")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/org/settings/list"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPutAiPreferencesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -17932,6 +25909,556 @@ func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPutAiRe
 	localVarPath := localBasePath + "/v1/ai/remote-connections/{owner}/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPutAiRouterArtifactMetaRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPutAiRouterArtifactMetaRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutAiRouterArtifactMetaExecute(r)
+}
+
+/*
+PutAiRouterArtifactMeta The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPutAiRouterArtifactMetaRequest
+*/
+func (a *AiAPIService) PutAiRouterArtifactMeta(ctx context.Context) AiAPIPutAiRouterArtifactMetaRequest {
+	return AiAPIPutAiRouterArtifactMetaRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PutAiRouterArtifactMetaExecute(r AiAPIPutAiRouterArtifactMetaRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRouterArtifactMeta")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/artifact-meta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPutAiRouterDefaultsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPutAiRouterDefaultsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutAiRouterDefaultsExecute(r)
+}
+
+/*
+PutAiRouterDefaults The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPutAiRouterDefaultsRequest
+*/
+func (a *AiAPIService) PutAiRouterDefaults(ctx context.Context) AiAPIPutAiRouterDefaultsRequest {
+	return AiAPIPutAiRouterDefaultsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PutAiRouterDefaultsExecute(r AiAPIPutAiRouterDefaultsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRouterDefaults")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/defaults"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPutAiRouterLedgerRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPutAiRouterLedgerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutAiRouterLedgerExecute(r)
+}
+
+/*
+PutAiRouterLedger The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPutAiRouterLedgerRequest
+*/
+func (a *AiAPIService) PutAiRouterLedger(ctx context.Context) AiAPIPutAiRouterLedgerRequest {
+	return AiAPIPutAiRouterLedgerRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PutAiRouterLedgerExecute(r AiAPIPutAiRouterLedgerRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRouterLedger")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/ledger"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPutAiRouterPolicyRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPutAiRouterPolicyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutAiRouterPolicyExecute(r)
+}
+
+/*
+PutAiRouterPolicy The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPutAiRouterPolicyRequest
+*/
+func (a *AiAPIService) PutAiRouterPolicy(ctx context.Context) AiAPIPutAiRouterPolicyRequest {
+	return AiAPIPutAiRouterPolicyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PutAiRouterPolicyExecute(r AiAPIPutAiRouterPolicyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRouterPolicy")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/policy"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPutAiRouterRewardsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPutAiRouterRewardsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutAiRouterRewardsExecute(r)
+}
+
+/*
+PutAiRouterRewards The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+
+The HTTP transport binding for the RESTful router-config
+nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and
+/v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway —
+the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200
+handler serves over the gateway transport. The native ZAP
+handler is the ONE and ONLY implementation of these routes; this is purely the
+api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
+split-brain the router refactor removed stays removed.
+
+Why a bridge and not a twin controller method: every other migrated route
+(get-records, get-connections, …) carries BOTH a controller method and a
+ZAP handler — the exact dual-impl drift that silently NULLed customer router
+settings (the update-router-policy data-wipe). Routing these nouns through the
+ZAP handler over one adapter keeps a single source of truth.
+
+Identity is the request's own Bearer credential (Authorization header), which
+the native handlers resolve exactly as the gateway does — every caller
+(console, chat, app) already sends it. The dispatched handler returns a ZAP
+message whose status is field 0 and body is field 4 (BuildCloudResponse /
+BuildGatewayResponse layout); both are relayed verbatim. The route is mapped
+"*" (any verb) because the native handler is method-aware: /v1/ai/router/policy
+splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns
+405 for a verb it does not own.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPutAiRouterRewardsRequest
+*/
+func (a *AiAPIService) PutAiRouterRewards(ctx context.Context) AiAPIPutAiRouterRewardsRequest {
+	return AiAPIPutAiRouterRewardsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PutAiRouterRewardsExecute(r AiAPIPutAiRouterRewardsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRouterRewards")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/rewards"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

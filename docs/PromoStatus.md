@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Promo** | Pointer to [**Promo**](Promo.md) |  | [optional] 
+**Promo** | Pointer to [**Promo**](Promo.md) | Promo is the offer itself. It is fleet-wide, identical for every org — only the two counters beside it move. | [optional] 
 **Redeemed** | Pointer to **int32** | Redeemed is how many orgs have taken it, Remaining how many are left under the fleet-wide cap. | [optional] 
-**Remaining** | Pointer to **int32** |  | [optional] 
+**Remaining** | Pointer to **int32** | Remaining is MaxRedemptions minus Redeemed, floored at 0. At 0 the next redeem is declined, and a quote reports ineligible rather than pricing an offer that cannot be taken. | [optional] 
 
 ## Methods
 

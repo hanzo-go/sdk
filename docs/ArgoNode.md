@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **string** |  | [optional] 
+**CreatedAt** | Pointer to **string** | CreatedAt is the object&#39;s creationTimestamp, RFC 3339 UTC to the second. Absent when the object carries none. | [optional] 
 **Group** | Pointer to **string** |  | [optional] 
-**Health** | Pointer to [**ArgoHealth**](ArgoHealth.md) |  | [optional] 
-**Images** | Pointer to **[]string** |  | [optional] 
-**Info** | Pointer to [**[]ArgoInfoItem**](ArgoInfoItem.md) |  | [optional] 
+**Health** | Pointer to [**ArgoHealth**](ArgoHealth.md) | Health is the node&#39;s own derived health. Always present on a node of this tree; a kind with no health signal of its own reports Healthy, since a ConfigMap existing IS its healthy state. | [optional] 
+**Images** | Pointer to **[]string** | Images are the container images running on this node. Always absent — the tag travels as the \&quot;Image Tag\&quot; chip in Info instead, which is where the SPA reads it on a node. | [optional] 
+**Info** | Pointer to [**[]ArgoInfoItem**](ArgoInfoItem.md) | Info are the chips shown on the node. At most one: the image tag — the RUNNING tag on a Deployment, ReplicaSet or Pod, and the DECLARED tag on the App CR at the root. Absent on a node that carries no image at all. | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Namespace** | Pointer to **string** |  | [optional] 
-**ParentRefs** | Pointer to [**[]ArgoResourceRef**](ArgoResourceRef.md) |  | [optional] 
-**ResourceVersion** | Pointer to **string** |  | [optional] 
+**ParentRefs** | Pointer to [**[]ArgoResourceRef**](ArgoResourceRef.md) | ParentRefs are the node&#39;s edges UPWARD, which is how the SPA draws the DAG from this flat list. Exactly one entry where present: a depth-1 object points at the App CR, a ReplicaSet at its Deployment, a Pod at its ReplicaSet (or at the Deployment whose selector matches it, when the ReplicaSet is gone). Absent on the root. | [optional] 
+**ResourceVersion** | Pointer to **string** | ResourceVersion is the k8s version a watch would resume from. Always empty: the tree is rebuilt from live reads on every request, including on every frame of the SSE stream, so there is no revision to resume from. | [optional] 
 **Uid** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
 

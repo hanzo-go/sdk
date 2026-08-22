@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Class** | Pointer to **string** | Class is what KIND of computer to lease, and the set is closed:   exec     a throwaway one that keeps nothing. Seconds to minutes.  dev      a coding one, with the project&#39;s own disk attached. Hours.  desktop  a dev one that also has a screen.  android  a desktop with a phone running on that screen.  Empty leases an &#x60;exec&#x60;, which is the right answer for running a program and the wrong one for working on a repository, because it keeps nothing.  An &#x60;android&#x60; needs a node that can virtualise a CPU, so it is the one class a deployment may not be able to place. Where the fleet has none, the lease succeeds and the pod stays Pending naming the device it is waiting for — which is the honest answer, because the alternative is an emulator running on an interpreted CPU and never finishing its boot. | [optional] 
-**Id** | Pointer to **string** | ID names a sandbox to RESUME, and is the id an earlier lease answered with. Empty asks for a new one. A caller that holds an id and omits it does not get a second view of the same computer, it gets a second computer. | [optional] 
-**Project** | Pointer to **string** | Project names the disk to attach, and is REQUIRED for every class but &#x60;exec&#x60;.  One live sandbox per project: the disk attaches to one computer at a time, so a second lease over a project that already has one is refused by name rather than handed a silently empty disk. | [optional] 
-**Runtime** | Pointer to **string** | Runtime is the isolation boundary asked for: &#x60;gvisor&#x60; shares a filesystem and holds a project volume, &#x60;kata-fc&#x60; is a microVM that boots slower and reads files faster but has no shared filesystem at all. Empty asks for the fleet&#39;s default, which is the right answer unless you are measuring.  It is a REQUEST. The owner decides, and refuses a combination it cannot honour — a volume under a runtime with no shared filesystem would write into a tmpfs and lose the bytes at exit. Read Leased.Runtime for what the sandbox actually got. | [optional] 
-**TtlSec** | Pointer to **int32** | TTLSec bounds the lease in seconds. Unset takes the class default. Nothing runs forever, because a sandbox is somebody else&#39;s code on our nodes. | [optional] 
+**Class** | Pointer to **string** | Class is what the sandbox is FOR: \&quot;exec\&quot; for a code-interpreter call, \&quot;dev\&quot; for a workspace bound to a project, \&quot;desktop\&quot; for one with a screen. It decides the image, the working directory and the isolation. | [optional] 
+**Image** | Pointer to **string** | Image overrides the image the class would pick. Honoured only for a caller the policy admits, and the sandbox that comes back names the image it GOT. | [optional] 
+**Project** | Pointer to **string** | Project binds the sandbox to one of the org&#39;s projects. Required for a dev or desktop class, which are single-attach per project; an exec sandbox carries none. | [optional] 
+**Runtime** | Pointer to **string** | Runtime asks for an isolation: runc, gvisor, kata-clh or kata-fc. It is a REQUEST, not a guarantee — the sandbox that comes back carries the runtime it was actually given, which is the field to read. | [optional] 
+**TtlSec** | Pointer to **int32** | TTLSec is how long the lease runs before the reaper may take it, in seconds. Zero takes the class&#39;s own default. | [optional] 
 
 ## Methods
 
@@ -54,30 +54,30 @@ SetClass sets Class field to given value.
 
 HasClass returns a boolean if a field has been set.
 
-### GetId
+### GetImage
 
-`func (o *LeaseIn) GetId() string`
+`func (o *LeaseIn) GetImage() string`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetImage returns the Image field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetImageOk
 
-`func (o *LeaseIn) GetIdOk() (*string, bool)`
+`func (o *LeaseIn) GetImageOk() (*string, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetImageOk returns a tuple with the Image field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetImage
 
-`func (o *LeaseIn) SetId(v string)`
+`func (o *LeaseIn) SetImage(v string)`
 
-SetId sets Id field to given value.
+SetImage sets Image field to given value.
 
-### HasId
+### HasImage
 
-`func (o *LeaseIn) HasId() bool`
+`func (o *LeaseIn) HasImage() bool`
 
-HasId returns a boolean if a field has been set.
+HasImage returns a boolean if a field has been set.
 
 ### GetProject
 

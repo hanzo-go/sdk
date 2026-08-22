@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -22,13 +22,138 @@ import (
 // BillingAPIService BillingAPI service
 type BillingAPIService service
 
+type BillingAPICancelSubscriptionRequest struct {
+	ctx             context.Context
+	ApiService      *BillingAPIService
+	id              string
+	subscriptionRef *SubscriptionRef
+}
+
+func (r BillingAPICancelSubscriptionRequest) SubscriptionRef(subscriptionRef SubscriptionRef) BillingAPICancelSubscriptionRequest {
+	r.subscriptionRef = &subscriptionRef
+	return r
+}
+
+func (r BillingAPICancelSubscriptionRequest) Execute() (*Subscription, *http.Response, error) {
+	return r.ApiService.CancelSubscriptionExecute(r)
+}
+
+/*
+CancelSubscription End a subscription
+
+Ends a subscription.
+
+It cancels at the END OF THE PAID PERIOD by default, because a customer who
+cancels has already paid for the period they are in and taking it away is
+taking money for nothing. `atPeriodEnd: false` ends it at once, which is the
+caller asking for that.
+
+A subscription from another org is not found rather than refused, so an id
+cannot be probed for existence.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return BillingAPICancelSubscriptionRequest
+*/
+func (a *BillingAPIService) CancelSubscription(ctx context.Context, id string) BillingAPICancelSubscriptionRequest {
+	return BillingAPICancelSubscriptionRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Subscription
+func (a *BillingAPIService) CancelSubscriptionExecute(r BillingAPICancelSubscriptionRequest) (*Subscription, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Subscription
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.CancelSubscription")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/billing/subscriptions/{id}/cancel"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.subscriptionRef == nil {
+		return localVarReturnValue, nil, reportError("subscriptionRef is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.subscriptionRef
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type BillingAPICollectInvoiceRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
 	id         string
 }
 
-func (r BillingAPICollectInvoiceRequest) Execute() (*CollectOut, *http.Response, error) {
+func (r BillingAPICollectInvoiceRequest) Execute() (*Collected, *http.Response, error) {
 	return r.ApiService.CollectInvoiceExecute(r)
 }
 
@@ -60,13 +185,13 @@ func (a *BillingAPIService) CollectInvoice(ctx context.Context, id string) Billi
 
 // Execute executes the request
 //
-//	@return CollectOut
-func (a *BillingAPIService) CollectInvoiceExecute(r BillingAPICollectInvoiceRequest) (*CollectOut, *http.Response, error) {
+//	@return Collected
+func (a *BillingAPIService) CollectInvoiceExecute(r BillingAPICollectInvoiceRequest) (*Collected, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectOut
+		localVarReturnValue *Collected
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.CollectInvoice")
@@ -146,9 +271,13 @@ func (r BillingAPIDeleteBillingAlertsByIdRequest) Execute() (*http.Response, err
 }
 
 /*
-DeleteBillingAlertsById Remove one of your org's spend caps
+DeleteBillingAlertsById Remove one spend cap
 
-Deletes the addressed cap and answers 204. Requires an ORG ADMIN, a platform admin, or the internal service token — deleting a cap uncaps the org's spend, so a plain member is refused 403. Ownership is checked per row and a cap the caller does not own is refused as 404 rather than 403, so the response cannot confirm that another org's id exists.
+Deletes a budget the caller's org owns and answers 204.
+
+Removing a cap REMOVES A CEILING, so it takes the same bar as setting one: a validated org admin, the platform SuperAdmin, or the trusted in-process service token. A member who could delete the org's cap would have unbounded spend.
+
+A cap this org does not own is NOT FOUND rather than refused — the same answer whether the id is unknown or belongs to another customer — so an id cannot be probed for existence by trying to delete it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -238,13 +367,13 @@ func (r BillingAPIDeleteBillingMethodsByIdRequest) Execute() (*http.Response, er
 }
 
 /*
-DeleteBillingMethodsById Remove one of your saved cards
+DeleteBillingMethodsById Remove one saved card or account
 
-Detaches the addressed card: the stored reference is removed here AND withdrawn from the processor's vault, so nothing is left that a later charge could bill.
+Detaches the method at the processor and drops the row.
 
-The customer twin of DELETE /v1/billing/portal/methods/{id}. The id is resolved INSIDE your own org namespace, so a card that is not yours is simply not found there and answers 404 — never 403, which would confirm the id exists.
+A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.
 
-Removing the card an auto-recharge or a running lease bills leaves that arrangement with nothing to charge; that is yours to decide.
+A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -334,15 +463,13 @@ func (r BillingAPIDeleteBillingPortalMethodsByIdRequest) Execute() (*http.Respon
 }
 
 /*
-DeleteBillingPortalMethodsById Remove a saved card — the portal detach
+DeleteBillingPortalMethodsById Remove one saved card or account
 
-Detaches the addressed card: the stored reference is removed here AND withdrawn from the processor's vault, so nothing is left that a later charge could bill.
+Detaches the method at the processor and drops the row.
 
-The service-token twin of the customer's DELETE /v1/billing/methods/{id}, at its own address for the same reason the portal list is — a different principal, on the same rows, in this same process.
+A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.
 
-The id is resolved INSIDE the caller's org namespace, so another tenant's card is not found there and answers 404 — never 403, which would confirm the id exists. That bound holds for the service token too: it may act for any subject within the org the gateway pinned, and for no subject outside it.
-
-Removing the card an auto-recharge or a running lease bills leaves that arrangement with nothing to charge; that is the customer's call to make.
+A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -426,16 +553,26 @@ type BillingAPIGetBillingAccountsRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingAccountsRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingAccountsRequest) Execute() ([]BillingAccount, *http.Response, error) {
 	return r.ApiService.GetBillingAccountsExecute(r)
 }
 
 /*
-GetBillingAccounts The billing account you are signed in to
+GetBillingAccounts Answers the caller's billing accounts: the org itself, its currency, when it was opened, and the caller's own standing in it.
 
-Returns the billing accounts visible to the caller. One organisation is exactly one billing account here, so an authenticated caller sees precisely one: their own. The list shape is the honest one — it is what a caller with access to several would receive — rather than a promise that more will ever appear for a token scoped to a single org.
+Answers the caller's billing accounts: the org itself, its currency, when it
+was opened, and the caller's own standing in it.
 
-The account is derived from the validated org claim and from nothing the caller sends, so there is no account parameter and a cross-tenant read is not expressible. An unauthenticated call is 401.
+The standing is the caller's, resolved from the validated principal here and
+sent to the store rather than looked up there — the membership roster is IAM's
+and commerce keeps none, so a callee that answered "what role is this" would
+be inventing it. An anonymous read gets the account with no role rather than
+an implied membership.
+
+Scoped to the caller's own org, which is the whole tenancy story: there is no
+org field on the wire and none on the input.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingAccountsRequest
@@ -448,16 +585,19 @@ func (a *BillingAPIService) GetBillingAccounts(ctx context.Context) BillingAPIGe
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingAccountsExecute(r BillingAPIGetBillingAccountsRequest) (*http.Response, error) {
+//
+//	@return []BillingAccount
+func (a *BillingAPIService) GetBillingAccountsExecute(r BillingAPIGetBillingAccountsRequest) ([]BillingAccount, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []BillingAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingAccounts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/accounts"
@@ -476,7 +616,7 @@ func (a *BillingAPIService) GetBillingAccountsExecute(r BillingAPIGetBillingAcco
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -485,19 +625,19 @@ func (a *BillingAPIService) GetBillingAccountsExecute(r BillingAPIGetBillingAcco
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -505,10 +645,19 @@ func (a *BillingAPIService) GetBillingAccountsExecute(r BillingAPIGetBillingAcco
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingAccountsByIdMembersRequest struct {
@@ -517,19 +666,24 @@ type BillingAPIGetBillingAccountsByIdMembersRequest struct {
 	id         string
 }
 
-func (r BillingAPIGetBillingAccountsByIdMembersRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingAccountsByIdMembersRequest) Execute() ([]Holder, *http.Response, error) {
 	return r.ApiService.GetBillingAccountsByIdMembersExecute(r)
 }
 
 /*
-GetBillingAccountsByIdMembers Who is on a billing account
+GetBillingAccountsByIdMembers Answers one billing account's roster.
 
-Returns the members of one billing account. The id must be the caller's OWN account — the handler compares it against the org resolved from the token and answers 403 when they differ, which is what guards this route: unlike its siblings it carries no subject key for the pin to overwrite, so it checks the path segment itself.
+Answers one billing account's roster.
 
-The roster it can answer is currently the requesting user alone. Membership lives in IAM, not in the ledger, and this operation reports what commerce actually holds rather than inventing a roster from a source it does not read. An unauthenticated call is 401.
+commerce stores no roster — that is IAM's — so the only member it can name is
+the caller, and that is what comes back. What it does enforce is that the
+account named in the path is the caller's own: a foreign id is 403, not an
+empty list, because "no members" and "not your account" are different answers.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the billing account id, which for this store is the org's own id.
 	@return BillingAPIGetBillingAccountsByIdMembersRequest
 */
 func (a *BillingAPIService) GetBillingAccountsByIdMembers(ctx context.Context, id string) BillingAPIGetBillingAccountsByIdMembersRequest {
@@ -541,16 +695,19 @@ func (a *BillingAPIService) GetBillingAccountsByIdMembers(ctx context.Context, i
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingAccountsByIdMembersExecute(r BillingAPIGetBillingAccountsByIdMembersRequest) (*http.Response, error) {
+//
+//	@return []Holder
+func (a *BillingAPIService) GetBillingAccountsByIdMembersExecute(r BillingAPIGetBillingAccountsByIdMembersRequest) ([]Holder, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Holder
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingAccountsByIdMembers")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/accounts/{id}/members"
@@ -570,7 +727,7 @@ func (a *BillingAPIService) GetBillingAccountsByIdMembersExecute(r BillingAPIGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -579,19 +736,19 @@ func (a *BillingAPIService) GetBillingAccountsByIdMembersExecute(r BillingAPIGet
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -599,10 +756,19 @@ func (a *BillingAPIService) GetBillingAccountsByIdMembersExecute(r BillingAPIGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingAlertsRequest struct {
@@ -610,14 +776,26 @@ type BillingAPIGetBillingAlertsRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingAlertsRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingAlertsRequest) Execute() ([]Alert, *http.Response, error) {
 	return r.ApiService.GetBillingAlertsExecute(r)
 }
 
 /*
-GetBillingAlerts List your org's spend caps and rate limits
+GetBillingAlerts Lists this org's spend caps: the ceiling, its scope, whether it enforces, and how much of it has been spent this period.
 
-Returns the caps and alerts keyed to the caller's own billing subject, each with its threshold, enforcement flag, soft-warning percentage and current period spend. Any authenticated member of the org may read them — only the writes require an admin. The rows are keyed on the org subject the enforcement gate itself reads, which is why a cap created here is the one that actually binds. A caller with no resolvable org or subject gets an empty list, never another tenant's caps.
+Lists this org's spend caps: the ceiling, its scope, whether it enforces, and
+how much of it has been spent this period.
+
+`periodSpentCents`, `over` and `warn` are ABSENT rather than zero when the
+spend could not be read, because "nothing spent" and "spend unknown" are
+different answers and a customer acting on the first when the second is true
+would be reading a ceiling that is not there. The policy row is reported
+either way.
+
+The period is the UTC calendar month and `resetsAt` is when the count starts
+again, so a surface can say "resets on" without a second call.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingAlertsRequest
@@ -630,16 +808,19 @@ func (a *BillingAPIService) GetBillingAlerts(ctx context.Context) BillingAPIGetB
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingAlertsExecute(r BillingAPIGetBillingAlertsRequest) (*http.Response, error) {
+//
+//	@return []Alert
+func (a *BillingAPIService) GetBillingAlertsExecute(r BillingAPIGetBillingAlertsRequest) ([]Alert, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Alert
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingAlerts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/alerts"
@@ -658,7 +839,7 @@ func (a *BillingAPIService) GetBillingAlertsExecute(r BillingAPIGetBillingAlerts
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -667,19 +848,19 @@ func (a *BillingAPIService) GetBillingAlertsExecute(r BillingAPIGetBillingAlerts
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -687,25 +868,75 @@ func (a *BillingAPIService) GetBillingAlertsExecute(r BillingAPIGetBillingAlerts
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingAlertsAuthorizeRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
+	project    *string
+	service    *string
+	amount     *string
+	pv         *string
 }
 
-func (r BillingAPIGetBillingAlertsAuthorizeRequest) Execute() (*http.Response, error) {
+// Project narrows the verdict to one project&#39;s caps. Empty is the org-wide row.
+func (r BillingAPIGetBillingAlertsAuthorizeRequest) Project(project string) BillingAPIGetBillingAlertsAuthorizeRequest {
+	r.project = &project
+	return r
+}
+
+// Service narrows it to one service&#39;s caps. Empty is every service.
+func (r BillingAPIGetBillingAlertsAuthorizeRequest) Service(service string) BillingAPIGetBillingAlertsAuthorizeRequest {
+	r.service = &service
+	return r
+}
+
+// Amount is the proposed spend in cents.
+func (r BillingAPIGetBillingAlertsAuthorizeRequest) Amount(amount string) BillingAPIGetBillingAlertsAuthorizeRequest {
+	r.amount = &amount
+	return r
+}
+
+// PV is \&quot;1\&quot; when the caller ESTABLISHED the project rather than merely carrying a claim of one. An unproven project may not deny traffic.
+func (r BillingAPIGetBillingAlertsAuthorizeRequest) Pv(pv string) BillingAPIGetBillingAlertsAuthorizeRequest {
+	r.pv = &pv
+	return r
+}
+
+func (r BillingAPIGetBillingAlertsAuthorizeRequest) Execute() (*CapVerdict, *http.Response, error) {
 	return r.ApiService.GetBillingAlertsAuthorizeExecute(r)
 }
 
 /*
-GetBillingAlertsAuthorize The per-request spend-cap verdict the metering gate consumes
+GetBillingAlertsAuthorize Answers whether one proposed spend fits inside this org's caps.
 
-Answers allow, reason, capCents, spentCents and warnPct for a proposed amount against a (project, service) scope — the verdict the request-edge metering gate reads before admitting a call. It evaluates EVERY covering cap and the most restrictive enforcing one wins; soft caps and an enforcing project cap whose project axis is not validated never block, they only raise the warning utilization. It is a service-to-service read authenticated by the internal service token with the org pinned by the gateway, not a browser call. Two rules matter: the spend it scores comes from the finance ledger's current-month total, and it FAILS OPEN on unknown spend — a transient read failure allows rather than denies, so a backend blip never bills-blocks an under-cap customer, while a known overage still denies.
+Answers whether one proposed spend fits inside this org's caps.
+
+It is the per-request verdict the metering edge consumes before every priced
+call, and its caller is a SERVICE rather than a person: a service token plus
+the gateway-pinned org, with no user behind it. So this admits that principal
+where the CRUD beside it does not.
+
+Every covering row is evaluated, most-restrictive-wins, and the tightest one
+is what `capCents`, `spentCents` and `reason` describe. Soft rows never deny;
+nor does a project-scoped enforcing row whose project axis the caller could
+not establish — `pv=1` is how a caller states that it did, and an unproven
+claim must not be able to refuse traffic.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingAlertsAuthorizeRequest
@@ -718,16 +949,19 @@ func (a *BillingAPIService) GetBillingAlertsAuthorize(ctx context.Context) Billi
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingAlertsAuthorizeExecute(r BillingAPIGetBillingAlertsAuthorizeRequest) (*http.Response, error) {
+//
+//	@return CapVerdict
+func (a *BillingAPIService) GetBillingAlertsAuthorizeExecute(r BillingAPIGetBillingAlertsAuthorizeRequest) (*CapVerdict, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CapVerdict
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingAlertsAuthorize")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/alerts/authorize"
@@ -736,6 +970,18 @@ func (a *BillingAPIService) GetBillingAlertsAuthorizeExecute(r BillingAPIGetBill
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.project != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
+	}
+	if r.service != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "service", r.service, "form", "")
+	}
+	if r.amount != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "amount", r.amount, "form", "")
+	}
+	if r.pv != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pv", r.pv, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -746,7 +992,7 @@ func (a *BillingAPIService) GetBillingAlertsAuthorizeExecute(r BillingAPIGetBill
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -755,19 +1001,19 @@ func (a *BillingAPIService) GetBillingAlertsAuthorizeExecute(r BillingAPIGetBill
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -775,10 +1021,19 @@ func (a *BillingAPIService) GetBillingAlertsAuthorizeExecute(r BillingAPIGetBill
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingBalanceRequest struct {
@@ -880,16 +1135,22 @@ type BillingAPIGetBillingCreditBalanceRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingCreditBalanceRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingCreditBalanceRequest) Execute() (*CreditBalance, *http.Response, error) {
 	return r.ApiService.GetBillingCreditBalanceExecute(r)
 }
 
 /*
-GetBillingCreditBalance What is left of your credit, as one number
+GetBillingCreditBalance Answers what the caller can spend right now, one entry per currency.
 
-Returns the total credit still available to the caller's own subject — the sum of what the grants have left, which is the figure the console shows above the usage meter. It is the balance a metered act draws down, so it answers the one question a customer asks before spending: how much is there.
+Answers what the caller can spend right now, one entry per currency.
 
-Like every read in this family the subject is pinned to the caller before the handler runs, so the userId parameter the handler reads can never name another tenant. For the grants BEHIND this number — each with its original amount and its expiry — read /v1/billing/credits. A subject with no credit is zero, which is an answer and not an error.
+Only ACTIVE grants count: a voided, exhausted or lapsed grant contributes
+nothing, which is why this number can be smaller than the grant list suggests
+and why the two reads exist separately. It is credit, not prepaid balance —
+/v1/billing/balance is the wallet, and the two are added by the gate, never by
+a reader.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingCreditBalanceRequest
@@ -902,16 +1163,19 @@ func (a *BillingAPIService) GetBillingCreditBalance(ctx context.Context) Billing
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingCreditBalanceExecute(r BillingAPIGetBillingCreditBalanceRequest) (*http.Response, error) {
+//
+//	@return CreditBalance
+func (a *BillingAPIService) GetBillingCreditBalanceExecute(r BillingAPIGetBillingCreditBalanceRequest) (*CreditBalance, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreditBalance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingCreditBalance")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/credit-balance"
@@ -930,7 +1194,7 @@ func (a *BillingAPIService) GetBillingCreditBalanceExecute(r BillingAPIGetBillin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -939,19 +1203,19 @@ func (a *BillingAPIService) GetBillingCreditBalanceExecute(r BillingAPIGetBillin
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -959,10 +1223,19 @@ func (a *BillingAPIService) GetBillingCreditBalanceExecute(r BillingAPIGetBillin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingCreditBalanceBreakdownRequest struct {
@@ -970,16 +1243,23 @@ type BillingAPIGetBillingCreditBalanceBreakdownRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingCreditBalanceBreakdownRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingCreditBalanceBreakdownRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.GetBillingCreditBalanceBreakdownExecute(r)
 }
 
 /*
-GetBillingCreditBalanceBreakdown What is left of your credit, grouped by where it came from
+GetBillingCreditBalanceBreakdown Answers that same spendable credit split by grant tag, with the earliest expiry under each and the total across all of them.
 
-Returns the same balance /v1/billing/credit-balance reports, split by the tag each grant carries, so a reader can tell trial credit from bought credit and show the earliest expiry within each group. A console needs the split to say what will lapse and when; the single number cannot.
+Answers that same spendable credit split by grant tag, with the earliest
+expiry under each and the total across all of them.
 
-The subject is pinned to the caller before the handler runs, exactly as in the sibling reads, so the userId parameter can never name another tenant. A subject with no grants is an empty breakdown and a zero total, which is an answer and not an error.
+The split is the point: it is how trial credit is told apart from bought
+credit, which is what a surface asks before it decides whether to spend any.
+An unregistered address answers 404 and a caller reads that as "no credit", so
+this being served is the difference between a customer with a trial grant
+being offered their trial and being told they have none.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingCreditBalanceBreakdownRequest
@@ -992,16 +1272,19 @@ func (a *BillingAPIService) GetBillingCreditBalanceBreakdown(ctx context.Context
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingCreditBalanceBreakdownExecute(r BillingAPIGetBillingCreditBalanceBreakdownRequest) (*http.Response, error) {
+//
+//	@return interface{}
+func (a *BillingAPIService) GetBillingCreditBalanceBreakdownExecute(r BillingAPIGetBillingCreditBalanceBreakdownRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingCreditBalanceBreakdown")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/credit-balance/breakdown"
@@ -1020,7 +1303,7 @@ func (a *BillingAPIService) GetBillingCreditBalanceBreakdownExecute(r BillingAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1029,19 +1312,19 @@ func (a *BillingAPIService) GetBillingCreditBalanceBreakdownExecute(r BillingAPI
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1049,10 +1332,19 @@ func (a *BillingAPIService) GetBillingCreditBalanceBreakdownExecute(r BillingAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingCreditsRequest struct {
@@ -1060,14 +1352,24 @@ type BillingAPIGetBillingCreditsRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingCreditsRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingCreditsRequest) Execute() (*CreditGrants, *http.Response, error) {
 	return r.ApiService.GetBillingCreditsExecute(r)
 }
 
 /*
-GetBillingCredits List the credit grants on your org's balance
+GetBillingCredits Lists the caller's credit grants — every one of them, spent and lapsed and voided included.
 
-Returns the caller org's credit grants — each with its original amount, what remains and when it expires — so a customer can see what was given and what is left before metered spend draws it down. It is a READ of the caller's own subject, pinned before the handler runs, so a grant belonging to another tenant is simply absent. Granting credit is not this route and never has been: minting lands on the mint-gated POST /v1/billing/credit, which no browser can reach. Reading an empty balance is an empty array, not an error.
+Lists the caller's credit grants — every one of them, spent and lapsed and
+voided included.
+
+That is deliberate and it is what makes the list useful: a grant list is a
+LEDGER, and one that hid its spent rows could not be reconciled against a
+burn-down. What is spendable right now is the sibling read, /v1/billing/
+credit-balance, and the two are different questions.
+
+Scoped to the caller's own wallet, resolved server-side.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingCreditsRequest
@@ -1080,16 +1382,19 @@ func (a *BillingAPIService) GetBillingCredits(ctx context.Context) BillingAPIGet
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingCreditsExecute(r BillingAPIGetBillingCreditsRequest) (*http.Response, error) {
+//
+//	@return CreditGrants
+func (a *BillingAPIService) GetBillingCreditsExecute(r BillingAPIGetBillingCreditsRequest) (*CreditGrants, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreditGrants
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingCredits")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/credits"
@@ -1108,7 +1413,7 @@ func (a *BillingAPIService) GetBillingCreditsExecute(r BillingAPIGetBillingCredi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1117,19 +1422,19 @@ func (a *BillingAPIService) GetBillingCreditsExecute(r BillingAPIGetBillingCredi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1137,10 +1442,19 @@ func (a *BillingAPIService) GetBillingCreditsExecute(r BillingAPIGetBillingCredi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingCryptoDepositByIdRequest struct {
@@ -1149,19 +1463,23 @@ type BillingAPIGetBillingCryptoDepositByIdRequest struct {
 	id         string
 }
 
-func (r BillingAPIGetBillingCryptoDepositByIdRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingCryptoDepositByIdRequest) Execute() (*CryptoDeposit, *http.Response, error) {
 	return r.ApiService.GetBillingCryptoDepositByIdExecute(r)
 }
 
 /*
-GetBillingCryptoDepositById Follow one crypto deposit to settlement
+GetBillingCryptoDepositById Reads one of the caller's own deposit intents back — pending, confirming, or succeeded.
 
-Answers the addressed deposit intent's current state — pending until a transfer is seen, confirming while the chain buries it, succeeded once it is credited — so a payment page can poll one deposit rather than the whole balance.
+Reads one of the caller's own deposit intents back — pending, confirming, or
+succeeded.
 
-Scoped to the caller: an intent belonging to another payer is not found and answers 404, never another account's state. The credit itself is the chain watcher's to make; this read reports it and never performs it.
+An intent belonging to another payer answers 404, exactly as an id that names
+nothing, so a guessed id cannot confirm that somebody else's deposit exists.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the deposit intent id.
 	@return BillingAPIGetBillingCryptoDepositByIdRequest
 */
 func (a *BillingAPIService) GetBillingCryptoDepositById(ctx context.Context, id string) BillingAPIGetBillingCryptoDepositByIdRequest {
@@ -1173,16 +1491,19 @@ func (a *BillingAPIService) GetBillingCryptoDepositById(ctx context.Context, id 
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingCryptoDepositByIdExecute(r BillingAPIGetBillingCryptoDepositByIdRequest) (*http.Response, error) {
+//
+//	@return CryptoDeposit
+func (a *BillingAPIService) GetBillingCryptoDepositByIdExecute(r BillingAPIGetBillingCryptoDepositByIdRequest) (*CryptoDeposit, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CryptoDeposit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingCryptoDepositById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/crypto/deposit/{id}"
@@ -1202,7 +1523,7 @@ func (a *BillingAPIService) GetBillingCryptoDepositByIdExecute(r BillingAPIGetBi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1211,19 +1532,19 @@ func (a *BillingAPIService) GetBillingCryptoDepositByIdExecute(r BillingAPIGetBi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1231,10 +1552,19 @@ func (a *BillingAPIService) GetBillingCryptoDepositByIdExecute(r BillingAPIGetBi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingCryptoOptionsRequest struct {
@@ -1242,16 +1572,24 @@ type BillingAPIGetBillingCryptoOptionsRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingCryptoOptionsRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingCryptoOptionsRequest) Execute() (*CryptoOptions, *http.Response, error) {
 	return r.ApiService.GetBillingCryptoOptionsExecute(r)
 }
 
 /*
-GetBillingCryptoOptions Which chains and tokens a crypto top-up can use
+GetBillingCryptoOptions Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
 
-Answers the custody processor's LIVE capability list — the chains and the tokens on each that this deployment can actually take a deposit on. A payment page renders its asset picker straight from it rather than from a list of its own, so a chain the processor stops supporting disappears from the picker instead of minting an address nothing watches.
+Answers which chains and tokens the crypto rail accepts — what an asset picker
+renders.
 
-It is a capability read, not an account read: it says what may be paid with, never anything about this caller's balance or deposits.
+It is the intersection of two live facts rather than a configured list: an
+asset appears only if something is WATCHING it and the custody processor
+supports it. An address nobody watches credits nobody, so offering one would
+take a customer's money and lose it. A rail with nothing armed answers 503,
+not an empty menu — "no rail" and "no assets" are different, and only one of
+them means try again later.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingCryptoOptionsRequest
@@ -1264,16 +1602,19 @@ func (a *BillingAPIService) GetBillingCryptoOptions(ctx context.Context) Billing
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingCryptoOptionsExecute(r BillingAPIGetBillingCryptoOptionsRequest) (*http.Response, error) {
+//
+//	@return CryptoOptions
+func (a *BillingAPIService) GetBillingCryptoOptionsExecute(r BillingAPIGetBillingCryptoOptionsRequest) (*CryptoOptions, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CryptoOptions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingCryptoOptions")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/crypto/options"
@@ -1292,7 +1633,7 @@ func (a *BillingAPIService) GetBillingCryptoOptionsExecute(r BillingAPIGetBillin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1301,19 +1642,19 @@ func (a *BillingAPIService) GetBillingCryptoOptionsExecute(r BillingAPIGetBillin
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1321,10 +1662,19 @@ func (a *BillingAPIService) GetBillingCryptoOptionsExecute(r BillingAPIGetBillin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingInvoicesRequest struct {
@@ -1332,14 +1682,21 @@ type BillingAPIGetBillingInvoicesRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingInvoicesRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingInvoicesRequest) Execute() (*Invoices, *http.Response, error) {
 	return r.ApiService.GetBillingInvoicesExecute(r)
 }
 
 /*
-GetBillingInvoices List your org's billing invoices
+GetBillingInvoices Lists the caller's invoices, newest first, with the count beside them.
 
-Returns the caller org's invoices with a count, read from that org's own namespaced store, narrowable by userId, status or subscriptionId. The org is the one the gateway validated and the caller's billing subject is pinned into the query before the handler runs, so a read can never widen past the caller. A request that carries no resolvable org gets an honest empty list rather than an error or another tenant's rows.
+Lists the caller's invoices, newest first, with the count beside them.
+
+It is scoped to the caller's own billing subject — the wallet this request
+bills from, resolved server-side — so a query cannot widen it to another
+customer of the same org. An org with no invoices is an empty list, not a
+refusal.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingInvoicesRequest
@@ -1352,16 +1709,19 @@ func (a *BillingAPIService) GetBillingInvoices(ctx context.Context) BillingAPIGe
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingInvoicesExecute(r BillingAPIGetBillingInvoicesRequest) (*http.Response, error) {
+//
+//	@return Invoices
+func (a *BillingAPIService) GetBillingInvoicesExecute(r BillingAPIGetBillingInvoicesRequest) (*Invoices, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Invoices
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingInvoices")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/invoices"
@@ -1380,7 +1740,7 @@ func (a *BillingAPIService) GetBillingInvoicesExecute(r BillingAPIGetBillingInvo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1389,19 +1749,19 @@ func (a *BillingAPIService) GetBillingInvoicesExecute(r BillingAPIGetBillingInvo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1409,10 +1769,19 @@ func (a *BillingAPIService) GetBillingInvoicesExecute(r BillingAPIGetBillingInvo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingInvoicesByIdPdfRequest struct {
@@ -1426,9 +1795,13 @@ func (r BillingAPIGetBillingInvoicesByIdPdfRequest) Execute() (*http.Response, e
 }
 
 /*
-GetBillingInvoicesByIdPdf Download one invoice as a PDF attachment
+GetBillingInvoicesByIdPdf Download one invoice as a PDF
 
-Renders the addressed invoice as a single-page PDF and answers it as an attachment named after the invoice number. The render is a pure function of the invoice — no timestamps, no random ids — so the same invoice always produces identical bytes and a re-download is stable. The invoice is resolved inside the caller org's own namespace, so an id belonging to another tenant is simply absent and reads as 404; a caller with no validated org gets 401 rather than a document.
+Answers the invoice as an attachment — `application/pdf` under a Content-Disposition naming the invoice number — rather than as a JSON value, which is why this one route is untyped where its five siblings are typed: a PDF is bytes with a filename, and the two headers are the whole contract.
+
+The render is a PURE function of the invoice: one page, no timestamps and no random ids, so the same invoice renders the same bytes however often it is asked for and a retry after a dropped connection costs a re-render and nothing else.
+
+The invoice is read from the caller's own org, taken from the VALIDATED IAM owner claim and never from a client header, and the lookup is scoped at the storage layer — so an id belonging to another customer resolves to nothing and answers 404 rather than being found and then refused.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1507,6 +1880,136 @@ func (a *BillingAPIService) GetBillingInvoicesByIdPdfExecute(r BillingAPIGetBill
 	return localVarHTTPResponse, nil
 }
 
+type BillingAPIGetBillingLedgerRequest struct {
+	ctx        context.Context
+	ApiService *BillingAPIService
+	range_     *string
+}
+
+// Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing.
+func (r BillingAPIGetBillingLedgerRequest) Range_(range_ string) BillingAPIGetBillingLedgerRequest {
+	r.range_ = &range_
+	return r
+}
+
+func (r BillingAPIGetBillingLedgerRequest) Execute() ([]FinanceLedgerEntry, *http.Response, error) {
+	return r.ApiService.GetBillingLedgerExecute(r)
+}
+
+/*
+GetBillingLedger Answers the org's own postings inside `range=`, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`) and every other posting DEBITS it (negative, account `usage:<org>`), described by its notes or its tags.
+
+Answers the org's own postings inside `range=`, each as a signed
+entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`) and
+every other posting DEBITS it (negative, account `usage:<org>`), described by
+its notes or its tags. The sign is the posting's own meaning, read through ONE
+vocabulary shared with the ledger that wrote it — a reader with its own
+spelling for `deposit` rendered a customer's grant as a charge.
+
+This is the closest projection of the truth. The org's double-entry postings
+are the source of record — balanced, only ever appended, one file per org —
+and this lane is that list, wider than either half of it: the deposits are the
+grants /v1/billing/credits lists and the debits are the spend /v1/billing/usage
+rolls up. It answers 503 where this deployment runs no ledger, rather than
+reporting an empty wallet.
+
+A row whose timestamp will not parse is KEPT rather than dropped — a malformed
+date must show up in a money list, not vanish from it. `balanceCents` is
+omitted: these are MOVEMENTS, and the standing balance is /v1/billing/balance.
+
+Cents are ROUNDED from the ledger's exact 18-decimal USD. Scoped to the
+caller's own org, where the org's ledger file is the tenant boundary; 401
+without a validated principal.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BillingAPIGetBillingLedgerRequest
+*/
+func (a *BillingAPIService) GetBillingLedger(ctx context.Context) BillingAPIGetBillingLedgerRequest {
+	return BillingAPIGetBillingLedgerRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []FinanceLedgerEntry
+func (a *BillingAPIService) GetBillingLedgerExecute(r BillingAPIGetBillingLedgerRequest) ([]FinanceLedgerEntry, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []FinanceLedgerEntry
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingLedger")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/billing/ledger"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.range_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "range", r.range_, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type BillingAPIGetBillingMethodsRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
@@ -1517,13 +2020,17 @@ func (r BillingAPIGetBillingMethodsRequest) Execute() (*http.Response, error) {
 }
 
 /*
-GetBillingMethods Your saved cards, masked — the customer read
+GetBillingMethods Cards and accounts on file for the caller
 
-Answers the cards saved against your own account as masked descriptors: brand, last four, expiry and the processor's reusable reference. No card number and no security code exist here to return; both live at the processor and never enter this system. It is what a checkout prefills its payment step from.
+Answers every payment method the caller has saved, newest first.
 
-The customer face of the list a service token reads at /v1/billing/portal/methods — same rows, different principal, no hop between them.
+A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.
 
-The subject filter is pinned to the VALIDATED caller before the handler runs, so the answer is your own account's cards whatever customerId the request carries, and another org's rows are outside the namespace entirely. A caller who is not signed in is refused before the read.
+The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.
+
+`/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.
+
+A store that cannot be read answers an EMPTY LIST rather than a failure: the saved-cards panel renders empty instead of breaking the page around it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingMethodsRequest
@@ -1604,14 +2111,20 @@ type BillingAPIGetBillingPayoutsRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingPayoutsRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingPayoutsRequest) Execute() ([]Payout, *http.Response, error) {
 	return r.ApiService.GetBillingPayoutsExecute(r)
 }
 
 /*
-GetBillingPayouts List your org's payouts, newest first
+GetBillingPayouts Answers the org's outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.
 
-Returns the caller org's payout records ordered by creation time descending, read from that org's own namespaced store. The org is the gateway-validated one and the caller's billing subject is pinned before the handler runs, so the list is the caller's own and cannot be widened. A request with no resolvable org gets an empty array rather than an error.
+Answers the org's outbound payouts, newest first — amount, destination,
+status, and the failure reason where one applies.
+
+A payout is ORG-scoped rather than subject-scoped, so there is nothing to pin
+beyond the tenant the caller already is, and no query can widen it.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingPayoutsRequest
@@ -1624,16 +2137,19 @@ func (a *BillingAPIService) GetBillingPayouts(ctx context.Context) BillingAPIGet
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingPayoutsExecute(r BillingAPIGetBillingPayoutsRequest) (*http.Response, error) {
+//
+//	@return []Payout
+func (a *BillingAPIService) GetBillingPayoutsExecute(r BillingAPIGetBillingPayoutsRequest) ([]Payout, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Payout
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingPayouts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/payouts"
@@ -1652,7 +2168,7 @@ func (a *BillingAPIService) GetBillingPayoutsExecute(r BillingAPIGetBillingPayou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1661,19 +2177,19 @@ func (a *BillingAPIService) GetBillingPayoutsExecute(r BillingAPIGetBillingPayou
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1681,10 +2197,19 @@ func (a *BillingAPIService) GetBillingPayoutsExecute(r BillingAPIGetBillingPayou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingPlansRequest struct {
@@ -1697,9 +2222,13 @@ func (r BillingAPIGetBillingPlansRequest) Execute() (*http.Response, error) {
 }
 
 /*
-GetBillingPlans The public plan catalog, annotated with the active platform promotion
+GetBillingPlans The plan catalog, priced with whatever offer is in force
 
-Returns every subscription tier a buyer can choose, each carrying the platform promo currently in effect, optionally narrowed with the category query. Prices come from the admin-editable plan authority in the database; the embedded catalog is only a loud-failing fallback, so a failed seed or a query error serves the known plans rather than a silently blank list. It is a catalog read, not an entitlement read — it says what may be bought, never what this caller has.
+Answers every plan on sale — its price, what it includes, and the limits it carries — optionally narrowed to one `?category=`.
+
+The prices are what the CHECKOUT will charge: any active promotion is applied before they leave the store, so a reader never applies a discount a second time and a quote can never disagree with the sale.
+
+It is the public catalog and needs no tenant: this is what anyone may buy.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingPlansRequest
@@ -1785,13 +2314,17 @@ func (r BillingAPIGetBillingPortalMethodsRequest) Execute() (*http.Response, err
 }
 
 /*
-GetBillingPortalMethods Cards saved against the caller's org, masked — the portal read
+GetBillingPortalMethods Cards and accounts on file for the caller
 
-Answers the org's saved payment methods as masked descriptors: brand, last four, expiry and the processor's reusable reference. No card number and no security code exist here to return; both live at the processor and never enter this system.
+Answers every payment method the caller has saved, newest first.
 
-This is the SERVICE-TOKEN face of the same list a customer reads at /v1/billing/methods. Both are served here, in this process, and answer the same rows; they are two addresses because they admit two different principals, not because either forwards to the other.
+A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.
 
-The customer filter is pinned to the VALIDATED caller before the handler runs, so a browser sees only its own subject's cards whatever customerId it sends; only a caller holding the internal service token may name the subject, and the org it may name it within is fixed by the gateway. Cross-tenant is closed by the org namespace for both, so an id or a subject from another org resolves to nothing. A caller who is neither is refused before the read.
+The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.
+
+`/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.
+
+A store that cannot be read answers an EMPTY LIST rather than a failure: the saved-cards panel renders empty instead of breaking the page around it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingPortalMethodsRequest
@@ -1872,14 +2405,23 @@ type BillingAPIGetBillingSettingsRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingSettingsRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingSettingsRequest) Execute() (*PaymentConfig, *http.Response, error) {
 	return r.ApiService.GetBillingSettingsExecute(r)
 }
 
 /*
-GetBillingSettings The public payment-provider config your card form needs to initialize
+GetBillingSettings Answers the PUBLIC half of this org's processor configuration — the ids a browser needs to tokenize a card, and the environment it must tokenize against.
 
-Answers the Square application id, location id, environment and live flag the browser's card iframe boots against — public values only, never a secret. Resolution lives in one place shared with the public tenant projection, so the card form can never initialize against a different Square application than the one commerce will actually charge. It deliberately does NOT hydrate credentials from KMS: the dialog blocks on this call, so it answers from the org and the deployment environment without a round trip, and an org with no per-org credentials gets the deployment's own public app id.
+Answers the PUBLIC half of this org's processor configuration — the ids a
+browser needs to tokenize a card, and the environment it must tokenize
+against.
+
+It carries no secret: an application id is published to every checkout page by
+design. What matters is that it names the SAME processor account the charge
+will be made on, because a card vaulted against one account and charged
+against another is a card that saves and then cannot be used.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingSettingsRequest
@@ -1892,16 +2434,19 @@ func (a *BillingAPIService) GetBillingSettings(ctx context.Context) BillingAPIGe
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingSettingsExecute(r BillingAPIGetBillingSettingsRequest) (*http.Response, error) {
+//
+//	@return PaymentConfig
+func (a *BillingAPIService) GetBillingSettingsExecute(r BillingAPIGetBillingSettingsRequest) (*PaymentConfig, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaymentConfig
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingSettings")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/settings"
@@ -1920,7 +2465,7 @@ func (a *BillingAPIService) GetBillingSettingsExecute(r BillingAPIGetBillingSett
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1929,19 +2474,19 @@ func (a *BillingAPIService) GetBillingSettingsExecute(r BillingAPIGetBillingSett
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1949,10 +2494,19 @@ func (a *BillingAPIService) GetBillingSettingsExecute(r BillingAPIGetBillingSett
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingSubscriptionsRequest struct {
@@ -1960,14 +2514,20 @@ type BillingAPIGetBillingSubscriptionsRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingSubscriptionsRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingSubscriptionsRequest) Execute() (*Subscriptions, *http.Response, error) {
 	return r.ApiService.GetBillingSubscriptionsExecute(r)
 }
 
 /*
-GetBillingSubscriptions List your org's subscriptions
+GetBillingSubscriptions Lists the plans the caller holds, with the count beside them.
 
-Returns the caller org's subscriptions with a count, narrowable by userId or status, read from that org's own namespaced store. The org is the gateway-validated one and the caller's billing subject is pinned before the handler runs. A request with no resolvable org gets an empty list and a zero count rather than an error.
+Lists the plans the caller holds, with the count beside them.
+
+It is scoped to the caller's own org, so a query cannot widen it to another
+customer's. An org on nothing is an empty list, not a refusal — being on no
+plan is an answer.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingSubscriptionsRequest
@@ -1980,16 +2540,19 @@ func (a *BillingAPIService) GetBillingSubscriptions(ctx context.Context) Billing
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingSubscriptionsExecute(r BillingAPIGetBillingSubscriptionsRequest) (*http.Response, error) {
+//
+//	@return Subscriptions
+func (a *BillingAPIService) GetBillingSubscriptionsExecute(r BillingAPIGetBillingSubscriptionsRequest) (*Subscriptions, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Subscriptions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingSubscriptions")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/subscriptions"
@@ -2008,7 +2571,7 @@ func (a *BillingAPIService) GetBillingSubscriptionsExecute(r BillingAPIGetBillin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2017,19 +2580,19 @@ func (a *BillingAPIService) GetBillingSubscriptionsExecute(r BillingAPIGetBillin
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2037,10 +2600,19 @@ func (a *BillingAPIService) GetBillingSubscriptionsExecute(r BillingAPIGetBillin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingTierRequest struct {
@@ -2048,14 +2620,25 @@ type BillingAPIGetBillingTierRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingTierRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingTierRequest) Execute() (*Tier, *http.Response, error) {
 	return r.ApiService.GetBillingTierExecute(r)
 }
 
 /*
-GetBillingTier The subject's plan tier and the balance a metered call is admitted on
+GetBillingTier Answers which tier the caller is on, what it allows, and what is left to spend.
 
-Answers one subject's resolved tier — name, display name, agent ceiling and allowed models — with the balance that admits their next metered call: prepaidAvailable, creditsRemaining, dailyRemaining and the effectiveAvailable those fold into. The ai router reads it per request to pick that caller's rate-limit tier. It sits on the org-resolving chain because a tier is org state, and the subject keys are pinned to the validated caller before the handler runs, so a browser read is always the caller's own; user is required, which only a service-to-service caller can omit and be refused 400 for. The tier is an upstream tier claim, or an explicit tier override, when either is present — that is the service-to-service contract — and is otherwise DERIVED from the org's active and trialing subscriptions, the highest one winning, its paid-ness read from the plan catalog by slug rather than from the subscription's own stored copy. The rule to get right is effectiveAvailable and not prepaidAvailable: granted credits spend too, credits first, so an account funded only by a grant reads zero prepaid while holding real spendable credit — and with the daily term zero on every tier there is no free allowance behind it, so a zero-balance account is gated. A subscription-store error answers 500 rather than downgrading to free, so a transient failure never reports a paid subscriber as unsubscribed.
+Answers which tier the caller is on, what it allows, and what is left to spend.
+
+`effectiveAvailable` is the ONLY figure to compare against zero. The others are
+its parts — prepaid money, granted credits and the daily term are three sources
+of one spend, not three balances to add up a second time.
+
+A tier that cannot be READ is an error, never Free. The router in front of the
+models maps any non-2xx to Free, so answering Free from a question nobody could
+answer would pin every paying customer to the most restrictive row with nothing
+anywhere to find.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingTierRequest
@@ -2068,16 +2651,19 @@ func (a *BillingAPIService) GetBillingTier(ctx context.Context) BillingAPIGetBil
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingTierExecute(r BillingAPIGetBillingTierRequest) (*http.Response, error) {
+//
+//	@return Tier
+func (a *BillingAPIService) GetBillingTierExecute(r BillingAPIGetBillingTierRequest) (*Tier, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Tier
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingTier")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/tier"
@@ -2096,7 +2682,7 @@ func (a *BillingAPIService) GetBillingTierExecute(r BillingAPIGetBillingTierRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2105,19 +2691,19 @@ func (a *BillingAPIService) GetBillingTierExecute(r BillingAPIGetBillingTierRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2125,27 +2711,63 @@ func (a *BillingAPIService) GetBillingTierExecute(r BillingAPIGetBillingTierRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingTransactionsRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
+	currency   *string
+	limit      *string
+	offset     *string
 }
 
-func (r BillingAPIGetBillingTransactionsRequest) Execute() (*http.Response, error) {
+// Currency filters to one currency. Empty reads every currency.
+func (r BillingAPIGetBillingTransactionsRequest) Currency(currency string) BillingAPIGetBillingTransactionsRequest {
+	r.currency = &currency
+	return r
+}
+
+// Limit is the page size; absent or non-positive takes the default 100.
+func (r BillingAPIGetBillingTransactionsRequest) Limit(limit string) BillingAPIGetBillingTransactionsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Offset is how far into the history the page starts.
+func (r BillingAPIGetBillingTransactionsRequest) Offset(offset string) BillingAPIGetBillingTransactionsRequest {
+	r.offset = &offset
+	return r
+}
+
+func (r BillingAPIGetBillingTransactionsRequest) Execute() (*Transactions, *http.Response, error) {
 	return r.ApiService.GetBillingTransactionsExecute(r)
 }
 
 /*
-GetBillingTransactions List the movements on your own balance, newest first
+GetBillingTransactions Answers one page of the caller's own ledger, newest first: what moved, how much, when, and what it was tagged with.
 
-Returns the caller's own ledger movements — every credit and debit against the subject the usage gate charges — newest first, with a count and the subject they belong to, so a customer can reconcile a bill against the acts that produced it. Paging is limit and offset, and the currency can be narrowed.
+Answers one page of the caller's own ledger, newest first: what moved, how
+much, when, and what it was tagged with.
 
-The subject is NOT the caller's to choose. The handler filters on a user parameter, and that parameter is overwritten with the caller's own billing subject before the handler runs — so naming another subject returns your own rows rather than theirs, and the read can never disagree with the wallet it describes. An unauthenticated call is 401 rather than 403, because a browser re-authenticates on the first and only reports the second. No movements is an empty list, not an error.
+`count` is the size of the WHOLE history rather than of the page, which is how
+a reader knows there is more to ask for, and `user` echoes the wallet the page
+was read for — the same subject the spend gate debits, so a customer can see
+which account answered rather than guessing from their own token.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingTransactionsRequest
@@ -2158,16 +2780,19 @@ func (a *BillingAPIService) GetBillingTransactions(ctx context.Context) BillingA
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingTransactionsExecute(r BillingAPIGetBillingTransactionsRequest) (*http.Response, error) {
+//
+//	@return Transactions
+func (a *BillingAPIService) GetBillingTransactionsExecute(r BillingAPIGetBillingTransactionsRequest) (*Transactions, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Transactions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingTransactions")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/transactions"
@@ -2176,6 +2801,15 @@ func (a *BillingAPIService) GetBillingTransactionsExecute(r BillingAPIGetBilling
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.currency != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currency", r.currency, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2186,7 +2820,7 @@ func (a *BillingAPIService) GetBillingTransactionsExecute(r BillingAPIGetBilling
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2195,19 +2829,19 @@ func (a *BillingAPIService) GetBillingTransactionsExecute(r BillingAPIGetBilling
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2215,10 +2849,19 @@ func (a *BillingAPIService) GetBillingTransactionsExecute(r BillingAPIGetBilling
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingUsageRequest struct {
@@ -2439,14 +3082,21 @@ type BillingAPIGetBillingUsageRollupRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingUsageRollupRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingUsageRollupRequest) Execute() (*Rollup, *http.Response, error) {
 	return r.ApiService.GetBillingUsageRollupExecute(r)
 }
 
 /*
-GetBillingUsageRollup What plan you are on and how much of it is left, beside the wallet
+GetBillingUsageRollup Answers the caller's month: what their plan includes, what has been consumed against it, and the wallet beside it.
 
-Answers the one read the account page renders: the subject's resolved plan, the plan's included monthly allotment beside what was actually granted this period, consumption capped at that grant, the overage past it, and the spendable wallet (balance minus holds) — all for the current UTC month, every figure derived from the same transactions the gateway's balance gate reads, so this read can never disagree with the gate that admits the next call. It rides the same pinned chain as the sibling reads: the user parameter is overwritten with the validated caller's own billing subject before the handler runs, so it can never name another tenant; user is required, which only a service-to-service caller can omit and be refused 400 for, and plan is optional — omitted, it is resolved from the subject's subscription. The rule to get right is that the two sides are DIFFERENT MONEY: the included figures are usage the subscription grants and the wallet is prepaid credit the customer bought, so a reader who sums them invents a balance nobody holds — and before the period's first allotment grant runs, monthlyCents shows the plan's entitlement while grantedCents is zero, which is the figure consumption actually draws down.
+Answers the caller's month: what their plan includes, what has been consumed
+against it, and the wallet beside it.
+
+The two blocks are SEPARATE monies and are never added. One is usage a plan
+granted; the other is prepaid credit bought with a card. Their sum is not a
+number anyone holds, and a reader that formed it would be inventing a balance.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingUsageRollupRequest
@@ -2459,16 +3109,19 @@ func (a *BillingAPIService) GetBillingUsageRollup(ctx context.Context) BillingAP
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingUsageRollupExecute(r BillingAPIGetBillingUsageRollupRequest) (*http.Response, error) {
+//
+//	@return Rollup
+func (a *BillingAPIService) GetBillingUsageRollupExecute(r BillingAPIGetBillingUsageRollupRequest) (*Rollup, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Rollup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingUsageRollup")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/usage/rollup"
@@ -2487,7 +3140,7 @@ func (a *BillingAPIService) GetBillingUsageRollupExecute(r BillingAPIGetBillingU
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2496,19 +3149,19 @@ func (a *BillingAPIService) GetBillingUsageRollupExecute(r BillingAPIGetBillingU
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2516,10 +3169,19 @@ func (a *BillingAPIService) GetBillingUsageRollupExecute(r BillingAPIGetBillingU
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingWireRequest struct {
@@ -2527,18 +3189,26 @@ type BillingAPIGetBillingWireRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIGetBillingWireRequest) Execute() (*http.Response, error) {
+func (r BillingAPIGetBillingWireRequest) Execute() (*WireInstructions, *http.Response, error) {
 	return r.ApiService.GetBillingWireExecute(r)
 }
 
 /*
-GetBillingWire Where to wire funds, and the reference that credits them to you
+GetBillingWire Answers where to send a wire top-up: the receiving bank details, with the caller's own payment reference.
 
-Answers the receiving bank details for the brand this deployment serves — the account the funds actually land in, hydrated per brand rather than hard-coded — together with the payment reference to put on the transfer.
+Answers where to send a wire top-up: the receiving bank details, with the
+caller's own payment reference.
 
-THE REFERENCE IS THE POINT. It carries your own billing key, and it is how an arriving wire is attributed to your account; a transfer sent without it arrives as an unidentified receipt. That is why this read is gated at all: an unpinned caller would be handed an unattributable reference.
+The account is the SERVING BRAND'S — resolved from the host the customer is
+paying on, so paying on one brand never shows another's bank — and the
+reference carries the caller's billing key, which is how an arriving wire
+names who it credits. Nothing mints here; a receipt is settled by an operator
+once the bank confirms it.
 
-Reading it credits nothing and reserves nothing. A wire is settled by an operator when the bank shows the funds, so the balance moves on receipt, not on this call.
+It is all-or-nothing: no configured account is 503 rather than a partial form,
+because nobody can wire to three fields out of five.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIGetBillingWireRequest
@@ -2551,16 +3221,19 @@ func (a *BillingAPIService) GetBillingWire(ctx context.Context) BillingAPIGetBil
 }
 
 // Execute executes the request
-func (a *BillingAPIService) GetBillingWireExecute(r BillingAPIGetBillingWireRequest) (*http.Response, error) {
+//
+//	@return WireInstructions
+func (a *BillingAPIService) GetBillingWireExecute(r BillingAPIGetBillingWireRequest) (*WireInstructions, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WireInstructions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingWire")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/wire"
@@ -2579,7 +3252,7 @@ func (a *BillingAPIService) GetBillingWireExecute(r BillingAPIGetBillingWireRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2588,19 +3261,19 @@ func (a *BillingAPIService) GetBillingWireExecute(r BillingAPIGetBillingWireRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2608,10 +3281,19 @@ func (a *BillingAPIService) GetBillingWireExecute(r BillingAPIGetBillingWireRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetInvoiceRequest struct {
@@ -2620,7 +3302,7 @@ type BillingAPIGetInvoiceRequest struct {
 	id         string
 }
 
-func (r BillingAPIGetInvoiceRequest) Execute() (*InvoiceOut, *http.Response, error) {
+func (r BillingAPIGetInvoiceRequest) Execute() (*Invoice, *http.Response, error) {
 	return r.ApiService.GetInvoiceExecute(r)
 }
 
@@ -2648,13 +3330,13 @@ func (a *BillingAPIService) GetInvoice(ctx context.Context, id string) BillingAP
 
 // Execute executes the request
 //
-//	@return InvoiceOut
-func (a *BillingAPIService) GetInvoiceExecute(r BillingAPIGetInvoiceRequest) (*InvoiceOut, *http.Response, error) {
+//	@return Invoice
+func (a *BillingAPIService) GetInvoiceExecute(r BillingAPIGetInvoiceRequest) (*Invoice, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InvoiceOut
+		localVarReturnValue *Invoice
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetInvoice")
@@ -2729,7 +3411,7 @@ type BillingAPIIssueInvoiceRequest struct {
 	id         string
 }
 
-func (r BillingAPIIssueInvoiceRequest) Execute() (*InvoiceOut, *http.Response, error) {
+func (r BillingAPIIssueInvoiceRequest) Execute() (*Invoice, *http.Response, error) {
 	return r.ApiService.IssueInvoiceExecute(r)
 }
 
@@ -2759,13 +3441,13 @@ func (a *BillingAPIService) IssueInvoice(ctx context.Context, id string) Billing
 
 // Execute executes the request
 //
-//	@return InvoiceOut
-func (a *BillingAPIService) IssueInvoiceExecute(r BillingAPIIssueInvoiceRequest) (*InvoiceOut, *http.Response, error) {
+//	@return Invoice
+func (a *BillingAPIService) IssueInvoiceExecute(r BillingAPIIssueInvoiceRequest) (*Invoice, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InvoiceOut
+		localVarReturnValue *Invoice
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.IssueInvoice")
@@ -2838,16 +3520,32 @@ type BillingAPIPatchBillingAlertsByIdRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
 	id         string
+	alertPatch *AlertPatch
 }
 
-func (r BillingAPIPatchBillingAlertsByIdRequest) Execute() (*http.Response, error) {
+func (r BillingAPIPatchBillingAlertsByIdRequest) AlertPatch(alertPatch AlertPatch) BillingAPIPatchBillingAlertsByIdRequest {
+	r.alertPatch = &alertPatch
+	return r
+}
+
+func (r BillingAPIPatchBillingAlertsByIdRequest) Execute() (*Alert, *http.Response, error) {
 	return r.ApiService.PatchBillingAlertsByIdExecute(r)
 }
 
 /*
-PatchBillingAlertsById Change one of your org's spend caps
+PatchBillingAlertsById Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
 
-Applies only the fields the body actually carries — title, threshold, project, service, enforce, softPct, rateLimitRpm — and leaves the rest as stored, answering the merged row with its current period spend. Requires an ORG ADMIN, a platform admin, or the internal service token, for the same reason creation does: a member who could edit the cap could raise it to nothing or drop it to a punitive floor. Ownership is checked per row and a cap the caller does not own is refused as 404, never 403, so the id space cannot be probed.
+Changes one spend cap: raise or lower the ceiling, flip enforcement, retune
+the rate limit.
+
+Only the fields the body carries move. Every mutable field is optional, and an
+absent one is PRESERVED rather than reset — so a change that flips enforcement
+cannot silently wipe the threshold it enforces.
+
+A cap belonging to another org is a 404, not a 403: a guessed id must not
+become an oracle for what anyone else holds.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -2862,16 +3560,19 @@ func (a *BillingAPIService) PatchBillingAlertsById(ctx context.Context, id strin
 }
 
 // Execute executes the request
-func (a *BillingAPIService) PatchBillingAlertsByIdExecute(r BillingAPIPatchBillingAlertsByIdRequest) (*http.Response, error) {
+//
+//	@return Alert
+func (a *BillingAPIService) PatchBillingAlertsByIdExecute(r BillingAPIPatchBillingAlertsByIdRequest) (*Alert, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Alert
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PatchBillingAlertsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/alerts/{id}"
@@ -2880,9 +3581,12 @@ func (a *BillingAPIService) PatchBillingAlertsByIdExecute(r BillingAPIPatchBilli
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.alertPatch == nil {
+		return localVarReturnValue, nil, reportError("alertPatch is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2891,28 +3595,30 @@ func (a *BillingAPIService) PatchBillingAlertsByIdExecute(r BillingAPIPatchBilli
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.alertPatch
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2920,25 +3626,51 @@ func (a *BillingAPIService) PatchBillingAlertsByIdExecute(r BillingAPIPatchBilli
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIPostBillingAlertsRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
+	alertSpec  *AlertSpec
 }
 
-func (r BillingAPIPostBillingAlertsRequest) Execute() (*http.Response, error) {
+func (r BillingAPIPostBillingAlertsRequest) AlertSpec(alertSpec AlertSpec) BillingAPIPostBillingAlertsRequest {
+	r.alertSpec = &alertSpec
+	return r
+}
+
+func (r BillingAPIPostBillingAlertsRequest) Execute() (*Alert, *http.Response, error) {
 	return r.ApiService.PostBillingAlertsExecute(r)
 }
 
 /*
-PostBillingAlerts Set a spend cap or rate limit on your org
+PostBillingAlerts Opens a spend cap on the caller's own org.
 
-Creates a cap for the caller's own org and answers the stored row with its current period spend. A spend cap is a FINANCIAL SAFETY control, so writing one requires an ORG ADMIN, a platform admin, or the internal service token — a plain authenticated member is refused 403, because a member who could delete the cap could uncap the org's spend and a member who could set a one-cent enforcing cap could deny the whole org. The cap is always keyed to the caller's own billing subject: a userId in the body is overwritten, never honored, so a cap cannot be planted on another subject. At least one of a positive threshold or a positive rateLimitRpm is required, softPct must be within 0 to 100, and an org that has reached its row limit is refused 400.
+Opens a spend cap on the caller's own org.
+
+At least one limit must mean something: a threshold above zero (a spend cap)
+or a requests-per-minute above zero (a rate limit). A row that bounds neither
+is refused rather than stored, because a ceiling nothing measures against is a
+ceiling a customer believes in and does not have.
+
+The cap is keyed on the caller's own billing subject, resolved server-side —
+the SAME key the verdict looks it up under, which is what makes enforcement
+bind rather than merely record.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingAlertsRequest
@@ -2951,16 +3683,19 @@ func (a *BillingAPIService) PostBillingAlerts(ctx context.Context) BillingAPIPos
 }
 
 // Execute executes the request
-func (a *BillingAPIService) PostBillingAlertsExecute(r BillingAPIPostBillingAlertsRequest) (*http.Response, error) {
+//
+//	@return Alert
+func (a *BillingAPIService) PostBillingAlertsExecute(r BillingAPIPostBillingAlertsRequest) (*Alert, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Alert
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingAlerts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/alerts"
@@ -2968,9 +3703,12 @@ func (a *BillingAPIService) PostBillingAlertsExecute(r BillingAPIPostBillingAler
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.alertSpec == nil {
+		return localVarReturnValue, nil, reportError("alertSpec is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2979,28 +3717,30 @@ func (a *BillingAPIService) PostBillingAlertsExecute(r BillingAPIPostBillingAler
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.alertSpec
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3008,29 +3748,55 @@ func (a *BillingAPIService) PostBillingAlertsExecute(r BillingAPIPostBillingAler
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIPostBillingCryptoDepositRequest struct {
-	ctx        context.Context
-	ApiService *BillingAPIService
+	ctx         context.Context
+	ApiService  *BillingAPIService
+	cryptoAsset *CryptoAsset
 }
 
-func (r BillingAPIPostBillingCryptoDepositRequest) Execute() (*http.Response, error) {
+func (r BillingAPIPostBillingCryptoDepositRequest) CryptoAsset(cryptoAsset CryptoAsset) BillingAPIPostBillingCryptoDepositRequest {
+	r.cryptoAsset = &cryptoAsset
+	return r
+}
+
+func (r BillingAPIPostBillingCryptoDepositRequest) Execute() (*CryptoDeposit, *http.Response, error) {
 	return r.ApiService.PostBillingCryptoDepositExecute(r)
 }
 
 /*
-PostBillingCryptoDeposit Get a deposit address for a crypto top-up
+PostBillingCryptoDeposit Issues a deposit address the caller can send crypto to, on the asset they ask for.
 
-Mints a deposit address held by the MPC signer fleet — no single party holds the key — on the chain and token you name, and returns it with the intent that tracks it.
+Issues a deposit address the caller can send crypto to, on the asset they ask
+for.
 
-The account credited is the PINNED caller's, never a value in the body, so a deposit cannot be aimed at someone else's balance. A caller who already has an open intent gets that same address back rather than a new one, so reloading the page cannot spray keygens across the signer fleet.
+The address credits the CALLER'S own wallet and nobody else's: the payer is
+the validated principal, never a body value. Asking again reuses the caller's
+open intent rather than minting a second address, so a refresh cannot spray
+key generations — and a payer who sent to the address they saw earlier is
+still credited.
 
-NO BALANCE MOVES HERE. This hands out an address; the chain watcher credits the account when a real transfer confirms, which is also why an address handed out and never funded costs nothing and expires nothing.
+No balance moves here. The chain watcher credits on real confirmations, so
+what comes back is an address and a status, not a receipt.
+
+An asset this rail cannot mint on is 400 — ask for another. A rail that is
+shut for that asset is 503 — nothing sent now can be credited.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingCryptoDepositRequest
@@ -3043,16 +3809,19 @@ func (a *BillingAPIService) PostBillingCryptoDeposit(ctx context.Context) Billin
 }
 
 // Execute executes the request
-func (a *BillingAPIService) PostBillingCryptoDepositExecute(r BillingAPIPostBillingCryptoDepositRequest) (*http.Response, error) {
+//
+//	@return CryptoDeposit
+func (a *BillingAPIService) PostBillingCryptoDepositExecute(r BillingAPIPostBillingCryptoDepositRequest) (*CryptoDeposit, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CryptoDeposit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingCryptoDeposit")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/crypto/deposit"
@@ -3060,9 +3829,12 @@ func (a *BillingAPIService) PostBillingCryptoDepositExecute(r BillingAPIPostBill
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.cryptoAsset == nil {
+		return localVarReturnValue, nil, reportError("cryptoAsset is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3071,28 +3843,30 @@ func (a *BillingAPIService) PostBillingCryptoDepositExecute(r BillingAPIPostBill
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.cryptoAsset
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3100,10 +3874,19 @@ func (a *BillingAPIService) PostBillingCryptoDepositExecute(r BillingAPIPostBill
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIPostBillingMethodsRequest struct {
@@ -3116,13 +3899,17 @@ func (r BillingAPIPostBillingMethodsRequest) Execute() (*http.Response, error) {
 }
 
 /*
-PostBillingMethods Save a card for later charges
+PostBillingMethods Save a card or account for the caller
 
-Vaults the card the processor already holds — you send its one-time reference, never a card number — as a reusable card on file, and stores the billing address with it. That vaulted card is what a subscription renewal or an auto-recharge charges later, which is why saving one is the step that makes a monthly plan billable at all.
+Vaults the instrument at the processor and stores the row.
 
-It charges nothing. Saving a card moves no money; the first charge is whatever arrangement you then attach it to.
+A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.
 
-The subject is pinned from the validated caller and OVERWRITES the customerId in the body while leaving the card fields untouched, so a card can only ever be attached to the caller's OWN account whatever the body claims. That pin is the whole control on this write, not decoration: this is the one handler in the family that reads its subject from the body.
+The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.
+
+`/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.
+
+Saving a card ALREADY on file answers with the row that already holds it rather than stacking a duplicate — 200 for that, 201 for a genuinely new row, so a client can tell which happened. A card the processor declines is 402 and nothing is stored.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingMethodsRequest
@@ -3201,16 +3988,28 @@ func (a *BillingAPIService) PostBillingMethodsExecute(r BillingAPIPostBillingMet
 type BillingAPIPostBillingModeRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
+	modeIn     *ModeIn
 }
 
-func (r BillingAPIPostBillingModeRequest) Execute() (*http.Response, error) {
+func (r BillingAPIPostBillingModeRequest) ModeIn(modeIn ModeIn) BillingAPIPostBillingModeRequest {
+	r.modeIn = &modeIn
+	return r
+}
+
+func (r BillingAPIPostBillingModeRequest) Execute() (*Mode, *http.Response, error) {
 	return r.ApiService.PostBillingModeExecute(r)
 }
 
 /*
-PostBillingMode Move an org between sandbox and live billing
+PostBillingMode Moves this org between sandbox money and real money.
 
-Flips the org's live flag, which is the single authority for both the payment environment and the ledger bucket its transactions land in. This is a money-MINT control, not a customer action: it is gated on the internal service token AND platform scope, so an ORG ADMIN CANNOT move their own org — otherwise a tenant could drop itself into sandbox and stop paying. The rule most callers get wrong is the default: an org that has never been flipped transacts in SANDBOX, which is why a production-credentialled deployment can still hand a buyer a sandbox card form. When the deployment pins the payment environment explicitly, that pin governs and this flag only marks the transactions.
+Moves this org between sandbox money and real money.
+
+It decides whether a charge hits a real card, so it is the one posture change
+that is not self-service: the platform bar, never an org owner, because an org
+that could put itself in test mode could take priced work for free.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingModeRequest
@@ -3223,16 +4022,19 @@ func (a *BillingAPIService) PostBillingMode(ctx context.Context) BillingAPIPostB
 }
 
 // Execute executes the request
-func (a *BillingAPIService) PostBillingModeExecute(r BillingAPIPostBillingModeRequest) (*http.Response, error) {
+//
+//	@return Mode
+func (a *BillingAPIService) PostBillingModeExecute(r BillingAPIPostBillingModeRequest) (*Mode, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Mode
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingMode")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/mode"
@@ -3240,9 +4042,12 @@ func (a *BillingAPIService) PostBillingModeExecute(r BillingAPIPostBillingModeRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.modeIn == nil {
+		return localVarReturnValue, nil, reportError("modeIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3251,28 +4056,30 @@ func (a *BillingAPIService) PostBillingModeExecute(r BillingAPIPostBillingModeRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.modeIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3280,10 +4087,19 @@ func (a *BillingAPIService) PostBillingModeExecute(r BillingAPIPostBillingModeRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIPostBillingPortalMethodsRequest struct {
@@ -3296,11 +4112,17 @@ func (r BillingAPIPostBillingPortalMethodsRequest) Execute() (*http.Response, er
 }
 
 /*
-PostBillingPortalMethods Save a card on a subject's behalf — the portal attach
+PostBillingPortalMethods Save a card or account for the caller
 
-The service-token twin of POST /v1/billing/methods: it vaults the processor's one-time reference as a reusable card on file for the named subject, with its billing address, and moves no money doing it.
+Vaults the instrument at the processor and stores the row.
 
-It exists so an internal caller can complete the family it can already read and detach. The subject it may name is pinned to the org the gateway fixed, so the service token acts WITHIN one tenant and never across tenants; a caller holding no service token is refused before the write.
+A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.
+
+The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.
+
+`/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.
+
+Saving a card ALREADY on file answers with the row that already holds it rather than stacking a duplicate — 200 for that, 201 for a genuinely new row, so a client can tell which happened. A card the processor declines is 402 and nothing is stored.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingPortalMethodsRequest
@@ -3386,9 +4208,13 @@ func (r BillingAPIPostBillingRechargeRunAllRequest) Execute() (*http.Response, e
 }
 
 /*
-PostBillingRechargeRunAll Platform sweep: top up every org whose balance has fallen below its own threshold
+PostBillingRechargeRunAll Recharge every org that has fallen below its threshold
 
-Walks every organization and, for those that enabled auto-recharge and whose available balance (balance minus holds) has fallen under their configured threshold, charges their default payment method off-session and credits the balance, answering a per-org result row for each one it touched. This is the platform cron's door, not a customer's: it is gated on the internal service token AND platform scope, so an org admin cannot run the fleet-wide sweep. An org above its threshold is skipped silently; an org with no default payment method is reported as an uncharged row with the reason rather than failing the whole run.
+Sweeps every organization and, for those with auto-recharge on whose available balance has dropped below their own threshold, charges the default card and credits the balance.
+
+It charges cards across EVERY tenant, so it is platform authority only — never an org owner, who could otherwise sweep-charge saved cards estate-wide. Its caller is a schedule, not a person.
+
+`orgs` is the population considered, not the row count: that difference is how a reader tells 'nobody was below threshold' from 'the sweep never ran'. One org's failure is reported in its own row and does not stop the rest.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingRechargeRunAllRequest
@@ -3474,9 +4300,13 @@ func (r BillingAPIPostBillingSubscribeCardRequest) Execute() (*http.Response, er
 }
 
 /*
-PostBillingSubscribeCard Subscribe to a paid plan with a card, charged for the first period immediately
+PostBillingSubscribeCard Buy a plan with a card
 
-Vaults the tokenized card as a reusable card-on-file, charges the first period, and creates the subscription — answering the subscription and invoice ids with the amount charged. The price is SERVER-AUTHORITATIVE: it is the plan's catalog price times billable seats and a client-supplied amount is never consulted, so a scripted request cannot underpay; a per-seat plan below its minimum seats is refused, and a free plan is refused outright because this address is the paid path. The card PAN never reaches this service — the browser tokenizes it and only the single-use nonce arrives here. The subject is the caller's own org, with an in-org user honored only inside that bound, and an idempotency key (or, absent one, the nonce itself) makes a retry replay the first result instead of charging twice.
+Vaults the card (or reuses one already on file), charges the plan's FIRST period at the catalog price, and opens the subscription — one act, all of it server-side.
+
+There is NO AMOUNT in the request. `level` picks which of the plan's published prices to buy at — an index, never a number — so what the card is charged is decided by the catalog and underpaying cannot be expressed.
+
+A fresh sale answers 201 with the receipt. An identical retry answers 200 with the FIRST sale's body, byte for byte, so a client cannot read a replay as a second subscription having been opened. A caller already on a paid plan is 409 rather than charged again.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingSubscribeCardRequest
@@ -3552,190 +4382,6 @@ func (a *BillingAPIService) PostBillingSubscribeCardExecute(r BillingAPIPostBill
 	return localVarHTTPResponse, nil
 }
 
-type BillingAPIPostBillingSubscriptionsByIdCancelRequest struct {
-	ctx        context.Context
-	ApiService *BillingAPIService
-	id         string
-}
-
-func (r BillingAPIPostBillingSubscriptionsByIdCancelRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostBillingSubscriptionsByIdCancelExecute(r)
-}
-
-/*
-PostBillingSubscriptionsByIdCancel Cancel a subscription, at period end by default
-
-Cancels the addressed subscription and answers its updated state, emitting the cancellation event the rest of the platform keys on. The default is to cancel AT PERIOD END — a body that fails to parse falls back to it — so the customer keeps what they paid for unless atPeriodEnd is explicitly false. The subscription is resolved inside the caller's own org namespace, so another tenant's id is a 404, and the write carries the browser anti-CSRF gate because it is reachable with an ambient cookie.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return BillingAPIPostBillingSubscriptionsByIdCancelRequest
-*/
-func (a *BillingAPIService) PostBillingSubscriptionsByIdCancel(ctx context.Context, id string) BillingAPIPostBillingSubscriptionsByIdCancelRequest {
-	return BillingAPIPostBillingSubscriptionsByIdCancelRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *BillingAPIService) PostBillingSubscriptionsByIdCancelExecute(r BillingAPIPostBillingSubscriptionsByIdCancelRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingSubscriptionsByIdCancel")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/billing/subscriptions/{id}/cancel"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type BillingAPIPostBillingSubscriptionsByIdReactivateRequest struct {
-	ctx        context.Context
-	ApiService *BillingAPIService
-	id         string
-}
-
-func (r BillingAPIPostBillingSubscriptionsByIdReactivateRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostBillingSubscriptionsByIdReactivateExecute(r)
-}
-
-/*
-PostBillingSubscriptionsByIdReactivate Undo a pending cancellation and keep the subscription running
-
-Clears the scheduled cancellation on the addressed subscription and answers its updated state. It is the inverse of cancel and applies to a subscription that is still within its period; one the engine will not reactivate is refused 400 with the reason. The subscription is resolved inside the caller's own org namespace, so another tenant's id reads as 404, and the write carries the browser anti-CSRF gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return BillingAPIPostBillingSubscriptionsByIdReactivateRequest
-*/
-func (a *BillingAPIService) PostBillingSubscriptionsByIdReactivate(ctx context.Context, id string) BillingAPIPostBillingSubscriptionsByIdReactivateRequest {
-	return BillingAPIPostBillingSubscriptionsByIdReactivateRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *BillingAPIService) PostBillingSubscriptionsByIdReactivateExecute(r BillingAPIPostBillingSubscriptionsByIdReactivateRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingSubscriptionsByIdReactivate")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/billing/subscriptions/{id}/reactivate"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type BillingAPIPostBillingTopupRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
@@ -3746,9 +4392,13 @@ func (r BillingAPIPostBillingTopupRequest) Execute() (*http.Response, error) {
 }
 
 /*
-PostBillingTopup Add credit to your balance by charging one of your saved cards
+PostBillingTopup Add funds with a card already on file
 
-Charges a card the caller already has on file, named by paymentMethodId, and credits the caller's own balance — the SAVED-card twin of topup/token, sharing the one charge-and-credit core the auto-recharge cron runs on. The credit lands on the caller's OWN billing subject: the request body's subject field is pinned to the caller before the handler sees it, so a top-up can never be redirected to another subject or outside the caller's org. It is screened for risk before any money moves, exactly as the token path is, because both credit the SPENDABLE wallet. The rule most callers get wrong is that paymentMethodId is NOT covered by that subject pin — it is a card id, not a subject key — so it is checked separately, and a card belonging to any other subject answers 404 rather than 403: a permission error would confirm the id exists, which is an ownership oracle over other people's cards.
+Charges a saved card and credits the caller's prepaid wallet.
+
+The method must belong to the caller: one that does not is NOT FOUND rather than refused, so an id cannot be probed for existence. A saved row whose card is no longer chargeable is 422 — add the card again — which is a different thing to do than a decline (402) or a bad amount (400).
+
+Retries behave exactly as they do for a token top-up: same key, same replay, same exactly-once at the processor.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingTopupRequest
@@ -3834,9 +4484,15 @@ func (r BillingAPIPostBillingTopupTokenRequest) Execute() (*http.Response, error
 }
 
 /*
-PostBillingTopupToken Add credit to your balance by charging a tokenized card once
+PostBillingTopupToken Add funds with a single-use card token
 
-Charges the single-use card token for the given amount and credits the caller's own balance, answering the transaction id and the new balance — the one-time top-up path, with no payment method saved. The amount is bounded SERVER-SIDE (roughly a one dollar floor and a five thousand dollar ceiling by deployment policy) and the check runs before any money moves, because the browser cap is not a control against a scripted request. The credit lands on the caller's OWN billing subject — the same key the usage gate debits — and can never be redirected outside the caller's org. Retries are safe: an idempotency key, or absent one the amount within a short window, replays the first result, and if that guard store is unreachable the call is refused with 503 rather than risking a second real charge.
+Charges a card token from the browser's payment SDK and credits the caller's prepaid wallet — the cold-customer path, where nothing has to be saved first.
+
+The wallet credited is the CALLER'S OWN, resolved from their signed identity. It is never a value in the request: a client-set selector is how a customer once topped up one account while their usage drew from another.
+
+`X-Idempotency-Key` makes a retry safe. With one, a repeat replays the first result; without one, the same amount from the same subject inside a short window does too. The key reaches the processor as well as our own guard, so the charge is exactly-once at the gateway even if our guard store is down.
+
+The amount is bounded server-side. A decline is 402 and nothing is credited.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingTopupTokenRequest
@@ -3912,110 +4568,18 @@ func (a *BillingAPIService) PostBillingTopupTokenExecute(r BillingAPIPostBilling
 	return localVarHTTPResponse, nil
 }
 
-type BillingAPIPostBillingWebhooksByProviderRequest struct {
+type BillingAPIRaiseInvoiceRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
-	provider   string
+	raiseIn    *RaiseIn
 }
 
-func (r BillingAPIPostBillingWebhooksByProviderRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostBillingWebhooksByProviderExecute(r)
-}
-
-/*
-PostBillingWebhooksByProvider Payment-provider webhook intake for settlement and subscription lifecycle events
-
-Accepts a payment provider's event, verifies it, records it for audit, and applies subscription lifecycle changes to the matching local row. There is no bearer here and there cannot be: the provider's SIGNATURE over the body IS the authentication, so a request with no recognized signature header is 400 and one whose signature does not verify is 401. The provider path segment is only a hint for dashboard configuration — verification picks the processor regardless of what the URL says. Redelivery is safe: an event id already recorded is acknowledged as a duplicate without re-applying any side effect, which matters because providers retry for days until they see a 2xx.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param provider
-	@return BillingAPIPostBillingWebhooksByProviderRequest
-*/
-func (a *BillingAPIService) PostBillingWebhooksByProvider(ctx context.Context, provider string) BillingAPIPostBillingWebhooksByProviderRequest {
-	return BillingAPIPostBillingWebhooksByProviderRequest{
-		ApiService: a,
-		ctx:        ctx,
-		provider:   provider,
-	}
-}
-
-// Execute executes the request
-func (a *BillingAPIService) PostBillingWebhooksByProviderExecute(r BillingAPIPostBillingWebhooksByProviderRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingWebhooksByProvider")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/billing/webhooks/{provider}"
-	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type BillingAPIRaiseInvoiceRequest struct {
-	ctx            context.Context
-	ApiService     *BillingAPIService
-	raiseInvoiceIn *RaiseInvoiceIn
-}
-
-func (r BillingAPIRaiseInvoiceRequest) RaiseInvoiceIn(raiseInvoiceIn RaiseInvoiceIn) BillingAPIRaiseInvoiceRequest {
-	r.raiseInvoiceIn = &raiseInvoiceIn
+func (r BillingAPIRaiseInvoiceRequest) RaiseIn(raiseIn RaiseIn) BillingAPIRaiseInvoiceRequest {
+	r.raiseIn = &raiseIn
 	return r
 }
 
-func (r BillingAPIRaiseInvoiceRequest) Execute() (*InvoiceOut, *http.Response, error) {
+func (r BillingAPIRaiseInvoiceRequest) Execute() (*Invoice, *http.Response, error) {
 	return r.ApiService.RaiseInvoiceExecute(r)
 }
 
@@ -4046,13 +4610,13 @@ func (a *BillingAPIService) RaiseInvoice(ctx context.Context) BillingAPIRaiseInv
 
 // Execute executes the request
 //
-//	@return InvoiceOut
-func (a *BillingAPIService) RaiseInvoiceExecute(r BillingAPIRaiseInvoiceRequest) (*InvoiceOut, *http.Response, error) {
+//	@return Invoice
+func (a *BillingAPIService) RaiseInvoiceExecute(r BillingAPIRaiseInvoiceRequest) (*Invoice, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InvoiceOut
+		localVarReturnValue *Invoice
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.RaiseInvoice")
@@ -4065,8 +4629,8 @@ func (a *BillingAPIService) RaiseInvoiceExecute(r BillingAPIRaiseInvoiceRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.raiseInvoiceIn == nil {
-		return localVarReturnValue, nil, reportError("raiseInvoiceIn is required and must be specified")
+	if r.raiseIn == nil {
+		return localVarReturnValue, nil, reportError("raiseIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4087,7 +4651,129 @@ func (a *BillingAPIService) RaiseInvoiceExecute(r BillingAPIRaiseInvoiceRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.raiseInvoiceIn
+	localVarPostBody = r.raiseIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BillingAPIReactivateSubscriptionRequest struct {
+	ctx             context.Context
+	ApiService      *BillingAPIService
+	id              string
+	subscriptionRef *SubscriptionRef
+}
+
+func (r BillingAPIReactivateSubscriptionRequest) SubscriptionRef(subscriptionRef SubscriptionRef) BillingAPIReactivateSubscriptionRequest {
+	r.subscriptionRef = &subscriptionRef
+	return r
+}
+
+func (r BillingAPIReactivateSubscriptionRequest) Execute() (*Subscription, *http.Response, error) {
+	return r.ApiService.ReactivateSubscriptionExecute(r)
+}
+
+/*
+ReactivateSubscription Put a canceled subscription back on its plan
+
+Puts a canceled subscription back on its plan.
+
+What asks for this is usually a recovered payment method or a support tool
+rather than a browser, which is most of the argument for it having an address
+at all. The engine decides whether the move is legal; a row it will not
+reactivate comes back with its own reason.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return BillingAPIReactivateSubscriptionRequest
+*/
+func (a *BillingAPIService) ReactivateSubscription(ctx context.Context, id string) BillingAPIReactivateSubscriptionRequest {
+	return BillingAPIReactivateSubscriptionRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Subscription
+func (a *BillingAPIService) ReactivateSubscriptionExecute(r BillingAPIReactivateSubscriptionRequest) (*Subscription, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Subscription
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.ReactivateSubscription")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/billing/subscriptions/{id}/reactivate"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.subscriptionRef == nil {
+		return localVarReturnValue, nil, reportError("subscriptionRef is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.subscriptionRef
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4131,7 +4817,7 @@ type BillingAPIVoidInvoiceRequest struct {
 	id         string
 }
 
-func (r BillingAPIVoidInvoiceRequest) Execute() (*InvoiceOut, *http.Response, error) {
+func (r BillingAPIVoidInvoiceRequest) Execute() (*Invoice, *http.Response, error) {
 	return r.ApiService.VoidInvoiceExecute(r)
 }
 
@@ -4160,13 +4846,13 @@ func (a *BillingAPIService) VoidInvoice(ctx context.Context, id string) BillingA
 
 // Execute executes the request
 //
-//	@return InvoiceOut
-func (a *BillingAPIService) VoidInvoiceExecute(r BillingAPIVoidInvoiceRequest) (*InvoiceOut, *http.Response, error) {
+//	@return Invoice
+func (a *BillingAPIService) VoidInvoiceExecute(r BillingAPIVoidInvoiceRequest) (*Invoice, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InvoiceOut
+		localVarReturnValue *Invoice
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.VoidInvoice")

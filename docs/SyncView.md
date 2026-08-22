@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Actor** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **string** |  | [optional] 
-**Direction** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Source** | Pointer to [**EndpointView**](EndpointView.md) |  | [optional] 
-**Target** | Pointer to [**EndpointView**](EndpointView.md) |  | [optional] 
-**Trigger** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | Pointer to **string** | bumped on every reconcile — the last-synced time | [optional] 
+**Actor** | Pointer to **string** | Actor is the identity a reconcile writes AS. It is the loop guard: a change this identity made is one we already have, so it is not synced back. | [optional] 
+**CreatedAt** | Pointer to **string** | CreatedAt is when the link was first declared, RFC3339 in UTC. | [optional] 
+**Direction** | Pointer to **string** | Direction is which way work flows: \&quot;both\&quot;, \&quot;pull\&quot; (target ← source), \&quot;push\&quot; (source → target), or \&quot;off\&quot; — which keeps the link declared and moves nothing. | [optional] 
+**Id** | Pointer to **string** | ID is the link&#39;s handle, derived from its source and target — which is what makes re-declaring the same pair an update rather than a duplicate. | [optional] 
+**Kind** | Pointer to **string** | Kind is what is being synced. \&quot;git\&quot; today; the field exists so a storage or database link is a value here rather than a second route family. | [optional] 
+**Source** | Pointer to [**EndpointView**](EndpointView.md) | Source is the side read FROM on a pull. | [optional] 
+**Target** | Pointer to [**EndpointView**](EndpointView.md) | Target is the side written TO on a push. | [optional] 
+**Trigger** | Pointer to **string** | Trigger is what starts a reconcile: \&quot;webhook\&quot; (the provider tells us), \&quot;poll\&quot; (we ask on a schedule), or \&quot;manual\&quot; (only an explicit call). | [optional] 
+**UpdatedAt** | Pointer to **string** | UpdatedAt is bumped by every reconcile, so it reads as the LAST-SYNCED time rather than the last edit. Absent until the first one runs. | [optional] 
 
 ## Methods
 

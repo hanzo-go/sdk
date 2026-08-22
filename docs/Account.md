@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Number** | Pointer to **string** |  | [optional] 
-**Party** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Name is the account&#39;s human name, for a statement&#39;s line label. | [optional] 
+**Number** | Pointer to **string** | Number is the posting key every voucher leg, rule and report references — stable, and the reason the chart is a fixed value rather than a table anybody can edit. It looks numeric and is a string: \&quot;1000\&quot; sorts and compares as text. | [optional] 
+**Party** | Pointer to **string** | Party marks the account as carrying a SUBLEDGER — receivable is money owed to us, payable money we owe — so a leg posted here also writes a payment-ledger row against a counterparty. Absent means no subledger: a bank, wallet, revenue or cost account tracks no counterparty at all. | [optional] 
+**Type** | Pointer to **string** | Type is the account&#39;s fundamental class, which is also its NORMAL balance side: asset and expense are debit-normal, liability, income and equity credit-normal. | [optional] 
 
 ## Methods
 

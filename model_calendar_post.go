@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,7 +23,7 @@ type CalendarPost struct {
 	Body *string `json:"body,omitempty"`
 	// Channel is the target network: x, facebook, instagram, linkedin, tiktok, youtube or threads. Required — a post must name where it goes.
 	Channel *string `json:"channel,omitempty"`
-	// CreatedAt and UpdatedAt are unix seconds, both server-assigned.
+	// CreatedAt is unix seconds when the post was added, server-assigned and never rewritten.
 	CreatedAt *int32 `json:"createdAt,omitempty"`
 	// Error is the exact reason the last publish attempt failed — the honest record behind a \"failed\" status, never a faked success.
 	Error *string `json:"error,omitempty"`
@@ -36,8 +36,9 @@ type CalendarPost struct {
 	// Status is draft, scheduled, published, failed or canceled. Server-owned.
 	Status *string `json:"status,omitempty"`
 	// Title is the post's internal label, capped at 1024 bytes.
-	Title     *string `json:"title,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
+	Title *string `json:"title,omitempty"`
+	// UpdatedAt is unix seconds of the last write, server-assigned. The durable sweep writes too — claiming a due post, publishing it and recording a failure each bump it — so this moves without anyone editing the post.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 }
 
 // NewCalendarPost instantiates a new CalendarPost object

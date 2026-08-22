@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,20 +19,26 @@ var _ MappedNullable = &ProjectsUpdate{}
 
 // ProjectsUpdate struct for ProjectsUpdate
 type ProjectsUpdate struct {
+	// CacheControl replaces the Cache-Control policy the edge serves this site's HTML under. Absent leaves it.
 	CacheControl *string `json:"cacheControl,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	Framework    *string `json:"framework,omitempty"`
+	// Description replaces the one-line summary. Absent leaves it.
+	Description *string `json:"description,omitempty"`
+	// Framework replaces the build hint. It affects the NEXT build only — nothing already deployed is rebuilt.
+	Framework *string `json:"framework,omitempty"`
 	// Hidden is MODERATION, and the only admin-gated field on this body: it pulls a public project out of the catalogue from admin.hanzo.ai without editing the publisher's own visibility choice, so un-hiding restores exactly what they asked for. A tenant sending it is ignored.
-	Hidden       *bool               `json:"hidden,omitempty"`
-	HiddenReason *string             `json:"hiddenReason,omitempty"`
-	License      *string             `json:"license,omitempty"`
-	Name         *string             `json:"name,omitempty"`
-	Repo         *ProjectsCreateRepo `json:"repo,omitempty"`
+	Hidden *bool `json:"hidden,omitempty"`
+	// HiddenReason records WHY moderation hid it, so the action can be explained and reviewed later. Admin-gated like hidden itself.
+	HiddenReason *string `json:"hiddenReason,omitempty"`
+	// License is the terms that upstream work carries, with the same clear-versus- leave rule.
+	License *string `json:"license,omitempty"`
+	// Name replaces the display name. Absent leaves it; the slug never moves with it.
+	Name *string             `json:"name,omitempty"`
+	Repo *ProjectsUpdateRepo `json:"repo,omitempty"`
 	// Slug is the project to update, from the path. The URL is the addressing authority — a `slug` in the body cannot move the write to another project.
 	Slug *string `json:"slug,omitempty"`
-	// Tags sets the site's browser tag config: platform slug → non-secret pixel id (e.g. {\"ga4\":\"G-…\",\"meta\":\"…\"}). track.js injects these first-party and the server CAPI reads them, per site. Absent LEAVES them; a present object REPLACES the set (send {} to clear). The ids are public — they ship in the page — so this is not the SECRET path (a CAPI token is sealed via POST /v1/destinations).
+	// Tags sets the site's browser tag config: platform slug → non-secret pixel id (e.g. {\"ga4\":\"G-…\",\"meta\":\"…\"}). track.js injects these first-party and the server CAPI reads them, per site. Absent LEAVES them; a present object REPLACES the set (send {} to clear). The ids are public — they ship in the page — so this is not the SECRET path (a CAPI token is sealed via POST /v1/destination).
 	Tags map[string]string `json:"tags,omitempty"`
-	// Upstream/License credit the third-party work this app was published from — settable after the fact, because the demos that need crediting most are the ones already live. Pointers so \"\" clears a credit and absent leaves it.
+	// Upstream credits the third-party work this project was published from, and is settable after the fact because the live demos are the ones that most need crediting. An explicit empty string CLEARS the credit; absent leaves it.
 	Upstream *string `json:"upstream,omitempty"`
 	// Visibility flips an existing project between \"public\" and \"private\". Same ONE rule as at create: public is free, private needs a paid plan.
 	Visibility *string `json:"visibility,omitempty"`
@@ -280,9 +286,9 @@ func (o *ProjectsUpdate) SetName(v string) {
 }
 
 // GetRepo returns the Repo field value if set, zero value otherwise.
-func (o *ProjectsUpdate) GetRepo() ProjectsCreateRepo {
+func (o *ProjectsUpdate) GetRepo() ProjectsUpdateRepo {
 	if o == nil || IsNil(o.Repo) {
-		var ret ProjectsCreateRepo
+		var ret ProjectsUpdateRepo
 		return ret
 	}
 	return *o.Repo
@@ -290,7 +296,7 @@ func (o *ProjectsUpdate) GetRepo() ProjectsCreateRepo {
 
 // GetRepoOk returns a tuple with the Repo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsUpdate) GetRepoOk() (*ProjectsCreateRepo, bool) {
+func (o *ProjectsUpdate) GetRepoOk() (*ProjectsUpdateRepo, bool) {
 	if o == nil || IsNil(o.Repo) {
 		return nil, false
 	}
@@ -306,8 +312,8 @@ func (o *ProjectsUpdate) HasRepo() bool {
 	return false
 }
 
-// SetRepo gets a reference to the given ProjectsCreateRepo and assigns it to the Repo field.
-func (o *ProjectsUpdate) SetRepo(v ProjectsCreateRepo) {
+// SetRepo gets a reference to the given ProjectsUpdateRepo and assigns it to the Repo field.
+func (o *ProjectsUpdate) SetRepo(v ProjectsUpdateRepo) {
 	o.Repo = &v
 }
 

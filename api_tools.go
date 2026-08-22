@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -21,6 +21,313 @@ import (
 
 // ToolsAPIService ToolsAPI service
 type ToolsAPIService service
+
+type ToolsAPIDeleteToolsMcpServersByIdRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+	id         string
+}
+
+func (r ToolsAPIDeleteToolsMcpServersByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteToolsMcpServersByIdExecute(r)
+}
+
+/*
+DeleteToolsMcpServersById Deregisters one of the caller org's external MCP servers, so its tools leave the registry.
+
+Deregisters one of the caller org's external MCP servers, so its
+tools leave the registry. Scoped to the caller's org, so an id belonging to
+another tenant is a 404 and not a delete. Answers 204 with no body; a server
+this org does not have is 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the server to deregister, from the path.
+	@return ToolsAPIDeleteToolsMcpServersByIdRequest
+*/
+func (a *ToolsAPIService) DeleteToolsMcpServersById(ctx context.Context, id string) ToolsAPIDeleteToolsMcpServersByIdRequest {
+	return ToolsAPIDeleteToolsMcpServersByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *ToolsAPIService) DeleteToolsMcpServersByIdExecute(r ToolsAPIDeleteToolsMcpServersByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.DeleteToolsMcpServersById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/mcp/servers/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ToolsAPIDeleteToolsPluginsAuthoredByIdRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+	id         string
+}
+
+func (r ToolsAPIDeleteToolsPluginsAuthoredByIdRequest) Execute() (*PluginDeleted, *http.Response, error) {
+	return r.ApiService.DeleteToolsPluginsAuthoredByIdExecute(r)
+}
+
+/*
+DeleteToolsPluginsAuthoredById Removes one of the caller org's built plugins, so the runtime can no longer load it.
+
+Removes one of the caller org's built plugins, so the
+runtime can no longer load it. Scoped to the caller's org, so an id belonging
+to another tenant answers 404 and is not deleted.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the plugin to remove, from the path.
+	@return ToolsAPIDeleteToolsPluginsAuthoredByIdRequest
+*/
+func (a *ToolsAPIService) DeleteToolsPluginsAuthoredById(ctx context.Context, id string) ToolsAPIDeleteToolsPluginsAuthoredByIdRequest {
+	return ToolsAPIDeleteToolsPluginsAuthoredByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PluginDeleted
+func (a *ToolsAPIService) DeleteToolsPluginsAuthoredByIdExecute(r ToolsAPIDeleteToolsPluginsAuthoredByIdRequest) (*PluginDeleted, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PluginDeleted
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.DeleteToolsPluginsAuthoredById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/plugins/authored/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIDeleteToolsSkillsByIdRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+	id         string
+}
+
+func (r ToolsAPIDeleteToolsSkillsByIdRequest) Execute() (*SkillDeleted, *http.Response, error) {
+	return r.ApiService.DeleteToolsSkillsByIdExecute(r)
+}
+
+/*
+DeleteToolsSkillsById Removes one of the caller org's authored skills.
+
+Removes one of the caller org's authored skills. Scoped to the
+caller's org, so an id belonging to another tenant is never reached. Removing
+what is not there is not an error — the caller's intent is "gone", and it is.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the skill to remove, from the path. It is the skill's name.
+	@return ToolsAPIDeleteToolsSkillsByIdRequest
+*/
+func (a *ToolsAPIService) DeleteToolsSkillsById(ctx context.Context, id string) ToolsAPIDeleteToolsSkillsByIdRequest {
+	return ToolsAPIDeleteToolsSkillsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SkillDeleted
+func (a *ToolsAPIService) DeleteToolsSkillsByIdExecute(r ToolsAPIDeleteToolsSkillsByIdRequest) (*SkillDeleted, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SkillDeleted
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.DeleteToolsSkillsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/skills/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type ToolsAPIGetToolsRequest struct {
 	ctx        context.Context
@@ -302,7 +609,7 @@ them: our canonical copy of registry.modelcontextprotocol.io, plus what we
 decided about each entry.
 
 This is the SHELF an org picks from. A listing with a streamable-http endpoint
-can be enabled as-is — POST /v1/mcp/servers with its id — and its tools then
+can be enabled as-is — POST /v1/tools/mcp/servers with its id — and its tools then
 join the org's tool plane and the fleet's MCP door. A listing that only ships a
 stdio package needs a process to run it, which is why the transports are on
 every entry rather than implied.
@@ -469,6 +776,549 @@ func (a *ToolsAPIService) GetToolsCatalogByIdExecute(r ToolsAPIGetToolsCatalogBy
 
 	localVarPath := localBasePath + "/v1/tools/catalog/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIGetToolsMcpServersRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+}
+
+func (r ToolsAPIGetToolsMcpServersRequest) Execute() (*McpServerList, *http.Response, error) {
+	return r.ApiService.GetToolsMcpServersExecute(r)
+}
+
+/*
+GetToolsMcpServers Lists the external MCP servers the caller's org has registered.
+
+Lists the external MCP servers the caller's org has registered.
+Each record carries the URL and the name of the header its credential is
+injected into; the credential VALUE lives only in KMS and is never returned,
+so hasSecret is the whole of what this surface says about it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolsAPIGetToolsMcpServersRequest
+*/
+func (a *ToolsAPIService) GetToolsMcpServers(ctx context.Context) ToolsAPIGetToolsMcpServersRequest {
+	return ToolsAPIGetToolsMcpServersRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return McpServerList
+func (a *ToolsAPIService) GetToolsMcpServersExecute(r ToolsAPIGetToolsMcpServersRequest) (*McpServerList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *McpServerList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsMcpServers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/mcp/servers"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIGetToolsPluginsRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+	all        *string
+}
+
+// All includes the configured-but-disabled subsystems too, but only when it is exactly the string \&quot;true\&quot;. Otherwise only the running ones are reported.
+func (r ToolsAPIGetToolsPluginsRequest) All(all string) ToolsAPIGetToolsPluginsRequest {
+	r.all = &all
+	return r
+}
+
+func (r ToolsAPIGetToolsPluginsRequest) Execute() (*PluginMountList, *http.Response, error) {
+	return r.ApiService.GetToolsPluginsExecute(r)
+}
+
+/*
+GetToolsPlugins Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
+
+Reports what this deployment actually mounted: every subsystem the
+composition root declared and whether it is switched on. A plugin here is
+MOUNTED CODE that extends the deployment's own surface — not a tool an agent
+calls — so this is an inventory and not a tool source. It is read off the same
+boot snapshot every traced request resolves its subsystem label against, so it
+cannot drift from what is serving. Enabled-only by default, because a caller
+asking what this deployment can do wants what is running; ?all=true adds the
+configured-but-off ones.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolsAPIGetToolsPluginsRequest
+*/
+func (a *ToolsAPIService) GetToolsPlugins(ctx context.Context) ToolsAPIGetToolsPluginsRequest {
+	return ToolsAPIGetToolsPluginsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PluginMountList
+func (a *ToolsAPIService) GetToolsPluginsExecute(r ToolsAPIGetToolsPluginsRequest) (*PluginMountList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PluginMountList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsPlugins")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/plugins"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.all != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "all", r.all, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIGetToolsPluginsAuthoredRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+}
+
+func (r ToolsAPIGetToolsPluginsAuthoredRequest) Execute() (*AuthoredPluginList, *http.Response, error) {
+	return r.ApiService.GetToolsPluginsAuthoredExecute(r)
+}
+
+/*
+GetToolsPluginsAuthored Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
+
+Lists the plugins the caller's org BUILT, newest first,
+each with the TypeScript as authored. That is a different set with a different
+lifecycle from GET /v1/tools/plugins, which reports the subsystems this deployment
+mounted. The bundled CommonJS the runtime executes is never included, and
+neither is any credential — a plugin names the connectors provider it needs and
+reads the credential from ctx.auth at run time.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolsAPIGetToolsPluginsAuthoredRequest
+*/
+func (a *ToolsAPIService) GetToolsPluginsAuthored(ctx context.Context) ToolsAPIGetToolsPluginsAuthoredRequest {
+	return ToolsAPIGetToolsPluginsAuthoredRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuthoredPluginList
+func (a *ToolsAPIService) GetToolsPluginsAuthoredExecute(r ToolsAPIGetToolsPluginsAuthoredRequest) (*AuthoredPluginList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthoredPluginList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsPluginsAuthored")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/plugins/authored"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIGetToolsSkillsRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+	activated  *string
+}
+
+// Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;.
+func (r ToolsAPIGetToolsSkillsRequest) Activated(activated string) ToolsAPIGetToolsSkillsRequest {
+	r.activated = &activated
+	return r
+}
+
+func (r ToolsAPIGetToolsSkillsRequest) Execute() (*SourceToolList, *http.Response, error) {
+	return r.ApiService.GetToolsSkillsExecute(r)
+}
+
+/*
+GetToolsSkills Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag.
+
+Lists the skills the caller's org can reach — the brand's embedded
+catalogue plus the org's own authored ones — with each one's activation flag.
+A skill is discovery and activation metadata attached to an agent, never called
+directly, so every entry here is non-dispatchable. It is GET /v1/tools narrowed
+to one source, not a second store: a name a caller sees here is the same entry,
+with the same activation state, that discovery reports.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolsAPIGetToolsSkillsRequest
+*/
+func (a *ToolsAPIService) GetToolsSkills(ctx context.Context) ToolsAPIGetToolsSkillsRequest {
+	return ToolsAPIGetToolsSkillsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SourceToolList
+func (a *ToolsAPIService) GetToolsSkillsExecute(r ToolsAPIGetToolsSkillsRequest) (*SourceToolList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SourceToolList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsSkills")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/skills"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.activated != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "activated", r.activated, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIGetToolsSkillsAuthoredRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+}
+
+func (r ToolsAPIGetToolsSkillsAuthoredRequest) Execute() (*AuthoredSkillList, *http.Response, error) {
+	return r.ApiService.GetToolsSkillsAuthoredExecute(r)
+}
+
+/*
+GetToolsSkillsAuthored Lists the caller org's OWN skills with their SKILL.md bodies.
+
+Lists the caller org's OWN skills with their SKILL.md
+bodies. GET /v1/tools/skills is the registry view — the brand's catalogue plus this
+org's, with activation flags and no bodies; this is the EDITABLE set, so it
+carries the content that view omits and nothing the org did not write.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolsAPIGetToolsSkillsAuthoredRequest
+*/
+func (a *ToolsAPIService) GetToolsSkillsAuthored(ctx context.Context) ToolsAPIGetToolsSkillsAuthoredRequest {
+	return ToolsAPIGetToolsSkillsAuthoredRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuthoredSkillList
+func (a *ToolsAPIService) GetToolsSkillsAuthoredExecute(r ToolsAPIGetToolsSkillsAuthoredRequest) (*AuthoredSkillList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthoredSkillList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.GetToolsSkillsAuthored")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/skills/authored"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -845,6 +1695,380 @@ func (a *ToolsAPIService) PostToolsCatalogSyncExecute(r ToolsAPIPostToolsCatalog
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIPostToolsMcpServersRequest struct {
+	ctx             context.Context
+	ApiService      *ToolsAPIService
+	createServerReq *CreateServerReq
+}
+
+func (r ToolsAPIPostToolsMcpServersRequest) CreateServerReq(createServerReq CreateServerReq) ToolsAPIPostToolsMcpServersRequest {
+	r.createServerReq = &createServerReq
+	return r
+}
+
+func (r ToolsAPIPostToolsMcpServersRequest) Execute() (*MCPServer, *http.Response, error) {
+	return r.ApiService.PostToolsMcpServersExecute(r)
+}
+
+/*
+PostToolsMcpServers Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP door.
+
+Gives the caller's org one more external MCP server, so its tools
+join the org's tool plane and the fleet's MCP door. It is the ONE way an org
+gains a server, whether it typed the URL in or enabled a catalog listing: both
+write the SAME record, and `source` says which it was. A second registration
+path would be a second place for a server to exist, and then a second place to
+forget to check the credential.
+
+The credential VALUE is sealed in KMS under a per-org ref; the row keeps only
+the URL, the header name to inject it into, and a has-secret flag — so a secret
+with no KMS configured is refused 503 rather than stored in the clear. The URL
+is SSRF-validated here and re-checked by the dialer at connect time, which is
+the DNS-rebinding defense.
+
+Enabling a listing the org already enabled REVISES that server rather than
+adding a near-duplicate beside it, so a retried enable is the same one server.
+Answers 201 with the stored record.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolsAPIPostToolsMcpServersRequest
+*/
+func (a *ToolsAPIService) PostToolsMcpServers(ctx context.Context) ToolsAPIPostToolsMcpServersRequest {
+	return ToolsAPIPostToolsMcpServersRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MCPServer
+func (a *ToolsAPIService) PostToolsMcpServersExecute(r ToolsAPIPostToolsMcpServersRequest) (*MCPServer, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MCPServer
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PostToolsMcpServers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/mcp/servers"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createServerReq == nil {
+		return localVarReturnValue, nil, reportError("createServerReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createServerReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIPostToolsPluginsBuildRequest struct {
+	ctx          context.Context
+	ApiService   *ToolsAPIService
+	buildRequest *BuildRequest
+}
+
+func (r ToolsAPIPostToolsPluginsBuildRequest) BuildRequest(buildRequest BuildRequest) ToolsAPIPostToolsPluginsBuildRequest {
+	r.buildRequest = &buildRequest
+	return r
+}
+
+func (r ToolsAPIPostToolsPluginsBuildRequest) Execute() (*BuildOut, *http.Response, error) {
+	return r.ApiService.PostToolsPluginsBuildExecute(r)
+}
+
+/*
+PostToolsPluginsBuild Builds and stores one plugin for the caller's org.
+
+Builds and stores one plugin for the caller's org. The 201 carries
+the bundle's size, whether a model wrote the source, and the plugin as stored.
+
+Post `source` to build TypeScript as-is, or `spec` — an OpenAPI document or
+plain prose describing the endpoints — to have one generated; the generated
+source comes back in the answer, so a caller reads what will run before it
+runs. Exactly one of the two, and `name` must be one lowercase path segment;
+both or neither is 400.
+
+COMPILING IS THE GATE. The source goes through the same pipeline the committed
+connectors do — esbuild to one CommonJS program, then compiled in the goja
+runtime that will actually execute it — and anything that fails is rejected and
+NEVER stored. So a plugin in the store is one this deployment has already
+loaded once, not one a model claimed was fine. A failed build answers 422
+carrying the diagnostics a caller needs to fix it: the bundler's error
+(`detail`), the source that failed, and whether the model wrote it.
+
+CREDENTIALS ARE NOT PART OF A PLUGIN. A plugin names the connectors `provider`
+it needs and reads that credential from `ctx.auth` at run time, under KMS
+custody. Source that carries something key-shaped is REFUSED rather than
+silently persisted — a scrubbed key looks like it worked.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolsAPIPostToolsPluginsBuildRequest
+*/
+func (a *ToolsAPIService) PostToolsPluginsBuild(ctx context.Context) ToolsAPIPostToolsPluginsBuildRequest {
+	return ToolsAPIPostToolsPluginsBuildRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BuildOut
+func (a *ToolsAPIService) PostToolsPluginsBuildExecute(r ToolsAPIPostToolsPluginsBuildRequest) (*BuildOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BuildOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PostToolsPluginsBuild")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/plugins/build"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.buildRequest == nil {
+		return localVarReturnValue, nil, reportError("buildRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.buildRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolsAPIPostToolsSkillsRequest struct {
+	ctx        context.Context
+	ApiService *ToolsAPIService
+	skillIn    *SkillIn
+}
+
+func (r ToolsAPIPostToolsSkillsRequest) SkillIn(skillIn SkillIn) ToolsAPIPostToolsSkillsRequest {
+	r.skillIn = &skillIn
+	return r
+}
+
+func (r ToolsAPIPostToolsSkillsRequest) Execute() (*SkillWritten, *http.Response, error) {
+	return r.ApiService.PostToolsSkillsExecute(r)
+}
+
+/*
+PostToolsSkills Adds or revises one of the caller org's own skills, and answers 201 with the stored record.
+
+Adds or revises one of the caller org's own skills, and answers 201
+with the stored record. The id is derived from the name, so writing the same
+name again REVISES that skill rather than accumulating near-duplicates that
+would then collide in the registry. An org's skills are private to it by
+construction — they live in a different store from the brand's embedded
+catalogue and have no path into the public gallery — and a brand skill always
+wins a name collision against an org's.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolsAPIPostToolsSkillsRequest
+*/
+func (a *ToolsAPIService) PostToolsSkills(ctx context.Context) ToolsAPIPostToolsSkillsRequest {
+	return ToolsAPIPostToolsSkillsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SkillWritten
+func (a *ToolsAPIService) PostToolsSkillsExecute(r ToolsAPIPostToolsSkillsRequest) (*SkillWritten, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SkillWritten
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolsAPIService.PostToolsSkills")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tools/skills"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.skillIn == nil {
+		return localVarReturnValue, nil, reportError("skillIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.skillIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

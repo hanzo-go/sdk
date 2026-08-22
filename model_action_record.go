@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,14 +19,22 @@ var _ MappedNullable = &ActionRecord{}
 
 // ActionRecord struct for ActionRecord
 type ActionRecord struct {
-	Args      *string `json:"args,omitempty"`
-	CreatedAt *int32  `json:"createdAt,omitempty"`
-	Err       *string `json:"err,omitempty"`
-	Id        *string `json:"id,omitempty"`
-	Ok        *bool   `json:"ok,omitempty"`
-	Result    *string `json:"result,omitempty"`
-	StepId    *string `json:"stepId,omitempty"`
-	Tool      *string `json:"tool,omitempty"`
+	// Args is the JSON the tool was called with, recorded as TEXT exactly as sent — including whatever the AI drafted into it — so a run can be read back and reproduced. It is a string, not an object.
+	Args *string `json:"args,omitempty"`
+	// CreatedAt is when the run was recorded, as Unix seconds. The ledger is read newest-first on this column.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// Err is why the run failed, when it did. Empty on a successful run.
+	Err *string `json:"err,omitempty"`
+	// ID identifies this one execution. The ledger is append-only, so an id is never reused and never updated.
+	Id *string `json:"id,omitempty"`
+	// OK is whether the tool ran to completion. It is the ledger's own verdict, not the tool's opinion of the outcome — a tool that succeeded at reporting bad news is ok.
+	Ok *bool `json:"ok,omitempty"`
+	// Result is the tool's own answer, likewise recorded as JSON text. Present on a failed run too, where the tool answered but the answer was a refusal.
+	Result *string `json:"result,omitempty"`
+	// StepID is the checklist step the Business AI was acting on.
+	StepId *string `json:"stepId,omitempty"`
+	// Tool is the MCP tool that was dispatched, by name.
+	Tool *string `json:"tool,omitempty"`
 }
 
 // NewActionRecord instantiates a new ActionRecord object

@@ -9,10 +9,14 @@ Method | HTTP request | Description
 [**DeleteCommerceDiscountByDiscountid**](CommerceAPI.md#DeleteCommerceDiscountByDiscountid) | **Delete** /v1/commerce/discount/{discountid} | Delete a discount, keeping a recoverable copy
 [**DeleteCommerceMovieByMovieid**](CommerceAPI.md#DeleteCommerceMovieByMovieid) | **Delete** /v1/commerce/movie/{movieid} | Delete a movie, keeping a recoverable copy
 [**DeleteCommerceNoteByNoteid**](CommerceAPI.md#DeleteCommerceNoteByNoteid) | **Delete** /v1/commerce/note/{noteid} | Delete a note, keeping a recoverable copy
+[**DeleteCommercePlansEntriesBySlug**](CommerceAPI.md#DeleteCommercePlansEntriesBySlug) | **Delete** /v1/commerce/plans/entries/{slug} | Remove a plan from the authority
 [**DeleteCommerceProductByProductid**](CommerceAPI.md#DeleteCommerceProductByProductid) | **Delete** /v1/commerce/product/{productid} | Delete a product, keeping a recoverable copy
+[**DeleteCommerceRatesEntriesBySlug**](CommerceAPI.md#DeleteCommerceRatesEntriesBySlug) | **Delete** /v1/commerce/rates/entries/{slug} | Remove a rate outright
 [**DeleteCommerceReturnByReturnid**](CommerceAPI.md#DeleteCommerceReturnByReturnid) | **Delete** /v1/commerce/return/{returnid} | Delete a return, keeping a recoverable copy
 [**DeleteCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#DeleteCommerceSaleschannelBySaleschannelid) | **Delete** /v1/commerce/saleschannel/{saleschannelid} | Delete a sales channel, keeping a recoverable copy
 [**DeleteCommerceStocklocationByStocklocationid**](CommerceAPI.md#DeleteCommerceStocklocationByStocklocationid) | **Delete** /v1/commerce/stocklocation/{stocklocationid} | Delete a stock location, keeping a recoverable copy
+[**DeleteCommerceStoreByStoreid**](CommerceAPI.md#DeleteCommerceStoreByStoreid) | **Delete** /v1/commerce/store/{storeid} | Delete a storefront, keeping a recoverable copy
+[**DeleteCommerceStoreByStoreidListingByKey**](CommerceAPI.md#DeleteCommerceStoreByStoreidListingByKey) | **Delete** /v1/commerce/store/{storeid}/listing/{key} | Remove a listing override
 [**DeleteCommerceSubmissionBySubmissionid**](CommerceAPI.md#DeleteCommerceSubmissionBySubmissionid) | **Delete** /v1/commerce/submission/{submissionid} | Delete a submission, keeping a recoverable copy
 [**DeleteCommerceSubscriberBySubscriberid**](CommerceAPI.md#DeleteCommerceSubscriberBySubscriberid) | **Delete** /v1/commerce/subscriber/{subscriberid} | Delete a subscriber, keeping a recoverable copy
 [**DeleteCommerceTokentransactionByTokentransactionid**](CommerceAPI.md#DeleteCommerceTokentransactionByTokentransactionid) | **Delete** /v1/commerce/tokentransaction/{tokentransactionid} | Delete a token transaction, keeping a recoverable copy
@@ -21,28 +25,44 @@ Method | HTTP request | Description
 [**DeleteCommerceWalletByWalletid**](CommerceAPI.md#DeleteCommerceWalletByWalletid) | **Delete** /v1/commerce/wallet/{walletid} | Delete a wallet, keeping a recoverable copy
 [**DeleteCommerceWatchlistByWatchlistid**](CommerceAPI.md#DeleteCommerceWatchlistByWatchlistid) | **Delete** /v1/commerce/watchlist/{watchlistid} | Delete a watchlist, keeping a recoverable copy
 [**DeleteCommerceWebhookByWebhookid**](CommerceAPI.md#DeleteCommerceWebhookByWebhookid) | **Delete** /v1/commerce/webhook/{webhookid} | Delete a webhook, keeping a recoverable copy
+[**DiscardCart**](CommerceAPI.md#DiscardCart) | **Post** /v1/commerce/cart/{id}/discard | Discard a cart the shopper abandoned
+[**GetCart**](CommerceAPI.md#GetCart) | **Get** /v1/commerce/cart/{id} | Read one cart with its lines and totals
 [**GetCommerceAdminCatalog**](CommerceAPI.md#GetCommerceAdminCatalog) | **Get** /v1/commerce/admin/catalog | The catalog projection with cost and margin included
 [**GetCommerceCatalog**](CommerceAPI.md#GetCommerceCatalog) | **Get** /v1/commerce/catalog | The public product catalog projection for a brand
+[**GetCommerceCatalogEntries**](CommerceAPI.md#GetCommerceCatalogEntries) | **Get** /v1/commerce/catalog/entries | The raw catalog entries, including the unpublished ones
 [**GetCommerceCollection**](CommerceAPI.md#GetCommerceCollection) | **Get** /v1/commerce/collection/ | List your org&#39;s collections, as a page
 [**GetCommerceCollectionByCollectionid**](CommerceAPI.md#GetCommerceCollectionByCollectionid) | **Get** /v1/commerce/collection/{collectionid} | Fetch one collection
 [**GetCommerceCurrencies**](CommerceAPI.md#GetCommerceCurrencies) | **Get** /v1/commerce/currencies | The reference currency list the price and settings pickers render
+[**GetCommerceDeposits**](CommerceAPI.md#GetCommerceDeposits) | **Get** /v1/commerce/deposits | Read the crypto deposit watcher&#39;s runtime state, asset by asset
 [**GetCommerceDisclosure**](CommerceAPI.md#GetCommerceDisclosure) | **Get** /v1/commerce/disclosure/ | List your org&#39;s disclosures, as a page
 [**GetCommerceDisclosureByDisclosureid**](CommerceAPI.md#GetCommerceDisclosureByDisclosureid) | **Get** /v1/commerce/disclosure/{disclosureid} | Fetch one disclosure
 [**GetCommerceDiscount**](CommerceAPI.md#GetCommerceDiscount) | **Get** /v1/commerce/discount/ | List your org&#39;s discounts, as a page
 [**GetCommerceDiscountByDiscountid**](CommerceAPI.md#GetCommerceDiscountByDiscountid) | **Get** /v1/commerce/discount/{discountid} | Fetch one discount
+[**GetCommerceHealth**](CommerceAPI.md#GetCommerceHealth) | **Get** /v1/commerce/health | Answers ok whenever the commerce subsystem is mounted.
 [**GetCommerceMovie**](CommerceAPI.md#GetCommerceMovie) | **Get** /v1/commerce/movie/ | List your org&#39;s movies, as a page
 [**GetCommerceMovieByMovieid**](CommerceAPI.md#GetCommerceMovieByMovieid) | **Get** /v1/commerce/movie/{movieid} | Fetch one movie
 [**GetCommerceNote**](CommerceAPI.md#GetCommerceNote) | **Get** /v1/commerce/note/ | List your org&#39;s notes, as a page
 [**GetCommerceNoteByNoteid**](CommerceAPI.md#GetCommerceNoteByNoteid) | **Get** /v1/commerce/note/{noteid} | Fetch one note
 [**GetCommerceOrg**](CommerceAPI.md#GetCommerceOrg) | **Get** /v1/commerce/org | The public org configuration a checkout page boots from
+[**GetCommercePlansEntries**](CommerceAPI.md#GetCommercePlansEntries) | **Get** /v1/commerce/plans/entries | The raw plan authority rows
 [**GetCommerceProduct**](CommerceAPI.md#GetCommerceProduct) | **Get** /v1/commerce/product/ | List your org&#39;s products, as a page
 [**GetCommerceProductByProductid**](CommerceAPI.md#GetCommerceProductByProductid) | **Get** /v1/commerce/product/{productid} | Fetch one product
+[**GetCommerceRatesEntries**](CommerceAPI.md#GetCommerceRatesEntries) | **Get** /v1/commerce/rates/entries | List what one unit of each metered thing costs
 [**GetCommerceReturn**](CommerceAPI.md#GetCommerceReturn) | **Get** /v1/commerce/return/ | List your org&#39;s returns, as a page
 [**GetCommerceReturnByReturnid**](CommerceAPI.md#GetCommerceReturnByReturnid) | **Get** /v1/commerce/return/{returnid} | Fetch one return
 [**GetCommerceSaleschannel**](CommerceAPI.md#GetCommerceSaleschannel) | **Get** /v1/commerce/saleschannel/ | List your org&#39;s sales channels, as a page
 [**GetCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#GetCommerceSaleschannelBySaleschannelid) | **Get** /v1/commerce/saleschannel/{saleschannelid} | Fetch one sales channel
 [**GetCommerceStocklocation**](CommerceAPI.md#GetCommerceStocklocation) | **Get** /v1/commerce/stocklocation/ | List your org&#39;s stock locations, as a page
 [**GetCommerceStocklocationByStocklocationid**](CommerceAPI.md#GetCommerceStocklocationByStocklocationid) | **Get** /v1/commerce/stocklocation/{stocklocationid} | Fetch one stock location
+[**GetCommerceStore**](CommerceAPI.md#GetCommerceStore) | **Get** /v1/commerce/store/ | List your org&#39;s storefronts as a page
+[**GetCommerceStoreAccess**](CommerceAPI.md#GetCommerceStoreAccess) | **Get** /v1/commerce/store/access | Whether a store is entitled to trade, and why
+[**GetCommerceStoreByStoreid**](CommerceAPI.md#GetCommerceStoreByStoreid) | **Get** /v1/commerce/store/{storeid} | Fetch one storefront
+[**GetCommerceStoreByStoreidBundleByKey**](CommerceAPI.md#GetCommerceStoreByStoreidBundleByKey) | **Get** /v1/commerce/store/{storeid}/bundle/{key} | Fetch a bundle as this storefront sells it
+[**GetCommerceStoreByStoreidListing**](CommerceAPI.md#GetCommerceStoreByStoreidListing) | **Get** /v1/commerce/store/{storeid}/listing | The storefront&#39;s whole listing override map
+[**GetCommerceStoreByStoreidListingByKey**](CommerceAPI.md#GetCommerceStoreByStoreidListingByKey) | **Get** /v1/commerce/store/{storeid}/listing/{key} | Fetch one listing override, by item id or by its slug or SKU
+[**GetCommerceStoreByStoreidProductByKey**](CommerceAPI.md#GetCommerceStoreByStoreidProductByKey) | **Get** /v1/commerce/store/{storeid}/product/{key} | Fetch a product as this storefront sells it
+[**GetCommerceStoreByStoreidVariantByKey**](CommerceAPI.md#GetCommerceStoreByStoreidVariantByKey) | **Get** /v1/commerce/store/{storeid}/variant/{key} | Fetch a variant as this storefront sells it
+[**GetCommerceStoreCurrent**](CommerceAPI.md#GetCommerceStoreCurrent) | **Get** /v1/commerce/store/current | Resolve your org&#39;s active storefront without naming an id
 [**GetCommerceSubmission**](CommerceAPI.md#GetCommerceSubmission) | **Get** /v1/commerce/submission/ | List your org&#39;s submissions, as a page
 [**GetCommerceSubmissionBySubmissionid**](CommerceAPI.md#GetCommerceSubmissionBySubmissionid) | **Get** /v1/commerce/submission/{submissionid} | Fetch one submission
 [**GetCommerceSubscriber**](CommerceAPI.md#GetCommerceSubscriber) | **Get** /v1/commerce/subscriber/ | List your org&#39;s subscribers, as a page
@@ -59,6 +79,8 @@ Method | HTTP request | Description
 [**GetCommerceWatchlistByWatchlistid**](CommerceAPI.md#GetCommerceWatchlistByWatchlistid) | **Get** /v1/commerce/watchlist/{watchlistid} | Fetch one watchlist
 [**GetCommerceWebhook**](CommerceAPI.md#GetCommerceWebhook) | **Get** /v1/commerce/webhook/ | List your org&#39;s webhooks, as a page
 [**GetCommerceWebhookByWebhookid**](CommerceAPI.md#GetCommerceWebhookByWebhookid) | **Get** /v1/commerce/webhook/{webhookid} | Fetch one webhook
+[**GetPayment**](CommerceAPI.md#GetPayment) | **Get** /v1/commerce/payments/{id} | Read one settled payment by its id
+[**OpenCart**](CommerceAPI.md#OpenCart) | **Post** /v1/commerce/cart | Open a cart for a shopper to fill
 [**PatchCommerceCollectionByCollectionid**](CommerceAPI.md#PatchCommerceCollectionByCollectionid) | **Patch** /v1/commerce/collection/{collectionid} | Change part of a collection
 [**PatchCommerceDisclosureByDisclosureid**](CommerceAPI.md#PatchCommerceDisclosureByDisclosureid) | **Patch** /v1/commerce/disclosure/{disclosureid} | Change part of a disclosure
 [**PatchCommerceDiscountByDiscountid**](CommerceAPI.md#PatchCommerceDiscountByDiscountid) | **Patch** /v1/commerce/discount/{discountid} | Change part of a discount
@@ -68,6 +90,8 @@ Method | HTTP request | Description
 [**PatchCommerceReturnByReturnid**](CommerceAPI.md#PatchCommerceReturnByReturnid) | **Patch** /v1/commerce/return/{returnid} | Change part of a return
 [**PatchCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#PatchCommerceSaleschannelBySaleschannelid) | **Patch** /v1/commerce/saleschannel/{saleschannelid} | Change part of a sales channel
 [**PatchCommerceStocklocationByStocklocationid**](CommerceAPI.md#PatchCommerceStocklocationByStocklocationid) | **Patch** /v1/commerce/stocklocation/{stocklocationid} | Change part of a stock location
+[**PatchCommerceStoreByStoreid**](CommerceAPI.md#PatchCommerceStoreByStoreid) | **Patch** /v1/commerce/store/{storeid} | Change part of a storefront
+[**PatchCommerceStoreByStoreidListingByKey**](CommerceAPI.md#PatchCommerceStoreByStoreidListingByKey) | **Patch** /v1/commerce/store/{storeid}/listing/{key} | Confirm a listing override exists and re-save the store
 [**PatchCommerceSubmissionBySubmissionid**](CommerceAPI.md#PatchCommerceSubmissionBySubmissionid) | **Patch** /v1/commerce/submission/{submissionid} | Change part of a submission
 [**PatchCommerceSubscriberBySubscriberid**](CommerceAPI.md#PatchCommerceSubscriberBySubscriberid) | **Patch** /v1/commerce/subscriber/{subscriberid} | Change part of a subscriber
 [**PatchCommerceTokentransactionByTokentransactionid**](CommerceAPI.md#PatchCommerceTokentransactionByTokentransactionid) | **Patch** /v1/commerce/tokentransaction/{tokentransactionid} | Change part of a token transaction
@@ -76,6 +100,10 @@ Method | HTTP request | Description
 [**PatchCommerceWalletByWalletid**](CommerceAPI.md#PatchCommerceWalletByWalletid) | **Patch** /v1/commerce/wallet/{walletid} | Change part of a wallet
 [**PatchCommerceWatchlistByWatchlistid**](CommerceAPI.md#PatchCommerceWatchlistByWatchlistid) | **Patch** /v1/commerce/watchlist/{watchlistid} | Change part of a watchlist
 [**PatchCommerceWebhookByWebhookid**](CommerceAPI.md#PatchCommerceWebhookByWebhookid) | **Patch** /v1/commerce/webhook/{webhookid} | Change part of a webhook
+[**PostCommerceCatalogEntries**](CommerceAPI.md#PostCommerceCatalogEntries) | **Post** /v1/commerce/catalog/entries | Add a catalog entry
+[**PostCommerceCatalogModels**](CommerceAPI.md#PostCommerceCatalogModels) | **Post** /v1/commerce/catalog/models | Land a syncer&#39;s view of the model catalog: upstream costs and machine facts
+[**PostCommerceCatalogModelsRefresh**](CommerceAPI.md#PostCommerceCatalogModelsRefresh) | **Post** /v1/commerce/catalog/models/refresh | Refresh the model catalog by reading the upstream provider
+[**PostCommerceCatalogSeed**](CommerceAPI.md#PostCommerceCatalogSeed) | **Post** /v1/commerce/catalog/seed | Seed the embedded catalog, without disturbing edits already made
 [**PostCommerceCollection**](CommerceAPI.md#PostCommerceCollection) | **Post** /v1/commerce/collection/ | Create a collection
 [**PostCommerceCollectionByCollectionid**](CommerceAPI.md#PostCommerceCollectionByCollectionid) | **Post** /v1/commerce/collection/{collectionid} | Method-override tunnel for a collection — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceDisclosure**](CommerceAPI.md#PostCommerceDisclosure) | **Post** /v1/commerce/disclosure/ | Create a disclosure
@@ -86,14 +114,37 @@ Method | HTTP request | Description
 [**PostCommerceMovieByMovieid**](CommerceAPI.md#PostCommerceMovieByMovieid) | **Post** /v1/commerce/movie/{movieid} | Method-override tunnel for a movie — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceNote**](CommerceAPI.md#PostCommerceNote) | **Post** /v1/commerce/note/ | Create a note
 [**PostCommerceNoteByNoteid**](CommerceAPI.md#PostCommerceNoteByNoteid) | **Post** /v1/commerce/note/{noteid} | Method-override tunnel for a note — for clients that cannot send PUT, PATCH or DELETE
+[**PostCommercePlansEntries**](CommerceAPI.md#PostCommercePlansEntries) | **Post** /v1/commerce/plans/entries | Add a subscription plan
+[**PostCommercePlansSeed**](CommerceAPI.md#PostCommercePlansSeed) | **Post** /v1/commerce/plans/seed | Seed the embedded plan catalog, without overwriting administrative edits
 [**PostCommerceProduct**](CommerceAPI.md#PostCommerceProduct) | **Post** /v1/commerce/product/ | Create a product
 [**PostCommerceProductByProductid**](CommerceAPI.md#PostCommerceProductByProductid) | **Post** /v1/commerce/product/{productid} | Method-override tunnel for a product — for clients that cannot send PUT, PATCH or DELETE
+[**PostCommerceRatesEntries**](CommerceAPI.md#PostCommerceRatesEntries) | **Post** /v1/commerce/rates/entries | Add a rate
+[**PostCommerceRatesImport**](CommerceAPI.md#PostCommerceRatesImport) | **Post** /v1/commerce/rates/import | Load the published price document, reconciling rather than replacing
 [**PostCommerceReturn**](CommerceAPI.md#PostCommerceReturn) | **Post** /v1/commerce/return/ | Create a return
 [**PostCommerceReturnByReturnid**](CommerceAPI.md#PostCommerceReturnByReturnid) | **Post** /v1/commerce/return/{returnid} | Method-override tunnel for a return — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceSaleschannel**](CommerceAPI.md#PostCommerceSaleschannel) | **Post** /v1/commerce/saleschannel/ | Create a sales channel
 [**PostCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#PostCommerceSaleschannelBySaleschannelid) | **Post** /v1/commerce/saleschannel/{saleschannelid} | Method-override tunnel for a sales channel — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceStocklocation**](CommerceAPI.md#PostCommerceStocklocation) | **Post** /v1/commerce/stocklocation/ | Create a stock location
 [**PostCommerceStocklocationByStocklocationid**](CommerceAPI.md#PostCommerceStocklocationByStocklocationid) | **Post** /v1/commerce/stocklocation/{stocklocationid} | Method-override tunnel for a stock location — for clients that cannot send PUT, PATCH or DELETE
+[**PostCommerceStore**](CommerceAPI.md#PostCommerceStore) | **Post** /v1/commerce/store/ | Create a storefront
+[**PostCommerceStoreByStoreid**](CommerceAPI.md#PostCommerceStoreByStoreid) | **Post** /v1/commerce/store/{storeid} | Method-override tunnel for clients that cannot send PUT, PATCH or DELETE
+[**PostCommerceStoreByStoreidAuthorize**](CommerceAPI.md#PostCommerceStoreByStoreidAuthorize) | **Post** /v1/commerce/store/{storeid}/authorize | Authorize a new order against a storefront, holding the funds without settling them
+[**PostCommerceStoreByStoreidAuthorizeByOrderid**](CommerceAPI.md#PostCommerceStoreByStoreidAuthorizeByOrderid) | **Post** /v1/commerce/store/{storeid}/authorize/{orderid} | Authorize an order that already exists, holding the funds without settling them
+[**PostCommerceStoreByStoreidCaptureByOrderid**](CommerceAPI.md#PostCommerceStoreByStoreidCaptureByOrderid) | **Post** /v1/commerce/store/{storeid}/capture/{orderid} | Capture a previously authorized order and settle the payment
+[**PostCommerceStoreByStoreidCharge**](CommerceAPI.md#PostCommerceStoreByStoreidCharge) | **Post** /v1/commerce/store/{storeid}/charge | Authorize and capture a new order in one call
+[**PostCommerceStoreByStoreidCheckoutAuthorize**](CommerceAPI.md#PostCommerceStoreByStoreidCheckoutAuthorize) | **Post** /v1/commerce/store/{storeid}/checkout/authorize | Authorize a new order against a storefront, holding the funds — the checkout spelling
+[**PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid**](CommerceAPI.md#PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid) | **Post** /v1/commerce/store/{storeid}/checkout/authorize/{orderid} | Authorize an existing order, holding the funds — the checkout spelling
+[**PostCommerceStoreByStoreidCheckoutCaptureByOrderid**](CommerceAPI.md#PostCommerceStoreByStoreidCheckoutCaptureByOrderid) | **Post** /v1/commerce/store/{storeid}/checkout/capture/{orderid} | Capture a previously authorized order and settle it — the checkout spelling
+[**PostCommerceStoreByStoreidCheckoutCharge**](CommerceAPI.md#PostCommerceStoreByStoreidCheckoutCharge) | **Post** /v1/commerce/store/{storeid}/checkout/charge | Authorize and capture a new order in one call — the checkout spelling
+[**PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey**](CommerceAPI.md#PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey) | **Post** /v1/commerce/store/{storeid}/checkout/paypal/cancel/{payKey} | PayPal cancel by pay key — refuses, exactly as the unprefixed address does
+[**PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey**](CommerceAPI.md#PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey) | **Post** /v1/commerce/store/{storeid}/checkout/paypal/confirm/{payKey} | PayPal confirm by pay key — refuses, exactly as the unprefixed address does
+[**PostCommerceStoreByStoreidCheckoutPaypalPay**](CommerceAPI.md#PostCommerceStoreByStoreidCheckoutPaypalPay) | **Post** /v1/commerce/store/{storeid}/checkout/paypal/pay | Start a PayPal authorization for a new order — the checkout spelling
+[**PostCommerceStoreByStoreidListingByKey**](CommerceAPI.md#PostCommerceStoreByStoreidListingByKey) | **Post** /v1/commerce/store/{storeid}/listing/{key} | Add a listing override under a new key
+[**PostCommerceStoreByStoreidPaypalCancelByPaykey**](CommerceAPI.md#PostCommerceStoreByStoreidPaypalCancelByPaykey) | **Post** /v1/commerce/store/{storeid}/paypal/cancel/{payKey} | PayPal cancel by pay key — refuses, because a pay key alone does not identify the order
+[**PostCommerceStoreByStoreidPaypalConfirmByPaykey**](CommerceAPI.md#PostCommerceStoreByStoreidPaypalConfirmByPaykey) | **Post** /v1/commerce/store/{storeid}/paypal/confirm/{payKey} | PayPal confirm by pay key — refuses, because a pay key alone does not identify the order
+[**PostCommerceStoreByStoreidPaypalPay**](CommerceAPI.md#PostCommerceStoreByStoreidPaypalPay) | **Post** /v1/commerce/store/{storeid}/paypal/pay | Start a PayPal authorization for a new order
+[**PostCommerceStoreByStoreidTrial**](CommerceAPI.md#PostCommerceStoreByStoreidTrial) | **Post** /v1/commerce/store/{storeid}/trial | Start this store&#39;s no-card trial on the entry plan
+[**PostCommerceStoreToken**](CommerceAPI.md#PostCommerceStoreToken) | **Post** /v1/commerce/store/token | Mint your org&#39;s least-privilege storefront read key
 [**PostCommerceSubmission**](CommerceAPI.md#PostCommerceSubmission) | **Post** /v1/commerce/submission/ | Create a submission
 [**PostCommerceSubmissionBySubmissionid**](CommerceAPI.md#PostCommerceSubmissionBySubmissionid) | **Post** /v1/commerce/submission/{submissionid} | Method-override tunnel for a submission — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceSubscriber**](CommerceAPI.md#PostCommerceSubscriber) | **Post** /v1/commerce/subscriber/ | Create a subscriber
@@ -110,15 +161,20 @@ Method | HTTP request | Description
 [**PostCommerceWatchlistByWatchlistid**](CommerceAPI.md#PostCommerceWatchlistByWatchlistid) | **Post** /v1/commerce/watchlist/{watchlistid} | Method-override tunnel for a watchlist — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceWebhook**](CommerceAPI.md#PostCommerceWebhook) | **Post** /v1/commerce/webhook/ | Create a webhook
 [**PostCommerceWebhookByWebhookid**](CommerceAPI.md#PostCommerceWebhookByWebhookid) | **Post** /v1/commerce/webhook/{webhookid} | Method-override tunnel for a webhook — for clients that cannot send PUT, PATCH or DELETE
+[**PostCommerceWebhooksByProvider**](CommerceAPI.md#PostCommerceWebhooksByProvider) | **Post** /v1/commerce/webhooks/{provider} | Payment-provider webhook intake for settlement and subscription lifecycle events
 [**PutCommerceCollectionByCollectionid**](CommerceAPI.md#PutCommerceCollectionByCollectionid) | **Put** /v1/commerce/collection/{collectionid} | Replace a collection outright
 [**PutCommerceDisclosureByDisclosureid**](CommerceAPI.md#PutCommerceDisclosureByDisclosureid) | **Put** /v1/commerce/disclosure/{disclosureid} | Replace a disclosure outright
 [**PutCommerceDiscountByDiscountid**](CommerceAPI.md#PutCommerceDiscountByDiscountid) | **Put** /v1/commerce/discount/{discountid} | Replace a discount outright
 [**PutCommerceMovieByMovieid**](CommerceAPI.md#PutCommerceMovieByMovieid) | **Put** /v1/commerce/movie/{movieid} | Replace a movie outright
 [**PutCommerceNoteByNoteid**](CommerceAPI.md#PutCommerceNoteByNoteid) | **Put** /v1/commerce/note/{noteid} | Replace a note outright
+[**PutCommercePlansEntriesBySlug**](CommerceAPI.md#PutCommercePlansEntriesBySlug) | **Put** /v1/commerce/plans/entries/{slug} | Edit a plan, leaving the fields you omit alone
 [**PutCommerceProductByProductid**](CommerceAPI.md#PutCommerceProductByProductid) | **Put** /v1/commerce/product/{productid} | Replace a product outright
+[**PutCommerceRatesEntriesBySlug**](CommerceAPI.md#PutCommerceRatesEntriesBySlug) | **Put** /v1/commerce/rates/entries/{slug} | Edit a rate, and mark it as operator-set
 [**PutCommerceReturnByReturnid**](CommerceAPI.md#PutCommerceReturnByReturnid) | **Put** /v1/commerce/return/{returnid} | Replace a return outright
 [**PutCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#PutCommerceSaleschannelBySaleschannelid) | **Put** /v1/commerce/saleschannel/{saleschannelid} | Replace a sales channel outright
 [**PutCommerceStocklocationByStocklocationid**](CommerceAPI.md#PutCommerceStocklocationByStocklocationid) | **Put** /v1/commerce/stocklocation/{stocklocationid} | Replace a stock location outright
+[**PutCommerceStoreByStoreid**](CommerceAPI.md#PutCommerceStoreByStoreid) | **Put** /v1/commerce/store/{storeid} | Replace a storefront outright
+[**PutCommerceStoreByStoreidListingByKey**](CommerceAPI.md#PutCommerceStoreByStoreidListingByKey) | **Put** /v1/commerce/store/{storeid}/listing/{key} | Upsert a listing override
 [**PutCommerceSubmissionBySubmissionid**](CommerceAPI.md#PutCommerceSubmissionBySubmissionid) | **Put** /v1/commerce/submission/{submissionid} | Replace a submission outright
 [**PutCommerceSubscriberBySubscriberid**](CommerceAPI.md#PutCommerceSubscriberBySubscriberid) | **Put** /v1/commerce/subscriber/{subscriberid} | Replace a subscriber outright
 [**PutCommerceTokentransactionByTokentransactionid**](CommerceAPI.md#PutCommerceTokentransactionByTokentransactionid) | **Put** /v1/commerce/tokentransaction/{tokentransactionid} | Replace a token transaction outright
@@ -127,6 +183,8 @@ Method | HTTP request | Description
 [**PutCommerceWalletByWalletid**](CommerceAPI.md#PutCommerceWalletByWalletid) | **Put** /v1/commerce/wallet/{walletid} | Replace a wallet outright
 [**PutCommerceWatchlistByWatchlistid**](CommerceAPI.md#PutCommerceWatchlistByWatchlistid) | **Put** /v1/commerce/watchlist/{watchlistid} | Replace a watchlist outright
 [**PutCommerceWebhookByWebhookid**](CommerceAPI.md#PutCommerceWebhookByWebhookid) | **Put** /v1/commerce/webhook/{webhookid} | Replace a webhook outright
+[**SetCartItem**](CommerceAPI.md#SetCartItem) | **Post** /v1/commerce/cart/{id}/item | Set one item&#39;s quantity in a cart; zero removes it
+[**TakePayment**](CommerceAPI.md#TakePayment) | **Post** /v1/commerce/payments | Take a card payment and credit the org&#39;s balance
 
 
 
@@ -470,6 +528,74 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteCommercePlansEntriesBySlug
+
+> DeleteCommercePlansEntriesBySlug(ctx, slug).Execute()
+
+Remove a plan from the authority
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.DeleteCommercePlansEntriesBySlug(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommercePlansEntriesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCommercePlansEntriesBySlugRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DeleteCommerceProductByProductid
 
 > DeleteCommerceProductByProductid(ctx, productid).Execute()
@@ -514,6 +640,74 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteCommerceProductByProductidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteCommerceRatesEntriesBySlug
+
+> DeleteCommerceRatesEntriesBySlug(ctx, slug).Execute()
+
+Remove a rate outright
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.DeleteCommerceRatesEntriesBySlug(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommerceRatesEntriesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCommerceRatesEntriesBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -722,6 +916,145 @@ Other parameters are passed through a pointer to a apiDeleteCommerceStocklocatio
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteCommerceStoreByStoreid
+
+> DeleteCommerceStoreByStoreid(ctx, storeid).Execute()
+
+Delete a storefront, keeping a recoverable copy
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.DeleteCommerceStoreByStoreid(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommerceStoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCommerceStoreByStoreidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteCommerceStoreByStoreidListingByKey
+
+> DeleteCommerceStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Remove a listing override
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.DeleteCommerceStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommerceStoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCommerceStoreByStoreidListingByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -1286,6 +1619,146 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DiscardCart
+
+> Cart DiscardCart(ctx, id).Execute()
+
+Discard a cart the shopper abandoned
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the cart's id, as the open call answered it.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CommerceAPI.DiscardCart(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DiscardCart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DiscardCart`: Cart
+	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.DiscardCart`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the cart&#39;s id, as the open call answered it. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDiscardCartRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Cart**](Cart.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCart
+
+> Cart GetCart(ctx, id).Execute()
+
+Read one cart with its lines and totals
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the cart's id, as the open call answered it.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CommerceAPI.GetCart(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCart`: Cart
+	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.GetCart`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the cart&#39;s id, as the open call answered it. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCartRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Cart**](Cart.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetCommerceAdminCatalog
 
 > GetCommerceAdminCatalog(ctx).Execute()
@@ -1384,6 +1857,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetCommerceCatalogRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceCatalogEntries
+
+> GetCommerceCatalogEntries(ctx).Execute()
+
+The raw catalog entries, including the unpublished ones
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceCatalogEntries(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceCatalogEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceCatalogEntriesRequest struct via the builder pattern
 
 
 ### Return type
@@ -1570,6 +2102,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetCommerceCurrenciesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceDeposits
+
+> GetCommerceDeposits(ctx).Execute()
+
+Read the crypto deposit watcher's runtime state, asset by asset
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceDeposits(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceDeposits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceDepositsRequest struct via the builder pattern
 
 
 ### Return type
@@ -1838,6 +2429,67 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceHealth
+
+> Liveness GetCommerceHealth(ctx).Execute()
+
+Answers ok whenever the commerce subsystem is mounted.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CommerceAPI.GetCommerceHealth(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCommerceHealth`: Liveness
+	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.GetCommerceHealth`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceHealthRequest struct via the builder pattern
+
+
+### Return type
+
+[**Liveness**](Liveness.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2157,6 +2809,65 @@ Other parameters are passed through a pointer to a apiGetCommerceOrgRequest stru
 [[Back to README]](../README.md)
 
 
+## GetCommercePlansEntries
+
+> GetCommercePlansEntries(ctx).Execute()
+
+The raw plan authority rows
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommercePlansEntries(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommercePlansEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommercePlansEntriesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetCommerceProduct
 
 > GetCommerceProduct(ctx).Execute()
@@ -2264,6 +2975,65 @@ Other parameters are passed through a pointer to a apiGetCommerceProductByProduc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceRatesEntries
+
+> GetCommerceRatesEntries(ctx).Execute()
+
+List what one unit of each metered thing costs
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceRatesEntries(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceRatesEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceRatesEntriesRequest struct via the builder pattern
 
 
 ### Return type
@@ -2645,6 +3415,603 @@ Other parameters are passed through a pointer to a apiGetCommerceStocklocationBy
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStore
+
+> GetCommerceStore(ctx).Execute()
+
+List your org's storefronts as a page
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStore(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStoreAccess
+
+> GetCommerceStoreAccess(ctx).Execute()
+
+Whether a store is entitled to trade, and why
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStoreAccess(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStoreAccess``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreAccessRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStoreByStoreid
+
+> GetCommerceStoreByStoreid(ctx, storeid).Execute()
+
+Fetch one storefront
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStoreByStoreid(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreByStoreidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStoreByStoreidBundleByKey
+
+> GetCommerceStoreByStoreidBundleByKey(ctx, storeid, key).Execute()
+
+Fetch a bundle as this storefront sells it
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStoreByStoreidBundleByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStoreByStoreidBundleByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreByStoreidBundleByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStoreByStoreidListing
+
+> GetCommerceStoreByStoreidListing(ctx, storeid).Execute()
+
+The storefront's whole listing override map
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStoreByStoreidListing(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStoreByStoreidListing``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreByStoreidListingRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStoreByStoreidListingByKey
+
+> GetCommerceStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Fetch one listing override, by item id or by its slug or SKU
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreByStoreidListingByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStoreByStoreidProductByKey
+
+> GetCommerceStoreByStoreidProductByKey(ctx, storeid, key).Execute()
+
+Fetch a product as this storefront sells it
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStoreByStoreidProductByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStoreByStoreidProductByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreByStoreidProductByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStoreByStoreidVariantByKey
+
+> GetCommerceStoreByStoreidVariantByKey(ctx, storeid, key).Execute()
+
+Fetch a variant as this storefront sells it
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStoreByStoreidVariantByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStoreByStoreidVariantByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreByStoreidVariantByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCommerceStoreCurrent
+
+> GetCommerceStoreCurrent(ctx).Execute()
+
+Resolve your org's active storefront without naming an id
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.GetCommerceStoreCurrent(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceStoreCurrent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCommerceStoreCurrentRequest struct via the builder pattern
 
 
 ### Return type
@@ -3681,6 +5048,142 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetPayment
+
+> PaymentRecord GetPayment(ctx, id).Execute()
+
+Read one settled payment by its id
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the ledger transaction id a payment returned.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CommerceAPI.GetPayment(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetPayment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPayment`: PaymentRecord
+	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.GetPayment`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the ledger transaction id a payment returned. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPaymentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**PaymentRecord**](PaymentRecord.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## OpenCart
+
+> Cart OpenCart(ctx).CartOpen(cartOpen).Execute()
+
+Open a cart for a shopper to fill
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	cartOpen := *openapiclient.NewCartOpen() // CartOpen | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CommerceAPI.OpenCart(context.Background()).CartOpen(cartOpen).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.OpenCart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OpenCart`: Cart
+	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.OpenCart`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiOpenCartRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cartOpen** | [**CartOpen**](CartOpen.md) |  | 
+
+### Return type
+
+[**Cart**](Cart.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PatchCommerceCollectionByCollectionid
 
 > PatchCommerceCollectionByCollectionid(ctx, collectionid).Execute()
@@ -4293,6 +5796,145 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PatchCommerceStoreByStoreid
+
+> PatchCommerceStoreByStoreid(ctx, storeid).Execute()
+
+Change part of a storefront
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PatchCommerceStoreByStoreid(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PatchCommerceStoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchCommerceStoreByStoreidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchCommerceStoreByStoreidListingByKey
+
+> PatchCommerceStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Confirm a listing override exists and re-save the store
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PatchCommerceStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PatchCommerceStoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchCommerceStoreByStoreidListingByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PatchCommerceSubmissionBySubmissionid
 
 > PatchCommerceSubmissionBySubmissionid(ctx, submissionid).Execute()
@@ -4817,6 +6459,242 @@ Other parameters are passed through a pointer to a apiPatchCommerceWebhookByWebh
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceCatalogEntries
+
+> PostCommerceCatalogEntries(ctx).Execute()
+
+Add a catalog entry
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceCatalogEntries(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceCatalogEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceCatalogEntriesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceCatalogModels
+
+> PostCommerceCatalogModels(ctx).Execute()
+
+Land a syncer's view of the model catalog: upstream costs and machine facts
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceCatalogModels(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceCatalogModels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceCatalogModelsRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceCatalogModelsRefresh
+
+> PostCommerceCatalogModelsRefresh(ctx).Execute()
+
+Refresh the model catalog by reading the upstream provider
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceCatalogModelsRefresh(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceCatalogModelsRefresh``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceCatalogModelsRefreshRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceCatalogSeed
+
+> PostCommerceCatalogSeed(ctx).Execute()
+
+Seed the embedded catalog, without disturbing edits already made
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceCatalogSeed(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceCatalogSeed``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceCatalogSeedRequest struct via the builder pattern
 
 
 ### Return type
@@ -5472,6 +7350,124 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostCommercePlansEntries
+
+> PostCommercePlansEntries(ctx).Execute()
+
+Add a subscription plan
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommercePlansEntries(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommercePlansEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommercePlansEntriesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommercePlansSeed
+
+> PostCommercePlansSeed(ctx).Execute()
+
+Seed the embedded plan catalog, without overwriting administrative edits
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommercePlansSeed(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommercePlansSeed``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommercePlansSeedRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostCommerceProduct
 
 > PostCommerceProduct(ctx).Execute()
@@ -5579,6 +7575,124 @@ Other parameters are passed through a pointer to a apiPostCommerceProductByProdu
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceRatesEntries
+
+> PostCommerceRatesEntries(ctx).Execute()
+
+Add a rate
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceRatesEntries(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceRatesEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceRatesEntriesRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceRatesImport
+
+> PostCommerceRatesImport(ctx).Execute()
+
+Load the published price document, reconciling rather than replacing
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceRatesImport(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceRatesImport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceRatesImportRequest struct via the builder pattern
 
 
 ### Return type
@@ -5960,6 +8074,1307 @@ Other parameters are passed through a pointer to a apiPostCommerceStocklocationB
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStore
+
+> PostCommerceStore(ctx).Execute()
+
+Create a storefront
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStore(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreid
+
+> PostCommerceStoreByStoreid(ctx, storeid).Execute()
+
+Method-override tunnel for clients that cannot send PUT, PATCH or DELETE
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreid(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidAuthorize
+
+> PostCommerceStoreByStoreidAuthorize(ctx, storeid).Execute()
+
+Authorize a new order against a storefront, holding the funds without settling them
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidAuthorize(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidAuthorize``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidAuthorizeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidAuthorizeByOrderid
+
+> PostCommerceStoreByStoreidAuthorizeByOrderid(ctx, storeid, orderid).Execute()
+
+Authorize an order that already exists, holding the funds without settling them
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	orderid := "orderid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidAuthorizeByOrderid(context.Background(), storeid, orderid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidAuthorizeByOrderid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**orderid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidAuthorizeByOrderidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCaptureByOrderid
+
+> PostCommerceStoreByStoreidCaptureByOrderid(ctx, storeid, orderid).Execute()
+
+Capture a previously authorized order and settle the payment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	orderid := "orderid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCaptureByOrderid(context.Background(), storeid, orderid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCaptureByOrderid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**orderid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidCaptureByOrderidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCharge
+
+> PostCommerceStoreByStoreidCharge(ctx, storeid).Execute()
+
+Authorize and capture a new order in one call
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCharge(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCharge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidChargeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCheckoutAuthorize
+
+> PostCommerceStoreByStoreidCheckoutAuthorize(ctx, storeid).Execute()
+
+Authorize a new order against a storefront, holding the funds — the checkout spelling
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCheckoutAuthorize(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCheckoutAuthorize``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidCheckoutAuthorizeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid
+
+> PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid(ctx, storeid, orderid).Execute()
+
+Authorize an existing order, holding the funds — the checkout spelling
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	orderid := "orderid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid(context.Background(), storeid, orderid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCheckoutAuthorizeByOrderid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**orderid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidCheckoutAuthorizeByOrderidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCheckoutCaptureByOrderid
+
+> PostCommerceStoreByStoreidCheckoutCaptureByOrderid(ctx, storeid, orderid).Execute()
+
+Capture a previously authorized order and settle it — the checkout spelling
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	orderid := "orderid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCheckoutCaptureByOrderid(context.Background(), storeid, orderid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCheckoutCaptureByOrderid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**orderid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidCheckoutCaptureByOrderidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCheckoutCharge
+
+> PostCommerceStoreByStoreidCheckoutCharge(ctx, storeid).Execute()
+
+Authorize and capture a new order in one call — the checkout spelling
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCheckoutCharge(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCheckoutCharge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidCheckoutChargeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey
+
+> PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey(ctx, storeid, payKey).Execute()
+
+PayPal cancel by pay key — refuses, exactly as the unprefixed address does
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	payKey := "payKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey(context.Background(), storeid, payKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCheckoutPaypalCancelByPaykey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**payKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidCheckoutPaypalCancelByPaykeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey
+
+> PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey(ctx, storeid, payKey).Execute()
+
+PayPal confirm by pay key — refuses, exactly as the unprefixed address does
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	payKey := "payKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey(context.Background(), storeid, payKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**payKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidCheckoutPaypalConfirmByPaykeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidCheckoutPaypalPay
+
+> PostCommerceStoreByStoreidCheckoutPaypalPay(ctx, storeid).Execute()
+
+Start a PayPal authorization for a new order — the checkout spelling
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidCheckoutPaypalPay(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidCheckoutPaypalPay``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidCheckoutPaypalPayRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidListingByKey
+
+> PostCommerceStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Add a listing override under a new key
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidListingByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidPaypalCancelByPaykey
+
+> PostCommerceStoreByStoreidPaypalCancelByPaykey(ctx, storeid, payKey).Execute()
+
+PayPal cancel by pay key — refuses, because a pay key alone does not identify the order
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	payKey := "payKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidPaypalCancelByPaykey(context.Background(), storeid, payKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidPaypalCancelByPaykey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**payKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidPaypalCancelByPaykeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidPaypalConfirmByPaykey
+
+> PostCommerceStoreByStoreidPaypalConfirmByPaykey(ctx, storeid, payKey).Execute()
+
+PayPal confirm by pay key — refuses, because a pay key alone does not identify the order
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	payKey := "payKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidPaypalConfirmByPaykey(context.Background(), storeid, payKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidPaypalConfirmByPaykey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**payKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidPaypalConfirmByPaykeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidPaypalPay
+
+> PostCommerceStoreByStoreidPaypalPay(ctx, storeid).Execute()
+
+Start a PayPal authorization for a new order
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidPaypalPay(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidPaypalPay``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidPaypalPayRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreByStoreidTrial
+
+> PostCommerceStoreByStoreidTrial(ctx, storeid).Execute()
+
+Start this store's no-card trial on the entry plan
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreByStoreidTrial(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreByStoreidTrial``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreByStoreidTrialRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCommerceStoreToken
+
+> PostCommerceStoreToken(ctx).Execute()
+
+Mint your org's least-privilege storefront read key
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceStoreToken(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceStoreToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceStoreTokenRequest struct via the builder pattern
 
 
 ### Return type
@@ -6996,6 +10411,74 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostCommerceWebhooksByProvider
+
+> PostCommerceWebhooksByProvider(ctx, provider).Execute()
+
+Payment-provider webhook intake for settlement and subscription lifecycle events
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	provider := "provider_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PostCommerceWebhooksByProvider(context.Background(), provider).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceWebhooksByProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCommerceWebhooksByProviderRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PutCommerceCollectionByCollectionid
 
 > PutCommerceCollectionByCollectionid(ctx, collectionid).Execute()
@@ -7336,6 +10819,74 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PutCommercePlansEntriesBySlug
+
+> PutCommercePlansEntriesBySlug(ctx, slug).Execute()
+
+Edit a plan, leaving the fields you omit alone
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PutCommercePlansEntriesBySlug(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommercePlansEntriesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutCommercePlansEntriesBySlugRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PutCommerceProductByProductid
 
 > PutCommerceProductByProductid(ctx, productid).Execute()
@@ -7380,6 +10931,74 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPutCommerceProductByProductidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutCommerceRatesEntriesBySlug
+
+> PutCommerceRatesEntriesBySlug(ctx, slug).Execute()
+
+Edit a rate, and mark it as operator-set
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PutCommerceRatesEntriesBySlug(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommerceRatesEntriesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutCommerceRatesEntriesBySlugRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -7588,6 +11207,145 @@ Other parameters are passed through a pointer to a apiPutCommerceStocklocationBy
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutCommerceStoreByStoreid
+
+> PutCommerceStoreByStoreid(ctx, storeid).Execute()
+
+Replace a storefront outright
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PutCommerceStoreByStoreid(context.Background(), storeid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommerceStoreByStoreid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutCommerceStoreByStoreidRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutCommerceStoreByStoreidListingByKey
+
+> PutCommerceStoreByStoreidListingByKey(ctx, storeid, key).Execute()
+
+Upsert a listing override
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	storeid := "storeid_example" // string | 
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CommerceAPI.PutCommerceStoreByStoreidListingByKey(context.Background(), storeid, key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommerceStoreByStoreidListingByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**storeid** | **string** |  | 
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutCommerceStoreByStoreidListingByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -8146,6 +11904,144 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetCartItem
+
+> Cart SetCartItem(ctx, id).CartItemSet(cartItemSet).Execute()
+
+Set one item's quantity in a cart; zero removes it
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the cart to amend, from the path.
+	cartItemSet := *openapiclient.NewCartItemSet() // CartItemSet | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CommerceAPI.SetCartItem(context.Background(), id).CartItemSet(cartItemSet).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.SetCartItem``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SetCartItem`: Cart
+	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.SetCartItem`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the cart to amend, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetCartItemRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **cartItemSet** | [**CartItemSet**](CartItemSet.md) |  | 
+
+### Return type
+
+[**Cart**](Cart.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TakePayment
+
+> PaymentOut TakePayment(ctx).PaymentIn(paymentIn).Execute()
+
+Take a card payment and credit the org's balance
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	paymentIn := *openapiclient.NewPaymentIn() // PaymentIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CommerceAPI.TakePayment(context.Background()).PaymentIn(paymentIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.TakePayment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TakePayment`: PaymentOut
+	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.TakePayment`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTakePaymentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **paymentIn** | [**PaymentIn**](PaymentIn.md) |  | 
+
+### Return type
+
+[**PaymentOut**](PaymentOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

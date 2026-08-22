@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,22 @@ var _ MappedNullable = &Subject{}
 
 // Subject struct for Subject
 type Subject struct {
-	CreatedAt *int32  `json:"createdAt,omitempty"`
-	Email     *string `json:"email,omitempty"`
-	Id        *string `json:"id,omitempty"`
-	Kind      *string `json:"kind,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	Org       *string `json:"org,omitempty"`
-	// the org's own opaque external id for this subject
-	Ref       *string `json:"ref,omitempty"`
-	UpdatedAt *int32  `json:"updatedAt,omitempty"`
+	// CreatedAt is when the subject was first recorded, Unix SECONDS.
+	CreatedAt *int32 `json:"createdAt,omitempty"`
+	// Email is the party's address, when the org supplied one. It is PII: sealed at rest, returned only to the owning org, and never copied into a check record.
+	Email *string `json:"email,omitempty"`
+	// ID is the opaque handle every other record uses to point at this party. It is the only reference that leaves this type, which is what keeps the PII in one place: a check, an accreditation and an audit row all carry the id and none of them carry the name.
+	Id *string `json:"id,omitempty"`
+	// Kind is what is being verified: \"individual\" (a natural person, so KYC) or \"business\" (a legal entity, so KYB). It decides which provider flow runs.
+	Kind *string `json:"kind,omitempty"`
+	// Name is the party's name, under the same PII rule as Email. For a business it is the legal entity name rather than a trading name, since that is what a provider verifies against.
+	Name *string `json:"name,omitempty"`
+	// Org is the tenant that is doing the verifying — the party who must answer for this record, not the party being verified. A subject is returned only to it.
+	Org *string `json:"org,omitempty"`
+	// Ref is the org's OWN identifier for this party, carried so a caller can match a subject back to their system without keeping a second mapping. Opaque here: nothing in this plane parses or enforces it.
+	Ref *string `json:"ref,omitempty"`
+	// UpdatedAt is when the subject's own fields last changed, Unix seconds. A check moving to a new status does not touch it — that history lives on the check.
+	UpdatedAt *int32 `json:"updatedAt,omitempty"`
 }
 
 // NewSubject instantiates a new Subject object

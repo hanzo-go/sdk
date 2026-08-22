@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Actor** | Pointer to **string** |  | [optional] 
-**At** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Preview** | Pointer to **string** |  | [optional] 
-**Seq** | Pointer to **int32** |  | [optional] 
+**Actor** | Pointer to **string** | Actor is who produced the turn, defaulted to the calling principal when the writer named nobody. | [optional] 
+**At** | Pointer to **string** | At is when the turn was recorded, RFC 3339 in UTC to the second. | [optional] 
+**Kind** | Pointer to **string** | Kind is what the turn was, from the log&#39;s closed six: message, tool-call, spawn, log, status, control. | [optional] 
+**Preview** | Pointer to **string** | Preview is the first 240 bytes of the event&#39;s payload, cut without regard for the JSON inside it — it is a string to SHOW, never a value to parse. Read the detail or the stream for the whole payload. | [optional] 
+**Seq** | Pointer to **int32** | Seq is that event&#39;s position in the session&#39;s log — monotonic from 1, per session. A reader holding it can ask the detail or stream reads for everything after it, so this doubles as the list&#39;s resume cursor. | [optional] 
 
 ## Methods
 

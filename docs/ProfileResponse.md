@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**KeyMetrics** | Pointer to [**ProfileMetrics**](ProfileMetrics.md) |  | [optional] 
-**Signals** | Pointer to **map[string]bool** |  | [optional] 
-**Stage** | Pointer to **string** |  | [optional] 
+**KeyMetrics** | Pointer to [**ProfileMetrics**](ProfileMetrics.md) | KeyMetrics are the org&#39;s OWN numbers behind those signals — never another org&#39;s, and never a platform aggregate. | [optional] 
+**Signals** | Pointer to **map[string]bool** | Signals is what was observed of the org right now, one boolean per probe. A probe that could not be run reports FALSE, not absent — the shape is stable so a caller never has to tell a missing key from a negative answer, and the cost is that \&quot;not observed\&quot; and \&quot;not there\&quot; look alike here. Keys are the probe names, including the &#x60;module:&lt;name&gt;&#x60; and &#x60;connected:&lt;provider&gt;&#x60; families. | [optional] 
+**Stage** | Pointer to **string** | Stage is how far the business itself has got — formed, launched, activated or scaling — decided purely from the signals below, and by what the org has ACHIEVED rather than what it has configured. It reads the STRONGEST evidence present, so money of record makes an org scaling even if an earlier rung&#39;s signal was never observed. It is unrelated to checklist progress. | [optional] 
 
 ## Methods
 

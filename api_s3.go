@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -33,16 +33,16 @@ func (r S3APIDeleteS3BucketsByBucketRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteS3BucketsByBucket Delete an empty bucket
+DeleteS3BucketsByBucket Removes an EMPTY bucket and answers 204.
 
-Removes one of the caller's buckets, and only when it is already EMPTY — a bucket with objects in it answers 409 instead.
+Removes an EMPTY bucket and answers 204.
 
-That refusal is deliberate rather than a limitation: this API does not cascade a delete of a tenant's objects behind a single bucket call, so emptying the bucket stays an explicit act. A bucket that does not exist is 404, and a successful delete answers 204 with no body.
-
-A validated principal is required, and every bucket and key is resolved inside the caller's own org: physical bucket names are derived from the org, so a tenant cannot name another's storage. The operation is billed per call — the balance is checked BEFORE anything is touched, so an unfunded org is refused with nothing done, and the debit happens only after the work succeeds. Object storage that is not configured answers 503 under this subsystem's own name rather than falling through to another.
+A non-empty bucket is 409 rather than a cascade: deleting a tenant's objects
+behind a single bucket call is not a thing this surface will do silently. A
+bucket the caller's org does not own is the same 404 an unknown name gives.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bucket
+	@param bucket Bucket is the bucket's friendly name, from the path.
 	@return S3APIDeleteS3BucketsByBucketRequest
 */
 func (a *S3APIService) DeleteS3BucketsByBucket(ctx context.Context, bucket string) S3APIDeleteS3BucketsByBucketRequest {
@@ -118,123 +118,23 @@ func (a *S3APIService) DeleteS3BucketsByBucketExecute(r S3APIDeleteS3BucketsByBu
 	return localVarHTTPResponse, nil
 }
 
-type S3APIDeleteS3BucketsByBucketObjectsByWildcard1Request struct {
-	ctx        context.Context
-	ApiService *S3APIService
-	bucket     string
-	wildcard1  string
-}
-
-func (r S3APIDeleteS3BucketsByBucketObjectsByWildcard1Request) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteS3BucketsByBucketObjectsByWildcard1Execute(r)
-}
-
-/*
-DeleteS3BucketsByBucketObjectsByWildcard1 Delete one object
-
-Removes the single object at the trailing path from one of the caller's buckets and answers 204 with no body. The key is path-cleaned first, so the delete cannot reach outside the bucket it names.
-
-It removes one object and never a prefix: a trailing path that looks like a folder deletes the placeholder at that key, not the objects beneath it.
-
-A validated principal is required, and every bucket and key is resolved inside the caller's own org: physical bucket names are derived from the org, so a tenant cannot name another's storage. The operation is billed per call — the balance is checked BEFORE anything is touched, so an unfunded org is refused with nothing done, and the debit happens only after the work succeeds. Object storage that is not configured answers 503 under this subsystem's own name rather than falling through to another.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bucket
-	@param wildcard1
-	@return S3APIDeleteS3BucketsByBucketObjectsByWildcard1Request
-*/
-func (a *S3APIService) DeleteS3BucketsByBucketObjectsByWildcard1(ctx context.Context, bucket string, wildcard1 string) S3APIDeleteS3BucketsByBucketObjectsByWildcard1Request {
-	return S3APIDeleteS3BucketsByBucketObjectsByWildcard1Request{
-		ApiService: a,
-		ctx:        ctx,
-		bucket:     bucket,
-		wildcard1:  wildcard1,
-	}
-}
-
-// Execute executes the request
-func (a *S3APIService) DeleteS3BucketsByBucketObjectsByWildcard1Execute(r S3APIDeleteS3BucketsByBucketObjectsByWildcard1Request) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "S3APIService.DeleteS3BucketsByBucketObjectsByWildcard1")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/s3/buckets/{bucket}/objects/{wildcard1}"
-	localVarPath = strings.Replace(localVarPath, "{"+"bucket"+"}", url.PathEscape(parameterValueToString(r.bucket, "bucket")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type S3APIGetS3BucketsRequest struct {
 	ctx        context.Context
 	ApiService *S3APIService
 }
 
-func (r S3APIGetS3BucketsRequest) Execute() (*http.Response, error) {
+func (r S3APIGetS3BucketsRequest) Execute() (*BucketList, *http.Response, error) {
 	return r.ApiService.GetS3BucketsExecute(r)
 }
 
 /*
-GetS3Buckets List your org's buckets
+GetS3Buckets Lists the caller org's own buckets.
 
-Returns the caller's own buckets under the friendly names they were created with, each with its creation time.
+Lists the caller org's own buckets.
 
-Another tenant's bucket is not refused, it is INVISIBLE — a bucket outside the caller's namespace is skipped during the listing rather than reported, so the operation cannot be used to discover that a name is taken elsewhere.
-
-A validated principal is required, and every bucket and key is resolved inside the caller's own org: physical bucket names are derived from the org, so a tenant cannot name another's storage. The operation is billed per call — the balance is checked BEFORE anything is touched, so an unfunded org is refused with nothing done, and the debit happens only after the work succeeds. Object storage that is not configured answers 503 under this subsystem's own name rather than falling through to another.
+Only the caller's: every bucket is physically named under a per-org prefix and
+the listing strips that prefix, so a tenant sees friendly names and another
+tenant's buckets are not in the answer at all.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return S3APIGetS3BucketsRequest
@@ -247,16 +147,19 @@ func (a *S3APIService) GetS3Buckets(ctx context.Context) S3APIGetS3BucketsReques
 }
 
 // Execute executes the request
-func (a *S3APIService) GetS3BucketsExecute(r S3APIGetS3BucketsRequest) (*http.Response, error) {
+//
+//	@return BucketList
+func (a *S3APIService) GetS3BucketsExecute(r S3APIGetS3BucketsRequest) (*BucketList, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BucketList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "S3APIService.GetS3Buckets")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/s3/buckets"
@@ -275,7 +178,7 @@ func (a *S3APIService) GetS3BucketsExecute(r S3APIGetS3BucketsRequest) (*http.Re
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -284,19 +187,19 @@ func (a *S3APIService) GetS3BucketsExecute(r S3APIGetS3BucketsRequest) (*http.Re
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -304,35 +207,56 @@ func (a *S3APIService) GetS3BucketsExecute(r S3APIGetS3BucketsRequest) (*http.Re
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type S3APIGetS3BucketsByBucketObjectsRequest struct {
 	ctx        context.Context
 	ApiService *S3APIService
 	bucket     string
+	prefix     *string
+	recursive  *string
 }
 
-func (r S3APIGetS3BucketsByBucketObjectsRequest) Execute() (*http.Response, error) {
+func (r S3APIGetS3BucketsByBucketObjectsRequest) Prefix(prefix string) S3APIGetS3BucketsByBucketObjectsRequest {
+	r.prefix = &prefix
+	return r
+}
+
+func (r S3APIGetS3BucketsByBucketObjectsRequest) Recursive(recursive string) S3APIGetS3BucketsByBucketObjectsRequest {
+	r.recursive = &recursive
+	return r
+}
+
+func (r S3APIGetS3BucketsByBucketObjectsRequest) Execute() (*ObjectList, *http.Response, error) {
 	return r.ApiService.GetS3BucketsByBucketObjectsExecute(r)
 }
 
 /*
-GetS3BucketsByBucketObjects Browse one level of a bucket
+GetS3BucketsByBucketObjects Lists one folder level of a bucket.
 
-Lists one folder level of a bucket: each entry's key, whether it is a folder, its size, last-modified time and ETag. `prefix` scopes the read to a sub-folder.
+Lists one folder level of a bucket.
 
-Keys come back RELATIVE to the requested prefix, not absolute, which is what lets a client render a breadcrumb without re-deriving it. The default is the folder view — sub-prefixes are returned as directory entries — and `recursive=true` flattens it to every key beneath the prefix instead.
-
-The listing is bounded at 1000 entries so a large bucket cannot exhaust memory; treat a full page as "there may be more" rather than as the whole bucket.
-
-A validated principal is required, and every bucket and key is resolved inside the caller's own org: physical bucket names are derived from the org, so a tenant cannot name another's storage. The operation is billed per call — the balance is checked BEFORE anything is touched, so an unfunded org is refused with nothing done, and the debit happens only after the work succeeds. Object storage that is not configured answers 503 under this subsystem's own name rather than falling through to another.
+Folder-style by default: sub-prefixes come back as directory entries, which is
+the file-manager view. `?recursive=true` lists every key flat under the prefix
+instead. Keys are RELATIVE to `?prefix=`, and the listing is bounded so a huge
+bucket cannot exhaust memory — Total is what came back, not what the bucket
+holds.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bucket
+	@param bucket Bucket is the bucket to list, from the path.
 	@return S3APIGetS3BucketsByBucketObjectsRequest
 */
 func (a *S3APIService) GetS3BucketsByBucketObjects(ctx context.Context, bucket string) S3APIGetS3BucketsByBucketObjectsRequest {
@@ -344,16 +268,19 @@ func (a *S3APIService) GetS3BucketsByBucketObjects(ctx context.Context, bucket s
 }
 
 // Execute executes the request
-func (a *S3APIService) GetS3BucketsByBucketObjectsExecute(r S3APIGetS3BucketsByBucketObjectsRequest) (*http.Response, error) {
+//
+//	@return ObjectList
+func (a *S3APIService) GetS3BucketsByBucketObjectsExecute(r S3APIGetS3BucketsByBucketObjectsRequest) (*ObjectList, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ObjectList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "S3APIService.GetS3BucketsByBucketObjects")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/s3/buckets/{bucket}/objects"
@@ -363,6 +290,12 @@ func (a *S3APIService) GetS3BucketsByBucketObjectsExecute(r S3APIGetS3BucketsByB
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.prefix != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "prefix", r.prefix, "form", "")
+	}
+	if r.recursive != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "recursive", r.recursive, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -373,7 +306,7 @@ func (a *S3APIService) GetS3BucketsByBucketObjectsExecute(r S3APIGetS3BucketsByB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -382,19 +315,19 @@ func (a *S3APIService) GetS3BucketsByBucketObjectsExecute(r S3APIGetS3BucketsByB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -402,110 +335,19 @@ func (a *S3APIService) GetS3BucketsByBucketObjectsExecute(r S3APIGetS3BucketsByB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type S3APIGetS3BucketsByBucketObjectsByWildcard1Request struct {
-	ctx        context.Context
-	ApiService *S3APIService
-	bucket     string
-	wildcard1  string
-}
-
-func (r S3APIGetS3BucketsByBucketObjectsByWildcard1Request) Execute() (*http.Response, error) {
-	return r.ApiService.GetS3BucketsByBucketObjectsByWildcard1Execute(r)
-}
-
-/*
-GetS3BucketsByBucketObjectsByWildcard1 Get a URL to download one object directly
-
-Returns a short-lived presigned GET URL for the object at the trailing path, with the method, the key and its remaining lifetime. As with upload, the client fetches from that URL directly and the storage credential stays on the server.
-
-The URL carries a content disposition of attachment with the object's file name, so a browser following it downloads the object rather than rendering it in place. Signed against the public host, scoped to the one bucket and key, and good for five minutes; a deployment with no public storage endpoint answers 503.
-
-A validated principal is required, and every bucket and key is resolved inside the caller's own org: physical bucket names are derived from the org, so a tenant cannot name another's storage. The operation is billed per call — the balance is checked BEFORE anything is touched, so an unfunded org is refused with nothing done, and the debit happens only after the work succeeds. Object storage that is not configured answers 503 under this subsystem's own name rather than falling through to another.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bucket
-	@param wildcard1
-	@return S3APIGetS3BucketsByBucketObjectsByWildcard1Request
-*/
-func (a *S3APIService) GetS3BucketsByBucketObjectsByWildcard1(ctx context.Context, bucket string, wildcard1 string) S3APIGetS3BucketsByBucketObjectsByWildcard1Request {
-	return S3APIGetS3BucketsByBucketObjectsByWildcard1Request{
-		ApiService: a,
-		ctx:        ctx,
-		bucket:     bucket,
-		wildcard1:  wildcard1,
-	}
-}
-
-// Execute executes the request
-func (a *S3APIService) GetS3BucketsByBucketObjectsByWildcard1Execute(r S3APIGetS3BucketsByBucketObjectsByWildcard1Request) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "S3APIService.GetS3BucketsByBucketObjectsByWildcard1")
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/s3/buckets/{bucket}/objects/{wildcard1}"
-	localVarPath = strings.Replace(localVarPath, "{"+"bucket"+"}", url.PathEscape(parameterValueToString(r.bucket, "bucket")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"wildcard1"+"}", url.PathEscape(parameterValueToString(r.wildcard1, "wildcard1")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
+			error: err.Error(),
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type S3APIGetS3HealthRequest struct {
@@ -513,16 +355,20 @@ type S3APIGetS3HealthRequest struct {
 	ApiService *S3APIService
 }
 
-func (r S3APIGetS3HealthRequest) Execute() (*http.Response, error) {
+func (r S3APIGetS3HealthRequest) Execute() (*S3Health, *http.Response, error) {
 	return r.ApiService.GetS3HealthExecute(r)
 }
 
 /*
-GetS3Health Whether object storage is usable here
+GetS3Health Health reports whether this deployment can serve object storage.
 
-A real readiness probe rather than a liveness stub: 200 only when the storage credentials are present, and it additionally reports whether presigning is available — the capability the two URL-issuing operations need and refuse without.
+Health reports whether this deployment can serve object storage.
 
-An unconfigured deployment answers 503 with `ready:false` and the reason, which is the same state in which every data-plane operation here refuses. Not token-gated, so the platform can probe it without a credential, and it carries no credential, bucket or tenant detail.
+It is a REAL probe rather than a constant: 200 when admin credentials are
+present, so the store is reachable in principle, and 503 with the reason when
+they are not. It is deliberately NOT gated — liveness has to be probe-able
+without a token — so it is the one operation here that names no bucket and
+bills nothing.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return S3APIGetS3HealthRequest
@@ -535,16 +381,19 @@ func (a *S3APIService) GetS3Health(ctx context.Context) S3APIGetS3HealthRequest 
 }
 
 // Execute executes the request
-func (a *S3APIService) GetS3HealthExecute(r S3APIGetS3HealthRequest) (*http.Response, error) {
+//
+//	@return S3Health
+func (a *S3APIService) GetS3HealthExecute(r S3APIGetS3HealthRequest) (*S3Health, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *S3Health
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "S3APIService.GetS3Health")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/s3/health"
@@ -563,7 +412,7 @@ func (a *S3APIService) GetS3HealthExecute(r S3APIGetS3HealthRequest) (*http.Resp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -572,19 +421,19 @@ func (a *S3APIService) GetS3HealthExecute(r S3APIGetS3HealthRequest) (*http.Resp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -592,29 +441,54 @@ func (a *S3APIService) GetS3HealthExecute(r S3APIGetS3HealthRequest) (*http.Resp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v S3Health
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type S3APIPostS3BucketsRequest struct {
 	ctx        context.Context
 	ApiService *S3APIService
+	bucketIn   *BucketIn
 }
 
-func (r S3APIPostS3BucketsRequest) Execute() (*http.Response, error) {
+func (r S3APIPostS3BucketsRequest) BucketIn(bucketIn BucketIn) S3APIPostS3BucketsRequest {
+	r.bucketIn = &bucketIn
+	return r
+}
+
+func (r S3APIPostS3BucketsRequest) Execute() (*BucketItem, *http.Response, error) {
 	return r.ApiService.PostS3BucketsExecute(r)
 }
 
 /*
-PostS3Buckets Create a bucket in your org
+PostS3Buckets Makes a new bucket for the caller's org and answers 201 with it.
 
-Creates a new bucket in the caller's own namespace and answers 201 with its friendly name and creation time.
+Makes a new bucket for the caller's org and answers 201 with it.
 
-The name is validated exactly as sent and never quietly normalised: it must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`, so a mixed-case name is a clean 400 rather than a bucket created as `photos` that the caller keeps asking for as `Photos`. A name already in use in the caller's own namespace is 409.
-
-A validated principal is required, and every bucket and key is resolved inside the caller's own org: physical bucket names are derived from the org, so a tenant cannot name another's storage. The operation is billed per call — the balance is checked BEFORE anything is touched, so an unfunded org is refused with nothing done, and the debit happens only after the work succeeds. Object storage that is not configured answers 503 under this subsystem's own name rather than falling through to another.
+The physical name is derived from the caller's validated org, so a tenant can
+only ever create inside its own namespace and no request field can redirect
+that. A name already taken in the org is 409.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return S3APIPostS3BucketsRequest
@@ -627,16 +501,19 @@ func (a *S3APIService) PostS3Buckets(ctx context.Context) S3APIPostS3BucketsRequ
 }
 
 // Execute executes the request
-func (a *S3APIService) PostS3BucketsExecute(r S3APIPostS3BucketsRequest) (*http.Response, error) {
+//
+//	@return BucketItem
+func (a *S3APIService) PostS3BucketsExecute(r S3APIPostS3BucketsRequest) (*BucketItem, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BucketItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "S3APIService.PostS3Buckets")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/s3/buckets"
@@ -644,9 +521,12 @@ func (a *S3APIService) PostS3BucketsExecute(r S3APIPostS3BucketsRequest) (*http.
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.bucketIn == nil {
+		return localVarReturnValue, nil, reportError("bucketIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -655,28 +535,30 @@ func (a *S3APIService) PostS3BucketsExecute(r S3APIPostS3BucketsRequest) (*http.
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.bucketIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -684,33 +566,49 @@ func (a *S3APIService) PostS3BucketsExecute(r S3APIPostS3BucketsRequest) (*http.
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type S3APIPostS3BucketsByBucketObjectsRequest struct {
 	ctx        context.Context
 	ApiService *S3APIService
 	bucket     string
+	uploadIn   *UploadIn
 }
 
-func (r S3APIPostS3BucketsByBucketObjectsRequest) Execute() (*http.Response, error) {
+func (r S3APIPostS3BucketsByBucketObjectsRequest) UploadIn(uploadIn UploadIn) S3APIPostS3BucketsByBucketObjectsRequest {
+	r.uploadIn = &uploadIn
+	return r
+}
+
+func (r S3APIPostS3BucketsByBucketObjectsRequest) Execute() (*PresignResponse, *http.Response, error) {
 	return r.ApiService.PostS3BucketsByBucketObjectsExecute(r)
 }
 
 /*
-PostS3BucketsByBucketObjects Get a URL to upload one object directly
+PostS3BucketsByBucketObjects Mints a presigned PUT URL the caller uploads to DIRECTLY.
 
-Returns a short-lived presigned PUT URL, with the method, the cleaned key and the seconds until it expires. The client uploads to that URL DIRECTLY — the bytes never pass through this API, and the storage credential never leaves the server.
+Mints a presigned PUT URL the caller uploads to DIRECTLY.
 
-The URL is signed against the public storage host and scoped to exactly one bucket and key, and it expires five minutes after it is issued. The key is path-cleaned before signing, so a traversal cannot escape the bucket. A deployment with no public storage endpoint answers 503, because there is no host to sign a browser-followable URL against.
-
-A validated principal is required, and every bucket and key is resolved inside the caller's own org: physical bucket names are derived from the org, so a tenant cannot name another's storage. The operation is billed per call — the balance is checked BEFORE anything is touched, so an unfunded org is refused with nothing done, and the debit happens only after the work succeeds. Object storage that is not configured answers 503 under this subsystem's own name rather than falling through to another.
+The bytes never pass through this binary and the admin credential never leaves
+the server: the URL is signed against the PUBLIC host, scoped to exactly this
+bucket and key, and expires. A deployment with no public endpoint configured
+cannot mint one and answers 503 rather than a URL that will not work.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bucket
+	@param bucket Bucket is the bucket to upload into, from the path.
 	@return S3APIPostS3BucketsByBucketObjectsRequest
 */
 func (a *S3APIService) PostS3BucketsByBucketObjects(ctx context.Context, bucket string) S3APIPostS3BucketsByBucketObjectsRequest {
@@ -722,16 +620,19 @@ func (a *S3APIService) PostS3BucketsByBucketObjects(ctx context.Context, bucket 
 }
 
 // Execute executes the request
-func (a *S3APIService) PostS3BucketsByBucketObjectsExecute(r S3APIPostS3BucketsByBucketObjectsRequest) (*http.Response, error) {
+//
+//	@return PresignResponse
+func (a *S3APIService) PostS3BucketsByBucketObjectsExecute(r S3APIPostS3BucketsByBucketObjectsRequest) (*PresignResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PresignResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "S3APIService.PostS3BucketsByBucketObjects")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/s3/buckets/{bucket}/objects"
@@ -740,9 +641,12 @@ func (a *S3APIService) PostS3BucketsByBucketObjectsExecute(r S3APIPostS3BucketsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.uploadIn == nil {
+		return localVarReturnValue, nil, reportError("uploadIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -751,28 +655,30 @@ func (a *S3APIService) PostS3BucketsByBucketObjectsExecute(r S3APIPostS3BucketsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.uploadIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -780,8 +686,17 @@ func (a *S3APIService) PostS3BucketsByBucketObjectsExecute(r S3APIPostS3BucketsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

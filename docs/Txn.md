@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountCents** | Pointer to **int32** |  | [optional] 
-**Category** | Pointer to **string** | COA account number of the P&amp;L line | [optional] 
-**CategoryName** | Pointer to **string** |  | [optional] 
-**Date** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Source** | Pointer to **string** | source_kind: bank_txn | scan | commerce_txn | [optional] 
-**Vendor** | Pointer to **string** |  | [optional] 
-**VoucherId** | Pointer to **int32** |  | [optional] 
+**AmountCents** | Pointer to **int32** | AmountCents is the voucher&#39;s total, in whole cents — its total debit, which equals its total credit because every voucher balances. It is the size of the entry and carries no direction; the category says which way it went. | [optional] 
+**Category** | Pointer to **string** | Category is the chart-of-accounts NUMBER of the income or expense account this voucher touched — where it lands on the P&amp;L, not a free-text label. | [optional] 
+**CategoryName** | Pointer to **string** | CategoryName is that account&#39;s human name, so a caller need not carry the chart to render the row. | [optional] 
+**Date** | Pointer to **string** | Date is when the voucher POSTED — the accounting date the reports window on, which for an imported bank row is the bank&#39;s date and not the day it landed here. | [optional] 
+**Description** | Pointer to **string** | Description is the line a person reads: the memo carried in from the source. | [optional] 
+**Source** | Pointer to **string** | Source is where the entry came from: bank_txn for an imported statement line, scan for a receipt or bill read by the scanner, commerce_txn for a sale booked by the store. | [optional] 
+**Vendor** | Pointer to **string** | Vendor is the counterparty, resolved from whatever the source knew — a bank row&#39;s merchant, a scanned bill&#39;s supplier. Absent when the source named none. | [optional] 
+**VoucherId** | Pointer to **int32** | VoucherID identifies the underlying double-entry voucher, so a caller can open the full set of legs behind this single register line. | [optional] 
 
 ## Methods
 

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Brief** | Pointer to **string** |  | [optional] 
-**Model** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Slug** | Pointer to **string** |  | [optional] 
+**Brief** | Pointer to **string** | Brief is what the site should be, in plain language. It is the whole input the model gets and it is size-bounded. | [optional] 
+**Model** | Pointer to **string** | Model names which model writes the site. Absent takes the deployment&#39;s default — this route spends inference on the caller&#39;s org either way. | [optional] 
+**Name** | Pointer to **string** | Name is the site&#39;s display name. Taken from what the model writes when omitted. | [optional] 
+**Slug** | Pointer to **string** | Slug is the handle and public host label to publish under. Derived from the name, or from the brief, when omitted. | [optional] 
 
 ## Methods
 

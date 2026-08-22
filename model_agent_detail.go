@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,14 +19,16 @@ var _ MappedNullable = &AgentDetail{}
 
 // AgentDetail struct for AgentDetail
 type AgentDetail struct {
-	ComputeRef       *string        `json:"computeRef,omitempty"`
-	CreatedAt        *string        `json:"createdAt,omitempty"`
-	Description      *string        `json:"description,omitempty"`
-	ExecutionMode    *string        `json:"executionMode,omitempty"`
-	Id               *string        `json:"id,omitempty"`
-	Instructions     *string        `json:"instructions,omitempty"`
-	Model            *string        `json:"model,omitempty"`
-	Name             *string        `json:"name,omitempty"`
+	ComputeRef    *string `json:"computeRef,omitempty"`
+	CreatedAt     *string `json:"createdAt,omitempty"`
+	Description   *string `json:"description,omitempty"`
+	ExecutionMode *string `json:"executionMode,omitempty"`
+	Id            *string `json:"id,omitempty"`
+	// Instructions is the agent's system prompt, verbatim, up to 32 KiB. It is the one field the list read withholds, because it is the agent's whole behaviour and a page of them would be a page of prompts.
+	Instructions *string `json:"instructions,omitempty"`
+	Model        *string `json:"model,omitempty"`
+	Name         *string `json:"name,omitempty"`
+	// RecentRuns is the agent's 20 most recent executions, newest first. It is a window on the history, not the history: the count beside it is `runs`.
 	RecentRuns       []AgentRunView `json:"recentRuns,omitempty"`
 	Runs             *int32         `json:"runs,omitempty"`
 	Schedule         *string        `json:"schedule,omitempty"`

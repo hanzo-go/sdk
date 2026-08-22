@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Group** | Pointer to **string** |  | [optional] 
-**Health** | Pointer to [**ArgoHealth**](ArgoHealth.md) |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
+**Group** | Pointer to **string** | Group is the object&#39;s API group: empty for the core group (Pod, Service, ConfigMap), otherwise apps, networking.k8s.io, autoscaling or policy — and hanzo.ai for the App CR itself. | [optional] 
+**Health** | Pointer to [**ArgoHealth**](ArgoHealth.md) | Health is this object&#39;s own health, derived from its live state by the same rule the resource tree uses. | [optional] 
+**Kind** | Pointer to **string** | Kind is the object kind — App, Deployment, ReplicaSet, Pod, Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget, ConfigMap. Never Secret: the walk that produces these does not visit them. | [optional] 
+**Name** | Pointer to **string** | Name is the object&#39;s metadata.name. | [optional] 
+**Namespace** | Pointer to **string** | Namespace is the namespace the object was found in — the same one for every entry of an application, since the walk is confined to it. | [optional] 
+**Status** | Pointer to **string** | Status is the APPLICATION&#39;s sync verdict repeated on every row, not a per-object one. The operator owns these children, so no child has a desired state of its own to compare against. | [optional] 
+**Version** | Pointer to **string** | Version is the object&#39;s API version as the live object reports it: v1 for every kind here except the HorizontalPodAutoscaler, which is autoscaling/v2. | [optional] 
 
 ## Methods
 

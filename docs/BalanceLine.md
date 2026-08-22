@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | Pointer to **string** |  | [optional] 
-**Amount** | Pointer to **int32** | cents, display sign | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Account** | Pointer to **string** | Account is the chart-of-accounts number this line reports on. ABSENT marks a DERIVED line that no account holds — retained earnings is the one such line, computed from cumulative income minus expense. | [optional] 
+**Amount** | Pointer to **int32** | Amount is the balance as of the statement date, in whole cents, in its NATURAL sign: positive when the account behaved normally, on all three sides. Assets are debit-normal and shown as stored; liabilities and equity are credit-normal and flipped once here for display. A negative asset is a real overdraft, not a sign convention. | [optional] 
+**Name** | Pointer to **string** | Name is the account&#39;s human name, or the derived line&#39;s own name. | [optional] 
+**Type** | Pointer to **string** | Type is the account&#39;s fundamental class. Absent on a derived line, which belongs to no account and therefore has none. | [optional] 
 
 ## Methods
 

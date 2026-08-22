@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -20,12 +20,16 @@ var _ MappedNullable = &O11yStatusSummary{}
 // O11yStatusSummary struct for O11yStatusSummary
 type O11yStatusSummary struct {
 	// CheckedAt is when the underlying availability read was taken, RFC3339 UTC. Not part of the status-page schema the panel parses (which ignores unknown fields); it is here because a status document with no timestamp cannot be told apart from a stale one.
-	CheckedAt              *string                 `json:"checked_at,omitempty"`
+	CheckedAt *string `json:"checked_at,omitempty"`
+	// InProgressMaintenances is always empty: this platform has no maintenance scheduling plane, so \"nothing is running\" is a true statement rather than a placeholder.
 	InProgressMaintenances []O11yStatusMaintenance `json:"in_progress_maintenances,omitempty"`
-	OngoingIncidents       []O11yStatusIncident    `json:"ongoing_incidents,omitempty"`
-	PageTitle              *string                 `json:"page_title,omitempty"`
+	// OngoingIncidents is one entry per service that failed its health probe, sorted by name. Empty means every probed service answered — which is a measurement, not an absence of reports.
+	OngoingIncidents []O11yStatusIncident `json:"ongoing_incidents,omitempty"`
+	// PageTitle is the brand's own status-page title, resolved per request from the Host — a lux caller must never be shown Hanzo's.
+	PageTitle *string `json:"page_title,omitempty"`
 	// PageURL is the HUMAN status page — an HTML page for people, distinct from this JSON endpoint. Every link in this document points there.
-	PageUrl               *string                 `json:"page_url,omitempty"`
+	PageUrl *string `json:"page_url,omitempty"`
+	// ScheduledMaintenances is always empty, for the same reason.
 	ScheduledMaintenances []O11yStatusMaintenance `json:"scheduled_maintenances,omitempty"`
 }
 

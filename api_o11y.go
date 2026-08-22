@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -4673,6 +4673,102 @@ func (a *O11yAPIService) DeleteO11yReviewsByIdExecute(r O11yAPIDeleteO11yReviews
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIDeleteO11ySentinelProjectsByIdRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	id         string
+}
+
+func (r O11yAPIDeleteO11ySentinelProjectsByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteO11ySentinelProjectsByIdExecute(r)
+}
+
+/*
+DeleteO11ySentinelProjectsById Deletes one Sentry project of the caller's org.
+
+Deletes one Sentry project of the caller's org. Its DSN
+stops resolving immediately, so ingest for that id fails closed exactly as an
+unknown project does; retained events are not touched. Answers 204.
+
+Callers need the editor role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the project id.
+	@return O11yAPIDeleteO11ySentinelProjectsByIdRequest
+*/
+func (a *O11yAPIService) DeleteO11ySentinelProjectsById(ctx context.Context, id string) O11yAPIDeleteO11ySentinelProjectsByIdRequest {
+	return O11yAPIDeleteO11ySentinelProjectsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *O11yAPIService) DeleteO11ySentinelProjectsByIdExecute(r O11yAPIDeleteO11ySentinelProjectsByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteO11ySentinelProjectsById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/projects/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type O11yAPIDeletePublicDashboardRequest struct {
@@ -17916,7 +18012,9 @@ GetO11yQueryProgress Watch one running query's progress
 
 Reports how far a submitted query has got — rows scanned, bytes read, elapsed — and HOLDS the connection until the next update rather than answering immediately.
 
-The long poll is the whole point, and the reason this cannot be a typed operation: an answer that arrived only when the query finished would report progress on nothing. The websocket form of the same read is /ws/query_progress.
+ONE ADDRESS, TWO PROTOCOLS. Send an Upgrade and this is a websocket carrying the same progress; send an ordinary GET and it is a long poll. The Upgrade is a property of the request, not of the address, so the read that used to answer at /ws/query_progress answers here.
+
+The long poll is the whole point, and the reason this cannot be a typed operation: an answer that arrived only when the query finished would report progress on nothing, and an upgraded connection has no JSON response to declare.
 
 A validated, org-scoped principal is required; a query id belonging to another tenant is simply not found.
 
@@ -18562,6 +18660,1295 @@ func (a *O11yAPIService) GetO11yReviewsByIdItemsExecute(r O11yAPIGetO11yReviewsB
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelEventsByIdRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	id         string
+	project    *string
+}
+
+// Project is the project the event belongs to, by its id. Required.
+func (r O11yAPIGetO11ySentinelEventsByIdRequest) Project(project string) O11yAPIGetO11ySentinelEventsByIdRequest {
+	r.project = &project
+	return r
+}
+
+func (r O11yAPIGetO11ySentinelEventsByIdRequest) Execute() (*O11yO11ySentryEventOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelEventsByIdExecute(r)
+}
+
+/*
+GetO11ySentinelEventsById Returns one captured error event of a project, by its id.
+
+Returns one captured error event of a project, by its id.
+
+Callers need the viewer role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the event id.
+	@return O11yAPIGetO11ySentinelEventsByIdRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelEventsById(ctx context.Context, id string) O11yAPIGetO11ySentinelEventsByIdRequest {
+	return O11yAPIGetO11ySentinelEventsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11ySentryEventOut
+func (a *O11yAPIService) GetO11ySentinelEventsByIdExecute(r O11yAPIGetO11ySentinelEventsByIdRequest) (*O11yO11ySentryEventOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11ySentryEventOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelEventsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/events/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.project == nil {
+		return localVarReturnValue, nil, reportError("project is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelIssuesRequest struct {
+	ctx         context.Context
+	ApiService  *O11yAPIService
+	status      *string
+	level       *string
+	environment *string
+	serviceName *string
+	query       *string
+	sort        *string
+	offset      *int32
+	limit       *int32
+	project     *string
+	period      *string
+}
+
+// Status narrows to one lifecycle state: unresolved, resolved or ignored.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Status(status string) O11yAPIGetO11ySentinelIssuesRequest {
+	r.status = &status
+	return r
+}
+
+// Level narrows to one severity, e.g. error, warning, info.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Level(level string) O11yAPIGetO11ySentinelIssuesRequest {
+	r.level = &level
+	return r
+}
+
+// Environment narrows to one deployment environment.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Environment(environment string) O11yAPIGetO11ySentinelIssuesRequest {
+	r.environment = &environment
+	return r
+}
+
+// ServiceName narrows to one reporting service.
+func (r O11yAPIGetO11ySentinelIssuesRequest) ServiceName(serviceName string) O11yAPIGetO11ySentinelIssuesRequest {
+	r.serviceName = &serviceName
+	return r
+}
+
+// Query narrows to issues whose text contains it.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Query(query string) O11yAPIGetO11ySentinelIssuesRequest {
+	r.query = &query
+	return r
+}
+
+// Sort orders the page, e.g. lastSeen, firstSeen, count.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Sort(sort string) O11yAPIGetO11ySentinelIssuesRequest {
+	r.sort = &sort
+	return r
+}
+
+// Offset is how many issues to skip. Zero starts at the first.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Offset(offset int32) O11yAPIGetO11ySentinelIssuesRequest {
+	r.offset = &offset
+	return r
+}
+
+// Limit caps how many issues come back. Zero means the default.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Limit(limit int32) O11yAPIGetO11ySentinelIssuesRequest {
+	r.limit = &limit
+	return r
+}
+
+// Project narrows the org&#39;s issues to one project, by its id.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Project(project string) O11yAPIGetO11ySentinelIssuesRequest {
+	r.project = &project
+	return r
+}
+
+// Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+func (r O11yAPIGetO11ySentinelIssuesRequest) Period(period string) O11yAPIGetO11ySentinelIssuesRequest {
+	r.period = &period
+	return r
+}
+
+func (r O11yAPIGetO11ySentinelIssuesRequest) Execute() (*O11yO11yErrorIssuesOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelIssuesExecute(r)
+}
+
+/*
+GetO11ySentinelIssues Lists the caller's org's grouped error issues, optionally narrowed to one project and one time window, and filtered by status, level, environment, service, a free-text query and a sort.
+
+Lists the caller's org's grouped error issues, optionally
+narrowed to one project and one time window, and filtered by status, level,
+environment, service, a free-text query and a sort.
+
+Callers need the viewer role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return O11yAPIGetO11ySentinelIssuesRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelIssues(ctx context.Context) O11yAPIGetO11ySentinelIssuesRequest {
+	return O11yAPIGetO11ySentinelIssuesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11yErrorIssuesOut
+func (a *O11yAPIService) GetO11ySentinelIssuesExecute(r O11yAPIGetO11ySentinelIssuesRequest) (*O11yO11yErrorIssuesOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11yErrorIssuesOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelIssues")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/issues"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.level != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "level", r.level, "form", "")
+	}
+	if r.environment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
+	}
+	if r.serviceName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "serviceName", r.serviceName, "form", "")
+	}
+	if r.query != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "query", r.query, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.project != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
+	}
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelIssuesByIdRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	id         string
+}
+
+func (r O11yAPIGetO11ySentinelIssuesByIdRequest) Execute() (*O11yO11yErrorGettableIssueOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelIssuesByIdExecute(r)
+}
+
+/*
+GetO11ySentinelIssuesById Returns one grouped issue of the caller's org with its latest occurrence sample.
+
+Returns one grouped issue of the caller's org with its latest
+occurrence sample.
+
+Callers need the viewer role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the issue id.
+	@return O11yAPIGetO11ySentinelIssuesByIdRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelIssuesById(ctx context.Context, id string) O11yAPIGetO11ySentinelIssuesByIdRequest {
+	return O11yAPIGetO11ySentinelIssuesByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11yErrorGettableIssueOut
+func (a *O11yAPIService) GetO11ySentinelIssuesByIdExecute(r O11yAPIGetO11ySentinelIssuesByIdRequest) (*O11yO11yErrorGettableIssueOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11yErrorGettableIssueOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelIssuesById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/issues/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelIssuesByIdEventsRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	id         string
+	project    *string
+	limit      *int32
+}
+
+// Project is the project whose occurrences to read, by its id. Required.
+func (r O11yAPIGetO11ySentinelIssuesByIdEventsRequest) Project(project string) O11yAPIGetO11ySentinelIssuesByIdEventsRequest {
+	r.project = &project
+	return r
+}
+
+// Limit caps how many occurrences come back. Zero means the default.
+func (r O11yAPIGetO11ySentinelIssuesByIdEventsRequest) Limit(limit int32) O11yAPIGetO11ySentinelIssuesByIdEventsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r O11yAPIGetO11ySentinelIssuesByIdEventsRequest) Execute() (*O11yO11ySentryIssueEventsOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelIssuesByIdEventsExecute(r)
+}
+
+/*
+GetO11ySentinelIssuesByIdEvents Lists one issue's captured occurrences, scoped to a project — a project is an isolation unit, so the caller declares which project's occurrences to read.
+
+Lists one issue's captured occurrences, scoped to a project
+— a project is an isolation unit, so the caller declares which project's
+occurrences to read.
+
+Callers need the viewer role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the issue id.
+	@return O11yAPIGetO11ySentinelIssuesByIdEventsRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelIssuesByIdEvents(ctx context.Context, id string) O11yAPIGetO11ySentinelIssuesByIdEventsRequest {
+	return O11yAPIGetO11ySentinelIssuesByIdEventsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11ySentryIssueEventsOut
+func (a *O11yAPIService) GetO11ySentinelIssuesByIdEventsExecute(r O11yAPIGetO11ySentinelIssuesByIdEventsRequest) (*O11yO11ySentryIssueEventsOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11ySentryIssueEventsOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelIssuesByIdEvents")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/issues/{id}/events"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.project == nil {
+		return localVarReturnValue, nil, reportError("project is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelLogsRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	project    *string
+	query      *string
+	period     *string
+	limit      *int32
+}
+
+// Project is the project to read, as its id. Required.
+func (r O11yAPIGetO11ySentinelLogsRequest) Project(project string) O11yAPIGetO11ySentinelLogsRequest {
+	r.project = &project
+	return r
+}
+
+// Query narrows the page to events whose text contains it.
+func (r O11yAPIGetO11ySentinelLogsRequest) Query(query string) O11yAPIGetO11ySentinelLogsRequest {
+	r.query = &query
+	return r
+}
+
+// Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+func (r O11yAPIGetO11ySentinelLogsRequest) Period(period string) O11yAPIGetO11ySentinelLogsRequest {
+	r.period = &period
+	return r
+}
+
+// Limit caps how many events come back.
+func (r O11yAPIGetO11ySentinelLogsRequest) Limit(limit int32) O11yAPIGetO11ySentinelLogsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r O11yAPIGetO11ySentinelLogsRequest) Execute() (*O11yO11yLogsOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelLogsExecute(r)
+}
+
+/*
+GetO11ySentinelLogs Lists a project's captured error events, newest first, optionally narrowed to those whose message or exception text contains a search string.
+
+Lists a project's captured error events, newest first, optionally
+narrowed to those whose message or exception text contains a search string.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return O11yAPIGetO11ySentinelLogsRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelLogs(ctx context.Context) O11yAPIGetO11ySentinelLogsRequest {
+	return O11yAPIGetO11ySentinelLogsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11yLogsOut
+func (a *O11yAPIService) GetO11ySentinelLogsExecute(r O11yAPIGetO11ySentinelLogsRequest) (*O11yO11yLogsOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11yLogsOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelLogs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/logs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.project == nil {
+		return localVarReturnValue, nil, reportError("project is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
+	if r.query != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "query", r.query, "form", "")
+	}
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelProjectsRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+}
+
+func (r O11yAPIGetO11ySentinelProjectsRequest) Execute() (*O11yO11ySentryProjectsOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelProjectsExecute(r)
+}
+
+/*
+GetO11ySentinelProjects Lists the caller's org's Sentry projects, each with its freshly-derived DSN.
+
+Lists the caller's org's Sentry projects, each with its
+freshly-derived DSN.
+
+Callers need the viewer role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return O11yAPIGetO11ySentinelProjectsRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelProjects(ctx context.Context) O11yAPIGetO11ySentinelProjectsRequest {
+	return O11yAPIGetO11ySentinelProjectsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11ySentryProjectsOut
+func (a *O11yAPIService) GetO11ySentinelProjectsExecute(r O11yAPIGetO11ySentinelProjectsRequest) (*O11yO11ySentryProjectsOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11ySentryProjectsOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelProjects")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/projects"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelProjectsByIdRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	id         string
+}
+
+func (r O11yAPIGetO11ySentinelProjectsByIdRequest) Execute() (*O11yO11ySentryProjectOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelProjectsByIdExecute(r)
+}
+
+/*
+GetO11ySentinelProjectsById Returns one Sentry project of the caller's org, DSN included.
+
+Returns one Sentry project of the caller's org, DSN included.
+
+Callers need the viewer role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the project id.
+	@return O11yAPIGetO11ySentinelProjectsByIdRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelProjectsById(ctx context.Context, id string) O11yAPIGetO11ySentinelProjectsByIdRequest {
+	return O11yAPIGetO11ySentinelProjectsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11ySentryProjectOut
+func (a *O11yAPIService) GetO11ySentinelProjectsByIdExecute(r O11yAPIGetO11ySentinelProjectsByIdRequest) (*O11yO11ySentryProjectOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11ySentryProjectOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelProjectsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/projects/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelStatsRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	project    *string
+	field      *string
+	period     *string
+}
+
+// Project is the project to read, as its id. Required.
+func (r O11yAPIGetO11ySentinelStatsRequest) Project(project string) O11yAPIGetO11ySentinelStatsRequest {
+	r.project = &project
+	return r
+}
+
+// Field is the dimension to count over. Empty counts all events.
+func (r O11yAPIGetO11ySentinelStatsRequest) Field(field string) O11yAPIGetO11ySentinelStatsRequest {
+	r.field = &field
+	return r
+}
+
+// Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+func (r O11yAPIGetO11ySentinelStatsRequest) Period(period string) O11yAPIGetO11ySentinelStatsRequest {
+	r.period = &period
+	return r
+}
+
+func (r O11yAPIGetO11ySentinelStatsRequest) Execute() (*O11yO11yStatsOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelStatsExecute(r)
+}
+
+/*
+GetO11ySentinelStats Returns a project's event-rate timeseries: one bucket per interval over the requested period, counting the events in it.
+
+Returns a project's event-rate timeseries: one bucket per interval over
+the requested period, counting the events in it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return O11yAPIGetO11ySentinelStatsRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelStats(ctx context.Context) O11yAPIGetO11ySentinelStatsRequest {
+	return O11yAPIGetO11ySentinelStatsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11yStatsOut
+func (a *O11yAPIService) GetO11ySentinelStatsExecute(r O11yAPIGetO11ySentinelStatsRequest) (*O11yO11yStatsOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11yStatsOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelStats")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/stats"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.project == nil {
+		return localVarReturnValue, nil, reportError("project is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
+	if r.field != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "field", r.field, "form", "")
+	}
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelTracesRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	project    *string
+	period     *string
+	limit      *int32
+}
+
+// Project is the project to read, as its id. Required.
+func (r O11yAPIGetO11ySentinelTracesRequest) Project(project string) O11yAPIGetO11ySentinelTracesRequest {
+	r.project = &project
+	return r
+}
+
+// Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+func (r O11yAPIGetO11ySentinelTracesRequest) Period(period string) O11yAPIGetO11ySentinelTracesRequest {
+	r.period = &period
+	return r
+}
+
+// Limit caps how many traces come back.
+func (r O11yAPIGetO11ySentinelTracesRequest) Limit(limit int32) O11yAPIGetO11ySentinelTracesRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r O11yAPIGetO11ySentinelTracesRequest) Execute() (*O11yO11yTracesOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelTracesExecute(r)
+}
+
+/*
+GetO11ySentinelTraces Lists the traces a project's captured errors reference, each with how many errors landed on it, when they started and stopped, and the latest message seen — the entry point for \"which requests are failing\".
+
+Lists the traces a project's captured errors reference, each with how
+many errors landed on it, when they started and stopped, and the latest
+message seen — the entry point for "which requests are failing".
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return O11yAPIGetO11ySentinelTracesRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelTraces(ctx context.Context) O11yAPIGetO11ySentinelTracesRequest {
+	return O11yAPIGetO11ySentinelTracesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11yTracesOut
+func (a *O11yAPIService) GetO11ySentinelTracesExecute(r O11yAPIGetO11ySentinelTracesRequest) (*O11yO11yTracesOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11yTracesOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelTraces")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/traces"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.project == nil {
+		return localVarReturnValue, nil, reportError("project is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySentinelTracesByIdRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	id         string
+	project    *string
+}
+
+// Project is the project the trace&#39;s errors belong to. Required.
+func (r O11yAPIGetO11ySentinelTracesByIdRequest) Project(project string) O11yAPIGetO11ySentinelTracesByIdRequest {
+	r.project = &project
+	return r
+}
+
+func (r O11yAPIGetO11ySentinelTracesByIdRequest) Execute() (*O11yO11yTraceOut, *http.Response, error) {
+	return r.ApiService.GetO11ySentinelTracesByIdExecute(r)
+}
+
+/*
+GetO11ySentinelTracesById Returns one trace's captured errors for a project — every error event that carried the trace id, in the order the events plane holds them.
+
+Returns one trace's captured errors for a project — every error event
+that carried the trace id, in the order the events plane holds them.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the trace id.
+	@return O11yAPIGetO11ySentinelTracesByIdRequest
+*/
+func (a *O11yAPIService) GetO11ySentinelTracesById(ctx context.Context, id string) O11yAPIGetO11ySentinelTracesByIdRequest {
+	return O11yAPIGetO11ySentinelTracesByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11yTraceOut
+func (a *O11yAPIService) GetO11ySentinelTracesByIdExecute(r O11yAPIGetO11ySentinelTracesByIdRequest) (*O11yO11yTraceOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11yTraceOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySentinelTracesById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/traces/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.project == nil {
+		return localVarReturnValue, nil, reportError("project is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -19531,6 +20918,115 @@ func (a *O11yAPIService) GetO11yStatusExecute(r O11yAPIGetO11yStatusRequest) (*O
 	if r.product != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "product", r.product, "form", "")
 	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIGetO11ySummaryRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+}
+
+func (r O11yAPIGetO11ySummaryRequest) Execute() (*O11yStatusSummary, *http.Response, error) {
+	return r.ApiService.GetO11ySummaryExecute(r)
+}
+
+/*
+GetO11ySummary Reports whether the platform is up.
+
+Reports whether the platform is up. It returns the public status
+document: the incidents currently open against Hanzo's own services, derived
+from the fleet health probes, plus the address of the human status page. No
+authentication is required and no tenant data is involved — the answer is the
+same for every caller.
+
+A service that fails its health probe becomes one incident naming that service.
+When the availability source itself cannot be read the endpoint answers 503
+rather than an empty incident list, because "we cannot tell" and "everything is
+fine" are different answers and only one of them is true.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return O11yAPIGetO11ySummaryRequest
+*/
+func (a *O11yAPIService) GetO11ySummary(ctx context.Context) O11yAPIGetO11ySummaryRequest {
+	return O11yAPIGetO11ySummaryRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yStatusSummary
+func (a *O11yAPIService) GetO11ySummaryExecute(r O11yAPIGetO11ySummaryRequest) (*O11yStatusSummary, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yStatusSummary
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11ySummary")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/summary"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -29337,7 +30833,7 @@ PostO11yApiByProjectIdEnvelope Receive a Sentry envelope on the SDK's own DSN pa
 
 Accepts an application/x-sentry-envelope frame from a Sentry SDK — the batched wire format carrying events, sessions and attachments — and ingests it against the project named in the path.
 
-THE /api/ SEGMENT IS NOT OURS TO NAME. An SDK appends its own fixed /api/<project>/envelope/ suffix to whatever DSN it is given, so this address is the SDK's, received verbatim. We receive this shape; we do not publish it. The clean spelling of the same wire is /v1/sentinel/{project}/envelope/.
+THE /api/ SEGMENT IS NOT OURS TO NAME. An SDK appends its own fixed /api/<project>/envelope/ suffix to whatever DSN it is given, so this address is the SDK's, received verbatim. We receive this shape; we do not publish it. The clean spelling of the same wire is /v1/event/{project}/envelope/.
 
 AUTHENTICATED BY THE DSN PUBLIC KEY, never a Hanzo session, and therefore exempt from the principal gate: the ingest verifier checks the key in constant time, fails closed, and derives the org from it. A keyless submission is a 401 from that verifier — not a 403 from the gate, and not a 404 — which is how you tell the hops apart. The exemption is matched by method plus prefix plus suffix, never a bare prefix, so no read is reachable through it.
 
@@ -35645,6 +37141,346 @@ func (a *O11yAPIService) PostO11yReviewsByIdItemsExecute(r O11yAPIPostO11yReview
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type O11yAPIPostO11ySentinelDiscoverRequest struct {
+	ctx                context.Context
+	ApiService         *O11yAPIService
+	o11yO11yDiscoverIn *O11yO11yDiscoverIn
+}
+
+func (r O11yAPIPostO11ySentinelDiscoverRequest) O11yO11yDiscoverIn(o11yO11yDiscoverIn O11yO11yDiscoverIn) O11yAPIPostO11ySentinelDiscoverRequest {
+	r.o11yO11yDiscoverIn = &o11yO11yDiscoverIn
+	return r
+}
+
+func (r O11yAPIPostO11ySentinelDiscoverRequest) Execute() (*O11yO11yDiscoverOut, *http.Response, error) {
+	return r.ApiService.PostO11ySentinelDiscoverExecute(r)
+}
+
+/*
+PostO11ySentinelDiscover Aggregates a project's captured errors into a table — the caller names the filters, the groupings and the aggregations, and gets back the columns and rows they asked for.
+
+Aggregates a project's captured errors into a table — the caller
+names the filters, the groupings and the aggregations, and gets back the
+columns and rows they asked for.
+
+The project is mandatory and is checked against the caller's own org before it
+scopes anything, so a project id belonging to someone else reads as absent
+rather than as data.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return O11yAPIPostO11ySentinelDiscoverRequest
+*/
+func (a *O11yAPIService) PostO11ySentinelDiscover(ctx context.Context) O11yAPIPostO11ySentinelDiscoverRequest {
+	return O11yAPIPostO11ySentinelDiscoverRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11yDiscoverOut
+func (a *O11yAPIService) PostO11ySentinelDiscoverExecute(r O11yAPIPostO11ySentinelDiscoverRequest) (*O11yO11yDiscoverOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11yDiscoverOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PostO11ySentinelDiscover")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/discover"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.o11yO11yDiscoverIn == nil {
+		return localVarReturnValue, nil, reportError("o11yO11yDiscoverIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.o11yO11yDiscoverIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIPostO11ySentinelProjectsRequest struct {
+	ctx                           context.Context
+	ApiService                    *O11yAPIService
+	o11yO11ySentryPostableProject *O11yO11ySentryPostableProject
+}
+
+func (r O11yAPIPostO11ySentinelProjectsRequest) O11yO11ySentryPostableProject(o11yO11ySentryPostableProject O11yO11ySentryPostableProject) O11yAPIPostO11ySentinelProjectsRequest {
+	r.o11yO11ySentryPostableProject = &o11yO11ySentryPostableProject
+	return r
+}
+
+func (r O11yAPIPostO11ySentinelProjectsRequest) Execute() (*O11yO11ySentryProjectOut, *http.Response, error) {
+	return r.ApiService.PostO11ySentinelProjectsExecute(r)
+}
+
+/*
+PostO11ySentinelProjects Creates a Sentry project under the caller's org and returns it, DSN included.
+
+Creates a Sentry project under the caller's org and
+returns it, DSN included. Only the name, and optionally a slug and platform,
+are the caller's to set; the org, id and key are server-assigned.
+
+Callers need the editor role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return O11yAPIPostO11ySentinelProjectsRequest
+*/
+func (a *O11yAPIService) PostO11ySentinelProjects(ctx context.Context) O11yAPIPostO11ySentinelProjectsRequest {
+	return O11yAPIPostO11ySentinelProjectsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11ySentryProjectOut
+func (a *O11yAPIService) PostO11ySentinelProjectsExecute(r O11yAPIPostO11ySentinelProjectsRequest) (*O11yO11ySentryProjectOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11ySentryProjectOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PostO11ySentinelProjects")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/projects"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.o11yO11ySentryPostableProject == nil {
+		return localVarReturnValue, nil, reportError("o11yO11ySentryPostableProject is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.o11yO11ySentryPostableProject
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	id         string
+}
+
+func (r O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest) Execute() (*O11yO11ySentryProjectOut, *http.Response, error) {
+	return r.ApiService.PostO11ySentinelProjectsByIdKeysRotateExecute(r)
+}
+
+/*
+PostO11ySentinelProjectsByIdKeysRotate Rotates a project's DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.
+
+Rotates a project's DSN key — bumping its rotation
+watermark so keys below it stop verifying — and returns the project with its
+new DSN.
+
+Callers need the editor role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the project id.
+	@return O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest
+*/
+func (a *O11yAPIService) PostO11ySentinelProjectsByIdKeysRotate(ctx context.Context, id string) O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest {
+	return O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11ySentryProjectOut
+func (a *O11yAPIService) PostO11ySentinelProjectsByIdKeysRotateExecute(r O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest) (*O11yO11ySentryProjectOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11ySentryProjectOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PostO11ySentinelProjectsByIdKeysRotate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/projects/{id}/keys/rotate"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type O11yAPIPostO11yServiceEntryPointOperationsRequest struct {
 	ctx                  context.Context
 	ApiService           *O11yAPIService
@@ -37300,6 +39136,124 @@ func (a *O11yAPIService) PutO11yExplorerViewsByViewidExecute(r O11yAPIPutO11yExp
 	}
 	// body params
 	localVarPostBody = r.o11yO11ySavedViewUpdateIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type O11yAPIPutO11ySentinelIssuesByIdRequest struct {
+	ctx                         context.Context
+	ApiService                  *O11yAPIService
+	id                          string
+	o11yO11ySentryUpdateIssueIn *O11yO11ySentryUpdateIssueIn
+}
+
+func (r O11yAPIPutO11ySentinelIssuesByIdRequest) O11yO11ySentryUpdateIssueIn(o11yO11ySentryUpdateIssueIn O11yO11ySentryUpdateIssueIn) O11yAPIPutO11ySentinelIssuesByIdRequest {
+	r.o11yO11ySentryUpdateIssueIn = &o11yO11ySentryUpdateIssueIn
+	return r
+}
+
+func (r O11yAPIPutO11ySentinelIssuesByIdRequest) Execute() (*O11yO11yErrorIssueOut, *http.Response, error) {
+	return r.ApiService.PutO11ySentinelIssuesByIdExecute(r)
+}
+
+/*
+PutO11ySentinelIssuesById Changes an issue's lifecycle — resolve, ignore, reopen or assign — and returns the updated issue.
+
+Changes an issue's lifecycle — resolve, ignore, reopen or
+assign — and returns the updated issue. Fields left unset are left unchanged.
+
+Callers need the editor role; the runtime's own gate enforces it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the issue id.
+	@return O11yAPIPutO11ySentinelIssuesByIdRequest
+*/
+func (a *O11yAPIService) PutO11ySentinelIssuesById(ctx context.Context, id string) O11yAPIPutO11ySentinelIssuesByIdRequest {
+	return O11yAPIPutO11ySentinelIssuesByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return O11yO11yErrorIssueOut
+func (a *O11yAPIService) PutO11ySentinelIssuesByIdExecute(r O11yAPIPutO11ySentinelIssuesByIdRequest) (*O11yO11yErrorIssueOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *O11yO11yErrorIssueOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PutO11ySentinelIssuesById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/o11y/sentinel/issues/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.o11yO11ySentryUpdateIssueIn == nil {
+		return localVarReturnValue, nil, reportError("o11yO11ySentryUpdateIssueIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.o11yO11ySentryUpdateIssueIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** |  | [optional] 
-**Value** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** | Type is \&quot;plain_text\&quot; or \&quot;secret_text\&quot; and decides that: plain text is readable afterwards, secret text is write-only. Empty is Cloudflare&#39;s default, plain_text — so a secret with no type set is stored in the clear. | [optional] 
+**Value** | Pointer to **string** | Value is the variable&#39;s value. Under type \&quot;secret_text\&quot; Cloudflare encrypts it on arrival and never reads it back, so a later read of the project shows the variable without this. | [optional] 
 
 ## Methods
 

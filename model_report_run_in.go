@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -20,11 +20,15 @@ var _ MappedNullable = &ReportRunIn{}
 // ReportRunIn struct for ReportRunIn
 type ReportRunIn struct {
 	// Branch, CommitSha and Diffstat describe what the run produced; Error is the failure when OK is false. Each is clamped, never rejected.
-	Branch    *string `json:"branch,omitempty"`
-	Changed   *bool   `json:"changed,omitempty"`
+	Branch *string `json:"branch,omitempty"`
+	// Changed says whether the run produced any commit. It is INDEPENDENT of OK: a run can succeed and change nothing (there was nothing to do), and a run can fail after committing some of its work. Two questions, two booleans.
+	Changed *bool `json:"changed,omitempty"`
+	// CommitSha is the tip the run pushed, clamped to 128 characters. Empty when it pushed nothing, which is the same case Changed reports false for.
 	CommitSha *string `json:"commitSha,omitempty"`
-	Diffstat  *string `json:"diffstat,omitempty"`
-	Error     *string `json:"error,omitempty"`
+	// Diffstat is the run's own summary of what it changed, as text, clamped to 64 KiB. Free-form: it is shown, never parsed.
+	Diffstat *string `json:"diffstat,omitempty"`
+	// Error is why the run failed, clamped to 64 KiB. It is CLAMPED rather than refused — a truncated reason is worth more than a rejected report, because a rejected report leaves the durable workflow waiting forever.
+	Error *string `json:"error,omitempty"`
 	// ID is the machine reporting, from the path.
 	Id *string `json:"id,omitempty"`
 	// OK is whether the run succeeded; Changed whether it produced any commit.

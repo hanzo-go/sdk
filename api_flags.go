@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-Composed from each subsystem's own projection of its router, in the fleet's mount order — every operation below is a route the subsystem that publishes it registered. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -491,123 +491,6 @@ func (a *FlagsAPIService) GetFlagsHealthExecute(r FlagsAPIGetFlagsHealthRequest)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type FlagsAPIGetFlagsWaitlistRequest struct {
-	ctx        context.Context
-	ApiService *FlagsAPIService
-	host       *string
-}
-
-// Host is the host to resolve, e.g. \&quot;chat.hanzo.ai\&quot;. Defaults to the request&#39;s own Host header when omitted, which is what lets a guard running on the governed host ask about itself with no argument.
-func (r FlagsAPIGetFlagsWaitlistRequest) Host(host string) FlagsAPIGetFlagsWaitlistRequest {
-	r.host = &host
-	return r
-}
-
-func (r FlagsAPIGetFlagsWaitlistRequest) Execute() (*WaitlistModeView, *http.Response, error) {
-	return r.ApiService.GetFlagsWaitlistExecute(r)
-}
-
-/*
-GetFlagsWaitlist Reports whether ONE host is currently gated by the launch waitlist.
-
-Reports whether ONE host is currently gated by the launch waitlist.
-It resolves the host to the service that governs it and reads that service's
-waitlist switch, so a guard sitting in front of a hosted surface can decide in one
-call whether to show the waitlist or the product. It answers for the ONE host
-asked about and never enumerates the registry, which is why it needs no
-credential. It FAILS OPEN: an unregistered host, an unmounted registry and a store
-fault all answer known=false with mode=false, so a request is never gated pre-boot
-or on a registry fault.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FlagsAPIGetFlagsWaitlistRequest
-*/
-func (a *FlagsAPIService) GetFlagsWaitlist(ctx context.Context) FlagsAPIGetFlagsWaitlistRequest {
-	return FlagsAPIGetFlagsWaitlistRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return WaitlistModeView
-func (a *FlagsAPIService) GetFlagsWaitlistExecute(r FlagsAPIGetFlagsWaitlistRequest) (*WaitlistModeView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *WaitlistModeView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagsAPIService.GetFlagsWaitlist")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/flags/waitlist"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.host != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "form", "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

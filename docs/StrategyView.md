@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
-**Category** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**Workload** | Pointer to **string** |  | [optional] 
+**Action** | Pointer to **string** | Action is the tactic itself: the thing to go and do. | [optional] 
+**Category** | Pointer to **string** | Category is the growth discipline the tactic belongs to — the axis &#x60;?category&#x3D;&#x60; narrows on. | [optional] 
+**Id** | Pointer to **string** | ID is the tactic&#39;s stable slug in the corpus. | [optional] 
+**Tags** | Pointer to **[]string** | Tags are the PRECONDITIONS this tactic already satisfied to appear in the answer — &#x60;stage:&lt;name&gt;&#x60; and &#x60;has:&lt;capability&gt;&#x60; predicates over the org&#39;s observed profile. They are carried back so a caller can show why a tactic surfaced, not so it can filter again. | [optional] 
+**Workload** | Pointer to **string** | Workload is how much effort running the tactic costs, so a corpus can be cut to what the org has the hands for. | [optional] 
 
 ## Methods
 
