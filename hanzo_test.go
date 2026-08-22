@@ -47,7 +47,7 @@ func TestFlows(t *testing.T) {
 		flow, method, path string
 		call               func(c *APIClient)
 	}{
-		{"hello", "GET", "/v1/keys", func(c *APIClient) {
+		{"hello", "GET", "/v1/account/keys", func(c *APIClient) {
 			c.AccountAPI.GetAccountKeys(ctx).Execute()
 		}},
 		{"chat", "POST", "/v1/chat/completions", func(c *APIClient) {
@@ -56,7 +56,7 @@ func TestFlows(t *testing.T) {
 		{"money", "GET", "/v1/billing/balance", func(c *APIClient) {
 			c.BillingAPI.GetBillingBalance(ctx).Execute()
 		}},
-		{"store", "POST", "/v1/kv", func(c *APIClient) {
+		{"store", "POST", "/v1/provisioning/kv", func(c *APIClient) {
 			name := "n"
 			c.ProvisioningAPI.PostProvisioningKv(ctx).ProvisionRequest(
 				ProvisionRequest{Name: &name},
