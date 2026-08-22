@@ -48,17 +48,17 @@ func TestFlows(t *testing.T) {
 		call               func(c *APIClient)
 	}{
 		{"hello", "GET", "/v1/keys", func(c *APIClient) {
-			c.KeysAPI.GetKeys(ctx).Execute()
+			c.AccountAPI.GetAccountKeys(ctx).Execute()
 		}},
 		{"chat", "POST", "/v1/chat/completions", func(c *APIClient) {
-			c.ChatAPI.PostChatCompletions(ctx).Execute()
+			c.AiAPI.PostChatCompletions(ctx).Execute()
 		}},
 		{"money", "GET", "/v1/billing/balance", func(c *APIClient) {
 			c.BillingAPI.GetBillingBalance(ctx).Execute()
 		}},
 		{"store", "POST", "/v1/kv", func(c *APIClient) {
 			name := "n"
-			c.InstancesAPI.PostInstancesKv(ctx).ProvisionRequest(
+			c.ProvisioningAPI.PostProvisioningKv(ctx).ProvisionRequest(
 				ProvisionRequest{Name: &name},
 			).Execute()
 		}},
