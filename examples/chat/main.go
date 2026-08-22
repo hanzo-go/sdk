@@ -35,7 +35,7 @@ import (
 func main() {
 	client := hanzoai.NewClient("")
 
-	resp, err := client.ChatAPI.PostChatCompletions(context.Background()).Execute()
+	resp, err := client.AiAPI.PostChatCompletions(context.Background()).Execute()
 	if err != nil {
 		log.Fatalf("chat: %v", err)
 	}

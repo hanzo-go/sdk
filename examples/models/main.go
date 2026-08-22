@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	resp, err := hanzoai.NewClient("").ModelsAPI.GetModels(context.Background()).Execute()
+	resp, err := hanzoai.NewClient("").AiAPI.GetModels(context.Background()).Execute()
 	if err != nil {
 		log.Fatalf("models: %v", err)
 	}

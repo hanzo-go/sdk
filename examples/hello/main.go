@@ -33,7 +33,7 @@ import (
 func main() {
 	client := hanzoai.NewClient("")
 
-	listing, _, err := client.KeysAPI.GetKeys(context.Background()).Execute()
+	listing, _, err := client.AccountAPI.GetAccountKeys(context.Background()).Execute()
 	if err != nil {
 		log.Fatalf("keys: %v", err)
 	}

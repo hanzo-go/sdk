@@ -32,7 +32,7 @@ import (
 func main() {
 	client := hanzoai.NewClient("sk-this-key-does-not-exist")
 
-	listing, resp, err := client.KeysAPI.GetKeys(context.Background()).Execute()
+	listing, resp, err := client.AccountAPI.GetAccountKeys(context.Background()).Execute()
 	if err == nil {
 		fmt.Printf("accepted  %d key(s)\n", len(listing.Keys))
 		return
