@@ -4,7 +4,7 @@
 
 The Go client for the [Hanzo API](https://api.hanzo.ai). It is generated from
 the document `hanzoai/cloud` emits from its own routers, so a method here is a
-route the running binary serves — <!--counts-->2,259 operations over 1,620 paths, grouped into 117 services<!--/counts--> in one package.
+route the running binary serves.
 
 ## Install
 
@@ -149,7 +149,7 @@ Rust clients. `models` and `errors` are Go's own.
 
 `store` and `agent` are org-scoped, so set `HANZO_ORG_ID` for those.
 
-716 operations state their address and not their shape — cloud has not declared
+Some operations state their address and not their shape — cloud has not declared
 those handlers' types yet — and their generated methods hand back the raw
 `*http.Response` with nothing to unmarshal into. `chat` and `money` show how to
 read one.
