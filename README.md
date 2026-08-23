@@ -4,8 +4,7 @@
 
 The Go client for the [Hanzo API](https://api.hanzo.ai). It is generated from
 the document `hanzoai/cloud` emits from its own routers, so a method here is a
-route the running binary serves — 2479 operations over 1814 paths, grouped into
-192 services in one package.
+route the running binary serves — <!--counts-->2,259 operations over 1,620 paths, grouped into 117 services<!--/counts--> in one package.
 
 ## Install
 
