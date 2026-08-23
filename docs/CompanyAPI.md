@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**GetCompanyReview**](CompanyAPI.md#GetCompanyReview) | **Get** /v1/company/review | Reports the founders whose KYC is not yet settled, oldest formation first, so the queue drains in the order founders have been waiting.
 [**PostCompany**](CompanyAPI.md#PostCompany) | **Post** /v1/company | Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
 [**PostCompanyAdvance**](CompanyAPI.md#PostCompanyAdvance) | **Post** /v1/company/advance | Advance runs the ONE guarded transition of the formation machine.
-[**PostCompanyDocuments**](CompanyAPI.md#PostCompanyDocuments) | **Post** /v1/company/documents | Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing seam.
+[**PostCompanyDocuments**](CompanyAPI.md#PostCompanyDocuments) | **Post** /v1/company/documents | Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing client.
 [**PostCompanyEin**](CompanyAPI.md#PostCompanyEin) | **Post** /v1/company/ein | Opens the EIN application and answers what it owes.
 [**PostCompanyEsign**](CompanyAPI.md#PostCompanyEsign) | **Post** /v1/company/esign | Sends the generated formation documents for signature by every founder and records the provider&#39;s reference on the formation.
 [**PostCompanyEsignComplete**](CompanyAPI.md#PostCompanyEsignComplete) | **Post** /v1/company/esign/complete | Records whether the formation documents have been signed.
@@ -427,7 +427,7 @@ Name | Type | Description  | Notes
 
 > FormationView PostCompanyDocuments(ctx).Execute()
 
-Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing seam.
+Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing client.
 
 
 

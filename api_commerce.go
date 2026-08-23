@@ -666,48 +666,52 @@ func (a *CommerceAPIService) DeleteCommerceProductByProductidExecute(r CommerceA
 	return localVarHTTPResponse, nil
 }
 
-type CommerceAPIDeleteCommerceRatesEntriesBySlugRequest struct {
+type CommerceAPIDeleteCommerceRatesEntriesByProductByMeterRequest struct {
 	ctx        context.Context
 	ApiService *CommerceAPIService
-	slug       string
+	product    string
+	meter      string
 }
 
-func (r CommerceAPIDeleteCommerceRatesEntriesBySlugRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCommerceRatesEntriesBySlugExecute(r)
+func (r CommerceAPIDeleteCommerceRatesEntriesByProductByMeterRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCommerceRatesEntriesByProductByMeterExecute(r)
 }
 
 /*
-DeleteCommerceRatesEntriesBySlug Remove a rate outright
+DeleteCommerceRatesEntriesByProductByMeter Remove a rate outright
 
 Deletes the row. ARCHIVING is usually what is wanted instead — a deleted rate cannot price a historical charge, so a past invoice that has to re-resolve its rate finds nothing to read. Reach for status=archived unless the rate never priced anything. SuperAdmin only.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug
-	@return CommerceAPIDeleteCommerceRatesEntriesBySlugRequest
+	@param product
+	@param meter
+	@return CommerceAPIDeleteCommerceRatesEntriesByProductByMeterRequest
 */
-func (a *CommerceAPIService) DeleteCommerceRatesEntriesBySlug(ctx context.Context, slug string) CommerceAPIDeleteCommerceRatesEntriesBySlugRequest {
-	return CommerceAPIDeleteCommerceRatesEntriesBySlugRequest{
+func (a *CommerceAPIService) DeleteCommerceRatesEntriesByProductByMeter(ctx context.Context, product string, meter string) CommerceAPIDeleteCommerceRatesEntriesByProductByMeterRequest {
+	return CommerceAPIDeleteCommerceRatesEntriesByProductByMeterRequest{
 		ApiService: a,
 		ctx:        ctx,
-		slug:       slug,
+		product:    product,
+		meter:      meter,
 	}
 }
 
 // Execute executes the request
-func (a *CommerceAPIService) DeleteCommerceRatesEntriesBySlugExecute(r CommerceAPIDeleteCommerceRatesEntriesBySlugRequest) (*http.Response, error) {
+func (a *CommerceAPIService) DeleteCommerceRatesEntriesByProductByMeterExecute(r CommerceAPIDeleteCommerceRatesEntriesByProductByMeterRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.DeleteCommerceRatesEntriesBySlug")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.DeleteCommerceRatesEntriesByProductByMeter")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/commerce/rates/entries/{slug}"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+	localVarPath := localBasePath + "/v1/commerce/rates/entries/{product}/{meter}"
+	localVarPath = strings.Replace(localVarPath, "{"+"product"+"}", url.PathEscape(parameterValueToString(r.product, "product")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"meter"+"}", url.PathEscape(parameterValueToString(r.meter, "meter")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -10593,7 +10597,7 @@ func (r CommerceAPIPostCommerceRatesImportRequest) Execute() (*http.Response, er
 /*
 PostCommerceRatesImport Load the published price document, reconciling rather than replacing
 
-Takes an array of rates and seeds the authority from it. This is the seed, driven from admin rather than compiled in, because 506 published prices in an embed made a price change wait for a build. It RECONCILES: a row that matches is left alone, a row that has drifted is corrected, and a row an operator edited is skipped — so importing the same document twice is a no-op and importing a corrected one moves exactly the rows that changed. Answers what it received, created, corrected and left unchanged, so an import that changes nothing reads as nothing to do rather than as a failure. An empty array is refused 400. SuperAdmin only.
+Takes an array of rates and seeds the authority from it — the same reconcile the boot catalog runs, driven from admin instead. It RECONCILES: a row that matches is left alone, a row that has drifted is corrected, and a row an operator edited is skipped — so importing the same document twice is a no-op and importing a corrected one moves exactly the rows that changed. Answers what it received, created, corrected and left unchanged, so an import that changes nothing reads as nothing to do rather than as a failure. An empty array is refused 400. SuperAdmin only.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CommerceAPIPostCommerceRatesImportRequest
@@ -15161,48 +15165,52 @@ func (a *CommerceAPIService) PutCommerceProductByProductidExecute(r CommerceAPIP
 	return localVarHTTPResponse, nil
 }
 
-type CommerceAPIPutCommerceRatesEntriesBySlugRequest struct {
+type CommerceAPIPutCommerceRatesEntriesByProductByMeterRequest struct {
 	ctx        context.Context
 	ApiService *CommerceAPIService
-	slug       string
+	product    string
+	meter      string
 }
 
-func (r CommerceAPIPutCommerceRatesEntriesBySlugRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PutCommerceRatesEntriesBySlugExecute(r)
+func (r CommerceAPIPutCommerceRatesEntriesByProductByMeterRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PutCommerceRatesEntriesByProductByMeterExecute(r)
 }
 
 /*
-PutCommerceRatesEntriesBySlug Edit a rate, and mark it as operator-set
+PutCommerceRatesEntriesByProductByMeter Edit a rate, and mark it as operator-set
 
 Edits one rate and MARKS it edited, which is the whole contract with the importer: an operator's price outranks the document it came from, so a later import leaves this row alone. Without that mark a price set here would apply, work, and silently revert on the next import. Only the editable fields move; identity and bookkeeping are not writable from the body. SuperAdmin only.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param slug
-	@return CommerceAPIPutCommerceRatesEntriesBySlugRequest
+	@param product
+	@param meter
+	@return CommerceAPIPutCommerceRatesEntriesByProductByMeterRequest
 */
-func (a *CommerceAPIService) PutCommerceRatesEntriesBySlug(ctx context.Context, slug string) CommerceAPIPutCommerceRatesEntriesBySlugRequest {
-	return CommerceAPIPutCommerceRatesEntriesBySlugRequest{
+func (a *CommerceAPIService) PutCommerceRatesEntriesByProductByMeter(ctx context.Context, product string, meter string) CommerceAPIPutCommerceRatesEntriesByProductByMeterRequest {
+	return CommerceAPIPutCommerceRatesEntriesByProductByMeterRequest{
 		ApiService: a,
 		ctx:        ctx,
-		slug:       slug,
+		product:    product,
+		meter:      meter,
 	}
 }
 
 // Execute executes the request
-func (a *CommerceAPIService) PutCommerceRatesEntriesBySlugExecute(r CommerceAPIPutCommerceRatesEntriesBySlugRequest) (*http.Response, error) {
+func (a *CommerceAPIService) PutCommerceRatesEntriesByProductByMeterExecute(r CommerceAPIPutCommerceRatesEntriesByProductByMeterRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PutCommerceRatesEntriesBySlug")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommerceAPIService.PutCommerceRatesEntriesByProductByMeter")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/commerce/rates/entries/{slug}"
-	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+	localVarPath := localBasePath + "/v1/commerce/rates/entries/{product}/{meter}"
+	localVarPath = strings.Replace(localVarPath, "{"+"product"+"}", url.PathEscape(parameterValueToString(r.product, "product")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"meter"+"}", url.PathEscape(parameterValueToString(r.meter, "meter")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

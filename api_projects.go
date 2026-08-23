@@ -237,6 +237,115 @@ func (a *ProjectsAPIService) DeleteProjectsBySlugDomainsByHostExecute(r Projects
 	return localVarHTTPResponse, nil
 }
 
+type ProjectsAPIDeleteProjectsBySlugStarRequest struct {
+	ctx        context.Context
+	ApiService *ProjectsAPIService
+	slug       string
+}
+
+func (r ProjectsAPIDeleteProjectsBySlugStarRequest) Execute() (*ProjectsStar, *http.Response, error) {
+	return r.ApiService.DeleteProjectsBySlugStarExecute(r)
+}
+
+/*
+DeleteProjectsBySlugStar Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.
+
+Removes the caller's own bookmark from a project, and answers whether
+it is starred afterwards.
+
+It removes only YOUR star — the same one star wrote — so a project other
+people have starred stays on their lists. Unstarring one you had not starred
+is not an error; it leaves it unstarred.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+	@return ProjectsAPIDeleteProjectsBySlugStarRequest
+*/
+func (a *ProjectsAPIService) DeleteProjectsBySlugStar(ctx context.Context, slug string) ProjectsAPIDeleteProjectsBySlugStarRequest {
+	return ProjectsAPIDeleteProjectsBySlugStarRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProjectsStar
+func (a *ProjectsAPIService) DeleteProjectsBySlugStarExecute(r ProjectsAPIDeleteProjectsBySlugStarRequest) (*ProjectsStar, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProjectsStar
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.DeleteProjectsBySlugStar")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{slug}/star"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ProjectsAPIGetProjectsRequest struct {
 	ctx        context.Context
 	ApiService *ProjectsAPIService
@@ -3222,6 +3331,115 @@ func (a *ProjectsAPIService) PostProjectsSitesDeployExecute(r ProjectsAPIPostPro
 	}
 	// body params
 	localVarPostBody = r.projectsDeploySite
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ProjectsAPIPutProjectsBySlugStarRequest struct {
+	ctx        context.Context
+	ApiService *ProjectsAPIService
+	slug       string
+}
+
+func (r ProjectsAPIPutProjectsBySlugStarRequest) Execute() (*ProjectsStar, *http.Response, error) {
+	return r.ApiService.PutProjectsBySlugStarExecute(r)
+}
+
+/*
+PutProjectsBySlugStar Bookmarks a project for the person calling, and answers whether it is starred afterwards.
+
+Bookmarks a project for the person calling, and answers whether it is
+starred afterwards.
+
+The star is YOURS: it is keyed by you as well as by the project, so two people
+see two answers for the same one and starring it says nothing about anybody
+else's list. Starring a project you have already starred leaves it starred.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param slug Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+	@return ProjectsAPIPutProjectsBySlugStarRequest
+*/
+func (a *ProjectsAPIService) PutProjectsBySlugStar(ctx context.Context, slug string) ProjectsAPIPutProjectsBySlugStarRequest {
+	return ProjectsAPIPutProjectsBySlugStarRequest{
+		ApiService: a,
+		ctx:        ctx,
+		slug:       slug,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProjectsStar
+func (a *ProjectsAPIService) PutProjectsBySlugStarExecute(r ProjectsAPIPutProjectsBySlugStarRequest) (*ProjectsStar, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProjectsStar
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsAPIService.PutProjectsBySlugStar")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{slug}/star"
+	localVarPath = strings.Replace(localVarPath, "{"+"slug"+"}", url.PathEscape(parameterValueToString(r.slug, "slug")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -6,11 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeletePlatformProjectsByProjectAppsByApp**](PlatformAPI.md#DeletePlatformProjectsByProjectAppsByApp) | **Delete** /v1/platform/projects/{project}/apps/{app} | Deletes an application and tears down what it runs.
 [**DeletePlatformProjectsByProjectAppsByAppDomainsByHost**](PlatformAPI.md#DeletePlatformProjectsByProjectAppsByAppDomainsByHost) | **Delete** /v1/platform/projects/{project}/apps/{app}/domains/{host} | Detaches a hostname and releases the claim.
-[**GetPlatformApps**](PlatformAPI.md#GetPlatformApps) | **Get** /v1/platform/apps | What this organization has declared, and what CD did with it
-[**GetPlatformAppsByApp**](PlatformAPI.md#GetPlatformAppsByApp) | **Get** /v1/platform/apps/{app} | One declaration
-[**GetPlatformAppsByAppCd**](PlatformAPI.md#GetPlatformAppsByAppCd) | **Get** /v1/platform/apps/{app}/cd | One app&#39;s reconciliation
+[**GetPlatformApps**](PlatformAPI.md#GetPlatformApps) | **Get** /v1/platform/apps | Answers what this organisation has declared, joined with what the delivery plane has done about it.
+[**GetPlatformAppsByApp**](PlatformAPI.md#GetPlatformAppsByApp) | **Get** /v1/platform/apps/{app} | Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
+[**GetPlatformAppsByAppCd**](PlatformAPI.md#GetPlatformAppsByAppCd) | **Get** /v1/platform/apps/{app}/cd | Answers ONE app&#39;s reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
 [**GetPlatformBuilds**](PlatformAPI.md#GetPlatformBuilds) | **Get** /v1/platform/builds | Returns real build records for your org.
-[**GetPlatformCd**](PlatformAPI.md#GetPlatformCd) | **Get** /v1/platform/cd | The delivery plane
+[**GetPlatformCd**](PlatformAPI.md#GetPlatformCd) | **Get** /v1/platform/cd | Answers every Application the delivery plane holds.
 [**GetPlatformCi**](PlatformAPI.md#GetPlatformCi) | **Get** /v1/platform/ci | Continuous integration (not wired)
 [**GetPlatformEnvironments**](PlatformAPI.md#GetPlatformEnvironments) | **Get** /v1/platform/environments | Returns your deploy targets, and what is running on each.
 [**GetPlatformFleet**](PlatformAPI.md#GetPlatformFleet) | **Get** /v1/platform/fleet | Returns the platform&#39;s own service tier, and where it has drifted.
@@ -191,9 +191,9 @@ Name | Type | Description  | Notes
 
 ## GetPlatformApps
 
-> GetPlatformApps(ctx).Execute()
+> DeclaredResp GetPlatformApps(ctx).Org(org).Execute()
 
-What this organization has declared, and what CD did with it
+Answers what this organisation has declared, joined with what the delivery plane has done about it.
 
 
 
@@ -210,29 +210,36 @@ import (
 )
 
 func main() {
+	org := "org_example" // string | Org names the organisation whose declarations to read, defaulting to the caller's own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.GetPlatformApps(context.Background()).Execute()
+	resp, r, err := apiClient.PlatformAPI.GetPlatformApps(context.Background()).Org(org).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetPlatformApps`: DeclaredResp
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformApps`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetPlatformAppsRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **string** | Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself. | 
+
 ### Return type
 
- (empty response body)
+[**DeclaredResp**](DeclaredResp.md)
 
 ### Authorization
 
@@ -241,7 +248,7 @@ Other parameters are passed through a pointer to a apiGetPlatformAppsRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -250,9 +257,9 @@ Other parameters are passed through a pointer to a apiGetPlatformAppsRequest str
 
 ## GetPlatformAppsByApp
 
-> GetPlatformAppsByApp(ctx, app).Execute()
+> Declaration GetPlatformAppsByApp(ctx, app).Org(org).Execute()
 
-One declaration
+Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
 
 
 
@@ -269,15 +276,18 @@ import (
 )
 
 func main() {
-	app := "app_example" // string | 
+	app := "app_example" // string | App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent.
+	org := "org_example" // string | Org names the organisation the declaration lives in, defaulting to the caller's own and subject to the same SuperAdmin rule as the listing. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.GetPlatformAppsByApp(context.Background(), app).Execute()
+	resp, r, err := apiClient.PlatformAPI.GetPlatformAppsByApp(context.Background(), app).Org(org).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformAppsByApp``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetPlatformAppsByApp`: Declaration
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformAppsByApp`: %v\n", resp)
 }
 ```
 
@@ -287,7 +297,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**app** | **string** |  | 
+**app** | **string** | App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. | 
 
 ### Other Parameters
 
@@ -297,10 +307,11 @@ Other parameters are passed through a pointer to a apiGetPlatformAppsByAppReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **org** | **string** | Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. | 
 
 ### Return type
 
- (empty response body)
+[**Declaration**](Declaration.md)
 
 ### Authorization
 
@@ -309,7 +320,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -318,9 +329,9 @@ Name | Type | Description  | Notes
 
 ## GetPlatformAppsByAppCd
 
-> GetPlatformAppsByAppCd(ctx, app).Execute()
+> CDApp GetPlatformAppsByAppCd(ctx, app).Org(org).Execute()
 
-One app's reconciliation
+Answers ONE app's reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
 
 
 
@@ -337,15 +348,18 @@ import (
 )
 
 func main() {
-	app := "app_example" // string | 
+	app := "app_example" // string | App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent.
+	org := "org_example" // string | Org names the organisation the declaration lives in, defaulting to the caller's own and subject to the same SuperAdmin rule as the listing. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.GetPlatformAppsByAppCd(context.Background(), app).Execute()
+	resp, r, err := apiClient.PlatformAPI.GetPlatformAppsByAppCd(context.Background(), app).Org(org).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformAppsByAppCd``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetPlatformAppsByAppCd`: CDApp
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformAppsByAppCd`: %v\n", resp)
 }
 ```
 
@@ -355,7 +369,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**app** | **string** |  | 
+**app** | **string** | App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. | 
 
 ### Other Parameters
 
@@ -365,10 +379,11 @@ Other parameters are passed through a pointer to a apiGetPlatformAppsByAppCdRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **org** | **string** | Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. | 
 
 ### Return type
 
- (empty response body)
+[**CDApp**](CDApp.md)
 
 ### Authorization
 
@@ -377,7 +392,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -447,9 +462,9 @@ Other parameters are passed through a pointer to a apiGetPlatformBuildsRequest s
 
 ## GetPlatformCd
 
-> GetPlatformCd(ctx).Execute()
+> CdResp GetPlatformCd(ctx).Execute()
 
-The delivery plane
+Answers every Application the delivery plane holds.
 
 
 
@@ -469,11 +484,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.GetPlatformCd(context.Background()).Execute()
+	resp, r, err := apiClient.PlatformAPI.GetPlatformCd(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformCd``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetPlatformCd`: CdResp
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformCd`: %v\n", resp)
 }
 ```
 
@@ -488,7 +505,7 @@ Other parameters are passed through a pointer to a apiGetPlatformCdRequest struc
 
 ### Return type
 
- (empty response body)
+[**CdResp**](CdResp.md)
 
 ### Authorization
 
@@ -497,7 +514,7 @@ Other parameters are passed through a pointer to a apiGetPlatformCdRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**GraphNeighbors**](GraphAPI.md#GraphNeighbors) | **Post** /v1/graph/neighbors | Walk the edges from a seed set, bounded
 [**GraphRead**](GraphAPI.md#GraphRead) | **Get** /v1/graph | Read the assertions this organization has recorded
 [**GraphResolve**](GraphAPI.md#GraphResolve) | **Post** /v1/graph/resolve | What is in force about an entity as of an instant, and what disagreed
+[**GraphSearch**](GraphAPI.md#GraphSearch) | **Get** /v1/graph/search | Find assertions by their text rather than by an entity key
 [**GraphVocabulary**](GraphAPI.md#GraphVocabulary) | **Get** /v1/graph/vocabulary | The relations in use, and the rule that resolves a conflict
 [**PostGraphGraphql**](GraphAPI.md#PostGraphGraphql) | **Post** /v1/graph/graphql | Ask the graph in one request, traversing.
 
@@ -270,6 +271,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GraphSearch
+
+> GraphReadOut GraphSearch(ctx).Q(q).Relation(relation).AsOf(asOf).Limit(limit).Execute()
+
+Find assertions by their text rather than by an entity key
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	q := "q_example" // string | Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (optional)
+	relation := "relation_example" // string | Relation narrows to one relation. Absent matches every relation. (optional)
+	asOf := "asOf_example" // string | AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. (optional)
+	limit := int32(56) // int32 | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GraphAPI.GraphSearch(context.Background()).Q(q).Relation(relation).AsOf(asOf).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GraphAPI.GraphSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GraphSearch`: GraphReadOut
+	fmt.Fprintf(os.Stdout, "Response from `GraphAPI.GraphSearch`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGraphSearchRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **q** | **string** | Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. | 
+ **relation** | **string** | Relation narrows to one relation. Absent matches every relation. | 
+ **asOf** | **string** | AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. | 
+ **limit** | **int32** | Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. | 
+
+### Return type
+
+[**GraphReadOut**](GraphReadOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

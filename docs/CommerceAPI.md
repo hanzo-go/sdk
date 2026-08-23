@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**DeleteCommerceNoteByNoteid**](CommerceAPI.md#DeleteCommerceNoteByNoteid) | **Delete** /v1/commerce/note/{noteid} | Delete a note, keeping a recoverable copy
 [**DeleteCommercePlansEntriesBySlug**](CommerceAPI.md#DeleteCommercePlansEntriesBySlug) | **Delete** /v1/commerce/plans/entries/{slug} | Remove a plan from the authority
 [**DeleteCommerceProductByProductid**](CommerceAPI.md#DeleteCommerceProductByProductid) | **Delete** /v1/commerce/product/{productid} | Delete a product, keeping a recoverable copy
-[**DeleteCommerceRatesEntriesBySlug**](CommerceAPI.md#DeleteCommerceRatesEntriesBySlug) | **Delete** /v1/commerce/rates/entries/{slug} | Remove a rate outright
+[**DeleteCommerceRatesEntriesByProductByMeter**](CommerceAPI.md#DeleteCommerceRatesEntriesByProductByMeter) | **Delete** /v1/commerce/rates/entries/{product}/{meter} | Remove a rate outright
 [**DeleteCommerceReturnByReturnid**](CommerceAPI.md#DeleteCommerceReturnByReturnid) | **Delete** /v1/commerce/return/{returnid} | Delete a return, keeping a recoverable copy
 [**DeleteCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#DeleteCommerceSaleschannelBySaleschannelid) | **Delete** /v1/commerce/saleschannel/{saleschannelid} | Delete a sales channel, keeping a recoverable copy
 [**DeleteCommerceStocklocationByStocklocationid**](CommerceAPI.md#DeleteCommerceStocklocationByStocklocationid) | **Delete** /v1/commerce/stocklocation/{stocklocationid} | Delete a stock location, keeping a recoverable copy
@@ -169,7 +169,7 @@ Method | HTTP request | Description
 [**PutCommerceNoteByNoteid**](CommerceAPI.md#PutCommerceNoteByNoteid) | **Put** /v1/commerce/note/{noteid} | Replace a note outright
 [**PutCommercePlansEntriesBySlug**](CommerceAPI.md#PutCommercePlansEntriesBySlug) | **Put** /v1/commerce/plans/entries/{slug} | Edit a plan, leaving the fields you omit alone
 [**PutCommerceProductByProductid**](CommerceAPI.md#PutCommerceProductByProductid) | **Put** /v1/commerce/product/{productid} | Replace a product outright
-[**PutCommerceRatesEntriesBySlug**](CommerceAPI.md#PutCommerceRatesEntriesBySlug) | **Put** /v1/commerce/rates/entries/{slug} | Edit a rate, and mark it as operator-set
+[**PutCommerceRatesEntriesByProductByMeter**](CommerceAPI.md#PutCommerceRatesEntriesByProductByMeter) | **Put** /v1/commerce/rates/entries/{product}/{meter} | Edit a rate, and mark it as operator-set
 [**PutCommerceReturnByReturnid**](CommerceAPI.md#PutCommerceReturnByReturnid) | **Put** /v1/commerce/return/{returnid} | Replace a return outright
 [**PutCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#PutCommerceSaleschannelBySaleschannelid) | **Put** /v1/commerce/saleschannel/{saleschannelid} | Replace a sales channel outright
 [**PutCommerceStocklocationByStocklocationid**](CommerceAPI.md#PutCommerceStocklocationByStocklocationid) | **Put** /v1/commerce/stocklocation/{stocklocationid} | Replace a stock location outright
@@ -664,9 +664,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteCommerceRatesEntriesBySlug
+## DeleteCommerceRatesEntriesByProductByMeter
 
-> DeleteCommerceRatesEntriesBySlug(ctx, slug).Execute()
+> DeleteCommerceRatesEntriesByProductByMeter(ctx, product, meter).Execute()
 
 Remove a rate outright
 
@@ -685,13 +685,14 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
+	product := "product_example" // string | 
+	meter := "meter_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.DeleteCommerceRatesEntriesBySlug(context.Background(), slug).Execute()
+	r, err := apiClient.CommerceAPI.DeleteCommerceRatesEntriesByProductByMeter(context.Background(), product, meter).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommerceRatesEntriesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommerceRatesEntriesByProductByMeter``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -703,15 +704,17 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**product** | **string** |  | 
+**meter** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCommerceRatesEntriesBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCommerceRatesEntriesByProductByMeterRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -10955,9 +10958,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutCommerceRatesEntriesBySlug
+## PutCommerceRatesEntriesByProductByMeter
 
-> PutCommerceRatesEntriesBySlug(ctx, slug).Execute()
+> PutCommerceRatesEntriesByProductByMeter(ctx, product, meter).Execute()
 
 Edit a rate, and mark it as operator-set
 
@@ -10976,13 +10979,14 @@ import (
 )
 
 func main() {
-	slug := "slug_example" // string | 
+	product := "product_example" // string | 
+	meter := "meter_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PutCommerceRatesEntriesBySlug(context.Background(), slug).Execute()
+	r, err := apiClient.CommerceAPI.PutCommerceRatesEntriesByProductByMeter(context.Background(), product, meter).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommerceRatesEntriesBySlug``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommerceRatesEntriesByProductByMeter``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -10994,15 +10998,17 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
+**product** | **string** |  | 
+**meter** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutCommerceRatesEntriesBySlugRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCommerceRatesEntriesByProductByMeterRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type

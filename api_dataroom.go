@@ -770,14 +770,20 @@ type DataroomAPIGetDataroomHealthRequest struct {
 	ApiService *DataroomAPIService
 }
 
-func (r DataroomAPIGetDataroomHealthRequest) Execute() (*http.Response, error) {
+func (r DataroomAPIGetDataroomHealthRequest) Execute() (*DataroomLiveness, *http.Response, error) {
 	return r.ApiService.GetDataroomHealthExecute(r)
 }
 
 /*
-GetDataroomHealth Liveness of the dataroom subsystem
+GetDataroomHealth Health reports that the data room subsystem is up.
 
-Answers {service, status} unconditionally — no principal, no tenant. It is registered BEFORE the bundle, the link index and the object-storage seam are wired, so it keeps answering when any of those fail and the subsystem degrades to health-only. That is the point, and the limit: a 200 here says the process is alive, never that a data room can be read or written.
+Health reports that the data room subsystem is up.
+
+It answers before the bundle loads, holds no state and touches no store, so it
+stays true in exactly the situation an operator is probing for. It says nothing
+about whether a room can be OPENED — that is what the room operations answer —
+because a liveness probe that fails on a dependency takes a working process out
+of rotation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DataroomAPIGetDataroomHealthRequest
@@ -790,16 +796,19 @@ func (a *DataroomAPIService) GetDataroomHealth(ctx context.Context) DataroomAPIG
 }
 
 // Execute executes the request
-func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHealthRequest) (*http.Response, error) {
+//
+//	@return DataroomLiveness
+func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHealthRequest) (*DataroomLiveness, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DataroomLiveness
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomHealth")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/dataroom/health"
@@ -818,7 +827,7 @@ func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -827,19 +836,19 @@ func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -847,10 +856,19 @@ func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type DataroomAPIGetDataroomLinksRequest struct {
@@ -1856,7 +1874,7 @@ func (r DataroomAPIPostDataroomDocumentsRequest) Execute() (*http.Response, erro
 /*
 PostDataroomDocuments Upload a document's bytes and record it
 
-Takes the file ITSELF as the raw request body — not a JSON envelope, not multipart — stores it on the object-storage seam, and records the metadata row, answering with the new document. `?name=` names it (default "document"), the request's Content-Type becomes the recorded mime type, and `?numPages=` is optional.
+Takes the file ITSELF as the raw request body — not a JSON envelope, not multipart — stores it on the object-storage client, and records the metadata row, answering with the new document. `?name=` names it (default "document"), the request's Content-Type becomes the recorded mime type, and `?numPages=` is optional.
 
 Requires a validated principal; 403 without one. An empty body is 400 and anything over 64 MiB is 413 — a data room holds decks and PDFs, not a media library.
 

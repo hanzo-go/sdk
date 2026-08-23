@@ -1796,7 +1796,7 @@ Answers a plain-language question about the caller's own books — "what is my
 MRR?", "how long is my runway?" — with figures taken from their ledger, never a guessed
 number. A deterministic keyword router picks the intent and reads the real metrics, and
 those figures, followups and report sources are computed BEFORE any model call and are
-never altered by one: the optional narration seam only rephrases the sentence, and it
+never altered by one: the optional narration client only rephrases the sentence, and it
 degrades silently to the templated answer when no AI plane is wired. It is strictly
 read-only — it restates the books, it never posts to them.
 

@@ -237,6 +237,7 @@ docs/BankTally.md
 docs/BankTxnRow.md
 docs/BaseAPI.md
 docs/BaseHealth.md
+docs/BaseView.md
 docs/BeginIn.md
 docs/Benchmark.md
 docs/BenchmarkAPI.md
@@ -302,6 +303,7 @@ docs/BusRequest.md
 docs/BuyInput.md
 docs/ByoGPU.md
 docs/ByoWorker.md
+docs/CDApp.md
 docs/CalendarPost.md
 docs/Call.md
 docs/CallInput.md
@@ -369,6 +371,7 @@ docs/CatalogPage.md
 docs/Category.md
 docs/CategoryIn.md
 docs/CategorySpend.md
+docs/CdResp.md
 docs/Centre.md
 docs/Chain.md
 docs/ChainList.md
@@ -383,6 +386,7 @@ docs/ChannelSpec.md
 docs/ChannelView.md
 docs/ChannelsAPI.md
 docs/Charge.md
+docs/Charged.md
 docs/ChatChannels.md
 docs/ChatRequest.md
 docs/ChatResponse.md
@@ -457,7 +461,9 @@ docs/ContextBundle.md
 docs/ContextIn.md
 docs/ControlCommandView.md
 docs/ControlDrain.md
+docs/ControlIn.md
 docs/ControlList.md
+docs/ControlResult.md
 docs/CookieAck.md
 docs/CorpusView.md
 docs/CostLine.md
@@ -508,6 +514,7 @@ docs/DataroomLinkCreate.md
 docs/DataroomLinkOne.md
 docs/DataroomLinkStats.md
 docs/DataroomLinks.md
+docs/DataroomLiveness.md
 docs/DataroomMember.md
 docs/DataroomMembership.md
 docs/DataroomPageStat.md
@@ -524,6 +531,10 @@ docs/DatasetView.md
 docs/DecideBody.md
 docs/DecisionIn.md
 docs/DeckOut.md
+docs/Declaration.md
+docs/DeclareEnv.md
+docs/Declared.md
+docs/DeclaredResp.md
 docs/DefRow.md
 docs/Definition.md
 docs/DefsOut.md
@@ -533,6 +544,7 @@ docs/Delivery.md
 docs/DeliveryList.md
 docs/DeliveryRow.md
 docs/DeployAPI.md
+docs/DeployHealth.md
 docs/DeployLogs.md
 docs/DeployRecord.md
 docs/DeployReq.md
@@ -544,6 +556,7 @@ docs/DestinationField.md
 docs/DestinationList.md
 docs/DestinationStatus.md
 docs/DestinationTest.md
+docs/Detachment.md
 docs/DevicePollOut.md
 docs/DeviceStartIn.md
 docs/DeviceStartOut.md
@@ -629,6 +642,7 @@ docs/EvaluatorReq.md
 docs/EvaluatorView.md
 docs/Event.md
 docs/EventAPI.md
+docs/EventIn.md
 docs/EventList.md
 docs/EventView.md
 docs/Exception.md
@@ -1987,6 +2001,7 @@ docs/ProjectsRelease.md
 docs/ProjectsRepo.md
 docs/ProjectsSite.md
 docs/ProjectsSiteDeploy.md
+docs/ProjectsStar.md
 docs/ProjectsUpdate.md
 docs/ProjectsUpdateRepo.md
 docs/ProjectsUploadGrant.md
@@ -2044,6 +2059,8 @@ docs/ReadingReq.md
 docs/ReadingView.md
 docs/ReadmeJSON.md
 docs/Receipt.md
+docs/Recharge.md
+docs/Recharged.md
 docs/Record.md
 docs/RecordList.md
 docs/RedeemInput.md
@@ -2407,6 +2424,7 @@ docs/ToolsAPI.md
 docs/Top.md
 docs/TopModels.md
 docs/TopProducts.md
+docs/TopupIn.md
 docs/TotalView.md
 docs/TraceList.md
 docs/TraceView.md
@@ -2451,6 +2469,7 @@ docs/TrustSettings.md
 docs/TrustTally.md
 docs/Txn.md
 docs/UTM.md
+docs/Unreadable.md
 docs/UnreconciledOut.md
 docs/Unsubscribed.md
 docs/UpdateAgentIn.md
@@ -2629,6 +2648,7 @@ model_bank_question.go
 model_bank_tally.go
 model_bank_txn_row.go
 model_base_health.go
+model_base_view.go
 model_begin_in.go
 model_benchmark.go
 model_benchmark_catalog.go
@@ -2753,6 +2773,8 @@ model_catalog_page.go
 model_category.go
 model_category_in.go
 model_category_spend.go
+model_cd_app.go
+model_cd_resp.go
 model_centre.go
 model_chain.go
 model_chain_list.go
@@ -2766,6 +2788,7 @@ model_channel_result.go
 model_channel_spec.go
 model_channel_view.go
 model_charge.go
+model_charged.go
 model_chat_channels.go
 model_chat_request.go
 model_chat_response.go
@@ -2834,7 +2857,9 @@ model_context_bundle.go
 model_context_in.go
 model_control_command_view.go
 model_control_drain.go
+model_control_in.go
 model_control_list.go
+model_control_result.go
 model_cookie_ack.go
 model_corpus_view.go
 model_cost_line.go
@@ -2882,6 +2907,7 @@ model_dataroom_link_create.go
 model_dataroom_link_one.go
 model_dataroom_link_stats.go
 model_dataroom_links.go
+model_dataroom_liveness.go
 model_dataroom_member.go
 model_dataroom_membership.go
 model_dataroom_page_stat.go
@@ -2897,6 +2923,10 @@ model_dataset_view.go
 model_decide_body.go
 model_decision_in.go
 model_deck_out.go
+model_declaration.go
+model_declare_env.go
+model_declared.go
+model_declared_resp.go
 model_def_row.go
 model_definition.go
 model_defs_out.go
@@ -2905,6 +2935,7 @@ model_deleted_out.go
 model_delivery.go
 model_delivery_list.go
 model_delivery_row.go
+model_deploy_health.go
 model_deploy_logs.go
 model_deploy_record.go
 model_deploy_req.go
@@ -2915,6 +2946,7 @@ model_destination_field.go
 model_destination_list.go
 model_destination_status.go
 model_destination_test_.go
+model_detachment.go
 model_device_poll_out.go
 model_device_start_in.go
 model_device_start_out.go
@@ -2994,6 +3026,7 @@ model_evaluator_list.go
 model_evaluator_req.go
 model_evaluator_view.go
 model_event.go
+model_event_in.go
 model_event_list.go
 model_event_view.go
 model_exception.go
@@ -4311,6 +4344,7 @@ model_projects_release.go
 model_projects_repo.go
 model_projects_site.go
 model_projects_site_deploy.go
+model_projects_star.go
 model_projects_update.go
 model_projects_update_repo.go
 model_projects_upload_grant.go
@@ -4365,6 +4399,8 @@ model_reading_req.go
 model_reading_view.go
 model_readme_json.go
 model_receipt.go
+model_recharge.go
+model_recharged.go
 model_record.go
 model_record_list.go
 model_redeem_input.go
@@ -4706,6 +4742,7 @@ model_tool_result.go
 model_top.go
 model_top_models.go
 model_top_products.go
+model_topup_in.go
 model_total_view.go
 model_trace_list.go
 model_trace_view.go
@@ -4746,6 +4783,7 @@ model_trust_refused.go
 model_trust_settings.go
 model_trust_tally.go
 model_txn.go
+model_unreadable.go
 model_unreconciled_out.go
 model_unsubscribed.go
 model_update_agent_in.go

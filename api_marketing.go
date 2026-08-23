@@ -2574,7 +2574,7 @@ PostMarketingCalendarByIdPublish Publishes a post NOW, synchronously, whatever i
 
 Publishes a post NOW, synchronously, whatever its
 schedule. No social connector is wired today, so every channel answers an
-honest 501 naming the seam a real one would plug into, and the post is
+honest 501 naming the client a real one would plug into, and the post is
 recorded failed with that exact reason — never a faked "published".
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Dispatchable** | Pointer to **bool** | Dispatchable is whether the tool can be CALLED. False for a listing-only entry: a skill is activated and attached to an agent, never called. | [optional] 
 **InputSchema** | Pointer to **interface{}** |  | [optional] 
 **Name** | Pointer to **string** | Name is the tool&#39;s id in the flat, fleet-wide tool namespace — the value a tools/call passes. Unique across sources: a collision is resolved by source precedence before the caller ever sees it. | [optional] 
-**Price** | Pointer to [**Price**](Price.md) | Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement seam; this is the declaration. | [optional] 
+**Price** | Pointer to [**Price**](Price.md) | Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement client; this is the declaration. | [optional] 
 **Source** | Pointer to **string** | Source is where the tool comes from: connector, function, zap-service, agent, skill or mcp. | [optional] 
 
 ## Methods

@@ -1529,14 +1529,18 @@ type VisorAPIGetVisorComputeRegionsRequest struct {
 	ApiService *VisorAPIService
 }
 
-func (r VisorAPIGetVisorComputeRegionsRequest) Execute() (*http.Response, error) {
+func (r VisorAPIGetVisorComputeRegionsRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.GetVisorComputeRegionsExecute(r)
 }
 
 /*
-GetVisorComputeRegions The regions a machine or GPU can be launched into
+GetVisorComputeRegions Regions lists the regions a machine can be launched in.
 
-Lists the launch regions the compute catalog offers, passed through verbatim from the provider so the shape stays the provider's single source of truth. The catalog is GLOBAL, not per-tenant: no owner is forwarded and every org sees the same list. It is still gated — a validated principal is required, 403 without one — because the catalog is what backs the launch drawer, not public marketing copy.
+Regions lists the regions a machine can be launched in.
+
+The catalog is GLOBAL — identical for every tenant — so no owner is forwarded
+upstream. It is still org-gated, because a catalog is a map of what this
+deployment can spend money in and an anonymous caller has no business reading it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return VisorAPIGetVisorComputeRegionsRequest
@@ -1549,16 +1553,19 @@ func (a *VisorAPIService) GetVisorComputeRegions(ctx context.Context) VisorAPIGe
 }
 
 // Execute executes the request
-func (a *VisorAPIService) GetVisorComputeRegionsExecute(r VisorAPIGetVisorComputeRegionsRequest) (*http.Response, error) {
+//
+//	@return interface{}
+func (a *VisorAPIService) GetVisorComputeRegionsExecute(r VisorAPIGetVisorComputeRegionsRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.GetVisorComputeRegions")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/visor/compute/regions"
@@ -1577,7 +1584,7 @@ func (a *VisorAPIService) GetVisorComputeRegionsExecute(r VisorAPIGetVisorComput
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1586,19 +1593,19 @@ func (a *VisorAPIService) GetVisorComputeRegionsExecute(r VisorAPIGetVisorComput
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1606,10 +1613,19 @@ func (a *VisorAPIService) GetVisorComputeRegionsExecute(r VisorAPIGetVisorComput
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type VisorAPIGetVisorComputeSizesRequest struct {
@@ -1617,14 +1633,16 @@ type VisorAPIGetVisorComputeSizesRequest struct {
 	ApiService *VisorAPIService
 }
 
-func (r VisorAPIGetVisorComputeSizesRequest) Execute() (*http.Response, error) {
+func (r VisorAPIGetVisorComputeSizesRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.GetVisorComputeSizesExecute(r)
 }
 
 /*
-GetVisorComputeSizes The machine and GPU sizes that can be launched
+GetVisorComputeSizes Sizes lists the machine sizes available to launch, with their specifications.
 
-Lists the instance sizes the compute catalog offers, passed through verbatim from the provider so the shape stays the provider's single source of truth. These are the values `size` accepts on a launch. The catalog is GLOBAL, not per-tenant: no owner is forwarded and every org sees the same list. It is still gated — a validated principal is required, 403 without one.
+Sizes lists the machine sizes available to launch, with their specifications.
+
+Global and org-gated, exactly as the region catalog is, and for the same reasons.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return VisorAPIGetVisorComputeSizesRequest
@@ -1637,16 +1655,19 @@ func (a *VisorAPIService) GetVisorComputeSizes(ctx context.Context) VisorAPIGetV
 }
 
 // Execute executes the request
-func (a *VisorAPIService) GetVisorComputeSizesExecute(r VisorAPIGetVisorComputeSizesRequest) (*http.Response, error) {
+//
+//	@return interface{}
+func (a *VisorAPIService) GetVisorComputeSizesExecute(r VisorAPIGetVisorComputeSizesRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VisorAPIService.GetVisorComputeSizes")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/visor/compute/sizes"
@@ -1665,7 +1686,7 @@ func (a *VisorAPIService) GetVisorComputeSizesExecute(r VisorAPIGetVisorComputeS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1674,19 +1695,19 @@ func (a *VisorAPIService) GetVisorComputeSizesExecute(r VisorAPIGetVisorComputeS
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1694,10 +1715,19 @@ func (a *VisorAPIService) GetVisorComputeSizesExecute(r VisorAPIGetVisorComputeS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type VisorAPIListBotsRequest struct {

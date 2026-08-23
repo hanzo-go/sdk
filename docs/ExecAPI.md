@@ -4,7 +4,7 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetExecFilesBySid**](ExecAPI.md#GetExecFilesBySid) | **Get** /v1/exec/files/{sid} | List the files in an execution session
+[**GetExecFilesBySid**](ExecAPI.md#GetExecFilesBySid) | **Get** /v1/exec/files/{sid} | Files lists what a session holds.
 [**PostExec**](ExecAPI.md#PostExec) | **Post** /v1/exec | Run a code snippet in a sandboxed interpreter
 [**PostExecProgrammatic**](ExecAPI.md#PostExecProgrammatic) | **Post** /v1/exec/programmatic | Programmatic tool calling (not served here)
 [**PostExecUpload**](ExecAPI.md#PostExecUpload) | **Post** /v1/exec/upload | Upload a file into an execution session
@@ -13,9 +13,9 @@ Method | HTTP request | Description
 
 ## GetExecFilesBySid
 
-> GetExecFilesBySid(ctx, sid).Execute()
+> []Listing GetExecFilesBySid(ctx, sid).Execute()
 
-List the files in an execution session
+Files lists what a session holds.
 
 
 
@@ -32,15 +32,17 @@ import (
 )
 
 func main() {
-	sid := "sid_example" // string | 
+	sid := "sid_example" // string | SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ExecAPI.GetExecFilesBySid(context.Background(), sid).Execute()
+	resp, r, err := apiClient.ExecAPI.GetExecFilesBySid(context.Background(), sid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecAPI.GetExecFilesBySid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetExecFilesBySid`: []Listing
+	fmt.Fprintf(os.Stdout, "Response from `ExecAPI.GetExecFilesBySid`: %v\n", resp)
 }
 ```
 
@@ -50,7 +52,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sid** | **string** |  | 
+**sid** | **string** | SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent. | 
 
 ### Other Parameters
 
@@ -63,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**[]Listing**](Listing.md)
 
 ### Authorization
 
@@ -72,7 +74,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

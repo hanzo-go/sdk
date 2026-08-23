@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteProjectsBySlug**](ProjectsAPI.md#DeleteProjectsBySlug) | **Delete** /v1/projects/{slug} | Deletes a project and takes its site off the internet.
 [**DeleteProjectsBySlugDomainsByHost**](ProjectsAPI.md#DeleteProjectsBySlugDomainsByHost) | **Delete** /v1/projects/{slug}/domains/{host} | Gives a custom hostname back, so the name is free to reuse.
+[**DeleteProjectsBySlugStar**](ProjectsAPI.md#DeleteProjectsBySlugStar) | **Delete** /v1/projects/{slug}/star | Removes the caller&#39;s own bookmark from a project, and answers whether it is starred afterwards.
 [**GetProjects**](ProjectsAPI.md#GetProjects) | **Get** /v1/projects | Returns every project your org owns.
 [**GetProjectsBySlug**](ProjectsAPI.md#GetProjectsBySlug) | **Get** /v1/projects/{slug} | Returns one project of yours by slug — its settings, its live URL and the deployment currently serving it.
 [**GetProjectsBySlugDeployments**](ProjectsAPI.md#GetProjectsBySlugDeployments) | **Get** /v1/projects/{slug}/deployments | Returns a project&#39;s deploy history, newest version first.
@@ -31,6 +32,7 @@ Method | HTTP request | Description
 [**PostProjectsFork**](ProjectsAPI.md#PostProjectsFork) | **Post** /v1/projects/fork | Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org&#39;s app serving at &lt;slug&gt;.hanzo.app).
 [**PostProjectsSites**](ProjectsAPI.md#PostProjectsSites) | **Post** /v1/projects/sites | Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
 [**PostProjectsSitesDeploy**](ProjectsAPI.md#PostProjectsSitesDeploy) | **Post** /v1/projects/sites/deploy | Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
+[**PutProjectsBySlugStar**](ProjectsAPI.md#PutProjectsBySlugStar) | **Put** /v1/projects/{slug}/star | Bookmarks a project for the person calling, and answers whether it is starred afterwards.
 
 
 
@@ -167,6 +169,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteProjectsBySlugStar
+
+> ProjectsStar DeleteProjectsBySlugStar(ctx, slug).Execute()
+
+Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsAPI.DeleteProjectsBySlugStar(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.DeleteProjectsBySlugStar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteProjectsBySlugStar`: ProjectsStar
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.DeleteProjectsBySlugStar`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the project to act on, from the path. It is unique within the caller&#39;s org and nowhere else, so another tenant&#39;s slug is a 404. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteProjectsBySlugStarRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ProjectsStar**](ProjectsStar.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1888,6 +1960,76 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutProjectsBySlugStar
+
+> ProjectsStar PutProjectsBySlugStar(ctx, slug).Execute()
+
+Bookmarks a project for the person calling, and answers whether it is starred afterwards.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	slug := "slug_example" // string | Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsAPI.PutProjectsBySlugStar(context.Background(), slug).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PutProjectsBySlugStar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutProjectsBySlugStar`: ProjectsStar
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsAPI.PutProjectsBySlugStar`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**slug** | **string** | Slug is the project to act on, from the path. It is unique within the caller&#39;s org and nowhere else, so another tenant&#39;s slug is a 404. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutProjectsBySlugStarRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ProjectsStar**](ProjectsStar.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -237,18 +237,30 @@ func (a *PlatformAPIService) DeletePlatformProjectsByProjectAppsByAppDomainsByHo
 type PlatformAPIGetPlatformAppsRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
+	org        *string
 }
 
-func (r PlatformAPIGetPlatformAppsRequest) Execute() (*http.Response, error) {
+// Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself.
+func (r PlatformAPIGetPlatformAppsRequest) Org(org string) PlatformAPIGetPlatformAppsRequest {
+	r.org = &org
+	return r
+}
+
+func (r PlatformAPIGetPlatformAppsRequest) Execute() (*DeclaredResp, *http.Response, error) {
 	return r.ApiService.GetPlatformAppsExecute(r)
 }
 
 /*
-GetPlatformApps What this organization has declared, and what CD did with it
+GetPlatformApps Answers what this organisation has declared, joined with what the delivery plane has done about it.
 
-Returns the declarations in the caller's own org directory, each joined with the Hanzo CD Application reconciling it — sync verdict, health, the universe commit last applied. `cd` is null for a declaration the delivery plane has no Application for, which is the normal state of one that exists only on a branch.
+Answers what this organisation has declared, joined with what
+the delivery plane has done about it.
 
-If the delivery plane cannot be read, the declarations are still returned and `cdUnavailable` says why. An unreadable plane never renders as "nothing has been reconciled".
+The join is best-effort BY DESIGN and says so when it is missing: the
+declarations ARE the answer to "what have I deployed", so refusing the whole
+board because the cluster is unreadable would lose the half that is readable.
+What must never happen is a silent null — an unreadable plane is reported as
+`cd.unavailable` carrying the reason, never as an app with no reconciliation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PlatformAPIGetPlatformAppsRequest
@@ -261,16 +273,19 @@ func (a *PlatformAPIService) GetPlatformApps(ctx context.Context) PlatformAPIGet
 }
 
 // Execute executes the request
-func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformAppsRequest) (*http.Response, error) {
+//
+//	@return DeclaredResp
+func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformAppsRequest) (*DeclaredResp, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeclaredResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformApps")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/platform/apps"
@@ -279,6 +294,9 @@ func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformApps
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -289,7 +307,7 @@ func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformApps
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -298,19 +316,19 @@ func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformApps
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -318,29 +336,46 @@ func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformApps
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type PlatformAPIGetPlatformAppsByAppRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
 	app        string
+	org        *string
 }
 
-func (r PlatformAPIGetPlatformAppsByAppRequest) Execute() (*http.Response, error) {
+// Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing.
+func (r PlatformAPIGetPlatformAppsByAppRequest) Org(org string) PlatformAPIGetPlatformAppsByAppRequest {
+	r.org = &org
+	return r
+}
+
+func (r PlatformAPIGetPlatformAppsByAppRequest) Execute() (*Declaration, *http.Response, error) {
 	return r.ApiService.GetPlatformAppsByAppExecute(r)
 }
 
 /*
-GetPlatformAppsByApp One declaration
+GetPlatformAppsByApp Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
 
-The values file for one app as git declares it: image repository and tag, hosts, replicas, and whether CD is automated on it. 404 when this organization declares no such app.
+Answers ONE declaration — what git says this app is, before the
+delivery plane has had any say in it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param app
+	@param app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent.
 	@return PlatformAPIGetPlatformAppsByAppRequest
 */
 func (a *PlatformAPIService) GetPlatformAppsByApp(ctx context.Context, app string) PlatformAPIGetPlatformAppsByAppRequest {
@@ -352,16 +387,19 @@ func (a *PlatformAPIService) GetPlatformAppsByApp(ctx context.Context, app strin
 }
 
 // Execute executes the request
-func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatformAppsByAppRequest) (*http.Response, error) {
+//
+//	@return Declaration
+func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatformAppsByAppRequest) (*Declaration, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Declaration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformAppsByApp")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/platform/apps/{app}"
@@ -371,6 +409,9 @@ func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatfor
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -381,7 +422,7 @@ func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatfor
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -390,19 +431,19 @@ func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatfor
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -410,29 +451,46 @@ func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatfor
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type PlatformAPIGetPlatformAppsByAppCdRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
 	app        string
+	org        *string
 }
 
-func (r PlatformAPIGetPlatformAppsByAppCdRequest) Execute() (*http.Response, error) {
+// Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing.
+func (r PlatformAPIGetPlatformAppsByAppCdRequest) Org(org string) PlatformAPIGetPlatformAppsByAppCdRequest {
+	r.org = &org
+	return r
+}
+
+func (r PlatformAPIGetPlatformAppsByAppCdRequest) Execute() (*CDApp, *http.Response, error) {
 	return r.ApiService.GetPlatformAppsByAppCdExecute(r)
 }
 
 /*
-GetPlatformAppsByAppCd One app's reconciliation
+GetPlatformAppsByAppCd Answers ONE app's reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
 
-The Hanzo CD Application for one declaration, on its own — the poll a deploy view makes while it waits, without re-reading the whole inventory. 404 while the declaration exists only on a branch, because the generator reads main.
+Answers ONE app's reconciliation alone — the poll a deploy
+console makes while it waits, without re-reading the whole inventory each time.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param app
+	@param app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent.
 	@return PlatformAPIGetPlatformAppsByAppCdRequest
 */
 func (a *PlatformAPIService) GetPlatformAppsByAppCd(ctx context.Context, app string) PlatformAPIGetPlatformAppsByAppCdRequest {
@@ -444,16 +502,19 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCd(ctx context.Context, app str
 }
 
 // Execute executes the request
-func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatformAppsByAppCdRequest) (*http.Response, error) {
+//
+//	@return CDApp
+func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatformAppsByAppCdRequest) (*CDApp, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CDApp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformAppsByAppCd")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/platform/apps/{app}/cd"
@@ -463,6 +524,9 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatf
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -473,7 +537,7 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -482,19 +546,19 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatf
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -502,10 +566,19 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type PlatformAPIGetPlatformBuildsRequest struct {
@@ -620,16 +693,18 @@ type PlatformAPIGetPlatformCdRequest struct {
 	ApiService *PlatformAPIService
 }
 
-func (r PlatformAPIGetPlatformCdRequest) Execute() (*http.Response, error) {
+func (r PlatformAPIGetPlatformCdRequest) Execute() (*CdResp, *http.Response, error) {
 	return r.ApiService.GetPlatformCdExecute(r)
 }
 
 /*
-GetPlatformCd The delivery plane
+GetPlatformCd Answers every Application the delivery plane holds.
 
-Every Hanzo CD Application this caller may observe, with its sync verdict, health, the universe revision last applied, and whether automation and self-heal are on. A SuperAdmin sees the fleet; an org admin sees only Applications whose destination namespace IS its own organization, and never a reserved one.
+Answers every Application the delivery plane holds.
 
-A cluster with no CD installed answers an empty plane. A plane that cannot be READ answers 503 and says why — the two are opposite facts and never share a shape.
+Scoped to the namespaces the caller's own validated org owns: the ROLE opens
+the door and the tenant boundary is applied inside, so an admin of one org
+never observes another's.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PlatformAPIGetPlatformCdRequest
@@ -642,16 +717,19 @@ func (a *PlatformAPIService) GetPlatformCd(ctx context.Context) PlatformAPIGetPl
 }
 
 // Execute executes the request
-func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequest) (*http.Response, error) {
+//
+//	@return CdResp
+func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequest) (*CdResp, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CdResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformCd")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/platform/cd"
@@ -670,7 +748,7 @@ func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -679,19 +757,19 @@ func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -699,10 +777,19 @@ func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type PlatformAPIGetPlatformCiRequest struct {
@@ -2677,11 +2764,11 @@ func (r PlatformAPIPostPlatformHookRequest) Execute() (*Verdict, *http.Response,
 /*
 PostPlatformHook Receive a push from the forge and trigger its build
 
-The forge's push-to-deploy door. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two seams a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.
+The forge's push-to-deploy door. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two clients a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.
 
 PUBLIC at the JWT layer, because the forge carries no Hanzo session: AUTHENTICATION IS THE SIGNATURE. The HMAC covers the raw bytes and is verified BEFORE the payload is parsed, so an unauthenticated body is never decoded. The secret is read from KMS; a deployment that cannot read it answers 503 and processes nothing, rather than trusting a delivery it could not check. The body is read UNCOMPRESSED — a request declaring a Content-Encoding is refused 415 before it is touched, because decoding one is unbounded work bought with a few bytes and no credential. A bad signature is 401, a payload over 8 MiB is 413, and a malformed one 400.
 
-A verified push that reaches both seams answers 200 with fired true and the NUMBER OF BUILDS it launched — zero is ordinary, since most pushes track no application, and it is the answer 'fired' cannot give. A push that could not be dispatched answers 500: the delivery page shows it red, and the Replay that prompts reaches a fresh attempt rather than being declined as already landed.
+A verified push that reaches both clients answers 200 with fired true and the NUMBER OF BUILDS it launched — zero is ordinary, since most pushes track no application, and it is the answer 'fired' cannot give. A push that could not be dispatched answers 500: the delivery page shows it red, and the Replay that prompts reaches a fresh attempt rather than being declined as already landed.
 
 The deliveries deliberately ignored answer 200 with a reason and nothing else: a payload that is not a push, a ref DELETE (a zero `after` has no commit to build), a BOT-authored push (release automation pushes as the forge's own Actions user, and a release must never rebuild itself), a push from a forge namespace that maps to no org, and a redelivery of a push already fired. Branches and tags both reach the build trigger, because releases are cut by tag and filtering here would silently stop publishing.
 

@@ -32,11 +32,11 @@ Method | HTTP request | Description
 [**PostAgentsChat**](AgentsAPI.md#PostAgentsChat) | **Post** /v1/agents/chat | Run one tool-calling round against your org&#39;s own tools
 [**PostAgentsCoding**](AgentsAPI.md#PostAgentsCoding) | **Post** /v1/agents/coding | Start one autonomous coding run against a repo in the caller&#39;s org
 [**PostAgentsSessions**](AgentsAPI.md#PostAgentsSessions) | **Post** /v1/agents/sessions | Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
-[**PostAgentsSessionsByIdEvents**](AgentsAPI.md#PostAgentsSessionsByIdEvents) | **Post** /v1/agents/sessions/{id}/events | Append one turn to a session&#39;s ordered log.
-[**PostAgentsSessionsByIdMessage**](AgentsAPI.md#PostAgentsSessionsByIdMessage) | **Post** /v1/agents/sessions/{id}/message | Send text into a running session.
-[**PostAgentsSessionsByIdPause**](AgentsAPI.md#PostAgentsSessionsByIdPause) | **Post** /v1/agents/sessions/{id}/pause | Ask a running session to pause.
-[**PostAgentsSessionsByIdResume**](AgentsAPI.md#PostAgentsSessionsByIdResume) | **Post** /v1/agents/sessions/{id}/resume | Ask a paused session to carry on.
-[**PostAgentsSessionsByIdStop**](AgentsAPI.md#PostAgentsSessionsByIdStop) | **Post** /v1/agents/sessions/{id}/stop | Ask a session to stop for good.
+[**PostAgentsSessionsByIdEvents**](AgentsAPI.md#PostAgentsSessionsByIdEvents) | **Post** /v1/agents/sessions/{id}/events | Records one turn of a session&#39;s transcript and answers 201 with it.
+[**PostAgentsSessionsByIdMessage**](AgentsAPI.md#PostAgentsSessionsByIdMessage) | **Post** /v1/agents/sessions/{id}/message | Sends a steering message to a running session — the door a human or another agent interrupts through.
+[**PostAgentsSessionsByIdPause**](AgentsAPI.md#PostAgentsSessionsByIdPause) | **Post** /v1/agents/sessions/{id}/pause | Asks a running session to pause.
+[**PostAgentsSessionsByIdResume**](AgentsAPI.md#PostAgentsSessionsByIdResume) | **Post** /v1/agents/sessions/{id}/resume | Asks a paused session to continue, on the same terms as a pause.
+[**PostAgentsSessionsByIdStop**](AgentsAPI.md#PostAgentsSessionsByIdStop) | **Post** /v1/agents/sessions/{id}/stop | Ends a running session.
 [**PostAgentsTargets**](AgentsAPI.md#PostAgentsTargets) | **Post** /v1/agents/targets | Registers a machine as an agent target, or re-links one that is already registered.
 [**PostAgentsTargetsByIdClaim**](AgentsAPI.md#PostAgentsTargetsByIdClaim) | **Post** /v1/agents/targets/{id}/claim | ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
 [**PostAgentsTargetsByIdKey**](AgentsAPI.md#PostAgentsTargetsByIdKey) | **Post** /v1/agents/targets/{id}/key | Mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
@@ -1924,9 +1924,9 @@ Name | Type | Description  | Notes
 
 ## PostAgentsSessionsByIdEvents
 
-> PostAgentsSessionsByIdEvents(ctx, id).Execute()
+> EventView PostAgentsSessionsByIdEvents(ctx, id).EventIn(eventIn).Execute()
 
-Append one turn to a session's ordered log.
+Records one turn of a session's transcript and answers 201 with it.
 
 
 
@@ -1943,15 +1943,18 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the session to append to, from the path.
+	eventIn := *openapiclient.NewEventIn() // EventIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdEvents(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdEvents(context.Background(), id).EventIn(eventIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostAgentsSessionsByIdEvents`: EventView
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdEvents`: %v\n", resp)
 }
 ```
 
@@ -1961,7 +1964,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the session to append to, from the path. | 
 
 ### Other Parameters
 
@@ -1971,10 +1974,11 @@ Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdEven
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **eventIn** | [**EventIn**](EventIn.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**EventView**](EventView.md)
 
 ### Authorization
 
@@ -1982,8 +1986,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1992,9 +1996,9 @@ Name | Type | Description  | Notes
 
 ## PostAgentsSessionsByIdMessage
 
-> PostAgentsSessionsByIdMessage(ctx, id).Execute()
+> ControlResult PostAgentsSessionsByIdMessage(ctx, id).ControlIn(controlIn).Execute()
 
-Send text into a running session.
+Sends a steering message to a running session — the door a human or another agent interrupts through.
 
 
 
@@ -2011,15 +2015,18 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the session to steer, from the path.
+	controlIn := *openapiclient.NewControlIn() // ControlIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdMessage(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdMessage(context.Background(), id).ControlIn(controlIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdMessage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostAgentsSessionsByIdMessage`: ControlResult
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdMessage`: %v\n", resp)
 }
 ```
 
@@ -2029,7 +2036,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the session to steer, from the path. | 
 
 ### Other Parameters
 
@@ -2039,10 +2046,11 @@ Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdMess
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **controlIn** | [**ControlIn**](ControlIn.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ControlResult**](ControlResult.md)
 
 ### Authorization
 
@@ -2050,8 +2058,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2060,9 +2068,9 @@ Name | Type | Description  | Notes
 
 ## PostAgentsSessionsByIdPause
 
-> PostAgentsSessionsByIdPause(ctx, id).Execute()
+> ControlResult PostAgentsSessionsByIdPause(ctx, id).ControlIn(controlIn).Execute()
 
-Ask a running session to pause.
+Asks a running session to pause.
 
 
 
@@ -2079,15 +2087,18 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the session to steer, from the path.
+	controlIn := *openapiclient.NewControlIn() // ControlIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdPause(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdPause(context.Background(), id).ControlIn(controlIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdPause``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostAgentsSessionsByIdPause`: ControlResult
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdPause`: %v\n", resp)
 }
 ```
 
@@ -2097,7 +2108,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the session to steer, from the path. | 
 
 ### Other Parameters
 
@@ -2107,10 +2118,11 @@ Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdPaus
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **controlIn** | [**ControlIn**](ControlIn.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ControlResult**](ControlResult.md)
 
 ### Authorization
 
@@ -2118,8 +2130,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2128,9 +2140,9 @@ Name | Type | Description  | Notes
 
 ## PostAgentsSessionsByIdResume
 
-> PostAgentsSessionsByIdResume(ctx, id).Execute()
+> ControlResult PostAgentsSessionsByIdResume(ctx, id).ControlIn(controlIn).Execute()
 
-Ask a paused session to carry on.
+Asks a paused session to continue, on the same terms as a pause.
 
 
 
@@ -2147,15 +2159,18 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the session to steer, from the path.
+	controlIn := *openapiclient.NewControlIn() // ControlIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdResume(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdResume(context.Background(), id).ControlIn(controlIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdResume``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostAgentsSessionsByIdResume`: ControlResult
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdResume`: %v\n", resp)
 }
 ```
 
@@ -2165,7 +2180,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the session to steer, from the path. | 
 
 ### Other Parameters
 
@@ -2175,10 +2190,11 @@ Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdResu
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **controlIn** | [**ControlIn**](ControlIn.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ControlResult**](ControlResult.md)
 
 ### Authorization
 
@@ -2186,8 +2202,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2196,9 +2212,9 @@ Name | Type | Description  | Notes
 
 ## PostAgentsSessionsByIdStop
 
-> PostAgentsSessionsByIdStop(ctx, id).Execute()
+> ControlResult PostAgentsSessionsByIdStop(ctx, id).ControlIn(controlIn).Execute()
 
-Ask a session to stop for good.
+Ends a running session.
 
 
 
@@ -2215,15 +2231,18 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the session to steer, from the path.
+	controlIn := *openapiclient.NewControlIn() // ControlIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdStop(context.Background(), id).Execute()
+	resp, r, err := apiClient.AgentsAPI.PostAgentsSessionsByIdStop(context.Background(), id).ControlIn(controlIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsSessionsByIdStop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostAgentsSessionsByIdStop`: ControlResult
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.PostAgentsSessionsByIdStop`: %v\n", resp)
 }
 ```
 
@@ -2233,7 +2252,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the session to steer, from the path. | 
 
 ### Other Parameters
 
@@ -2243,10 +2262,11 @@ Other parameters are passed through a pointer to a apiPostAgentsSessionsByIdStop
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **controlIn** | [**ControlIn**](ControlIn.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ControlResult**](ControlResult.md)
 
 ### Authorization
 
@@ -2254,8 +2274,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

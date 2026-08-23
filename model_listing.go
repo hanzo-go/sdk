@@ -19,27 +19,8 @@ var _ MappedNullable = &Listing{}
 
 // Listing struct for Listing
 type Listing struct {
-	// Category groups the listing in the shop window. Free text — no vocabulary, nothing validates it — and unlike Description it is silently cut to 4096 bytes rather than refused. Empty means ungrouped.
-	Category *string `json:"category,omitempty"`
-	// CreatedAt is when the listing was published, in Unix SECONDS, minted at insert. Every listing read orders by it descending, so it is the shop's ordering key as well as its age.
-	CreatedAt *int32 `json:"createdAt,omitempty"`
-	// Currency is the ISO 4217 code Price is quoted in; Create defaults it to \"USD\" when the publisher names none. It is a LABEL that travels to the shop window: publish parses Price with money.ParseUSD and the x402 terms carry no currency, so another code here changes what is displayed, not what is charged.
-	Currency *string `json:"currency,omitempty"`
-	// Description is the long copy. Publish REFUSES one past 4096 bytes rather than truncating it, so what is stored is what was sent; empty is allowed.
-	Description *string `json:"description,omitempty"`
-	// ID is the listing's id, minted here as \"lst_\" + 16 hex characters. A publisher cannot choose it: Create overwrites whatever arrives. It is unique within PublisherOrg (the primary key is the pair), and it is the path segment DELETE /v1/marketplace/listings/:id takes.
-	Id    *string     `json:"id,omitempty"`
-	Price interface{} `json:"price,omitempty"`
-	// Public is whether other orgs can discover the listing. It also decides ENFORCEMENT: only public rows reach the price table, so a private listing with a price charges nobody. False leaves the row visible to its publisher alone.
-	Public *bool `json:"public,omitempty"`
-	// PublisherOrg is the org that published the listing, taken from the validated principal and never off the wire. It is also the PAYEE org — Recipient is resolved inside it — and the isolation key: a publisher reads and deletes only rows carrying its own org.
-	PublisherOrg *string `json:"publisherOrg,omitempty"`
-	// seller payout WALLET ID, in PublisherOrg.
-	Recipient *string `json:"recipient,omitempty"`
-	// Title is the shop-window name, required and refused past 200 bytes. It is what discovery paints over the tool's registry name.
-	Title *string `json:"title,omitempty"`
-	// Tool is the registry name of the offered capability, in the flat fleet-wide tool namespace. It resolved in the publisher's own scope at publish time, so no listing advertises a capability that did not exist; it is also the key the price table looks a dispatch up by.
-	Tool *string `json:"tool,omitempty"`
+	LastModified *string `json:"lastModified,omitempty"`
+	Name         *string `json:"name,omitempty"`
 }
 
 // NewListing instantiates a new Listing object
@@ -59,357 +40,68 @@ func NewListingWithDefaults() *Listing {
 	return &this
 }
 
-// GetCategory returns the Category field value if set, zero value otherwise.
-func (o *Listing) GetCategory() string {
-	if o == nil || IsNil(o.Category) {
+// GetLastModified returns the LastModified field value if set, zero value otherwise.
+func (o *Listing) GetLastModified() string {
+	if o == nil || IsNil(o.LastModified) {
 		var ret string
 		return ret
 	}
-	return *o.Category
+	return *o.LastModified
 }
 
-// GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
+// GetLastModifiedOk returns a tuple with the LastModified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Listing) GetCategoryOk() (*string, bool) {
-	if o == nil || IsNil(o.Category) {
+func (o *Listing) GetLastModifiedOk() (*string, bool) {
+	if o == nil || IsNil(o.LastModified) {
 		return nil, false
 	}
-	return o.Category, true
+	return o.LastModified, true
 }
 
-// HasCategory returns a boolean if a field has been set.
-func (o *Listing) HasCategory() bool {
-	if o != nil && !IsNil(o.Category) {
+// HasLastModified returns a boolean if a field has been set.
+func (o *Listing) HasLastModified() bool {
+	if o != nil && !IsNil(o.LastModified) {
 		return true
 	}
 
 	return false
 }
 
-// SetCategory gets a reference to the given string and assigns it to the Category field.
-func (o *Listing) SetCategory(v string) {
-	o.Category = &v
+// SetLastModified gets a reference to the given string and assigns it to the LastModified field.
+func (o *Listing) SetLastModified(v string) {
+	o.LastModified = &v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Listing) GetCreatedAt() int32 {
-	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Listing) GetCreatedAtOk() (*int32, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *Listing) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *Listing) SetCreatedAt(v int32) {
-	o.CreatedAt = &v
-}
-
-// GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *Listing) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Listing) GetName() string {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+	return *o.Name
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Listing) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+func (o *Listing) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return o.Currency, true
+	return o.Name, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *Listing) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
+// HasName returns a boolean if a field has been set.
+func (o *Listing) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *Listing) SetCurrency(v string) {
-	o.Currency = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *Listing) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Listing) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *Listing) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Listing) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *Listing) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Listing) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *Listing) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *Listing) SetId(v string) {
-	o.Id = &v
-}
-
-// GetPrice returns the Price field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Listing) GetPrice() interface{} {
-	if o == nil {
-		var ret interface{}
-		return ret
-	}
-	return o.Price
-}
-
-// GetPriceOk returns a tuple with the Price field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Listing) GetPriceOk() (*interface{}, bool) {
-	if o == nil || IsNil(o.Price) {
-		return nil, false
-	}
-	return &o.Price, true
-}
-
-// HasPrice returns a boolean if a field has been set.
-func (o *Listing) HasPrice() bool {
-	if o != nil && !IsNil(o.Price) {
-		return true
-	}
-
-	return false
-}
-
-// SetPrice gets a reference to the given interface{} and assigns it to the Price field.
-func (o *Listing) SetPrice(v interface{}) {
-	o.Price = v
-}
-
-// GetPublic returns the Public field value if set, zero value otherwise.
-func (o *Listing) GetPublic() bool {
-	if o == nil || IsNil(o.Public) {
-		var ret bool
-		return ret
-	}
-	return *o.Public
-}
-
-// GetPublicOk returns a tuple with the Public field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Listing) GetPublicOk() (*bool, bool) {
-	if o == nil || IsNil(o.Public) {
-		return nil, false
-	}
-	return o.Public, true
-}
-
-// HasPublic returns a boolean if a field has been set.
-func (o *Listing) HasPublic() bool {
-	if o != nil && !IsNil(o.Public) {
-		return true
-	}
-
-	return false
-}
-
-// SetPublic gets a reference to the given bool and assigns it to the Public field.
-func (o *Listing) SetPublic(v bool) {
-	o.Public = &v
-}
-
-// GetPublisherOrg returns the PublisherOrg field value if set, zero value otherwise.
-func (o *Listing) GetPublisherOrg() string {
-	if o == nil || IsNil(o.PublisherOrg) {
-		var ret string
-		return ret
-	}
-	return *o.PublisherOrg
-}
-
-// GetPublisherOrgOk returns a tuple with the PublisherOrg field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Listing) GetPublisherOrgOk() (*string, bool) {
-	if o == nil || IsNil(o.PublisherOrg) {
-		return nil, false
-	}
-	return o.PublisherOrg, true
-}
-
-// HasPublisherOrg returns a boolean if a field has been set.
-func (o *Listing) HasPublisherOrg() bool {
-	if o != nil && !IsNil(o.PublisherOrg) {
-		return true
-	}
-
-	return false
-}
-
-// SetPublisherOrg gets a reference to the given string and assigns it to the PublisherOrg field.
-func (o *Listing) SetPublisherOrg(v string) {
-	o.PublisherOrg = &v
-}
-
-// GetRecipient returns the Recipient field value if set, zero value otherwise.
-func (o *Listing) GetRecipient() string {
-	if o == nil || IsNil(o.Recipient) {
-		var ret string
-		return ret
-	}
-	return *o.Recipient
-}
-
-// GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Listing) GetRecipientOk() (*string, bool) {
-	if o == nil || IsNil(o.Recipient) {
-		return nil, false
-	}
-	return o.Recipient, true
-}
-
-// HasRecipient returns a boolean if a field has been set.
-func (o *Listing) HasRecipient() bool {
-	if o != nil && !IsNil(o.Recipient) {
-		return true
-	}
-
-	return false
-}
-
-// SetRecipient gets a reference to the given string and assigns it to the Recipient field.
-func (o *Listing) SetRecipient(v string) {
-	o.Recipient = &v
-}
-
-// GetTitle returns the Title field value if set, zero value otherwise.
-func (o *Listing) GetTitle() string {
-	if o == nil || IsNil(o.Title) {
-		var ret string
-		return ret
-	}
-	return *o.Title
-}
-
-// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Listing) GetTitleOk() (*string, bool) {
-	if o == nil || IsNil(o.Title) {
-		return nil, false
-	}
-	return o.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (o *Listing) HasTitle() bool {
-	if o != nil && !IsNil(o.Title) {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle gets a reference to the given string and assigns it to the Title field.
-func (o *Listing) SetTitle(v string) {
-	o.Title = &v
-}
-
-// GetTool returns the Tool field value if set, zero value otherwise.
-func (o *Listing) GetTool() string {
-	if o == nil || IsNil(o.Tool) {
-		var ret string
-		return ret
-	}
-	return *o.Tool
-}
-
-// GetToolOk returns a tuple with the Tool field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Listing) GetToolOk() (*string, bool) {
-	if o == nil || IsNil(o.Tool) {
-		return nil, false
-	}
-	return o.Tool, true
-}
-
-// HasTool returns a boolean if a field has been set.
-func (o *Listing) HasTool() bool {
-	if o != nil && !IsNil(o.Tool) {
-		return true
-	}
-
-	return false
-}
-
-// SetTool gets a reference to the given string and assigns it to the Tool field.
-func (o *Listing) SetTool(v string) {
-	o.Tool = &v
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Listing) SetName(v string) {
+	o.Name = &v
 }
 
 func (o Listing) MarshalJSON() ([]byte, error) {
@@ -422,38 +114,11 @@ func (o Listing) MarshalJSON() ([]byte, error) {
 
 func (o Listing) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Category) {
-		toSerialize["category"] = o.Category
+	if !IsNil(o.LastModified) {
+		toSerialize["lastModified"] = o.LastModified
 	}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if o.Price != nil {
-		toSerialize["price"] = o.Price
-	}
-	if !IsNil(o.Public) {
-		toSerialize["public"] = o.Public
-	}
-	if !IsNil(o.PublisherOrg) {
-		toSerialize["publisherOrg"] = o.PublisherOrg
-	}
-	if !IsNil(o.Recipient) {
-		toSerialize["recipient"] = o.Recipient
-	}
-	if !IsNil(o.Title) {
-		toSerialize["title"] = o.Title
-	}
-	if !IsNil(o.Tool) {
-		toSerialize["tool"] = o.Tool
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
 	}
 	return toSerialize, nil
 }

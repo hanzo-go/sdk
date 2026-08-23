@@ -6,9 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CancelSubscription**](BillingAPI.md#CancelSubscription) | **Post** /v1/billing/subscriptions/{id}/cancel | End a subscription
 [**CollectInvoice**](BillingAPI.md#CollectInvoice) | **Post** /v1/billing/invoices/{id}/collect | Collect an issued invoice from credits, balance, then card
-[**DeleteBillingAlertsById**](BillingAPI.md#DeleteBillingAlertsById) | **Delete** /v1/billing/alerts/{id} | Remove one spend cap
-[**DeleteBillingMethodsById**](BillingAPI.md#DeleteBillingMethodsById) | **Delete** /v1/billing/methods/{id} | Remove one saved card or account
-[**DeleteBillingPortalMethodsById**](BillingAPI.md#DeleteBillingPortalMethodsById) | **Delete** /v1/billing/portal/methods/{id} | Remove one saved card or account
+[**DeleteBillingAlertsById**](BillingAPI.md#DeleteBillingAlertsById) | **Delete** /v1/billing/alerts/{id} | Removes one of the caller&#39;s spend caps and answers 204.
+[**DeleteBillingMethodsById**](BillingAPI.md#DeleteBillingMethodsById) | **Delete** /v1/billing/methods/{id} | Removes one card or account the caller has saved.
+[**DeleteBillingPortalMethodsById**](BillingAPI.md#DeleteBillingPortalMethodsById) | **Delete** /v1/billing/portal/methods/{id} | DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
 [**GetBillingAccounts**](BillingAPI.md#GetBillingAccounts) | **Get** /v1/billing/accounts | Answers the caller&#39;s billing accounts: the org itself, its currency, when it was opened, and the caller&#39;s own standing in it.
 [**GetBillingAccountsByIdMembers**](BillingAPI.md#GetBillingAccountsByIdMembers) | **Get** /v1/billing/accounts/{id}/members | Answers one billing account&#39;s roster.
 [**GetBillingAlerts**](BillingAPI.md#GetBillingAlerts) | **Get** /v1/billing/alerts | Lists this org&#39;s spend caps: the ceiling, its scope, whether it enforces, and how much of it has been spent this period.
@@ -42,10 +42,10 @@ Method | HTTP request | Description
 [**PostBillingMethods**](BillingAPI.md#PostBillingMethods) | **Post** /v1/billing/methods | Save a card or account for the caller
 [**PostBillingMode**](BillingAPI.md#PostBillingMode) | **Post** /v1/billing/mode | Moves this org between sandbox money and real money.
 [**PostBillingPortalMethods**](BillingAPI.md#PostBillingPortalMethods) | **Post** /v1/billing/portal/methods | Save a card or account for the caller
-[**PostBillingRechargeRunAll**](BillingAPI.md#PostBillingRechargeRunAll) | **Post** /v1/billing/recharge/run-all | Recharge every org that has fallen below its threshold
+[**PostBillingRechargeRunAll**](BillingAPI.md#PostBillingRechargeRunAll) | **Post** /v1/billing/recharge/run-all | Sweeps every org&#39;s auto-recharge and answers what it did.
 [**PostBillingSubscribeCard**](BillingAPI.md#PostBillingSubscribeCard) | **Post** /v1/billing/subscribe/card | Buy a plan with a card
-[**PostBillingTopup**](BillingAPI.md#PostBillingTopup) | **Post** /v1/billing/topup | Add funds with a card already on file
-[**PostBillingTopupToken**](BillingAPI.md#PostBillingTopupToken) | **Post** /v1/billing/topup/token | Add funds with a single-use card token
+[**PostBillingTopup**](BillingAPI.md#PostBillingTopup) | **Post** /v1/billing/topup | Charges a card the caller already saved and credits the balance.
+[**PostBillingTopupToken**](BillingAPI.md#PostBillingTopupToken) | **Post** /v1/billing/topup/token | Charges a single-use card token and credits the caller&#39;s balance.
 [**RaiseInvoice**](BillingAPI.md#RaiseInvoice) | **Post** /v1/billing/invoices | Raise a draft invoice against a customer
 [**ReactivateSubscription**](BillingAPI.md#ReactivateSubscription) | **Post** /v1/billing/subscriptions/{id}/reactivate | Put a canceled subscription back on its plan
 [**VoidInvoice**](BillingAPI.md#VoidInvoice) | **Post** /v1/billing/invoices/{id}/void | Void a draft or issued invoice
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 > DeleteBillingAlertsById(ctx, id).Execute()
 
-Remove one spend cap
+Removes one of the caller's spend caps and answers 204.
 
 
 
@@ -215,7 +215,7 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the cap to remove, from the path.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -233,7 +233,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the cap to remove, from the path. | 
 
 ### Other Parameters
 
@@ -264,9 +264,9 @@ Name | Type | Description  | Notes
 
 ## DeleteBillingMethodsById
 
-> DeleteBillingMethodsById(ctx, id).Execute()
+> Detachment DeleteBillingMethodsById(ctx, id).Execute()
 
-Remove one saved card or account
+Removes one card or account the caller has saved.
 
 
 
@@ -283,15 +283,17 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the saved method to detach, from the path.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BillingAPI.DeleteBillingMethodsById(context.Background(), id).Execute()
+	resp, r, err := apiClient.BillingAPI.DeleteBillingMethodsById(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.DeleteBillingMethodsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteBillingMethodsById`: Detachment
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.DeleteBillingMethodsById`: %v\n", resp)
 }
 ```
 
@@ -301,7 +303,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the saved method to detach, from the path. | 
 
 ### Other Parameters
 
@@ -314,7 +316,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Detachment**](Detachment.md)
 
 ### Authorization
 
@@ -323,7 +325,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -332,9 +334,9 @@ Name | Type | Description  | Notes
 
 ## DeleteBillingPortalMethodsById
 
-> DeleteBillingPortalMethodsById(ctx, id).Execute()
+> Detachment DeleteBillingPortalMethodsById(ctx, id).Execute()
 
-Remove one saved card or account
+DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
 
 
 
@@ -351,15 +353,17 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the saved method to detach, from the path.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BillingAPI.DeleteBillingPortalMethodsById(context.Background(), id).Execute()
+	resp, r, err := apiClient.BillingAPI.DeleteBillingPortalMethodsById(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.DeleteBillingPortalMethodsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteBillingPortalMethodsById`: Detachment
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.DeleteBillingPortalMethodsById`: %v\n", resp)
 }
 ```
 
@@ -369,7 +373,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the saved method to detach, from the path. | 
 
 ### Other Parameters
 
@@ -382,7 +386,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Detachment**](Detachment.md)
 
 ### Authorization
 
@@ -391,7 +395,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2493,9 +2497,9 @@ Other parameters are passed through a pointer to a apiPostBillingPortalMethodsRe
 
 ## PostBillingRechargeRunAll
 
-> PostBillingRechargeRunAll(ctx).Execute()
+> Recharge PostBillingRechargeRunAll(ctx).Execute()
 
-Recharge every org that has fallen below its threshold
+Sweeps every org's auto-recharge and answers what it did.
 
 
 
@@ -2515,11 +2519,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BillingAPI.PostBillingRechargeRunAll(context.Background()).Execute()
+	resp, r, err := apiClient.BillingAPI.PostBillingRechargeRunAll(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingRechargeRunAll``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostBillingRechargeRunAll`: Recharge
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingRechargeRunAll`: %v\n", resp)
 }
 ```
 
@@ -2534,7 +2540,7 @@ Other parameters are passed through a pointer to a apiPostBillingRechargeRunAllR
 
 ### Return type
 
- (empty response body)
+[**Recharge**](Recharge.md)
 
 ### Authorization
 
@@ -2543,7 +2549,7 @@ Other parameters are passed through a pointer to a apiPostBillingRechargeRunAllR
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2611,9 +2617,9 @@ Other parameters are passed through a pointer to a apiPostBillingSubscribeCardRe
 
 ## PostBillingTopup
 
-> PostBillingTopup(ctx).Execute()
+> Charged PostBillingTopup(ctx).TopupIn(topupIn).XIdempotencyKey(xIdempotencyKey).Execute()
 
-Add funds with a card already on file
+Charges a card the caller already saved and credits the balance.
 
 
 
@@ -2630,29 +2636,38 @@ import (
 )
 
 func main() {
+	topupIn := *openapiclient.NewTopupIn() // TopupIn | 
+	xIdempotencyKey := "xIdempotencyKey_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BillingAPI.PostBillingTopup(context.Background()).Execute()
+	resp, r, err := apiClient.BillingAPI.PostBillingTopup(context.Background()).TopupIn(topupIn).XIdempotencyKey(xIdempotencyKey).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingTopup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostBillingTopup`: Charged
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingTopup`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostBillingTopupRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **topupIn** | [**TopupIn**](TopupIn.md) |  | 
+ **xIdempotencyKey** | **string** |  | 
+
 ### Return type
 
- (empty response body)
+[**Charged**](Charged.md)
 
 ### Authorization
 
@@ -2660,8 +2675,8 @@ Other parameters are passed through a pointer to a apiPostBillingTopupRequest st
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2670,9 +2685,9 @@ Other parameters are passed through a pointer to a apiPostBillingTopupRequest st
 
 ## PostBillingTopupToken
 
-> PostBillingTopupToken(ctx).Execute()
+> Charged PostBillingTopupToken(ctx).TopupIn(topupIn).XIdempotencyKey(xIdempotencyKey).Execute()
 
-Add funds with a single-use card token
+Charges a single-use card token and credits the caller's balance.
 
 
 
@@ -2689,29 +2704,38 @@ import (
 )
 
 func main() {
+	topupIn := *openapiclient.NewTopupIn() // TopupIn | 
+	xIdempotencyKey := "xIdempotencyKey_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BillingAPI.PostBillingTopupToken(context.Background()).Execute()
+	resp, r, err := apiClient.BillingAPI.PostBillingTopupToken(context.Background()).TopupIn(topupIn).XIdempotencyKey(xIdempotencyKey).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingTopupToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostBillingTopupToken`: Charged
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingTopupToken`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostBillingTopupTokenRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **topupIn** | [**TopupIn**](TopupIn.md) |  | 
+ **xIdempotencyKey** | **string** |  | 
+
 ### Return type
 
- (empty response body)
+[**Charged**](Charged.md)
 
 ### Authorization
 
@@ -2719,8 +2743,8 @@ Other parameters are passed through a pointer to a apiPostBillingTopupTokenReque
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

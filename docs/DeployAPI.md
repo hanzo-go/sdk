@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**GetDeployCallback**](DeployAPI.md#GetDeployCallback) | **Get** /v1/deploy/callback | Finish the sign-in round trip and mint the console session
 [**GetDeployClusters**](DeployAPI.md#GetDeployClusters) | **Get** /v1/deploy/clusters | Returns the argocd ClusterList of the destinations the caller&#39;s applications reconcile into: one entry per distinct destination server, carrying the count of applications reconciling into it.
 [**GetDeployGitops**](DeployAPI.md#GetDeployGitops) | **Get** /v1/deploy/gitops | Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-[**GetDeployHealth**](DeployAPI.md#GetDeployHealth) | **Get** /v1/deploy/health | Whether this control plane can actually reach the cluster it deploys to
+[**GetDeployHealth**](DeployAPI.md#GetDeployHealth) | **Get** /v1/deploy/health | Health reports whether this deployment can observe the delivery plane.
 [**GetDeployLogin**](DeployAPI.md#GetDeployLogin) | **Get** /v1/deploy/login | Start the sign-in round trip for this console
 [**GetDeployProjects**](DeployAPI.md#GetDeployProjects) | **Get** /v1/deploy/projects | Returns the argocd AppProjectList this console groups and filters applications by.
 [**GetDeploySessionUserinfo**](DeployAPI.md#GetDeploySessionUserinfo) | **Get** /v1/deploy/session/userinfo | Answers \&quot;is this browser signed in, and if not where does it sign in?\&quot; — the dashboard SPA&#39;s bootstrap question, and the only route on this plane that answers for an anonymous caller.
@@ -554,9 +554,9 @@ Other parameters are passed through a pointer to a apiGetDeployGitopsRequest str
 
 ## GetDeployHealth
 
-> GetDeployHealth(ctx).Execute()
+> DeployHealth GetDeployHealth(ctx).Execute()
 
-Whether this control plane can actually reach the cluster it deploys to
+Health reports whether this deployment can observe the delivery plane.
 
 
 
@@ -576,11 +576,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.GetDeployHealth(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.GetDeployHealth(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetDeployHealth`: DeployHealth
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployHealth`: %v\n", resp)
 }
 ```
 
@@ -595,7 +597,7 @@ Other parameters are passed through a pointer to a apiGetDeployHealthRequest str
 
 ### Return type
 
- (empty response body)
+[**DeployHealth**](DeployHealth.md)
 
 ### Authorization
 
@@ -604,7 +606,7 @@ Other parameters are passed through a pointer to a apiGetDeployHealthRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

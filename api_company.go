@@ -726,11 +726,11 @@ func (r CompanyAPIPostCompanyDocumentsRequest) Execute() (*FormationView, *http.
 }
 
 /*
-PostCompanyDocuments Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing seam.
+PostCompanyDocuments Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing client.
 
 Renders the formation documents for the chosen structure and
 jurisdiction, ingests each into the org's data room, and submits the state
-filing through the filing seam.
+filing through the filing client.
 
 With no filing partner wired the filing is recorded honestly as "manual" — no
 filing id is fabricated. Available only at the documents stage.
@@ -2183,7 +2183,7 @@ check stays pending; for a real provider it reflects the settled decision,
 ATTRIBUTED to the provider.
 
 It NEVER trusts a client-asserted status — the status comes from the provider
-seam — so a client cannot force a pass here, and an already-passing founder
+client — so a client cannot force a pass here, and an already-passing founder
 (e.g. a reviewer confirmation) is left untouched.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

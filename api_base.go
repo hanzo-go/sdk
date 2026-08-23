@@ -16,10 +16,229 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // BaseAPIService BaseAPI service
 type BaseAPIService service
+
+type BaseAPIGetBaseBasesRequest struct {
+	ctx        context.Context
+	ApiService *BaseAPIService
+}
+
+func (r BaseAPIGetBaseBasesRequest) Execute() ([]BaseView, *http.Response, error) {
+	return r.ApiService.GetBaseBasesExecute(r)
+}
+
+/*
+GetBaseBases Lists every Base the caller can reach, one per org their token carries.
+
+Lists every Base the caller can reach, one per org their token carries.
+
+The orgs come from IAM's signed membership set, so the list is exactly the
+orgs the caller is a member of and cannot be widened by asking. It is the
+account-wide view: a Base is per org, so this is one entry per org and there
+is nothing to page.
+
+A caller with no membership set — a machine credential, an API key — reaches
+no Base and receives an empty list rather than a refusal, because holding no
+membership is an answer and not a failure.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BaseAPIGetBaseBasesRequest
+*/
+func (a *BaseAPIService) GetBaseBases(ctx context.Context) BaseAPIGetBaseBasesRequest {
+	return BaseAPIGetBaseBasesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []BaseView
+func (a *BaseAPIService) GetBaseBasesExecute(r BaseAPIGetBaseBasesRequest) ([]BaseView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []BaseView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BaseAPIService.GetBaseBases")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/base/bases"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BaseAPIGetBaseBasesByOrgRequest struct {
+	ctx        context.Context
+	ApiService *BaseAPIService
+	org        string
+}
+
+func (r BaseAPIGetBaseBasesByOrgRequest) Execute() (*BaseView, *http.Response, error) {
+	return r.ApiService.GetBaseBasesByOrgExecute(r)
+}
+
+/*
+GetBaseBasesByOrg Describes ONE org's Base — whether its store exists, and what it occupies.
+
+Describes ONE org's Base — whether its store exists, and what it occupies.
+
+The org must be one the caller's token carries; any other is not found, so
+this cannot be used to learn which orgs exist. That check is the same
+membership set the listing is built from, which is why the two can never
+disagree about what a caller may see.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param org Org is the org whose Base to describe, from the path. An org the caller's token does not carry is not found — the same answer a nonexistent one gets, so the listing cannot be used to discover which orgs exist.
+	@return BaseAPIGetBaseBasesByOrgRequest
+*/
+func (a *BaseAPIService) GetBaseBasesByOrg(ctx context.Context, org string) BaseAPIGetBaseBasesByOrgRequest {
+	return BaseAPIGetBaseBasesByOrgRequest{
+		ApiService: a,
+		ctx:        ctx,
+		org:        org,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BaseView
+func (a *BaseAPIService) GetBaseBasesByOrgExecute(r BaseAPIGetBaseBasesByOrgRequest) (*BaseView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BaseView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BaseAPIService.GetBaseBasesByOrg")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/base/bases/{org}"
+	localVarPath = strings.Replace(localVarPath, "{"+"org"+"}", url.PathEscape(parameterValueToString(r.org, "org")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type BaseAPIGetBaseHealthRequest struct {
 	ctx        context.Context

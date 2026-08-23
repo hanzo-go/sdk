@@ -910,16 +910,20 @@ type DeployAPIGetDeployHealthRequest struct {
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIGetDeployHealthRequest) Execute() (*http.Response, error) {
+func (r DeployAPIGetDeployHealthRequest) Execute() (*DeployHealth, *http.Response, error) {
 	return r.ApiService.GetDeployHealthExecute(r)
 }
 
 /*
-GetDeployHealth Whether this control plane can actually reach the cluster it deploys to
+GetDeployHealth Health reports whether this deployment can observe the delivery plane.
 
-Reports the plane's real reachability: 200 only when the Kubernetes API server answers AND the App CRD is served, 503 with the same body shape otherwise, so a caller reads the same `k8s` and `crd` booleans either way rather than parsing an error envelope. It is a genuine dependency probe, not a process liveness ping — a running plane with no cluster behind it reports degraded.
+Health reports whether this deployment can observe the delivery plane.
 
-This is the ONE unauthenticated route that reports state, because liveness must be probe-able without a JWT. It therefore discloses booleans only: the underlying failure — the API server address, an RBAC refusal — is logged server-side and never put on the wire.
+200 only when the Kubernetes API answers AND the App custom resource is served;
+503 with the same shape otherwise, naming which half failed. It reports BOOLEANS
+and never the underlying error, because the route is unauthenticated — liveness
+must be probe-able without a token — and a raw client error can disclose the
+apiserver address or an RBAC detail. That detail is logged server-side instead.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DeployAPIGetDeployHealthRequest
@@ -932,16 +936,19 @@ func (a *DeployAPIService) GetDeployHealth(ctx context.Context) DeployAPIGetDepl
 }
 
 // Execute executes the request
-func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequest) (*http.Response, error) {
+//
+//	@return DeployHealth
+func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequest) (*DeployHealth, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeployHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployHealth")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/deploy/health"
@@ -960,7 +967,7 @@ func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -969,19 +976,19 @@ func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -989,10 +996,29 @@ func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v DeployHealth
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type DeployAPIGetDeployLoginRequest struct {
@@ -1718,7 +1744,7 @@ func (r DeployAPIPostDeployApplicationsByNameRollbackRequest) Execute() (*http.R
 /*
 PostDeployApplicationsByNameRollback The console's rollback control — today it requests a reconcile, nothing more
 
-Performs exactly what the sync action performs: it stamps the sync-requested timestamp onto the application's App CR and answers the application re-projected. It does NOT select, pin or revert to a prior image tag, and that is the one thing to know before wiring anything to it — the name is the console's, the behaviour is the sync. Pinning a previous release rides the release seam, which this address does not call yet.
+Performs exactly what the sync action performs: it stamps the sync-requested timestamp onto the application's App CR and answers the application re-projected. It does NOT select, pin or revert to a prior image tag, and that is the one thing to know before wiring anything to it — the name is the console's, the behaviour is the sync. Pinning a previous release rides the release client, which this address does not call yet.
 
 SuperAdmin-only and fail-closed, reading no request body, with an unknown application name a 404 and no cluster client a 503 — the same gate and the same failures as the sync it shares a handler with.
 

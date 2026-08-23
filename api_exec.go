@@ -28,19 +28,23 @@ type ExecAPIGetExecFilesBySidRequest struct {
 	sid        string
 }
 
-func (r ExecAPIGetExecFilesBySidRequest) Execute() (*http.Response, error) {
+func (r ExecAPIGetExecFilesBySidRequest) Execute() ([]Listing, *http.Response, error) {
 	return r.ApiService.GetExecFilesBySidExecute(r)
 }
 
 /*
-GetExecFilesBySid List the files in an execution session
+GetExecFilesBySid Files lists what a session holds.
 
-Lists what a session's sandbox holds — the uploads a run can read and the artifacts it produced — each then fetched from /v1/exec/download.
+Files lists what a session holds.
 
-It answers a BARE JSON ARRAY of {name, lastModified}, where `name` is the same {session_id}/{fileId} identifier download takes, because that is what the client matches on. An object wrapper would be a wire change, which is why this is not a typed operation.
+One recursive `find`, the same traversal the artifact sweep makes. It used to be
+`ls -1A` — top level only — while the sweep collected with `find`, so a run that
+wrote a nested artifact reported it in its reply and then omitted it here, and
+the client's prefix match read the file as expired. Two traversals of one
+directory is two answers about what a session holds; there is one now.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sid
+	@param sid SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent.
 	@return ExecAPIGetExecFilesBySidRequest
 */
 func (a *ExecAPIService) GetExecFilesBySid(ctx context.Context, sid string) ExecAPIGetExecFilesBySidRequest {
@@ -52,16 +56,19 @@ func (a *ExecAPIService) GetExecFilesBySid(ctx context.Context, sid string) Exec
 }
 
 // Execute executes the request
-func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequest) (*http.Response, error) {
+//
+//	@return []Listing
+func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequest) ([]Listing, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Listing
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecAPIService.GetExecFilesBySid")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/exec/files/{sid}"
@@ -81,7 +88,7 @@ func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -90,19 +97,19 @@ func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -110,10 +117,19 @@ func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ExecAPIPostExecRequest struct {

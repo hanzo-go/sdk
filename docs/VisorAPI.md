@@ -18,8 +18,8 @@ Method | HTTP request | Description
 [**GetKubernetesCluster**](VisorAPI.md#GetKubernetesCluster) | **Get** /v1/visor/k8s/clusters/{id} | Returns one cluster&#39;s detail: node pools + worker nodes.
 [**GetMachine**](VisorAPI.md#GetMachine) | **Get** /v1/visor/machines/{id} | Returns one of the caller org&#39;s machines by its org-scoped name.
 [**GetMachineAgent**](VisorAPI.md#GetMachineAgent) | **Get** /v1/visor/machines/{id}/agent | Returns the agent binding of one of the caller org&#39;s machines, or 404 when the machine runs no bot runtime.
-[**GetVisorComputeRegions**](VisorAPI.md#GetVisorComputeRegions) | **Get** /v1/visor/compute/regions | The regions a machine or GPU can be launched into
-[**GetVisorComputeSizes**](VisorAPI.md#GetVisorComputeSizes) | **Get** /v1/visor/compute/sizes | The machine and GPU sizes that can be launched
+[**GetVisorComputeRegions**](VisorAPI.md#GetVisorComputeRegions) | **Get** /v1/visor/compute/regions | Regions lists the regions a machine can be launched in.
+[**GetVisorComputeSizes**](VisorAPI.md#GetVisorComputeSizes) | **Get** /v1/visor/compute/sizes | Sizes lists the machine sizes available to launch, with their specifications.
 [**ListBots**](VisorAPI.md#ListBots) | **Get** /v1/visor/compute/bots | Returns the caller org&#39;s bot machines — the kind&#x3D;bot machines — each joined with the agent binding that says which cloud Agent it runs.
 [**ListClusters**](VisorAPI.md#ListClusters) | **Get** /v1/visor/clusters | Returns the caller org&#39;s clusters from both sources: the managed clusters projected from Visor&#39;s node pools, and the BYO clusters attached to the caller&#39;s project.
 [**ListFleet**](VisorAPI.md#ListFleet) | **Get** /v1/visor/fleet | Returns every compute unit the caller&#39;s org has, from every source, each carrying its latest utilization: agent run-targets, the BYO machines that dialed in, attached BYO clusters and Visor-provisioned machines.
@@ -1018,9 +1018,9 @@ Name | Type | Description  | Notes
 
 ## GetVisorComputeRegions
 
-> GetVisorComputeRegions(ctx).Execute()
+> interface{} GetVisorComputeRegions(ctx).Execute()
 
-The regions a machine or GPU can be launched into
+Regions lists the regions a machine can be launched in.
 
 
 
@@ -1040,11 +1040,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.VisorAPI.GetVisorComputeRegions(context.Background()).Execute()
+	resp, r, err := apiClient.VisorAPI.GetVisorComputeRegions(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VisorAPI.GetVisorComputeRegions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetVisorComputeRegions`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `VisorAPI.GetVisorComputeRegions`: %v\n", resp)
 }
 ```
 
@@ -1059,7 +1061,7 @@ Other parameters are passed through a pointer to a apiGetVisorComputeRegionsRequ
 
 ### Return type
 
- (empty response body)
+**interface{}**
 
 ### Authorization
 
@@ -1068,7 +1070,7 @@ Other parameters are passed through a pointer to a apiGetVisorComputeRegionsRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1077,9 +1079,9 @@ Other parameters are passed through a pointer to a apiGetVisorComputeRegionsRequ
 
 ## GetVisorComputeSizes
 
-> GetVisorComputeSizes(ctx).Execute()
+> interface{} GetVisorComputeSizes(ctx).Execute()
 
-The machine and GPU sizes that can be launched
+Sizes lists the machine sizes available to launch, with their specifications.
 
 
 
@@ -1099,11 +1101,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.VisorAPI.GetVisorComputeSizes(context.Background()).Execute()
+	resp, r, err := apiClient.VisorAPI.GetVisorComputeSizes(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VisorAPI.GetVisorComputeSizes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetVisorComputeSizes`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `VisorAPI.GetVisorComputeSizes`: %v\n", resp)
 }
 ```
 
@@ -1118,7 +1122,7 @@ Other parameters are passed through a pointer to a apiGetVisorComputeSizesReques
 
 ### Return type
 
- (empty response body)
+**interface{}**
 
 ### Authorization
 
@@ -1127,7 +1131,7 @@ Other parameters are passed through a pointer to a apiGetVisorComputeSizesReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

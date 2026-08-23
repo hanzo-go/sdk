@@ -17,10 +17,10 @@ Method | HTTP request | Description
 [**PatchGuideBlueprintByCollectionById**](GuideAPI.md#PatchGuideBlueprintByCollectionById) | **Patch** /v1/guide/blueprint/{collection}/{id} | Edit — or retire — one item of the brand blueprint
 [**PostGuideChat**](GuideAPI.md#PostGuideChat) | **Post** /v1/guide/chat | Chat answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
 [**PostGuideStepsByIdDo**](GuideAPI.md#PostGuideStepsByIdDo) | **Post** /v1/guide/steps/{id}/do | Have the Business AI actually do the step for you
-[**PostGuideStepsByIdDone**](GuideAPI.md#PostGuideStepsByIdDone) | **Post** /v1/guide/steps/{id}/done | Mark a step of your org&#39;s journey finished
+[**PostGuideStepsByIdDone**](GuideAPI.md#PostGuideStepsByIdDone) | **Post** /v1/guide/steps/{id}/done | Marks one step of the caller org&#39;s journey complete and returns the refreshed journey.
 [**PostGuideStepsByIdReset**](GuideAPI.md#PostGuideStepsByIdReset) | **Post** /v1/guide/steps/{id}/reset | Returns one step of the caller org&#39;s journey to todo — clearing a manual mark or a skip — and returns the refreshed journey.
 [**PostGuideStepsByIdSkip**](GuideAPI.md#PostGuideStepsByIdSkip) | **Post** /v1/guide/steps/{id}/skip | Marks one step of the caller org&#39;s journey skipped and returns the refreshed journey.
-[**PostGuideStepsByIdStart**](GuideAPI.md#PostGuideStepsByIdStart) | **Post** /v1/guide/steps/{id}/start | Mark a step of your org&#39;s journey started
+[**PostGuideStepsByIdStart**](GuideAPI.md#PostGuideStepsByIdStart) | **Post** /v1/guide/steps/{id}/start | Marks one step of the caller org&#39;s journey in progress and returns the refreshed journey.
 [**PutGuideBlueprint**](GuideAPI.md#PutGuideBlueprint) | **Put** /v1/guide/blueprint | Publish a new version of the brand blueprint
 [**PutGuideCurriculum**](GuideAPI.md#PutGuideCurriculum) | **Put** /v1/guide/curriculum | Replace your org&#39;s journey with a curriculum you author
 
@@ -852,9 +852,9 @@ Name | Type | Description  | Notes
 
 ## PostGuideStepsByIdDone
 
-> PostGuideStepsByIdDone(ctx, id).Execute()
+> OverviewView PostGuideStepsByIdDone(ctx, id).Execute()
 
-Mark a step of your org's journey finished
+Marks one step of the caller org's journey complete and returns the refreshed journey.
 
 
 
@@ -871,15 +871,17 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the step's id, as it appears in the journey (e.g. \"gsuite\").
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GuideAPI.PostGuideStepsByIdDone(context.Background(), id).Execute()
+	resp, r, err := apiClient.GuideAPI.PostGuideStepsByIdDone(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PostGuideStepsByIdDone``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostGuideStepsByIdDone`: OverviewView
+	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.PostGuideStepsByIdDone`: %v\n", resp)
 }
 ```
 
@@ -889,7 +891,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). | 
 
 ### Other Parameters
 
@@ -902,7 +904,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**OverviewView**](OverviewView.md)
 
 ### Authorization
 
@@ -911,7 +913,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1060,9 +1062,9 @@ Name | Type | Description  | Notes
 
 ## PostGuideStepsByIdStart
 
-> PostGuideStepsByIdStart(ctx, id).Execute()
+> OverviewView PostGuideStepsByIdStart(ctx, id).Execute()
 
-Mark a step of your org's journey started
+Marks one step of the caller org's journey in progress and returns the refreshed journey.
 
 
 
@@ -1079,15 +1081,17 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the step's id, as it appears in the journey (e.g. \"gsuite\").
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GuideAPI.PostGuideStepsByIdStart(context.Background(), id).Execute()
+	resp, r, err := apiClient.GuideAPI.PostGuideStepsByIdStart(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PostGuideStepsByIdStart``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostGuideStepsByIdStart`: OverviewView
+	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.PostGuideStepsByIdStart`: %v\n", resp)
 }
 ```
 
@@ -1097,7 +1101,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). | 
 
 ### Other Parameters
 
@@ -1110,7 +1114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**OverviewView**](OverviewView.md)
 
 ### Authorization
 
@@ -1119,7 +1123,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

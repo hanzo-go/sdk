@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**GetDataroomDocuments**](DataroomAPI.md#GetDataroomDocuments) | **Get** /v1/dataroom/documents | Returns every document in the caller org&#39;s own store, newest first — name, opaque storage key, content type, page count, size and timestamps.
 [**GetDataroomDocumentsById**](DataroomAPI.md#GetDataroomDocumentsById) | **Get** /v1/dataroom/documents/{id} | Reads one of the caller org&#39;s documents — its name, opaque storage key, content type, page count, size and timestamps.
 [**GetDataroomDocumentsByIdFile**](DataroomAPI.md#GetDataroomDocumentsByIdFile) | **Get** /v1/dataroom/documents/{id}/file | Download a document&#39;s bytes as its owner
-[**GetDataroomHealth**](DataroomAPI.md#GetDataroomHealth) | **Get** /v1/dataroom/health | Liveness of the dataroom subsystem
+[**GetDataroomHealth**](DataroomAPI.md#GetDataroomHealth) | **Get** /v1/dataroom/health | Health reports that the data room subsystem is up.
 [**GetDataroomLinks**](DataroomAPI.md#GetDataroomLinks) | **Get** /v1/dataroom/links | Returns every live share link in the caller org&#39;s own store, newest first, with the controls a visitor will meet: whether an address is required, whether a password is set, the allow and deny lists, whether download is permitted, and when the link expires.
 [**GetDataroomTrust**](DataroomAPI.md#GetDataroomTrust) | **Get** /v1/dataroom/trust | Answers the caller org&#39;s OWN trust centre: its settings, every item it holds in both tiers, the requests waiting on it, and the grants it has made.
 [**GetDataroomTrustCenterBySlug**](DataroomAPI.md#GetDataroomTrustCenterBySlug) | **Get** /v1/dataroom/trust/center/{slug} | Answers an org&#39;s public trust centre: its name, the text a party must accept to ask for a document, and every item it publishes.
@@ -505,9 +505,9 @@ Name | Type | Description  | Notes
 
 ## GetDataroomHealth
 
-> GetDataroomHealth(ctx).Execute()
+> DataroomLiveness GetDataroomHealth(ctx).Execute()
 
-Liveness of the dataroom subsystem
+Health reports that the data room subsystem is up.
 
 
 
@@ -527,11 +527,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DataroomAPI.GetDataroomHealth(context.Background()).Execute()
+	resp, r, err := apiClient.DataroomAPI.GetDataroomHealth(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetDataroomHealth`: DataroomLiveness
+	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomHealth`: %v\n", resp)
 }
 ```
 
@@ -546,7 +548,7 @@ Other parameters are passed through a pointer to a apiGetDataroomHealthRequest s
 
 ### Return type
 
- (empty response body)
+[**DataroomLiveness**](DataroomLiveness.md)
 
 ### Authorization
 
@@ -555,7 +557,7 @@ Other parameters are passed through a pointer to a apiGetDataroomHealthRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

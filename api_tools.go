@@ -1527,7 +1527,7 @@ external MCP server it registered. A tool's existence, its price and its
 activation are all rows, not code, so they cannot be known until the caller is.
 
 One policy, the registry's: resolve by precedence, refuse an unactivated tool
-403, settle a priced one through the x402 seam or fail closed 402, then
+403, settle a priced one through the x402 client or fail closed 402, then
 dispatch to the winning source bound to the caller's own (org, project). One
 metered unit, one audit record. A caller can only ever dispatch its own tools.
 

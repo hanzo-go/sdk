@@ -28,7 +28,7 @@ type Tool struct {
 	InputSchema  interface{} `json:"inputSchema,omitempty"`
 	// Name is the tool's id in the flat, fleet-wide tool namespace — the value a tools/call passes. Unique across sources: a collision is resolved by source precedence before the caller ever sees it.
 	Name *string `json:"name,omitempty"`
-	// Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement seam; this is the declaration.
+	// Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement client; this is the declaration.
 	Price *Price `json:"price,omitempty"`
 	// Source is where the tool comes from: connector, function, zap-service, agent, skill or mcp.
 	Source *string `json:"source,omitempty"`

@@ -271,16 +271,16 @@ func (r BillingAPIDeleteBillingAlertsByIdRequest) Execute() (*http.Response, err
 }
 
 /*
-DeleteBillingAlertsById Remove one spend cap
+DeleteBillingAlertsById Removes one of the caller's spend caps and answers 204.
 
-Deletes a budget the caller's org owns and answers 204.
+Removes one of the caller's spend caps and answers 204.
 
-Removing a cap REMOVES A CEILING, so it takes the same bar as setting one: a validated org admin, the platform SuperAdmin, or the trusted in-process service token. A member who could delete the org's cap would have unbounded spend.
-
-A cap this org does not own is NOT FOUND rather than refused — the same answer whether the id is unknown or belongs to another customer — so an id cannot be probed for existence by trying to delete it.
+Removing a cap RAISES what the org may spend, so it takes the same authority
+setting one does. The caps that remain still bind: this drops one, never the
+whole policy.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the cap to remove, from the path.
 	@return BillingAPIDeleteBillingAlertsByIdRequest
 */
 func (a *BillingAPIService) DeleteBillingAlertsById(ctx context.Context, id string) BillingAPIDeleteBillingAlertsByIdRequest {
@@ -362,21 +362,26 @@ type BillingAPIDeleteBillingMethodsByIdRequest struct {
 	id         string
 }
 
-func (r BillingAPIDeleteBillingMethodsByIdRequest) Execute() (*http.Response, error) {
+func (r BillingAPIDeleteBillingMethodsByIdRequest) Execute() (*Detachment, *http.Response, error) {
 	return r.ApiService.DeleteBillingMethodsByIdExecute(r)
 }
 
 /*
-DeleteBillingMethodsById Remove one saved card or account
+DeleteBillingMethodsById Removes one card or account the caller has saved.
 
-Detaches the method at the processor and drops the row.
+Removes one card or account the caller has saved.
 
-A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.
+It detaches only the CALLER'S own — the wallet this request bills from,
+resolved server-side — so an id belonging to another customer of the same org
+is not something this operation can reach. A platform or service caller
+detaches on the subject's behalf, and that authority is decided HERE, where the
+credential is, and travels as a value: authority decided twice is authority
+that eventually disagrees with itself.
 
-A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
+The card is vaulted at the processor, so what goes is our token for it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the saved method to detach, from the path.
 	@return BillingAPIDeleteBillingMethodsByIdRequest
 */
 func (a *BillingAPIService) DeleteBillingMethodsById(ctx context.Context, id string) BillingAPIDeleteBillingMethodsByIdRequest {
@@ -388,16 +393,19 @@ func (a *BillingAPIService) DeleteBillingMethodsById(ctx context.Context, id str
 }
 
 // Execute executes the request
-func (a *BillingAPIService) DeleteBillingMethodsByIdExecute(r BillingAPIDeleteBillingMethodsByIdRequest) (*http.Response, error) {
+//
+//	@return Detachment
+func (a *BillingAPIService) DeleteBillingMethodsByIdExecute(r BillingAPIDeleteBillingMethodsByIdRequest) (*Detachment, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Detachment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.DeleteBillingMethodsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/methods/{id}"
@@ -417,7 +425,7 @@ func (a *BillingAPIService) DeleteBillingMethodsByIdExecute(r BillingAPIDeleteBi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -426,19 +434,19 @@ func (a *BillingAPIService) DeleteBillingMethodsByIdExecute(r BillingAPIDeleteBi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -446,10 +454,19 @@ func (a *BillingAPIService) DeleteBillingMethodsByIdExecute(r BillingAPIDeleteBi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIDeleteBillingPortalMethodsByIdRequest struct {
@@ -458,21 +475,19 @@ type BillingAPIDeleteBillingPortalMethodsByIdRequest struct {
 	id         string
 }
 
-func (r BillingAPIDeleteBillingPortalMethodsByIdRequest) Execute() (*http.Response, error) {
+func (r BillingAPIDeleteBillingPortalMethodsByIdRequest) Execute() (*Detachment, *http.Response, error) {
 	return r.ApiService.DeleteBillingPortalMethodsByIdExecute(r)
 }
 
 /*
-DeleteBillingPortalMethodsById Remove one saved card or account
+DeleteBillingPortalMethodsById DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
 
-Detaches the method at the processor and drops the row.
-
-A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.
-
-A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
+DetachPortalMethod is DetachMethod at the address a hosted checkout addresses
+it by. One set of rows, two spellings: a card detached at either is gone from
+both, because there is one store behind them.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the saved method to detach, from the path.
 	@return BillingAPIDeleteBillingPortalMethodsByIdRequest
 */
 func (a *BillingAPIService) DeleteBillingPortalMethodsById(ctx context.Context, id string) BillingAPIDeleteBillingPortalMethodsByIdRequest {
@@ -484,16 +499,19 @@ func (a *BillingAPIService) DeleteBillingPortalMethodsById(ctx context.Context, 
 }
 
 // Execute executes the request
-func (a *BillingAPIService) DeleteBillingPortalMethodsByIdExecute(r BillingAPIDeleteBillingPortalMethodsByIdRequest) (*http.Response, error) {
+//
+//	@return Detachment
+func (a *BillingAPIService) DeleteBillingPortalMethodsByIdExecute(r BillingAPIDeleteBillingPortalMethodsByIdRequest) (*Detachment, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Detachment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.DeleteBillingPortalMethodsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/portal/methods/{id}"
@@ -513,7 +531,7 @@ func (a *BillingAPIService) DeleteBillingPortalMethodsByIdExecute(r BillingAPIDe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -522,19 +540,19 @@ func (a *BillingAPIService) DeleteBillingPortalMethodsByIdExecute(r BillingAPIDe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -542,10 +560,19 @@ func (a *BillingAPIService) DeleteBillingPortalMethodsByIdExecute(r BillingAPIDe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIGetBillingAccountsRequest struct {
@@ -4203,18 +4230,22 @@ type BillingAPIPostBillingRechargeRunAllRequest struct {
 	ApiService *BillingAPIService
 }
 
-func (r BillingAPIPostBillingRechargeRunAllRequest) Execute() (*http.Response, error) {
+func (r BillingAPIPostBillingRechargeRunAllRequest) Execute() (*Recharge, *http.Response, error) {
 	return r.ApiService.PostBillingRechargeRunAllExecute(r)
 }
 
 /*
-PostBillingRechargeRunAll Recharge every org that has fallen below its threshold
+PostBillingRechargeRunAll Sweeps every org's auto-recharge and answers what it did.
 
-Sweeps every organization and, for those with auto-recharge on whose available balance has dropped below their own threshold, charges the default card and credits the balance.
+Sweeps every org's auto-recharge and answers what it did.
 
-It charges cards across EVERY tenant, so it is platform authority only — never an org owner, who could otherwise sweep-charge saved cards estate-wide. Its caller is a schedule, not a person.
+PLATFORM AUTHORITY ONLY. It charges saved cards across every tenant, so an org
+owner reaching it could sweep-charge the estate; a caller without it is
+refused before anything is charged.
 
-`orgs` is the population considered, not the row count: that difference is how a reader tells 'nobody was below threshold' from 'the sweep never ran'. One org's failure is reported in its own row and does not stop the rest.
+The answer explains a sweep that charged nobody as readily as one that
+charged: it names how many orgs were considered and how many needed charging,
+with a row each.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingRechargeRunAllRequest
@@ -4227,16 +4258,19 @@ func (a *BillingAPIService) PostBillingRechargeRunAll(ctx context.Context) Billi
 }
 
 // Execute executes the request
-func (a *BillingAPIService) PostBillingRechargeRunAllExecute(r BillingAPIPostBillingRechargeRunAllRequest) (*http.Response, error) {
+//
+//	@return Recharge
+func (a *BillingAPIService) PostBillingRechargeRunAllExecute(r BillingAPIPostBillingRechargeRunAllRequest) (*Recharge, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Recharge
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingRechargeRunAll")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/recharge/run-all"
@@ -4255,7 +4289,7 @@ func (a *BillingAPIService) PostBillingRechargeRunAllExecute(r BillingAPIPostBil
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4264,19 +4298,19 @@ func (a *BillingAPIService) PostBillingRechargeRunAllExecute(r BillingAPIPostBil
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4284,10 +4318,19 @@ func (a *BillingAPIService) PostBillingRechargeRunAllExecute(r BillingAPIPostBil
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIPostBillingSubscribeCardRequest struct {
@@ -4383,22 +4426,33 @@ func (a *BillingAPIService) PostBillingSubscribeCardExecute(r BillingAPIPostBill
 }
 
 type BillingAPIPostBillingTopupRequest struct {
-	ctx        context.Context
-	ApiService *BillingAPIService
+	ctx             context.Context
+	ApiService      *BillingAPIService
+	topupIn         *TopupIn
+	xIdempotencyKey *string
 }
 
-func (r BillingAPIPostBillingTopupRequest) Execute() (*http.Response, error) {
+func (r BillingAPIPostBillingTopupRequest) TopupIn(topupIn TopupIn) BillingAPIPostBillingTopupRequest {
+	r.topupIn = &topupIn
+	return r
+}
+
+func (r BillingAPIPostBillingTopupRequest) XIdempotencyKey(xIdempotencyKey string) BillingAPIPostBillingTopupRequest {
+	r.xIdempotencyKey = &xIdempotencyKey
+	return r
+}
+
+func (r BillingAPIPostBillingTopupRequest) Execute() (*Charged, *http.Response, error) {
 	return r.ApiService.PostBillingTopupExecute(r)
 }
 
 /*
-PostBillingTopup Add funds with a card already on file
+PostBillingTopup Charges a card the caller already saved and credits the balance.
 
-Charges a saved card and credits the caller's prepaid wallet.
-
-The method must belong to the caller: one that does not is NOT FOUND rather than refused, so an id cannot be probed for existence. A saved row whose card is no longer chargeable is 422 — add the card again — which is a different thing to do than a decline (402) or a bad amount (400).
-
-Retries behave exactly as they do for a token top-up: same key, same replay, same exactly-once at the processor.
+Charges a card the caller already saved and credits the
+balance. Same receipt and the same retry safety as the token door; the only
+difference is which card, so a caller topping up from a saved method never
+re-enters one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingTopupRequest
@@ -4411,16 +4465,19 @@ func (a *BillingAPIService) PostBillingTopup(ctx context.Context) BillingAPIPost
 }
 
 // Execute executes the request
-func (a *BillingAPIService) PostBillingTopupExecute(r BillingAPIPostBillingTopupRequest) (*http.Response, error) {
+//
+//	@return Charged
+func (a *BillingAPIService) PostBillingTopupExecute(r BillingAPIPostBillingTopupRequest) (*Charged, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Charged
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingTopup")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/topup"
@@ -4428,9 +4485,12 @@ func (a *BillingAPIService) PostBillingTopupExecute(r BillingAPIPostBillingTopup
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.topupIn == nil {
+		return localVarReturnValue, nil, reportError("topupIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -4439,28 +4499,33 @@ func (a *BillingAPIService) PostBillingTopupExecute(r BillingAPIPostBillingTopup
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.xIdempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Idempotency-Key", r.xIdempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.topupIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4468,31 +4533,56 @@ func (a *BillingAPIService) PostBillingTopupExecute(r BillingAPIPostBillingTopup
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIPostBillingTopupTokenRequest struct {
-	ctx        context.Context
-	ApiService *BillingAPIService
+	ctx             context.Context
+	ApiService      *BillingAPIService
+	topupIn         *TopupIn
+	xIdempotencyKey *string
 }
 
-func (r BillingAPIPostBillingTopupTokenRequest) Execute() (*http.Response, error) {
+func (r BillingAPIPostBillingTopupTokenRequest) TopupIn(topupIn TopupIn) BillingAPIPostBillingTopupTokenRequest {
+	r.topupIn = &topupIn
+	return r
+}
+
+func (r BillingAPIPostBillingTopupTokenRequest) XIdempotencyKey(xIdempotencyKey string) BillingAPIPostBillingTopupTokenRequest {
+	r.xIdempotencyKey = &xIdempotencyKey
+	return r
+}
+
+func (r BillingAPIPostBillingTopupTokenRequest) Execute() (*Charged, *http.Response, error) {
 	return r.ApiService.PostBillingTopupTokenExecute(r)
 }
 
 /*
-PostBillingTopupToken Add funds with a single-use card token
+PostBillingTopupToken Charges a single-use card token and credits the caller's balance.
 
-Charges a card token from the browser's payment SDK and credits the caller's prepaid wallet — the cold-customer path, where nothing has to be saved first.
+Charges a single-use card token and credits the caller's
+balance.
 
-The wallet credited is the CALLER'S OWN, resolved from their signed identity. It is never a value in the request: a client-set selector is how a customer once topped up one account while their usage drew from another.
+The token comes from the payment form and is vaulted as part of the charge, so
+no card number reaches this service and none is stored here. The receipt names
+the ledger entry, the new balance, and the PROCESSOR's own reference — which is
+the only field that proves money moved at the gateway rather than only in our
+ledger.
 
-`X-Idempotency-Key` makes a retry safe. With one, a repeat replays the first result; without one, the same amount from the same subject inside a short window does too. The key reaches the processor as well as our own guard, so the charge is exactly-once at the gateway even if our guard store is down.
-
-The amount is bounded server-side. A decline is 402 and nothing is credited.
+Retry-safe on X-Idempotency-Key: the same key settles one charge and returns
+the first receipt.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BillingAPIPostBillingTopupTokenRequest
@@ -4505,16 +4595,19 @@ func (a *BillingAPIService) PostBillingTopupToken(ctx context.Context) BillingAP
 }
 
 // Execute executes the request
-func (a *BillingAPIService) PostBillingTopupTokenExecute(r BillingAPIPostBillingTopupTokenRequest) (*http.Response, error) {
+//
+//	@return Charged
+func (a *BillingAPIService) PostBillingTopupTokenExecute(r BillingAPIPostBillingTopupTokenRequest) (*Charged, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Charged
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PostBillingTopupToken")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/billing/topup/token"
@@ -4522,9 +4615,12 @@ func (a *BillingAPIService) PostBillingTopupTokenExecute(r BillingAPIPostBilling
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.topupIn == nil {
+		return localVarReturnValue, nil, reportError("topupIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -4533,28 +4629,33 @@ func (a *BillingAPIService) PostBillingTopupTokenExecute(r BillingAPIPostBilling
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.xIdempotencyKey != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Idempotency-Key", r.xIdempotencyKey, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.topupIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4562,10 +4663,19 @@ func (a *BillingAPIService) PostBillingTopupTokenExecute(r BillingAPIPostBilling
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type BillingAPIRaiseInvoiceRequest struct {

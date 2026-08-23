@@ -1419,21 +1419,21 @@ type GuideAPIPostGuideStepsByIdDoneRequest struct {
 	id         string
 }
 
-func (r GuideAPIPostGuideStepsByIdDoneRequest) Execute() (*http.Response, error) {
+func (r GuideAPIPostGuideStepsByIdDoneRequest) Execute() (*OverviewView, *http.Response, error) {
 	return r.ApiService.PostGuideStepsByIdDoneExecute(r)
 }
 
 /*
-PostGuideStepsByIdDone Mark a step of your org's journey finished
+PostGuideStepsByIdDone Marks one step of the caller org's journey complete and returns the refreshed journey.
 
-Moves one step of the caller org's journey to done and answers the whole refreshed journey, which is what unblocks everything downstream of it.
+Marks one step of the caller org's journey complete and returns the
+refreshed journey.
 
-Dependency-GATED like start: finishing a step whose prerequisites are themselves unfinished is 409 carrying `{error, step, blockedBy}` naming what is in the way, not a silent success. A step id the org's active journey does not contain is 404. Skipping is the ungated alternative — a founder declaring a step does not apply — and it lives at /skip.
-
-Requires a validated org; 403 without one. The mark is recorded as `manual`, and /reset returns the step to todo.
+Dependency-GATED, exactly as start is: a step whose prerequisites are unfinished
+is refused 409 carrying {error, step, blockedBy} naming what is in the way.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the step's id, as it appears in the journey (e.g. \"gsuite\").
 	@return GuideAPIPostGuideStepsByIdDoneRequest
 */
 func (a *GuideAPIService) PostGuideStepsByIdDone(ctx context.Context, id string) GuideAPIPostGuideStepsByIdDoneRequest {
@@ -1445,16 +1445,19 @@ func (a *GuideAPIService) PostGuideStepsByIdDone(ctx context.Context, id string)
 }
 
 // Execute executes the request
-func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideStepsByIdDoneRequest) (*http.Response, error) {
+//
+//	@return OverviewView
+func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideStepsByIdDoneRequest) (*OverviewView, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OverviewView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PostGuideStepsByIdDone")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/guide/steps/{id}/done"
@@ -1474,7 +1477,7 @@ func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideSteps
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1483,19 +1486,19 @@ func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideSteps
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1503,10 +1506,19 @@ func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideSteps
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type GuideAPIPostGuideStepsByIdResetRequest struct {
@@ -1730,21 +1742,22 @@ type GuideAPIPostGuideStepsByIdStartRequest struct {
 	id         string
 }
 
-func (r GuideAPIPostGuideStepsByIdStartRequest) Execute() (*http.Response, error) {
+func (r GuideAPIPostGuideStepsByIdStartRequest) Execute() (*OverviewView, *http.Response, error) {
 	return r.ApiService.PostGuideStepsByIdStartExecute(r)
 }
 
 /*
-PostGuideStepsByIdStart Mark a step of your org's journey started
+PostGuideStepsByIdStart Marks one step of the caller org's journey in progress and returns the refreshed journey.
 
-Moves one step of the caller org's journey to in-progress and answers the whole refreshed journey, so a console needs no second read.
+Marks one step of the caller org's journey in progress and returns the
+refreshed journey.
 
-The transition is dependency-GATED, and that is why the answer set is wider than a success: a step whose prerequisites are unfinished is 409 carrying `{error, step, blockedBy}`, where `blockedBy` names the exact steps in the way — enough to render the blockage rather than merely report it. A step id the org's active journey does not contain is 404.
-
-Requires a validated org; 403 without one, and the journey read and written is that org's alone. The mark is recorded as `manual`, and the journey is reconciled against the auto-detectors on every read, so a step the org has demonstrably completed elsewhere can still be moved to done underneath it.
+Dependency-GATED: a step whose prerequisites are unfinished is refused 409
+carrying {error, step, blockedBy}, where blockedBy names the exact steps in the
+way — enough to render the reason without asking again.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the step's id, as it appears in the journey (e.g. \"gsuite\").
 	@return GuideAPIPostGuideStepsByIdStartRequest
 */
 func (a *GuideAPIService) PostGuideStepsByIdStart(ctx context.Context, id string) GuideAPIPostGuideStepsByIdStartRequest {
@@ -1756,16 +1769,19 @@ func (a *GuideAPIService) PostGuideStepsByIdStart(ctx context.Context, id string
 }
 
 // Execute executes the request
-func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStepsByIdStartRequest) (*http.Response, error) {
+//
+//	@return OverviewView
+func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStepsByIdStartRequest) (*OverviewView, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OverviewView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PostGuideStepsByIdStart")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/guide/steps/{id}/start"
@@ -1785,7 +1801,7 @@ func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStep
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1794,19 +1810,19 @@ func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStep
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1814,10 +1830,19 @@ func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStep
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type GuideAPIPutGuideBlueprintRequest struct {

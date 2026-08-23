@@ -3094,23 +3094,32 @@ type AgentsAPIPostAgentsSessionsByIdEventsRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
 	id         string
+	eventIn    *EventIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdEventsRequest) Execute() (*http.Response, error) {
+func (r AgentsAPIPostAgentsSessionsByIdEventsRequest) EventIn(eventIn EventIn) AgentsAPIPostAgentsSessionsByIdEventsRequest {
+	r.eventIn = &eventIn
+	return r
+}
+
+func (r AgentsAPIPostAgentsSessionsByIdEventsRequest) Execute() (*EventView, *http.Response, error) {
 	return r.ApiService.PostAgentsSessionsByIdEventsExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdEvents Append one turn to a session's ordered log.
+PostAgentsSessionsByIdEvents Records one turn of a session's transcript and answers 201 with it.
 
-Records a message, tool-call, spawn, log, status or control turn against the session and answers 201 with the stored event, including the monotonic `seq` the store assigned — the cursor every reader pages from. The same turn is fanned out live to every stream subscriber watching that session's tree.
+Records one turn of a session's transcript and answers 201 with it.
 
-Requires a validated principal carrying an org, and the session must already exist IN THAT ORG: an id belonging to another tenant is a 404 exactly like one that does not exist, so the log can never be written across a tenant boundary. `actor` defaults to the calling principal when the body names none. `kind` must be one of the six above, and `payload` must be valid JSON of at most 64 KiB.
-
-The payload is scanned for credentials BEFORE it is stored, and a hit REFUSES the write with 422 rather than redacting it: {status, code: "secret_in_transcript", error, findings:[…]}, each finding naming the rule, severity, line, a masked preview and a SHA-256 fingerprint the author can match against the value they rotate. The detected value itself appears nowhere in that body, because it was never stored. That in-band findings array is the reason this operation cannot be typed.
+THE TURN IS SCANNED BEFORE IT IS STORED. The same engine the code-security
+surface runs reads the payload at this boundary, and a credential in it refuses
+the append with 422 rather than redacting it — a redacted transcript is one
+that still had the secret in it once, and this way the author learns which
+value to rotate. The refusal carries every finding: the rule, the severity, the
+line, a MASKED preview and the fingerprint. The secret is never in the answer.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the session to append to, from the path.
 	@return AgentsAPIPostAgentsSessionsByIdEventsRequest
 */
 func (a *AgentsAPIService) PostAgentsSessionsByIdEvents(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdEventsRequest {
@@ -3122,16 +3131,19 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdEvents(ctx context.Context, id 
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) PostAgentsSessionsByIdEventsExecute(r AgentsAPIPostAgentsSessionsByIdEventsRequest) (*http.Response, error) {
+//
+//	@return EventView
+func (a *AgentsAPIService) PostAgentsSessionsByIdEventsExecute(r AgentsAPIPostAgentsSessionsByIdEventsRequest) (*EventView, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EventView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdEvents")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/agents/sessions/{id}/events"
@@ -3140,9 +3152,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdEventsExecute(r AgentsAPIPostAg
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.eventIn == nil {
+		return localVarReturnValue, nil, reportError("eventIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3151,28 +3166,30 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdEventsExecute(r AgentsAPIPostAg
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.eventIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3180,33 +3197,46 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdEventsExecute(r AgentsAPIPostAg
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type AgentsAPIPostAgentsSessionsByIdMessageRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
 	id         string
+	controlIn  *ControlIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdMessageRequest) Execute() (*http.Response, error) {
+func (r AgentsAPIPostAgentsSessionsByIdMessageRequest) ControlIn(controlIn ControlIn) AgentsAPIPostAgentsSessionsByIdMessageRequest {
+	r.controlIn = &controlIn
+	return r
+}
+
+func (r AgentsAPIPostAgentsSessionsByIdMessageRequest) Execute() (*ControlResult, *http.Response, error) {
 	return r.ApiService.PostAgentsSessionsByIdMessageExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdMessage Send text into a running session.
+PostAgentsSessionsByIdMessage Sends a steering message to a running session — the door a human or another agent interrupts through.
 
-Records `message` as a durable control event carrying the caller's text and answers 200 with {command, event, forwarded} — this is how a dashboard steers an agent mid-run. It is the one command with a required body: a `message` (up to 16 KiB) or a `payload`, and 400 with neither. The credential scan that guards an appended turn covers `payload` here; `message` is bounded but not scanned.
-
-Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.
-
-THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+Sends a steering message to a running session — the door a
+human or another agent interrupts through. It requires a `message` or a
+`payload`; the other three commands do not.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the session to steer, from the path.
 	@return AgentsAPIPostAgentsSessionsByIdMessageRequest
 */
 func (a *AgentsAPIService) PostAgentsSessionsByIdMessage(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdMessageRequest {
@@ -3218,16 +3248,19 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdMessage(ctx context.Context, id
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) PostAgentsSessionsByIdMessageExecute(r AgentsAPIPostAgentsSessionsByIdMessageRequest) (*http.Response, error) {
+//
+//	@return ControlResult
+func (a *AgentsAPIService) PostAgentsSessionsByIdMessageExecute(r AgentsAPIPostAgentsSessionsByIdMessageRequest) (*ControlResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ControlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdMessage")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/agents/sessions/{id}/message"
@@ -3236,9 +3269,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdMessageExecute(r AgentsAPIPostA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.controlIn == nil {
+		return localVarReturnValue, nil, reportError("controlIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3247,28 +3283,30 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdMessageExecute(r AgentsAPIPostA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.controlIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3276,33 +3314,45 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdMessageExecute(r AgentsAPIPostA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type AgentsAPIPostAgentsSessionsByIdPauseRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
 	id         string
+	controlIn  *ControlIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdPauseRequest) Execute() (*http.Response, error) {
+func (r AgentsAPIPostAgentsSessionsByIdPauseRequest) ControlIn(controlIn ControlIn) AgentsAPIPostAgentsSessionsByIdPauseRequest {
+	r.controlIn = &controlIn
+	return r
+}
+
+func (r AgentsAPIPostAgentsSessionsByIdPauseRequest) Execute() (*ControlResult, *http.Response, error) {
 	return r.ApiService.PostAgentsSessionsByIdPauseExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdPause Ask a running session to pause.
+PostAgentsSessionsByIdPause Asks a running session to pause.
 
-Records `pause` as a durable control event on the session and answers 200 with {command, event, forwarded} — the stored event carries the `seq` that orders it against every other turn.
-
-Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.
-
-THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+Asks a running session to pause. Recorded durably, and forwarded
+to the durable-execution engine when the session is task-backed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the session to steer, from the path.
 	@return AgentsAPIPostAgentsSessionsByIdPauseRequest
 */
 func (a *AgentsAPIService) PostAgentsSessionsByIdPause(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdPauseRequest {
@@ -3314,16 +3364,19 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdPause(ctx context.Context, id s
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) PostAgentsSessionsByIdPauseExecute(r AgentsAPIPostAgentsSessionsByIdPauseRequest) (*http.Response, error) {
+//
+//	@return ControlResult
+func (a *AgentsAPIService) PostAgentsSessionsByIdPauseExecute(r AgentsAPIPostAgentsSessionsByIdPauseRequest) (*ControlResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ControlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdPause")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/agents/sessions/{id}/pause"
@@ -3332,9 +3385,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdPauseExecute(r AgentsAPIPostAge
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.controlIn == nil {
+		return localVarReturnValue, nil, reportError("controlIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3343,28 +3399,30 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdPauseExecute(r AgentsAPIPostAge
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.controlIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3372,33 +3430,44 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdPauseExecute(r AgentsAPIPostAge
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type AgentsAPIPostAgentsSessionsByIdResumeRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
 	id         string
+	controlIn  *ControlIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdResumeRequest) Execute() (*http.Response, error) {
+func (r AgentsAPIPostAgentsSessionsByIdResumeRequest) ControlIn(controlIn ControlIn) AgentsAPIPostAgentsSessionsByIdResumeRequest {
+	r.controlIn = &controlIn
+	return r
+}
+
+func (r AgentsAPIPostAgentsSessionsByIdResumeRequest) Execute() (*ControlResult, *http.Response, error) {
 	return r.ApiService.PostAgentsSessionsByIdResumeExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdResume Ask a paused session to carry on.
+PostAgentsSessionsByIdResume Asks a paused session to continue, on the same terms as a pause.
 
-Records `resume` as a durable control event on the session and answers 200 with {command, event, forwarded}. The session is NOT required to be paused first: the only status this refuses is a finished one, because the live status is the running surface's to report rather than this endpoint's to enforce.
-
-Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.
-
-THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+Asks a paused session to continue, on the same terms as a pause.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the session to steer, from the path.
 	@return AgentsAPIPostAgentsSessionsByIdResumeRequest
 */
 func (a *AgentsAPIService) PostAgentsSessionsByIdResume(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdResumeRequest {
@@ -3410,16 +3479,19 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdResume(ctx context.Context, id 
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) PostAgentsSessionsByIdResumeExecute(r AgentsAPIPostAgentsSessionsByIdResumeRequest) (*http.Response, error) {
+//
+//	@return ControlResult
+func (a *AgentsAPIService) PostAgentsSessionsByIdResumeExecute(r AgentsAPIPostAgentsSessionsByIdResumeRequest) (*ControlResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ControlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdResume")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/agents/sessions/{id}/resume"
@@ -3428,9 +3500,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdResumeExecute(r AgentsAPIPostAg
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.controlIn == nil {
+		return localVarReturnValue, nil, reportError("controlIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3439,28 +3514,30 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdResumeExecute(r AgentsAPIPostAg
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.controlIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3468,33 +3545,49 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdResumeExecute(r AgentsAPIPostAg
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type AgentsAPIPostAgentsSessionsByIdStopRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService
 	id         string
+	controlIn  *ControlIn
 }
 
-func (r AgentsAPIPostAgentsSessionsByIdStopRequest) Execute() (*http.Response, error) {
+func (r AgentsAPIPostAgentsSessionsByIdStopRequest) ControlIn(controlIn ControlIn) AgentsAPIPostAgentsSessionsByIdStopRequest {
+	r.controlIn = &controlIn
+	return r
+}
+
+func (r AgentsAPIPostAgentsSessionsByIdStopRequest) Execute() (*ControlResult, *http.Response, error) {
 	return r.ApiService.PostAgentsSessionsByIdStopExecute(r)
 }
 
 /*
-PostAgentsSessionsByIdStop Ask a session to stop for good.
+PostAgentsSessionsByIdStop Ends a running session.
 
-Records `stop` as a durable control event on the session and answers 200 with {command, event, forwarded}. Stop is the one command that CANCELS a task-backed session's durable workflow instead of signalling it — pause, resume and message are cooperative signals the workflow decides how to act on, while this tears it down, with the request's `message` recorded as the cancellation reason (a default stands in when none is given).
+Ends a running session. `message` is recorded as the cancellation
+reason, which is what a later reader of the transcript sees.
 
-Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.
-
-THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+STOPPING IS NOT DELETING: the session, its transcript and anything it produced
+stay readable. A session that has already finished is 409 rather than a second
+stop.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the session to steer, from the path.
 	@return AgentsAPIPostAgentsSessionsByIdStopRequest
 */
 func (a *AgentsAPIService) PostAgentsSessionsByIdStop(ctx context.Context, id string) AgentsAPIPostAgentsSessionsByIdStopRequest {
@@ -3506,16 +3599,19 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdStop(ctx context.Context, id st
 }
 
 // Execute executes the request
-func (a *AgentsAPIService) PostAgentsSessionsByIdStopExecute(r AgentsAPIPostAgentsSessionsByIdStopRequest) (*http.Response, error) {
+//
+//	@return ControlResult
+func (a *AgentsAPIService) PostAgentsSessionsByIdStopExecute(r AgentsAPIPostAgentsSessionsByIdStopRequest) (*ControlResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ControlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsSessionsByIdStop")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/agents/sessions/{id}/stop"
@@ -3524,9 +3620,12 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdStopExecute(r AgentsAPIPostAgen
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.controlIn == nil {
+		return localVarReturnValue, nil, reportError("controlIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3535,28 +3634,30 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdStopExecute(r AgentsAPIPostAgen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.controlIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3564,10 +3665,19 @@ func (a *AgentsAPIService) PostAgentsSessionsByIdStopExecute(r AgentsAPIPostAgen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type AgentsAPIPostAgentsTargetsRequest struct {

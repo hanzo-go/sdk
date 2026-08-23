@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Age** | Pointer to **string** | Age is how long ago that was. | [optional] 
 **AsOf** | Pointer to **string** | AsOf is when the OLDEST contributing publisher was current, RFC 3339. The oldest and not the newest: a set is exactly as fresh as its weakest source. | [optional] 
 **Keys** | Pointer to **int32** | Keys is how many members the baseline carries. | [optional] 
-**Kind** | Pointer to **string** | Kind is how the baseline comes to exist: fetch (downloaded from a publisher), local (computed here), attest (held by the component that screens against it, freshness reported), or seam (declared and NOT held, because the source needs a licence we do not have). | [optional] 
+**Kind** | Pointer to **string** | Kind is how the baseline comes to exist: fetch (downloaded from a publisher), local (computed here), attest (held by the component that screens against it, freshness reported), or client (declared and NOT held, because the source needs a licence we do not have). | [optional] 
 **Match** | Pointer to **string** | Match is how a key is tested: exact, domain, net, digits, pattern or range. | [optional] 
 **MaxAge** | Pointer to **string** | MaxAge is how old this set may be before it is stale. | [optional] 
 **Overrides** | Pointer to **int32** | Overrides is how many entries YOUR org has laid over this baseline. | [optional] 
