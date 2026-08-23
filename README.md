@@ -9,7 +9,7 @@ route the running binary serves.
 ## Install
 
 ```bash
-go get github.com/hanzoai/go-sdk@v1.0.4
+go get github.com/hanzoai/go-sdk
 ```
 
 Needs Go 1.26 or newer. The line pins the current tag rather than resolving
