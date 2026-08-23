@@ -2,9 +2,8 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/hanzoai/go-sdk.svg)](https://pkg.go.dev/github.com/hanzoai/go-sdk)
 
-The Go client for the [Hanzo API](https://api.hanzo.ai). It is generated from
-the document `hanzoai/cloud` emits from its own routers, so a method here is a
-route the running binary serves.
+The Go client for the [Hanzo API](https://api.hanzo.ai), generated from the API's
+own OpenAPI document.
 
 ## Install
 
@@ -12,12 +11,8 @@ route the running binary serves.
 go get github.com/hanzoai/go-sdk
 ```
 
-Needs Go 1.26 or newer. The line pins the current tag rather than resolving
-`@latest`, which the proxy caches for a while after a push. **v1.0.2 is the
-floor**, and the version is worth naming: the operationIds lost their `cloud_`
-prefix and their default version, so what `v1.0.1` spelled `CloudGetV1Keys` this
-client spells `GetKeys`. Later versions are drop-in; anything earlier answers to
-none of the names below.
+Go 1.26 or newer. **v1.0.2 is the floor** — earlier versions spell the methods
+differently (`CloudGetV1Keys` rather than `GetKeys`).
 
 ## Quickstart
 
@@ -56,27 +51,19 @@ response shape, the response and the error alone.
 
 ## Authenticating
 
-### bearer
-
-The document declares the credential — one scheme, `bearer`, required at the
-root — so the generated client carries the code that sends it, and all but four
-operations need it. The four that do not say `security: []`: `GET /v1/models`,
-`GET /v1/models/providers`, `GET /v1/commands`, `GET /v1/openapi.json`. Every
-page under [`docs/`](docs) names which one it is and links back here.
-
 A token is either an access token minted by Hanzo IAM or an API key (`sk-`/`pk-`).
 `NewClient("")` reads it from **`HANZO_API_KEY`**; pass a key as the argument to
 override the environment. The base URL is `https://api.hanzo.ai` unless
 **`HANZO_BASE_URL`** says otherwise.
 
-The credential belongs to the client, so it is set once, on the configuration,
-and every call carries it. Set it in one place only: the generated client also
-reads a token off the context (`ContextAccessToken`) and adds its header there,
-so doing both sends `Authorization` twice. For a second identity, build a second
-client.
+Four operations take no credential: `GET /v1/models`, `GET /v1/models/providers`,
+`GET /v1/commands`, `GET /v1/openapi.json`.
 
-Some services are scoped to an org and want an `X-Org-Id` header. Build the
-configuration yourself for those:
+Set the credential in one place only. The generated client also reads a token off
+the context (`ContextAccessToken`) and adds its header there, so doing both sends
+`Authorization` twice. For a second identity, build a second client.
+
+Some services are scoped to an org and want an `X-Org-Id` header:
 
 ```go
 cfg := hanzoai.NewConfig("")
@@ -101,13 +88,9 @@ if err != nil {
 }
 ```
 
-[`examples/errors`](examples/errors) runs this against the live API and needs no
-key — it prints `403 Forbidden` and the refusal cloud wrote.
-
 ## Examples
 
-Start with `models`. It calls one of the four public operations, so it runs with
-nothing set up at all:
+Start with `models`. It calls a public operation, so it runs with nothing set up:
 
 ```bash
 go run ./examples/models
@@ -131,11 +114,6 @@ HANZO_API_KEY=sk-... go run ./examples/hello
 the key is accepted; this org holds 1 key(s)
 ```
 
-Six of the eight are the canonical flows from `hanzoai/openapi`'s `flows.yaml`,
-the manifest every Hanzo SDK draws its examples from — same names, same routes —
-so what you learn here transfers to the Python, TypeScript, Java, Kotlin and
-Rust clients. `models` and `errors` are Go's own.
-
 | | Does | Calls | Key |
 | --- | --- | --- | --- |
 | [`models`](examples/models) | List the catalogue | `GET /v1/models` | no |
@@ -148,45 +126,40 @@ Rust clients. `models` and `errors` are Go's own.
 | [`errors`](examples/errors) | Read a refusal | `GET /v1/keys` | no |
 
 `store` and `agent` are org-scoped, so set `HANZO_ORG_ID` for those.
+`hello`, `chat`, `money`, `store`, `agent` and `tools` are the flows
+`hanzoai/openapi`'s `flows.yaml` names for every Hanzo SDK, so they carry the
+same names and routes in every language.
 
-Some operations state their address and not their shape — cloud has not declared
-those handlers' types yet — and their generated methods hand back the raw
-`*http.Response` with nothing to unmarshal into. `chat` and `money` show how to
-read one.
+Some operations state their address and not their shape, and their generated
+methods hand back the raw `*http.Response` with nothing to unmarshal into.
+`chat` and `money` show how to read one.
 
 ## Reference
 
-Per-service method lists with a runnable snippet each are in
-[`docs/`](docs) — [`docs/KeysAPI.md`](docs/KeysAPI.md) is a good first one — and
+Per-service method lists with a runnable snippet each are in [`docs/`](docs) and
 on [pkg.go.dev](https://pkg.go.dev/github.com/hanzoai/go-sdk). The API itself is
 documented at [docs.hanzo.ai](https://docs.hanzo.ai).
 
 ## Regenerating
 
 Everything at the module root except `hanzo.go` and `hanzo_test.go` is
-generated. Do not edit it — change the handler in `hanzoai/cloud` and
-regenerate:
+generated. Change the handler in cloud and regenerate:
 
 ```bash
-OPENAPI=../openapi ./scripts/generate.sh          # the ref .spec-lock names, digest re-checked
+OPENAPI=../openapi ./scripts/generate.sh          # the ref .spec-lock names
 OPENAPI=../openapi ./scripts/generate.sh --check  # non-zero if the client drifted
 ```
 
 `OPENAPI` points at a [`hanzoai/openapi`](https://git.hanzo.ai/hanzoai/openapi)
 checkout, which holds the one driver every Hanzo SDK is generated by; every
-generator knob is its `sdks.yaml` `go:` row and nowhere else. Reading the
-document needs no credential — it comes from `api.hanzo.ai/v1/openapi.json`, the
-same address hanzoai/ci's lane reads. Pass one by value with
-`SPEC=/path/to/openapi.yaml` to generate against a document you already have.
+generator knob is its `sdks.yaml` `go:` row. Pass a document you already have
+with `SPEC=/path/to/openapi.yaml`.
 
 ## Development
 
 ```bash
 go build ./... && go vet ./... && go test -count=1 ./... && go build ./examples/...
 ```
-
-Those four are the whole gate, and `hanzo.yml` runs exactly them. Publishing is
-pushing a semver tag: for a Go module there is no registry, only the proxy.
 
 ## License
 
