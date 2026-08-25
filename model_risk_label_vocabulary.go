@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -21,7 +21,7 @@ var _ MappedNullable = &RiskLabelVocabulary{}
 type RiskLabelVocabulary struct {
 	// Dispositions is the closed set a write's `disposition` must be drawn from, published in full so a caller can validate a batch before filing it instead of discovering a refusal per member: \"productive\", \"unproductive\", and \"\" — the EMPTY STRING is a member and means an explicit unjudged, so a client that filters empties out of this list drops a third of the vocabulary and can never file \"we looked and could not say\". They are the AML engine's own spelling, verbatim, which is what lets a replay there report against these values.
 	Dispositions []string `json:"dispositions,omitempty"`
-	// Kinds, Dispositions and Sources are the closed vocabularies. A value outside them is refused at the door.
+	// Kinds, Dispositions and Sources are the closed vocabularies. A value outside them is refused at the endpoint.
 	Kinds []string `json:"kinds,omitempty"`
 	// Precedence is the sources in the order that resolves a conflict, strongest first. It is DERIVED from the same declaration the resolver reads, so the published order is the enforced order and cannot drift from it.
 	Precedence []string `json:"precedence,omitempty"`

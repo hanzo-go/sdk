@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Apps** | Pointer to [**[]AiMCPApp**](AiMCPApp.md) | Apps is one row per subsystem this deployment composes, in manifest order. | [optional] 
 **Names** | Pointer to **[]string** | Names are this process&#39;s own tool names, present only when the query asked for them. | [optional] 
-**Tools** | Pointer to **int32** | Tools is how many tools THIS PROCESS&#39;s door carries: its own typed-op registry, projected. It is the only number a subsystem can state honestly — what the FLEET&#39;s door carries is a question only the host can ask, and it asks it by asking every subsystem (POST /v1/mcp, tools/list). | [optional] 
+**Tools** | Pointer to **int32** | Tools is how many tools THIS PROCESS&#39;s MCP server carries: its own typed-op registry, projected. It is the only number a subsystem can state honestly — what the FLEET&#39;s server carries is a question only the host can ask, and it asks it by asking every subsystem (POST /v1/mcp, tools/list). | [optional] 
 
 ## Methods
 

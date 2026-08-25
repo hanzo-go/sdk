@@ -4,7 +4,7 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetWorld**](WorldAPI.md#GetWorld) | **Get** /v1/world | Answers GET /v1/world — the product&#39;s front door, naming every wire this surface answers on.
+[**GetWorld**](WorldAPI.md#GetWorld) | **Get** /v1/world | Answers GET /v1/world — the product&#39;s public endpoint, naming every wire this surface answers on.
 [**GetWorldLimits**](WorldAPI.md#GetWorldLimits) | **Get** /v1/world/limits | Echoes a World plan&#39;s rate limits, alert quota and model-API grant, read straight from the live @hanzo/plans catalog, so agents and dashboards configure themselves against the catalog instead of hardcoding tier numbers.
 [**GetWorldNews**](WorldAPI.md#GetWorldNews) | **Get** /v1/world/news | Returns the caller&#39;s merged world-news feed: every source their project&#39;s pipeline names — GDELT once per keyword, plus each allowlisted RSS or Atom feed — fetched concurrently, narrowed by the pipeline&#39;s keyword/region/source filters, deduplicated by link and sorted freshest first, capped at 50 items.
 [**GetWorldPipeline**](WorldAPI.md#GetWorldPipeline) | **Get** /v1/world/pipeline | Returns the caller project&#39;s news pipeline: which feeds it reads and how the merged result is filtered.
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 > WorldIndex GetWorld(ctx).Execute()
 
-Answers GET /v1/world — the product's front door, naming every wire this surface answers on.
+Answers GET /v1/world — the product's public endpoint, naming every wire this surface answers on.
 
 
 

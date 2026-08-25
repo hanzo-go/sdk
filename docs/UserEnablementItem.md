@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CanOptIn** | Pointer to **bool** | beta &amp;&amp; not yet opted in | [optional] 
-**Effective** | Pointer to **bool** | visible to the caller&#39;s org | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**OptedIn** | Pointer to **bool** | caller&#39;s org on the beta list | [optional] 
-**State** | Pointer to **string** | off|beta|ga | [optional] 
+**CanOptIn** | Pointer to **bool** | CanOptIn is whether POST /v1/pricing/enablement/optin would do anything here: the item is in beta and this org is not on its list yet. False for a caller with no validated org, who has no org to enrol. | [optional] 
+**Effective** | Pointer to **bool** | Effective is whether the caller&#39;s org may use the item right now, which is the field to branch on: true for any ga item, for a beta this org holds, and never for an off one. | [optional] 
+**Id** | Pointer to **string** | ID is the item within that namespace — a model id, a provider name, or a feature key. | [optional] 
+**Kind** | Pointer to **string** | Kind is the namespace the id lives in: \&quot;model\&quot;, \&quot;provider\&quot; or \&quot;feature\&quot;. | [optional] 
+**OptedIn** | Pointer to **bool** | OptedIn is whether the caller&#39;s org is on this item&#39;s beta grant list. It can be true on an \&quot;off\&quot; item — the list survives the kill switch and is simply ignored while it is thrown — so it does not imply Effective. | [optional] 
+**State** | Pointer to **string** | State is the item&#39;s GLOBAL availability — \&quot;off\&quot;, \&quot;beta\&quot; or \&quot;ga\&quot; — which is the operator&#39;s setting and not this caller&#39;s answer. Effective is that. | [optional] 
 
 ## Methods
 

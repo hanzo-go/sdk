@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,15 +19,17 @@ var _ MappedNullable = &UserEnablementItem{}
 
 // UserEnablementItem struct for UserEnablementItem
 type UserEnablementItem struct {
-	// beta && not yet opted in
+	// CanOptIn is whether POST /v1/pricing/enablement/optin would do anything here: the item is in beta and this org is not on its list yet. False for a caller with no validated org, who has no org to enrol.
 	CanOptIn *bool `json:"canOptIn,omitempty"`
-	// visible to the caller's org
-	Effective *bool   `json:"effective,omitempty"`
-	Id        *string `json:"id,omitempty"`
-	Kind      *string `json:"kind,omitempty"`
-	// caller's org on the beta list
+	// Effective is whether the caller's org may use the item right now, which is the field to branch on: true for any ga item, for a beta this org holds, and never for an off one.
+	Effective *bool `json:"effective,omitempty"`
+	// ID is the item within that namespace — a model id, a provider name, or a feature key.
+	Id *string `json:"id,omitempty"`
+	// Kind is the namespace the id lives in: \"model\", \"provider\" or \"feature\".
+	Kind *string `json:"kind,omitempty"`
+	// OptedIn is whether the caller's org is on this item's beta grant list. It can be true on an \"off\" item — the list survives the kill switch and is simply ignored while it is thrown — so it does not imply Effective.
 	OptedIn *bool `json:"optedIn,omitempty"`
-	// off|beta|ga
+	// State is the item's GLOBAL availability — \"off\", \"beta\" or \"ga\" — which is the operator's setting and not this caller's answer. Effective is that.
 	State *string `json:"state,omitempty"`
 }
 

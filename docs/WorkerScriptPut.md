@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bindings** | Pointer to **interface{}** |  | [optional] 
-**CompatibilityDate** | Pointer to **string** |  | [optional] 
-**CompatibilityFlags** | Pointer to **[]string** |  | [optional] 
-**MainModule** | Pointer to **string** |  | [optional] 
-**Script** | Pointer to **string** |  | [optional] 
+**CompatibilityDate** | Pointer to **string** | CompatibilityDate pins which Workers runtime behaviour the script runs under, as a plain calendar date (\&quot;2024-01-01\&quot;). Absent leaves the account&#39;s own default in force. | [optional] 
+**CompatibilityFlags** | Pointer to **[]string** | CompatibilityFlags turn individual runtime behaviours on or off around that date (\&quot;nodejs_compat\&quot;), in Cloudflare&#39;s own flag vocabulary. Absent means the date alone decides. | [optional] 
+**MainModule** | Pointer to **string** | MainModule is the module file the runtime starts at. Absent means \&quot;worker.js\&quot;. | [optional] 
+**Script** | Pointer to **string** | Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker&#39;s ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker. | [optional] 
 
 ## Methods
 

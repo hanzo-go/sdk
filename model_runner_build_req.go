@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -45,7 +45,7 @@ type RunnerBuildReq struct {
 	Repo *string `json:"repo,omitempty"`
 	// SHA is the commit to pin; it wins over Ref and Branch.
 	Sha *string `json:"sha,omitempty"`
-	// Tag is the publish path segment, so both front doors write ONE index at ONE URL. It defaults to the pinned ref, and must be named explicitly for a branch.
+	// Tag is the publish path segment, so both entry points write ONE index at ONE URL. It defaults to the pinned ref, and must be named explicitly for a branch.
 	Tag *string `json:"tag,omitempty"`
 }
 

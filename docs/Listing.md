@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LastModified** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**LastModified** | Pointer to **string** | LastModified is when the BYTES last changed, as RFC 3339 in UTC to the second — &#x60;2026-01-02T03:04:05Z&#x60;, the sandbox&#39;s own &#x60;date -u -r&#x60; on the file. It is an mtime and not a creation time, so a file a later run overwrote carries that run&#39;s clock. Never empty: a row exists only because &#x60;find&#x60; stat-ed the file. | [optional] 
+**Name** | Pointer to **string** | Name is the file&#39;s IDENTIFIER, &#x60;{session_id}/{fileId}&#x60; whole — never the bare filename, and never URL-escaped. It is exactly what GET /v1/exec/download takes after its prefix, and hanzo.chat matches it as a PREFIX (&#x60;name.startsWith(session + \&quot;/\&quot;)&#x60;) to decide which rows belong to a session it is holding. &#x60;fileId&#x60; is the path RELATIVE to the session&#39;s artifact directory, so it carries &#x60;/&#x60; for anything the run wrote in a sub-directory. | [optional] 
 
 ## Methods
 

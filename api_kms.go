@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -259,21 +259,25 @@ type KmsAPIGetKmsSecretsRequest struct {
 	secretPath  *string
 }
 
+// Env selects the environment, which is part of a secret&#39;s storage key. OMITTED means EVERY environment — this is the enumeration surface, so it must be able to answer \&quot;what is in here\&quot; without being told where to look.
 func (r KmsAPIGetKmsSecretsRequest) Env(env string) KmsAPIGetKmsSecretsRequest {
 	r.env = &env
 	return r
 }
 
+// Environment is the KMS operator&#39;s spelling of Env, accepted so one caller need not learn the other&#39;s vocabulary. Env wins when both are sent.
 func (r KmsAPIGetKmsSecretsRequest) Environment(environment string) KmsAPIGetKmsSecretsRequest {
 	r.environment = &environment
 	return r
 }
 
+// Path narrows the listing to one subtree beneath the caller&#39;s org root, as a &#x60;/&#x60;-separated path such as &#x60;/ci&#x60;. OMITTED means the whole org.
 func (r KmsAPIGetKmsSecretsRequest) Path(path string) KmsAPIGetKmsSecretsRequest {
 	r.path = &path
 	return r
 }
 
+// SecretPath is the KMS operator&#39;s spelling of Path. Path wins when both are sent.
 func (r KmsAPIGetKmsSecretsRequest) SecretPath(secretPath string) KmsAPIGetKmsSecretsRequest {
 	r.secretPath = &secretPath
 	return r
@@ -430,7 +434,7 @@ bearer the caller then carries on the org-scoped secret operations.
 It is deliberately public and unauthenticated, because it IS the credential
 exchange and runs before any principal exists. That makes it the one route in
 this subsystem rate-limited PER SOURCE IP, keyed on the real TCP peer rather
-than on any caller-supplied header, and body-capped at the same door.
+than on any caller-supplied header, and body-capped in the same place.
 
 The submitted secret is never logged and never echoed, and failures collapse
 to one clean status with no upstream detail: 401 when the credential does not

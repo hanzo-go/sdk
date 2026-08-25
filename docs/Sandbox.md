@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Class** | Pointer to **string** | Class is what the sandbox is FOR, and it decides the image, the working directory and the isolation: \&quot;exec\&quot; for a code-interpreter call (workdir /mnt/data, no project, bounded per org), \&quot;dev\&quot; for a workspace bound to a project (workdir /work, single-attach), \&quot;desktop\&quot; for one with a screen. | [optional] 
+**ConnectedAt** | Pointer to **int32** | ConnectedAt is when somebody was last known to have this sandbox&#39;s project OPEN, Unix seconds. It is a fact with an EXPIRY rather than a flag: a watcher restamps it every beat of its stream, and it goes stale on its own when the stream dies, so nothing has to be turned off by a process that may not be there any more. The reaper reads it to choose WHICH idle allowance applies — see lifecycle.go.  Zero means nobody has said so, which puts the sandbox on the short clock. | [optional] 
 **CreatedAt** | Pointer to **int32** | CreatedAt is when the lease was first taken, Unix seconds. | [optional] 
 **Error** | Pointer to **string** | Error is why the sandbox could not come up, in plain words. Present only with status \&quot;error\&quot;, and it is the field to read rather than inferring a cause from the absence of a pod. | [optional] 
 **ExpiresAt** | Pointer to **int32** | ExpiresAt is when the lease ends, Unix seconds. Past it the reaper may take the sandbox at any time; it is a deadline, not a guarantee of survival until then, since an idle sandbox goes sooner. | [optional] 
@@ -61,6 +62,31 @@ SetClass sets Class field to given value.
 `func (o *Sandbox) HasClass() bool`
 
 HasClass returns a boolean if a field has been set.
+
+### GetConnectedAt
+
+`func (o *Sandbox) GetConnectedAt() int32`
+
+GetConnectedAt returns the ConnectedAt field if non-nil, zero value otherwise.
+
+### GetConnectedAtOk
+
+`func (o *Sandbox) GetConnectedAtOk() (*int32, bool)`
+
+GetConnectedAtOk returns a tuple with the ConnectedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConnectedAt
+
+`func (o *Sandbox) SetConnectedAt(v int32)`
+
+SetConnectedAt sets ConnectedAt field to given value.
+
+### HasConnectedAt
+
+`func (o *Sandbox) HasConnectedAt() bool`
+
+HasConnectedAt returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Product** | Pointer to **string** | Product is the product&#39;s name as customers know it. | [optional] 
 **Summary** | Pointer to **string** | Summary is one sentence naming what this surface serves. | [optional] 
-**Wires** | Pointer to [**[]WorldWire**](WorldWire.md) | Wires is every protocol door onto World, REST first. It is deliberately NOT a list of REST operations: GET /v1/openapi.json is the one enumeration of those, and a second copy here would be a second thing to keep true. | [optional] 
+**Wires** | Pointer to [**[]WorldWire**](WorldWire.md) | Wires is every protocol entry point onto World, REST first. It is deliberately NOT a list of REST operations: GET /v1/openapi.json is the one enumeration of those, and a second copy here would be a second thing to keep true. | [optional] 
 
 ## Methods
 

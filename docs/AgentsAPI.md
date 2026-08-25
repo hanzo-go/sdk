@@ -33,7 +33,7 @@ Method | HTTP request | Description
 [**PostAgentsCoding**](AgentsAPI.md#PostAgentsCoding) | **Post** /v1/agents/coding | Start one autonomous coding run against a repo in the caller&#39;s org
 [**PostAgentsSessions**](AgentsAPI.md#PostAgentsSessions) | **Post** /v1/agents/sessions | Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
 [**PostAgentsSessionsByIdEvents**](AgentsAPI.md#PostAgentsSessionsByIdEvents) | **Post** /v1/agents/sessions/{id}/events | Records one turn of a session&#39;s transcript and answers 201 with it.
-[**PostAgentsSessionsByIdMessage**](AgentsAPI.md#PostAgentsSessionsByIdMessage) | **Post** /v1/agents/sessions/{id}/message | Sends a steering message to a running session — the door a human or another agent interrupts through.
+[**PostAgentsSessionsByIdMessage**](AgentsAPI.md#PostAgentsSessionsByIdMessage) | **Post** /v1/agents/sessions/{id}/message | Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
 [**PostAgentsSessionsByIdPause**](AgentsAPI.md#PostAgentsSessionsByIdPause) | **Post** /v1/agents/sessions/{id}/pause | Asks a running session to pause.
 [**PostAgentsSessionsByIdResume**](AgentsAPI.md#PostAgentsSessionsByIdResume) | **Post** /v1/agents/sessions/{id}/resume | Asks a paused session to continue, on the same terms as a pause.
 [**PostAgentsSessionsByIdStop**](AgentsAPI.md#PostAgentsSessionsByIdStop) | **Post** /v1/agents/sessions/{id}/stop | Ends a running session.
@@ -1998,7 +1998,7 @@ Name | Type | Description  | Notes
 
 > ControlResult PostAgentsSessionsByIdMessage(ctx, id).ControlIn(controlIn).Execute()
 
-Sends a steering message to a running session — the door a human or another agent interrupts through.
+Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
 
 
 

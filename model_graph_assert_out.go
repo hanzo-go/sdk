@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -25,7 +25,7 @@ type GraphAssertOut struct {
 	Reasons []string `json:"reasons,omitempty"`
 	// Recorded is how many members became new rows.
 	Recorded *int32 `json:"recorded,omitempty"`
-	// Refused is how many members were turned away at the door, before the store was touched — a missing entity, a timestamp that is not RFC 3339, a confidence outside [0,1]. The rest of the batch was still recorded.
+	// Refused is how many members were turned away on arrival, before the store was touched — a missing entity, a timestamp that is not RFC 3339, a confidence outside [0,1]. The rest of the batch was still recorded.
 	Refused *int32 `json:"refused,omitempty"`
 }
 

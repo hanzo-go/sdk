@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **Ref** | Pointer to **string** | Ref is the git ref to build when no SHA is given. | [optional] 
 **Repo** | Pointer to **string** | Repo is the repository clone URL to build. Required on the image lane. | [optional] 
 **Sha** | Pointer to **string** | SHA is the commit to pin; it wins over Ref and Branch. | [optional] 
-**Tag** | Pointer to **string** | Tag is the publish path segment, so both front doors write ONE index at ONE URL. It defaults to the pinned ref, and must be named explicitly for a branch. | [optional] 
+**Tag** | Pointer to **string** | Tag is the publish path segment, so both entry points write ONE index at ONE URL. It defaults to the pinned ref, and must be named explicitly for a branch. | [optional] 
 
 ## Methods
 

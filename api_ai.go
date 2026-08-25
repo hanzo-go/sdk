@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -28,7 +28,7 @@ type AiAPIAiMCPToolsRequest struct {
 	names      *bool
 }
 
-// Names asks for this process&#39;s tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\&quot;is the door up and does it have anything behind it\&quot;) is answered by the count.
+// Names asks for this process&#39;s tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\&quot;is the MCP server up and does it have anything behind it\&quot;) is answered by the count.
 func (r AiAPIAiMCPToolsRequest) Names(names bool) AiAPIAiMCPToolsRequest {
 	r.names = &names
 	return r
@@ -39,15 +39,15 @@ func (r AiAPIAiMCPToolsRequest) Execute() (*AiMCPSurface, *http.Response, error)
 }
 
 /*
-AiMCPTools Tools reports what THIS PROCESS's MCP door carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+AiMCPTools Tools reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
 
-Tools reports what THIS PROCESS's MCP door carries: how many tools its own
+Tools reports what THIS PROCESS's MCP server carries: how many tools its own
 registry projects, optionally their names, and which subsystems this process
-composed. It is the answer to "is this door up and does it have anything behind
-it" — a question a status code cannot answer, since an empty door and a full
-one are both 200. What the FLEET's door carries is the fleet door's own answer:
-POST /v1/mcp, tools/list, which asks every subsystem and names the ones that
-did not reply.
+composed. It is the answer to "is this MCP server up and does it have anything
+behind it" — a question a status code cannot answer, since an empty server and
+a full one are both 200. What the FLEET's server carries is the fleet server's
+own answer: POST /v1/mcp, tools/list, which asks every subsystem and names the
+ones that did not reply.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AiAPIAiMCPToolsRequest

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -1406,7 +1406,7 @@ func (r SandboxAPIPostSandboxByIdScreenTicketRequest) Execute() (*TicketGrant, *
 PostSandboxByIdScreenTicket Mints a short-lived grant to open the screen of a desktop sandbox.
 
 Mints a short-lived grant to open the screen of a desktop
-sandbox. Same properties as the terminal ticket, for the other door.
+sandbox. Same properties as the terminal ticket, for the other endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the sandbox to address, from the path.

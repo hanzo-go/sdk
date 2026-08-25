@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -4450,7 +4450,7 @@ func (r BillingAPIPostBillingTopupRequest) Execute() (*Charged, *http.Response, 
 PostBillingTopup Charges a card the caller already saved and credits the balance.
 
 Charges a card the caller already saved and credits the
-balance. Same receipt and the same retry safety as the token door; the only
+balance. Same receipt and the same retry safety as the token endpoint; the only
 difference is which card, so a caller topping up from a saved method never
 re-enters one.
 

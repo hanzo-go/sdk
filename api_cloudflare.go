@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -2439,11 +2439,17 @@ func (r CloudflareAPIPostCloudflareD1DatabasesByDatabaseQueryRequest) Execute() 
 }
 
 /*
-PostCloudflareD1DatabasesByDatabaseQuery Run a SQL statement against a D1 database
+PostCloudflareD1DatabasesByDatabaseQuery Runs one SQL statement against a D1 database.
 
-Executes a statement on one D1 database on the org's OWN Cloudflare account and relays D1's result set. `sql` is required and `params` carries the bound values in placeholder order — use them rather than interpolating values into the statement.
+Runs one SQL statement against a D1 database. It executes on the org's
+OWN Cloudflare account and relays D1's result set. The body is checked for a
+non-empty `sql` and then forwarded VERBATIM, so every field D1 accepts reaches D1
+even though only two are named here.
 
-The body is checked for a non-empty `sql` and then forwarded VERBATIM, so every field D1 accepts reaches D1 even though only two are named here; the declared schema is open for that reason. That verbatim forward is why this is not a typed op — decoding and re-encoding the body would drop `params`, where the query's bound values live. Requires ORG ADMIN (403 otherwise); a malformed body or missing `sql` is 400; 503 if the org has never connected a Cloudflare token.
+Requires ORG ADMIN — a statement may INSERT, UPDATE or DROP, so a query takes the
+write gate rather than the read one — and a caller who is only an org member is
+refused 403. A missing `sql` is 400; 503 if the org has never connected a
+Cloudflare token.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param database
@@ -2479,6 +2485,9 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesByDatabaseQueryExecute(r
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.d1Query == nil {
+		return localVarReturnValue, nil, reportError("d1Query is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -3576,14 +3585,21 @@ func (r CloudflareAPIPutCloudflareWorkersScriptsByScriptRequest) Execute() (inte
 }
 
 /*
-PutCloudflareWorkersScriptsByScript Upload or replace a module Worker script
+PutCloudflareWorkersScriptsByScript Uploads or replaces a module Worker script.
 
-Publishes a module Worker to the org's OWN Cloudflare account under the name in the path, replacing whatever was there, and relays Cloudflare's result. `script` carries the module SOURCE; the optional compatibility date, compatibility flags and bindings are packed into the multipart upload Cloudflare expects.
+Uploads or replaces a module Worker script. It publishes to the
+org's OWN Cloudflare account under the name in the path, replacing whatever was
+there, and relays Cloudflare's result. The compatibility date, compatibility
+flags and bindings are packed into the multipart upload Cloudflare expects,
+beside the module source.
 
-The path names the script and the body field named `script` is its source — two different things that share a name, which is exactly why this cannot be a typed op: a binder that gives the URL the last word would overwrite the source with the script's name. Requires ORG ADMIN (403 otherwise); an unparseable body or empty source is 400; 503 if the org has never connected a Cloudflare token.
+Requires ORG ADMIN — a Worker is arbitrary code on the org's own account and
+domains — so a caller who is only an org member is refused 403. An empty source
+is 400, as is a `mainModule` that is not a plain file name; 503 if the org has
+never connected a Cloudflare token.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param script
+	@param script Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker's ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker.
 	@return CloudflareAPIPutCloudflareWorkersScriptsByScriptRequest
 */
 func (a *CloudflareAPIService) PutCloudflareWorkersScriptsByScript(ctx context.Context, script string) CloudflareAPIPutCloudflareWorkersScriptsByScriptRequest {
@@ -3616,6 +3632,9 @@ func (a *CloudflareAPIService) PutCloudflareWorkersScriptsByScriptExecute(r Clou
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.workerScriptPut == nil {
+		return localVarReturnValue, nil, reportError("workerScriptPut is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

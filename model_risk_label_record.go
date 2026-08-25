@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -27,7 +27,7 @@ type RiskLabelRecord struct {
 	Confidence *float32 `json:"confidence,omitempty"`
 	// Disposition is what was concluded, from the closed set: `productive` — the event led somewhere, escalated, reported or charged back; `unproductive` — judged not suspicious; or the empty string for an explicit UNJUDGED, which is a real assertion (\"we looked and could not say\") and not the absence of one.
 	Disposition *string `json:"disposition,omitempty"`
-	// Evidence is the pointer to the record this conclusion came from: a dispute id, a case id, a decision id. At most 512 bytes, required at the write, and opaque to this plane — stored and returned verbatim, never resolved. It is what an adverse action is defended with, which is why an assertion carrying none is refused at the door.
+	// Evidence is the pointer to the record this conclusion came from: a dispute id, a case id, a decision id. At most 512 bytes, required at the write, and opaque to this plane — stored and returned verbatim, never resolved. It is what an adverse action is defended with, which is why an assertion carrying none is refused at the endpoint.
 	Evidence *string `json:"evidence,omitempty"`
 	// Hold is true while a litigation hold is on this record: retention will not dispose of it, at any age. False — and it is omitted then — leaves the record disposable once it is older than the boundary a sweep names. It is a fact about the RECORD and not about the world, so it is not folded into ID, no write path can set it, and the hold op is the one way it moves in either direction.
 	Hold *bool `json:"hold,omitempty"`

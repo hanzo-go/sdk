@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Duplicate** | Pointer to **int32** | Duplicate is how many members this plane already held. A redelivery collides on its content address and is counted here, not refused: it is the success a retrying caller depends on. | [optional] 
 **Reasons** | Pointer to **[]string** | Reasons names why each refused member was refused, in the order sent. | [optional] 
 **Recorded** | Pointer to **int32** | Recorded is how many members became new rows. | [optional] 
-**Refused** | Pointer to **int32** | Refused is how many members were turned away at the door, before the store was touched — a missing entity, a timestamp that is not RFC 3339, a confidence outside [0,1]. The rest of the batch was still recorded. | [optional] 
+**Refused** | Pointer to **int32** | Refused is how many members were turned away on arrival, before the store was touched — a missing entity, a timestamp that is not RFC 3339, a confidence outside [0,1]. The rest of the batch was still recorded. | [optional] 
 
 ## Methods
 

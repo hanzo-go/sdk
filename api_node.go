@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -341,7 +341,7 @@ A machine hop, not a caller-facing route. A node's socket lands on one replica w
 
 It authenticates with the shared peer token, compared in constant time, and carries no user identity at all. That is why the org arrives IN THE BODY here: the forwarding replica already derived it from a gateway-validated header, so the value is a fact being relayed rather than a claim being made. On any caller-facing route the same field would be a cross-tenant invoke primitive.
 
-It fails closed on its own configuration: with no peer token set, or a half-wired cluster that has presence but no way to forward, it serves 503 and forwards nothing — an unauthenticated endpoint that takes an org from a body is precisely the hole. A missing or wrong token is 403, and the forwarded body is bounded on read.
+It fails closed on its own configuration: with no peer token set, or a half-wired cluster that has presence but no way to forward, it serves 503 and forwards nothing — an unauthenticated endpoint that takes an org from a body is precisely the hole. A missing or wrong token is 403, and the forwarded body is bounded.
 
 Two things to get right. Its refusals are text/plain rather than the JSON every zip error uses, so a client decoding them as JSON will fail on the error path only. And an invocation that RAN but was denied still answers 200 here, carrying a stable error token in the JSON body — no such node, timeout, node gone, denied, failed — which the calling replica maps back onto the status codes a caller sees. Authorization already ran on this replica at the socket and is deliberately not repeated.
 

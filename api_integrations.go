@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -4306,7 +4306,7 @@ func (r IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest) Execute() (map[
 /*
 PostIntegrationsOpenrouterWebhook Receive OpenRouter Broadcast traces as usage rows
 
-OpenRouter's spend is invisible to every Hanzo money lens because those lenses read hanzo.cloud_usage and OpenRouter meters keys of its own. Point a Broadcast destination (Settings ▸ Observability ▸ Webhook) at this door and each generation span becomes ONE row in that same ledger with provider `openrouter`, so one query answers what we spend everywhere. Enable the Cost and Identity field categories: cost is the money and identity carries `openrouter.api_key_name`, which is what says WHICH key spent it — it lands in `account` as openrouter/<key name>.
+OpenRouter's spend is invisible to every Hanzo money lens because those lenses read hanzo.cloud_usage and OpenRouter meters keys of its own. Point a Broadcast destination (Settings ▸ Observability ▸ Webhook) at this endpoint and each generation span becomes ONE row in that same ledger with provider `openrouter`, so one query answers what we spend everywhere. Enable the Cost and Identity field categories: cost is the money and identity carries `openrouter.api_key_name`, which is what says WHICH key spent it — it lands in `account` as openrouter/<key name>.
 
 AUTHENTICATION IS A HANZO KEY. Broadcast signs nothing; its only authentication is the destination's Headers map, so send a key as `Authorization: Bearer pk-…` and it is admitted exactly as /v1/event admits a beacon's: a project key resolves through the project that minted it, an IAM-issued key through IAM. That key names the org every row is filed under; it can write and cannot read. No key, or a key that names no org, is 401 and nothing is stored.
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -35,7 +35,7 @@ type CreateAgentIn struct {
 	Schedule *string `json:"schedule,omitempty"`
 	// ServiceAccountID optionally names the IAM agent service account (<org>-<agent>) a scheduled run should be billed AS, so an autonomous run is attributable to a principal rather than only to the org. Same 256-character bound, also unresolved here.
 	ServiceAccountId *string `json:"serviceAccountId,omitempty"`
-	// Tools are the tool names this agent may call. Omitted or empty grants NONE — that default is the agent's authority and is not widened anywhere. The single entry \"*\" means whatever the fleet's tool door serves at the time of each run.
+	// Tools are the tool names this agent may call. Omitted or empty grants NONE — that default is the agent's authority and is not widened anywhere. The single entry \"*\" means whatever the fleet's MCP server serves at the time of each run.
 	Tools []string `json:"tools,omitempty"`
 }
 

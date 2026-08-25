@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -400,8 +400,8 @@ and lets its model learn from them. It answers how many it learned from.
 IT DOES NOT SCORE, AND THAT IS THE POINT. An observation is a value you record;
 learning is a transformation over observations; a verdict is a query against the
 result. This op is the first two. [ops.score] is the third, it is pure, and it
-is the ONE door to a verdict. They were one call, which meant you could not
-record without training and could not train without being answered — and the
+is the ONE entry point to a verdict. They were one call, which meant you could
+not record without training and could not train without being answered — and the
 model ran twice over every event to produce a verdict the response carried and
 no caller read.
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,9 +23,9 @@ type TopupIn struct {
 	AmountCents *int32 `json:"amountCents,omitempty"`
 	// Currency is the ISO-4217 code to charge in. Empty takes the deployment's own default.
 	Currency *string `json:"currency,omitempty"`
-	// MethodID names a card the subject already saved, for the saved-card door.
+	// MethodID names a card the subject already saved, for the saved-card endpoint.
 	PaymentMethodId *string `json:"paymentMethodId,omitempty"`
-	// SourceID is a single-use card token from the payment form, for the token door. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one.
+	// SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one.
 	SourceId *string `json:"sourceId,omitempty"`
 }
 

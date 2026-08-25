@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -323,7 +323,7 @@ PostWebsearchScrape Fetch one page and get its extracted markdown, in the firecr
 
 Takes {url} and answers {success, data:{markdown, metadata}} — the exact contract a firecrawl client decodes. The fetch, extraction and optional browser render run in-process; there is no crawler pod to be down.
 
-The shared service key is required as an Authorization Bearer, compared in constant time: unset on the deployment is 503, missing or wrong is 401. Unlike search, a validated principal does NOT substitute for it — this is the service-to-service door.
+The shared service key is required as an Authorization Bearer, compared in constant time: unset on the deployment is 503, missing or wrong is 401. Unlike search, a validated principal does NOT substitute for it — this is the service-to-service endpoint.
 
 A page is archived under the caller's own org and project, taken from the verified principal when there is one, so a scrape lands in the same corpus /v1/crawl fills and a URL already read under that scope is answered from the archive without touching the network. A service caller carrying no principal shares the unscoped prefix.
 
@@ -635,12 +635,30 @@ bot-challenge page contributes zero results and never fails the call, so an
 empty `results` is a real answer — nothing was found — and not an outage. The
 array is always present, never null.
 
+Two refusals in the order they have to be asked, both in the PREAMBLE. A typed
+op is also an MCP tool, a call-plane operation, a graph field and a CLI
+command, and every one of those invokes it with no route and therefore no
+middleware — so what admits a caller here is asked where every caller reaches
+it rather than in a middleware only one of them passes through.
+
 A VALIDATED PRINCIPAL IS REQUIRED, and there is no tenant beyond that: the
 results are public web pages, identical for every caller, so nothing here is
-scoped and nothing here can leak across orgs. A typed op is also an MCP tool
-and a CLI command, and tools/call invokes it with no route and therefore no
-middleware — so the gate is in the handler, where every door reaches it, rather
-than in a middleware only one door passes through.
+scoped and nothing here can leak across orgs.
+
+THEN THE ANTI-FORGERY TOKEN, immediately before the money, because that is
+what it is about. This search is the SAME bought meta-search the compat
+endpoint runs — the engines cost, and account.Shared/meter.go bills the
+caller's ledger for the answer — so a page the caller never visited must not
+be able to spend for them by sending their browser here with a cookie they
+already hold. Nothing leaks; the answer is unreadable cross-origin. What
+moves is money.
+
+It is account's control, the one every operation in this estate asks, and it
+is a no-op the moment a caller PRESENTS a credential (Bearer, gateway, API
+key) — which is every service and console caller here — so it costs a CLI, an
+agent and an API client nothing. Only the ambient-cookie path is asked for the
+echoed token. The raw /v1/websearch/search route asks the same control on its
+group (see Mount), so the two addresses of one search are admitted alike.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return WebsearchAPISearchWebRequest

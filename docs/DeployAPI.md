@@ -20,10 +20,10 @@ Method | HTTP request | Description
 [**GetDeployStreamApplications**](DeployAPI.md#GetDeployStreamApplications) | **Get** /v1/deploy/stream/applications | Live application fleet updates as Server-Sent Events
 [**GetDeployStreamApplicationsByNameResourceTree**](DeployAPI.md#GetDeployStreamApplicationsByNameResourceTree) | **Get** /v1/deploy/stream/applications/{name}/resource-tree | Live resource tree for one application, as Server-Sent Events
 [**GetDeployVersion**](DeployAPI.md#GetDeployVersion) | **Get** /v1/deploy/version | Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
-[**PostDeployApplicationsByNameRollback**](DeployAPI.md#PostDeployApplicationsByNameRollback) | **Post** /v1/deploy/applications/{name}/rollback | The console&#39;s rollback control — today it requests a reconcile, nothing more
-[**PostDeployApplicationsByNameSync**](DeployAPI.md#PostDeployApplicationsByNameSync) | **Post** /v1/deploy/applications/{name}/sync | Ask the operator to reconcile one application now
-[**PostDeployLogout**](DeployAPI.md#PostDeployLogout) | **Post** /v1/deploy/logout | End the console session on this host
-[**PostDeployReconcile**](DeployAPI.md#PostDeployReconcile) | **Post** /v1/deploy/reconcile | Render the configured git source and apply it to the cluster, once
+[**PostDeployApplicationsByNameRollback**](DeployAPI.md#PostDeployApplicationsByNameRollback) | **Post** /v1/deploy/applications/{name}/rollback | Serves the console&#39;s rollback control, and today it requests a reconcile and nothing more.
+[**PostDeployApplicationsByNameSync**](DeployAPI.md#PostDeployApplicationsByNameSync) | **Post** /v1/deploy/applications/{name}/sync | Asks the operator to reconcile ONE application now.
+[**PostDeployLogout**](DeployAPI.md#PostDeployLogout) | **Post** /v1/deploy/logout | Ends the console session on this host.
+[**PostDeployReconcile**](DeployAPI.md#PostDeployReconcile) | **Post** /v1/deploy/reconcile | Renders the configured git source and applies it to the cluster, once.
 
 
 
@@ -1045,9 +1045,9 @@ Other parameters are passed through a pointer to a apiGetDeployVersionRequest st
 
 ## PostDeployApplicationsByNameRollback
 
-> PostDeployApplicationsByNameRollback(ctx, name).Execute()
+> ArgoApp PostDeployApplicationsByNameRollback(ctx, name).Execute()
 
-The console's rollback control — today it requests a reconcile, nothing more
+Serves the console's rollback control, and today it requests a reconcile and nothing more.
 
 
 
@@ -1064,15 +1064,17 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | 
+	name := "name_example" // string | Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR's metadata.name satisfies that, and anything else is a 400 rather than a lookup.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.PostDeployApplicationsByNameRollback(context.Background(), name).Execute()
+	resp, r, err := apiClient.DeployAPI.PostDeployApplicationsByNameRollback(context.Background(), name).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployApplicationsByNameRollback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostDeployApplicationsByNameRollback`: ArgoApp
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.PostDeployApplicationsByNameRollback`: %v\n", resp)
 }
 ```
 
@@ -1082,7 +1084,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. | 
 
 ### Other Parameters
 
@@ -1095,7 +1097,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**ArgoApp**](ArgoApp.md)
 
 ### Authorization
 
@@ -1104,7 +1106,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1113,9 +1115,9 @@ Name | Type | Description  | Notes
 
 ## PostDeployApplicationsByNameSync
 
-> PostDeployApplicationsByNameSync(ctx, name).Execute()
+> ArgoApp PostDeployApplicationsByNameSync(ctx, name).Execute()
 
-Ask the operator to reconcile one application now
+Asks the operator to reconcile ONE application now.
 
 
 
@@ -1132,15 +1134,17 @@ import (
 )
 
 func main() {
-	name := "name_example" // string | 
+	name := "name_example" // string | Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR's metadata.name satisfies that, and anything else is a 400 rather than a lookup.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.PostDeployApplicationsByNameSync(context.Background(), name).Execute()
+	resp, r, err := apiClient.DeployAPI.PostDeployApplicationsByNameSync(context.Background(), name).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployApplicationsByNameSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostDeployApplicationsByNameSync`: ArgoApp
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.PostDeployApplicationsByNameSync`: %v\n", resp)
 }
 ```
 
@@ -1150,7 +1154,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. | 
 
 ### Other Parameters
 
@@ -1163,7 +1167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**ArgoApp**](ArgoApp.md)
 
 ### Authorization
 
@@ -1172,7 +1176,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1181,9 +1185,9 @@ Name | Type | Description  | Notes
 
 ## PostDeployLogout
 
-> PostDeployLogout(ctx).Execute()
+> SessionEnded PostDeployLogout(ctx).Execute()
 
-End the console session on this host
+Ends the console session on this host.
 
 
 
@@ -1203,11 +1207,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.PostDeployLogout(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.PostDeployLogout(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployLogout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostDeployLogout`: SessionEnded
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.PostDeployLogout`: %v\n", resp)
 }
 ```
 
@@ -1222,7 +1228,7 @@ Other parameters are passed through a pointer to a apiPostDeployLogoutRequest st
 
 ### Return type
 
- (empty response body)
+[**SessionEnded**](SessionEnded.md)
 
 ### Authorization
 
@@ -1231,7 +1237,7 @@ Other parameters are passed through a pointer to a apiPostDeployLogoutRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1240,9 +1246,9 @@ Other parameters are passed through a pointer to a apiPostDeployLogoutRequest st
 
 ## PostDeployReconcile
 
-> PostDeployReconcile(ctx).Execute()
+> ReconcileReport PostDeployReconcile(ctx).Execute()
 
-Render the configured git source and apply it to the cluster, once
+Renders the configured git source and applies it to the cluster, once.
 
 
 
@@ -1262,11 +1268,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.PostDeployReconcile(context.Background()).Execute()
+	resp, r, err := apiClient.DeployAPI.PostDeployReconcile(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployReconcile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostDeployReconcile`: ReconcileReport
+	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.PostDeployReconcile`: %v\n", resp)
 }
 ```
 
@@ -1281,7 +1289,7 @@ Other parameters are passed through a pointer to a apiPostDeployReconcileRequest
 
 ### Return type
 
- (empty response body)
+[**ReconcileReport**](ReconcileReport.md)
 
 ### Authorization
 
@@ -1290,7 +1298,7 @@ Other parameters are passed through a pointer to a apiPostDeployReconcileRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

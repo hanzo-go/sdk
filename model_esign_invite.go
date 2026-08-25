@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -27,7 +27,7 @@ type EsignInvite struct {
 	Name *string `json:"name,omitempty"`
 	// Role is the role they were recorded with — SIGNER unless another was asked for.
 	Role *string `json:"role,omitempty"`
-	// Token is the crypto-random signing capability for this recipient. It is the entire credential their door accepts, so treat it as a secret and hand it only to them: the signing link is built from it.
+	// Token is the crypto-random signing capability for this recipient. It is the entire credential their signing endpoint accepts, so treat it as a secret and hand it only to them: the signing link is built from it.
 	Token *string `json:"token,omitempty"`
 }
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -3137,7 +3137,7 @@ and a slug is derived or minted when none is given.
 
 It writes into the SAME org-scoped store as /v1/projects — it ensures a
 project (framework `static`) for the resolved slug and records a deployment —
-so this is a second door onto one publish pipeline, not a second copy of
+so this is a second entry point to one publish pipeline, not a second copy of
 project state. Ordering is the billing contract: the hosting gate runs BEFORE
 any inference or upload, so a denied gate generates and uploads NOTHING, and
 the debit lands once, only after the site is actually live. The tokens are

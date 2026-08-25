@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,7 +23,7 @@ type HealthReport struct {
 	Datastore *bool `json:"datastore,omitempty"`
 	// Lenses is per-lens table availability, probed only when connected — so it is absent from a degraded report, which has nothing to say about tables it could not reach.
 	Lenses *HealthLenses `json:"lenses,omitempty"`
-	// Lost is the count of facts the sink irrecoverably dropped since boot (warehouse.go). It is reported on the DEGRADED report too, and deliberately: a warehouse that is unreachable is exactly when facts start failing their deliveries, so suppressing the number here would hide it precisely when it moves. ANY NON-ZERO VALUE IS AN ALARM — it counts data the door already answered 200 for.
+	// Lost is the count of facts the sink irrecoverably dropped since boot (warehouse.go). It is reported on the DEGRADED report too, and deliberately: a warehouse that is unreachable is exactly when facts start failing their deliveries, so suppressing the number here would hide it precisely when it moves. ANY NON-ZERO VALUE IS AN ALARM — it counts data the endpoint already answered 200 for.
 	Lost *Loss `json:"lost,omitempty"`
 	// Plane reports the event plane — the bus and the stream every accepted event is published to BEFORE any of it reaches the warehouse. It is load-bearing for the WRITE path, and it is here because its absence was a real outage: this endpoint answered 200/ok on warehouse connectivity alone while every POST /v1/event 503'd on a stream that could not bind, so 100% ingest loss was invisible to monitoring. A probe that cannot see the write path cannot report the write path.
 	Plane *HealthPlane `json:"plane,omitempty"`

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -21,7 +21,7 @@ var _ MappedNullable = &ProviderInfo{}
 type ProviderInfo struct {
 	// DisplayName is the human label for the sign-in button; this deployment sends \"Hanzo\". Omitted from the body when empty.
 	DisplayName *string `json:"displayName,omitempty"`
-	// Name is the provider id, and it is the value that goes back in the URL to start a login: GET /v1/team/account/auth/{provider}. This deployment surfaces exactly one, \"openid\" — the hanzo.id door.
+	// Name is the provider id, and it is the value that goes back in the URL to start a login: GET /v1/team/account/auth/{provider}. This deployment surfaces exactly one, \"openid\" — the hanzo.id provider.
 	Name *string `json:"name,omitempty"`
 }
 

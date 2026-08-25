@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -590,12 +590,12 @@ recipient must fill, and the PDF to display. The first open also marks the
 recipient as having opened it and records that on the audit trail, so this read
 has a side effect by design.
 
-This door takes NO account: the signing token is the entire credential, and it
-names the recipient, so a signer sees only their own fields and never the other
-recipients' tokens. The token resolves to its owning tenant FIRST, before any
-per-tenant store is opened, and the org segment is only checked against that
-answer. An unknown or wrong-org token is one and the same 404, never a hint that
-some other document exists.
+This surface takes NO account: the signing token is the entire credential, and
+it names the recipient, so a signer sees only their own fields and never the
+other recipients' tokens. The token resolves to its owning tenant FIRST, before
+any per-tenant store is opened, and the org segment is only checked against
+that answer. An unknown or wrong-org token is one and the same 404, never a
+hint that some other document exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param org
@@ -715,7 +715,7 @@ storage rather than into the tenant database, and the original is kept under its
 own key so it survives sealing untouched: a completed document can always be
 compared against what was uploaded. Creation is recorded on the audit trail.
 
-This is the sender's door: a validated principal is required, and the document
+This is the sender's surface: a validated principal is required, and the document
 lands in that principal's OWN org. Isolation is physical rather than a filter —
 each tenant has its own store — so another org's document id is simply not
 there. A body over 32 MiB is refused with 413.
@@ -957,9 +957,10 @@ PostEsignDocumentsByIdRecipients Adds someone to a draft and mints their signing
 Adds someone to a draft and mints their signing token.
 
 It answers 201 with the recipient's id and their signing TOKEN — the
-crypto-random capability that is the only credential the signer's door accepts —
-so this response is where the signing link is built from. A CC recipient is
-recorded as already complete, because they are never asked to sign.
+crypto-random capability that is the only credential the signer's surface
+accepts — so this response is where the signing link is built from. A CC
+recipient is recorded as already complete, because they are never asked to
+sign.
 
 Only while DRAFT: adding a recipient to a document already sent is a 409,
 because the field layout and the turn order were fixed when it went out. An

@@ -419,7 +419,7 @@ Other parameters are passed through a pointer to a apiGetTeamBillingPlanRequest 
 
 ## GetTeamBillingUi
 
-> GetTeamBillingUi(ctx).Execute()
+> *os.File GetTeamBillingUi(ctx).Execute()
 
 Open the wallet page
 
@@ -441,11 +441,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.GetTeamBillingUi(context.Background()).Execute()
+	resp, r, err := apiClient.TeamAPI.GetTeamBillingUi(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamBillingUi``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetTeamBillingUi`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamBillingUi`: %v\n", resp)
 }
 ```
 
@@ -460,7 +462,7 @@ Other parameters are passed through a pointer to a apiGetTeamBillingUiRequest st
 
 ### Return type
 
- (empty response body)
+[***os.File**](*os.File.md)
 
 ### Authorization
 
@@ -469,7 +471,7 @@ Other parameters are passed through a pointer to a apiGetTeamBillingUiRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: text/html; charset=utf-8
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -598,7 +600,7 @@ Other parameters are passed through a pointer to a apiGetTeamCollaboratorRequest
 
 ## GetTeamFilesByWorkspaceByFilename
 
-> GetTeamFilesByWorkspaceByFilename(ctx, workspace, filename).Execute()
+> *os.File GetTeamFilesByWorkspaceByFilename(ctx, workspace, filename).Execute()
 
 Download a workspace file
 
@@ -622,11 +624,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.GetTeamFilesByWorkspaceByFilename(context.Background(), workspace, filename).Execute()
+	resp, r, err := apiClient.TeamAPI.GetTeamFilesByWorkspaceByFilename(context.Background(), workspace, filename).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamFilesByWorkspaceByFilename``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `GetTeamFilesByWorkspaceByFilename`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamFilesByWorkspaceByFilename`: %v\n", resp)
 }
 ```
 
@@ -651,7 +655,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[***os.File**](*os.File.md)
 
 ### Authorization
 
@@ -660,7 +664,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1061,7 +1065,7 @@ Name | Type | Description  | Notes
 
 ## PostTeamFilesByWorkspace
 
-> PostTeamFilesByWorkspace(ctx, workspace).Execute()
+> *os.File PostTeamFilesByWorkspace(ctx, workspace).Body(body).Execute()
 
 Upload a file into a workspace
 
@@ -1081,14 +1085,17 @@ import (
 
 func main() {
 	workspace := "workspace_example" // string | 
+	body := os.NewFile(1234, "some_file") // *os.File |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.PostTeamFilesByWorkspace(context.Background(), workspace).Execute()
+	resp, r, err := apiClient.TeamAPI.PostTeamFilesByWorkspace(context.Background(), workspace).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamFilesByWorkspace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostTeamFilesByWorkspace`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamFilesByWorkspace`: %v\n", resp)
 }
 ```
 
@@ -1108,10 +1115,11 @@ Other parameters are passed through a pointer to a apiPostTeamFilesByWorkspaceRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **body** | ***os.File** |  | 
 
 ### Return type
 
- (empty response body)
+[***os.File**](*os.File.md)
 
 ### Authorization
 
@@ -1119,8 +1127,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/octet-stream
+- **Accept**: text/plain; charset=utf-8
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1129,7 +1137,7 @@ Name | Type | Description  | Notes
 
 ## PutTeamAccountCookie
 
-> PutTeamAccountCookie(ctx).Execute()
+> CookieAck PutTeamAccountCookie(ctx).Execute()
 
 Store the session token as this browser's cookie
 
@@ -1151,11 +1159,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.PutTeamAccountCookie(context.Background()).Execute()
+	resp, r, err := apiClient.TeamAPI.PutTeamAccountCookie(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PutTeamAccountCookie``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PutTeamAccountCookie`: CookieAck
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PutTeamAccountCookie`: %v\n", resp)
 }
 ```
 
@@ -1170,7 +1180,7 @@ Other parameters are passed through a pointer to a apiPutTeamAccountCookieReques
 
 ### Return type
 
- (empty response body)
+[**CookieAck**](CookieAck.md)
 
 ### Authorization
 
@@ -1179,7 +1189,7 @@ Other parameters are passed through a pointer to a apiPutTeamAccountCookieReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

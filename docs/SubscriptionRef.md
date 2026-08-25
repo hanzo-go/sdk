@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AtPeriodEnd** | Pointer to **bool** | AtPeriodEnd cancels at the end of the paid period rather than at once. It defaults TRUE on the door, because a customer who cancels has already paid for the period they are in. | [optional] 
+**AtPeriodEnd** | Pointer to **bool** | AtPeriodEnd cancels at the end of the paid period rather than at once. It defaults TRUE on the endpoint, because a customer who cancels has already paid for the period they are in. | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 
 ## Methods

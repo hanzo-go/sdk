@@ -21,18 +21,18 @@ Method | HTTP request | Description
 [**GetCaptableShares**](CaptableAPI.md#GetCaptableShares) | **Get** /v1/captable/shares | Returns the caller org&#39;s share certificates, newest first.
 [**GetCaptableStakeholders**](CaptableAPI.md#GetCaptableStakeholders) | **Get** /v1/captable/stakeholders | Returns the caller org&#39;s stakeholders, newest first.
 [**GetCaptableSummary**](CaptableAPI.md#GetCaptableSummary) | **Get** /v1/captable/summary | Computes the caller org&#39;s cap table.
-[**PatchCaptableClassesById**](CaptableAPI.md#PatchCaptableClassesById) | **Patch** /v1/captable/classes/{id} | Amend a share class
+[**PatchCaptableClassesById**](CaptableAPI.md#PatchCaptableClassesById) | **Patch** /v1/captable/classes/{id} | Replaces one share class&#39;s terms.
 [**PatchCaptableStakeholdersById**](CaptableAPI.md#PatchCaptableStakeholdersById) | **Patch** /v1/captable/stakeholders/{id} | Changes one of the caller org&#39;s stakeholders.
-[**PostCaptableClasses**](CaptableAPI.md#PostCaptableClasses) | **Post** /v1/captable/classes | Define a share class
-[**PostCaptableConvertibles**](CaptableAPI.md#PostCaptableConvertibles) | **Post** /v1/captable/convertibles | Record a convertible note
-[**PostCaptableOptions**](CaptableAPI.md#PostCaptableOptions) | **Post** /v1/captable/options | Grant options from an equity plan
-[**PostCaptablePlans**](CaptableAPI.md#PostCaptablePlans) | **Post** /v1/captable/plans | Open an equity incentive plan
-[**PostCaptableRounds**](CaptableAPI.md#PostCaptableRounds) | **Post** /v1/captable/rounds | Open a funding round
+[**PostCaptableClasses**](CaptableAPI.md#PostCaptableClasses) | **Post** /v1/captable/classes | Defines a new class of shares.
+[**PostCaptableConvertibles**](CaptableAPI.md#PostCaptableConvertibles) | **Post** /v1/captable/convertibles | Records a convertible note.
+[**PostCaptableOptions**](CaptableAPI.md#PostCaptableOptions) | **Post** /v1/captable/options | Grants options to a stakeholder from an equity plan.
+[**PostCaptablePlans**](CaptableAPI.md#PostCaptablePlans) | **Post** /v1/captable/plans | Opens an equity plan that options are granted from.
+[**PostCaptableRounds**](CaptableAPI.md#PostCaptableRounds) | **Post** /v1/captable/rounds | Opens a priced round that investments can be added to.
 [**PostCaptableRoundsByIdClose**](CaptableAPI.md#PostCaptableRoundsByIdClose) | **Post** /v1/captable/rounds/{id}/close | Closes one of the caller org&#39;s fundraising rounds, recording the close date and moving its status to CLOSED.
-[**PostCaptableRoundsByIdInvestments**](CaptableAPI.md#PostCaptableRoundsByIdInvestments) | **Post** /v1/captable/rounds/{id}/investments | Record an investment into a round
-[**PostCaptableSafes**](CaptableAPI.md#PostCaptableSafes) | **Post** /v1/captable/safes | Record a SAFE
-[**PostCaptableShares**](CaptableAPI.md#PostCaptableShares) | **Post** /v1/captable/shares | Issue a share certificate
-[**PostCaptableSharesTransfer**](CaptableAPI.md#PostCaptableSharesTransfer) | **Post** /v1/captable/shares/transfer | Transfer shares to another stakeholder
+[**PostCaptableRoundsByIdInvestments**](CaptableAPI.md#PostCaptableRoundsByIdInvestments) | **Post** /v1/captable/rounds/{id}/investments | Records one investor&#39;s money into an open round.
+[**PostCaptableSafes**](CaptableAPI.md#PostCaptableSafes) | **Post** /v1/captable/safes | Records a SAFE — a simple agreement for future equity.
+[**PostCaptableShares**](CaptableAPI.md#PostCaptableShares) | **Post** /v1/captable/shares | Issues a share certificate to a stakeholder.
+[**PostCaptableSharesTransfer**](CaptableAPI.md#PostCaptableSharesTransfer) | **Post** /v1/captable/shares/transfer | Moves shares from one stakeholder to another.
 [**PostCaptableStakeholders**](CaptableAPI.md#PostCaptableStakeholders) | **Post** /v1/captable/stakeholders | Add stakeholders to the cap table
 [**PutCaptableCompany**](CaptableAPI.md#PutCaptableCompany) | **Put** /v1/captable/company | Sets the caller org&#39;s company name and incorporation details.
 
@@ -1131,9 +1131,9 @@ Other parameters are passed through a pointer to a apiGetCaptableSummaryRequest 
 
 ## PatchCaptableClassesById
 
-> PatchCaptableClassesById(ctx, id).Execute()
+> CaptableUpdated PatchCaptableClassesById(ctx, id).CaptableShareClassAmend(captableShareClassAmend).Execute()
 
-Amend a share class
+Replaces one share class's terms.
 
 
 
@@ -1150,15 +1150,18 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims.
+	captableShareClassAmend := *openapiclient.NewCaptableShareClassAmend() // CaptableShareClassAmend | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PatchCaptableClassesById(context.Background(), id).Execute()
+	resp, r, err := apiClient.CaptableAPI.PatchCaptableClassesById(context.Background(), id).CaptableShareClassAmend(captableShareClassAmend).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PatchCaptableClassesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PatchCaptableClassesById`: CaptableUpdated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PatchCaptableClassesById`: %v\n", resp)
 }
 ```
 
@@ -1168,7 +1171,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims. | 
 
 ### Other Parameters
 
@@ -1178,10 +1181,11 @@ Other parameters are passed through a pointer to a apiPatchCaptableClassesByIdRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **captableShareClassAmend** | [**CaptableShareClassAmend**](CaptableShareClassAmend.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**CaptableUpdated**](CaptableUpdated.md)
 
 ### Authorization
 
@@ -1189,8 +1193,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1271,9 +1275,9 @@ Name | Type | Description  | Notes
 
 ## PostCaptableClasses
 
-> PostCaptableClasses(ctx).Execute()
+> CaptableCreated PostCaptableClasses(ctx).CaptableShareClassIn(captableShareClassIn).Execute()
 
-Define a share class
+Defines a new class of shares.
 
 
 
@@ -1290,29 +1294,36 @@ import (
 )
 
 func main() {
+	captableShareClassIn := *openapiclient.NewCaptableShareClassIn() // CaptableShareClassIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptableClasses(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableClasses(context.Background()).CaptableShareClassIn(captableShareClassIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableClasses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptableClasses`: CaptableCreated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableClasses`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCaptableClassesRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **captableShareClassIn** | [**CaptableShareClassIn**](CaptableShareClassIn.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**CaptableCreated**](CaptableCreated.md)
 
 ### Authorization
 
@@ -1320,8 +1331,8 @@ Other parameters are passed through a pointer to a apiPostCaptableClassesRequest
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1330,9 +1341,9 @@ Other parameters are passed through a pointer to a apiPostCaptableClassesRequest
 
 ## PostCaptableConvertibles
 
-> PostCaptableConvertibles(ctx).Execute()
+> CaptableCreated PostCaptableConvertibles(ctx).CaptableConvertibleIn(captableConvertibleIn).Execute()
 
-Record a convertible note
+Records a convertible note.
 
 
 
@@ -1349,29 +1360,36 @@ import (
 )
 
 func main() {
+	captableConvertibleIn := *openapiclient.NewCaptableConvertibleIn() // CaptableConvertibleIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptableConvertibles(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableConvertibles(context.Background()).CaptableConvertibleIn(captableConvertibleIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableConvertibles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptableConvertibles`: CaptableCreated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableConvertibles`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCaptableConvertiblesRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **captableConvertibleIn** | [**CaptableConvertibleIn**](CaptableConvertibleIn.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**CaptableCreated**](CaptableCreated.md)
 
 ### Authorization
 
@@ -1379,8 +1397,8 @@ Other parameters are passed through a pointer to a apiPostCaptableConvertiblesRe
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1389,9 +1407,9 @@ Other parameters are passed through a pointer to a apiPostCaptableConvertiblesRe
 
 ## PostCaptableOptions
 
-> PostCaptableOptions(ctx).Execute()
+> CaptableCreated PostCaptableOptions(ctx).CaptableOptionIn(captableOptionIn).Execute()
 
-Grant options from an equity plan
+Grants options to a stakeholder from an equity plan.
 
 
 
@@ -1408,29 +1426,36 @@ import (
 )
 
 func main() {
+	captableOptionIn := *openapiclient.NewCaptableOptionIn() // CaptableOptionIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptableOptions(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableOptions(context.Background()).CaptableOptionIn(captableOptionIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableOptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptableOptions`: CaptableCreated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableOptions`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCaptableOptionsRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **captableOptionIn** | [**CaptableOptionIn**](CaptableOptionIn.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**CaptableCreated**](CaptableCreated.md)
 
 ### Authorization
 
@@ -1438,8 +1463,8 @@ Other parameters are passed through a pointer to a apiPostCaptableOptionsRequest
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1448,9 +1473,9 @@ Other parameters are passed through a pointer to a apiPostCaptableOptionsRequest
 
 ## PostCaptablePlans
 
-> PostCaptablePlans(ctx).Execute()
+> CaptableCreated PostCaptablePlans(ctx).CaptableEquityPlanIn(captableEquityPlanIn).Execute()
 
-Open an equity incentive plan
+Opens an equity plan that options are granted from.
 
 
 
@@ -1467,29 +1492,36 @@ import (
 )
 
 func main() {
+	captableEquityPlanIn := *openapiclient.NewCaptableEquityPlanIn() // CaptableEquityPlanIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptablePlans(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptablePlans(context.Background()).CaptableEquityPlanIn(captableEquityPlanIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptablePlans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptablePlans`: CaptableCreated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptablePlans`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCaptablePlansRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **captableEquityPlanIn** | [**CaptableEquityPlanIn**](CaptableEquityPlanIn.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**CaptableCreated**](CaptableCreated.md)
 
 ### Authorization
 
@@ -1497,8 +1529,8 @@ Other parameters are passed through a pointer to a apiPostCaptablePlansRequest s
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1507,9 +1539,9 @@ Other parameters are passed through a pointer to a apiPostCaptablePlansRequest s
 
 ## PostCaptableRounds
 
-> PostCaptableRounds(ctx).Execute()
+> CaptableCreated PostCaptableRounds(ctx).CaptableRoundIn(captableRoundIn).Execute()
 
-Open a funding round
+Opens a priced round that investments can be added to.
 
 
 
@@ -1526,29 +1558,36 @@ import (
 )
 
 func main() {
+	captableRoundIn := *openapiclient.NewCaptableRoundIn() // CaptableRoundIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptableRounds(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableRounds(context.Background()).CaptableRoundIn(captableRoundIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableRounds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptableRounds`: CaptableCreated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableRounds`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCaptableRoundsRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **captableRoundIn** | [**CaptableRoundIn**](CaptableRoundIn.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**CaptableCreated**](CaptableCreated.md)
 
 ### Authorization
 
@@ -1556,8 +1595,8 @@ Other parameters are passed through a pointer to a apiPostCaptableRoundsRequest 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1638,9 +1677,9 @@ Name | Type | Description  | Notes
 
 ## PostCaptableRoundsByIdInvestments
 
-> PostCaptableRoundsByIdInvestments(ctx, id).Execute()
+> CaptableInvested PostCaptableRoundsByIdInvestments(ctx, id).CaptableInvestmentIn(captableInvestmentIn).Execute()
 
-Record an investment into a round
+Records one investor's money into an open round.
 
 
 
@@ -1657,15 +1696,18 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | 
+	id := "id_example" // string | ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims.
+	captableInvestmentIn := *openapiclient.NewCaptableInvestmentIn() // CaptableInvestmentIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptableRoundsByIdInvestments(context.Background(), id).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableRoundsByIdInvestments(context.Background(), id).CaptableInvestmentIn(captableInvestmentIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableRoundsByIdInvestments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptableRoundsByIdInvestments`: CaptableInvested
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableRoundsByIdInvestments`: %v\n", resp)
 }
 ```
 
@@ -1675,7 +1717,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
+**id** | **string** | ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims. | 
 
 ### Other Parameters
 
@@ -1685,10 +1727,11 @@ Other parameters are passed through a pointer to a apiPostCaptableRoundsByIdInve
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **captableInvestmentIn** | [**CaptableInvestmentIn**](CaptableInvestmentIn.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**CaptableInvested**](CaptableInvested.md)
 
 ### Authorization
 
@@ -1696,8 +1739,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1706,9 +1749,9 @@ Name | Type | Description  | Notes
 
 ## PostCaptableSafes
 
-> PostCaptableSafes(ctx).Execute()
+> CaptableCreated PostCaptableSafes(ctx).CaptableSafeIn(captableSafeIn).Execute()
 
-Record a SAFE
+Records a SAFE — a simple agreement for future equity.
 
 
 
@@ -1725,29 +1768,36 @@ import (
 )
 
 func main() {
+	captableSafeIn := *openapiclient.NewCaptableSafeIn() // CaptableSafeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptableSafes(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableSafes(context.Background()).CaptableSafeIn(captableSafeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableSafes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptableSafes`: CaptableCreated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableSafes`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCaptableSafesRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **captableSafeIn** | [**CaptableSafeIn**](CaptableSafeIn.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**CaptableCreated**](CaptableCreated.md)
 
 ### Authorization
 
@@ -1755,8 +1805,8 @@ Other parameters are passed through a pointer to a apiPostCaptableSafesRequest s
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1765,9 +1815,9 @@ Other parameters are passed through a pointer to a apiPostCaptableSafesRequest s
 
 ## PostCaptableShares
 
-> PostCaptableShares(ctx).Execute()
+> CaptableCreated PostCaptableShares(ctx).CaptableShareIn(captableShareIn).Execute()
 
-Issue a share certificate
+Issues a share certificate to a stakeholder.
 
 
 
@@ -1784,29 +1834,36 @@ import (
 )
 
 func main() {
+	captableShareIn := *openapiclient.NewCaptableShareIn() // CaptableShareIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptableShares(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableShares(context.Background()).CaptableShareIn(captableShareIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableShares``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptableShares`: CaptableCreated
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableShares`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCaptableSharesRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **captableShareIn** | [**CaptableShareIn**](CaptableShareIn.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**CaptableCreated**](CaptableCreated.md)
 
 ### Authorization
 
@@ -1814,8 +1871,8 @@ Other parameters are passed through a pointer to a apiPostCaptableSharesRequest 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1824,9 +1881,9 @@ Other parameters are passed through a pointer to a apiPostCaptableSharesRequest 
 
 ## PostCaptableSharesTransfer
 
-> PostCaptableSharesTransfer(ctx).Execute()
+> CaptableTransferred PostCaptableSharesTransfer(ctx).CaptableShareTransfer(captableShareTransfer).Execute()
 
-Transfer shares to another stakeholder
+Moves shares from one stakeholder to another.
 
 
 
@@ -1843,29 +1900,36 @@ import (
 )
 
 func main() {
+	captableShareTransfer := *openapiclient.NewCaptableShareTransfer() // CaptableShareTransfer | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CaptableAPI.PostCaptableSharesTransfer(context.Background()).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableSharesTransfer(context.Background()).CaptableShareTransfer(captableShareTransfer).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableSharesTransfer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostCaptableSharesTransfer`: CaptableTransferred
+	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableSharesTransfer`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCaptableSharesTransferRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **captableShareTransfer** | [**CaptableShareTransfer**](CaptableShareTransfer.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**CaptableTransferred**](CaptableTransferred.md)
 
 ### Authorization
 
@@ -1873,8 +1937,8 @@ Other parameters are passed through a pointer to a apiPostCaptableSharesTransfer
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

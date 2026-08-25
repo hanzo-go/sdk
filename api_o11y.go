@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -11063,7 +11063,7 @@ The callback Google redirects a user back to after they approve the sign-in. It 
 
 The answer is a Location header and no body, which is why it is not a typed operation — declaring a JSON response for a redirect would publish a shape that does not exist and hide the header that is the entire point.
 
-UNAUTHENTICATED by necessity: it is how a caller GETS a principal, so requiring one would be circular. It is not an open door — the code it carries is single-use and verified against the provider.
+UNAUTHENTICATED by necessity: it is how a caller GETS a principal, so requiring one would be circular. It is not an open endpoint — the code it carries is single-use and verified against the provider.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return O11yAPIGetO11yCompleteGoogleRequest

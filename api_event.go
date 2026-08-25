@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -306,7 +306,7 @@ func (r EventAPIGetEventInsightsEventsRequest) Execute() (*EventList, *http.Resp
 GetEventInsightsEvents Returns the caller org's most recent product events, newest first.
 
 Returns the caller org's most recent product events, newest first.
-The console's raw-event view over event.event — the same table the capture doors
+The console's raw-event view over event.event — the same table the capture endpoints
 fill — one row per stored event, with the row's attributes returned as the
 properties object.
 
@@ -1060,9 +1060,9 @@ Stores pageviews, browser errors, identifies and custom commerce events as rows 
 
 THE STATUS SAYS WHETHER ANYTHING LANDED, so a green check can never mean an empty warehouse. 200 means at least one event was stored (or that nothing was sent), and a nonzero `dropped` beside a nonzero `accepted` is a PARTIAL batch, never a failed one — a batch is not refused whole for its worst element. If NOTHING was stored the request is an error, and it names the one thing that fixes it: 401 `ingest_key_required` when every event was refused for want of a credential (the same events land with a key), and 400 `unroutable_events` when the caller HAD capability and the body still named nothing storable.
 
-ONE door for every wire a Hanzo surface emits, dispatched by the SHAPE of the body and never by a second path: a bare event object, a bare array of them, the {batch:[…]} / {events:[…]} envelope, the team console's snake_case array, and the PostHog wire (spelled `distinct_id`/`api_key`, which the canonical wire never uses). BATCH IS A BODY, NOT A PATH — there is no /v1/event/batch, because an array already is one.
+ONE endpoint for every wire a Hanzo surface emits, dispatched by the SHAPE of the body and never by a second path: a bare event object, a bare array of them, the {batch:[…]} / {events:[…]} envelope, the team console's snake_case array, and the PostHog wire (spelled `distinct_id`/`api_key`, which the canonical wire never uses). BATCH IS A BODY, NOT A PATH — there is no /v1/event/batch, because an array already is one.
 
-WHAT THE CALLER PRESENTS DECIDES WHAT IT MAY WRITE, and the door itself grants nothing. A validated bearer or an org API key writes the full event at full fidelity. A PUBLISHABLE key (pk-, on Authorization: Bearer, x-hanzo-ingest-key, or ?ingest_key= for navigator.sendBeacon, which cannot set headers) does the same, and is the credential a browser bundle ships: it is deliberately NOT a secret, it resolves WHICH tenant a beacon belongs to and nothing more. A pk- never authenticates and can READ NOTHING — not this org's errors, not a lens, not any other route on this API — so a leaked one lets a stranger write into your stream, and never lets one read out of it. Reading these rows back always takes a real bearer. A Hanzo Team workspace token resolves its org at REDUCED capability: the signed account names the person, so a `distinctId` in the body cannot pin events on a colleague.
+WHAT THE CALLER PRESENTS DECIDES WHAT IT MAY WRITE, and the endpoint itself grants nothing. A validated bearer or an org API key writes the full event at full fidelity. A PUBLISHABLE key (pk-, on Authorization: Bearer, x-hanzo-ingest-key, or ?ingest_key= for navigator.sendBeacon, which cannot set headers) does the same, and is the credential a browser bundle ships: it is deliberately NOT a secret, it resolves WHICH tenant a beacon belongs to and nothing more. A pk- never authenticates and can READ NOTHING — not this org's errors, not a lens, not any other route on this API — so a leaked one lets a stranger write into your stream, and never lets one read out of it. Reading these rows back always takes a real bearer. A Hanzo Team workspace token resolves its org at REDUCED capability: the signed account names the person, so a `distinctId` in the body cannot pin events on a colleague.
 
 NO CREDENTIAL IS REFUSED: a write the server cannot attribute to a project is 401 `ingest_key_required`, and a credential that IS presented but resolves to no project is 403 `ingest_key_unknown`. Nothing is filed under a shared tenant — events nobody can read are worse than events nobody sent, because the caller is told it succeeded. A browser bundle therefore always ships a pk-, which is what /v1/event/tag.js takes.
 
@@ -1179,7 +1179,7 @@ PostEventByProjectEnvelope Sentry SDK envelope ingest — errors and traces from
 
 Accepts the CURRENT Sentry wire — the framed envelope a modern SDK posts, carrying its items in one request — so an application already instrumented with Sentry reports into Hanzo's error tracking by pointing its DSN here and changing nothing else.
 
-CLOUD ROUTES IT AND READS NONE OF IT. The body is relayed byte-for-byte to the observability plane, which parses the wire, verifies the credential and answers; this door declares no response shape because it does not know one. A deployment with no observability plane mounted answers 503.
+CLOUD ROUTES IT AND READS NONE OF IT. The body is relayed byte-for-byte to the observability plane, which parses the wire, verifies the credential and answers; this endpoint declares no response shape because it does not know one. A deployment with no observability plane mounted answers 503.
 
 THE CREDENTIAL IS A SENTRY DSN KEY, NOT A HANZO PRINCIPAL. This is one of the few writes on the platform that carries no bearer and no org header by design — a Sentry SDK has neither — and it is exempt from the principal gate for that reason. The observability plane verifies the DSN key itself, fail-closed: a request without a valid one is refused there, never admitted here. Presenting a Hanzo bearer instead does nothing.
 
@@ -1283,9 +1283,9 @@ func (r EventAPIPostEventByProjectStoreRequest) Execute() (*http.Response, error
 /*
 PostEventByProjectStore Sentry SDK store ingest — the legacy single-event wire
 
-Accepts the LEGACY Sentry wire: one event per request, what an SDK predating envelopes sends. Same door, same credential, same destination as the envelope endpoint — kept open so an old client reports without being upgraded first. New instrumentation has no reason to choose it.
+Accepts the LEGACY Sentry wire: one event per request, what an SDK predating envelopes sends. Same handler, same credential, same destination as the envelope endpoint — kept open so an old client reports without being upgraded first. New instrumentation has no reason to choose it.
 
-CLOUD ROUTES IT AND READS NONE OF IT. The body is relayed byte-for-byte to the observability plane, which parses the wire, verifies the credential and answers; this door declares no response shape because it does not know one. A deployment with no observability plane mounted answers 503.
+CLOUD ROUTES IT AND READS NONE OF IT. The body is relayed byte-for-byte to the observability plane, which parses the wire, verifies the credential and answers; this endpoint declares no response shape because it does not know one. A deployment with no observability plane mounted answers 503.
 
 THE CREDENTIAL IS A SENTRY DSN KEY, NOT A HANZO PRINCIPAL. This is one of the few writes on the platform that carries no bearer and no org header by design — a Sentry SDK has neither — and it is exempt from the principal gate for that reason. The observability plane verifies the DSN key itself, fail-closed: a request without a valid one is refused there, never admitted here. Presenting a Hanzo bearer instead does nothing.
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -1737,19 +1737,34 @@ type DeployAPIPostDeployApplicationsByNameRollbackRequest struct {
 	name       string
 }
 
-func (r DeployAPIPostDeployApplicationsByNameRollbackRequest) Execute() (*http.Response, error) {
+func (r DeployAPIPostDeployApplicationsByNameRollbackRequest) Execute() (*ArgoApp, *http.Response, error) {
 	return r.ApiService.PostDeployApplicationsByNameRollbackExecute(r)
 }
 
 /*
-PostDeployApplicationsByNameRollback The console's rollback control — today it requests a reconcile, nothing more
+PostDeployApplicationsByNameRollback Serves the console's rollback control, and today it requests a reconcile and nothing more.
 
-Performs exactly what the sync action performs: it stamps the sync-requested timestamp onto the application's App CR and answers the application re-projected. It does NOT select, pin or revert to a prior image tag, and that is the one thing to know before wiring anything to it — the name is the console's, the behaviour is the sync. Pinning a previous release rides the release client, which this address does not call yet.
+Serves the console's rollback control, and today it
+requests a reconcile and nothing more.
 
-SuperAdmin-only and fail-closed, reading no request body, with an unknown application name a 404 and no cluster client a 503 — the same gate and the same failures as the sync it shares a handler with.
+The opening verb is not style. zipdoc drops a leading CamelCase symbol only
+when a plain verb follows it and never before a copula (internal/zipdoc/
+extract.go:811-824, "CompleteDeployment IS the CI completion hook" would
+otherwise become "Is the CI completion hook") — so "RollbackDeployApplication
+is …" would publish a Go symbol no caller can see into the summary an SDK
+docstring, an MCP tool list and a CLI help line all show.
+
+It performs exactly what the sync action performs — the same stamp on the same
+App CR, the same application re-projected — and it does NOT select, pin or
+revert to a prior image tag. That is the one thing to know before wiring
+anything to it: the name is the console's, the behaviour is the sync. Pinning a
+previous release rides the release client, which this address does not call yet.
+
+Same gate, same refusals and the same absent request body as the sync it shares
+a core with.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR's metadata.name satisfies that, and anything else is a 400 rather than a lookup.
 	@return DeployAPIPostDeployApplicationsByNameRollbackRequest
 */
 func (a *DeployAPIService) PostDeployApplicationsByNameRollback(ctx context.Context, name string) DeployAPIPostDeployApplicationsByNameRollbackRequest {
@@ -1761,16 +1776,19 @@ func (a *DeployAPIService) PostDeployApplicationsByNameRollback(ctx context.Cont
 }
 
 // Execute executes the request
-func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployAPIPostDeployApplicationsByNameRollbackRequest) (*http.Response, error) {
+//
+//	@return ArgoApp
+func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployAPIPostDeployApplicationsByNameRollbackRequest) (*ArgoApp, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ArgoApp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.PostDeployApplicationsByNameRollback")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/deploy/applications/{name}/rollback"
@@ -1790,7 +1808,7 @@ func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1799,19 +1817,19 @@ func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployA
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1819,10 +1837,19 @@ func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type DeployAPIPostDeployApplicationsByNameSyncRequest struct {
@@ -1831,19 +1858,32 @@ type DeployAPIPostDeployApplicationsByNameSyncRequest struct {
 	name       string
 }
 
-func (r DeployAPIPostDeployApplicationsByNameSyncRequest) Execute() (*http.Response, error) {
+func (r DeployAPIPostDeployApplicationsByNameSyncRequest) Execute() (*ArgoApp, *http.Response, error) {
 	return r.ApiService.PostDeployApplicationsByNameSyncExecute(r)
 }
 
 /*
-PostDeployApplicationsByNameSync Ask the operator to reconcile one application now
+PostDeployApplicationsByNameSync Asks the operator to reconcile ONE application now.
 
-Requests an immediate reconcile of one application by stamping a sync-requested timestamp onto its App CR, which the operator's watch observes, and answers the application re-projected. It ASKS, it does not apply: the operator performs the reconcile on its own clock, so a 200 means the request landed, not that the rollout finished — the returned row's running version still lags until it does. The CR is the desired source today, so this is a nudge; when git becomes the source the same address becomes apply-from-git.
+Asks the operator to reconcile ONE application now.
 
-SuperAdmin-only and fail-closed — a non-SuperAdmin is refused before any cluster object is read or patched, and the write surface stays admin-only while the tenant surface is read-only reflection. It reads no request body. An unknown application name is a 404; no cluster client configured is a 503.
+It stamps a sync-requested timestamp onto the application's App CR, which the
+operator's watch observes, and answers the application re-projected. It ASKS,
+it does not apply: the operator reconciles on its own clock, so a 200 means the
+request landed, not that the rollout finished — the returned row's running
+version still lags until it does.
+
+SuperAdmin-only and fail-closed, and the gate is INSIDE the op rather than in
+middleware wrapped around the route. That is a correctness requirement, not a
+preference: this op is also reached by POST /mcp and by the by-name call plane,
+neither of which runs route middleware, so a gate that only the REST projection
+runs would publish an unguarded alias of a fleet-mutating write. It reads no
+request body — the URL names the application and nothing else does. An unknown
+name is a 404 (never a 403, which would confirm the application exists), a name
+that is not a DNS-1123 label is a 400, and no cluster client is a 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR's metadata.name satisfies that, and anything else is a 400 rather than a lookup.
 	@return DeployAPIPostDeployApplicationsByNameSyncRequest
 */
 func (a *DeployAPIService) PostDeployApplicationsByNameSync(ctx context.Context, name string) DeployAPIPostDeployApplicationsByNameSyncRequest {
@@ -1855,16 +1895,19 @@ func (a *DeployAPIService) PostDeployApplicationsByNameSync(ctx context.Context,
 }
 
 // Execute executes the request
-func (a *DeployAPIService) PostDeployApplicationsByNameSyncExecute(r DeployAPIPostDeployApplicationsByNameSyncRequest) (*http.Response, error) {
+//
+//	@return ArgoApp
+func (a *DeployAPIService) PostDeployApplicationsByNameSyncExecute(r DeployAPIPostDeployApplicationsByNameSyncRequest) (*ArgoApp, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ArgoApp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.PostDeployApplicationsByNameSync")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/deploy/applications/{name}/sync"
@@ -1884,7 +1927,7 @@ func (a *DeployAPIService) PostDeployApplicationsByNameSyncExecute(r DeployAPIPo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1893,19 +1936,19 @@ func (a *DeployAPIService) PostDeployApplicationsByNameSyncExecute(r DeployAPIPo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1913,10 +1956,19 @@ func (a *DeployAPIService) PostDeployApplicationsByNameSyncExecute(r DeployAPIPo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type DeployAPIPostDeployLogoutRequest struct {
@@ -1924,16 +1976,24 @@ type DeployAPIPostDeployLogoutRequest struct {
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIPostDeployLogoutRequest) Execute() (*http.Response, error) {
+func (r DeployAPIPostDeployLogoutRequest) Execute() (*SessionEnded, *http.Response, error) {
 	return r.ApiService.PostDeployLogoutExecute(r)
 }
 
 /*
-PostDeployLogout End the console session on this host
+PostDeployLogout Ends the console session on this host.
 
-Clears this console's session cookie and answers the signed-out state with the sign-in URL to start again. IAM's own session is untouched — this ends the console session only, so signing back in may not prompt for credentials.
+Ends the console session on this host.
 
-It is a POST because it changes state. As a GET it was reachable by a cross-site top-level navigation, which a SameSite=Lax cookie still rides, so any page could sign a SuperAdmin out; a POST is not carried cross-site by that cookie.
+It clears this console's session cookie and answers the signed-out state with
+the sign-in URL to start again. IAM's own session is untouched — this ends the
+console session only, so signing back in may not prompt for credentials.
+
+It is a POST because it CHANGES STATE. As a GET it was reachable by a
+cross-site top-level navigation, which a SameSite=Lax cookie still rides, so
+any page could sign a SuperAdmin out; a POST is not carried cross-site by that
+cookie. It reads no request body and takes no argument: the session it ends is
+the one the request already carries.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DeployAPIPostDeployLogoutRequest
@@ -1946,16 +2006,19 @@ func (a *DeployAPIService) PostDeployLogout(ctx context.Context) DeployAPIPostDe
 }
 
 // Execute executes the request
-func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRequest) (*http.Response, error) {
+//
+//	@return SessionEnded
+func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRequest) (*SessionEnded, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SessionEnded
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.PostDeployLogout")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/deploy/logout"
@@ -1974,7 +2037,7 @@ func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1983,19 +2046,19 @@ func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2003,10 +2066,19 @@ func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type DeployAPIPostDeployReconcileRequest struct {
@@ -2014,16 +2086,30 @@ type DeployAPIPostDeployReconcileRequest struct {
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIPostDeployReconcileRequest) Execute() (*http.Response, error) {
+func (r DeployAPIPostDeployReconcileRequest) Execute() (*ReconcileReport, *http.Response, error) {
 	return r.ApiService.PostDeployReconcileExecute(r)
 }
 
 /*
-PostDeployReconcile Render the configured git source and apply it to the cluster, once
+PostDeployReconcile Renders the configured git source and applies it to the cluster, once.
 
-Runs one full GitOps sync through the embedded engine — render the configured repo, ref and path, then three-way server-side apply with scoped prune — and answers the revision it applied, the source it came from, the declared/synced/pruned/failed counts and a per-resource result. This is the WRITE half of the plane: it mutates live cluster objects and, with prune enabled, deletes objects the source no longer declares.
+Renders the configured git source and applies it to the
+cluster, once.
 
-SuperAdmin-only and fail-closed — a non-SuperAdmin is refused before any cluster object is read or touched. The git source is read AS THE CALLER, so the source plane scopes the answer itself rather than trusting this one to have scoped it. It reads no request body; the source is configuration, not a parameter. A deployment with the engine switched off, or with no usable cluster config, answers 503; a failure to start, render or sync is a 502.
+It runs one full GitOps sync through the embedded engine — render the
+configured repo, ref and path, then three-way server-side apply with scoped
+prune — and answers the revision it applied, the source it came from, the
+declared/synced/pruned/failed counts and a per-resource result. This is the
+WRITE half of the plane: it mutates live cluster objects and, with prune
+enabled, deletes objects the source no longer declares.
+
+SuperAdmin-only and fail-closed, with the gate INSIDE the op because a typed op
+is also reached by POST /mcp and by the by-name call plane, where no route
+middleware runs. The git source is read AS THE PLATFORM, not as the caller: the
+coordinate is this deployment's own configuration and never a parameter, which
+is why the op reads no request body at all. A deployment with the engine
+switched off, or with no usable cluster config, answers 503; a failure to
+start, render or sync is a 502.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return DeployAPIPostDeployReconcileRequest
@@ -2036,16 +2122,19 @@ func (a *DeployAPIService) PostDeployReconcile(ctx context.Context) DeployAPIPos
 }
 
 // Execute executes the request
-func (a *DeployAPIService) PostDeployReconcileExecute(r DeployAPIPostDeployReconcileRequest) (*http.Response, error) {
+//
+//	@return ReconcileReport
+func (a *DeployAPIService) PostDeployReconcileExecute(r DeployAPIPostDeployReconcileRequest) (*ReconcileReport, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReconcileReport
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.PostDeployReconcile")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/deploy/reconcile"
@@ -2064,7 +2153,7 @@ func (a *DeployAPIService) PostDeployReconcileExecute(r DeployAPIPostDeployRecon
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2073,19 +2162,19 @@ func (a *DeployAPIService) PostDeployReconcileExecute(r DeployAPIPostDeployRecon
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2093,8 +2182,17 @@ func (a *DeployAPIService) PostDeployReconcileExecute(r DeployAPIPostDeployRecon
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -610,7 +610,7 @@ decided about each entry.
 
 This is the SHELF an org picks from. A listing with a streamable-http endpoint
 can be enabled as-is — POST /v1/tools/mcp/servers with its id — and its tools then
-join the org's tool plane and the fleet's MCP door. A listing that only ships a
+join the org's tool plane and the fleet's MCP server. A listing that only ships a
 stdio package needs a process to run it, which is why the transports are on
 every entry rather than implied.
 
@@ -1520,7 +1520,7 @@ PostToolsCall Runs one of the caller's activated tools and answers with its outp
 
 Runs one of the caller's activated tools and answers with its output.
 
-This is the door onto the tool plane's DYNAMIC half — the half no build-time
+This is the endpoint onto the tool plane's DYNAMIC half — the half no build-time
 catalogue can hold, because it is per-tenant: an org's connected connector
 actions, its authored skills, its agents and functions, and the tools of every
 external MCP server it registered. A tool's existence, its price and its
@@ -1748,10 +1748,10 @@ func (r ToolsAPIPostToolsMcpServersRequest) Execute() (*MCPServer, *http.Respons
 }
 
 /*
-PostToolsMcpServers Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP door.
+PostToolsMcpServers Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP server.
 
 Gives the caller's org one more external MCP server, so its tools
-join the org's tool plane and the fleet's MCP door. It is the ONE way an org
+join the org's tool plane and the fleet's MCP server. It is the ONE way an org
 gains a server, whether it typed the URL in or enabled a catalog listing: both
 write the SAME record, and `source` says which it was. A second registration
 path would be a second place for a server to exist, and then a second place to

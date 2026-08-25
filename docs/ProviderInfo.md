@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DisplayName** | Pointer to **string** | DisplayName is the human label for the sign-in button; this deployment sends \&quot;Hanzo\&quot;. Omitted from the body when empty. | [optional] 
-**Name** | Pointer to **string** | Name is the provider id, and it is the value that goes back in the URL to start a login: GET /v1/team/account/auth/{provider}. This deployment surfaces exactly one, \&quot;openid\&quot; — the hanzo.id door. | [optional] 
+**Name** | Pointer to **string** | Name is the provider id, and it is the value that goes back in the URL to start a login: GET /v1/team/account/auth/{provider}. This deployment surfaces exactly one, \&quot;openid\&quot; — the hanzo.id provider. | [optional] 
 
 ## Methods
 

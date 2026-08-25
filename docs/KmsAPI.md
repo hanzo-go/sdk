@@ -155,10 +155,10 @@ import (
 )
 
 func main() {
-	env := "env_example" // string |  (optional)
-	environment := "environment_example" // string |  (optional)
-	path := "path_example" // string |  (optional)
-	secretPath := "secretPath_example" // string |  (optional)
+	env := "env_example" // string | Env selects the environment, which is part of a secret's storage key. OMITTED means EVERY environment — this is the enumeration surface, so it must be able to answer \"what is in here\" without being told where to look. (optional)
+	environment := "environment_example" // string | Environment is the KMS operator's spelling of Env, accepted so one caller need not learn the other's vocabulary. Env wins when both are sent. (optional)
+	path := "path_example" // string | Path narrows the listing to one subtree beneath the caller's org root, as a `/`-separated path such as `/ci`. OMITTED means the whole org. (optional)
+	secretPath := "secretPath_example" // string | SecretPath is the KMS operator's spelling of Path. Path wins when both are sent. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -183,10 +183,10 @@ Other parameters are passed through a pointer to a apiGetKmsSecretsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **env** | **string** |  | 
- **environment** | **string** |  | 
- **path** | **string** |  | 
- **secretPath** | **string** |  | 
+ **env** | **string** | Env selects the environment, which is part of a secret&#39;s storage key. OMITTED means EVERY environment — this is the enumeration surface, so it must be able to answer \&quot;what is in here\&quot; without being told where to look. | 
+ **environment** | **string** | Environment is the KMS operator&#39;s spelling of Env, accepted so one caller need not learn the other&#39;s vocabulary. Env wins when both are sent. | 
+ **path** | **string** | Path narrows the listing to one subtree beneath the caller&#39;s org root, as a &#x60;/&#x60;-separated path such as &#x60;/ci&#x60;. OMITTED means the whole org. | 
+ **secretPath** | **string** | SecretPath is the KMS operator&#39;s spelling of Path. Path wins when both are sent. | 
 
 ### Return type
 

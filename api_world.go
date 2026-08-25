@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -31,10 +31,10 @@ func (r WorldAPIGetWorldRequest) Execute() (*WorldIndex, *http.Response, error) 
 }
 
 /*
-GetWorld Answers GET /v1/world — the product's front door, naming every wire this surface answers on.
+GetWorld Answers GET /v1/world — the product's public endpoint, naming every wire this surface answers on.
 
-Answers GET /v1/world — the product's front door, naming every wire this
-surface answers on.
+Answers GET /v1/world — the product's public endpoint, naming every wire
+this surface answers on.
 
 It exists because two of those wires are INVISIBLE to the generated document.
 /v1/world/mcp and /v1/world/zap are carved off the cloud catch-all by the

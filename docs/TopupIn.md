@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AmountCents** | Pointer to **int32** | AmountCents is how much to charge, in cents of Currency. Required. | [optional] 
 **Currency** | Pointer to **string** | Currency is the ISO-4217 code to charge in. Empty takes the deployment&#39;s own default. | [optional] 
-**PaymentMethodId** | Pointer to **string** | MethodID names a card the subject already saved, for the saved-card door. | [optional] 
-**SourceId** | Pointer to **string** | SourceID is a single-use card token from the payment form, for the token door. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one. | [optional] 
+**PaymentMethodId** | Pointer to **string** | MethodID names a card the subject already saved, for the saved-card endpoint. | [optional] 
+**SourceId** | Pointer to **string** | SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one. | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -233,6 +233,380 @@ func (a *MeetAPIService) GetMeetSessionExecute(r MeetAPIGetMeetSessionRequest) (
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type MeetAPIMeetRecordReadRequest struct {
+	ctx        context.Context
+	ApiService *MeetAPIService
+	room       *string
+}
+
+// Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against.
+func (r MeetAPIMeetRecordReadRequest) Room(room string) MeetAPIMeetRecordReadRequest {
+	r.room = &room
+	return r
+}
+
+func (r MeetAPIMeetRecordReadRequest) Execute() (*Recording, *http.Response, error) {
+	return r.ApiService.MeetRecordReadExecute(r)
+}
+
+/*
+MeetRecordRead What is being recorded in a room, and where the file goes
+
+Answers what is being recorded in a room, and where the file went.
+
+It reports the recording that is RUNNING, and once none is, the most recent one
+the media server still holds — with its final status and its object. That second
+case is the one that matters for finding a file: the answer to a start is the
+only other place the location appears, and a client that lost it, or a colleague
+who was not the one to press record, has nowhere else to look.
+
+It is behind the same check as starting one: where a recording of a private
+conversation is kept is a fact about that conversation, so it is told to the
+people the room admits and to nobody else.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeetAPIMeetRecordReadRequest
+*/
+func (a *MeetAPIService) MeetRecordRead(ctx context.Context) MeetAPIMeetRecordReadRequest {
+	return MeetAPIMeetRecordReadRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Recording
+func (a *MeetAPIService) MeetRecordReadExecute(r MeetAPIMeetRecordReadRequest) (*Recording, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Recording
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.MeetRecordRead")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/meet/record"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.room == nil {
+		return localVarReturnValue, nil, reportError("room is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "room", r.room, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MeetAPIMeetRecordStartRequest struct {
+	ctx        context.Context
+	ApiService *MeetAPIService
+	recordIn   *RecordIn
+}
+
+func (r MeetAPIMeetRecordStartRequest) RecordIn(recordIn RecordIn) MeetAPIMeetRecordStartRequest {
+	r.recordIn = &recordIn
+	return r
+}
+
+func (r MeetAPIMeetRecordStartRequest) Execute() (*Recording, *http.Response, error) {
+	return r.ApiService.MeetRecordStartExecute(r)
+}
+
+/*
+MeetRecordStart Start recording a room, or return the recording already running
+
+Begins recording a room, or hands back the recording already running.
+
+A recording is a durable artifact of a conversation, so only someone this room
+would admit may make one: the caller is authorized by the SAME decision
+/v1/meet/getToken makes about the same room, and refused with the same 401.
+
+A SECOND START RETURNS THE FIRST rather than refusing it. There is at most one
+recording per room and this operation's job is to establish that there is one —
+which is already true when a colleague, or the caller's own double-click,
+started it a moment ago. The answer is the same shape either way, naming the
+recording that is actually running, so a client never has to tell the two cases
+apart to find the id.
+
+A deployment with no media server address or no object store answers 503 naming
+which, because a recording that silently does not happen is worse than one that
+is refused. The reason reaches only a caller this room already admits.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeetAPIMeetRecordStartRequest
+*/
+func (a *MeetAPIService) MeetRecordStart(ctx context.Context) MeetAPIMeetRecordStartRequest {
+	return MeetAPIMeetRecordStartRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Recording
+func (a *MeetAPIService) MeetRecordStartExecute(r MeetAPIMeetRecordStartRequest) (*Recording, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Recording
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.MeetRecordStart")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/meet/record"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.recordIn == nil {
+		return localVarReturnValue, nil, reportError("recordIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.recordIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MeetAPIMeetRecordStopRequest struct {
+	ctx        context.Context
+	ApiService *MeetAPIService
+	room       *string
+}
+
+// Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against.
+func (r MeetAPIMeetRecordStopRequest) Room(room string) MeetAPIMeetRecordStopRequest {
+	r.room = &room
+	return r
+}
+
+func (r MeetAPIMeetRecordStopRequest) Execute() (*Recording, *http.Response, error) {
+	return r.ApiService.MeetRecordStopExecute(r)
+}
+
+/*
+MeetRecordStop Stop a room's recording
+
+Ends a room's recording — EVERY one of them.
+
+Whoever the room admits may stop it, including someone who did not start it:
+a person being recorded has to be able to end it, and a rule that only the
+starter may stop would deny exactly that. Stopping is free — a caller made to
+pay to stop being recorded would be paying for the wrong thing.
+
+200 MEANS THE ROOM IS NOT BEING RECORDED, and that is why this ends all of them
+rather than the first. "At most one per room" is an invariant this surface wants
+and cannot impose: reading the list and starting are two calls, and two replicas
+racing through that window both start. When the list comes back holding two, two
+is the truth — and ending one while answering 200 tells the person withdrawing
+consent that it stopped while a second worker keeps writing. A stop that cannot
+finish the job says so instead.
+
+Stopping a room that is not being recorded is not an error. The answer names the
+room with no recording on it, which is the state the caller asked for.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MeetAPIMeetRecordStopRequest
+*/
+func (a *MeetAPIService) MeetRecordStop(ctx context.Context) MeetAPIMeetRecordStopRequest {
+	return MeetAPIMeetRecordStopRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Recording
+func (a *MeetAPIService) MeetRecordStopExecute(r MeetAPIMeetRecordStopRequest) (*Recording, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Recording
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.MeetRecordStop")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/meet/record"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.room == nil {
+		return localVarReturnValue, nil, reportError("room is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "room", r.room, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type MeetAPIPostMeetGettokenRequest struct {

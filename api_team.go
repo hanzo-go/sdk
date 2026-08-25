@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 )
 
@@ -263,7 +264,7 @@ STARTS the OAuth hop: answers 302 to hanzo.id's authorize endpoint and sets the 
 
 A browser is the intended caller. Anything else must follow the Location AND keep the Set-Cookie, because the callback refuses a flow whose state it cannot match. That cookie carries the random nonce plus the client's navigateUrl, so the round trip needs no second channel, and it lives ten minutes — the whole budget for the hop.
 
-The provider segment only picks a hint: the redirect_uri is ALWAYS the canonical openid callback, the one IAM has registered. Measured end to end, hanzo.id strips that hint today, so /auth/google and /auth/openid land on the same Hanzo sign-in page — the federation shortcut is an upstream fix, not a second door here.
+The provider segment only picks a hint: the redirect_uri is ALWAYS the canonical openid callback, the one IAM has registered. Measured end to end, hanzo.id strips that hint today, so /auth/google and /auth/openid land on the same Hanzo sign-in page — the federation shortcut is an upstream fix, not a second endpoint here.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param provider
@@ -453,7 +454,7 @@ func (r TeamAPIGetTeamAccountProvidersRequest) Execute() ([]ProviderInfo, *http.
 GetTeamAccountProviders Returns the identity providers this deployment starts a login with.
 
 Returns the identity providers this deployment starts a login
-with. It is always exactly one — hanzo.id. Which identities that door accepts
+with. It is always exactly one — hanzo.id. Which identities that provider accepts
 (Google, GitHub, passkey, password) is IAM's question, answered on IAM's own
 page next to the identity check and the training-data consent that must
 precede a first session; listing them here would be a second place holding
@@ -656,7 +657,7 @@ type TeamAPIGetTeamBillingUiRequest struct {
 	ApiService *TeamAPIService
 }
 
-func (r TeamAPIGetTeamBillingUiRequest) Execute() (*http.Response, error) {
+func (r TeamAPIGetTeamBillingUiRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetTeamBillingUiExecute(r)
 }
 
@@ -680,16 +681,19 @@ func (a *TeamAPIService) GetTeamBillingUi(ctx context.Context) TeamAPIGetTeamBil
 }
 
 // Execute executes the request
-func (a *TeamAPIService) GetTeamBillingUiExecute(r TeamAPIGetTeamBillingUiRequest) (*http.Response, error) {
+//
+//	@return *os.File
+func (a *TeamAPIService) GetTeamBillingUiExecute(r TeamAPIGetTeamBillingUiRequest) (*os.File, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamBillingUi")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/team/billing/ui"
@@ -708,7 +712,7 @@ func (a *TeamAPIService) GetTeamBillingUiExecute(r TeamAPIGetTeamBillingUiReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"text/html; charset=utf-8"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -717,19 +721,19 @@ func (a *TeamAPIService) GetTeamBillingUiExecute(r TeamAPIGetTeamBillingUiReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -737,10 +741,19 @@ func (a *TeamAPIService) GetTeamBillingUiExecute(r TeamAPIGetTeamBillingUiReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type TeamAPIGetTeamBotsRequest struct {
@@ -949,7 +962,7 @@ type TeamAPIGetTeamFilesByWorkspaceByFilenameRequest struct {
 	filename   string
 }
 
-func (r TeamAPIGetTeamFilesByWorkspaceByFilenameRequest) Execute() (*http.Response, error) {
+func (r TeamAPIGetTeamFilesByWorkspaceByFilenameRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetTeamFilesByWorkspaceByFilenameExecute(r)
 }
 
@@ -979,16 +992,19 @@ func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilename(ctx context.Context, 
 }
 
 // Execute executes the request
-func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilenameExecute(r TeamAPIGetTeamFilesByWorkspaceByFilenameRequest) (*http.Response, error) {
+//
+//	@return *os.File
+func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilenameExecute(r TeamAPIGetTeamFilesByWorkspaceByFilenameRequest) (*os.File, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamFilesByWorkspaceByFilename")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/team/files/{workspace}/{filename}"
@@ -1009,7 +1025,7 @@ func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilenameExecute(r TeamAPIGetTe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/octet-stream"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1018,19 +1034,19 @@ func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilenameExecute(r TeamAPIGetTe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1038,10 +1054,19 @@ func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilenameExecute(r TeamAPIGetTe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type TeamAPIGetTeamTransactorApiV1StatisticsRequest struct {
@@ -1390,7 +1415,7 @@ The account control plane the Team client speaks: one POST carries a `method` ve
 
 A REFUSAL IS HTTP 200 carrying {"error": {severity, code, params}} — the platform Status the client translates — not a 4xx. An unreadable body, an unauthorized session and an unknown verb all arrive that way, so a caller that reads only the status code reads every failure here as a success.
 
-NO CREDENTIAL IS EVER HANDLED HERE. login, signUp, the OTP verbs, password change and reset, join and the guest-token exchange each answer Unauthorized with "sign in at hanzo.id" — a stated policy, not an unknown method, so the door being shut is a fact a test can pin. Sessions come from the OAuth pair under /account/auth.
+NO CREDENTIAL IS EVER HANDLED HERE. login, signUp, the OTP verbs, password change and reset, join and the guest-token exchange each answer Unauthorized with "sign in at hanzo.id" — a stated policy, not an unknown method, so the refusal is a fact a test can pin. Sessions come from the OAuth pair under /account/auth.
 
 Auth is the team session token: Authorization: Bearer, else the HttpOnly account-token cookie. The tenant is that token's SIGNED org claim, never a header, and selectWorkspace resolves only among the orgs the token proves membership of. It also demands an explicit workspaceUrl — it never falls back to a first workspace, and a slug that resolves in two of the caller's orgs answers Ambiguous rather than picking one.
 
@@ -1706,9 +1731,15 @@ type TeamAPIPostTeamFilesByWorkspaceRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
 	workspace  string
+	body       *os.File
 }
 
-func (r TeamAPIPostTeamFilesByWorkspaceRequest) Execute() (*http.Response, error) {
+func (r TeamAPIPostTeamFilesByWorkspaceRequest) Body(body *os.File) TeamAPIPostTeamFilesByWorkspaceRequest {
+	r.body = body
+	return r
+}
+
+func (r TeamAPIPostTeamFilesByWorkspaceRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.PostTeamFilesByWorkspaceExecute(r)
 }
 
@@ -1734,16 +1765,19 @@ func (a *TeamAPIService) PostTeamFilesByWorkspace(ctx context.Context, workspace
 }
 
 // Execute executes the request
-func (a *TeamAPIService) PostTeamFilesByWorkspaceExecute(r TeamAPIPostTeamFilesByWorkspaceRequest) (*http.Response, error) {
+//
+//	@return *os.File
+func (a *TeamAPIService) PostTeamFilesByWorkspaceExecute(r TeamAPIPostTeamFilesByWorkspaceRequest) (*os.File, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamFilesByWorkspace")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/team/files/{workspace}"
@@ -1754,7 +1788,7 @@ func (a *TeamAPIService) PostTeamFilesByWorkspaceExecute(r TeamAPIPostTeamFilesB
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/octet-stream"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1763,28 +1797,30 @@ func (a *TeamAPIService) PostTeamFilesByWorkspaceExecute(r TeamAPIPostTeamFilesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"text/plain; charset=utf-8"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1792,10 +1828,19 @@ func (a *TeamAPIService) PostTeamFilesByWorkspaceExecute(r TeamAPIPostTeamFilesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type TeamAPIPutTeamAccountCookieRequest struct {
@@ -1803,7 +1848,7 @@ type TeamAPIPutTeamAccountCookieRequest struct {
 	ApiService *TeamAPIService
 }
 
-func (r TeamAPIPutTeamAccountCookieRequest) Execute() (*http.Response, error) {
+func (r TeamAPIPutTeamAccountCookieRequest) Execute() (*CookieAck, *http.Response, error) {
 	return r.ApiService.PutTeamAccountCookieExecute(r)
 }
 
@@ -1812,7 +1857,7 @@ PutTeamAccountCookie Store the session token as this browser's cookie
 
 Writes the team session token into the HttpOnly `account-token` cookie — Secure, SameSite=Lax, whole-origin scope, thirty days — and answers {"result": true}. This is how the client turns the token it caught off the OAuth bounce into a credential page JS can no longer read, which IS the security property: script that cannot see the cookie cannot exfiltrate it, and every later call on the files, billing and collaborator planes authenticates from it when no bearer is sent.
 
-The token is VERIFIED — signature and expiry, against this service's own signing secret — BEFORE it is stored. Anything this service did not sign is 401 and nothing is written; persisting a caller-supplied value unchecked would be a session-fixation door, where an attacker pins a cookie the victim's browser then presents as its own.
+The token is VERIFIED — signature and expiry, against this service's own signing secret — BEFORE it is stored. Anything this service did not sign is 401 and nothing is written; persisting a caller-supplied value unchecked would be a session-fixation hole, where an attacker pins a cookie the victim's browser then presents as its own.
 
 The token may arrive as `token` in the JSON body or, when the body is absent or unparseable, from the Authorization bearer — an unreadable body is NOT an error here. The sibling DELETE clears this same cookie and signs the browser out of team only: the IAM cookie set alongside it is a different credential with its own lifetime and is left alone.
 
@@ -1827,16 +1872,19 @@ func (a *TeamAPIService) PutTeamAccountCookie(ctx context.Context) TeamAPIPutTea
 }
 
 // Execute executes the request
-func (a *TeamAPIService) PutTeamAccountCookieExecute(r TeamAPIPutTeamAccountCookieRequest) (*http.Response, error) {
+//
+//	@return CookieAck
+func (a *TeamAPIService) PutTeamAccountCookieExecute(r TeamAPIPutTeamAccountCookieRequest) (*CookieAck, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CookieAck
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PutTeamAccountCookie")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/team/account/cookie"
@@ -1855,7 +1903,7 @@ func (a *TeamAPIService) PutTeamAccountCookieExecute(r TeamAPIPutTeamAccountCook
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1864,19 +1912,19 @@ func (a *TeamAPIService) PutTeamAccountCookieExecute(r TeamAPIPutTeamAccountCook
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1884,8 +1932,17 @@ func (a *TeamAPIService) PutTeamAccountCookieExecute(r TeamAPIPutTeamAccountCook
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

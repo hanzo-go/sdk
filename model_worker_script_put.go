@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,11 +19,15 @@ var _ MappedNullable = &WorkerScriptPut{}
 
 // WorkerScriptPut struct for WorkerScriptPut
 type WorkerScriptPut struct {
-	Bindings           interface{} `json:"bindings,omitempty"`
-	CompatibilityDate  *string     `json:"compatibilityDate,omitempty"`
-	CompatibilityFlags []string    `json:"compatibilityFlags,omitempty"`
-	MainModule         *string     `json:"mainModule,omitempty"`
-	Script             *string     `json:"script,omitempty"`
+	Bindings interface{} `json:"bindings,omitempty"`
+	// CompatibilityDate pins which Workers runtime behaviour the script runs under, as a plain calendar date (\"2024-01-01\"). Absent leaves the account's own default in force.
+	CompatibilityDate *string `json:"compatibilityDate,omitempty"`
+	// CompatibilityFlags turn individual runtime behaviours on or off around that date (\"nodejs_compat\"), in Cloudflare's own flag vocabulary. Absent means the date alone decides.
+	CompatibilityFlags []string `json:"compatibilityFlags,omitempty"`
+	// MainModule is the module file the runtime starts at. Absent means \"worker.js\".
+	MainModule *string `json:"mainModule,omitempty"`
+	// Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker's ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker.
+	Script *string `json:"script,omitempty"`
 }
 
 // NewWorkerScriptPut instantiates a new WorkerScriptPut object

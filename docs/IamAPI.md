@@ -38,8 +38,6 @@ Method | HTTP request | Description
 [**GetIamCerts**](IamAPI.md#GetIamCerts) | **Get** /v1/iam/certs | Returns your organization&#39;s signing certificates, newest first — the keys the tokens your applications verify are signed with.
 [**GetIamCertsByOwnerByName**](IamAPI.md#GetIamCertsByOwnerByName) | **Get** /v1/iam/certs/{owner}/{name} | Returns one signing certificate — its algorithm, its validity window and its public half.
 [**GetIamConsent**](IamAPI.md#GetIamConsent) | **Get** /v1/iam/consent | Returns the calling person&#39;s own privacy and communication choices.
-[**GetIamGetAccount**](IamAPI.md#GetIamGetAccount) | **Get** /v1/iam/get-account | Returns the signed-in person&#39;s own account and the organization they belong to — what a console reads to draw the account menu.
-[**GetIamGetAppLogin**](IamAPI.md#GetIamGetAppLogin) | **Get** /v1/iam/get-app-login | Returns everything a login screen needs to draw itself for one application: its branding, and each sign-in method it offers with the provider details that method needs.
 [**GetIamInvitations**](IamAPI.md#GetIamInvitations) | **Get** /v1/iam/invitations | Returns your organization&#39;s invitations, newest first — who has been asked to join, on what terms, and how many seats each invitation still has left.
 [**GetIamInvitationsByOwnerByName**](IamAPI.md#GetIamInvitationsByOwnerByName) | **Get** /v1/iam/invitations/{owner}/{name} | Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
 [**GetIamKeys**](IamAPI.md#GetIamKeys) | **Get** /v1/iam/keys | Returns your organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
@@ -96,9 +94,7 @@ Method | HTTP request | Description
 [**PostIamAuditLogs**](IamAPI.md#PostIamAuditLogs) | **Post** /v1/iam/audit-logs | Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
 [**PostIamCerts**](IamAPI.md#PostIamCerts) | **Post** /v1/iam/certs | Adds a signing certificate your applications can verify tokens against — the call you make to stage the next one before a rotation.
 [**PostIamDeleteMembership**](IamAPI.md#PostIamDeleteMembership) | **Post** /v1/iam/delete-membership | Takes away a person&#39;s or an application&#39;s right to act in an organization.
-[**PostIamDeleteMfa**](IamAPI.md#PostIamDeleteMfa) | **Post** /v1/iam/delete-mfa | Turns a factor off, so sign-in stops asking for it.
 [**PostIamInvitations**](IamAPI.md#PostIamInvitations) | **Post** /v1/iam/invitations | Issues an invitation to join your organization — the code or link a new member redeems, with the role they arrive holding and the date it stops working.
-[**PostIamIssueUserToken**](IamAPI.md#PostIamIssueUserToken) | **Post** /v1/iam/issue-user-token | Mints an access token for the &#x60;?id&#x3D;&lt;owner&gt;/&lt;name&gt;&#x60; target user (optional &#x60;?aud&#x3D;&#x60; resource, RFC 8707), issued by the authenticated + allow-listed confidential client.
 [**PostIamKeys**](IamAPI.md#PostIamKeys) | **Post** /v1/iam/keys | Issues an API key.
 [**PostIamLink**](IamAPI.md#PostIamLink) | **Post** /v1/iam/link | Starts connecting another sign-in identity to the account you are already signed in as.
 [**PostIamLogin**](IamAPI.md#PostIamLogin) | **Post** /v1/iam/login | Signs a person in with the credential they typed, and — when the request is part of an OAuth flow — hands back the one-time code that finishes it.
@@ -106,7 +102,6 @@ Method | HTTP request | Description
 [**PostIamMfaPreferred**](IamAPI.md#PostIamMfaPreferred) | **Post** /v1/iam/mfa/preferred | Picks which second factor an account is asked for first when it has more than one.
 [**PostIamMfaSetupEnable**](IamAPI.md#PostIamMfaSetupEnable) | **Post** /v1/iam/mfa/setup/enable | Finishes the enrolment: from here the account&#39;s sign-ins ask for this factor.
 [**PostIamMfaSetupInitiate**](IamAPI.md#PostIamMfaSetupInitiate) | **Post** /v1/iam/mfa/setup/initiate | Starts enrolling a factor and hands over whatever the person needs to prove they hold it: app a fresh secret and the otpauth:// URL to render as a QR code sms a code texted to the number on the account email a code mailed to the address on the account Nothing is switched on yet, so abandoning this step leaves the account exactly as it was.
-[**PostIamMintUserKeys**](IamAPI.md#PostIamMintUserKeys) | **Post** /v1/iam/mint-user-keys | (re)generates the target user&#39;s key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam.
 [**PostIamOauthAuthorize**](IamAPI.md#PostIamOauthAuthorize) | **Post** /v1/iam/oauth/authorize | Starts a sign-in — the address you send a browser to, and the beginning of every OAuth and OpenID Connect flow.
 [**PostIamOauthDevice**](IamAPI.md#PostIamOauthDevice) | **Post** /v1/iam/oauth/device | Starts a sign-in on a device with no browser and no keyboard — a TV, a CLI, a headless box.
 [**PostIamOauthDeviceInfo**](IamAPI.md#PostIamOauthDeviceInfo) | **Post** /v1/iam/oauth/device/info | Answers \&quot;what am I approving?\&quot; for a pending device code.
@@ -122,18 +117,14 @@ Method | HTTP request | Description
 [**PostIamProjects**](IamAPI.md#PostIamProjects) | **Post** /v1/iam/projects | Makes a project inside your organization — the scope people pick between when their work is separated by product or client rather than by team.
 [**PostIamRegistryToken**](IamAPI.md#PostIamRegistryToken) | **Post** /v1/iam/registry/token | Signs a container client in to your registry.
 [**PostIamRelease**](IamAPI.md#PostIamRelease) | **Post** /v1/iam/release | Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
-[**PostIamRevokeUserKeys**](IamAPI.md#PostIamRevokeUserKeys) | **Post** /v1/iam/revoke-user-keys | Clears the target user&#39;s key of the requested TYPE (immediate revoke).
 [**PostIamRoles**](IamAPI.md#PostIamRoles) | **Post** /v1/iam/roles | Makes a role — a named group of people that permissions are granted to.
 [**PostIamScimV2Users**](IamAPI.md#PostIamScimV2Users) | **Post** /v1/iam/scim/v2/Users | Provisions a person from your identity provider — how a new hire gets an account here automatically when they are added over there.
-[**PostIamSendVerificationCode**](IamAPI.md#PostIamSendVerificationCode) | **Post** /v1/iam/send-verification-code | Validates the request and asks otp to get a code to the person.
 [**PostIamServiceAccounts**](IamAPI.md#PostIamServiceAccounts) | **Post** /v1/iam/service-accounts | Makes a service account — an identity for a program rather than a person, for a script, a bot or a deployment that has to authenticate on its own.
 [**PostIamServiceAccountsByNameKeys**](IamAPI.md#PostIamServiceAccountsByNameKeys) | **Post** /v1/iam/service-accounts/{name}/keys | Serves POST /v1/iam/service-accounts/:name/keys: mint a fresh key, invalidating the prior one, and return the new raw secret exactly once.
-[**PostIamSetPreferredMfa**](IamAPI.md#PostIamSetPreferredMfa) | **Post** /v1/iam/set-preferred-mfa | Picks which second factor an account is asked for first when it has more than one.
 [**PostIamSignin**](IamAPI.md#PostIamSignin) | **Post** /v1/iam/signin | Completes a sign-in: it exchanges the one-time code your application was handed at the end of the login flow for a live session, and returns the signed-in account.
 [**PostIamSignup**](IamAPI.md#PostIamSignup) | **Post** /v1/iam/signup | Creates an account from the sign-up form and applies the application&#39;s own sign-up rules — whether self-service registration is open at all, and which fields it requires.
 [**PostIamTokensIssue**](IamAPI.md#PostIamTokensIssue) | **Post** /v1/iam/tokens/issue | Mints an access token for the &#x60;?id&#x3D;&lt;owner&gt;/&lt;name&gt;&#x60; target user (optional &#x60;?aud&#x3D;&#x60; resource, RFC 8707), issued by the authenticated + allow-listed confidential client.
 [**PostIamUnlink**](IamAPI.md#PostIamUnlink) | **Post** /v1/iam/unlink | Disconnects one sign-in identity from an account, so that provider can no longer be used to sign in as that person.
-[**PostIamUpdatePreferences**](IamAPI.md#PostIamUpdatePreferences) | **Post** /v1/iam/update-preferences | Saves the calling person&#39;s own settings and returns the full set afterwards.
 [**PostIamUsers**](IamAPI.md#PostIamUsers) | **Post** /v1/iam/users | Adds a person to your organization.
 [**PostIamUsersByOwnerByNameKeys**](IamAPI.md#PostIamUsersByOwnerByNameKeys) | **Post** /v1/iam/users/{owner}/{name}/keys | (re)generates the target user&#39;s key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam.
 [**PostIamVerificationCodes**](IamAPI.md#PostIamVerificationCodes) | **Post** /v1/iam/verification-codes | Validates the request and asks otp to get a code to the person.
@@ -2526,133 +2517,6 @@ Other parameters are passed through a pointer to a apiGetIamConsentRequest struc
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetIamGetAccount
-
-> GetIamGetAccount(ctx).Execute()
-
-Returns the signed-in person's own account and the organization they belong to — what a console reads to draw the account menu.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IamAPI.GetIamGetAccount(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamGetAccount``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetIamGetAccountRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetIamGetAppLogin
-
-> IamAnswer GetIamGetAppLogin(ctx).ClientId(clientId).ResponseType(responseType).Execute()
-
-Returns everything a login screen needs to draw itself for one application: its branding, and each sign-in method it offers with the provider details that method needs.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-	clientId := "clientId_example" // string | ClientId is the application's OAuth client id — the one field that selects which login screen this is. (optional)
-	responseType := "responseType_example" // string | ResponseType is the OAuth response type the screen will ask for. Only \"code\" is served; anything else is refused here rather than at the authorize leg, where the person has already typed a password. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.GetIamGetAppLogin(context.Background()).ClientId(clientId).ResponseType(responseType).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamGetAppLogin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetIamGetAppLogin`: IamAnswer
-	fmt.Fprintf(os.Stdout, "Response from `IamAPI.GetIamGetAppLogin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetIamGetAppLoginRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **clientId** | **string** | ClientId is the application&#39;s OAuth client id — the one field that selects which login screen this is. | 
- **responseType** | **string** | ResponseType is the OAuth response type the screen will ask for. Only \&quot;code\&quot; is served; anything else is refused here rather than at the authorize leg, where the person has already typed a password. | 
-
-### Return type
-
-[**IamAnswer**](IamAnswer.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6342,65 +6206,6 @@ Other parameters are passed through a pointer to a apiPostIamDeleteMembershipReq
 [[Back to README]](../README.md)
 
 
-## PostIamDeleteMfa
-
-> PostIamDeleteMfa(ctx).Execute()
-
-Turns a factor off, so sign-in stops asking for it.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IamAPI.PostIamDeleteMfa(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamDeleteMfa``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamDeleteMfaRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostIamInvitations
 
 > IamInvitation PostIamInvitations(ctx).IamInvitationsInput(iamInvitationsInput).Execute()
@@ -6461,65 +6266,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostIamIssueUserToken
-
-> PostIamIssueUserToken(ctx).Execute()
-
-Mints an access token for the `?id=<owner>/<name>` target user (optional `?aud=` resource, RFC 8707), issued by the authenticated + allow-listed confidential client.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IamAPI.PostIamIssueUserToken(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamIssueUserToken``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamIssueUserTokenRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6926,65 +6672,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostIamMfaSetupInitiateRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostIamMintUserKeys
-
-> PostIamMintUserKeys(ctx).Execute()
-
-(re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IamAPI.PostIamMintUserKeys(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamMintUserKeys``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamMintUserKeysRequest struct via the builder pattern
 
 
 ### Return type
@@ -7915,65 +7602,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostIamRevokeUserKeys
-
-> PostIamRevokeUserKeys(ctx).Execute()
-
-Clears the target user's key of the requested TYPE (immediate revoke).
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IamAPI.PostIamRevokeUserKeys(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamRevokeUserKeys``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamRevokeUserKeysRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostIamRoles
 
 > IamRole PostIamRoles(ctx).IamRolesInput(iamRolesInput).Execute()
@@ -8079,65 +7707,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostIamScimV2UsersRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostIamSendVerificationCode
-
-> PostIamSendVerificationCode(ctx).Execute()
-
-Validates the request and asks otp to get a code to the person.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IamAPI.PostIamSendVerificationCode(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamSendVerificationCode``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamSendVerificationCodeRequest struct via the builder pattern
 
 
 ### Return type
@@ -8265,65 +7834,6 @@ Other parameters are passed through a pointer to a apiPostIamServiceAccountsByNa
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostIamSetPreferredMfa
-
-> PostIamSetPreferredMfa(ctx).Execute()
-
-Picks which second factor an account is asked for first when it has more than one.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IamAPI.PostIamSetPreferredMfa(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamSetPreferredMfa``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamSetPreferredMfaRequest struct via the builder pattern
 
 
 ### Return type
@@ -8560,65 +8070,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostIamUnlinkRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostIamUpdatePreferences
-
-> PostIamUpdatePreferences(ctx).Execute()
-
-Saves the calling person's own settings and returns the full set afterwards.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IamAPI.PostIamUpdatePreferences(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamUpdatePreferences``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamUpdatePreferencesRequest struct via the builder pattern
 
 
 ### Return type

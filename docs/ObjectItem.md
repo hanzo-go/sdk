@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Etag** | Pointer to **string** |  | [optional] 
+**Etag** | Pointer to **string** | ETag is the store&#39;s entity tag for the bytes currently at this key, with the quotes the store wraps it in stripped. It is an opaque VERSION and not a checksum to verify against: a single-part upload&#39;s tag happens to be the MD5 of the content and a multipart upload&#39;s is not, and nothing here says which this was. Compare two reads of one key to learn whether the object changed; absent for a folder entry, and for an object the store reports none for. | [optional] 
 **IsDir** | Pointer to **bool** | true for a folder (common prefix) | [optional] 
 **Key** | Pointer to **string** | key RELATIVE to the requested prefix | [optional] 
 **LastModified** | Pointer to **int32** | unix seconds (0 for a folder) | [optional] 

@@ -5,7 +5,7 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetBotRuns**](BotAPI.md#GetBotRuns) | **Get** /v1/bot/runs | List returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
-[**PostBotRuns**](BotAPI.md#PostBotRuns) | **Post** /v1/bot/runs | Reserved address for launching a bot run — not implemented, always 501
+[**PostBotRuns**](BotAPI.md#PostBotRuns) | **Post** /v1/bot/runs | Answers 501 to every call: launching a bot run is not implemented.
 [**PostBotRunsByRunidStop**](BotAPI.md#PostBotRunsByRunidStop) | **Post** /v1/bot/runs/{runId}/stop | Stop terminates one of the caller org&#39;s own bot runs and reports its terminal state.
 
 
@@ -75,7 +75,7 @@ Other parameters are passed through a pointer to a apiGetBotRunsRequest struct v
 
 > PostBotRuns(ctx).Execute()
 
-Reserved address for launching a bot run — not implemented, always 501
+Answers 501 to every call: launching a bot run is not implemented.
 
 
 
@@ -151,7 +151,7 @@ import (
 )
 
 func main() {
-	runId := "runId_example" // string | 
+	runId := "runId_example" // string | RunID is the run to stop, as the bot runtime named it. It is read from the URL — the `{runId}` segment the router matched on — and a body carrying a different id cannot redirect the stop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -171,7 +171,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**runId** | **string** |  | 
+**runId** | **string** | RunID is the run to stop, as the bot runtime named it. It is read from the URL — the &#x60;{runId}&#x60; segment the router matched on — and a body carrying a different id cannot redirect the stop. | 
 
 ### Other Parameters
 

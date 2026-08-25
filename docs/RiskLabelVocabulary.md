@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Dispositions** | Pointer to **[]string** | Dispositions is the closed set a write&#39;s &#x60;disposition&#x60; must be drawn from, published in full so a caller can validate a batch before filing it instead of discovering a refusal per member: \&quot;productive\&quot;, \&quot;unproductive\&quot;, and \&quot;\&quot; — the EMPTY STRING is a member and means an explicit unjudged, so a client that filters empties out of this list drops a third of the vocabulary and can never file \&quot;we looked and could not say\&quot;. They are the AML engine&#39;s own spelling, verbatim, which is what lets a replay there report against these values. | [optional] 
-**Kinds** | Pointer to **[]string** | Kinds, Dispositions and Sources are the closed vocabularies. A value outside them is refused at the door. | [optional] 
+**Kinds** | Pointer to **[]string** | Kinds, Dispositions and Sources are the closed vocabularies. A value outside them is refused at the endpoint. | [optional] 
 **Precedence** | Pointer to **[]string** | Precedence is the sources in the order that resolves a conflict, strongest first. It is DERIVED from the same declaration the resolver reads, so the published order is the enforced order and cannot drift from it. | [optional] 
 **Retention** | Pointer to **int32** | Retention is the platform floor in days: no tenant may dispose of a label younger than this, because a label can be the input to an adverse action. | [optional] 
 **Rule** | Pointer to **[]string** | Rule states the tie-breaks below rank, in order, so a caller reading a contested resolution can reproduce it. | [optional] 

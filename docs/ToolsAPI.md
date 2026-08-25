@@ -19,7 +19,7 @@ Method | HTTP request | Description
 [**PatchToolsCatalogById**](ToolsAPI.md#PatchToolsCatalogById) | **Patch** /v1/tools/catalog/{id} | Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
 [**PostToolsCall**](ToolsAPI.md#PostToolsCall) | **Post** /v1/tools/call | Runs one of the caller&#39;s activated tools and answers with its output.
 [**PostToolsCatalogSync**](ToolsAPI.md#PostToolsCatalogSync) | **Post** /v1/tools/catalog/sync | Pulls the public MCP registry into our canonical copy and reports what changed.
-[**PostToolsMcpServers**](ToolsAPI.md#PostToolsMcpServers) | **Post** /v1/tools/mcp/servers | Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP door.
+[**PostToolsMcpServers**](ToolsAPI.md#PostToolsMcpServers) | **Post** /v1/tools/mcp/servers | Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
 [**PostToolsPluginsBuild**](ToolsAPI.md#PostToolsPluginsBuild) | **Post** /v1/tools/plugins/build | Builds and stores one plugin for the caller&#39;s org.
 [**PostToolsSkills**](ToolsAPI.md#PostToolsSkills) | **Post** /v1/tools/skills | Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
 [**PutToolsActivation**](ToolsAPI.md#PutToolsActivation) | **Put** /v1/tools/activation | Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
@@ -1025,7 +1025,7 @@ Other parameters are passed through a pointer to a apiPostToolsCatalogSyncReques
 
 > MCPServer PostToolsMcpServers(ctx).CreateServerReq(createServerReq).Execute()
 
-Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP door.
+Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP server.
 
 
 

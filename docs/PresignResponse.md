@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExpiresIn** | Pointer to **int32** | seconds until the URL expires | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
+**Key** | Pointer to **string** | Key is the object key the URL was signed for, relative to the bucket root and path-cleaned — so it is what the store will actually read or write, which is not always the string the caller sent. The signature covers this one bucket and this one key: a URL minted here reaches nothing else. | [optional] 
 **Method** | Pointer to **string** | \&quot;PUT\&quot; (upload) or \&quot;GET\&quot; (download) | [optional] 
 **Url** | Pointer to **string** | presigned URL the browser follows directly | [optional] 
 

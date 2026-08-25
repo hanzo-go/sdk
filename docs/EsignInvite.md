@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID is the new recipient&#39;s id, which is what a field is placed against. | [optional] 
 **Name** | Pointer to **string** | Name is the recipient&#39;s display name, empty when none was given. | [optional] 
 **Role** | Pointer to **string** | Role is the role they were recorded with — SIGNER unless another was asked for. | [optional] 
-**Token** | Pointer to **string** | Token is the crypto-random signing capability for this recipient. It is the entire credential their door accepts, so treat it as a secret and hand it only to them: the signing link is built from it. | [optional] 
+**Token** | Pointer to **string** | Token is the crypto-random signing capability for this recipient. It is the entire credential their signing endpoint accepts, so treat it as a secret and hand it only to them: the signing link is built from it. | [optional] 
 
 ## Methods
 

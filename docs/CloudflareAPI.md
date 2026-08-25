@@ -25,7 +25,7 @@ Method | HTTP request | Description
 [**GetCloudflareZonesByZone**](CloudflareAPI.md#GetCloudflareZonesByZone) | **Get** /v1/cloudflare/zones/{zone} | Reads one Cloudflare zone the org&#39;s token can see.
 [**GetCloudflareZonesByZoneAnalytics**](CloudflareAPI.md#GetCloudflareZonesByZoneAnalytics) | **Get** /v1/cloudflare/zones/{zone}/analytics | Reads a zone&#39;s Cloudflare traffic dashboard — requests, bandwidth, threats and pageviews over the since/until window.
 [**PostCloudflareD1Databases**](CloudflareAPI.md#PostCloudflareD1Databases) | **Post** /v1/cloudflare/d1/databases | Creates a D1 database on the org&#39;s Cloudflare account.
-[**PostCloudflareD1DatabasesByDatabaseQuery**](CloudflareAPI.md#PostCloudflareD1DatabasesByDatabaseQuery) | **Post** /v1/cloudflare/d1/databases/{database}/query | Run a SQL statement against a D1 database
+[**PostCloudflareD1DatabasesByDatabaseQuery**](CloudflareAPI.md#PostCloudflareD1DatabasesByDatabaseQuery) | **Post** /v1/cloudflare/d1/databases/{database}/query | Runs one SQL statement against a D1 database.
 [**PostCloudflareKvNamespaces**](CloudflareAPI.md#PostCloudflareKvNamespaces) | **Post** /v1/cloudflare/kv/namespaces | KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
 [**PostCloudflarePagesProjects**](CloudflareAPI.md#PostCloudflarePagesProjects) | **Post** /v1/cloudflare/pages/projects | Creates a Cloudflare Pages project on the org&#39;s account.
 [**PostCloudflarePagesProjectsByProjectDeployments**](CloudflareAPI.md#PostCloudflarePagesProjectsByProjectDeployments) | **Post** /v1/cloudflare/pages/projects/{project}/deployments | Trigger a new Pages deployment for a project
@@ -35,7 +35,7 @@ Method | HTTP request | Description
 [**PostCloudflareWorkersZonesByZoneRoutes**](CloudflareAPI.md#PostCloudflareWorkersZonesByZoneRoutes) | **Post** /v1/cloudflare/workers/zones/{zone}/routes | Binds a URL pattern in a zone to a Worker script.
 [**PostCloudflareZonesByZonePurge**](CloudflareAPI.md#PostCloudflareZonesByZonePurge) | **Post** /v1/cloudflare/zones/{zone}/purge | Drops a zone&#39;s Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
 [**PutCloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#PutCloudflareKvNamespacesByNamespaceValuesByKey) | **Put** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | Write a Workers KV value from the request body
-[**PutCloudflareWorkersScriptsByScript**](CloudflareAPI.md#PutCloudflareWorkersScriptsByScript) | **Put** /v1/cloudflare/workers/scripts/{script} | Upload or replace a module Worker script
+[**PutCloudflareWorkersScriptsByScript**](CloudflareAPI.md#PutCloudflareWorkersScriptsByScript) | **Put** /v1/cloudflare/workers/scripts/{script} | Uploads or replaces a module Worker script.
 
 
 
@@ -1510,7 +1510,7 @@ Name | Type | Description  | Notes
 
 > interface{} PostCloudflareD1DatabasesByDatabaseQuery(ctx, database).D1Query(d1Query).Execute()
 
-Run a SQL statement against a D1 database
+Runs one SQL statement against a D1 database.
 
 
 
@@ -1528,7 +1528,7 @@ import (
 
 func main() {
 	database := "database_example" // string | 
-	d1Query := *openapiclient.NewD1Query() // D1Query |  (optional)
+	d1Query := *openapiclient.NewD1Query() // D1Query | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2211,7 +2211,7 @@ Name | Type | Description  | Notes
 
 > interface{} PutCloudflareWorkersScriptsByScript(ctx, script).WorkerScriptPut(workerScriptPut).Execute()
 
-Upload or replace a module Worker script
+Uploads or replaces a module Worker script.
 
 
 
@@ -2228,8 +2228,8 @@ import (
 )
 
 func main() {
-	script := "script_example" // string | 
-	workerScriptPut := *openapiclient.NewWorkerScriptPut() // WorkerScriptPut |  (optional)
+	script := "script_example" // string | Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker's ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker.
+	workerScriptPut := *openapiclient.NewWorkerScriptPut() // WorkerScriptPut | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2249,7 +2249,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**script** | **string** |  | 
+**script** | **string** | Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker&#39;s ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker. | 
 
 ### Other Parameters
 

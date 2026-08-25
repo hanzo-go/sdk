@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -41,7 +41,7 @@ type IamKey struct {
 	Organization *string `json:"organization,omitempty"`
 	// Owner is the tenant that holds the key; Name is unique within Owner.
 	Owner *string `json:"owner,omitempty"`
-	// Scope is the key's ACCESS CLASS, orthogonal to Type (which names the bound principal). Empty (the default, \"secret\") is a full key: a pk- publishable half AND a confidential sk- half, the sk- authenticating a server-side reader. KeyScopePublish is a WRITE-ONLY publishable key — a pk- half only, no secret — that resolves to just an ORG (never a principal) at the ingest door and is safe to ship in client JS. A missing value on an existing row reads as the default, so every pre-Scope key is a secret key unchanged.
+	// Scope is the key's ACCESS CLASS, orthogonal to Type (which names the bound principal). Empty (the default, \"secret\") is a full key: a pk- publishable half AND a confidential sk- half, the sk- authenticating a server-side reader. KeyScopePublish is a WRITE-ONLY publishable key — a pk- half only, no secret — that resolves to just an ORG (never a principal) at the ingest endpoint and is safe to ship in client JS. A missing value on an existing row reads as the default, so every pre-Scope key is a secret key unchanged.
 	Scope *string `json:"scope,omitempty"`
 	State *string `json:"state,omitempty"`
 	// Type is the scope the key is bound to — \"Organization\", \"Application\", \"User\", or \"General\" — and Organization / Application / User name the concrete principal for whichever scope Type selects.

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Name is the subsystem, as the manifest names it. | [optional] 
-**Served** | Pointer to **bool** | Served reports that THIS process mounted it, so its tools are on this process&#39;s door rather than behind a sibling this process only knows the name of. | [optional] 
+**Served** | Pointer to **bool** | Served reports that THIS process mounted it, so its tools are on this process&#39;s MCP server rather than behind a sibling this process only knows the name of. | [optional] 
 
 ## Methods
 

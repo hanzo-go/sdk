@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -41,7 +41,7 @@ type AgentView struct {
 	ServiceAccountId *string `json:"serviceAccountId,omitempty"`
 	// Status is the agent's readiness, and today it is \"ready\" on every row: an agent is a definition rather than a provisioned thing, so nothing transitions it. Server-set at create; no route accepts it.
 	Status *string `json:"status,omitempty"`
-	// Tools are the tool names this agent may call, and the list IS the authority: an agent that declares none gets none. The single entry \"*\" means whatever the fleet's tool door serves at the moment of the run, resolved per run rather than frozen here, which is how the default assistant reaches subsystems that shipped after it was defined. Empty array, never null.
+	// Tools are the tool names this agent may call, and the list IS the authority: an agent that declares none gets none. The single entry \"*\" means whatever the fleet's MCP server serves at the moment of the run, resolved per run rather than frozen here, which is how the default assistant reaches subsystems that shipped after it was defined. Empty array, never null.
 	Tools []string `json:"tools,omitempty"`
 	// UpdatedAt is the last time any field above was written, same format. It moves on an update to the DEFINITION and never on a run, so a busy agent nobody has edited keeps an old one.
 	UpdatedAt *string `json:"updatedAt,omitempty"`

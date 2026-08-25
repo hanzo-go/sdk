@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -702,8 +702,8 @@ GetPlatformCd Answers every Application the delivery plane holds.
 
 Answers every Application the delivery plane holds.
 
-Scoped to the namespaces the caller's own validated org owns: the ROLE opens
-the door and the tenant boundary is applied inside, so an admin of one org
+Scoped to the namespaces the caller's own validated org owns: the ROLE admits
+the caller and the tenant boundary is applied inside, so an admin of one org
 never observes another's.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -2764,7 +2764,7 @@ func (r PlatformAPIPostPlatformHookRequest) Execute() (*Verdict, *http.Response,
 /*
 PostPlatformHook Receive a push from the forge and trigger its build
 
-The forge's push-to-deploy door. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two clients a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.
+The forge's push-to-deploy endpoint. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two clients a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.
 
 PUBLIC at the JWT layer, because the forge carries no Hanzo session: AUTHENTICATION IS THE SIGNATURE. The HMAC covers the raw bytes and is verified BEFORE the payload is parsed, so an unauthenticated body is never decoded. The secret is read from KMS; a deployment that cannot read it answers 503 and processes nothing, rather than trusting a delivery it could not check. The body is read UNCOMPRESSED — a request declaring a Content-Encoding is refused 415 before it is touched, because decoding one is unbounded work bought with a few bytes and no credential. A bad signature is 401, a payload over 8 MiB is 413, and a malformed one 400.
 

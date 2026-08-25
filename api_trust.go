@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -146,7 +146,7 @@ func (r TrustAPIGetTrustRequest) Execute() (*Centre, *http.Response, error) {
 GetTrust Reads YOUR organization's whole trust centre, including the addresses of your own gated documents.
 
 Reads YOUR organization's whole trust centre, including the addresses of your
-own gated documents. Same shape as the published door; the difference is that
+own gated documents. Same shape as the published endpoint; the difference is that
 this one is resolved from your validated bearer and shows you your own
 artifacts.
 
@@ -672,7 +672,7 @@ func (r TrustAPIGetTrustDocumentsRequest) Execute() (*TrustDocuments, *http.Resp
 GetTrustDocuments Lists your organization's documents.
 
 Lists your organization's documents. Because this is your own centre, a gated
-artifact carries its address here; through the published door it does not.
+artifact carries its address here; through the published endpoint it does not.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TrustAPIGetTrustDocumentsRequest
@@ -1334,7 +1334,7 @@ organization's profile, its control inventory, coverage computed against each
 framework's whole published clause list, its documents, subprocessors,
 policies, knowledge base, updates and risk profile.
 
-This is the PUBLIC door and needs no credential, because a published trust
+This is the PUBLIC endpoint and needs no credential, because a published trust
 centre is a public document. It answers only for an organization that has
 published one — an organization that has not is not found rather than empty,
 since an empty centre and a centre nobody meant to show read the same and are
@@ -1343,7 +1343,7 @@ not the same thing.
 A gated document appears here with its title, its type and its date and NO
 address: the listing says the artifact exists and that reading it takes a
 grant. Nothing an independent auditor signed is ever released through this
-door.
+endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param org Org is the organization's slug — the name in its address.

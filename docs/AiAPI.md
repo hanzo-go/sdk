@@ -4,7 +4,7 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AiMCPTools**](AiAPI.md#AiMCPTools) | **Get** /v1/ai/mcp/tools | Tools reports what THIS PROCESS&#39;s MCP door carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+[**AiMCPTools**](AiAPI.md#AiMCPTools) | **Get** /v1/ai/mcp/tools | Tools reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
 [**DeleteAiArticlesByOwnerByName**](AiAPI.md#DeleteAiArticlesByOwnerByName) | **Delete** /v1/ai/articles/{owner}/{name} | Delete a article
 [**DeleteAiAssetsByOwnerByName**](AiAPI.md#DeleteAiAssetsByOwnerByName) | **Delete** /v1/ai/assets/{owner}/{name} | Delete a asset
 [**DeleteAiChatsByOwnerByName**](AiAPI.md#DeleteAiChatsByOwnerByName) | **Delete** /v1/ai/chats/{owner}/{name} | Delete a chat
@@ -305,7 +305,7 @@ Method | HTTP request | Description
 
 > AiMCPSurface AiMCPTools(ctx).Names(names).Execute()
 
-Tools reports what THIS PROCESS's MCP door carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+Tools reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
 
 
 
@@ -322,7 +322,7 @@ import (
 )
 
 func main() {
-	names := true // bool | Names asks for this process's tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\"is the door up and does it have anything behind it\") is answered by the count. (optional)
+	names := true // bool | Names asks for this process's tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\"is the MCP server up and does it have anything behind it\") is answered by the count. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -347,7 +347,7 @@ Other parameters are passed through a pointer to a apiAiMCPToolsRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **names** | **bool** | Names asks for this process&#39;s tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\&quot;is the door up and does it have anything behind it\&quot;) is answered by the count. | 
+ **names** | **bool** | Names asks for this process&#39;s tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\&quot;is the MCP server up and does it have anything behind it\&quot;) is answered by the count. | 
 
 ### Return type
 

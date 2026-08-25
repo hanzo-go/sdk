@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -34,9 +34,9 @@ func (r OpenapiAPIGetCapabilitiesRequest) Execute() (*Root, *http.Response, erro
 /*
 GetCapabilities Every capability this deployment answers, and where to follow each one
 
-The API root. One row per capability — its name, the address it answers under, whether it is generally available, and the sentence it says about itself — plus the links to the document at /v1/openapi.json and the agent door.
+The API root. One row per capability — its name, the address it answers under, whether it is generally available, and the sentence it says about itself — plus the links to the document at /v1/openapi.json and the agent MCP server.
 
-It is a projection of that same document and carries the same surface a customer calls: the operator's admin product, the relay doors, the legacy spellings and any capability that is not yet generally available are in neither.
+It is a projection of that same document and carries the same surface a customer calls: the operator's admin product, the relays, the legacy spellings and any capability that is not yet generally available are in neither.
 
 Unauthenticated by design, exactly as the document it derives from: a client has to be able to read the contract before it holds a credential, and a list of capability names grants nothing.
 
@@ -342,7 +342,7 @@ GetOpenapiJson The API description this SDK was generated from
 
 Serves the OpenAPI document for the routes this process actually answers — generated from the live router at request time, not from a checked-in file that can disagree with it.
 
-On an app it is that app's own surface; on the fleet's front door it is the composed document for every mounted app. Unauthenticated by design: a client has to be able to read the contract before it holds a credential, and the document grants nothing.
+On an app it is that app's own surface; on the fleet's public endpoint it is the composed document for every mounted app. Unauthenticated by design: a client has to be able to read the contract before it holds a credential, and the document grants nothing.
 
 Rendered once and served as bytes thereafter, so the route table's immutability is what makes a repeat request a memcpy rather than a re-encode of a megabyte document.
 
@@ -436,7 +436,7 @@ func (r OpenapiAPIPostMcpRequest) Execute() (*MCPResponse, *http.Response, error
 }
 
 /*
-PostMcp The agent door: every subsystem's operations as MCP tools
+PostMcp The agent endpoint: every subsystem's operations as MCP tools
 
 Model Context Protocol over JSON-RPC 2.0 — one POST per message, stateless, protocol revision 2026-07-28. tools/list answers without a credential with one tool per subsystem (its operations in the "op" enum) plus "describe", which returns one operation's input schema. tools/call names a subsystem tool and carries {"op": <operation>, "input": <its arguments>}; it takes the same bearer the REST API does, and a call that carries none is answered 401 with a WWW-Authenticate header naming the resource metadata at /.well-known/oauth-protected-resource, which names the authorization server to sign in at. The tool surface is the public contract: the operator's admin product is not offered, and a name that would disclose a secret or mutate an identity is withheld — the list says how many, under _meta.
 

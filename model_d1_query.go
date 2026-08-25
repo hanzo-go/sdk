@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,8 +19,10 @@ var _ MappedNullable = &D1Query{}
 
 // D1Query struct for D1Query
 type D1Query struct {
+	// Params are the statement's bound values, in the order its `?` placeholders appear — a string, a number, a boolean or null, whatever the column takes. Absent means the statement carries no placeholders; bind values here rather than interpolating them into the statement.
 	Params []interface{} `json:"params,omitempty"`
-	Sql    *string       `json:"sql,omitempty"`
+	// SQL is the statement to run. Blank (or absent) is refused before anything reaches D1.
+	Sql *string `json:"sql,omitempty"`
 }
 
 // NewD1Query instantiates a new D1Query object

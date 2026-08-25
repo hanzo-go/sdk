@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -684,7 +684,7 @@ func (r DataroomAPIGetDataroomDocumentsByIdFileRequest) Execute() (*http.Respons
 /*
 GetDataroomDocumentsByIdFile Download a document's bytes as its owner
 
-Streams the stored file back under its recorded content type, falling back to application/octet-stream when none was recorded.
+Streams the stored file back under the type read from its BYTES — a raster image or a PDF renders in place, and anything else is served as application/octet-stream with an attachment disposition, so a stored file never executes as markup in this origin. Every response carries nosniff, which keeps the declared type binding.
 
 Requires a validated principal; 403 without one, and the document is resolved in the caller's own tenant store, so another org's id is a 404. This is the OWNER's path and applies no link gate at all — the per-link password, email and download controls live on the viewer surface, not here. Bytes that cannot be fetched from object storage are 502, never a truncated or empty file.
 
@@ -1213,7 +1213,7 @@ func (r DataroomAPIGetDataroomTrustCenterBySlugFileByItemRequest) Execute() (*ht
 /*
 GetDataroomTrustCenterBySlugFileByItem Read a public trust-centre item's bytes
 
-Streams the file behind an item a trust centre publishes openly — a policy, a filled questionnaire, a knowledge-base attachment — under its recorded content type.
+Streams the file behind an item a trust centre publishes openly — a policy, a filled questionnaire, a knowledge-base attachment — under the type read from its bytes: a picture or a PDF renders in place, anything else downloads inert.
 
 No principal and no link: these are the things an org states about itself, so they are served to anyone who asks. The narrowing is in the lookup rather than in a check: the item must be public, must not be retired, and must belong to a centre its owner has published, so an item released only on request is NOT FOUND here rather than refused — the same answer an id that never existed gets, which is what stops this reporting what the released-on-request tier holds.
 
@@ -1409,7 +1409,7 @@ func (r DataroomAPIGetDataroomViewByLinkidDocumentByDocumentidFileRequest) Execu
 /*
 GetDataroomViewByLinkidDocumentByDocumentidFile Read a document's bytes as an authorised link visitor
 
-Streams a document's bytes under its recorded content type to a visitor holding an open viewing session.
+Streams a document's bytes to a visitor holding an open viewing session, under the type read from those bytes: a picture or a PDF renders in place, anything else downloads inert.
 
 No principal: `?viewId=` from the authenticate step is the authorisation and must belong to this link, or the call is 403 — holding the link id alone gets no bytes. The document must be reachable THROUGH this link (a member of the room the link opens, or the single document the link names), so a visitor cannot walk to an unrelated document by guessing an id; anything else is a 404, as is an unknown or archived link. Bytes that cannot be fetched from object storage are 502.
 
@@ -1874,7 +1874,7 @@ func (r DataroomAPIPostDataroomDocumentsRequest) Execute() (*http.Response, erro
 /*
 PostDataroomDocuments Upload a document's bytes and record it
 
-Takes the file ITSELF as the raw request body — not a JSON envelope, not multipart — stores it on the object-storage client, and records the metadata row, answering with the new document. `?name=` names it (default "document"), the request's Content-Type becomes the recorded mime type, and `?numPages=` is optional.
+Takes the file ITSELF as the raw request body — not a JSON envelope, not multipart — stores it on the object-storage client, and records the metadata row, answering with the new document. `?name=` names it (default "document"), the request's Content-Type is recorded as the document's mime type, and `?numPages=` is optional. That recorded type is metadata the owner sees; what the file is later SERVED as is read from the bytes.
 
 Requires a validated principal; 403 without one. An empty body is 400 and anything over 64 MiB is 413 — a data room holds decks and PDFs, not a media library.
 
@@ -2244,7 +2244,7 @@ against the request.
 
 Asking twice for the same thing from the same address is the SAME ask: the second
 answers with the first's id rather than opening a second row, which is also what
-keeps an anonymous door from filling a tenant's store.
+keeps an anonymous endpoint from filling a tenant's store.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param slug Slug is the centre's public address, taken from the path.
@@ -2811,8 +2811,8 @@ with the centre as it now stands.
 
 Publishing requires a name and an address, and the address must be free: another
 org already answering there is a conflict, never a takeover. Withdrawing closes
-the public door only — items, grants and the access record are untouched, so an
-org can go quiet and come back without losing anything.
+the public endpoint only — items, grants and the access record are untouched, so
+an org can go quiet and come back without losing anything.
 
 Only an admin of the org may call it. The org is the caller's own, so there is no
 field naming one and no way to point this at another tenant.

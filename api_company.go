@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -618,7 +618,7 @@ func (r CompanyAPIPostCompanyAdvanceRequest) Execute() (*FormationView, *http.Re
 PostCompanyAdvance Advance runs the ONE guarded transition of the formation machine.
 
 Advance runs the ONE guarded transition of the formation machine. It is the
-only door between stages: the actions populate data, this decides ordering.
+only endpoint between stages: the actions populate data, this decides ordering.
 
 An edge the machine does not define answers 409; an edge whose guard is not yet
 satisfied answers 422 naming what is missing. Reaching the terminal `company`
@@ -2182,9 +2182,9 @@ PULL path to a provider-reported terminal status. For the manual provider the
 check stays pending; for a real provider it reflects the settled decision,
 ATTRIBUTED to the provider.
 
-It NEVER trusts a client-asserted status — the status comes from the provider
-client — so a client cannot force a pass here, and an already-passing founder
-(e.g. a reviewer confirmation) is left untouched.
+It NEVER trusts a client-asserted status — the status comes from the PROVIDER —
+so a client cannot force a pass here, and an already-passing founder (e.g. a
+reviewer confirmation) is left untouched.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CompanyAPIPostCompanyKycRefreshRequest

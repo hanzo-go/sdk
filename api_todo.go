@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -37,7 +37,7 @@ DeleteTodoProjectsByKey Refused — a board is a repository on the forge
 
 Answers 405. A todo board IS a repository on this deployment's forge, so creating, renaming and deleting one is a FORGE operation carried out with FORGE permissions.
 
-Offering it here would put a second door on the same object, guarded by this surface instead of by the forge — a weaker guard on the same thing. So the route exists and refuses, rather than 404ing: "not this service's job" and "no such thing" are different facts, and the body names the forge so a caller knows where the job IS done.
+Offering it here would put a second endpoint on the same object, guarded by this surface instead of by the forge — a weaker guard on the same thing. So the route exists and refuses, rather than 404ing: "not this service's job" and "no such thing" are different facts, and the body names the forge so a caller knows where the job IS done.
 
 What this surface DOES own is the work on a board: list the boards you can see, read and file their issues, move a card between columns, and read the schedule a milestone is. Those are the routes beside this one.
 
@@ -1016,7 +1016,7 @@ PatchTodoProjectsByKey Refused — a board is a repository on the forge
 
 Answers 405. A todo board IS a repository on this deployment's forge, so creating, renaming and deleting one is a FORGE operation carried out with FORGE permissions.
 
-Offering it here would put a second door on the same object, guarded by this surface instead of by the forge — a weaker guard on the same thing. So the route exists and refuses, rather than 404ing: "not this service's job" and "no such thing" are different facts, and the body names the forge so a caller knows where the job IS done.
+Offering it here would put a second endpoint on the same object, guarded by this surface instead of by the forge — a weaker guard on the same thing. So the route exists and refuses, rather than 404ing: "not this service's job" and "no such thing" are different facts, and the body names the forge so a caller knows where the job IS done.
 
 What this surface DOES own is the work on a board: list the boards you can see, read and file their issues, move a card between columns, and read the schedule a milestone is. Those are the routes beside this one.
 
@@ -1236,7 +1236,7 @@ PostTodoProjects Refused — a board is a repository on the forge
 
 Answers 405. A todo board IS a repository on this deployment's forge, so creating, renaming and deleting one is a FORGE operation carried out with FORGE permissions.
 
-Offering it here would put a second door on the same object, guarded by this surface instead of by the forge — a weaker guard on the same thing. So the route exists and refuses, rather than 404ing: "not this service's job" and "no such thing" are different facts, and the body names the forge so a caller knows where the job IS done.
+Offering it here would put a second endpoint on the same object, guarded by this surface instead of by the forge — a weaker guard on the same thing. So the route exists and refuses, rather than 404ing: "not this service's job" and "no such thing" are different facts, and the body names the forge so a caller knows where the job IS done.
 
 What this surface DOES own is the work on a board: list the boards you can see, read and file their issues, move a card between columns, and read the schedule a milestone is. Those are the routes beside this one.
 

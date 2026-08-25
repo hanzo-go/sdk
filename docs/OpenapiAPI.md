@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**GetCapability**](OpenapiAPI.md#GetCapability) | **Get** /v1/{name} | One capability&#39;s operations, with the address and method to call each
 [**GetOpenapiCommands**](OpenapiAPI.md#GetOpenapiCommands) | **Get** /v1/openapi/commands | Every operation this API answers, as a command
 [**GetOpenapiJson**](OpenapiAPI.md#GetOpenapiJson) | **Get** /v1/openapi.json | The API description this SDK was generated from
-[**PostMcp**](OpenapiAPI.md#PostMcp) | **Post** /v1/mcp | The agent door: every subsystem&#39;s operations as MCP tools
+[**PostMcp**](OpenapiAPI.md#PostMcp) | **Post** /v1/mcp | The agent endpoint: every subsystem&#39;s operations as MCP tools
 
 
 
@@ -265,7 +265,7 @@ No authorization required
 
 > MCPResponse PostMcp(ctx).MCPRequest(mCPRequest).Execute()
 
-The agent door: every subsystem's operations as MCP tools
+The agent endpoint: every subsystem's operations as MCP tools
 
 
 

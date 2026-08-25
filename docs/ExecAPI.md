@@ -4,9 +4,9 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetExecFilesBySid**](ExecAPI.md#GetExecFilesBySid) | **Get** /v1/exec/files/{sid} | Files lists what a session holds.
+[**GetExecFilesBySid**](ExecAPI.md#GetExecFilesBySid) | **Get** /v1/exec/files/{sid} | Lists the files in an execution session.
 [**PostExec**](ExecAPI.md#PostExec) | **Post** /v1/exec | Run a code snippet in a sandboxed interpreter
-[**PostExecProgrammatic**](ExecAPI.md#PostExecProgrammatic) | **Post** /v1/exec/programmatic | Programmatic tool calling (not served here)
+[**PostExecProgrammatic**](ExecAPI.md#PostExecProgrammatic) | **Post** /v1/exec/programmatic | Answers 501 — this deployment does not serve programmatic tool calling.
 [**PostExecUpload**](ExecAPI.md#PostExecUpload) | **Post** /v1/exec/upload | Upload a file into an execution session
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > []Listing GetExecFilesBySid(ctx, sid).Execute()
 
-Files lists what a session holds.
+Lists the files in an execution session.
 
 
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 > PostExecProgrammatic(ctx).Execute()
 
-Programmatic tool calling (not served here)
+Answers 501 — this deployment does not serve programmatic tool calling.
 
 
 

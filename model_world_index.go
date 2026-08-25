@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -23,7 +23,7 @@ type WorldIndex struct {
 	Product *string `json:"product,omitempty"`
 	// Summary is one sentence naming what this surface serves.
 	Summary *string `json:"summary,omitempty"`
-	// Wires is every protocol door onto World, REST first. It is deliberately NOT a list of REST operations: GET /v1/openapi.json is the one enumeration of those, and a second copy here would be a second thing to keep true.
+	// Wires is every protocol entry point onto World, REST first. It is deliberately NOT a list of REST operations: GET /v1/openapi.json is the one enumeration of those, and a second copy here would be a second thing to keep true.
 	Wires []WorldWire `json:"wires,omitempty"`
 }
 

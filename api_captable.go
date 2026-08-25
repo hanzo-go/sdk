@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -1787,26 +1787,34 @@ func (a *CaptableAPIService) GetCaptableSummaryExecute(r CaptableAPIGetCaptableS
 }
 
 type CaptableAPIPatchCaptableClassesByIdRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
-	id         string
+	ctx                     context.Context
+	ApiService              *CaptableAPIService
+	id                      string
+	captableShareClassAmend *CaptableShareClassAmend
 }
 
-func (r CaptableAPIPatchCaptableClassesByIdRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPatchCaptableClassesByIdRequest) CaptableShareClassAmend(captableShareClassAmend CaptableShareClassAmend) CaptableAPIPatchCaptableClassesByIdRequest {
+	r.captableShareClassAmend = &captableShareClassAmend
+	return r
+}
+
+func (r CaptableAPIPatchCaptableClassesByIdRequest) Execute() (*CaptableUpdated, *http.Response, error) {
 	return r.ApiService.PatchCaptableClassesByIdExecute(r)
 }
 
 /*
-PatchCaptableClassesById Amend a share class
+PatchCaptableClassesById Replaces one share class's terms.
 
-Rewrites one share class — the amendment path for a class whose authorized count, price, seniority or preference terms have changed.
+Replaces one share class's terms.
 
-It REPLACES the class rather than merging into it: every field is taken from this body, so an omitted field resets to the create-time default instead of keeping its current value. Send the full class. The index and the derived prefix are unchanged by an amendment. An id that is not this company's is not found.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+It is a full REPLACE and not a merge, despite the PATCH: every field is written
+as sent, so a field omitted is written empty rather than left alone. Send the
+whole class. The method is PATCH because the resource is addressed by id, not
+because the body is partial — and getting that backwards silently blanks terms
+every later issuance prices against.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims.
 	@return CaptableAPIPatchCaptableClassesByIdRequest
 */
 func (a *CaptableAPIService) PatchCaptableClassesById(ctx context.Context, id string) CaptableAPIPatchCaptableClassesByIdRequest {
@@ -1818,16 +1826,19 @@ func (a *CaptableAPIService) PatchCaptableClassesById(ctx context.Context, id st
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchCaptableClassesByIdRequest) (*http.Response, error) {
+//
+//	@return CaptableUpdated
+func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchCaptableClassesByIdRequest) (*CaptableUpdated, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableUpdated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PatchCaptableClassesById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/classes/{id}"
@@ -1836,9 +1847,12 @@ func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchC
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableShareClassAmend == nil {
+		return localVarReturnValue, nil, reportError("captableShareClassAmend is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1847,28 +1861,30 @@ func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableShareClassAmend
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1876,10 +1892,19 @@ func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPatchCaptableStakeholdersByIdRequest struct {
@@ -2005,22 +2030,29 @@ func (a *CaptableAPIService) PatchCaptableStakeholdersByIdExecute(r CaptableAPIP
 }
 
 type CaptableAPIPostCaptableClassesRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
+	ctx                  context.Context
+	ApiService           *CaptableAPIService
+	captableShareClassIn *CaptableShareClassIn
 }
 
-func (r CaptableAPIPostCaptableClassesRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptableClassesRequest) CaptableShareClassIn(captableShareClassIn CaptableShareClassIn) CaptableAPIPostCaptableClassesRequest {
+	r.captableShareClassIn = &captableShareClassIn
+	return r
+}
+
+func (r CaptableAPIPostCaptableClassesRequest) Execute() (*CaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableClassesExecute(r)
 }
 
 /*
-PostCaptableClasses Define a share class
+PostCaptableClasses Defines a new class of shares.
 
-Creates a class of stock — its authorized share count, votes per share, par and issue price, seniority, conversion rights and liquidation/participation multiples — which is what shares, priced rounds and equity plans are then issued against.
+Defines a new class of shares.
 
-Two fields are the company's to assign, not the caller's: the class index auto-increments per company, and the certificate prefix is DERIVED from the class type (CS for COMMON, PS for anything else), so a prefix in the body is ignored.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+Every field but convertsToShareClassId is required — a class is the instrument
+every later issuance prices against, so a partially-specified one would silently
+mis-value every share issued into it. `seniority` orders liquidation preference
+with LOWER first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableClassesRequest
@@ -2033,16 +2065,19 @@ func (a *CaptableAPIService) PostCaptableClasses(ctx context.Context) CaptableAP
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptableClassesRequest) (*http.Response, error) {
+//
+//	@return CaptableCreated
+func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptableClassesRequest) (*CaptableCreated, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableClasses")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/classes"
@@ -2050,9 +2085,12 @@ func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptabl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableShareClassIn == nil {
+		return localVarReturnValue, nil, reportError("captableShareClassIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2061,28 +2099,30 @@ func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptabl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableShareClassIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2090,29 +2130,40 @@ func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptabl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptableConvertiblesRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
+	ctx                   context.Context
+	ApiService            *CaptableAPIService
+	captableConvertibleIn *CaptableConvertibleIn
 }
 
-func (r CaptableAPIPostCaptableConvertiblesRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptableConvertiblesRequest) CaptableConvertibleIn(captableConvertibleIn CaptableConvertibleIn) CaptableAPIPostCaptableConvertiblesRequest {
+	r.captableConvertibleIn = &captableConvertibleIn
+	return r
+}
+
+func (r CaptableAPIPostCaptableConvertiblesRequest) Execute() (*CaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableConvertiblesExecute(r)
 }
 
 /*
-PostCaptableConvertibles Record a convertible note
+PostCaptableConvertibles Records a convertible note.
 
-Records a convertible note held by a stakeholder: the principal, the conversion cap, discount and interest rate, MFN, and the issue and board-approval dates.
-
-The stakeholder must already exist in this company, and the note's public id must be unused there — a reused id is a conflict rather than an overwrite. Like a SAFE, this records the instrument only; conversion is not performed here.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+Records a convertible note.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableConvertiblesRequest
@@ -2125,16 +2176,19 @@ func (a *CaptableAPIService) PostCaptableConvertibles(ctx context.Context) Capta
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCaptableConvertiblesRequest) (*http.Response, error) {
+//
+//	@return CaptableCreated
+func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCaptableConvertiblesRequest) (*CaptableCreated, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableConvertibles")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/convertibles"
@@ -2142,9 +2196,12 @@ func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableConvertibleIn == nil {
+		return localVarReturnValue, nil, reportError("captableConvertibleIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2153,28 +2210,30 @@ func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableConvertibleIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2182,29 +2241,40 @@ func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptableOptionsRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
+	ctx              context.Context
+	ApiService       *CaptableAPIService
+	captableOptionIn *CaptableOptionIn
 }
 
-func (r CaptableAPIPostCaptableOptionsRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptableOptionsRequest) CaptableOptionIn(captableOptionIn CaptableOptionIn) CaptableAPIPostCaptableOptionsRequest {
+	r.captableOptionIn = &captableOptionIn
+	return r
+}
+
+func (r CaptableAPIPostCaptableOptionsRequest) Execute() (*CaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableOptionsExecute(r)
 }
 
 /*
-PostCaptableOptions Grant options from an equity plan
+PostCaptableOptions Grants options to a stakeholder from an equity plan.
 
-Records an option grant to a stakeholder under an equity plan — quantity, exercise price, ISO/NSO type, cliff and vesting years, and the issue, expiration, vesting-start, board-approval and Rule 144 dates.
-
-The stakeholder and the equity plan must both already exist in this company, and the grant id must be unused there — a reused grant id is a conflict, so a grant can never be overwritten by a later one carrying the same number.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+Grants options to a stakeholder from an equity plan.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableOptionsRequest
@@ -2217,16 +2287,19 @@ func (a *CaptableAPIService) PostCaptableOptions(ctx context.Context) CaptableAP
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptableOptionsRequest) (*http.Response, error) {
+//
+//	@return CaptableCreated
+func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptableOptionsRequest) (*CaptableCreated, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableOptions")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/options"
@@ -2234,9 +2307,12 @@ func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptabl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableOptionIn == nil {
+		return localVarReturnValue, nil, reportError("captableOptionIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2245,28 +2321,30 @@ func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptabl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableOptionIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2274,29 +2352,40 @@ func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptabl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptablePlansRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
+	ctx                  context.Context
+	ApiService           *CaptableAPIService
+	captableEquityPlanIn *CaptableEquityPlanIn
 }
 
-func (r CaptableAPIPostCaptablePlansRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptablePlansRequest) CaptableEquityPlanIn(captableEquityPlanIn CaptableEquityPlanIn) CaptableAPIPostCaptablePlansRequest {
+	r.captableEquityPlanIn = &captableEquityPlanIn
+	return r
+}
+
+func (r CaptableAPIPostCaptablePlansRequest) Execute() (*CaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptablePlansExecute(r)
 }
 
 /*
-PostCaptablePlans Open an equity incentive plan
+PostCaptablePlans Opens an equity plan that options are granted from.
 
-Reserves a pool of shares out of a share class for option grants, with the board approval and effective dates and what happens to cancelled options.
-
-The share class must already exist in this company — a plan cannot reserve out of nothing. Note the field name the bundle reads for the cancellation behaviour is `defaultCancellatonBehavior`; that spelling is the wire, and a correctly spelled key is simply not seen.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+Opens an equity plan that options are granted from.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptablePlansRequest
@@ -2309,16 +2398,19 @@ func (a *CaptableAPIService) PostCaptablePlans(ctx context.Context) CaptableAPIP
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptablePlansRequest) (*http.Response, error) {
+//
+//	@return CaptableCreated
+func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptablePlansRequest) (*CaptableCreated, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptablePlans")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/plans"
@@ -2326,9 +2418,12 @@ func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptableP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableEquityPlanIn == nil {
+		return localVarReturnValue, nil, reportError("captableEquityPlanIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2337,28 +2432,30 @@ func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptableP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableEquityPlanIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2366,29 +2463,42 @@ func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptableP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptableRoundsRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
+	ctx             context.Context
+	ApiService      *CaptableAPIService
+	captableRoundIn *CaptableRoundIn
 }
 
-func (r CaptableAPIPostCaptableRoundsRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptableRoundsRequest) CaptableRoundIn(captableRoundIn CaptableRoundIn) CaptableAPIPostCaptableRoundsRequest {
+	r.captableRoundIn = &captableRoundIn
+	return r
+}
+
+func (r CaptableAPIPostCaptableRoundsRequest) Execute() (*CaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableRoundsExecute(r)
 }
 
 /*
-PostCaptableRounds Open a funding round
+PostCaptableRounds Opens a priced round that investments can be added to.
 
-Opens a round with its name, type and target amount. It starts OPEN with nothing raised; investments are then added to it, and closing it is its own call.
+Opens a priced round that investments can be added to.
 
-A PRICED round is the constrained case: it requires a share class that exists in this company and a price per share above zero, because that price is what converts each investment into issued shares. Its pre-money valuation is optional. A non-priced round carries none of the three.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+The round opens OPEN; investing into a closed one is refused.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableRoundsRequest
@@ -2401,16 +2511,19 @@ func (a *CaptableAPIService) PostCaptableRounds(ctx context.Context) CaptableAPI
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptableRoundsRequest) (*http.Response, error) {
+//
+//	@return CaptableCreated
+func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptableRoundsRequest) (*CaptableCreated, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableRounds")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/rounds"
@@ -2418,9 +2531,12 @@ func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptable
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableRoundIn == nil {
+		return localVarReturnValue, nil, reportError("captableRoundIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2429,28 +2545,30 @@ func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptable
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableRoundIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2458,10 +2576,19 @@ func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptable
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptableRoundsByIdCloseRequest struct {
@@ -2583,28 +2710,32 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdCloseExecute(r CaptableAPIPos
 }
 
 type CaptableAPIPostCaptableRoundsByIdInvestmentsRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
-	id         string
+	ctx                  context.Context
+	ApiService           *CaptableAPIService
+	id                   string
+	captableInvestmentIn *CaptableInvestmentIn
 }
 
-func (r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) CaptableInvestmentIn(captableInvestmentIn CaptableInvestmentIn) CaptableAPIPostCaptableRoundsByIdInvestmentsRequest {
+	r.captableInvestmentIn = &captableInvestmentIn
+	return r
+}
+
+func (r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) Execute() (*CaptableInvested, *http.Response, error) {
 	return r.ApiService.PostCaptableRoundsByIdInvestmentsExecute(r)
 }
 
 /*
-PostCaptableRoundsByIdInvestments Record an investment into a round
+PostCaptableRoundsByIdInvestments Records one investor's money into an open round.
 
-Records what a stakeholder put into a round and adds it to the round's raised total.
+Records one investor's money into an open round.
 
-On a PRICED round this ISSUES SHARES as well as recording the money: the amount is divided by the round's price per share, rounded DOWN to whole shares, and a new certificate for them is issued to the investor in the round's share class — so an amount too small to buy one whole share is refused rather than recorded as a zero-share investment. On a non-priced round the money is recorded and no shares are issued.
-
-The round must exist in this company and still be OPEN — a closed round refuses further investment — and the investor must already be a stakeholder here. The date defaults to today when omitted.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+The round must be OPEN; investing into a closed one is refused. Where the round
+carries a price per share, the investment also issues the shares it buys and the
+answer names them.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
+	@param id ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims.
 	@return CaptableAPIPostCaptableRoundsByIdInvestmentsRequest
 */
 func (a *CaptableAPIService) PostCaptableRoundsByIdInvestments(ctx context.Context, id string) CaptableAPIPostCaptableRoundsByIdInvestmentsRequest {
@@ -2616,16 +2747,19 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestments(ctx context.Conte
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) (*http.Response, error) {
+//
+//	@return CaptableInvested
+func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) (*CaptableInvested, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableInvested
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableRoundsByIdInvestments")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/rounds/{id}/investments"
@@ -2634,9 +2768,12 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r Captable
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableInvestmentIn == nil {
+		return localVarReturnValue, nil, reportError("captableInvestmentIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2645,28 +2782,30 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r Captable
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableInvestmentIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2674,29 +2813,40 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r Captable
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptableSafesRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
+	ctx            context.Context
+	ApiService     *CaptableAPIService
+	captableSafeIn *CaptableSafeIn
 }
 
-func (r CaptableAPIPostCaptableSafesRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptableSafesRequest) CaptableSafeIn(captableSafeIn CaptableSafeIn) CaptableAPIPostCaptableSafesRequest {
+	r.captableSafeIn = &captableSafeIn
+	return r
+}
+
+func (r CaptableAPIPostCaptableSafesRequest) Execute() (*CaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableSafesExecute(r)
 }
 
 /*
-PostCaptableSafes Record a SAFE
+PostCaptableSafes Records a SAFE — a simple agreement for future equity.
 
-Records a Simple Agreement for Future Equity held by a stakeholder: the capital in, the valuation cap and discount, MFN and pro-rata rights, pre- or post-money type, and the issue and board-approval dates.
-
-The stakeholder must already exist in this company, and the SAFE's public id must be unused there — a reused id is a conflict rather than an overwrite. This records the instrument; it does not convert it, so nothing is issued against a share class until a round does that.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+Records a SAFE — a simple agreement for future equity.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableSafesRequest
@@ -2709,16 +2859,19 @@ func (a *CaptableAPIService) PostCaptableSafes(ctx context.Context) CaptableAPIP
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableSafesRequest) (*http.Response, error) {
+//
+//	@return CaptableCreated
+func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableSafesRequest) (*CaptableCreated, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableSafes")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/safes"
@@ -2726,9 +2879,12 @@ func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableSafeIn == nil {
+		return localVarReturnValue, nil, reportError("captableSafeIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2737,28 +2893,30 @@ func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableSafeIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2766,29 +2924,45 @@ func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptableSharesRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
+	ctx             context.Context
+	ApiService      *CaptableAPIService
+	captableShareIn *CaptableShareIn
 }
 
-func (r CaptableAPIPostCaptableSharesRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptableSharesRequest) CaptableShareIn(captableShareIn CaptableShareIn) CaptableAPIPostCaptableSharesRequest {
+	r.captableShareIn = &captableShareIn
+	return r
+}
+
+func (r CaptableAPIPostCaptableSharesRequest) Execute() (*CaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableSharesExecute(r)
 }
 
 /*
-PostCaptableShares Issue a share certificate
+PostCaptableShares Issues a share certificate to a stakeholder.
 
-Issues shares of a class to a stakeholder as a certificate: quantity, price and capital contributed, the vesting cliff and term, the legends on the certificate, and the issue, Rule 144, vesting-start and board-approval dates.
+Issues a share certificate to a stakeholder.
 
-Both the stakeholder and the share class must already exist in this company, and the certificate id must be unused there — a reused id is a conflict, never a silent overwrite of an existing certificate.
-
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+The certificate id must be UNIQUE within the company — a duplicate is refused
+409, not silently merged — and both the stakeholder and the share class must
+belong to this company, so an id from another tenant is a 400 rather than a
+cross-company issuance.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableSharesRequest
@@ -2801,16 +2975,19 @@ func (a *CaptableAPIService) PostCaptableShares(ctx context.Context) CaptableAPI
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptableSharesRequest) (*http.Response, error) {
+//
+//	@return CaptableCreated
+func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptableSharesRequest) (*CaptableCreated, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableShares")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/shares"
@@ -2818,9 +2995,12 @@ func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptable
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableShareIn == nil {
+		return localVarReturnValue, nil, reportError("captableShareIn is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2829,28 +3009,30 @@ func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptable
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableShareIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2858,29 +3040,50 @@ func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptable
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptableSharesTransferRequest struct {
-	ctx        context.Context
-	ApiService *CaptableAPIService
+	ctx                   context.Context
+	ApiService            *CaptableAPIService
+	captableShareTransfer *CaptableShareTransfer
 }
 
-func (r CaptableAPIPostCaptableSharesTransferRequest) Execute() (*http.Response, error) {
+func (r CaptableAPIPostCaptableSharesTransferRequest) CaptableShareTransfer(captableShareTransfer CaptableShareTransfer) CaptableAPIPostCaptableSharesTransferRequest {
+	r.captableShareTransfer = &captableShareTransfer
+	return r
+}
+
+func (r CaptableAPIPostCaptableSharesTransferRequest) Execute() (*CaptableTransferred, *http.Response, error) {
 	return r.ApiService.PostCaptableSharesTransferExecute(r)
 }
 
 /*
-PostCaptableSharesTransfer Transfer shares to another stakeholder
+PostCaptableSharesTransfer Moves shares from one stakeholder to another.
 
-Moves shares from one certificate to another stakeholder, in one atomic step.
+Moves shares from one stakeholder to another.
 
-OMITTING `quantity` transfers the WHOLE certificate, which simply reassigns it and answers newShareId null — that is the difference between a full and a partial transfer, and it is why quantity is absent rather than zero. A partial transfer shrinks the source certificate and issues a NEW one to the recipient, so it requires a `certificateId` for that new certificate and refuses a reused one. The quantity must be between 1 and what the source certificate actually holds; the recipient must be a stakeholder of this same company.
+Omit `quantity` to transfer the whole certificate, which REASSIGNS it and mints
+no new share. Send a quantity below the amount held to SPLIT it — the source
+certificate keeps the remainder, and a split additionally requires
+`certificateId` for the new certificate, which must be unique in the company.
+A quantity outside 1..held is refused, so a transfer can never over-issue.
 
-Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+Both outcomes answer 200: a transfer records a movement between holders and
+mints no security of its own, which is why this is not a 201 the way an
+investment is.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CaptableAPIPostCaptableSharesTransferRequest
@@ -2893,16 +3096,19 @@ func (a *CaptableAPIService) PostCaptableSharesTransfer(ctx context.Context) Cap
 }
 
 // Execute executes the request
-func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPostCaptableSharesTransferRequest) (*http.Response, error) {
+//
+//	@return CaptableTransferred
+func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPostCaptableSharesTransferRequest) (*CaptableTransferred, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaptableTransferred
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableSharesTransfer")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/captable/shares/transfer"
@@ -2910,9 +3116,12 @@ func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.captableShareTransfer == nil {
+		return localVarReturnValue, nil, reportError("captableShareTransfer is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2921,28 +3130,30 @@ func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.captableShareTransfer
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2950,10 +3161,19 @@ func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type CaptableAPIPostCaptableStakeholdersRequest struct {

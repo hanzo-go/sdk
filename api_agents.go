@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -2874,7 +2874,7 @@ better from the session stream.
 
 The handle is a session id, and that is deliberate: the session is already the
 run's durable record and its live stream (/v1/agents/sessions/{id}/stream), so
-this door does not grow a progress endpoint, a status endpoint or a cancel
+this op does not grow a progress endpoint, a status endpoint or a cancel
 endpoint of its own. One way to watch a run, whoever started it.
 
 It is also how work CONTINUES. Pass an earlier run's session as `after` and
@@ -3229,9 +3229,9 @@ func (r AgentsAPIPostAgentsSessionsByIdMessageRequest) Execute() (*ControlResult
 }
 
 /*
-PostAgentsSessionsByIdMessage Sends a steering message to a running session — the door a human or another agent interrupts through.
+PostAgentsSessionsByIdMessage Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
 
-Sends a steering message to a running session — the door a
+Sends a steering message to a running session — the endpoint a
 human or another agent interrupts through. It requires a `message` or a
 `payload`; the other three commands do not.
 

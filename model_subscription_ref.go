@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -19,7 +19,7 @@ var _ MappedNullable = &SubscriptionRef{}
 
 // SubscriptionRef struct for SubscriptionRef
 type SubscriptionRef struct {
-	// AtPeriodEnd cancels at the end of the paid period rather than at once. It defaults TRUE on the door, because a customer who cancels has already paid for the period they are in.
+	// AtPeriodEnd cancels at the end of the paid period rather than at once. It defaults TRUE on the endpoint, because a customer who cancels has already paid for the period they are in.
 	AtPeriodEnd *bool   `json:"atPeriodEnd,omitempty"`
 	Id          *string `json:"id,omitempty"`
 }

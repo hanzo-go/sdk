@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -139,13 +139,24 @@ func (r BotAPIPostBotRunsRequest) Execute() (*http.Response, error) {
 }
 
 /*
-PostBotRuns Reserved address for launching a bot run — not implemented, always 501
+PostBotRuns Answers 501 to every call: launching a bot run is not implemented.
 
-Answers 501 to every call. The bot runtime exposes no launch operation, so nothing here can start a sandbox, and this address is published rather than dropped because it is the collection every run is created in: GET lists them, POST would launch one.
+Answers 501 to every call: launching a bot run is not implemented.
 
-The refusal is total and takes no input. The handler never reads the body, so any bytes at all — malformed JSON included — get the same 501; no run id is minted, no session URL is handed back, and no per-run fee is charged. That is the point: the earlier version minted an id the runtime had never heard of, pointed it at a VNC node that did not exist, and took real money for it.
+The bot runtime exposes no launch operation, so nothing here can start a sandbox.
+This address is published rather than dropped because it is the collection every
+run is created in: GET lists them, POST would launch one.
 
-Listing and stopping runs are live and org-scoped. Only the launch is missing, and it returns in the same change that can prove a bot boots.
+The refusal is total and takes no input. No run id is minted, no session URL is
+handed back, and no per-run fee is charged. That is the point: the earlier version
+minted an id the runtime had never heard of, pointed it at a VNC node that did not
+exist, and took real money for it. 501 is the truth, and the truth is cheaper than
+a plausible lie.
+
+Listing and stopping runs are live and org-scoped. Only the launch is missing, and
+it returns in the same change that can prove a bot boots — a runtime-side launch
+operation first (TS, cross-repo), with the entitlement gate and the meter beside
+it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return BotAPIPostBotRunsRequest
@@ -246,7 +257,7 @@ serve stop reports nothing about the run, and reporting "stopped" on that basis
 would be a stop that cannot fail — so it is a 502.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param runId
+	@param runId RunID is the run to stop, as the bot runtime named it. It is read from the URL — the `{runId}` segment the router matched on — and a body carrying a different id cannot redirect the stop.
 	@return BotAPIPostBotRunsByRunidStopRequest
 */
 func (a *BotAPIService) PostBotRunsByRunidStop(ctx context.Context, runId string) BotAPIPostBotRunsByRunidStopRequest {

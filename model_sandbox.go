@@ -1,7 +1,7 @@
 /*
 Hanzo Cloud API
 
-The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay doors, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
+The Hanzo Cloud API as a customer calls it: every operation under /v1/ except the operator's admin product, relay routes, legacy spellings and capabilities still reached by flag. Tagged by product: the first path segment after /v1/.
 
 API version: v1
 */
@@ -21,6 +21,8 @@ var _ MappedNullable = &Sandbox{}
 type Sandbox struct {
 	// Class is what the sandbox is FOR, and it decides the image, the working directory and the isolation: \"exec\" for a code-interpreter call (workdir /mnt/data, no project, bounded per org), \"dev\" for a workspace bound to a project (workdir /work, single-attach), \"desktop\" for one with a screen.
 	Class *string `json:"class,omitempty"`
+	// ConnectedAt is when somebody was last known to have this sandbox's project OPEN, Unix seconds. It is a fact with an EXPIRY rather than a flag: a watcher restamps it every beat of its stream, and it goes stale on its own when the stream dies, so nothing has to be turned off by a process that may not be there any more. The reaper reads it to choose WHICH idle allowance applies — see lifecycle.go.  Zero means nobody has said so, which puts the sandbox on the short clock.
+	ConnectedAt *int32 `json:"connectedAt,omitempty"`
 	// CreatedAt is when the lease was first taken, Unix seconds.
 	CreatedAt *int32 `json:"createdAt,omitempty"`
 	// Error is why the sandbox could not come up, in plain words. Present only with status \"error\", and it is the field to read rather than inferring a cause from the absence of a pod.
@@ -94,6 +96,38 @@ func (o *Sandbox) HasClass() bool {
 // SetClass gets a reference to the given string and assigns it to the Class field.
 func (o *Sandbox) SetClass(v string) {
 	o.Class = &v
+}
+
+// GetConnectedAt returns the ConnectedAt field value if set, zero value otherwise.
+func (o *Sandbox) GetConnectedAt() int32 {
+	if o == nil || IsNil(o.ConnectedAt) {
+		var ret int32
+		return ret
+	}
+	return *o.ConnectedAt
+}
+
+// GetConnectedAtOk returns a tuple with the ConnectedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Sandbox) GetConnectedAtOk() (*int32, bool) {
+	if o == nil || IsNil(o.ConnectedAt) {
+		return nil, false
+	}
+	return o.ConnectedAt, true
+}
+
+// HasConnectedAt returns a boolean if a field has been set.
+func (o *Sandbox) HasConnectedAt() bool {
+	if o != nil && !IsNil(o.ConnectedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectedAt gets a reference to the given int32 and assigns it to the ConnectedAt field.
+func (o *Sandbox) SetConnectedAt(v int32) {
+	o.ConnectedAt = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -492,6 +526,9 @@ func (o Sandbox) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Class) {
 		toSerialize["class"] = o.Class
+	}
+	if !IsNil(o.ConnectedAt) {
+		toSerialize["connectedAt"] = o.ConnectedAt
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

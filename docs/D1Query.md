@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Params** | Pointer to **[]interface{}** |  | [optional] 
-**Sql** | Pointer to **string** |  | [optional] 
+**Params** | Pointer to **[]interface{}** | Params are the statement&#39;s bound values, in the order its &#x60;?&#x60; placeholders appear — a string, a number, a boolean or null, whatever the column takes. Absent means the statement carries no placeholders; bind values here rather than interpolating them into the statement. | [optional] 
+**Sql** | Pointer to **string** | SQL is the statement to run. Blank (or absent) is refused before anything reaches D1. | [optional] 
 
 ## Methods
 
