@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **LastEvent** | Pointer to [**LastEventView**](LastEventView.md) | LastEvent is the compact latest-activity line for the list projection (nil in register/patch/tree responses; set by list + detail). It lets a swipe card show a live one-line preview without fetching full detail. | [optional] 
 **Org** | Pointer to **string** | Org is the caller&#39;s OWN tenant, echoed so a client can build the public build URL (/builds/:org/:project) without a second call or a guess. It is never another tenant&#39;s — every read is org-scoped before it gets here. | [optional] 
 **ParentSessionId** | Pointer to **string** | ParentSessionID is the session that spawned this one, making this a subagent of it. Empty means this session is a root — a flow of its own. A parent always belongs to the same org, so a tree never crosses a tenant. | [optional] 
+**Progress** | Pointer to [**SessionProgress**](SessionProgress.md) | Progress is how far along this run is — a share of its goal, a phase, and a line saying what it is doing. Always present, so a board never branches on whether it is there; &#x60;phase&#x60; says \&quot;unknown\&quot; when nothing has estimated it. It is a MODEL ESTIMATE wherever &#x60;estimated&#x60; is true, and the row&#39;s own word where it is false. See progress.go. | [optional] 
 **Project** | Pointer to **string** | The readable build: the product this session built and whether its story is public (provenance.go). | [optional] 
 **Provider** | Pointer to **string** | Provider is the linked AI account&#39;s provider (claude | codex | hanzo | …) that served this run. Empty when the surface did not say. | [optional] 
 **Published** | Pointer to **bool** | Published is the author&#39;s decision to let anyone read this session&#39;s story at the public build route. It only ever widens READ access to a session that already exists and grants nothing else; false, an unpublished session is invisible there no matter who asks. It cannot be true without a Project, because that route is keyed on (org, project). | [optional] 
@@ -375,6 +376,31 @@ SetParentSessionId sets ParentSessionId field to given value.
 `func (o *SessionView) HasParentSessionId() bool`
 
 HasParentSessionId returns a boolean if a field has been set.
+
+### GetProgress
+
+`func (o *SessionView) GetProgress() SessionProgress`
+
+GetProgress returns the Progress field if non-nil, zero value otherwise.
+
+### GetProgressOk
+
+`func (o *SessionView) GetProgressOk() (*SessionProgress, bool)`
+
+GetProgressOk returns a tuple with the Progress field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProgress
+
+`func (o *SessionView) SetProgress(v SessionProgress)`
+
+SetProgress sets Progress field to given value.
+
+### HasProgress
+
+`func (o *SessionView) HasProgress() bool`
+
+HasProgress returns a boolean if a field has been set.
 
 ### GetProject
 

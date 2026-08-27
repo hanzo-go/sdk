@@ -45,6 +45,8 @@ type SessionView struct {
 	Org *string `json:"org,omitempty"`
 	// ParentSessionID is the session that spawned this one, making this a subagent of it. Empty means this session is a root — a flow of its own. A parent always belongs to the same org, so a tree never crosses a tenant.
 	ParentSessionId *string `json:"parentSessionId,omitempty"`
+	// Progress is how far along this run is — a share of its goal, a phase, and a line saying what it is doing. Always present, so a board never branches on whether it is there; `phase` says \"unknown\" when nothing has estimated it. It is a MODEL ESTIMATE wherever `estimated` is true, and the row's own word where it is false. See progress.go.
+	Progress *SessionProgress `json:"progress,omitempty"`
 	// The readable build: the product this session built and whether its story is public (provenance.go).
 	Project *string `json:"project,omitempty"`
 	// Provider is the linked AI account's provider (claude | codex | hanzo | …) that served this run. Empty when the surface did not say.
@@ -506,6 +508,38 @@ func (o *SessionView) HasParentSessionId() bool {
 // SetParentSessionId gets a reference to the given string and assigns it to the ParentSessionId field.
 func (o *SessionView) SetParentSessionId(v string) {
 	o.ParentSessionId = &v
+}
+
+// GetProgress returns the Progress field value if set, zero value otherwise.
+func (o *SessionView) GetProgress() SessionProgress {
+	if o == nil || IsNil(o.Progress) {
+		var ret SessionProgress
+		return ret
+	}
+	return *o.Progress
+}
+
+// GetProgressOk returns a tuple with the Progress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SessionView) GetProgressOk() (*SessionProgress, bool) {
+	if o == nil || IsNil(o.Progress) {
+		return nil, false
+	}
+	return o.Progress, true
+}
+
+// HasProgress returns a boolean if a field has been set.
+func (o *SessionView) HasProgress() bool {
+	if o != nil && !IsNil(o.Progress) {
+		return true
+	}
+
+	return false
+}
+
+// SetProgress gets a reference to the given SessionProgress and assigns it to the Progress field.
+func (o *SessionView) SetProgress(v SessionProgress) {
+	o.Progress = &v
 }
 
 // GetProject returns the Project field value if set, zero value otherwise.
@@ -1004,6 +1038,9 @@ func (o SessionView) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ParentSessionId) {
 		toSerialize["parentSessionId"] = o.ParentSessionId
+	}
+	if !IsNil(o.Progress) {
+		toSerialize["progress"] = o.Progress
 	}
 	if !IsNil(o.Project) {
 		toSerialize["project"] = o.Project

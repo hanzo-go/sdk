@@ -2312,6 +2312,7 @@ docs/SeriesPoint.md
 docs/SessionDetail.md
 docs/SessionEnded.md
 docs/SessionList.md
+docs/SessionProgress.md
 docs/SessionUser.md
 docs/SessionView.md
 docs/SetEnvReq.md
@@ -4664,6 +4665,7 @@ model_series_point.go
 model_session_detail.go
 model_session_ended.go
 model_session_list.go
+model_session_progress.go
 model_session_user.go
 model_session_view.go
 model_set_env_req.go

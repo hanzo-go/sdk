@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**GetAgentsSessions**](AgentsAPI.md#GetAgentsSessions) | **Get** /v1/agents/sessions | Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
 [**GetAgentsSessionsById**](AgentsAPI.md#GetAgentsSessionsById) | **Get** /v1/agents/sessions/{id} | Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
 [**GetAgentsSessionsByIdControl**](AgentsAPI.md#GetAgentsSessionsByIdControl) | **Get** /v1/agents/sessions/{id}/control | Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
+[**GetAgentsSessionsByIdProgress**](AgentsAPI.md#GetAgentsSessionsByIdProgress) | **Get** /v1/agents/sessions/{id}/progress | Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
 [**GetAgentsSessionsByIdTree**](AgentsAPI.md#GetAgentsSessionsByIdTree) | **Get** /v1/agents/sessions/{id}/tree | Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
 [**GetAgentsSessionsStream**](AgentsAPI.md#GetAgentsSessionsStream) | **Get** /v1/agents/sessions/stream | Live session and event updates for the caller&#39;s org, as Server-Sent Events.
 [**GetAgentsTargets**](AgentsAPI.md#GetAgentsTargets) | **Get** /v1/agents/targets | Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
@@ -1108,6 +1109,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ControlDrain**](ControlDrain.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAgentsSessionsByIdProgress
+
+> SessionProgress GetAgentsSessionsByIdProgress(ctx, id).Execute()
+
+Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "sess_1" // string | ID is the session to act on, from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentsAPI.GetAgentsSessionsByIdProgress(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessionsByIdProgress``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAgentsSessionsByIdProgress`: SessionProgress
+	fmt.Fprintf(os.Stdout, "Response from `AgentsAPI.GetAgentsSessionsByIdProgress`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the session to act on, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentsSessionsByIdProgressRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SessionProgress**](SessionProgress.md)
 
 ### Authorization
 

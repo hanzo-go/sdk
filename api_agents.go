@@ -1784,6 +1784,124 @@ func (a *AgentsAPIService) GetAgentsSessionsByIdControlExecute(r AgentsAPIGetAge
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type AgentsAPIGetAgentsSessionsByIdProgressRequest struct {
+	ctx        context.Context
+	ApiService *AgentsAPIService
+	id         string
+}
+
+func (r AgentsAPIGetAgentsSessionsByIdProgressRequest) Execute() (*SessionProgress, *http.Response, error) {
+	return r.ApiService.GetAgentsSessionsByIdProgressExecute(r)
+}
+
+/*
+GetAgentsSessionsByIdProgress Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
+
+Returns how far along one run is: the share of its goal that
+is done, whether it is running, blocked or finished, and a line saying what it
+is doing right now.
+
+It is a MODEL ESTIMATE read off the run's own transcript, not a measurement —
+`estimated` says so on every answer, and a run whose progress cannot be told
+reports phase "unknown" with no percentage rather than a zero it does not
+mean. A session that has already finished answers from its own status instead,
+and is marked not estimated.
+
+The list and detail reads carry the same value; this address is the one that
+WAITS. Where the stored estimate has gone stale it is remade before answering,
+so a human deciding whether to step into a run gets a current reading rather
+than the last poll's — which costs one small completion, charged to the same
+wallet the session already names, at most once every thirty seconds per run.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the session to act on, from the path.
+	@return AgentsAPIGetAgentsSessionsByIdProgressRequest
+*/
+func (a *AgentsAPIService) GetAgentsSessionsByIdProgress(ctx context.Context, id string) AgentsAPIGetAgentsSessionsByIdProgressRequest {
+	return AgentsAPIGetAgentsSessionsByIdProgressRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SessionProgress
+func (a *AgentsAPIService) GetAgentsSessionsByIdProgressExecute(r AgentsAPIGetAgentsSessionsByIdProgressRequest) (*SessionProgress, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SessionProgress
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.GetAgentsSessionsByIdProgress")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agents/sessions/{id}/progress"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AgentsAPIGetAgentsSessionsByIdTreeRequest struct {
 	ctx        context.Context
 	ApiService *AgentsAPIService

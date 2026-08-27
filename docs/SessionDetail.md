@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **LastEvent** | Pointer to [**LastEventView**](LastEventView.md) |  | [optional] 
 **Org** | Pointer to **string** |  | [optional] 
 **ParentSessionId** | Pointer to **string** |  | [optional] 
+**Progress** | Pointer to [**SessionProgress**](SessionProgress.md) |  | [optional] 
 **Project** | Pointer to **string** |  | [optional] 
 **Provider** | Pointer to **string** |  | [optional] 
 **Published** | Pointer to **bool** |  | [optional] 
@@ -402,6 +403,31 @@ SetParentSessionId sets ParentSessionId field to given value.
 `func (o *SessionDetail) HasParentSessionId() bool`
 
 HasParentSessionId returns a boolean if a field has been set.
+
+### GetProgress
+
+`func (o *SessionDetail) GetProgress() SessionProgress`
+
+GetProgress returns the Progress field if non-nil, zero value otherwise.
+
+### GetProgressOk
+
+`func (o *SessionDetail) GetProgressOk() (*SessionProgress, bool)`
+
+GetProgressOk returns a tuple with the Progress field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProgress
+
+`func (o *SessionDetail) SetProgress(v SessionProgress)`
+
+SetProgress sets Progress field to given value.
+
+### HasProgress
+
+`func (o *SessionDetail) HasProgress() bool`
+
+HasProgress returns a boolean if a field has been set.
 
 ### GetProject
 

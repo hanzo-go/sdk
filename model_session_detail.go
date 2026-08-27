@@ -23,20 +23,21 @@ type SessionDetail struct {
 	Actor   *string `json:"actor,omitempty"`
 	Agent   *string `json:"agent,omitempty"`
 	// Children is the session's DIRECT children, one level down, each with its own counts. The promoted `children` integer beside it is how many there are; this is who they are. For the whole subtree, read the tree.
-	ChildSessions   []SessionView  `json:"childSessions,omitempty"`
-	Children        *int32         `json:"children,omitempty"`
-	CreatedAt       *string        `json:"createdAt,omitempty"`
-	Cwd             *string        `json:"cwd,omitempty"`
-	EndedAt         *string        `json:"endedAt,omitempty"`
-	Events          *int32         `json:"events,omitempty"`
-	Host            *string        `json:"host,omitempty"`
-	Id              *string        `json:"id,omitempty"`
-	LastEvent       *LastEventView `json:"lastEvent,omitempty"`
-	Org             *string        `json:"org,omitempty"`
-	ParentSessionId *string        `json:"parentSessionId,omitempty"`
-	Project         *string        `json:"project,omitempty"`
-	Provider        *string        `json:"provider,omitempty"`
-	Published       *bool          `json:"published,omitempty"`
+	ChildSessions   []SessionView    `json:"childSessions,omitempty"`
+	Children        *int32           `json:"children,omitempty"`
+	CreatedAt       *string          `json:"createdAt,omitempty"`
+	Cwd             *string          `json:"cwd,omitempty"`
+	EndedAt         *string          `json:"endedAt,omitempty"`
+	Events          *int32           `json:"events,omitempty"`
+	Host            *string          `json:"host,omitempty"`
+	Id              *string          `json:"id,omitempty"`
+	LastEvent       *LastEventView   `json:"lastEvent,omitempty"`
+	Org             *string          `json:"org,omitempty"`
+	ParentSessionId *string          `json:"parentSessionId,omitempty"`
+	Progress        *SessionProgress `json:"progress,omitempty"`
+	Project         *string          `json:"project,omitempty"`
+	Provider        *string          `json:"provider,omitempty"`
+	Published       *bool            `json:"published,omitempty"`
 	// RecentEvents is the 50 most recent turns, OLDEST of those first — a transcript to read down, not a feed. The promoted `events` integer says how many the log holds in total; page the rest from a seq.
 	RecentEvents   []EventView `json:"recentEvents,omitempty"`
 	Repo           *string     `json:"repo,omitempty"`
@@ -515,6 +516,38 @@ func (o *SessionDetail) HasParentSessionId() bool {
 // SetParentSessionId gets a reference to the given string and assigns it to the ParentSessionId field.
 func (o *SessionDetail) SetParentSessionId(v string) {
 	o.ParentSessionId = &v
+}
+
+// GetProgress returns the Progress field value if set, zero value otherwise.
+func (o *SessionDetail) GetProgress() SessionProgress {
+	if o == nil || IsNil(o.Progress) {
+		var ret SessionProgress
+		return ret
+	}
+	return *o.Progress
+}
+
+// GetProgressOk returns a tuple with the Progress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SessionDetail) GetProgressOk() (*SessionProgress, bool) {
+	if o == nil || IsNil(o.Progress) {
+		return nil, false
+	}
+	return o.Progress, true
+}
+
+// HasProgress returns a boolean if a field has been set.
+func (o *SessionDetail) HasProgress() bool {
+	if o != nil && !IsNil(o.Progress) {
+		return true
+	}
+
+	return false
+}
+
+// SetProgress gets a reference to the given SessionProgress and assigns it to the Progress field.
+func (o *SessionDetail) SetProgress(v SessionProgress) {
+	o.Progress = &v
 }
 
 // GetProject returns the Project field value if set, zero value otherwise.
@@ -1048,6 +1081,9 @@ func (o SessionDetail) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ParentSessionId) {
 		toSerialize["parentSessionId"] = o.ParentSessionId
+	}
+	if !IsNil(o.Progress) {
+		toSerialize["progress"] = o.Progress
 	}
 	if !IsNil(o.Project) {
 		toSerialize["project"] = o.Project
