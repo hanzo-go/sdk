@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CsrfToken** | Pointer to **string** | Token is the value to send back in the X-CSRF-Token header. It is bound to the caller&#39;s identity, so it authorizes writes as them and as nobody else. | [optional] 
-**ExpiresIn** | Pointer to **int32** | ExpiresIn is the token&#39;s lifetime in seconds. Fetch a new one when it lapses; a write with an expired token is refused. | [optional] 
+**CsrfToken** | Pointer to **string** | Token is the value to send back in the X-CSRF-Token header. It is bound to the caller&#39;s identity, so it authorizes changes as them and as nobody else. | [optional] 
+**ExpiresIn** | Pointer to **int32** | ExpiresIn is the token&#39;s lifetime in seconds. Fetch a new one when it lapses; a change with an expired token is refused. | [optional] 
 
 ## Methods
 

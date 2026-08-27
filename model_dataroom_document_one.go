@@ -19,7 +19,7 @@ var _ MappedNullable = &DataroomDocumentOne{}
 
 // DataroomDocumentOne struct for DataroomDocumentOne
 type DataroomDocumentOne struct {
-	// Document is the document itself.
+	// Document is the requested document's METADATA. Its bytes are a separate read, GET /v1/dataroom/documents/{id}/file.
 	Document *DataroomDocument `json:"document,omitempty"`
 }
 

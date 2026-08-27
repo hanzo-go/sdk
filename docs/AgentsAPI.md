@@ -907,7 +907,7 @@ Name | Type | Description  | Notes
 
 ## GetAgentsSessions
 
-> SessionList GetAgentsSessions(ctx).Root(root).Parent(parent).Status(status).Project(project).Limit(limit).Execute()
+> SessionList GetAgentsSessions(ctx).Root(root).Parent(parent).Status(status).Project(project).Room(room).Limit(limit).Execute()
 
 Returns the caller org's live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
 
@@ -930,11 +930,12 @@ func main() {
 	parent := "parent_example" // string | Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
 	status := "running" // string | Status filters to running, paused, done or error. (optional)
 	project := "project_example" // string | Project filters to the sessions tagged with one product slug. (optional)
+	room := "room_example" // string | Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. (optional)
 	limit := int32(20) // int32 | Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentsAPI.GetAgentsSessions(context.Background()).Root(root).Parent(parent).Status(status).Project(project).Limit(limit).Execute()
+	resp, r, err := apiClient.AgentsAPI.GetAgentsSessions(context.Background()).Root(root).Parent(parent).Status(status).Project(project).Room(room).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.GetAgentsSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -959,6 +960,7 @@ Name | Type | Description  | Notes
  **parent** | **string** | Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. | 
  **status** | **string** | Status filters to running, paused, done or error. | 
  **project** | **string** | Project filters to the sessions tagged with one product slug. | 
+ **room** | **string** | Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. | 
  **limit** | **int32** | Limit caps the page. Absent, zero or over 500 reads as 100. | 
 
 ### Return type

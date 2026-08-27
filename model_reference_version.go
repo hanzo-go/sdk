@@ -23,7 +23,7 @@ type ReferenceVersion struct {
 	AsOf *string `json:"asOf,omitempty"`
 	// Refusal is why it could not be consulted, when it could not.
 	Refusal *string `json:"refusal,omitempty"`
-	// Set is the set.
+	// Set is the name the consulted set is addressed by.
 	Set *string `json:"set,omitempty"`
 	// Stale is whether it is past its freshness bound.
 	Stale *bool `json:"stale,omitempty"`

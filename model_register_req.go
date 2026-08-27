@@ -39,6 +39,8 @@ type RegisterReq struct {
 	Published *bool `json:"published,omitempty"`
 	// Repo is the code being worked on, up to 512 characters. A label the surface states; nothing resolves it against the forge.
 	Repo *string `json:"repo,omitempty"`
+	// Room is the collaborative room this run was started in (HIP-0523), so a workspace view can list the sessions of one room. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another room, so it is absent from the patch input and from UpdateSession's SET list.
+	Room *string `json:"room,omitempty"`
 	// Status opens the session in one of running, paused, done or error. Empty means running. A TERMINAL status here (done, error) records a session that has already finished — its end time is stamped now — and nothing can move it afterwards.
 	Status *string `json:"status,omitempty"`
 	// Target names a run-target the org has registered. Unlike Host and Repo it IS resolved: a target that does not exist in this org is a 400, so a session can never claim to run on another tenant's machine. Empty names no machine.
@@ -390,6 +392,38 @@ func (o *RegisterReq) SetRepo(v string) {
 	o.Repo = &v
 }
 
+// GetRoom returns the Room field value if set, zero value otherwise.
+func (o *RegisterReq) GetRoom() string {
+	if o == nil || IsNil(o.Room) {
+		var ret string
+		return ret
+	}
+	return *o.Room
+}
+
+// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RegisterReq) GetRoomOk() (*string, bool) {
+	if o == nil || IsNil(o.Room) {
+		return nil, false
+	}
+	return o.Room, true
+}
+
+// HasRoom returns a boolean if a field has been set.
+func (o *RegisterReq) HasRoom() bool {
+	if o != nil && !IsNil(o.Room) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoom gets a reference to the given string and assigns it to the Room field.
+func (o *RegisterReq) SetRoom(v string) {
+	o.Room = &v
+}
+
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *RegisterReq) GetStatus() string {
 	if o == nil || IsNil(o.Status) {
@@ -621,6 +655,9 @@ func (o RegisterReq) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo
+	}
+	if !IsNil(o.Room) {
+		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status

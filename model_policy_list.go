@@ -19,7 +19,7 @@ var _ MappedNullable = &PolicyList{}
 
 // PolicyList struct for PolicyList
 type PolicyList struct {
-	// Policies is the list.
+	// Policies is the organization's published policy documents, each as the centre holds it.
 	Policies []interface{} `json:"policies,omitempty"`
 }
 

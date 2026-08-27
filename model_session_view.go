@@ -53,6 +53,8 @@ type SessionView struct {
 	Published *bool `json:"published,omitempty"`
 	// Repo is the code the session is working on, as the surface reported it. It is truth the SURFACE states, so it is a label rather than something resolved here.
 	Repo *string `json:"repo,omitempty"`
+	// Room is the collaborative room this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a workspace view show the runs of one room beside its messages.
+	Room *string `json:"room,omitempty"`
 	// RootSessionID is the top of this session's tree, inherited from the parent and shared by every node in one flow. A root session's own id, when it has no parent. It is the key one indexed read pulls a whole flow by, and what ?root= narrows a list or a stream to.
 	RootSessionId *string `json:"rootSessionId,omitempty"`
 	// StartedAt is when the session opened, RFC 3339 in UTC to the second.
@@ -634,6 +636,38 @@ func (o *SessionView) SetRepo(v string) {
 	o.Repo = &v
 }
 
+// GetRoom returns the Room field value if set, zero value otherwise.
+func (o *SessionView) GetRoom() string {
+	if o == nil || IsNil(o.Room) {
+		var ret string
+		return ret
+	}
+	return *o.Room
+}
+
+// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SessionView) GetRoomOk() (*string, bool) {
+	if o == nil || IsNil(o.Room) {
+		return nil, false
+	}
+	return o.Room, true
+}
+
+// HasRoom returns a boolean if a field has been set.
+func (o *SessionView) HasRoom() bool {
+	if o != nil && !IsNil(o.Room) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoom gets a reference to the given string and assigns it to the Room field.
+func (o *SessionView) SetRoom(v string) {
+	o.Room = &v
+}
+
 // GetRootSessionId returns the RootSessionId field value if set, zero value otherwise.
 func (o *SessionView) GetRootSessionId() string {
 	if o == nil || IsNil(o.RootSessionId) {
@@ -982,6 +1016,9 @@ func (o SessionView) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo
+	}
+	if !IsNil(o.Room) {
+		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.RootSessionId) {
 		toSerialize["rootSessionId"] = o.RootSessionId

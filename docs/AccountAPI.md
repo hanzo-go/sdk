@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**DeleteAccountKeys**](AccountAPI.md#DeleteAccountKeys) | **Delete** /v1/account/keys | Revokes the caller&#39;s own API key of the requested class.
 [**GetAccountAppearance**](AccountAPI.md#GetAccountAppearance) | **Get** /v1/account/appearance | Returns the signed-in caller&#39;s own appearance preference — text size, density and accent — read from their IAM account so it is the same on every device and every Hanzo surface.
 [**GetAccountAvatarByOrgByUserByDigest**](AccountAPI.md#GetAccountAvatarByOrgByUserByDigest) | **Get** /v1/account/avatar/{org}/{user}/{digest} | Fetch a profile photo
-[**GetAccountCsrf**](AccountAPI.md#GetAccountCsrf) | **Get** /v1/account/csrf | IssueCSRFToken mints the anti-CSRF token a browser echoes as X-CSRF-Token on every money write (mint/revoke a key, top up, onboard, and the billing/commerce write verbs).
+[**GetAccountCsrf**](AccountAPI.md#GetAccountCsrf) | **Get** /v1/account/csrf | IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
 [**GetAccountEmbed**](AccountAPI.md#GetAccountEmbed) | **Get** /v1/account/embed | Reports whether one of this brand&#39;s shared embedded apps (cms, erp, help) may be framed by the caller and is actually running, so a console module can choose between the embed and the provision panel.
 [**GetAccountKeys**](AccountAPI.md#GetAccountKeys) | **Get** /v1/account/keys | Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
 [**PostAccountAppearance**](AccountAPI.md#PostAccountAppearance) | **Post** /v1/account/appearance | Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 
 > CsrfResp GetAccountCsrf(ctx).Execute()
 
-IssueCSRFToken mints the anti-CSRF token a browser echoes as X-CSRF-Token on every money write (mint/revoke a key, top up, onboard, and the billing/commerce write verbs).
+IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
 
 
 

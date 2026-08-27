@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetMeetHealth**](MeetAPI.md#GetMeetHealth) | **Get** /v1/meet/health | Health reports whether the office can mint join tokens.
 [**GetMeetSession**](MeetAPI.md#GetMeetSession) | **Get** /v1/meet/session | What this caller may open a room in
+[**MeetCall**](MeetAPI.md#MeetCall) | **Get** /v1/meet/call | Where a room&#39;s call happens
 [**MeetRecordRead**](MeetAPI.md#MeetRecordRead) | **Get** /v1/meet/record | What is being recorded in a room, and where the file goes
 [**MeetRecordStart**](MeetAPI.md#MeetRecordStart) | **Post** /v1/meet/record | Start recording a room, or return the recording already running
 [**MeetRecordStop**](MeetAPI.md#MeetRecordStop) | **Delete** /v1/meet/record | Stop a room&#39;s recording
@@ -127,6 +128,74 @@ Other parameters are passed through a pointer to a apiGetMeetSessionRequest stru
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## MeetCall
+
+> Call MeetCall(ctx).Workspace(workspace).Room(room).Execute()
+
+Where a room's call happens
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	workspace := "workspace_example" // string | Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller's membership is checked against.
+	room := "room_example" // string | Room is the room's own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MeetAPI.MeetCall(context.Background()).Workspace(workspace).Room(room).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.MeetCall``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MeetCall`: Call
+	fmt.Fprintf(os.Stdout, "Response from `MeetAPI.MeetCall`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiMeetCallRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **workspace** | **string** | Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. | 
+ **room** | **string** | Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. | 
+
+### Return type
+
+[**Call**](Call.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Key** | Pointer to **string** | Key is the board — the repository name, from the path. | [optional] 
 **Priority** | Pointer to **string** | Priority is one of none, urgent, high, medium or low. | [optional] 
 **Status** | Pointer to **string** | Status is the board column to open into: backlog, todo, in_progress, done or canceled. Empty opens into backlog. | [optional] 
-**Title** | Pointer to **string** | Title is required. | [optional] 
+**Title** | Pointer to **string** | Title is the one line the card is read by on the board. Blank or whitespace is refused — an untitled card cannot be told apart from any other. | [optional] 
 
 ## Methods
 

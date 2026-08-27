@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**GetTodoProjectsByKey**](TodoAPI.md#GetTodoProjectsByKey) | **Get** /v1/todo/projects/{key} | Returns one board of your org by its key — the repository name.
 [**GetTodoProjectsByKeyIssues**](TodoAPI.md#GetTodoProjectsByKeyIssues) | **Get** /v1/todo/projects/{key}/issues | Returns a board&#39;s issues — work items with their column, priority, assignee, labels and schedule.
 [**GetTodoProjectsByKeyIssuesByNum**](TodoAPI.md#GetTodoProjectsByKeyIssuesByNum) | **Get** /v1/todo/projects/{key}/issues/{num} | Returns ONE work item in full — its description included.
+[**GetTodoRoomsByRoom**](TodoAPI.md#GetTodoRoomsByRoom) | **Get** /v1/todo/rooms/{room} | Summarises one room&#39;s work.
 [**PatchTodoProjectsByKey**](TodoAPI.md#PatchTodoProjectsByKey) | **Patch** /v1/todo/projects/{key} | Refused — a board is a repository on the forge
 [**PatchTodoProjectsByKeyIssuesByNum**](TodoAPI.md#PatchTodoProjectsByKeyIssuesByNum) | **Patch** /v1/todo/projects/{key}/issues/{num} | Edits a work item — rename it, rewrite it, move it to another column, or re-prioritise it.
 [**PostTodoProjects**](TodoAPI.md#PostTodoProjects) | **Post** /v1/todo/projects | Refused — a board is a repository on the forge
@@ -167,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## GetTodoIssues
 
-> IssueHits GetTodoIssues(ctx).Q(q).Project(project).Status(status).Kind(kind).Repo(repo).Source(source).Assignee(assignee).Limit(limit).Execute()
+> IssueHits GetTodoIssues(ctx).Q(q).Project(project).Status(status).Kind(kind).Repo(repo).Room(room).Source(source).Assignee(assignee).Limit(limit).Execute()
 
 Answers across every project in the org.
 
@@ -191,13 +192,14 @@ func main() {
 	status := "status_example" // string | Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
 	kind := "kind_example" // string | Kind keeps one shape: issue, pr, epic. (optional)
 	repo := "repo_example" // string | Repo keeps issues bound to one git repository. (optional)
+	room := "room_example" // string | Room keeps issues bound to one collaboration room, spelled \"<workspace>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
 	source := "source_example" // string | Source keeps one origin: team, git, crm, helpdesk, cms, agent. \"git\" is how you ask for the mirrored GitHub issues specifically. (optional)
 	assignee := "assignee_example" // string | Assignee keeps issues held by one person. Pass \"me\" for yourself. (optional)
 	limit := int32(56) // int32 | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TodoAPI.GetTodoIssues(context.Background()).Q(q).Project(project).Status(status).Kind(kind).Repo(repo).Source(source).Assignee(assignee).Limit(limit).Execute()
+	resp, r, err := apiClient.TodoAPI.GetTodoIssues(context.Background()).Q(q).Project(project).Status(status).Kind(kind).Repo(repo).Room(room).Source(source).Assignee(assignee).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TodoAPI.GetTodoIssues``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -223,6 +225,7 @@ Name | Type | Description  | Notes
  **status** | **string** | Status keeps one board column: backlog, todo, in_progress, done, canceled. | 
  **kind** | **string** | Kind keeps one shape: issue, pr, epic. | 
  **repo** | **string** | Repo keeps issues bound to one git repository. | 
+ **room** | **string** | Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. | 
  **source** | **string** | Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. | 
  **assignee** | **string** | Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. | 
  **limit** | **int32** | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. | 
@@ -516,6 +519,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**IssueView**](IssueView.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTodoRoomsByRoom
+
+> RoomWork GetTodoRoomsByRoom(ctx, room).Execute()
+
+Summarises one room's work.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	room := "room_example" // string | Room is the room, spelled \"<workspace>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TodoAPI.GetTodoRoomsByRoom(context.Background(), room).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TodoAPI.GetTodoRoomsByRoom``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTodoRoomsByRoom`: RoomWork
+	fmt.Fprintf(os.Stdout, "Response from `TodoAPI.GetTodoRoomsByRoom`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**room** | **string** | Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTodoRoomsByRoomRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**RoomWork**](RoomWork.md)
 
 ### Authorization
 

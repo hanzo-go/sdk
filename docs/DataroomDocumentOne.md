@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Document** | Pointer to [**DataroomDocument**](DataroomDocument.md) | Document is the document itself. | [optional] 
+**Document** | Pointer to [**DataroomDocument**](DataroomDocument.md) | Document is the requested document&#39;s METADATA. Its bytes are a separate read, GET /v1/dataroom/documents/{id}/file. | [optional] 
 
 ## Methods
 

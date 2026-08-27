@@ -6,9 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Limit** | Pointer to **int32** | calls the plan allows per period; 0 &#x3D; unbounded | [optional] 
 **Plan** | Pointer to **string** | the tier the limit came from | [optional] 
-**Resets** | Pointer to **int32** | unix seconds; when the count starts again | [optional] 
+**Resets** | Pointer to **int32** | unix seconds; when THAT window starts again | [optional] 
 **Spent** | Pointer to **bool** | the subject is at the limit | [optional] 
 **Used** | Pointer to **int32** | Used is how many zero-priced calls this subject has been SERVED in the period ending at Resets — the UTC calendar day. Only a served call counts, so an admission check, a refusal, or a vendor that never answered leaves it where it stood. It stops AT Limit rather than climbing past it, so Limit-Used is what remains and never goes negative. | [optional] 
+**Window** | Pointer to **string** | Window is which ceiling these numbers describe — \&quot;hour\&quot; or \&quot;day\&quot; — because a caller is held to both and only one of them is the answer. It is the window that REFUSED where one did, and otherwise the one with least left, so Limit-Used is always the number that will actually stop them next. Empty where no window bounds the subject at all. | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetUsed sets Used field to given value.
 `func (o *Allowance) HasUsed() bool`
 
 HasUsed returns a boolean if a field has been set.
+
+### GetWindow
+
+`func (o *Allowance) GetWindow() string`
+
+GetWindow returns the Window field if non-nil, zero value otherwise.
+
+### GetWindowOk
+
+`func (o *Allowance) GetWindowOk() (*string, bool)`
+
+GetWindowOk returns a tuple with the Window field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWindow
+
+`func (o *Allowance) SetWindow(v string)`
+
+SetWindow sets Window field to given value.
+
+### HasWindow
+
+`func (o *Allowance) HasWindow() bool`
+
+HasWindow returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

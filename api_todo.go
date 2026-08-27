@@ -308,6 +308,7 @@ type TodoAPIGetTodoIssuesRequest struct {
 	status     *string
 	kind       *string
 	repo       *string
+	room       *string
 	source     *string
 	assignee   *string
 	limit      *int32
@@ -340,6 +341,12 @@ func (r TodoAPIGetTodoIssuesRequest) Kind(kind string) TodoAPIGetTodoIssuesReque
 // Repo keeps issues bound to one git repository.
 func (r TodoAPIGetTodoIssuesRequest) Repo(repo string) TodoAPIGetTodoIssuesRequest {
 	r.repo = &repo
+	return r
+}
+
+// Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
+func (r TodoAPIGetTodoIssuesRequest) Room(room string) TodoAPIGetTodoIssuesRequest {
+	r.room = &room
 	return r
 }
 
@@ -420,6 +427,9 @@ func (a *TodoAPIService) GetTodoIssuesExecute(r TodoAPIGetTodoIssuesRequest) (*I
 	}
 	if r.repo != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repo", r.repo, "form", "")
+	}
+	if r.room != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "room", r.room, "form", "")
 	}
 	if r.source != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "source", r.source, "form", "")
@@ -942,6 +952,121 @@ func (a *TodoAPIService) GetTodoProjectsByKeyIssuesByNumExecute(r TodoAPIGetTodo
 	localVarPath := localBasePath + "/v1/todo/projects/{key}/issues/{num}"
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"num"+"}", url.PathEscape(parameterValueToString(r.num, "num")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TodoAPIGetTodoRoomsByRoomRequest struct {
+	ctx        context.Context
+	ApiService *TodoAPIService
+	room       string
+}
+
+func (r TodoAPIGetTodoRoomsByRoomRequest) Execute() (*RoomWork, *http.Response, error) {
+	return r.ApiService.GetTodoRoomsByRoomExecute(r)
+}
+
+/*
+GetTodoRoomsByRoom Summarises one room's work.
+
+Summarises one room's work.
+
+The room is opaque here and is deliberately not resolved: this package cannot
+say whether a room exists — apps/team owns that document — so an unknown room
+answers an EMPTY board rather than a 404. That is the honest answer and the
+useful one: a channel that has never had an item filed in it and a channel id
+that was mistyped both have no work, and inventing a distinction would require
+this surface to hold a second copy of the room list (HIP-0523 §2 forbids it,
+and it would drift the first time a room was renamed).
+
+Tenancy is the validated principal's org and nothing else, so a caller cannot
+read another tenant's channel by naming its room.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param room Room is the room, spelled \"<workspace>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+	@return TodoAPIGetTodoRoomsByRoomRequest
+*/
+func (a *TodoAPIService) GetTodoRoomsByRoom(ctx context.Context, room string) TodoAPIGetTodoRoomsByRoomRequest {
+	return TodoAPIGetTodoRoomsByRoomRequest{
+		ApiService: a,
+		ctx:        ctx,
+		room:       room,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RoomWork
+func (a *TodoAPIService) GetTodoRoomsByRoomExecute(r TodoAPIGetTodoRoomsByRoomRequest) (*RoomWork, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RoomWork
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TodoAPIService.GetTodoRoomsByRoom")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/todo/rooms/{room}"
+	localVarPath = strings.Replace(localVarPath, "{"+"room"+"}", url.PathEscape(parameterValueToString(r.room, "room")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

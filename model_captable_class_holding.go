@@ -27,7 +27,7 @@ type CaptableClassHolding struct {
 	Issued *int32 `json:"issued,omitempty"`
 	// Name is the class name.
 	Name *string `json:"name,omitempty"`
-	// ShareClassID is the share class.
+	// ShareClassID addresses the class this position is for.
 	ShareClassId *string `json:"shareClassId,omitempty"`
 }
 

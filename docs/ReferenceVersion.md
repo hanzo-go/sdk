@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AsOf** | Pointer to **string** | AsOf is when the oldest of them was current, RFC 3339. | [optional] 
 **Refusal** | Pointer to **string** | Refusal is why it could not be consulted, when it could not. | [optional] 
-**Set** | Pointer to **string** | Set is the set. | [optional] 
+**Set** | Pointer to **string** | Set is the name the consulted set is addressed by. | [optional] 
 **Stale** | Pointer to **bool** | Stale is whether it is past its freshness bound. | [optional] 
 **Version** | Pointer to **string** | Version is every contributing publisher and its content digest. | [optional] 
 

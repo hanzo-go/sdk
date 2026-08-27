@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Policies** | Pointer to **[]interface{}** | Policies is the list. | [optional] 
+**Policies** | Pointer to **[]interface{}** | Policies is the organization&#39;s published policy documents, each as the centre holds it. | [optional] 
 
 ## Methods
 

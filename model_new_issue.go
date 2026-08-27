@@ -27,7 +27,7 @@ type NewIssue struct {
 	Priority *string `json:"priority,omitempty"`
 	// Status is the board column to open into: backlog, todo, in_progress, done or canceled. Empty opens into backlog.
 	Status *string `json:"status,omitempty"`
-	// Title is required.
+	// Title is the one line the card is read by on the board. Blank or whitespace is refused — an untitled card cannot be told apart from any other.
 	Title *string `json:"title,omitempty"`
 }
 

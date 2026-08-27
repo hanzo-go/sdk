@@ -23,12 +23,14 @@ type Allowance struct {
 	Limit *int32 `json:"limit,omitempty"`
 	// the tier the limit came from
 	Plan *string `json:"plan,omitempty"`
-	// unix seconds; when the count starts again
+	// unix seconds; when THAT window starts again
 	Resets *int32 `json:"resets,omitempty"`
 	// the subject is at the limit
 	Spent *bool `json:"spent,omitempty"`
 	// Used is how many zero-priced calls this subject has been SERVED in the period ending at Resets — the UTC calendar day. Only a served call counts, so an admission check, a refusal, or a vendor that never answered leaves it where it stood. It stops AT Limit rather than climbing past it, so Limit-Used is what remains and never goes negative.
 	Used *int32 `json:"used,omitempty"`
+	// Window is which ceiling these numbers describe — \"hour\" or \"day\" — because a caller is held to both and only one of them is the answer. It is the window that REFUSED where one did, and otherwise the one with least left, so Limit-Used is always the number that will actually stop them next. Empty where no window bounds the subject at all.
+	Window *string `json:"window,omitempty"`
 }
 
 // NewAllowance instantiates a new Allowance object
@@ -208,6 +210,38 @@ func (o *Allowance) SetUsed(v int32) {
 	o.Used = &v
 }
 
+// GetWindow returns the Window field value if set, zero value otherwise.
+func (o *Allowance) GetWindow() string {
+	if o == nil || IsNil(o.Window) {
+		var ret string
+		return ret
+	}
+	return *o.Window
+}
+
+// GetWindowOk returns a tuple with the Window field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Allowance) GetWindowOk() (*string, bool) {
+	if o == nil || IsNil(o.Window) {
+		return nil, false
+	}
+	return o.Window, true
+}
+
+// HasWindow returns a boolean if a field has been set.
+func (o *Allowance) HasWindow() bool {
+	if o != nil && !IsNil(o.Window) {
+		return true
+	}
+
+	return false
+}
+
+// SetWindow gets a reference to the given string and assigns it to the Window field.
+func (o *Allowance) SetWindow(v string) {
+	o.Window = &v
+}
+
 func (o Allowance) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -232,6 +266,9 @@ func (o Allowance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Used) {
 		toSerialize["used"] = o.Used
+	}
+	if !IsNil(o.Window) {
+		toSerialize["window"] = o.Window
 	}
 	return toSerialize, nil
 }

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Publisher** | Pointer to **string** | Publisher is who publishes it. | [optional] 
 **Total** | Pointer to **int32** | Total is how many clauses the standard publishes. | [optional] 
 **Unit** | Pointer to **string** | Unit is what one clause is; Units is its plural. | [optional] 
-**Units** | Pointer to **string** | Units is the plural of Unit. | [optional] 
+**Units** | Pointer to **string** | Units is Unit&#39;s plural, carried so a caller renders \&quot;12 controls\&quot; without having to pluralise a word it does not know. | [optional] 
 
 ## Methods
 

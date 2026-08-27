@@ -1403,6 +1403,7 @@ type AgentsAPIGetAgentsSessionsRequest struct {
 	parent     *string
 	status     *string
 	project    *string
+	room       *string
 	limit      *int32
 }
 
@@ -1427,6 +1428,12 @@ func (r AgentsAPIGetAgentsSessionsRequest) Status(status string) AgentsAPIGetAge
 // Project filters to the sessions tagged with one product slug.
 func (r AgentsAPIGetAgentsSessionsRequest) Project(project string) AgentsAPIGetAgentsSessionsRequest {
 	r.project = &project
+	return r
+}
+
+// Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it.
+func (r AgentsAPIGetAgentsSessionsRequest) Room(room string) AgentsAPIGetAgentsSessionsRequest {
+	r.room = &room
 	return r
 }
 
@@ -1491,6 +1498,9 @@ func (a *AgentsAPIService) GetAgentsSessionsExecute(r AgentsAPIGetAgentsSessions
 	}
 	if r.project != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
+	}
+	if r.room != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "room", r.room, "form", "")
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")

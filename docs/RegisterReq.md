@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Provider** | Pointer to **string** | Account tag — the linked AI account this session ran under (login manager). | [optional] 
 **Published** | Pointer to **bool** | Published opens this session&#39;s story to the public build route. It is refused without a Project, because that route is keyed on (org, project) — a build with no product is not a story anyone can open. False keeps it org-only. | [optional] 
 **Repo** | Pointer to **string** | Repo is the code being worked on, up to 512 characters. A label the surface states; nothing resolves it against the forge. | [optional] 
+**Room** | Pointer to **string** | Room is the collaborative room this run was started in (HIP-0523), so a workspace view can list the sessions of one room. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another room, so it is absent from the patch input and from UpdateSession&#39;s SET list. | [optional] 
 **Status** | Pointer to **string** | Status opens the session in one of running, paused, done or error. Empty means running. A TERMINAL status here (done, error) records a session that has already finished — its end time is stamped now — and nothing can move it afterwards. | [optional] 
 **Target** | Pointer to **string** | Target names a run-target the org has registered. Unlike Host and Repo it IS resolved: a target that does not exist in this org is a 400, so a session can never claim to run on another tenant&#39;s machine. Empty names no machine. | [optional] 
 **TaskRunId** | Pointer to **string** | TaskRunID is that workflow&#39;s particular run, same bound. Recorded, not resolved: this surface does not check the workflow exists. | [optional] 
@@ -289,6 +290,31 @@ SetRepo sets Repo field to given value.
 `func (o *RegisterReq) HasRepo() bool`
 
 HasRepo returns a boolean if a field has been set.
+
+### GetRoom
+
+`func (o *RegisterReq) GetRoom() string`
+
+GetRoom returns the Room field if non-nil, zero value otherwise.
+
+### GetRoomOk
+
+`func (o *RegisterReq) GetRoomOk() (*string, bool)`
+
+GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoom
+
+`func (o *RegisterReq) SetRoom(v string)`
+
+SetRoom sets Room field to given value.
+
+### HasRoom
+
+`func (o *RegisterReq) HasRoom() bool`
+
+HasRoom returns a boolean if a field has been set.
 
 ### GetStatus
 

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Options** | Pointer to **int32** | Options is the shares under this stakeholder&#39;s non-terminal option grants. | [optional] 
 **OwnershipPct** | Pointer to **float32** | OwnershipPct is fullyDiluted as a percentage of the company&#39;s fullyDilutedShares, rounded to two decimals; 0 when nothing is issued. | [optional] 
 **Shares** | Pointer to **int32** | Shares is the shares this stakeholder holds by certificate. | [optional] 
-**StakeholderId** | Pointer to **string** | StakeholderID is the stakeholder. | [optional] 
+**StakeholderId** | Pointer to **string** | StakeholderID addresses the stakeholder these totals are for. | [optional] 
 
 ## Methods
 

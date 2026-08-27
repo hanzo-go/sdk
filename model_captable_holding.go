@@ -29,7 +29,7 @@ type CaptableHolding struct {
 	OwnershipPct *float32 `json:"ownershipPct,omitempty"`
 	// Shares is the shares this stakeholder holds by certificate.
 	Shares *int32 `json:"shares,omitempty"`
-	// StakeholderID is the stakeholder.
+	// StakeholderID addresses the stakeholder these totals are for.
 	StakeholderId *string `json:"stakeholderId,omitempty"`
 }
 

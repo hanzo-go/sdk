@@ -40,6 +40,7 @@ type SessionDetail struct {
 	// RecentEvents is the 50 most recent turns, OLDEST of those first — a transcript to read down, not a feed. The promoted `events` integer says how many the log holds in total; page the rest from a seq.
 	RecentEvents   []EventView `json:"recentEvents,omitempty"`
 	Repo           *string     `json:"repo,omitempty"`
+	Room           *string     `json:"room,omitempty"`
 	RootSessionId  *string     `json:"rootSessionId,omitempty"`
 	StartedAt      *string     `json:"startedAt,omitempty"`
 	Status         *string     `json:"status,omitempty"`
@@ -676,6 +677,38 @@ func (o *SessionDetail) SetRepo(v string) {
 	o.Repo = &v
 }
 
+// GetRoom returns the Room field value if set, zero value otherwise.
+func (o *SessionDetail) GetRoom() string {
+	if o == nil || IsNil(o.Room) {
+		var ret string
+		return ret
+	}
+	return *o.Room
+}
+
+// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SessionDetail) GetRoomOk() (*string, bool) {
+	if o == nil || IsNil(o.Room) {
+		return nil, false
+	}
+	return o.Room, true
+}
+
+// HasRoom returns a boolean if a field has been set.
+func (o *SessionDetail) HasRoom() bool {
+	if o != nil && !IsNil(o.Room) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoom gets a reference to the given string and assigns it to the Room field.
+func (o *SessionDetail) SetRoom(v string) {
+	o.Room = &v
+}
+
 // GetRootSessionId returns the RootSessionId field value if set, zero value otherwise.
 func (o *SessionDetail) GetRootSessionId() string {
 	if o == nil || IsNil(o.RootSessionId) {
@@ -1030,6 +1063,9 @@ func (o SessionDetail) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo
+	}
+	if !IsNil(o.Room) {
+		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.RootSessionId) {
 		toSerialize["rootSessionId"] = o.RootSessionId

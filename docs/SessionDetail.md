@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **Published** | Pointer to **bool** |  | [optional] 
 **RecentEvents** | Pointer to [**[]EventView**](EventView.md) | RecentEvents is the 50 most recent turns, OLDEST of those first — a transcript to read down, not a feed. The promoted &#x60;events&#x60; integer says how many the log holds in total; page the rest from a seq. | [optional] 
 **Repo** | Pointer to **string** |  | [optional] 
+**Room** | Pointer to **string** |  | [optional] 
 **RootSessionId** | Pointer to **string** |  | [optional] 
 **StartedAt** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
@@ -526,6 +527,31 @@ SetRepo sets Repo field to given value.
 `func (o *SessionDetail) HasRepo() bool`
 
 HasRepo returns a boolean if a field has been set.
+
+### GetRoom
+
+`func (o *SessionDetail) GetRoom() string`
+
+GetRoom returns the Room field if non-nil, zero value otherwise.
+
+### GetRoomOk
+
+`func (o *SessionDetail) GetRoomOk() (*string, bool)`
+
+GetRoomOk returns a tuple with the Room field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoom
+
+`func (o *SessionDetail) SetRoom(v string)`
+
+SetRoom sets Room field to given value.
+
+### HasRoom
+
+`func (o *SessionDetail) HasRoom() bool`
+
+HasRoom returns a boolean if a field has been set.
 
 ### GetRootSessionId
 

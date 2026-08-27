@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**GetTeamBots**](TeamAPI.md#GetTeamBots) | **Get** /v1/team/bots | Returns the caller org&#39;s bot members — the org&#39;s agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
 [**GetTeamCollaborator**](TeamAPI.md#GetTeamCollaborator) | **Get** /v1/team/collaborator | Open the live collaborative-editing socket
 [**GetTeamFilesByWorkspaceByFilename**](TeamAPI.md#GetTeamFilesByWorkspaceByFilename) | **Get** /v1/team/files/{workspace}/{filename} | Download a workspace file
+[**GetTeamRooms**](TeamAPI.md#GetTeamRooms) | **Get** /v1/team/rooms | Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
 [**GetTeamTransactorApiV1Statistics**](TeamAPI.md#GetTeamTransactorApiV1Statistics) | **Get** /v1/team/transactor/api/v1/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
 [**GetTeamTransactorByToken**](TeamAPI.md#GetTeamTransactorByToken) | **Get** /v1/team/transactor/{token} | Open the workspace data-plane socket
 [**GetTeamTransactorStatistics**](TeamAPI.md#GetTeamTransactorStatistics) | **Get** /v1/team/transactor/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
@@ -22,6 +23,7 @@ Method | HTTP request | Description
 [**PostTeamCollaboratorRpcByDocumentid**](TeamAPI.md#PostTeamCollaboratorRpcByDocumentid) | **Post** /v1/team/collaborator/rpc/{documentId} | CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
 [**PostTeamFilesByWorkspace**](TeamAPI.md#PostTeamFilesByWorkspace) | **Post** /v1/team/files/{workspace} | Upload a file into a workspace
 [**PutTeamAccountCookie**](TeamAPI.md#PutTeamAccountCookie) | **Put** /v1/team/account/cookie | Store the session token as this browser&#39;s cookie
+[**PutTeamRoomsById**](TeamAPI.md#PutTeamRoomsById) | **Put** /v1/team/rooms/{id} | States what a room is for: its lifecycle intent, and what it is about.
 
 
 
@@ -671,6 +673,67 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetTeamRooms
+
+> TeamRooms GetTeamRooms(ctx).Execute()
+
+Returns every room of the caller's org, across the workspaces it owns, with the work facet each carries.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.GetTeamRooms(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamRooms``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamRooms`: TeamRooms
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamRooms`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTeamRoomsRequest struct via the builder pattern
+
+
+### Return type
+
+[**TeamRooms**](TeamRooms.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetTeamTransactorApiV1Statistics
 
 > StatsOut GetTeamTransactorApiV1Statistics(ctx).Token(token).Execute()
@@ -1189,6 +1252,78 @@ Other parameters are passed through a pointer to a apiPutTeamAccountCookieReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutTeamRoomsById
+
+> TeamRoom PutTeamRoomsById(ctx, id).TeamRoomBind(teamRoomBind).Execute()
+
+States what a room is for: its lifecycle intent, and what it is about.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
+	teamRoomBind := *openapiclient.NewTeamRoomBind() // TeamRoomBind | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.PutTeamRoomsById(context.Background(), id).TeamRoomBind(teamRoomBind).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PutTeamRoomsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutTeamRoomsById`: TeamRoom
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PutTeamRoomsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutTeamRoomsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **teamRoomBind** | [**TeamRoomBind**](TeamRoomBind.md) |  | 
+
+### Return type
+
+[**TeamRoom**](TeamRoom.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

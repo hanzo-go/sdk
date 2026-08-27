@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Investments** | Pointer to [**[]CaptableRoundInvestment**](CaptableRoundInvestment.md) | Investments is every investment into this round, oldest first. | [optional] 
-**Round** | Pointer to [**CaptableRound**](CaptableRound.md) | Round is the round itself. | [optional] 
+**Round** | Pointer to [**CaptableRound**](CaptableRound.md) | Round is the round&#39;s own terms — name, type, valuation, target and status — as against the investments beside it. | [optional] 
 
 ## Methods
 

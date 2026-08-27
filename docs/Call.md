@@ -4,12 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Agent** | Pointer to **string** | Agent names the Hanzo assistant handling the call. Set means the call was answered by that assistant rather than connected to a person. | [optional] 
-**From** | Pointer to **string** | From is the calling number in E.164. It must be one this org holds: a carrier refuses an origination from a number nobody proved they own. | [optional] 
-**Id** | Pointer to **string** | ID is the carrier&#39;s handle for the call — what a hangup or a lookup names. | [optional] 
-**Org** | Pointer to **string** | Org is the tenant the call was placed for or received by. | [optional] 
-**Status** | Pointer to **string** | Status is where the call is: \&quot;queued\&quot;, \&quot;ringing\&quot;, \&quot;answered\&quot;, \&quot;completed\&quot; or \&quot;failed\&quot;. Only the last two are terminal. | [optional] 
-**To** | Pointer to **string** | To is the called number in E.164. | [optional] 
+**Name** | Pointer to **string** | Name is the media room to join: the value POST /v1/meet/getToken takes as roomName, and the value the media server keys participants on. | [optional] 
+**Ready** | Pointer to **bool** | Ready reports that this deployment can mint a join token for this room. It is false on a deployment holding no media-server key, where Name is still correct — the name is a property of the room and the key is a property of the deployment, so a caller learns the room&#39;s identity either way and learns not to offer a join button. | [optional] 
+**Ws** | Pointer to **string** | WS is where the media plane is — the address a client opens its own browser-to-server connection to. Empty when this deployment has not been told where its media server lives, which is reported rather than refused: a surface can say a call is unavailable without a second request. | [optional] 
 
 ## Methods
 
@@ -30,155 +27,80 @@ NewCallWithDefaults instantiates a new Call object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAgent
+### GetName
 
-`func (o *Call) GetAgent() string`
+`func (o *Call) GetName() string`
 
-GetAgent returns the Agent field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetAgentOk
+### GetNameOk
 
-`func (o *Call) GetAgentOk() (*string, bool)`
+`func (o *Call) GetNameOk() (*string, bool)`
 
-GetAgentOk returns a tuple with the Agent field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAgent
+### SetName
 
-`func (o *Call) SetAgent(v string)`
+`func (o *Call) SetName(v string)`
 
-SetAgent sets Agent field to given value.
+SetName sets Name field to given value.
 
-### HasAgent
+### HasName
 
-`func (o *Call) HasAgent() bool`
+`func (o *Call) HasName() bool`
 
-HasAgent returns a boolean if a field has been set.
+HasName returns a boolean if a field has been set.
 
-### GetFrom
+### GetReady
 
-`func (o *Call) GetFrom() string`
+`func (o *Call) GetReady() bool`
 
-GetFrom returns the From field if non-nil, zero value otherwise.
+GetReady returns the Ready field if non-nil, zero value otherwise.
 
-### GetFromOk
+### GetReadyOk
 
-`func (o *Call) GetFromOk() (*string, bool)`
+`func (o *Call) GetReadyOk() (*bool, bool)`
 
-GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
+GetReadyOk returns a tuple with the Ready field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFrom
+### SetReady
 
-`func (o *Call) SetFrom(v string)`
+`func (o *Call) SetReady(v bool)`
 
-SetFrom sets From field to given value.
+SetReady sets Ready field to given value.
 
-### HasFrom
+### HasReady
 
-`func (o *Call) HasFrom() bool`
+`func (o *Call) HasReady() bool`
 
-HasFrom returns a boolean if a field has been set.
+HasReady returns a boolean if a field has been set.
 
-### GetId
+### GetWs
 
-`func (o *Call) GetId() string`
+`func (o *Call) GetWs() string`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetWs returns the Ws field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetWsOk
 
-`func (o *Call) GetIdOk() (*string, bool)`
+`func (o *Call) GetWsOk() (*string, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetWsOk returns a tuple with the Ws field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetWs
 
-`func (o *Call) SetId(v string)`
+`func (o *Call) SetWs(v string)`
 
-SetId sets Id field to given value.
+SetWs sets Ws field to given value.
 
-### HasId
+### HasWs
 
-`func (o *Call) HasId() bool`
+`func (o *Call) HasWs() bool`
 
-HasId returns a boolean if a field has been set.
-
-### GetOrg
-
-`func (o *Call) GetOrg() string`
-
-GetOrg returns the Org field if non-nil, zero value otherwise.
-
-### GetOrgOk
-
-`func (o *Call) GetOrgOk() (*string, bool)`
-
-GetOrgOk returns a tuple with the Org field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrg
-
-`func (o *Call) SetOrg(v string)`
-
-SetOrg sets Org field to given value.
-
-### HasOrg
-
-`func (o *Call) HasOrg() bool`
-
-HasOrg returns a boolean if a field has been set.
-
-### GetStatus
-
-`func (o *Call) GetStatus() string`
-
-GetStatus returns the Status field if non-nil, zero value otherwise.
-
-### GetStatusOk
-
-`func (o *Call) GetStatusOk() (*string, bool)`
-
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatus
-
-`func (o *Call) SetStatus(v string)`
-
-SetStatus sets Status field to given value.
-
-### HasStatus
-
-`func (o *Call) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
-
-### GetTo
-
-`func (o *Call) GetTo() string`
-
-GetTo returns the To field if non-nil, zero value otherwise.
-
-### GetToOk
-
-`func (o *Call) GetToOk() (*string, bool)`
-
-GetToOk returns a tuple with the To field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTo
-
-`func (o *Call) SetTo(v string)`
-
-SetTo sets To field to given value.
-
-### HasTo
-
-`func (o *Call) HasTo() bool`
-
-HasTo returns a boolean if a field has been set.
+HasWs returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

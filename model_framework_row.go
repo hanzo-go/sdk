@@ -31,7 +31,7 @@ type FrameworkRow struct {
 	Total *int32 `json:"total,omitempty"`
 	// Unit is what one clause is; Units is its plural.
 	Unit *string `json:"unit,omitempty"`
-	// Units is the plural of Unit.
+	// Units is Unit's plural, carried so a caller renders \"12 controls\" without having to pluralise a word it does not know.
 	Units *string `json:"units,omitempty"`
 }
 

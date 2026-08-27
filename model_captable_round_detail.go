@@ -21,7 +21,7 @@ var _ MappedNullable = &CaptableRoundDetail{}
 type CaptableRoundDetail struct {
 	// Investments is every investment into this round, oldest first.
 	Investments []CaptableRoundInvestment `json:"investments,omitempty"`
-	// Round is the round itself.
+	// Round is the round's own terms — name, type, valuation, target and status — as against the investments beside it.
 	Round *CaptableRound `json:"round,omitempty"`
 }
 

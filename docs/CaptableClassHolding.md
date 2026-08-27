@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ClassType** | Pointer to **string** | ClassType is COMMON or PREFERRED. | [optional] 
 **Issued** | Pointer to **int32** | Issued is how many shares of the class have been issued. | [optional] 
 **Name** | Pointer to **string** | Name is the class name. | [optional] 
-**ShareClassId** | Pointer to **string** | ShareClassID is the share class. | [optional] 
+**ShareClassId** | Pointer to **string** | ShareClassID addresses the class this position is for. | [optional] 
 
 ## Methods
 

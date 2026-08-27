@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Filename** | Pointer to **string** | Filename is the name to save it under, built from the title and marked _signed once it is sealed. | [optional] 
-**Id** | Pointer to **string** | ID is the document. | [optional] 
+**Id** | Pointer to **string** | ID is the document this PDF was rendered from. | [optional] 
 **PdfBase64** | Pointer to **string** | PdfBase64 is the PDF itself, base64-encoded. There is one field either way, so Sealed is what tells you which artifact you are holding. | [optional] 
 **Sealed** | Pointer to **bool** | Sealed is whether this is the SEALED artifact — the field values rendered onto the page and a real x509 PKCS#7 signature applied — rather than the original upload. | [optional] 
 **Status** | Pointer to **string** | Status is the document&#39;s state at the moment it was read. | [optional] 

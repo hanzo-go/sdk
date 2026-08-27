@@ -31,6 +31,7 @@ api_dataroom.go
 api_dataset.go
 api_deploy.go
 api_destination.go
+api_dns.go
 api_domain.go
 api_engine.go
 api_entitlement.go
@@ -577,6 +578,7 @@ docs/DeviceStartOut.md
 docs/DeviceView.md
 docs/Diagnostic.md
 docs/DisconnectOut.md
+docs/DnsAPI.md
 docs/DocField.md
 docs/DocPerm.md
 docs/DocRow.md
@@ -2205,6 +2207,7 @@ docs/RollbackReq.md
 docs/Rollup.md
 docs/RollupAllotment.md
 docs/RollupBalance.md
+docs/RoomWork.md
 docs/Root.md
 docs/RoundInput.md
 docs/RoundOut.md
@@ -2421,6 +2424,9 @@ docs/TaxonIn.md
 docs/Taxonomy.md
 docs/TaxonomyAPI.md
 docs/TeamAPI.md
+docs/TeamRoom.md
+docs/TeamRoomBind.md
+docs/TeamRooms.md
 docs/TelAPI.md
 docs/TemplateAPI.md
 docs/TemplateCatalog.md
@@ -4560,6 +4566,7 @@ model_rollback_req.go
 model_rollup.go
 model_rollup_allotment.go
 model_rollup_balance.go
+model_room_work.go
 model_root.go
 model_round_input.go
 model_round_out.go
@@ -4761,6 +4768,9 @@ model_tariff_in.go
 model_taxon.go
 model_taxon_in.go
 model_taxonomy.go
+model_team_room.go
+model_team_room_bind.go
+model_team_rooms.go
 model_template_catalog.go
 model_template_override.go
 model_template_reply.go

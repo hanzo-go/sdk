@@ -31,6 +31,8 @@ type IssueHit struct {
 	Project *string `json:"project,omitempty"`
 	// Repo is the git repository the issue is bound to, empty when it is not repo-bound.
 	Repo *string `json:"repo,omitempty"`
+	// Room is the collaboration room the issue belongs to, spelled \"<workspace>_<room>\" — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
+	Room *string `json:"room,omitempty"`
 	// Source is which surface opened it: team, git, crm, helpdesk, cms or agent. \"git\" is how the mirrored forge and GitHub rows are spelled.
 	Source *string `json:"source,omitempty"`
 	// Status is the board column: backlog, todo, in_progress, done or canceled. Claiming moves backlog and todo to in_progress and leaves the other three where they are.
@@ -250,6 +252,38 @@ func (o *IssueHit) SetRepo(v string) {
 	o.Repo = &v
 }
 
+// GetRoom returns the Room field value if set, zero value otherwise.
+func (o *IssueHit) GetRoom() string {
+	if o == nil || IsNil(o.Room) {
+		var ret string
+		return ret
+	}
+	return *o.Room
+}
+
+// GetRoomOk returns a tuple with the Room field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IssueHit) GetRoomOk() (*string, bool) {
+	if o == nil || IsNil(o.Room) {
+		return nil, false
+	}
+	return o.Room, true
+}
+
+// HasRoom returns a boolean if a field has been set.
+func (o *IssueHit) HasRoom() bool {
+	if o != nil && !IsNil(o.Room) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoom gets a reference to the given string and assigns it to the Room field.
+func (o *IssueHit) SetRoom(v string) {
+	o.Room = &v
+}
+
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *IssueHit) GetSource() string {
 	if o == nil || IsNil(o.Source) {
@@ -405,6 +439,9 @@ func (o IssueHit) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Repo) {
 		toSerialize["repo"] = o.Repo
+	}
+	if !IsNil(o.Room) {
+		toSerialize["room"] = o.Room
 	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source

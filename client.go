@@ -114,6 +114,8 @@ type APIClient struct {
 
 	DestinationAPI *DestinationAPIService
 
+	DnsAPI *DnsAPIService
+
 	DomainAPI *DomainAPIService
 
 	EngineAPI *EngineAPIService
@@ -332,6 +334,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.DatasetAPI = (*DatasetAPIService)(&c.common)
 	c.DeployAPI = (*DeployAPIService)(&c.common)
 	c.DestinationAPI = (*DestinationAPIService)(&c.common)
+	c.DnsAPI = (*DnsAPIService)(&c.common)
 	c.DomainAPI = (*DomainAPIService)(&c.common)
 	c.EngineAPI = (*EngineAPIService)(&c.common)
 	c.EntitlementAPI = (*EntitlementAPIService)(&c.common)

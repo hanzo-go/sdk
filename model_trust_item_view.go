@@ -31,9 +31,9 @@ type TrustItemView struct {
 	Framework *string `json:"framework,omitempty"`
 	// ID addresses the item.
 	Id *string `json:"id,omitempty"`
-	// Kind is what it is.
+	// Kind is one of report, letter, policy, questionnaire, subprocessor, article or update — the closed set the public centre knows how to draw.
 	Kind *string `json:"kind,omitempty"`
-	// Name is its title.
+	// Name is the label the centre lists it under.
 	Name *string `json:"name,omitempty"`
 	// Retired is whether it has been withdrawn. A retired item is absent from the public centre and cannot be granted; it is kept because a grant already made over it is part of the record.
 	Retired *bool `json:"retired,omitempty"`

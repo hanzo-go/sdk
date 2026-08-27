@@ -21,7 +21,7 @@ var _ MappedNullable = &EsignPDF{}
 type EsignPDF struct {
 	// Filename is the name to save it under, built from the title and marked _signed once it is sealed.
 	Filename *string `json:"filename,omitempty"`
-	// ID is the document.
+	// ID is the document this PDF was rendered from.
 	Id *string `json:"id,omitempty"`
 	// PdfBase64 is the PDF itself, base64-encoded. There is one field either way, so Sealed is what tells you which artifact you are holding.
 	PdfBase64 *string `json:"pdfBase64,omitempty"`
