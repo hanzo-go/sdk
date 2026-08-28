@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## Search
 
-> Response Search(ctx).Request(request).Execute()
+> Fusion Search(ctx).Request(request).Execute()
 
 Hybrid search over the org's own corpora
 
@@ -38,7 +38,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.Search``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `Search`: Response
+	// response from `Search`: Fusion
 	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.Search`: %v\n", resp)
 }
 ```
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Response**](Response.md)
+[**Fusion**](Fusion.md)
 
 ### Authorization
 

@@ -21,7 +21,7 @@ var _ MappedNullable = &BackendStatus{}
 type BackendStatus struct {
 	// Error is the failure text from a leg whose status is degraded — the reason a configured backend could not answer. Absent otherwise.
 	Error *string `json:"error,omitempty"`
-	// Hits is how many results this leg returned, counted BEFORE fusion, so it is not the number that survived into Response.Hits — fusion merges what both legs found and the caller's limit and offset then page it. 0 for a leg that did not run.
+	// Hits is how many results this leg returned, counted BEFORE fusion, so it is not the number that survived into Fusion.Hits — fusion merges what both legs found and the caller's limit and offset then page it. 0 for a leg that did not run.
 	Hits *int32 `json:"hits,omitempty"`
 	// Name is which leg this reports: \"index\", the lexical store, \"vector\", the semantic one, or \"code\", the org's own repositories. Match.Backend uses the same three names.
 	Name *string `json:"name,omitempty"`

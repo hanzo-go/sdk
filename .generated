@@ -715,6 +715,7 @@ docs/FunctionDetail.md
 docs/FunctionView.md
 docs/FunctionsAPI.md
 docs/Funnel.md
+docs/Fusion.md
 docs/GLRow.md
 docs/GPU.md
 docs/GatewayAPI.md
@@ -1045,7 +1046,6 @@ docs/MarketCatalog.md
 docs/MarketItem.md
 docs/MarketingAPI.md
 docs/MarketplaceAPI.md
-docs/Match.md
 docs/McpCatalog.md
 docs/McpCatalogSync.md
 docs/McpServerList.md
@@ -2030,6 +2030,7 @@ docs/PromptList.md
 docs/PromptMeta.md
 docs/PromptReq.md
 docs/PropSpec.md
+docs/Provenance.md
 docs/ProviderBreakdown.md
 docs/ProviderInfo.md
 docs/ProviderRow.md
@@ -2140,7 +2141,6 @@ docs/Request.md
 docs/ResolveReferenceIn.md
 docs/ResolveReferenceOut.md
 docs/ResourceUsage.md
-docs/Response.md
 docs/Responsible.md
 docs/RestartRef.md
 docs/Restarted.md
@@ -3116,6 +3116,7 @@ model_framework_row.go
 model_function_detail.go
 model_function_view.go
 model_funnel.go
+model_fusion.go
 model_gc_out.go
 model_generate_input.go
 model_generate_request.go
@@ -3419,7 +3420,6 @@ model_machine_view.go
 model_make_in.go
 model_market_catalog.go
 model_market_item.go
-model_match.go
 model_mcp_catalog.go
 model_mcp_catalog_sync.go
 model_mcp_error.go
@@ -4396,6 +4396,7 @@ model_prompt_list.go
 model_prompt_meta.go
 model_prompt_req.go
 model_prop_spec.go
+model_provenance.go
 model_provider_breakdown.go
 model_provider_info.go
 model_provider_row.go
@@ -4501,7 +4502,6 @@ model_request.go
 model_resolve_reference_in.go
 model_resolve_reference_out.go
 model_resource_usage.go
-model_response.go
 model_responsible.go
 model_restart_ref.go
 model_restarted.go

@@ -14,11 +14,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the Response type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Response{}
+// checks if the Fusion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Fusion{}
 
-// Response struct for Response
-type Response struct {
+// Fusion struct for Fusion
+type Fusion struct {
 	// Backends is the per-leg report. Always populated.
 	Backends []BackendStatus `json:"backends,omitempty"`
 	// Hits is the fused, ranked result set.
@@ -31,25 +31,25 @@ type Response struct {
 	TookMs *int32 `json:"took_ms,omitempty"`
 }
 
-// NewResponse instantiates a new Response object
+// NewFusion instantiates a new Fusion object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponse() *Response {
-	this := Response{}
+func NewFusion() *Fusion {
+	this := Fusion{}
 	return &this
 }
 
-// NewResponseWithDefaults instantiates a new Response object
+// NewFusionWithDefaults instantiates a new Fusion object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewResponseWithDefaults() *Response {
-	this := Response{}
+func NewFusionWithDefaults() *Fusion {
+	this := Fusion{}
 	return &this
 }
 
 // GetBackends returns the Backends field value if set, zero value otherwise.
-func (o *Response) GetBackends() []BackendStatus {
+func (o *Fusion) GetBackends() []BackendStatus {
 	if o == nil || IsNil(o.Backends) {
 		var ret []BackendStatus
 		return ret
@@ -59,7 +59,7 @@ func (o *Response) GetBackends() []BackendStatus {
 
 // GetBackendsOk returns a tuple with the Backends field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Response) GetBackendsOk() ([]BackendStatus, bool) {
+func (o *Fusion) GetBackendsOk() ([]BackendStatus, bool) {
 	if o == nil || IsNil(o.Backends) {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *Response) GetBackendsOk() ([]BackendStatus, bool) {
 }
 
 // HasBackends returns a boolean if a field has been set.
-func (o *Response) HasBackends() bool {
+func (o *Fusion) HasBackends() bool {
 	if o != nil && !IsNil(o.Backends) {
 		return true
 	}
@@ -76,12 +76,12 @@ func (o *Response) HasBackends() bool {
 }
 
 // SetBackends gets a reference to the given []BackendStatus and assigns it to the Backends field.
-func (o *Response) SetBackends(v []BackendStatus) {
+func (o *Fusion) SetBackends(v []BackendStatus) {
 	o.Backends = v
 }
 
 // GetHits returns the Hits field value if set, zero value otherwise.
-func (o *Response) GetHits() []Hit {
+func (o *Fusion) GetHits() []Hit {
 	if o == nil || IsNil(o.Hits) {
 		var ret []Hit
 		return ret
@@ -91,7 +91,7 @@ func (o *Response) GetHits() []Hit {
 
 // GetHitsOk returns a tuple with the Hits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Response) GetHitsOk() ([]Hit, bool) {
+func (o *Fusion) GetHitsOk() ([]Hit, bool) {
 	if o == nil || IsNil(o.Hits) {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *Response) GetHitsOk() ([]Hit, bool) {
 }
 
 // HasHits returns a boolean if a field has been set.
-func (o *Response) HasHits() bool {
+func (o *Fusion) HasHits() bool {
 	if o != nil && !IsNil(o.Hits) {
 		return true
 	}
@@ -108,12 +108,12 @@ func (o *Response) HasHits() bool {
 }
 
 // SetHits gets a reference to the given []Hit and assigns it to the Hits field.
-func (o *Response) SetHits(v []Hit) {
+func (o *Fusion) SetHits(v []Hit) {
 	o.Hits = v
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
-func (o *Response) GetMode() string {
+func (o *Fusion) GetMode() string {
 	if o == nil || IsNil(o.Mode) {
 		var ret string
 		return ret
@@ -123,7 +123,7 @@ func (o *Response) GetMode() string {
 
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Response) GetModeOk() (*string, bool) {
+func (o *Fusion) GetModeOk() (*string, bool) {
 	if o == nil || IsNil(o.Mode) {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *Response) GetModeOk() (*string, bool) {
 }
 
 // HasMode returns a boolean if a field has been set.
-func (o *Response) HasMode() bool {
+func (o *Fusion) HasMode() bool {
 	if o != nil && !IsNil(o.Mode) {
 		return true
 	}
@@ -140,12 +140,12 @@ func (o *Response) HasMode() bool {
 }
 
 // SetMode gets a reference to the given string and assigns it to the Mode field.
-func (o *Response) SetMode(v string) {
+func (o *Fusion) SetMode(v string) {
 	o.Mode = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *Response) GetStatus() string {
+func (o *Fusion) GetStatus() string {
 	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
@@ -155,7 +155,7 @@ func (o *Response) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Response) GetStatusOk() (*string, bool) {
+func (o *Fusion) GetStatusOk() (*string, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -163,7 +163,7 @@ func (o *Response) GetStatusOk() (*string, bool) {
 }
 
 // HasStatus returns a boolean if a field has been set.
-func (o *Response) HasStatus() bool {
+func (o *Fusion) HasStatus() bool {
 	if o != nil && !IsNil(o.Status) {
 		return true
 	}
@@ -172,12 +172,12 @@ func (o *Response) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *Response) SetStatus(v string) {
+func (o *Fusion) SetStatus(v string) {
 	o.Status = &v
 }
 
 // GetTookMs returns the TookMs field value if set, zero value otherwise.
-func (o *Response) GetTookMs() int32 {
+func (o *Fusion) GetTookMs() int32 {
 	if o == nil || IsNil(o.TookMs) {
 		var ret int32
 		return ret
@@ -187,7 +187,7 @@ func (o *Response) GetTookMs() int32 {
 
 // GetTookMsOk returns a tuple with the TookMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Response) GetTookMsOk() (*int32, bool) {
+func (o *Fusion) GetTookMsOk() (*int32, bool) {
 	if o == nil || IsNil(o.TookMs) {
 		return nil, false
 	}
@@ -195,7 +195,7 @@ func (o *Response) GetTookMsOk() (*int32, bool) {
 }
 
 // HasTookMs returns a boolean if a field has been set.
-func (o *Response) HasTookMs() bool {
+func (o *Fusion) HasTookMs() bool {
 	if o != nil && !IsNil(o.TookMs) {
 		return true
 	}
@@ -204,11 +204,11 @@ func (o *Response) HasTookMs() bool {
 }
 
 // SetTookMs gets a reference to the given int32 and assigns it to the TookMs field.
-func (o *Response) SetTookMs(v int32) {
+func (o *Fusion) SetTookMs(v int32) {
 	o.TookMs = &v
 }
 
-func (o Response) MarshalJSON() ([]byte, error) {
+func (o Fusion) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -216,7 +216,7 @@ func (o Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Response) ToMap() (map[string]interface{}, error) {
+func (o Fusion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Backends) {
 		toSerialize["backends"] = o.Backends
@@ -236,38 +236,38 @@ func (o Response) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableResponse struct {
-	value *Response
+type NullableFusion struct {
+	value *Fusion
 	isSet bool
 }
 
-func (v NullableResponse) Get() *Response {
+func (v NullableFusion) Get() *Fusion {
 	return v.value
 }
 
-func (v *NullableResponse) Set(val *Response) {
+func (v *NullableFusion) Set(val *Fusion) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableResponse) IsSet() bool {
+func (v NullableFusion) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableResponse) Unset() {
+func (v *NullableFusion) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableResponse(val *Response) *NullableResponse {
-	return &NullableResponse{value: val, isSet: true}
+func NewNullableFusion(val *Fusion) *NullableFusion {
+	return &NullableFusion{value: val, isSet: true}
 }
 
-func (v NullableResponse) MarshalJSON() ([]byte, error) {
+func (v NullableFusion) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableFusion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

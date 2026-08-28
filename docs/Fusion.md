@@ -1,4 +1,4 @@
-# Response
+# Fusion
 
 ## Properties
 
@@ -12,145 +12,145 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewResponse
+### NewFusion
 
-`func NewResponse() *Response`
+`func NewFusion() *Fusion`
 
-NewResponse instantiates a new Response object
+NewFusion instantiates a new Fusion object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewResponseWithDefaults
+### NewFusionWithDefaults
 
-`func NewResponseWithDefaults() *Response`
+`func NewFusionWithDefaults() *Fusion`
 
-NewResponseWithDefaults instantiates a new Response object
+NewFusionWithDefaults instantiates a new Fusion object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetBackends
 
-`func (o *Response) GetBackends() []BackendStatus`
+`func (o *Fusion) GetBackends() []BackendStatus`
 
 GetBackends returns the Backends field if non-nil, zero value otherwise.
 
 ### GetBackendsOk
 
-`func (o *Response) GetBackendsOk() (*[]BackendStatus, bool)`
+`func (o *Fusion) GetBackendsOk() (*[]BackendStatus, bool)`
 
 GetBackendsOk returns a tuple with the Backends field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBackends
 
-`func (o *Response) SetBackends(v []BackendStatus)`
+`func (o *Fusion) SetBackends(v []BackendStatus)`
 
 SetBackends sets Backends field to given value.
 
 ### HasBackends
 
-`func (o *Response) HasBackends() bool`
+`func (o *Fusion) HasBackends() bool`
 
 HasBackends returns a boolean if a field has been set.
 
 ### GetHits
 
-`func (o *Response) GetHits() []Hit`
+`func (o *Fusion) GetHits() []Hit`
 
 GetHits returns the Hits field if non-nil, zero value otherwise.
 
 ### GetHitsOk
 
-`func (o *Response) GetHitsOk() (*[]Hit, bool)`
+`func (o *Fusion) GetHitsOk() (*[]Hit, bool)`
 
 GetHitsOk returns a tuple with the Hits field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHits
 
-`func (o *Response) SetHits(v []Hit)`
+`func (o *Fusion) SetHits(v []Hit)`
 
 SetHits sets Hits field to given value.
 
 ### HasHits
 
-`func (o *Response) HasHits() bool`
+`func (o *Fusion) HasHits() bool`
 
 HasHits returns a boolean if a field has been set.
 
 ### GetMode
 
-`func (o *Response) GetMode() string`
+`func (o *Fusion) GetMode() string`
 
 GetMode returns the Mode field if non-nil, zero value otherwise.
 
 ### GetModeOk
 
-`func (o *Response) GetModeOk() (*string, bool)`
+`func (o *Fusion) GetModeOk() (*string, bool)`
 
 GetModeOk returns a tuple with the Mode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMode
 
-`func (o *Response) SetMode(v string)`
+`func (o *Fusion) SetMode(v string)`
 
 SetMode sets Mode field to given value.
 
 ### HasMode
 
-`func (o *Response) HasMode() bool`
+`func (o *Fusion) HasMode() bool`
 
 HasMode returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *Response) GetStatus() string`
+`func (o *Fusion) GetStatus() string`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *Response) GetStatusOk() (*string, bool)`
+`func (o *Fusion) GetStatusOk() (*string, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *Response) SetStatus(v string)`
+`func (o *Fusion) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
 
 ### HasStatus
 
-`func (o *Response) HasStatus() bool`
+`func (o *Fusion) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
 
 ### GetTookMs
 
-`func (o *Response) GetTookMs() int32`
+`func (o *Fusion) GetTookMs() int32`
 
 GetTookMs returns the TookMs field if non-nil, zero value otherwise.
 
 ### GetTookMsOk
 
-`func (o *Response) GetTookMsOk() (*int32, bool)`
+`func (o *Fusion) GetTookMsOk() (*int32, bool)`
 
 GetTookMsOk returns a tuple with the TookMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTookMs
 
-`func (o *Response) SetTookMs(v int32)`
+`func (o *Fusion) SetTookMs(v int32)`
 
 SetTookMs sets TookMs field to given value.
 
 ### HasTookMs
 
-`func (o *Response) HasTookMs() bool`
+`func (o *Fusion) HasTookMs() bool`
 
 HasTookMs returns a boolean if a field has been set.
 

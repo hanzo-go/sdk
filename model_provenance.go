@@ -14,12 +14,12 @@ import (
 	"encoding/json"
 )
 
-// checks if the Match type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Match{}
+// checks if the Provenance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Provenance{}
 
-// Match struct for Match
-type Match struct {
-	// Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Response.Backends, so a hit can be traced to a status.
+// Provenance struct for Provenance
+type Provenance struct {
+	// Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
 	Backend *string `json:"backend,omitempty"`
 	// Rank is this document's 1-based position in THAT leg's own result list, before fusion — 1 is the leg's best hit. It is the only input to the fused score: RRF adds 1/(60+rank) per leg, which is why a document two legs ranked second beats one a single leg ranked first.
 	Rank *int32 `json:"rank,omitempty"`
@@ -27,25 +27,25 @@ type Match struct {
 	Score *float32 `json:"score,omitempty"`
 }
 
-// NewMatch instantiates a new Match object
+// NewProvenance instantiates a new Provenance object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMatch() *Match {
-	this := Match{}
+func NewProvenance() *Provenance {
+	this := Provenance{}
 	return &this
 }
 
-// NewMatchWithDefaults instantiates a new Match object
+// NewProvenanceWithDefaults instantiates a new Provenance object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMatchWithDefaults() *Match {
-	this := Match{}
+func NewProvenanceWithDefaults() *Provenance {
+	this := Provenance{}
 	return &this
 }
 
 // GetBackend returns the Backend field value if set, zero value otherwise.
-func (o *Match) GetBackend() string {
+func (o *Provenance) GetBackend() string {
 	if o == nil || IsNil(o.Backend) {
 		var ret string
 		return ret
@@ -55,7 +55,7 @@ func (o *Match) GetBackend() string {
 
 // GetBackendOk returns a tuple with the Backend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Match) GetBackendOk() (*string, bool) {
+func (o *Provenance) GetBackendOk() (*string, bool) {
 	if o == nil || IsNil(o.Backend) {
 		return nil, false
 	}
@@ -63,7 +63,7 @@ func (o *Match) GetBackendOk() (*string, bool) {
 }
 
 // HasBackend returns a boolean if a field has been set.
-func (o *Match) HasBackend() bool {
+func (o *Provenance) HasBackend() bool {
 	if o != nil && !IsNil(o.Backend) {
 		return true
 	}
@@ -72,12 +72,12 @@ func (o *Match) HasBackend() bool {
 }
 
 // SetBackend gets a reference to the given string and assigns it to the Backend field.
-func (o *Match) SetBackend(v string) {
+func (o *Provenance) SetBackend(v string) {
 	o.Backend = &v
 }
 
 // GetRank returns the Rank field value if set, zero value otherwise.
-func (o *Match) GetRank() int32 {
+func (o *Provenance) GetRank() int32 {
 	if o == nil || IsNil(o.Rank) {
 		var ret int32
 		return ret
@@ -87,7 +87,7 @@ func (o *Match) GetRank() int32 {
 
 // GetRankOk returns a tuple with the Rank field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Match) GetRankOk() (*int32, bool) {
+func (o *Provenance) GetRankOk() (*int32, bool) {
 	if o == nil || IsNil(o.Rank) {
 		return nil, false
 	}
@@ -95,7 +95,7 @@ func (o *Match) GetRankOk() (*int32, bool) {
 }
 
 // HasRank returns a boolean if a field has been set.
-func (o *Match) HasRank() bool {
+func (o *Provenance) HasRank() bool {
 	if o != nil && !IsNil(o.Rank) {
 		return true
 	}
@@ -104,12 +104,12 @@ func (o *Match) HasRank() bool {
 }
 
 // SetRank gets a reference to the given int32 and assigns it to the Rank field.
-func (o *Match) SetRank(v int32) {
+func (o *Provenance) SetRank(v int32) {
 	o.Rank = &v
 }
 
 // GetScore returns the Score field value if set, zero value otherwise.
-func (o *Match) GetScore() float32 {
+func (o *Provenance) GetScore() float32 {
 	if o == nil || IsNil(o.Score) {
 		var ret float32
 		return ret
@@ -119,7 +119,7 @@ func (o *Match) GetScore() float32 {
 
 // GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Match) GetScoreOk() (*float32, bool) {
+func (o *Provenance) GetScoreOk() (*float32, bool) {
 	if o == nil || IsNil(o.Score) {
 		return nil, false
 	}
@@ -127,7 +127,7 @@ func (o *Match) GetScoreOk() (*float32, bool) {
 }
 
 // HasScore returns a boolean if a field has been set.
-func (o *Match) HasScore() bool {
+func (o *Provenance) HasScore() bool {
 	if o != nil && !IsNil(o.Score) {
 		return true
 	}
@@ -136,11 +136,11 @@ func (o *Match) HasScore() bool {
 }
 
 // SetScore gets a reference to the given float32 and assigns it to the Score field.
-func (o *Match) SetScore(v float32) {
+func (o *Provenance) SetScore(v float32) {
 	o.Score = &v
 }
 
-func (o Match) MarshalJSON() ([]byte, error) {
+func (o Provenance) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -148,7 +148,7 @@ func (o Match) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Match) ToMap() (map[string]interface{}, error) {
+func (o Provenance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Backend) {
 		toSerialize["backend"] = o.Backend
@@ -162,38 +162,38 @@ func (o Match) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableMatch struct {
-	value *Match
+type NullableProvenance struct {
+	value *Provenance
 	isSet bool
 }
 
-func (v NullableMatch) Get() *Match {
+func (v NullableProvenance) Get() *Provenance {
 	return v.value
 }
 
-func (v *NullableMatch) Set(val *Match) {
+func (v *NullableProvenance) Set(val *Provenance) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMatch) IsSet() bool {
+func (v NullableProvenance) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMatch) Unset() {
+func (v *NullableProvenance) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMatch(val *Match) *NullableMatch {
-	return &NullableMatch{value: val, isSet: true}
+func NewNullableProvenance(val *Provenance) *NullableProvenance {
+	return &NullableProvenance{value: val, isSet: true}
 }
 
-func (v NullableMatch) MarshalJSON() ([]byte, error) {
+func (v NullableProvenance) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMatch) UnmarshalJSON(src []byte) error {
+func (v *NullableProvenance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

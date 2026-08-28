@@ -32,7 +32,7 @@ func (r SearchAPISearchRequest) Request(request Request) SearchAPISearchRequest 
 	return r
 }
 
-func (r SearchAPISearchRequest) Execute() (*Response, *http.Response, error) {
+func (r SearchAPISearchRequest) Execute() (*Fusion, *http.Response, error) {
 	return r.ApiService.SearchExecute(r)
 }
 
@@ -55,13 +55,13 @@ func (a *SearchAPIService) Search(ctx context.Context) SearchAPISearchRequest {
 
 // Execute executes the request
 //
-//	@return Response
-func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*Response, *http.Response, error) {
+//	@return Fusion
+func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*Fusion, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Response
+		localVarReturnValue *Fusion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.Search")
