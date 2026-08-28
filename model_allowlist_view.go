@@ -19,7 +19,7 @@ var _ MappedNullable = &AllowlistView{}
 
 // AllowlistView struct for AllowlistView
 type AllowlistView struct {
-	// AccessGroups is the org's named sender sets, as group name -> channel -> member entries, held once for the whole org. A DM or Group entry written `accessGroup:<name>` admits any sender listed under that name for THIS channel, or under the channel `*`, which is how one set covers all four transports. Replaced wholesale by the PUT.
+	// AccessGroups is the org's named sender sets, as group name -> channel -> member entries, held once for the whole org. A DM or Group entry written `accessGroup:<name>` admits any sender listed under that name for THIS channel, or under the channel `*`, which is how one set covers every transport at once. Replaced wholesale by the PUT.
 	AccessGroups map[string]map[string][]string `json:"accessGroups,omitempty"`
 	// DM is the CONFIG-managed DM allow entries — the list PUT /v1/channels/allowlist owns and replaces wholesale. An entry matches a sender either EXACTLY, as the transport-native id inbox messages carry, or as `accessGroup:<name>` resolved through AccessGroups. A bare `*` admits everyone, but only while DMPolicy is \"open\": it is gate syntax, not an identity, so under \"allowlist\" it matches nobody.
 	Dm []string `json:"dm,omitempty"`

@@ -96,7 +96,7 @@ import (
 )
 
 func main() {
-	channel := "slack" // string | Channel is the transport to read: discord, slack, teams or telegram. Required; an unknown value is a 404. (optional)
+	channel := "slack" // string | Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -121,7 +121,7 @@ Other parameters are passed through a pointer to a apiGetChannelsAllowlistReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **channel** | **string** | Channel is the transport to read: discord, slack, teams or telegram. Required; an unknown value is a 404. | 
+ **channel** | **string** | Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. | 
 
 ### Return type
 

@@ -2472,6 +2472,94 @@ func (a *IntegrationsAPIService) GetIntegrationsTelegramLinkCallbackExecute(r In
 	return localVarHTTPResponse, nil
 }
 
+type IntegrationsAPIGetIntegrationsWhatsappWebhookRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+}
+
+func (r IntegrationsAPIGetIntegrationsWhatsappWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIntegrationsWhatsappWebhookExecute(r)
+}
+
+/*
+GetIntegrationsWhatsappWebhook WhatsApp Cloud API subscription challenge
+
+Meta calls this once when the webhook is subscribed, carrying the verify token this deployment was configured with and a challenge to echo. The token is compared in constant time before the echo — answering the challenge without checking it would let anyone point their own app at this address and have it confirm the subscription.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIGetIntegrationsWhatsappWebhookRequest
+*/
+func (a *IntegrationsAPIService) GetIntegrationsWhatsappWebhook(ctx context.Context) IntegrationsAPIGetIntegrationsWhatsappWebhookRequest {
+	return IntegrationsAPIGetIntegrationsWhatsappWebhookRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *IntegrationsAPIService) GetIntegrationsWhatsappWebhookExecute(r IntegrationsAPIGetIntegrationsWhatsappWebhookRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationsWhatsappWebhook")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/whatsapp/webhook"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type IntegrationsAPIPostIntegrationsByProviderConnectRequest struct {
 	ctx        context.Context
 	ApiService *IntegrationsAPIService
@@ -4833,6 +4921,98 @@ func (a *IntegrationsAPIService) PostIntegrationsTelegramWebhookExecute(r Integr
 	}
 
 	localVarPath := localBasePath + "/v1/integrations/telegram/webhook"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIPostIntegrationsWhatsappWebhookRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+}
+
+func (r IntegrationsAPIPostIntegrationsWhatsappWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationsWhatsappWebhookExecute(r)
+}
+
+/*
+PostIntegrationsWhatsappWebhook WhatsApp Cloud API webhook
+
+One delivery from Meta. Authenticity is the X-Hub-Signature-256 HMAC over the raw body, and it is the whole of it: a message accepted here creates the reply route that authorises this org to answer, so an unsigned delivery would let anyone hand an org a conversation to answer under its own number.
+
+Meta batches (entry × changes × messages) and sends status callbacks — sent/delivered/read — through this same address with no message at all. Those are acknowledged and dropped rather than refused, because a non-2xx is retried with backoff and eventually disables the subscription: the only refusals here are an unconfigured endpoint and a bad signature, which are ours to fix and not Meta's to retry.
+
+The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIPostIntegrationsWhatsappWebhookRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsWhatsappWebhook(ctx context.Context) IntegrationsAPIPostIntegrationsWhatsappWebhookRequest {
+	return IntegrationsAPIPostIntegrationsWhatsappWebhookRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *IntegrationsAPIService) PostIntegrationsWhatsappWebhookExecute(r IntegrationsAPIPostIntegrationsWhatsappWebhookRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsWhatsappWebhook")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/whatsapp/webhook"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

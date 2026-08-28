@@ -21,7 +21,7 @@ var _ MappedNullable = &AllowlistPutIn{}
 type AllowlistPutIn struct {
 	// AccessGroups REPLACES the org's named access groups, as group name -> channel -> entries. Absent or null leaves them alone.
 	AccessGroups map[string]map[string][]string `json:"accessGroups,omitempty"`
-	// Channel is the transport to edit: discord, slack, teams or telegram. Required; an unknown value is a 404.
+	// Channel is the transport to edit: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
 	Channel *string `json:"channel,omitempty"`
 	// DM REPLACES the config-managed DM allow entries. Absent or null leaves them alone; an empty list clears them. It never touches senders approved through pairing — a policy edit cannot revoke an approved pairing.
 	Dm []string `json:"dm,omitempty"`

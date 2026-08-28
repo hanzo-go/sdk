@@ -29,6 +29,7 @@ Method | HTTP request | Description
 [**GetIntegrationsTelegramLink**](IntegrationsAPI.md#GetIntegrationsTelegramLink) | **Get** /v1/integrations/telegram/link | Begin linking a Hanzo account from Telegram
 [**GetIntegrationsTelegramLinkAuth**](IntegrationsAPI.md#GetIntegrationsTelegramLinkAuth) | **Get** /v1/integrations/telegram/link/auth | Telegram Login Widget return leg
 [**GetIntegrationsTelegramLinkCallback**](IntegrationsAPI.md#GetIntegrationsTelegramLinkCallback) | **Get** /v1/integrations/telegram/link/callback | Complete the Telegram account link
+[**GetIntegrationsWhatsappWebhook**](IntegrationsAPI.md#GetIntegrationsWhatsappWebhook) | **Get** /v1/integrations/whatsapp/webhook | WhatsApp Cloud API subscription challenge
 [**PostIntegrationsByProviderConnect**](IntegrationsAPI.md#PostIntegrationsByProviderConnect) | **Post** /v1/integrations/{provider}/connect | Acquires the org&#39;s credential for one provider.
 [**PostIntegrationsByProviderDisconnect**](IntegrationsAPI.md#PostIntegrationsByProviderDisconnect) | **Post** /v1/integrations/{provider}/disconnect | Revokes (best-effort) and forgets an org&#39;s connection: it deletes every custodied KMS secret and the connection row.
 [**PostIntegrationsByProviderVerify**](IntegrationsAPI.md#PostIntegrationsByProviderVerify) | **Post** /v1/integrations/{provider}/verify | Re-checks a CONNECTED apikey connector&#39;s stored credential against the provider, live (&#x60;hanzo connector verify&#x60;).
@@ -51,6 +52,7 @@ Method | HTTP request | Description
 [**PostIntegrationsTeamsEvents**](IntegrationsAPI.md#PostIntegrationsTeamsEvents) | **Post** /v1/integrations/teams/events | Microsoft Teams Bot Framework webhook
 [**PostIntegrationsTelegramConnect**](IntegrationsAPI.md#PostIntegrationsTelegramConnect) | **Post** /v1/integrations/telegram/connect | Mints a short, single-use deep-link code bound to the caller&#39;s org and returns the t.me link the console navigates to.
 [**PostIntegrationsTelegramWebhook**](IntegrationsAPI.md#PostIntegrationsTelegramWebhook) | **Post** /v1/integrations/telegram/webhook | Telegram Bot API webhook
+[**PostIntegrationsWhatsappWebhook**](IntegrationsAPI.md#PostIntegrationsWhatsappWebhook) | **Post** /v1/integrations/whatsapp/webhook | WhatsApp Cloud API webhook
 [**PutIntegrationsGithubReposByRepoPages**](IntegrationsAPI.md#PutIntegrationsGithubReposByRepoPages) | **Put** /v1/integrations/github/repos/{repo}/pages | Sets or clears the custom domain (cname) and updates HTTPS enforcement, build type, or source.
 
 
@@ -1606,6 +1608,65 @@ Other parameters are passed through a pointer to a apiGetIntegrationsTelegramLin
 [[Back to README]](../README.md)
 
 
+## GetIntegrationsWhatsappWebhook
+
+> GetIntegrationsWhatsappWebhook(ctx).Execute()
+
+WhatsApp Cloud API subscription challenge
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationsAPI.GetIntegrationsWhatsappWebhook(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.GetIntegrationsWhatsappWebhook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIntegrationsWhatsappWebhookRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostIntegrationsByProviderConnect
 
 > ConnectOut PostIntegrationsByProviderConnect(ctx, provider).ConnectIn(connectIn).Execute()
@@ -3038,6 +3099,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostIntegrationsTelegramWebhookRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIntegrationsWhatsappWebhook
+
+> PostIntegrationsWhatsappWebhook(ctx).Execute()
+
+WhatsApp Cloud API webhook
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationsAPI.PostIntegrationsWhatsappWebhook(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostIntegrationsWhatsappWebhook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIntegrationsWhatsappWebhookRequest struct via the builder pattern
 
 
 ### Return type

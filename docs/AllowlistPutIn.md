@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessGroups** | Pointer to [**map[string]map[string][]string**](map.md) | AccessGroups REPLACES the org&#39;s named access groups, as group name -&gt; channel -&gt; entries. Absent or null leaves them alone. | [optional] 
-**Channel** | Pointer to **string** | Channel is the transport to edit: discord, slack, teams or telegram. Required; an unknown value is a 404. | [optional] 
+**Channel** | Pointer to **string** | Channel is the transport to edit: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. | [optional] 
 **Dm** | Pointer to **[]string** | DM REPLACES the config-managed DM allow entries. Absent or null leaves them alone; an empty list clears them. It never touches senders approved through pairing — a policy edit cannot revoke an approved pairing. | [optional] 
 **DmPolicy** | Pointer to **string** | DMPolicy sets how direct messages are admitted: \&quot;pairing\&quot; (a person must be approved first), \&quot;allowlist\&quot; (only listed senders) or \&quot;open\&quot;. Empty leaves it unchanged. | [optional] 
 **Group** | Pointer to **[]string** | Group REPLACES the config-managed group allow entries. Absent or null leaves them alone; an empty list clears them. | [optional] 
