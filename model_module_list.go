@@ -19,8 +19,8 @@ var _ MappedNullable = &ModuleList{}
 
 // ModuleList struct for ModuleList
 type ModuleList struct {
-	// Data is every module compiled into this binary, with the DocTypes it installs.
-	Data []ModuleInfo `json:"data,omitempty"`
+	// Data is every module compiled into this binary, with the DocTypes it installs and whether the caller's org has turned it on.
+	Data []Module `json:"data,omitempty"`
 }
 
 // NewModuleList instantiates a new ModuleList object
@@ -41,9 +41,9 @@ func NewModuleListWithDefaults() *ModuleList {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *ModuleList) GetData() []ModuleInfo {
+func (o *ModuleList) GetData() []Module {
 	if o == nil || IsNil(o.Data) {
-		var ret []ModuleInfo
+		var ret []Module
 		return ret
 	}
 	return o.Data
@@ -51,7 +51,7 @@ func (o *ModuleList) GetData() []ModuleInfo {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModuleList) GetDataOk() ([]ModuleInfo, bool) {
+func (o *ModuleList) GetDataOk() ([]Module, bool) {
 	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *ModuleList) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given []ModuleInfo and assigns it to the Data field.
-func (o *ModuleList) SetData(v []ModuleInfo) {
+// SetData gets a reference to the given []Module and assigns it to the Data field.
+func (o *ModuleList) SetData(v []Module) {
 	o.Data = v
 }
 

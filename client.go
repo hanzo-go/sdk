@@ -104,8 +104,6 @@ type APIClient struct {
 
 	CrawlAPI *CrawlAPIService
 
-	CrmAPI *CrmAPIService
-
 	DataroomAPI *DataroomAPIService
 
 	DatasetAPI *DatasetAPIService
@@ -329,7 +327,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ComplianceAPI = (*ComplianceAPIService)(&c.common)
 	c.ContentAPI = (*ContentAPIService)(&c.common)
 	c.CrawlAPI = (*CrawlAPIService)(&c.common)
-	c.CrmAPI = (*CrmAPIService)(&c.common)
 	c.DataroomAPI = (*DataroomAPIService)(&c.common)
 	c.DatasetAPI = (*DatasetAPIService)(&c.common)
 	c.DeployAPI = (*DeployAPIService)(&c.common)

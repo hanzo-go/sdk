@@ -225,7 +225,7 @@ import (
 )
 
 func main() {
-	id := "team" // string | ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+	id := "team" // string | ID is the plan's catalog id or slug — \"dev\", \"max\", \"team\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -245,7 +245,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the plan&#39;s catalog id or slug — \&quot;pro\&quot;, \&quot;team\&quot;, \&quot;world-enterprise\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. | 
+**id** | **string** | ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. | 
 
 ### Other Parameters
 
@@ -539,7 +539,7 @@ import (
 )
 
 func main() {
-	id := "pro" // string | ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+	id := "dev" // string | ID is the plan's catalog id or slug — \"dev\", \"max\", \"team\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -559,7 +559,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the plan&#39;s catalog id or slug — \&quot;pro\&quot;, \&quot;team\&quot;, \&quot;world-enterprise\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. | 
+**id** | **string** | ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. | 
 
 ### Other Parameters
 

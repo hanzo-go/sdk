@@ -15,7 +15,6 @@ Method | HTTP request | Description
 [**GetTeamCollaborator**](TeamAPI.md#GetTeamCollaborator) | **Get** /v1/team/collaborator | Open the live collaborative-editing socket
 [**GetTeamFilesByWorkspaceByFilename**](TeamAPI.md#GetTeamFilesByWorkspaceByFilename) | **Get** /v1/team/files/{workspace}/{filename} | Download a workspace file
 [**GetTeamRooms**](TeamAPI.md#GetTeamRooms) | **Get** /v1/team/rooms | Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
-[**GetTeamTransactorApiV1Statistics**](TeamAPI.md#GetTeamTransactorApiV1Statistics) | **Get** /v1/team/transactor/api/v1/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
 [**GetTeamTransactorByToken**](TeamAPI.md#GetTeamTransactorByToken) | **Get** /v1/team/transactor/{token} | Open the workspace data-plane socket
 [**GetTeamTransactorStatistics**](TeamAPI.md#GetTeamTransactorStatistics) | **Get** /v1/team/transactor/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
 [**PostTeamAccount**](TeamAPI.md#PostTeamAccount) | **Post** /v1/team/account | Read the caller&#39;s account and switch workspace
@@ -719,72 +718,6 @@ Other parameters are passed through a pointer to a apiGetTeamRoomsRequest struct
 ### Return type
 
 [**TeamRooms**](TeamRooms.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetTeamTransactorApiV1Statistics
-
-> StatsOut GetTeamTransactorApiV1Statistics(ctx).Token(token).Execute()
-
-Statistics returns the transactor's live sessions for the workspace the caller's credential names — the endpoint the front's workspace switcher and server panel poll on the transactor base.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	token := "eyJhbGciOiJIUzI1NiJ9…" // string | Token is the workspace token minted by selectWorkspace. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.GetTeamTransactorApiV1Statistics(context.Background()).Token(token).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamTransactorApiV1Statistics``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetTeamTransactorApiV1Statistics`: StatsOut
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamTransactorApiV1Statistics`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetTeamTransactorApiV1StatisticsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **string** | Token is the workspace token minted by selectWorkspace. | 
-
-### Return type
-
-[**StatsOut**](StatsOut.md)
 
 ### Authorization
 

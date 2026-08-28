@@ -350,7 +350,7 @@ catalog and the same 404 for an id no catalog holds — the read a licensing or
 quota gate makes.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+	@param id ID is the plan's catalog id or slug — \"dev\", \"max\", \"team\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position.
 	@return PlanAPIGetPlanEntitlementsByIdRequest
 */
 func (a *PlanAPIService) GetPlanEntitlementsById(ctx context.Context, id string) PlanAPIGetPlanEntitlementsByIdRequest {
@@ -865,7 +865,7 @@ catalog, so a reseller's override wins over the canonical record. An id no
 catalog holds answers 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+	@param id ID is the plan's catalog id or slug — \"dev\", \"max\", \"team\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position.
 	@return PlanAPIGetPlanResolveByIdRequest
 */
 func (a *PlanAPIService) GetPlanResolveById(ctx context.Context, id string) PlanAPIGetPlanResolveByIdRequest {

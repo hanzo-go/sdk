@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]ModuleInfo**](ModuleInfo.md) | Data is every module compiled into this binary, with the DocTypes it installs. | [optional] 
+**Data** | Pointer to [**[]Module**](Module.md) | Data is every module compiled into this binary, with the DocTypes it installs and whether the caller&#39;s org has turned it on. | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetData
 
-`func (o *ModuleList) GetData() []ModuleInfo`
+`func (o *ModuleList) GetData() []Module`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *ModuleList) GetDataOk() (*[]ModuleInfo, bool)`
+`func (o *ModuleList) GetDataOk() (*[]Module, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *ModuleList) SetData(v []ModuleInfo)`
+`func (o *ModuleList) SetData(v []Module)`
 
 SetData sets Data field to given value.
 
