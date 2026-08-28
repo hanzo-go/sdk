@@ -1638,14 +1638,14 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsExecute(r IndexAPIPostIn
 }
 
 type IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest struct {
-	ctx                                              context.Context
-	ApiService                                       *IndexAPIService
-	uid                                              string
-	postIndexIndexesByUidDocumentsDeleteBatchRequest *PostIndexIndexesByUidDocumentsDeleteBatchRequest
+	ctx         context.Context
+	ApiService  *IndexAPIService
+	uid         string
+	requestBody *[]interface{}
 }
 
-func (r IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest) PostIndexIndexesByUidDocumentsDeleteBatchRequest(postIndexIndexesByUidDocumentsDeleteBatchRequest PostIndexIndexesByUidDocumentsDeleteBatchRequest) IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest {
-	r.postIndexIndexesByUidDocumentsDeleteBatchRequest = &postIndexIndexesByUidDocumentsDeleteBatchRequest
+func (r IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest) RequestBody(requestBody []interface{}) IndexAPIPostIndexIndexesByUidDocumentsDeleteBatchRequest {
+	r.requestBody = &requestBody
 	return r
 }
 
@@ -1715,7 +1715,7 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsDeleteBatchExecute(r Ind
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.postIndexIndexesByUidDocumentsDeleteBatchRequest
+	localVarPostBody = r.requestBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

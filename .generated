@@ -1967,7 +1967,6 @@ docs/PoolScale.md
 docs/PopulatedFlow.md
 docs/Position.md
 docs/PostEventRequest.md
-docs/PostIndexIndexesByUidDocumentsDeleteBatchRequest.md
 docs/PostList.md
 docs/PrefAPI.md
 docs/PrefsView.md
@@ -4337,7 +4336,6 @@ model_pool_scale.go
 model_populated_flow.go
 model_position.go
 model_post_event_request.go
-model_post_index_indexes_by_uid_documents_delete_batch_request.go
 model_post_list.go
 model_prefs_view.go
 model_preset.go

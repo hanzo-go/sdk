@@ -980,7 +980,7 @@ Name | Type | Description  | Notes
 
 ## PostIndexIndexesByUidDocumentsDeleteBatch
 
-> IndexEnqueued PostIndexIndexesByUidDocumentsDeleteBatch(ctx, uid).PostIndexIndexesByUidDocumentsDeleteBatchRequest(postIndexIndexesByUidDocumentsDeleteBatchRequest).Execute()
+> IndexEnqueued PostIndexIndexesByUidDocumentsDeleteBatch(ctx, uid).RequestBody(requestBody).Execute()
 
 Delete many documents by primary key in one call
 
@@ -1000,11 +1000,11 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
-	postIndexIndexesByUidDocumentsDeleteBatchRequest := openapiclient.post_index_indexes_by_uid_documents_delete_batch_request{ArrayOfFloat32: new([]float32)} // PostIndexIndexesByUidDocumentsDeleteBatchRequest |  (optional)
+	requestBody := []interface{}{interface{}(123)} // []interface{} |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IndexAPI.PostIndexIndexesByUidDocumentsDeleteBatch(context.Background(), uid).PostIndexIndexesByUidDocumentsDeleteBatchRequest(postIndexIndexesByUidDocumentsDeleteBatchRequest).Execute()
+	resp, r, err := apiClient.IndexAPI.PostIndexIndexesByUidDocumentsDeleteBatch(context.Background(), uid).RequestBody(requestBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PostIndexIndexesByUidDocumentsDeleteBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1030,7 +1030,7 @@ Other parameters are passed through a pointer to a apiPostIndexIndexesByUidDocum
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **postIndexIndexesByUidDocumentsDeleteBatchRequest** | [**PostIndexIndexesByUidDocumentsDeleteBatchRequest**](PostIndexIndexesByUidDocumentsDeleteBatchRequest.md) |  | 
+ **requestBody** | **[]interface{}** |  | 
 
 ### Return type
 
