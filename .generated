@@ -2525,6 +2525,7 @@ docs/ValidatorList.md
 docs/Variant.md
 docs/VendorRow.md
 docs/VendorsOut.md
+docs/Venue.md
 docs/Verdict.md
 docs/VerificationDecision.md
 docs/VerificationReq.md
@@ -4861,6 +4862,7 @@ model_validator_list.go
 model_variant.go
 model_vendor_row.go
 model_vendors_out.go
+model_venue.go
 model_verdict.go
 model_verification_decision.go
 model_verification_req.go

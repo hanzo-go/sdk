@@ -19,12 +19,18 @@ var _ MappedNullable = &Call{}
 
 // Call struct for Call
 type Call struct {
-	// Name is the media room to join: the value POST /v1/meet/getToken takes as roomName, and the value the media server keys participants on.
-	Name *string `json:"name,omitempty"`
-	// Ready reports that this deployment can mint a join token for this room. It is false on a deployment holding no media-server key, where Name is still correct — the name is a property of the room and the key is a property of the deployment, so a caller learns the room's identity either way and learns not to offer a join button.
-	Ready *bool `json:"ready,omitempty"`
-	// WS is where the media plane is — the address a client opens its own browser-to-server connection to. Empty when this deployment has not been told where its media server lives, which is reported rather than refused: a surface can say a call is unavailable without a second request.
-	Ws *string `json:"ws,omitempty"`
+	// Agent names the Hanzo assistant handling the call. Set means the call was answered by that assistant rather than connected to a person.
+	Agent *string `json:"agent,omitempty"`
+	// From is the calling number in E.164. It must be one this org holds: a carrier refuses an origination from a number nobody proved they own.
+	From *string `json:"from,omitempty"`
+	// ID is the carrier's handle for the call — what a hangup or a lookup names.
+	Id *string `json:"id,omitempty"`
+	// Org is the tenant the call was placed for or received by.
+	Org *string `json:"org,omitempty"`
+	// Status is where the call is: \"queued\", \"ringing\", \"answered\", \"completed\" or \"failed\". Only the last two are terminal.
+	Status *string `json:"status,omitempty"`
+	// To is the called number in E.164.
+	To *string `json:"to,omitempty"`
 }
 
 // NewCall instantiates a new Call object
@@ -44,100 +50,196 @@ func NewCallWithDefaults() *Call {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *Call) GetName() string {
-	if o == nil || IsNil(o.Name) {
+// GetAgent returns the Agent field value if set, zero value otherwise.
+func (o *Call) GetAgent() string {
+	if o == nil || IsNil(o.Agent) {
 		var ret string
 		return ret
 	}
-	return *o.Name
+	return *o.Agent
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetAgentOk returns a tuple with the Agent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Call) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+func (o *Call) GetAgentOk() (*string, bool) {
+	if o == nil || IsNil(o.Agent) {
 		return nil, false
 	}
-	return o.Name, true
+	return o.Agent, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *Call) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
+// HasAgent returns a boolean if a field has been set.
+func (o *Call) HasAgent() bool {
+	if o != nil && !IsNil(o.Agent) {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *Call) SetName(v string) {
-	o.Name = &v
+// SetAgent gets a reference to the given string and assigns it to the Agent field.
+func (o *Call) SetAgent(v string) {
+	o.Agent = &v
 }
 
-// GetReady returns the Ready field value if set, zero value otherwise.
-func (o *Call) GetReady() bool {
-	if o == nil || IsNil(o.Ready) {
-		var ret bool
-		return ret
-	}
-	return *o.Ready
-}
-
-// GetReadyOk returns a tuple with the Ready field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Call) GetReadyOk() (*bool, bool) {
-	if o == nil || IsNil(o.Ready) {
-		return nil, false
-	}
-	return o.Ready, true
-}
-
-// HasReady returns a boolean if a field has been set.
-func (o *Call) HasReady() bool {
-	if o != nil && !IsNil(o.Ready) {
-		return true
-	}
-
-	return false
-}
-
-// SetReady gets a reference to the given bool and assigns it to the Ready field.
-func (o *Call) SetReady(v bool) {
-	o.Ready = &v
-}
-
-// GetWs returns the Ws field value if set, zero value otherwise.
-func (o *Call) GetWs() string {
-	if o == nil || IsNil(o.Ws) {
+// GetFrom returns the From field value if set, zero value otherwise.
+func (o *Call) GetFrom() string {
+	if o == nil || IsNil(o.From) {
 		var ret string
 		return ret
 	}
-	return *o.Ws
+	return *o.From
 }
 
-// GetWsOk returns a tuple with the Ws field value if set, nil otherwise
+// GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Call) GetWsOk() (*string, bool) {
-	if o == nil || IsNil(o.Ws) {
+func (o *Call) GetFromOk() (*string, bool) {
+	if o == nil || IsNil(o.From) {
 		return nil, false
 	}
-	return o.Ws, true
+	return o.From, true
 }
 
-// HasWs returns a boolean if a field has been set.
-func (o *Call) HasWs() bool {
-	if o != nil && !IsNil(o.Ws) {
+// HasFrom returns a boolean if a field has been set.
+func (o *Call) HasFrom() bool {
+	if o != nil && !IsNil(o.From) {
 		return true
 	}
 
 	return false
 }
 
-// SetWs gets a reference to the given string and assigns it to the Ws field.
-func (o *Call) SetWs(v string) {
-	o.Ws = &v
+// SetFrom gets a reference to the given string and assigns it to the From field.
+func (o *Call) SetFrom(v string) {
+	o.From = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Call) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Call) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Call) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Call) SetId(v string) {
+	o.Id = &v
+}
+
+// GetOrg returns the Org field value if set, zero value otherwise.
+func (o *Call) GetOrg() string {
+	if o == nil || IsNil(o.Org) {
+		var ret string
+		return ret
+	}
+	return *o.Org
+}
+
+// GetOrgOk returns a tuple with the Org field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Call) GetOrgOk() (*string, bool) {
+	if o == nil || IsNil(o.Org) {
+		return nil, false
+	}
+	return o.Org, true
+}
+
+// HasOrg returns a boolean if a field has been set.
+func (o *Call) HasOrg() bool {
+	if o != nil && !IsNil(o.Org) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrg gets a reference to the given string and assigns it to the Org field.
+func (o *Call) SetOrg(v string) {
+	o.Org = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Call) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Call) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *Call) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *Call) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetTo returns the To field value if set, zero value otherwise.
+func (o *Call) GetTo() string {
+	if o == nil || IsNil(o.To) {
+		var ret string
+		return ret
+	}
+	return *o.To
+}
+
+// GetToOk returns a tuple with the To field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Call) GetToOk() (*string, bool) {
+	if o == nil || IsNil(o.To) {
+		return nil, false
+	}
+	return o.To, true
+}
+
+// HasTo returns a boolean if a field has been set.
+func (o *Call) HasTo() bool {
+	if o != nil && !IsNil(o.To) {
+		return true
+	}
+
+	return false
+}
+
+// SetTo gets a reference to the given string and assigns it to the To field.
+func (o *Call) SetTo(v string) {
+	o.To = &v
 }
 
 func (o Call) MarshalJSON() ([]byte, error) {
@@ -150,14 +252,23 @@ func (o Call) MarshalJSON() ([]byte, error) {
 
 func (o Call) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	if !IsNil(o.Agent) {
+		toSerialize["agent"] = o.Agent
 	}
-	if !IsNil(o.Ready) {
-		toSerialize["ready"] = o.Ready
+	if !IsNil(o.From) {
+		toSerialize["from"] = o.From
 	}
-	if !IsNil(o.Ws) {
-		toSerialize["ws"] = o.Ws
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Org) {
+		toSerialize["org"] = o.Org
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.To) {
+		toSerialize["to"] = o.To
 	}
 	return toSerialize, nil
 }

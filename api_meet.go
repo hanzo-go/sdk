@@ -254,7 +254,7 @@ func (r MeetAPIMeetCallRequest) Room(room string) MeetAPIMeetCallRequest {
 	return r
 }
 
-func (r MeetAPIMeetCallRequest) Execute() (*Call, *http.Response, error) {
+func (r MeetAPIMeetCallRequest) Execute() (*Venue, *http.Response, error) {
 	return r.ApiService.MeetCallExecute(r)
 }
 
@@ -293,13 +293,13 @@ func (a *MeetAPIService) MeetCall(ctx context.Context) MeetAPIMeetCallRequest {
 
 // Execute executes the request
 //
-//	@return Call
-func (a *MeetAPIService) MeetCallExecute(r MeetAPIMeetCallRequest) (*Call, *http.Response, error) {
+//	@return Venue
+func (a *MeetAPIService) MeetCallExecute(r MeetAPIMeetCallRequest) (*Venue, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Call
+		localVarReturnValue *Venue
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.MeetCall")

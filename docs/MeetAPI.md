@@ -136,7 +136,7 @@ Other parameters are passed through a pointer to a apiGetMeetSessionRequest stru
 
 ## MeetCall
 
-> Call MeetCall(ctx).Workspace(workspace).Room(room).Execute()
+> Venue MeetCall(ctx).Workspace(workspace).Room(room).Execute()
 
 Where a room's call happens
 
@@ -165,7 +165,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.MeetCall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `MeetCall`: Call
+	// response from `MeetCall`: Venue
 	fmt.Fprintf(os.Stdout, "Response from `MeetAPI.MeetCall`: %v\n", resp)
 }
 ```
@@ -186,7 +186,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Call**](Call.md)
+[**Venue**](Venue.md)
 
 ### Authorization
 
