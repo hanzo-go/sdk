@@ -23,7 +23,7 @@ type EventIn struct {
 	Actor *string `json:"actor,omitempty"`
 	// ID is the session to append to, from the path.
 	Id *string `json:"id,omitempty"`
-	// Kind is what this turn IS: message, tool-call, spawn, log, status or control. Anything else is refused — the vocabulary is closed so a reader can branch on it.
+	// Kind is what this turn IS: message, tool-call, spawn, log, status, control or progress. Anything else is refused — the vocabulary is closed so a reader can branch on it.
 	Kind    *string     `json:"kind,omitempty"`
 	Payload interface{} `json:"payload,omitempty"`
 }

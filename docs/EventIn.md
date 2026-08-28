@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actor** | Pointer to **string** | Actor is who produced the turn. Empty takes the validated caller, which is what an agent writing its own transcript wants; naming one is for a surface recording on somebody else&#39;s behalf. | [optional] 
 **Id** | Pointer to **string** | ID is the session to append to, from the path. | [optional] 
-**Kind** | Pointer to **string** | Kind is what this turn IS: message, tool-call, spawn, log, status or control. Anything else is refused — the vocabulary is closed so a reader can branch on it. | [optional] 
+**Kind** | Pointer to **string** | Kind is what this turn IS: message, tool-call, spawn, log, status, control or progress. Anything else is refused — the vocabulary is closed so a reader can branch on it. | [optional] 
 **Payload** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods

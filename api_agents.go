@@ -3239,6 +3239,11 @@ PostAgentsSessionsByIdEvents Records one turn of a session's transcript and answ
 
 Records one turn of a session's transcript and answers 201 with it.
 
+A `progress` turn additionally MOVES THE SESSION'S PROGRESS, marked as the run's
+own word rather than an estimate, and pushes the updated session onto the live
+stream — so a board's bar follows the run without polling and without a second
+write path. See progress.go.
+
 THE TURN IS SCANNED BEFORE IT IS STORED. The same engine the code-security
 surface runs reads the payload at this boundary, and a credential in it refuses
 the append with 422 rather than redacting it — a redacted transcript is one
