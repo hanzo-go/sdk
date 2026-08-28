@@ -1,6 +1,6 @@
 # LLM.md — hanzo-go/sdk
 
-Go module `github.com/hanzoai/go-sdk`, published by **git tag** → proxy.golang.org.
+Go module `github.com/hanzoai/go-sdk/v8`, published by **git tag** → proxy.golang.org.
 
 ```bash
 go build ./... && go vet ./... && go test -count=1 ./... && go build ./examples/...
@@ -16,7 +16,7 @@ GitHub honours and the forge does not: `git.hanzo.ai/hanzoai/go-sdk` answers
 quietly stays on whatever it last saw. Point `origin` at
 `https://git.hanzo.ai/hanzo-go/sdk.git`.
 
-The **module path stays `github.com/hanzoai/go-sdk`** and is not renamed. A
+The **module path stays `github.com/hanzoai/go-sdk/v8`** and is not renamed. A
 `go.mod` path must match what consumers `require`; `github.com/hanzo-go/sdk` has
 never been on the proxy and resolving it fails with a path mismatch.
 
@@ -238,7 +238,7 @@ Never derive a name — read it off the generated client or the document.
 deleting it does nothing; the fix was to publish higher.
 
 **`v1.0.1` is the last tag that predates the rename**, and that is a documented
-fact rather than trivia: `go get github.com/hanzoai/go-sdk` resolved to a client
+fact rather than trivia: `go get github.com/hanzoai/go-sdk/v8` resolved to a client
 whose `KeysAPI` has `CloudGetV1Keys` and no `GetKeys`, so every method name in
 the README was one a consumer following the install line could not call. The fix
 was the tag, not a footnote: **`v1.0.2` is out at `3ad23f3e`** and is the first
@@ -254,7 +254,7 @@ v1.0.2 stays named in the prose as the floor, which is a different fact.
 
 Publishing a Go module is pushing the tag. `.hanzo/workflows/release.yml` proves
 the tag compiles and warms the proxy; there is no registry and no token. The
-proxy reads github.com/hanzoai/go-sdk, which GitHub redirects to hanzo-go/sdk,
+proxy reads github.com/hanzoai/go-sdk/v8, which GitHub redirects to hanzo-go/sdk,
 which the forge push-mirrors within seconds — so a tag pushed here is resolvable
 publicly without anything else being done.
 
@@ -272,7 +272,7 @@ module:
 ```bash
 GOMODCACHE=$(mktemp -d) GOFLAGS= GOVCS=off GOPROXY=https://proxy.golang.org \
 GOSUMDB=sum.golang.org GOPRIVATE=example.invalid GONOPROXY=example.invalid \
-GIT_CONFIG_GLOBAL=/dev/null go get github.com/hanzoai/go-sdk@v1.0.4
+GIT_CONFIG_GLOBAL=/dev/null go get github.com/hanzoai/go-sdk/v8@v1.0.4
 ```
 
 A `go.sum` line for the version means sum.golang.org vouched for it as well.

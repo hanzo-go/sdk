@@ -1,6 +1,6 @@
 # Hanzo Go SDK
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/hanzoai/go-sdk.svg)](https://pkg.go.dev/github.com/hanzoai/go-sdk)
+[![Go Reference](https://pkg.go.dev/badge/github.com/hanzoai/go-sdk/v8.svg)](https://pkg.go.dev/github.com/hanzoai/go-sdk/v8)
 
 The Go client for the [Hanzo API](https://api.hanzo.ai), generated from the API's
 own OpenAPI document.
@@ -8,7 +8,7 @@ own OpenAPI document.
 ## Install
 
 ```bash
-go get github.com/hanzoai/go-sdk
+go get github.com/hanzoai/go-sdk/v8
 ```
 
 Go 1.26 or newer. **v1.0.2 is the floor** — earlier versions spell the methods
@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"log"
 
-	hanzoai "github.com/hanzoai/go-sdk"
+	hanzoai "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -137,7 +137,7 @@ methods hand back the raw `*http.Response` with nothing to unmarshal into.
 ## Reference
 
 Per-service method lists with a runnable snippet each are in [`docs/`](docs) and
-on [pkg.go.dev](https://pkg.go.dev/github.com/hanzoai/go-sdk). The API itself is
+on [pkg.go.dev](https://pkg.go.dev/github.com/hanzoai/go-sdk/v8). The API itself is
 documented at [docs.hanzo.ai](https://docs.hanzo.ai).
 
 ## Regenerating

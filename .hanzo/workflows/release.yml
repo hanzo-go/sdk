@@ -4,9 +4,10 @@ name: Release
 # proxy; this build proves the tag compiles and then warms the proxy so the
 # version goes live immediately instead of on first request.
 #
-# The module path is github.com/hanzoai/go-sdk even though the repo now lives
-# at hanzo-go/sdk: that is the path already on the proxy, and a go.mod path must
-# match what consumers require.
+# The path is READ from go.mod rather than written here. go.mod is what defines
+# it -- a second spelling in this file is a second thing to move, and the one
+# that gets missed: the module gained its /v8 suffix and a hardcoded warm step
+# would have gone on asking the proxy for a path nobody publishes.
 on:
   push:
     tags: ['v*']
@@ -23,4 +24,12 @@ jobs:
       - run: go build ./...
       - run: go test -count=1 ./...
       - name: Warm the module proxy
-        run: GOPROXY=proxy.golang.org go list -m "github.com/hanzoai/go-sdk@${GITHUB_REF_NAME}"
+        # `go list -m` on the module's own path at the pushed tag. The proxy
+        # fetches it, which is what makes the version live rather than live on
+        # somebody's first request -- and it FAILS when the tag is one the proxy
+        # will not serve, which a bare path's v8 tag is.
+        run: |
+          set -euo pipefail
+          MODULE=$(go list -m)
+          echo "warming ${MODULE}@${GITHUB_REF_NAME}"
+          GOPROXY=proxy.golang.org go list -m "${MODULE}@${GITHUB_REF_NAME}"

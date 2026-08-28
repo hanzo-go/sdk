@@ -26,7 +26,7 @@ import (
 	"fmt"
 	"log"
 
-	hanzoai "github.com/hanzoai/go-sdk"
+	hanzoai "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {

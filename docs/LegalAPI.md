@@ -35,7 +35,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -101,7 +101,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -171,7 +171,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -237,7 +237,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -298,7 +298,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -359,7 +359,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -429,7 +429,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -495,7 +495,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -567,7 +567,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -635,7 +635,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
@@ -701,7 +701,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/hanzoai/go-sdk"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
