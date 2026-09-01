@@ -4,9 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Horizon** | Pointer to **int32** | Horizon is the maturity horizon this answer was computed under, IN DAYS — the caller&#39;s, or 120 when it stated none. Each event&#39;s as-of is its own &#x60;at&#x60; plus this many days, and that as-of is what decides which assertions were visible to it; an event whose as-of falls after Now is not resolved at all and is counted in Unmatured instead. | [optional] 
 **Labels** | Pointer to [**[]RiskResolved**](RiskResolved.md) | Labels is one entry per named event that BOTH matured and had at least one assertion knowable by its own as-of, in the order the events were named. The three outcomes partition the ask: len(labels) + Unmatured + Unlabelled is the number of DISTINCT events named, an event named twice having been answered once. | [optional] 
-**Now** | Pointer to **string** | Now and Horizon echo the observation this answer was computed under. A resolved label without them is a claim nobody can check. | [optional] 
 **Unlabelled** | Pointer to **int32** | Unlabelled is how many matured events had no assertion knowable by their own as-of. That is the ordinary state of most traffic and it is reported rather than answered as unproductive: manufacturing negatives is how a fraud model comes to describe the incumbent block list. | [optional] 
 **Unmatured** | Pointer to **int32** | Unmatured is how many named events had not aged past the horizon. They are not unlabelled — they are not yet ASKABLE, and a supervised training set must exclude them rather than treat them as negatives. | [optional] 
 

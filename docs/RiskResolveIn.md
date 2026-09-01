@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Horizon** | Pointer to **int32** | Horizon is how many days an event must age before it may be resolved at all, and it is the whole of the no-leakage rule. 120 for the payment lane (past the Visa and Mastercard dispute windows), 14 for signup abuse. Unstated takes 120. | [optional] 
 **Now** | Pointer to **string** | Now moves the observation instant BACKWARDS, RFC 3339. It exists so a BACKTEST can resolve labels as the plane stood at a past moment; without it, every backtest would score a model against knowledge that arrived after the decision it is being scored on. An instant after the server clock is refused: a backtest resolves the past, and a future one would declare unmatured events matured and hand a training set negatives for rows whose chargeback has not had time to arrive. | [optional] 
 **Subjects** | Pointer to [**[]RiskLabelEvent**](RiskLabelEvent.md) | Subjects are the exact events being judged. Each carries its own event time, because the as-of that keeps the future out is derived from that instant plus the horizon — one as-of over a whole batch would give a January row six extra months of hindsight.  One entry per DISTINCT (kind, subject, at): naming an event twice answers once, because an event resolved twice would list its own winner as a contrary claim and would hand a materialiser duplicate training rows. | [optional] 
 
