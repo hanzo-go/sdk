@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Domains** | Pointer to **[]string** |  | [optional] 
 **Effect** | Pointer to **string** |  | [optional] 
-**Groups** | Pointer to **[]string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **IsEnabled** | Pointer to **bool** |  | [optional] 
 **Model** | Pointer to **string** | Authorization model, targets, and decision. AuthzModel carries the v1 &#x60;model&#x60; column (the named authz model); it is not the Go identifier &#x60;Model&#x60; because that name is taken by the embedded orm.Model[Permission] mixin. The HTTP contract is unchanged — json:\&quot;model\&quot;. | [optional] 
@@ -26,6 +25,7 @@ Name | Type | Description | Notes
 **Roles** | Pointer to **[]string** |  | [optional] 
 **State** | Pointer to **string** |  | [optional] 
 **Submitter** | Pointer to **string** | Submission / approval workflow. | [optional] 
+**Teams** | Pointer to **[]string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Users** | Pointer to **[]string** | Subjects the grant is evaluated for. | [optional] 
 
@@ -323,31 +323,6 @@ SetEffect sets Effect field to given value.
 
 HasEffect returns a boolean if a field has been set.
 
-### GetGroups
-
-`func (o *IamPermission) GetGroups() []string`
-
-GetGroups returns the Groups field if non-nil, zero value otherwise.
-
-### GetGroupsOk
-
-`func (o *IamPermission) GetGroupsOk() (*[]string, bool)`
-
-GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGroups
-
-`func (o *IamPermission) SetGroups(v []string)`
-
-SetGroups sets Groups field to given value.
-
-### HasGroups
-
-`func (o *IamPermission) HasGroups() bool`
-
-HasGroups returns a boolean if a field has been set.
-
 ### GetId
 
 `func (o *IamPermission) GetId() string`
@@ -597,6 +572,31 @@ SetSubmitter sets Submitter field to given value.
 `func (o *IamPermission) HasSubmitter() bool`
 
 HasSubmitter returns a boolean if a field has been set.
+
+### GetTeams
+
+`func (o *IamPermission) GetTeams() []string`
+
+GetTeams returns the Teams field if non-nil, zero value otherwise.
+
+### GetTeamsOk
+
+`func (o *IamPermission) GetTeamsOk() (*[]string, bool)`
+
+GetTeamsOk returns a tuple with the Teams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeams
+
+`func (o *IamPermission) SetTeams(v []string)`
+
+SetTeams sets Teams field to given value.
+
+### HasTeams
+
+`func (o *IamPermission) HasTeams() bool`
+
+HasTeams returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

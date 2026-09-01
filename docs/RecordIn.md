@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Room** | **string** | Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. | 
+**Room** | **string** | Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. | 
 
 ## Methods
 

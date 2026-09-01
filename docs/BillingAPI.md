@@ -26,10 +26,12 @@ Method | HTTP request | Description
 [**GetBillingPayouts**](BillingAPI.md#GetBillingPayouts) | **Get** /v1/billing/payouts | Answers the org&#39;s outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.
 [**GetBillingPlans**](BillingAPI.md#GetBillingPlans) | **Get** /v1/billing/plans | The plan catalog, priced with whatever offer is in force
 [**GetBillingPortalMethods**](BillingAPI.md#GetBillingPortalMethods) | **Get** /v1/billing/portal/methods | Cards and accounts on file for the caller
+[**GetBillingRecharge**](BillingAPI.md#GetBillingRecharge) | **Get** /v1/billing/recharge | Reads the caller&#39;s auto-reload rule: top the balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging the card on file off-session.
 [**GetBillingSettings**](BillingAPI.md#GetBillingSettings) | **Get** /v1/billing/settings | Answers the PUBLIC half of this org&#39;s processor configuration — the ids a browser needs to tokenize a card, and the environment it must tokenize against.
 [**GetBillingSubscriptions**](BillingAPI.md#GetBillingSubscriptions) | **Get** /v1/billing/subscriptions | Lists the plans the caller holds, with the count beside them.
 [**GetBillingTier**](BillingAPI.md#GetBillingTier) | **Get** /v1/billing/tier | Answers which tier the caller is on, what it allows, and what is left to spend.
 [**GetBillingTransactions**](BillingAPI.md#GetBillingTransactions) | **Get** /v1/billing/transactions | Answers one page of the caller&#39;s own ledger, newest first: what moved, how much, when, and what it was tagged with.
+[**GetBillingTransactionsById**](BillingAPI.md#GetBillingTransactionsById) | **Get** /v1/billing/transactions/{id} | Reads one ledger entry by its id.
 [**GetBillingUsage**](BillingAPI.md#GetBillingUsage) | **Get** /v1/billing/usage | Every billed call the caller&#39;s org made, attributed to a product
 [**GetBillingUsageAccounts**](BillingAPI.md#GetBillingUsageAccounts) | **Get** /v1/billing/usage/accounts | Answers per-account totals for the linked provider accounts the gateway ROUTED this caller&#39;s traffic through — requests, prompt and completion tokens, recorded cost — plus their honest sum.
 [**GetBillingUsageRollup**](BillingAPI.md#GetBillingUsageRollup) | **Get** /v1/billing/usage/rollup | Answers the caller&#39;s month: what their plan includes, what has been consumed against it, and the wallet beside it.
@@ -46,6 +48,7 @@ Method | HTTP request | Description
 [**PostBillingSubscribeCard**](BillingAPI.md#PostBillingSubscribeCard) | **Post** /v1/billing/subscribe/card | Buy a plan with a card
 [**PostBillingTopup**](BillingAPI.md#PostBillingTopup) | **Post** /v1/billing/topup | Charges a card the caller already saved and credits the balance.
 [**PostBillingTopupToken**](BillingAPI.md#PostBillingTopupToken) | **Post** /v1/billing/topup/token | Charges a single-use card token and credits the caller&#39;s balance.
+[**PutBillingRecharge**](BillingAPI.md#PutBillingRecharge) | **Put** /v1/billing/recharge | Sets the caller&#39;s auto-reload rule, and answers with the rule as stored.
 [**RaiseInvoice**](BillingAPI.md#RaiseInvoice) | **Post** /v1/billing/invoices | Raise a draft invoice against a customer
 [**ReactivateSubscription**](BillingAPI.md#ReactivateSubscription) | **Post** /v1/billing/subscriptions/{id}/reactivate | Put a canceled subscription back on its plan
 [**VoidInvoice**](BillingAPI.md#VoidInvoice) | **Post** /v1/billing/invoices/{id}/void | Void a draft or issued invoice
@@ -1472,6 +1475,67 @@ Other parameters are passed through a pointer to a apiGetBillingPortalMethodsReq
 [[Back to README]](../README.md)
 
 
+## GetBillingRecharge
+
+> AutoRecharge GetBillingRecharge(ctx).Execute()
+
+Reads the caller's auto-reload rule: top the balance up by `amountCents` whenever it falls below `thresholdCents`, charging the card on file off-session.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.GetBillingRecharge(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingRecharge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBillingRecharge`: AutoRecharge
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingRecharge`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBillingRechargeRequest struct via the builder pattern
+
+
+### Return type
+
+[**AutoRecharge**](AutoRecharge.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetBillingSettings
 
 > PaymentConfig GetBillingSettings(ctx).Execute()
@@ -1710,6 +1774,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Transactions**](Transactions.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBillingTransactionsById
+
+> Transaction GetBillingTransactionsById(ctx, id).Execute()
+
+Reads one ledger entry by its id.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.GetBillingTransactionsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingTransactionsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBillingTransactionsById`: Transaction
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingTransactionsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBillingTransactionsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Transaction**](Transaction.md)
 
 ### Authorization
 
@@ -2736,6 +2870,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Charged**](Charged.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutBillingRecharge
+
+> AutoRecharge PutBillingRecharge(ctx).AutoRechargeEdit(autoRechargeEdit).Execute()
+
+Sets the caller's auto-reload rule, and answers with the rule as stored.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	autoRechargeEdit := *openapiclient.NewAutoRechargeEdit() // AutoRechargeEdit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.PutBillingRecharge(context.Background()).AutoRechargeEdit(autoRechargeEdit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PutBillingRecharge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutBillingRecharge`: AutoRecharge
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PutBillingRecharge`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutBillingRechargeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **autoRechargeEdit** | [**AutoRechargeEdit**](AutoRechargeEdit.md) |  | 
+
+### Return type
+
+[**AutoRecharge**](AutoRecharge.md)
 
 ### Authorization
 

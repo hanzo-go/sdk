@@ -31,6 +31,7 @@ Method | HTTP request | Description
 [**PostAgents**](AgentsAPI.md#PostAgents) | **Post** /v1/agents | Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
 [**PostAgentsByRefRun**](AgentsAPI.md#PostAgentsByRefRun) | **Post** /v1/agents/{ref}/run | Run one of your org&#39;s agents and get the recorded run back.
 [**PostAgentsChat**](AgentsAPI.md#PostAgentsChat) | **Post** /v1/agents/chat | Run one tool-calling round against your org&#39;s own tools
+[**PostAgentsChatConversations**](AgentsAPI.md#PostAgentsChatConversations) | **Post** /v1/agents/chat/conversations | Record turns in a conversation
 [**PostAgentsCoding**](AgentsAPI.md#PostAgentsCoding) | **Post** /v1/agents/coding | Start one autonomous coding run against a repo in the caller&#39;s org
 [**PostAgentsSessions**](AgentsAPI.md#PostAgentsSessions) | **Post** /v1/agents/sessions | Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
 [**PostAgentsSessionsByIdEvents**](AgentsAPI.md#PostAgentsSessionsByIdEvents) | **Post** /v1/agents/sessions/{id}/events | Records one turn of a session&#39;s transcript and answers 201 with it.
@@ -931,7 +932,7 @@ func main() {
 	parent := "parent_example" // string | Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
 	status := "running" // string | Status filters to running, paused, done or error. (optional)
 	project := "project_example" // string | Project filters to the sessions tagged with one product slug. (optional)
-	room := "room_example" // string | Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. (optional)
+	room := "room_example" // string | Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. (optional)
 	limit := int32(20) // int32 | Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -961,7 +962,7 @@ Name | Type | Description  | Notes
  **parent** | **string** | Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. | 
  **status** | **string** | Status filters to running, paused, done or error. | 
  **project** | **string** | Project filters to the sessions tagged with one product slug. | 
- **room** | **string** | Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. | 
+ **room** | **string** | Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. | 
  **limit** | **int32** | Limit caps the page. Absent, zero or over 500 reads as 100. | 
 
 ### Return type
@@ -1843,6 +1844,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAgentsChatRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAgentsChatConversations
+
+> PostAgentsChatConversations(ctx).Execute()
+
+Record turns in a conversation
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentsAPI.PostAgentsChatConversations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentsAPI.PostAgentsChatConversations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentsChatConversationsRequest struct via the builder pattern
 
 
 ### Return type

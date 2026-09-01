@@ -23,11 +23,11 @@ type IamRolesInput struct {
 	Description *string  `json:"description,omitempty"`
 	DisplayName *string  `json:"displayName,omitempty"`
 	Domains     []string `json:"domains,omitempty"`
-	Groups      []string `json:"groups,omitempty"`
 	IsEnabled   *bool    `json:"isEnabled,omitempty"`
 	Name        *string  `json:"name,omitempty"`
 	Owner       *string  `json:"owner,omitempty"`
 	Roles       []string `json:"roles,omitempty"`
+	Teams       []string `json:"teams,omitempty"`
 	Users       []string `json:"users,omitempty"`
 }
 
@@ -176,38 +176,6 @@ func (o *IamRolesInput) SetDomains(v []string) {
 	o.Domains = v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
-func (o *IamRolesInput) GetGroups() []string {
-	if o == nil || IsNil(o.Groups) {
-		var ret []string
-		return ret
-	}
-	return o.Groups
-}
-
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamRolesInput) GetGroupsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Groups) {
-		return nil, false
-	}
-	return o.Groups, true
-}
-
-// HasGroups returns a boolean if a field has been set.
-func (o *IamRolesInput) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []string and assigns it to the Groups field.
-func (o *IamRolesInput) SetGroups(v []string) {
-	o.Groups = v
-}
-
 // GetIsEnabled returns the IsEnabled field value if set, zero value otherwise.
 func (o *IamRolesInput) GetIsEnabled() bool {
 	if o == nil || IsNil(o.IsEnabled) {
@@ -336,6 +304,38 @@ func (o *IamRolesInput) SetRoles(v []string) {
 	o.Roles = v
 }
 
+// GetTeams returns the Teams field value if set, zero value otherwise.
+func (o *IamRolesInput) GetTeams() []string {
+	if o == nil || IsNil(o.Teams) {
+		var ret []string
+		return ret
+	}
+	return o.Teams
+}
+
+// GetTeamsOk returns a tuple with the Teams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamRolesInput) GetTeamsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Teams) {
+		return nil, false
+	}
+	return o.Teams, true
+}
+
+// HasTeams returns a boolean if a field has been set.
+func (o *IamRolesInput) HasTeams() bool {
+	if o != nil && !IsNil(o.Teams) {
+		return true
+	}
+
+	return false
+}
+
+// SetTeams gets a reference to the given []string and assigns it to the Teams field.
+func (o *IamRolesInput) SetTeams(v []string) {
+	o.Teams = v
+}
+
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *IamRolesInput) GetUsers() []string {
 	if o == nil || IsNil(o.Users) {
@@ -390,9 +390,6 @@ func (o IamRolesInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Domains) {
 		toSerialize["domains"] = o.Domains
 	}
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
 	if !IsNil(o.IsEnabled) {
 		toSerialize["isEnabled"] = o.IsEnabled
 	}
@@ -404,6 +401,9 @@ func (o IamRolesInput) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
+	}
+	if !IsNil(o.Teams) {
+		toSerialize["teams"] = o.Teams
 	}
 	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users

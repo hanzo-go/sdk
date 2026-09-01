@@ -19,10 +19,14 @@ var _ MappedNullable = &UpdateAgentIn{}
 
 // UpdateAgentIn struct for UpdateAgentIn
 type UpdateAgentIn struct {
+	// Avatar and Emoji re-draw the agent. Sending either replaces the pair, so setting an image clears a glyph and \"\" for both goes back to the initial — there is no state where a row holds two answers.
+	Avatar *string `json:"avatar,omitempty"`
 	// ComputeRef re-binds (or, with \"\", unbinds) the visor machine. Opaque here.
 	ComputeRef *string `json:"computeRef,omitempty"`
 	// Description replaces the line other agents read in the tool catalogue.
 	Description *string `json:"description,omitempty"`
+	// Emoji re-draws the agent as a glyph. Sending either of the pair replaces BOTH, so setting a glyph clears an image and \"\" for both goes back to the initial — there is no state where a row holds two answers.
+	Emoji *string `json:"emoji,omitempty"`
 	// ExecutionMode switches between one-shot and long-running. The RESULTING mode+schedule are validated together, so switching to long-running without a stored or supplied cron is refused rather than accepted into an agent the scheduler would skip forever. A switch INTO long-running counts against the per-org cap and can be a 409.
 	ExecutionMode *string `json:"executionMode,omitempty"`
 	// Instructions replaces the system prompt whole, up to 32 KiB. There is no append: a prompt is one text, and sending \"\" clears it.
@@ -54,6 +58,38 @@ func NewUpdateAgentIn() *UpdateAgentIn {
 func NewUpdateAgentInWithDefaults() *UpdateAgentIn {
 	this := UpdateAgentIn{}
 	return &this
+}
+
+// GetAvatar returns the Avatar field value if set, zero value otherwise.
+func (o *UpdateAgentIn) GetAvatar() string {
+	if o == nil || IsNil(o.Avatar) {
+		var ret string
+		return ret
+	}
+	return *o.Avatar
+}
+
+// GetAvatarOk returns a tuple with the Avatar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateAgentIn) GetAvatarOk() (*string, bool) {
+	if o == nil || IsNil(o.Avatar) {
+		return nil, false
+	}
+	return o.Avatar, true
+}
+
+// HasAvatar returns a boolean if a field has been set.
+func (o *UpdateAgentIn) HasAvatar() bool {
+	if o != nil && !IsNil(o.Avatar) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatar gets a reference to the given string and assigns it to the Avatar field.
+func (o *UpdateAgentIn) SetAvatar(v string) {
+	o.Avatar = &v
 }
 
 // GetComputeRef returns the ComputeRef field value if set, zero value otherwise.
@@ -118,6 +154,38 @@ func (o *UpdateAgentIn) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *UpdateAgentIn) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetEmoji returns the Emoji field value if set, zero value otherwise.
+func (o *UpdateAgentIn) GetEmoji() string {
+	if o == nil || IsNil(o.Emoji) {
+		var ret string
+		return ret
+	}
+	return *o.Emoji
+}
+
+// GetEmojiOk returns a tuple with the Emoji field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateAgentIn) GetEmojiOk() (*string, bool) {
+	if o == nil || IsNil(o.Emoji) {
+		return nil, false
+	}
+	return o.Emoji, true
+}
+
+// HasEmoji returns a boolean if a field has been set.
+func (o *UpdateAgentIn) HasEmoji() bool {
+	if o != nil && !IsNil(o.Emoji) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmoji gets a reference to the given string and assigns it to the Emoji field.
+func (o *UpdateAgentIn) SetEmoji(v string) {
+	o.Emoji = &v
 }
 
 // GetExecutionMode returns the ExecutionMode field value if set, zero value otherwise.
@@ -354,11 +422,17 @@ func (o UpdateAgentIn) MarshalJSON() ([]byte, error) {
 
 func (o UpdateAgentIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Avatar) {
+		toSerialize["avatar"] = o.Avatar
+	}
 	if !IsNil(o.ComputeRef) {
 		toSerialize["computeRef"] = o.ComputeRef
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Emoji) {
+		toSerialize["emoji"] = o.Emoji
 	}
 	if !IsNil(o.ExecutionMode) {
 		toSerialize["executionMode"] = o.ExecutionMode

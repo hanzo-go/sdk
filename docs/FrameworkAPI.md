@@ -6,21 +6,18 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteFrameworkByDoctypeByName**](FrameworkAPI.md#DeleteFrameworkByDoctypeByName) | **Delete** /v1/framework/{doctype}/{name} | Removes one document, after its on_trash hooks agree.
 [**DeleteFrameworkDoctypesByName**](FrameworkAPI.md#DeleteFrameworkDoctypesByName) | **Delete** /v1/framework/doctypes/{name} | Removes a DocType and every document stored under it.
-[**DeleteFrameworkRolesByUserByRole**](FrameworkAPI.md#DeleteFrameworkRolesByUserByRole) | **Delete** /v1/framework/roles/{user}/{role} | Removes one (user, role) grant in the caller&#39;s org.
 [**GetFrameworkByDoctype**](FrameworkAPI.md#GetFrameworkByDoctype) | **Get** /v1/framework/{doctype} | Returns the caller org&#39;s documents of one DocType, filtered, ordered and projected by the query.
 [**GetFrameworkByDoctypeByName**](FrameworkAPI.md#GetFrameworkByDoctypeByName) | **Get** /v1/framework/{doctype}/{name} | Returns one document by name, with Password fields redacted.
 [**GetFrameworkDoctypes**](FrameworkAPI.md#GetFrameworkDoctypes) | **Get** /v1/framework/doctypes | Returns every DocType defined in the caller&#39;s org.
 [**GetFrameworkDoctypesByName**](FrameworkAPI.md#GetFrameworkDoctypesByName) | **Get** /v1/framework/doctypes/{name} | Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
 [**GetFrameworkModules**](FrameworkAPI.md#GetFrameworkModules) | **Get** /v1/framework/modules | Returns every app lane compiled into this deployment and the DocTypes each one installs.
 [**GetFrameworkModulesByModule**](FrameworkAPI.md#GetFrameworkModulesByModule) | **Get** /v1/framework/modules/{module} | Returns one app lane&#39;s install state for the caller&#39;s org: the DocTypes the lane declares, and which of them already exist in the org.
-[**GetFrameworkRoles**](FrameworkAPI.md#GetFrameworkRoles) | **Get** /v1/framework/roles | Returns every (user, role) assignment in the caller&#39;s org.
 [**GetFrameworkSummary**](FrameworkAPI.md#GetFrameworkSummary) | **Get** /v1/framework/summary | Reports how much of the DocType surface the caller&#39;s org uses: how many DocTypes it has defined, and how many documents exist across them.
 [**PostFrameworkByDoctype**](FrameworkAPI.md#PostFrameworkByDoctype) | **Post** /v1/framework/{doctype} | Create one document of a DocType, from that DocType&#39;s own fields.
 [**PostFrameworkByDoctypeByNameCancel**](FrameworkAPI.md#PostFrameworkByDoctypeByNameCancel) | **Post** /v1/framework/{doctype}/{name}/cancel | Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
 [**PostFrameworkByDoctypeByNameSubmit**](FrameworkAPI.md#PostFrameworkByDoctypeByNameSubmit) | **Post** /v1/framework/{doctype}/{name}/submit | Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
 [**PostFrameworkDoctypes**](FrameworkAPI.md#PostFrameworkDoctypes) | **Post** /v1/framework/doctypes | Defines a DocType in the caller&#39;s org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
 [**PostFrameworkModulesByModuleInstall**](FrameworkAPI.md#PostFrameworkModulesByModuleInstall) | **Post** /v1/framework/modules/{module}/install | Creates an app lane&#39;s DocTypes in the caller&#39;s org.
-[**PostFrameworkRoles**](FrameworkAPI.md#PostFrameworkRoles) | **Post** /v1/framework/roles | Grants one user one role in the caller&#39;s org — how a member gains rights on a DocType, since permissions name roles and never users.
 [**PutFrameworkByDoctypeByName**](FrameworkAPI.md#PutFrameworkByDoctypeByName) | **Put** /v1/framework/{doctype}/{name} | Replace a draft document&#39;s field data wholesale.
 [**PutFrameworkDoctypesByName**](FrameworkAPI.md#PutFrameworkDoctypesByName) | **Put** /v1/framework/doctypes/{name} | Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
 
@@ -47,7 +44,7 @@ import (
 )
 
 func main() {
-	doctype := "Task" // string | DocType is the document's DocType, from the path.
+	doctype := "Projects.Task" // string | DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
 	name := "TASK-00001" // string | Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
 
 	configuration := openapiclient.NewConfiguration()
@@ -66,7 +63,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**doctype** | **string** | DocType is the document&#39;s DocType, from the path. | 
+**doctype** | **string** | DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. | 
 **name** | **string** | Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. | 
 
 ### Other Parameters
@@ -118,7 +115,7 @@ import (
 )
 
 func main() {
-	name := "Task" // string | Name is the DocType's name, from the path. A name containing a space (\"Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
+	name := "Projects.Task" // string | Name is the DocType's ADDRESS — \"module.name\", e.g. \"kb.page\". A name containing a space (\"erp.Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -136,7 +133,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. | 
+**name** | **string** | Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. | 
 
 ### Other Parameters
 
@@ -145,77 +142,6 @@ Other parameters are passed through a pointer to a apiDeleteFrameworkDoctypesByN
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteFrameworkRolesByUserByRole
-
-> DeleteFrameworkRolesByUserByRole(ctx, user, role).Execute()
-
-Removes one (user, role) grant in the caller's org.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	user := "u_alice" // string | User is the assignee whose grant is being revoked, from the path.
-	role := "System Manager" // string | Role is the role to revoke, from the path. A role name containing a space (\"System Manager\") arrives percent-encoded and is decoded before it is matched against the stored assignment.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FrameworkAPI.DeleteFrameworkRolesByUserByRole(context.Background(), user, role).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.DeleteFrameworkRolesByUserByRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**user** | **string** | User is the assignee whose grant is being revoked, from the path. | 
-**role** | **string** | Role is the role to revoke, from the path. A role name containing a space (\&quot;System Manager\&quot;) arrives percent-encoded and is decoded before it is matched against the stored assignment. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteFrameworkRolesByUserByRoleRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -257,7 +183,7 @@ import (
 )
 
 func main() {
-	doctype := "Task" // string | DocType is the DocType to list, from the path.
+	doctype := "Projects.Task" // string | DocType is the DocType to list, by ADDRESS — \"module.name\", from the path.
 	filters := "{"priority":"High"}" // string | Filters is a JSON object of equality matches, e.g. {\"priority\":\"High\"}. Every key must be a field the DocType declares (or the managed name / docstatus); an undeclared one is refused rather than silently ignored. (optional)
 	fields := "fields_example" // string | Fields projects the response to a subset — a JSON array [\"a\",\"b\"] or a comma list \"a,b\". The envelope keys are always returned. (optional)
 	orderBy := "estimate asc" // string | OrderBy is \"<field> [asc|desc]\". Empty means most-recently-updated first. (optional)
@@ -281,7 +207,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**doctype** | **string** | DocType is the DocType to list, from the path. | 
+**doctype** | **string** | DocType is the DocType to list, by ADDRESS — \&quot;module.name\&quot;, from the path. | 
 
 ### Other Parameters
 
@@ -335,7 +261,7 @@ import (
 )
 
 func main() {
-	doctype := "Task" // string | DocType is the document's DocType, from the path.
+	doctype := "Projects.Task" // string | DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
 	name := "TASK-00001" // string | Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
 
 	configuration := openapiclient.NewConfiguration()
@@ -356,7 +282,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**doctype** | **string** | DocType is the document&#39;s DocType, from the path. | 
+**doctype** | **string** | DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. | 
 **name** | **string** | Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. | 
 
 ### Other Parameters
@@ -469,7 +395,7 @@ import (
 )
 
 func main() {
-	name := "Task" // string | Name is the DocType's name, from the path. A name containing a space (\"Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
+	name := "Projects.Task" // string | Name is the DocType's ADDRESS — \"module.name\", e.g. \"kb.page\". A name containing a space (\"erp.Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -489,7 +415,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. | 
+**name** | **string** | Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. | 
 
 ### Other Parameters
 
@@ -634,67 +560,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ModuleState**](ModuleState.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetFrameworkRoles
-
-> RoleList GetFrameworkRoles(ctx).Execute()
-
-Returns every (user, role) assignment in the caller's org.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.GetFrameworkRoles(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkRoles``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetFrameworkRoles`: RoleList
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkRoles`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetFrameworkRolesRequest struct via the builder pattern
-
-
-### Return type
-
-[**RoleList**](RoleList.md)
 
 ### Authorization
 
@@ -860,7 +725,7 @@ import (
 )
 
 func main() {
-	doctype := "Task" // string | DocType is the document's DocType, from the path.
+	doctype := "Projects.Task" // string | DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
 	name := "TASK-00001" // string | Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
 
 	configuration := openapiclient.NewConfiguration()
@@ -881,7 +746,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**doctype** | **string** | DocType is the document&#39;s DocType, from the path. | 
+**doctype** | **string** | DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. | 
 **name** | **string** | Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. | 
 
 ### Other Parameters
@@ -933,7 +798,7 @@ import (
 )
 
 func main() {
-	doctype := "Task" // string | DocType is the document's DocType, from the path.
+	doctype := "Projects.Task" // string | DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
 	name := "TASK-00001" // string | Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
 
 	configuration := openapiclient.NewConfiguration()
@@ -954,7 +819,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**doctype** | **string** | DocType is the document&#39;s DocType, from the path. | 
+**doctype** | **string** | DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. | 
 **name** | **string** | Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. | 
 
 ### Other Parameters
@@ -1121,72 +986,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostFrameworkRoles
-
-> RoleAssignment PostFrameworkRoles(ctx).RoleAssignment(roleAssignment).Execute()
-
-Grants one user one role in the caller's org — how a member gains rights on a DocType, since permissions name roles and never users.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	roleAssignment := *openapiclient.NewRoleAssignment() // RoleAssignment | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.PostFrameworkRoles(context.Background()).RoleAssignment(roleAssignment).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkRoles``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostFrameworkRoles`: RoleAssignment
-	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkRoles`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostFrameworkRolesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **roleAssignment** | [**RoleAssignment**](RoleAssignment.md) |  | 
-
-### Return type
-
-[**RoleAssignment**](RoleAssignment.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PutFrameworkByDoctypeByName
 
 > PutFrameworkByDoctypeByName(ctx, doctype, name).Execute()
@@ -1279,7 +1078,7 @@ import (
 )
 
 func main() {
-	name := "Task" // string | 
+	name := "Projects.Task" // string | 
 	docType := *openapiclient.NewDocType() // DocType | 
 
 	configuration := openapiclient.NewConfiguration()

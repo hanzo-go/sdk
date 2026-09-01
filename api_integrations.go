@@ -4376,6 +4376,440 @@ func (a *IntegrationsAPIService) PostIntegrationsGithubWebhookExecute(r Integrat
 	return localVarHTTPResponse, nil
 }
 
+type IntegrationsAPIPostIntegrationsLinearClaimRequest struct {
+	ctx           context.Context
+	ApiService    *IntegrationsAPIService
+	linearClaimIn *LinearClaimIn
+}
+
+func (r IntegrationsAPIPostIntegrationsLinearClaimRequest) LinearClaimIn(linearClaimIn LinearClaimIn) IntegrationsAPIPostIntegrationsLinearClaimRequest {
+	r.linearClaimIn = &linearClaimIn
+	return r
+}
+
+func (r IntegrationsAPIPostIntegrationsLinearClaimRequest) Execute() (*LinearClaimOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationsLinearClaimExecute(r)
+}
+
+/*
+PostIntegrationsLinearClaim Binds the caller's Linear organization to the org and seals the webhook secret.
+
+Binds the caller's Linear organization to the org and seals the
+webhook secret. The organization is READ from the caller's own key, never taken
+from the body: a person can only bind an organization they are a member of. An
+organization another org already holds is refused.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIPostIntegrationsLinearClaimRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsLinearClaim(ctx context.Context) IntegrationsAPIPostIntegrationsLinearClaimRequest {
+	return IntegrationsAPIPostIntegrationsLinearClaimRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return LinearClaimOut
+func (a *IntegrationsAPIService) PostIntegrationsLinearClaimExecute(r IntegrationsAPIPostIntegrationsLinearClaimRequest) (*LinearClaimOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LinearClaimOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsLinearClaim")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/linear/claim"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.linearClaimIn == nil {
+		return localVarReturnValue, nil, reportError("linearClaimIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.linearClaimIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIPostIntegrationsLinearCommentsRequest struct {
+	ctx             context.Context
+	ApiService      *IntegrationsAPIService
+	linearCommentIn *LinearCommentIn
+}
+
+func (r IntegrationsAPIPostIntegrationsLinearCommentsRequest) LinearCommentIn(linearCommentIn LinearCommentIn) IntegrationsAPIPostIntegrationsLinearCommentsRequest {
+	r.linearCommentIn = &linearCommentIn
+	return r
+}
+
+func (r IntegrationsAPIPostIntegrationsLinearCommentsRequest) Execute() (*LinearCommentOut, *http.Response, error) {
+	return r.ApiService.PostIntegrationsLinearCommentsExecute(r)
+}
+
+/*
+PostIntegrationsLinearComments Posts a comment on a Linear issue with the caller's own key, so it carries their name.
+
+Posts a comment on a Linear issue with the caller's own key, so it
+carries their name. This is the op an agent is offered when it should answer in
+Linear rather than in chat.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIPostIntegrationsLinearCommentsRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsLinearComments(ctx context.Context) IntegrationsAPIPostIntegrationsLinearCommentsRequest {
+	return IntegrationsAPIPostIntegrationsLinearCommentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return LinearCommentOut
+func (a *IntegrationsAPIService) PostIntegrationsLinearCommentsExecute(r IntegrationsAPIPostIntegrationsLinearCommentsRequest) (*LinearCommentOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LinearCommentOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsLinearComments")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/linear/comments"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.linearCommentIn == nil {
+		return localVarReturnValue, nil, reportError("linearCommentIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.linearCommentIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest struct {
+	ctx              context.Context
+	ApiService       *IntegrationsAPIService
+	linearBackfillIn *LinearBackfillIn
+}
+
+func (r IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest) LinearBackfillIn(linearBackfillIn LinearBackfillIn) IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest {
+	r.linearBackfillIn = &linearBackfillIn
+	return r
+}
+
+func (r IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest) Execute() (*LinearBackfillResult, *http.Response, error) {
+	return r.ApiService.PostIntegrationsLinearIssuesBackfillExecute(r)
+}
+
+/*
+PostIntegrationsLinearIssuesBackfill Seeds the native todo with the EXISTING Linear issues the caller's key can see (default state=open); the webhook keeps them live thereafter.
+
+Seeds the native todo with the EXISTING Linear issues the
+caller's key can see (default state=open); the webhook keeps them live
+thereafter. Synchronous and bounded, idempotent by ExtRef.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsLinearIssuesBackfill(ctx context.Context) IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest {
+	return IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return LinearBackfillResult
+func (a *IntegrationsAPIService) PostIntegrationsLinearIssuesBackfillExecute(r IntegrationsAPIPostIntegrationsLinearIssuesBackfillRequest) (*LinearBackfillResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LinearBackfillResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsLinearIssuesBackfill")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/linear/issues/backfill"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.linearBackfillIn == nil {
+		return localVarReturnValue, nil, reportError("linearBackfillIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.linearBackfillIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IntegrationsAPIPostIntegrationsLinearWebhookRequest struct {
+	ctx        context.Context
+	ApiService *IntegrationsAPIService
+}
+
+func (r IntegrationsAPIPostIntegrationsLinearWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIntegrationsLinearWebhookExecute(r)
+}
+
+/*
+PostIntegrationsLinearWebhook Linear webhook
+
+The address Linear delivers Issue and Comment events to. An issue event is mirrored into the native todo — idempotently by identifier, so ENG-123 is one row however many times it is edited, moved or closed — and every issue and comment event is handed to the automations engine as a verified trigger, which is how an org runs an agent when an issue is assigned to it or a comment mentions it. A remove is never propagated: the native side is canonical.
+
+It answers a benign 200 for what it does not act on — an unknown organization, other event types — so Linear does not retry-storm. A bad signature and a delivery older than a minute are 401; only a sink failure is 502.
+
+The delivery names its Linear organization; that organization's own webhook secret — sealed at /v1/integrations/linear/claim — verifies the HMAC over the raw body, so the tenant is the organization the signature proves, never a header.
+
+The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and no principal. The signature check IS the authentication, and it fails closed. The tenant is never read from the payload either: it is resolved from the verified platform identifier through the connection map, so an event from a workspace nobody connected does nothing. Refusals are written with their own status rather than being flattened to a 500, so a rejected signature reads as 401 and a malformed body as 400.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IntegrationsAPIPostIntegrationsLinearWebhookRequest
+*/
+func (a *IntegrationsAPIService) PostIntegrationsLinearWebhook(ctx context.Context) IntegrationsAPIPostIntegrationsLinearWebhookRequest {
+	return IntegrationsAPIPostIntegrationsLinearWebhookRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *IntegrationsAPIService) PostIntegrationsLinearWebhookExecute(r IntegrationsAPIPostIntegrationsLinearWebhookRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.PostIntegrationsLinearWebhook")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/integrations/linear/webhook"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type IntegrationsAPIPostIntegrationsOpenrouterWebhookRequest struct {
 	ctx         context.Context
 	ApiService  *IntegrationsAPIService

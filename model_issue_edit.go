@@ -19,6 +19,8 @@ var _ MappedNullable = &IssueEdit{}
 
 // IssueEdit struct for IssueEdit
 type IssueEdit struct {
+	// Assignee hands the work to somebody — a person or an agent, by the name they are known by on the forge. \"\" TAKES IT OFF whoever holds it, which is why this is a pointer: absent leaves the holder alone.  It is the other half of `claim`, which that handler already named: a claim takes work for the CALLER and refuses to name anyone else, because giving work away is a different act with different authority. This is that act, and until it existed a board could only be worked by whoever clicked first — an agent could never be given anything.
+	Assignee *string `json:"assignee,omitempty"`
 	// Description rewrites the body.
 	Description *string `json:"description,omitempty"`
 	// Key is the board — the repository name, from the path.
@@ -48,6 +50,38 @@ func NewIssueEdit() *IssueEdit {
 func NewIssueEditWithDefaults() *IssueEdit {
 	this := IssueEdit{}
 	return &this
+}
+
+// GetAssignee returns the Assignee field value if set, zero value otherwise.
+func (o *IssueEdit) GetAssignee() string {
+	if o == nil || IsNil(o.Assignee) {
+		var ret string
+		return ret
+	}
+	return *o.Assignee
+}
+
+// GetAssigneeOk returns a tuple with the Assignee field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IssueEdit) GetAssigneeOk() (*string, bool) {
+	if o == nil || IsNil(o.Assignee) {
+		return nil, false
+	}
+	return o.Assignee, true
+}
+
+// HasAssignee returns a boolean if a field has been set.
+func (o *IssueEdit) HasAssignee() bool {
+	if o != nil && !IsNil(o.Assignee) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssignee gets a reference to the given string and assigns it to the Assignee field.
+func (o *IssueEdit) SetAssignee(v string) {
+	o.Assignee = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -252,6 +286,9 @@ func (o IssueEdit) MarshalJSON() ([]byte, error) {
 
 func (o IssueEdit) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Assignee) {
+		toSerialize["assignee"] = o.Assignee
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}

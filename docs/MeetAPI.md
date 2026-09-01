@@ -136,7 +136,7 @@ Other parameters are passed through a pointer to a apiGetMeetSessionRequest stru
 
 ## MeetCall
 
-> Venue MeetCall(ctx).Workspace(workspace).Room(room).Execute()
+> Venue MeetCall(ctx).Space(space).Room(room).Execute()
 
 Where a room's call happens
 
@@ -155,12 +155,12 @@ import (
 )
 
 func main() {
-	workspace := "workspace_example" // string | Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller's membership is checked against.
-	room := "room_example" // string | Room is the room's own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it.
+	space := "space_example" // string | Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller's membership is checked against.
+	room := "room_example" // string | Room is the room's own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MeetAPI.MeetCall(context.Background()).Workspace(workspace).Room(room).Execute()
+	resp, r, err := apiClient.MeetAPI.MeetCall(context.Background()).Space(space).Room(room).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.MeetCall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -181,8 +181,8 @@ Other parameters are passed through a pointer to a apiMeetCallRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **workspace** | **string** | Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. | 
- **room** | **string** | Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. | 
+ **space** | **string** | Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. | 
+ **room** | **string** | Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. | 
 
 ### Return type
 
@@ -223,7 +223,7 @@ import (
 )
 
 func main() {
-	room := "room_example" // string | Room is the LiveKit room, named the way the office client names one (`<workspace>_<name>_<id>`). Its leading segment is what binds the room to a tenant, and it is the segment the caller's membership is checked against.
+	room := "room_example" // string | Room is the LiveKit room, named the way the office client names one (`<space>_<name>_<id>`). Its leading segment is what binds the room to a tenant, and it is the segment the caller's membership is checked against.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -248,7 +248,7 @@ Other parameters are passed through a pointer to a apiMeetRecordReadRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **room** | **string** | Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. | 
+ **room** | **string** | Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. | 
 
 ### Return type
 
@@ -355,7 +355,7 @@ import (
 )
 
 func main() {
-	room := "room_example" // string | Room is the LiveKit room, named the way the office client names one (`<workspace>_<name>_<id>`). Its leading segment is what binds the room to a tenant, and it is the segment the caller's membership is checked against.
+	room := "room_example" // string | Room is the LiveKit room, named the way the office client names one (`<space>_<name>_<id>`). Its leading segment is what binds the room to a tenant, and it is the segment the caller's membership is checked against.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -380,7 +380,7 @@ Other parameters are passed through a pointer to a apiMeetRecordStopRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **room** | **string** | Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. | 
+ **room** | **string** | Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. | 
 
 ### Return type
 

@@ -3,18 +3,16 @@
 // Operation: POST /v1/chat/completions (post_chat_completions), the gateway's
 // own inference route.
 //
-// The document states that address and not its shape — no request body, no
-// responses, one of the 716 operations cloud publishes as an address alone — so
-// the generated method takes no prompt and hands back the raw *http.Response.
-// The one thing this example must not do is invent the missing shape. A
+// The document declares what comes back but not what goes in, so the generated
+// method still takes no prompt and this prints whatever the route answers with.
+// The one thing this example must not do is invent the missing half. A
 // hand-rolled request body inside a generated client is an opinion about the
 // API rather than a projection of it, and that second authority is what these
-// SDKs exist to remove. So it calls the operation the document declares and
-// prints what the route answered.
+// SDKs exist to remove.
 //
-// When cloud's handler declares its In and Out types this becomes
-// PostChatCompletions(ctx).<Request>(...) printing choices[0].message.content —
-// a regeneration away, with no decision left in this file.
+// It used to read the raw body for the same reason. Now that the Out type is
+// declared it reads choices[0].message.content, which arrived by regeneration
+// with no decision taken in this file. The request body follows the same way.
 //
 // Non-streaming. Streaming is SSE, a different transport that a generated
 // client hands back as an opaque body, so demonstrating it here would teach the
@@ -26,7 +24,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
 	"log"
 
 	hanzoai "github.com/hanzoai/go-sdk/v8"
@@ -35,15 +32,14 @@ import (
 func main() {
 	client := hanzoai.NewClient("")
 
-	resp, err := client.AiAPI.PostChatCompletions(context.Background()).Execute()
+	completion, resp, err := client.AiAPI.PostChatCompletions(context.Background()).Execute()
 	if err != nil {
 		log.Fatalf("chat: %v", err)
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalf("read body: %v", err)
+	fmt.Printf("completion  %s  %s\n", resp.Status, completion.GetModel())
+	for _, c := range completion.Choices {
+		fmt.Println(c.Message.GetContent())
 	}
-	fmt.Printf("completion  %s\n%s\n", resp.Status, body)
 }

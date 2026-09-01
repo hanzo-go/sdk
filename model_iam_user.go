@@ -20,7 +20,7 @@ var _ MappedNullable = &IamUser{}
 
 // IamUser struct for IamUser
 type IamUser struct {
-	// API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material. AccessSecretHash MUST persist (orm stores via JSON; a json:\"-\" field is never saved), so it carries a real json tag and the handler's redact() strips it (and AccessSecret + the token fields) before responding.
+	// API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material, so Mask blanks them and the handler's redact() strips them before responding. They carry real json tags because a field orm never saves is a field that silently vanishes.  A presented secret is resolved through Key.AccessSecretDigest and nowhere else, so no credential is ISSUED into these columns: they hold what older rows left behind, and every writer that touches them clears them.
 	AccessKey         *string            `json:"accessKey,omitempty"`
 	AccessSecret      *string            `json:"accessSecret,omitempty"`
 	AccessSecretHash  *string            `json:"accessSecretHash,omitempty"`
@@ -91,14 +91,13 @@ type IamUser struct {
 	Gitea         *string     `json:"gitea,omitempty"`
 	Gitee         *string     `json:"gitee,omitempty"`
 	// Linked federated-identity subjects, one column per connector (v1 parity).
-	Github   *string  `json:"github,omitempty"`
-	Gitlab   *string  `json:"gitlab,omitempty"`
-	Google   *string  `json:"google,omitempty"`
-	Groups   []string `json:"groups,omitempty"`
-	Hash     *string  `json:"hash,omitempty"`
-	Heroku   *string  `json:"heroku,omitempty"`
-	Homepage *string  `json:"homepage,omitempty"`
-	Iam      *string  `json:"iam,omitempty"`
+	Github   *string `json:"github,omitempty"`
+	Gitlab   *string `json:"gitlab,omitempty"`
+	Google   *string `json:"google,omitempty"`
+	Hash     *string `json:"hash,omitempty"`
+	Heroku   *string `json:"heroku,omitempty"`
+	Homepage *string `json:"homepage,omitempty"`
+	Iam      *string `json:"iam,omitempty"`
 	// Id is the user's STABLE OPAQUE identifier — the value the OIDC `sub` claim carries. It is the v1 the legacy surface per-row UUID (e.g. \"e7d7fda0-4c53-4508-9d35-7ec892b7e5d7\"), migrated verbatim so a user's `sub` is byte-identical across the cutover: every live session, external reference, and the downstream money-path principal keyed on `sub` survive unchanged. A user minted natively in v2 is assigned a fresh UUID here on create, so the `sub` is ALWAYS a stable opaque id going forward — never the (Owner, Name) pair, which is mutable (a rename would otherwise silently reissue identity).  It is distinct from the embedded orm.Model STORAGE KEY — the value the datastore locks and looks a row up by — which is NOT (Owner, Name) for every row: a MIGRATED legacy row is stamped \"owner/name\" (SetId in the migrator), but a v2-native users.Create'd row is NOT — Create allocates rather than pinning a key, so its storage key is a store-assigned surrogate id (a decimal string like \"17847909129933610000001\"). (Owner, Name) is therefore the natural/QUERY key (unique, indexed), not necessarily the storage key: resolve a row for a locked write by its REAL key (store.GetUserByName(...).Key().Encode(), which stamps both shapes — see internal/oidc updateUser), never by assuming \"owner/name\". This Id is a first-class, indexed DOMAIN field; its json tag \"id\" dominates the promoted orm.Model `Id_` (also \"id\") by shallower depth, so the persisted record's \"id\" is this UUID — exactly the v1 shape. A row that carries no Id (a not-yet-assigned pre-cutover user) falls back to the (Owner, Name) subject at mint; every other path resolves `sub`→user by Id.
 	Id             *string `json:"id,omitempty"`
 	IdCard         *string `json:"idCard,omitempty"`
@@ -162,52 +161,49 @@ type IamUser struct {
 	// Identity / tenancy. (Owner, Name) is the natural key.
 	Owner *string `json:"owner,omitempty"`
 	// Credential material. PasswordHash is a one-way bcrypt digest and is verify-only. It MUST be persisted (orm serializes the entity to its JSON data column, so a json:\"-\" field would never be stored — that silently broke login), so it carries a real json tag; the users API redact() strips it (and every other secret) from every response. PasswordType and PasswordSalt describe the digest scheme so rows hashed under the legacy argon2id scheme can still be verified and lazily re-hashed to bcrypt.
-	PasswordHash     *string           `json:"passwordHash,omitempty"`
-	PasswordSalt     *string           `json:"passwordSalt,omitempty"`
-	PasswordType     *string           `json:"passwordType,omitempty"`
-	Patreon          *string           `json:"patreon,omitempty"`
-	Paypal           *string           `json:"paypal,omitempty"`
-	PermanentAvatar  *string           `json:"permanentAvatar,omitempty"`
-	Permissions      []IamPermission   `json:"permissions,omitempty"`
-	Phone            *string           `json:"phone,omitempty"`
-	PreHash          *string           `json:"preHash,omitempty"`
-	PreferredMfaType *string           `json:"preferredMfaType,omitempty"`
-	Properties       map[string]string `json:"properties,omitempty"`
-	Qq               *string           `json:"qq,omitempty"`
-	Ranking          *int32            `json:"ranking,omitempty"`
-	RealName         *string           `json:"realName,omitempty"`
-	RecoveryCodes    []string          `json:"recoveryCodes,omitempty"`
-	Region           *string           `json:"region,omitempty"`
-	RegisterSource   *string           `json:"registerSource,omitempty"`
-	RegisterType     *string           `json:"registerType,omitempty"`
-	// Authorization attachments. Roles and Permissions are computed on read from the authz store and carried here for API parity with v1.
-	Roles             []IamRole  `json:"roles,omitempty"`
-	Salesforce        *string    `json:"salesforce,omitempty"`
-	Score             *int32     `json:"score,omitempty"`
-	Shopify           *string    `json:"shopify,omitempty"`
-	SigninWrongTimes  *int32     `json:"signinWrongTimes,omitempty"`
-	SignupApplication *string    `json:"signupApplication,omitempty"`
-	Slack             *string    `json:"slack,omitempty"`
-	Soundcloud        *string    `json:"soundcloud,omitempty"`
-	Spotify           *string    `json:"spotify,omitempty"`
-	Steam             *string    `json:"steam,omitempty"`
-	Strava            *string    `json:"strava,omitempty"`
-	Stripe            *string    `json:"stripe,omitempty"`
-	Tag               *string    `json:"tag,omitempty"`
-	Telegram          *string    `json:"telegram,omitempty"`
-	Tiktok            *string    `json:"tiktok,omitempty"`
-	Title             *string    `json:"title,omitempty"`
-	TotpSecret        *string    `json:"totpSecret,omitempty"`
-	Tumblr            *string    `json:"tumblr,omitempty"`
-	Twitch            *string    `json:"twitch,omitempty"`
-	Twitter           *string    `json:"twitter,omitempty"`
-	Type              *string    `json:"type,omitempty"`
-	Typetalk          *string    `json:"typetalk,omitempty"`
-	Uber              *string    `json:"uber,omitempty"`
-	UpdatedAt         *time.Time `json:"updatedAt,omitempty"`
-	UpdatedTime       *string    `json:"updatedTime,omitempty"`
-	VerificationCode  *string    `json:"verificationCode,omitempty"`
-	Vk                *string    `json:"vk,omitempty"`
+	PasswordHash      *string           `json:"passwordHash,omitempty"`
+	PasswordSalt      *string           `json:"passwordSalt,omitempty"`
+	PasswordType      *string           `json:"passwordType,omitempty"`
+	Patreon           *string           `json:"patreon,omitempty"`
+	Paypal            *string           `json:"paypal,omitempty"`
+	PermanentAvatar   *string           `json:"permanentAvatar,omitempty"`
+	Phone             *string           `json:"phone,omitempty"`
+	PreHash           *string           `json:"preHash,omitempty"`
+	PreferredMfaType  *string           `json:"preferredMfaType,omitempty"`
+	Properties        map[string]string `json:"properties,omitempty"`
+	Qq                *string           `json:"qq,omitempty"`
+	Ranking           *int32            `json:"ranking,omitempty"`
+	RealName          *string           `json:"realName,omitempty"`
+	RecoveryCodes     []string          `json:"recoveryCodes,omitempty"`
+	Region            *string           `json:"region,omitempty"`
+	RegisterSource    *string           `json:"registerSource,omitempty"`
+	RegisterType      *string           `json:"registerType,omitempty"`
+	Salesforce        *string           `json:"salesforce,omitempty"`
+	Score             *int32            `json:"score,omitempty"`
+	Shopify           *string           `json:"shopify,omitempty"`
+	SigninWrongTimes  *int32            `json:"signinWrongTimes,omitempty"`
+	SignupApplication *string           `json:"signupApplication,omitempty"`
+	Slack             *string           `json:"slack,omitempty"`
+	Soundcloud        *string           `json:"soundcloud,omitempty"`
+	Spotify           *string           `json:"spotify,omitempty"`
+	Steam             *string           `json:"steam,omitempty"`
+	Strava            *string           `json:"strava,omitempty"`
+	Stripe            *string           `json:"stripe,omitempty"`
+	Tag               *string           `json:"tag,omitempty"`
+	Telegram          *string           `json:"telegram,omitempty"`
+	Tiktok            *string           `json:"tiktok,omitempty"`
+	Title             *string           `json:"title,omitempty"`
+	TotpSecret        *string           `json:"totpSecret,omitempty"`
+	Tumblr            *string           `json:"tumblr,omitempty"`
+	Twitch            *string           `json:"twitch,omitempty"`
+	Twitter           *string           `json:"twitter,omitempty"`
+	Type              *string           `json:"type,omitempty"`
+	Typetalk          *string           `json:"typetalk,omitempty"`
+	Uber              *string           `json:"uber,omitempty"`
+	UpdatedAt         *time.Time        `json:"updatedAt,omitempty"`
+	UpdatedTime       *string           `json:"updatedTime,omitempty"`
+	VerificationCode  *string           `json:"verificationCode,omitempty"`
+	Vk                *string           `json:"vk,omitempty"`
 	// Multi-factor authentication. TotpSecret and RecoveryCodes are secret verify-only material — the handler strips them from every response. WebauthnCredentials is carried as raw JSON here for lossless migration; the typed passkey model is the sibling WebauthnCredential entity.
 	WebauthnCredentials []interface{} `json:"webauthnCredentials,omitempty"`
 	Wechat              *string       `json:"wechat,omitempty"`
@@ -2446,38 +2442,6 @@ func (o *IamUser) SetGoogle(v string) {
 	o.Google = &v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
-func (o *IamUser) GetGroups() []string {
-	if o == nil || IsNil(o.Groups) {
-		var ret []string
-		return ret
-	}
-	return o.Groups
-}
-
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamUser) GetGroupsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Groups) {
-		return nil, false
-	}
-	return o.Groups, true
-}
-
-// HasGroups returns a boolean if a field has been set.
-func (o *IamUser) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []string and assigns it to the Groups field.
-func (o *IamUser) SetGroups(v []string) {
-	o.Groups = v
-}
-
 // GetHash returns the Hash field value if set, zero value otherwise.
 func (o *IamUser) GetHash() string {
 	if o == nil || IsNil(o.Hash) {
@@ -4654,38 +4618,6 @@ func (o *IamUser) SetPermanentAvatar(v string) {
 	o.PermanentAvatar = &v
 }
 
-// GetPermissions returns the Permissions field value if set, zero value otherwise.
-func (o *IamUser) GetPermissions() []IamPermission {
-	if o == nil || IsNil(o.Permissions) {
-		var ret []IamPermission
-		return ret
-	}
-	return o.Permissions
-}
-
-// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamUser) GetPermissionsOk() ([]IamPermission, bool) {
-	if o == nil || IsNil(o.Permissions) {
-		return nil, false
-	}
-	return o.Permissions, true
-}
-
-// HasPermissions returns a boolean if a field has been set.
-func (o *IamUser) HasPermissions() bool {
-	if o != nil && !IsNil(o.Permissions) {
-		return true
-	}
-
-	return false
-}
-
-// SetPermissions gets a reference to the given []IamPermission and assigns it to the Permissions field.
-func (o *IamUser) SetPermissions(v []IamPermission) {
-	o.Permissions = v
-}
-
 // GetPhone returns the Phone field value if set, zero value otherwise.
 func (o *IamUser) GetPhone() string {
 	if o == nil || IsNil(o.Phone) {
@@ -5036,38 +4968,6 @@ func (o *IamUser) HasRegisterType() bool {
 // SetRegisterType gets a reference to the given string and assigns it to the RegisterType field.
 func (o *IamUser) SetRegisterType(v string) {
 	o.RegisterType = &v
-}
-
-// GetRoles returns the Roles field value if set, zero value otherwise.
-func (o *IamUser) GetRoles() []IamRole {
-	if o == nil || IsNil(o.Roles) {
-		var ret []IamRole
-		return ret
-	}
-	return o.Roles
-}
-
-// GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamUser) GetRolesOk() ([]IamRole, bool) {
-	if o == nil || IsNil(o.Roles) {
-		return nil, false
-	}
-	return o.Roles, true
-}
-
-// HasRoles returns a boolean if a field has been set.
-func (o *IamUser) HasRoles() bool {
-	if o != nil && !IsNil(o.Roles) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoles gets a reference to the given []IamRole and assigns it to the Roles field.
-func (o *IamUser) SetRoles(v []IamRole) {
-	o.Roles = v
 }
 
 // GetSalesforce returns the Salesforce field value if set, zero value otherwise.
@@ -6439,9 +6339,6 @@ func (o IamUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Google) {
 		toSerialize["google"] = o.Google
 	}
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
 	if !IsNil(o.Hash) {
 		toSerialize["hash"] = o.Hash
 	}
@@ -6646,9 +6543,6 @@ func (o IamUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PermanentAvatar) {
 		toSerialize["permanentAvatar"] = o.PermanentAvatar
 	}
-	if !IsNil(o.Permissions) {
-		toSerialize["permissions"] = o.Permissions
-	}
 	if !IsNil(o.Phone) {
 		toSerialize["phone"] = o.Phone
 	}
@@ -6681,9 +6575,6 @@ func (o IamUser) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.RegisterType) {
 		toSerialize["registerType"] = o.RegisterType
-	}
-	if !IsNil(o.Roles) {
-		toSerialize["roles"] = o.Roles
 	}
 	if !IsNil(o.Salesforce) {
 		toSerialize["salesforce"] = o.Salesforce

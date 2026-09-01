@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bots** | Pointer to [**[]BotMember**](BotMember.md) | Bots is every agent of the caller&#39;s org, projected as a workspace member. | [optional] 
+**Bots** | Pointer to [**[]BotMember**](BotMember.md) | Bots is every agent of the caller&#39;s org, projected as a space member. | [optional] 
 
 ## Methods
 

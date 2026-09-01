@@ -19,7 +19,7 @@ var _ MappedNullable = &BotMember{}
 
 // BotMember struct for BotMember
 type BotMember struct {
-	// Active is whether the agent projects as a LIVE workspace member, derived from its registry status: empty, \"active\" and \"ready\" are live, anything else (archived/retired) is not. An inactive bot drops out of the Team list while its past authorship survives.
+	// Active is whether the agent projects as a LIVE space member, derived from its registry status: empty, \"active\" and \"ready\" are live, anything else (archived/retired) is not. An inactive bot drops out of the Team list while its past authorship survives.
 	Active *bool `json:"active,omitempty"`
 	// the agent id
 	Id *string `json:"id,omitempty"`

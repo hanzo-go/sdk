@@ -19,7 +19,7 @@ var _ MappedNullable = &BotRoster{}
 
 // BotRoster struct for BotRoster
 type BotRoster struct {
-	// Bots is every agent of the caller's org, projected as a workspace member.
+	// Bots is every agent of the caller's org, projected as a space member.
 	Bots []BotMember `json:"bots,omitempty"`
 }
 

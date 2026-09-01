@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Avatar** | Pointer to **string** | Avatar and Emoji are how the agent APPEARS. An image wins when both are given — it is the thing somebody made — and both empty leaves the agent drawn as its initial. Validated by iam/pkg/schema, the same rule a person&#39;s avatar passes, so the 96 KiB bound and the accepted URL forms are stated once for every subject that has a face. | [optional] 
 **ComputeRef** | Pointer to **string** | ComputeRef optionally binds this bot to a visor machine. Opaque here, bounded at 256 characters, and not resolved — this package stores the reference and the binding&#39;s lifecycle belongs elsewhere. | [optional] 
 **Description** | Pointer to **string** | Description is the one line published as the description of the &#x60;agent_&lt;name&gt;&#x60; tool, which is how another agent decides whether to call this one. Optional, and worth writing for exactly that reason. | [optional] 
+**Emoji** | Pointer to **string** | Emoji is the single glyph shown when there is no image. An image WINS when both are given — it is the thing somebody made — and both empty leaves the agent drawn as its initial. | [optional] 
 **ExecutionMode** | Pointer to **string** | ExecutionMode is one-shot or long-running. Empty takes one-shot, which runs only when something POSTs to it. long-running additionally requires Schedule, and counts against a per-org cap that answers 409 when it is full. | [optional] 
 **Instructions** | Pointer to **string** | Instructions is the system prompt, up to 32 KiB, stored verbatim. This is what the model reads; Description is what other CALLERS read. | [optional] 
 **Model** | Pointer to **string** | Model names the model to run on. Omit it to take the deployment&#39;s configured default; name one and it is checked against the gateway&#39;s served catalogue here, so a model this deployment cannot serve is refused now rather than at the first run. Stored under our own name for it, whatever spelling arrives. | [optional] 
@@ -32,6 +34,31 @@ will change when the set of required properties is changed
 NewCreateAgentInWithDefaults instantiates a new CreateAgentIn object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAvatar
+
+`func (o *CreateAgentIn) GetAvatar() string`
+
+GetAvatar returns the Avatar field if non-nil, zero value otherwise.
+
+### GetAvatarOk
+
+`func (o *CreateAgentIn) GetAvatarOk() (*string, bool)`
+
+GetAvatarOk returns a tuple with the Avatar field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvatar
+
+`func (o *CreateAgentIn) SetAvatar(v string)`
+
+SetAvatar sets Avatar field to given value.
+
+### HasAvatar
+
+`func (o *CreateAgentIn) HasAvatar() bool`
+
+HasAvatar returns a boolean if a field has been set.
 
 ### GetComputeRef
 
@@ -82,6 +109,31 @@ SetDescription sets Description field to given value.
 `func (o *CreateAgentIn) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetEmoji
+
+`func (o *CreateAgentIn) GetEmoji() string`
+
+GetEmoji returns the Emoji field if non-nil, zero value otherwise.
+
+### GetEmojiOk
+
+`func (o *CreateAgentIn) GetEmojiOk() (*string, bool)`
+
+GetEmojiOk returns a tuple with the Emoji field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmoji
+
+`func (o *CreateAgentIn) SetEmoji(v string)`
+
+SetEmoji sets Emoji field to given value.
+
+### HasEmoji
+
+`func (o *CreateAgentIn) HasEmoji() bool`
+
+HasEmoji returns a boolean if a field has been set.
 
 ### GetExecutionMode
 

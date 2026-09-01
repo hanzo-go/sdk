@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | the document name (empty for synthetic nodes) | [optional] 
 **Project** | Pointer to **string** | Project is the project scope the underlying document was saved under. Absent for a document saved with none, and for the synthetic nodes — unresolved link targets and connectors belong to no project. When ?project&#x3D; narrows the graph, every page, memory and source node carries that value. | [optional] 
 **Title** | Pointer to **string** | display label | [optional] 
-**Type** | Pointer to **string** | kb-page | kb-memory | kb-source | kb-connector | unresolved | [optional] 
+**Type** | Pointer to **string** | kb.page | kb.memory | kb.source | kb.connector | unresolved | [optional] 
 
 ## Methods
 

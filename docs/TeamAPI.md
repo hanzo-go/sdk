@@ -5,22 +5,25 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteTeamAccountCookie**](TeamAPI.md#DeleteTeamAccountCookie) | **Delete** /v1/team/account/cookie | Signs this browser out of team by expiring the HttpOnly account-token cookie the OAuth callback set.
-[**DeleteTeamFilesByWorkspaceByFilename**](TeamAPI.md#DeleteTeamFilesByWorkspaceByFilename) | **Delete** /v1/team/files/{workspace}/{filename} | Removes one blob from a workspace&#39;s file store.
+[**DeleteTeamFilesBySpaceByFilename**](TeamAPI.md#DeleteTeamFilesBySpaceByFilename) | **Delete** /v1/team/files/{space}/{filename} | Removes one blob from a space&#39;s file store.
 [**GetTeamAccountAuthByProvider**](TeamAPI.md#GetTeamAccountAuthByProvider) | **Get** /v1/team/account/auth/{provider} | Start a sign-in at hanzo.id
 [**GetTeamAccountAuthByProviderCallback**](TeamAPI.md#GetTeamAccountAuthByProviderCallback) | **Get** /v1/team/account/auth/{provider}/callback | Complete a sign-in and hand the browser its session
 [**GetTeamAccountProviders**](TeamAPI.md#GetTeamAccountProviders) | **Get** /v1/team/account/providers | Returns the identity providers this deployment starts a login with.
 [**GetTeamBillingPlan**](TeamAPI.md#GetTeamBillingPlan) | **Get** /v1/team/billing/plan | Returns the plan and seat counts for the caller&#39;s OWN org, resolved from the VERIFIED team session token — never a client header.
 [**GetTeamBillingUi**](TeamAPI.md#GetTeamBillingUi) | **Get** /v1/team/billing/ui | Open the wallet page
-[**GetTeamBots**](TeamAPI.md#GetTeamBots) | **Get** /v1/team/bots | Returns the caller org&#39;s bot members — the org&#39;s agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+[**GetTeamBots**](TeamAPI.md#GetTeamBots) | **Get** /v1/team/bots | Returns the caller org&#39;s bot members — the org&#39;s agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
 [**GetTeamCollaborator**](TeamAPI.md#GetTeamCollaborator) | **Get** /v1/team/collaborator | Open the live collaborative-editing socket
-[**GetTeamFilesByWorkspaceByFilename**](TeamAPI.md#GetTeamFilesByWorkspaceByFilename) | **Get** /v1/team/files/{workspace}/{filename} | Download a workspace file
-[**GetTeamRooms**](TeamAPI.md#GetTeamRooms) | **Get** /v1/team/rooms | Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
-[**GetTeamTransactorByToken**](TeamAPI.md#GetTeamTransactorByToken) | **Get** /v1/team/transactor/{token} | Open the workspace data-plane socket
-[**GetTeamTransactorStatistics**](TeamAPI.md#GetTeamTransactorStatistics) | **Get** /v1/team/transactor/statistics | Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
-[**PostTeamAccount**](TeamAPI.md#PostTeamAccount) | **Post** /v1/team/account | Read the caller&#39;s account and switch workspace
-[**PostTeamBotsSync**](TeamAPI.md#PostTeamBotsSync) | **Post** /v1/team/bots/sync | SyncBots re-projects the caller org&#39;s agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
+[**GetTeamFilesBySpaceByFilename**](TeamAPI.md#GetTeamFilesBySpaceByFilename) | **Get** /v1/team/files/{space}/{filename} | Download a space file
+[**GetTeamRooms**](TeamAPI.md#GetTeamRooms) | **Get** /v1/team/rooms | Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
+[**GetTeamRoomsByIdMessages**](TeamAPI.md#GetTeamRoomsByIdMessages) | **Get** /v1/team/rooms/{id}/messages | Returns the tail of one room&#39;s conversation, oldest first.
+[**GetTeamTransactorByToken**](TeamAPI.md#GetTeamTransactorByToken) | **Get** /v1/team/transactor/{token} | Open the space data-plane socket
+[**GetTeamTransactorStatistics**](TeamAPI.md#GetTeamTransactorStatistics) | **Get** /v1/team/transactor/statistics | Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
+[**PostTeamAccount**](TeamAPI.md#PostTeamAccount) | **Post** /v1/team/account | Read the caller&#39;s account and switch space
+[**PostTeamBotsSync**](TeamAPI.md#PostTeamBotsSync) | **Post** /v1/team/bots/sync | SyncBots re-projects the caller org&#39;s agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
 [**PostTeamCollaboratorRpcByDocumentid**](TeamAPI.md#PostTeamCollaboratorRpcByDocumentid) | **Post** /v1/team/collaborator/rpc/{documentId} | CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
-[**PostTeamFilesByWorkspace**](TeamAPI.md#PostTeamFilesByWorkspace) | **Post** /v1/team/files/{workspace} | Upload a file into a workspace
+[**PostTeamFilesBySpace**](TeamAPI.md#PostTeamFilesBySpace) | **Post** /v1/team/files/{space} | Upload a file into a space
+[**PostTeamRooms**](TeamAPI.md#PostTeamRooms) | **Post** /v1/team/rooms | Opens a named room and answers it as the store now holds it.
+[**PostTeamRoomsByIdMessages**](TeamAPI.md#PostTeamRoomsByIdMessages) | **Post** /v1/team/rooms/{id}/messages | Says one thing in a room, as the caller.
 [**PutTeamAccountCookie**](TeamAPI.md#PutTeamAccountCookie) | **Put** /v1/team/account/cookie | Store the session token as this browser&#39;s cookie
 [**PutTeamRoomsById**](TeamAPI.md#PutTeamRoomsById) | **Put** /v1/team/rooms/{id} | States what a room is for: its lifecycle intent, and what it is about.
 
@@ -87,11 +90,11 @@ Other parameters are passed through a pointer to a apiDeleteTeamAccountCookieReq
 [[Back to README]](../README.md)
 
 
-## DeleteTeamFilesByWorkspaceByFilename
+## DeleteTeamFilesBySpaceByFilename
 
-> DeleteTeamFilesByWorkspaceByFilename(ctx, workspace, filename).File(file).Execute()
+> DeleteTeamFilesBySpaceByFilename(ctx, space, filename).File(file).Execute()
 
-Removes one blob from a workspace's file store.
+Removes one blob from a space's file store.
 
 
 
@@ -108,15 +111,15 @@ import (
 )
 
 func main() {
-	workspace := "6579…" // string | Workspace is the workspace uuid the blob belongs to, from the path.
+	space := "6579…" // string | Space is the space uuid the blob belongs to, from the path.
 	filename := "filename_example" // string | Filename is the last path segment, which the front sets to the blob id when it sends no explicit `file`.
 	file := "0d4f…" // string | File is the blob id, and wins over the path segment when both are present. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TeamAPI.DeleteTeamFilesByWorkspaceByFilename(context.Background(), workspace, filename).File(file).Execute()
+	r, err := apiClient.TeamAPI.DeleteTeamFilesBySpaceByFilename(context.Background(), space, filename).File(file).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.DeleteTeamFilesByWorkspaceByFilename``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.DeleteTeamFilesBySpaceByFilename``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -128,12 +131,12 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**workspace** | **string** | Workspace is the workspace uuid the blob belongs to, from the path. | 
+**space** | **string** | Space is the space uuid the blob belongs to, from the path. | 
 **filename** | **string** | Filename is the last path segment, which the front sets to the blob id when it sends no explicit &#x60;file&#x60;. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteTeamFilesByWorkspaceByFilenameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteTeamFilesBySpaceByFilenameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -483,7 +486,7 @@ Other parameters are passed through a pointer to a apiGetTeamBillingUiRequest st
 
 > BotRoster GetTeamBots(ctx).Execute()
 
-Returns the caller org's bot members — the org's agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+Returns the caller org's bot members — the org's agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
 
 
 
@@ -599,11 +602,11 @@ Other parameters are passed through a pointer to a apiGetTeamCollaboratorRequest
 [[Back to README]](../README.md)
 
 
-## GetTeamFilesByWorkspaceByFilename
+## GetTeamFilesBySpaceByFilename
 
-> *os.File GetTeamFilesByWorkspaceByFilename(ctx, workspace, filename).Execute()
+> *os.File GetTeamFilesBySpaceByFilename(ctx, space, filename).Execute()
 
-Download a workspace file
+Download a space file
 
 
 
@@ -620,18 +623,18 @@ import (
 )
 
 func main() {
-	workspace := "workspace_example" // string | 
+	space := "space_example" // string | 
 	filename := "filename_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.GetTeamFilesByWorkspaceByFilename(context.Background(), workspace, filename).Execute()
+	resp, r, err := apiClient.TeamAPI.GetTeamFilesBySpaceByFilename(context.Background(), space, filename).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamFilesByWorkspaceByFilename``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamFilesBySpaceByFilename``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTeamFilesByWorkspaceByFilename`: *os.File
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamFilesByWorkspaceByFilename`: %v\n", resp)
+	// response from `GetTeamFilesBySpaceByFilename`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamFilesBySpaceByFilename`: %v\n", resp)
 }
 ```
 
@@ -641,12 +644,12 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**workspace** | **string** |  | 
+**space** | **string** |  | 
 **filename** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetTeamFilesByWorkspaceByFilenameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetTeamFilesBySpaceByFilenameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -676,7 +679,7 @@ Name | Type | Description  | Notes
 
 > TeamRooms GetTeamRooms(ctx).Execute()
 
-Returns every room of the caller's org, across the workspaces it owns, with the work facet each carries.
+Returns every room of the caller's org, across the spaces it owns, with the work facet each carries.
 
 
 
@@ -733,11 +736,83 @@ Other parameters are passed through a pointer to a apiGetTeamRoomsRequest struct
 [[Back to README]](../README.md)
 
 
+## GetTeamRoomsByIdMessages
+
+> TeamMessages GetTeamRoomsByIdMessages(ctx, id).Space(space).Execute()
+
+Returns the tail of one room's conversation, oldest first.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the room, from the path. The URL is the authority.
+	space := "space_example" // string | Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.GetTeamRoomsByIdMessages(context.Background(), id).Space(space).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.GetTeamRoomsByIdMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamRoomsByIdMessages`: TeamMessages
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.GetTeamRoomsByIdMessages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the room, from the path. The URL is the authority. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTeamRoomsByIdMessagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **space** | **string** | Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. | 
+
+### Return type
+
+[**TeamMessages**](TeamMessages.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetTeamTransactorByToken
 
 > GetTeamTransactorByToken(ctx, token).Execute()
 
-Open the workspace data-plane socket
+Open the space data-plane socket
 
 
 
@@ -805,7 +880,7 @@ Name | Type | Description  | Notes
 
 > StatsOut GetTeamTransactorStatistics(ctx).Token(token).Execute()
 
-Statistics returns the transactor's live sessions for the workspace the caller's credential names — the endpoint the front's workspace switcher and server panel poll on the transactor base.
+Statistics returns the transactor's live sessions for the space the caller's credential names — the endpoint the front's space switcher and server panel poll on the transactor base.
 
 
 
@@ -822,7 +897,7 @@ import (
 )
 
 func main() {
-	token := "eyJhbGciOiJIUzI1NiJ9…" // string | Token is the workspace token minted by selectWorkspace. (optional)
+	token := "eyJhbGciOiJIUzI1NiJ9…" // string | Token is the space token minted by selectWorkspace. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -847,7 +922,7 @@ Other parameters are passed through a pointer to a apiGetTeamTransactorStatistic
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **string** | Token is the workspace token minted by selectWorkspace. | 
+ **token** | **string** | Token is the space token minted by selectWorkspace. | 
 
 ### Return type
 
@@ -871,7 +946,7 @@ Name | Type | Description  | Notes
 
 > PostTeamAccount(ctx).Execute()
 
-Read the caller's account and switch workspace
+Read the caller's account and switch space
 
 
 
@@ -930,7 +1005,7 @@ Other parameters are passed through a pointer to a apiPostTeamAccountRequest str
 
 > BotSync PostTeamBotsSync(ctx).Execute()
 
-SyncBots re-projects the caller org's agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
+SyncBots re-projects the caller org's agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
 
 
 
@@ -1008,7 +1083,7 @@ import (
 )
 
 func main() {
-	documentId := "6579…|tracker:class:Issue|issue-1|description" // string | DocumentID addresses the document field, as \"<workspaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
+	documentId := "6579…|tracker:class:Issue|issue-1|description" // string | DocumentID addresses the document field, as \"<spaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
 	collabRequest := *openapiclient.NewCollabRequest() // CollabRequest | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -1029,7 +1104,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**documentId** | **string** | DocumentID addresses the document field, as \&quot;&lt;workspaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. | 
+**documentId** | **string** | DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. | 
 
 ### Other Parameters
 
@@ -1059,11 +1134,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostTeamFilesByWorkspace
+## PostTeamFilesBySpace
 
-> *os.File PostTeamFilesByWorkspace(ctx, workspace).Body(body).Execute()
+> *os.File PostTeamFilesBySpace(ctx, space).Body(body).Execute()
 
-Upload a file into a workspace
+Upload a file into a space
 
 
 
@@ -1080,18 +1155,18 @@ import (
 )
 
 func main() {
-	workspace := "workspace_example" // string | 
+	space := "space_example" // string | 
 	body := os.NewFile(1234, "some_file") // *os.File |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamAPI.PostTeamFilesByWorkspace(context.Background(), workspace).Body(body).Execute()
+	resp, r, err := apiClient.TeamAPI.PostTeamFilesBySpace(context.Background(), space).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamFilesByWorkspace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamFilesBySpace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostTeamFilesByWorkspace`: *os.File
-	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamFilesByWorkspace`: %v\n", resp)
+	// response from `PostTeamFilesBySpace`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamFilesBySpace`: %v\n", resp)
 }
 ```
 
@@ -1101,11 +1176,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**workspace** | **string** |  | 
+**space** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostTeamFilesByWorkspaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostTeamFilesBySpaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1125,6 +1200,144 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/octet-stream
 - **Accept**: text/plain; charset=utf-8
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostTeamRooms
+
+> TeamRoom PostTeamRooms(ctx).TeamRoomNew(teamRoomNew).Execute()
+
+Opens a named room and answers it as the store now holds it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	teamRoomNew := *openapiclient.NewTeamRoomNew() // TeamRoomNew | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.PostTeamRooms(context.Background()).TeamRoomNew(teamRoomNew).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamRooms``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostTeamRooms`: TeamRoom
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamRooms`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostTeamRoomsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamRoomNew** | [**TeamRoomNew**](TeamRoomNew.md) |  | 
+
+### Return type
+
+[**TeamRoom**](TeamRoom.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostTeamRoomsByIdMessages
+
+> TeamMessage PostTeamRoomsByIdMessages(ctx, id).TeamMessageWrite(teamMessageWrite).Execute()
+
+Says one thing in a room, as the caller.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the room to say it in, from the path.
+	teamMessageWrite := *openapiclient.NewTeamMessageWrite() // TeamMessageWrite | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamAPI.PostTeamRoomsByIdMessages(context.Background(), id).TeamMessageWrite(teamMessageWrite).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.PostTeamRoomsByIdMessages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostTeamRoomsByIdMessages`: TeamMessage
+	fmt.Fprintf(os.Stdout, "Response from `TeamAPI.PostTeamRoomsByIdMessages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the room to say it in, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostTeamRoomsByIdMessagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **teamMessageWrite** | [**TeamMessageWrite**](TeamMessageWrite.md) |  | 
+
+### Return type
+
+[**TeamMessage**](TeamMessage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

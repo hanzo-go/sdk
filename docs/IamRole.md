@@ -10,12 +10,12 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Domains** | Pointer to **[]string** |  | [optional] 
-**Groups** | Pointer to **[]string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **IsEnabled** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
 **Roles** | Pointer to **[]string** |  | [optional] 
+**Teams** | Pointer to **[]string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Users** | Pointer to **[]string** |  | [optional] 
 
@@ -188,31 +188,6 @@ SetDomains sets Domains field to given value.
 
 HasDomains returns a boolean if a field has been set.
 
-### GetGroups
-
-`func (o *IamRole) GetGroups() []string`
-
-GetGroups returns the Groups field if non-nil, zero value otherwise.
-
-### GetGroupsOk
-
-`func (o *IamRole) GetGroupsOk() (*[]string, bool)`
-
-GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGroups
-
-`func (o *IamRole) SetGroups(v []string)`
-
-SetGroups sets Groups field to given value.
-
-### HasGroups
-
-`func (o *IamRole) HasGroups() bool`
-
-HasGroups returns a boolean if a field has been set.
-
 ### GetId
 
 `func (o *IamRole) GetId() string`
@@ -337,6 +312,31 @@ SetRoles sets Roles field to given value.
 `func (o *IamRole) HasRoles() bool`
 
 HasRoles returns a boolean if a field has been set.
+
+### GetTeams
+
+`func (o *IamRole) GetTeams() []string`
+
+GetTeams returns the Teams field if non-nil, zero value otherwise.
+
+### GetTeamsOk
+
+`func (o *IamRole) GetTeamsOk() (*[]string, bool)`
+
+GetTeamsOk returns a tuple with the Teams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeams
+
+`func (o *IamRole) SetTeams(v []string)`
+
+SetTeams sets Teams field to given value.
+
+### HasTeams
+
+`func (o *IamRole) HasTeams() bool`
+
+HasTeams returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

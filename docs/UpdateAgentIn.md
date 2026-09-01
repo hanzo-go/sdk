@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Avatar** | Pointer to **string** | Avatar and Emoji re-draw the agent. Sending either replaces the pair, so setting an image clears a glyph and \&quot;\&quot; for both goes back to the initial — there is no state where a row holds two answers. | [optional] 
 **ComputeRef** | Pointer to **string** | ComputeRef re-binds (or, with \&quot;\&quot;, unbinds) the visor machine. Opaque here. | [optional] 
 **Description** | Pointer to **string** | Description replaces the line other agents read in the tool catalogue. | [optional] 
+**Emoji** | Pointer to **string** | Emoji re-draws the agent as a glyph. Sending either of the pair replaces BOTH, so setting a glyph clears an image and \&quot;\&quot; for both goes back to the initial — there is no state where a row holds two answers. | [optional] 
 **ExecutionMode** | Pointer to **string** | ExecutionMode switches between one-shot and long-running. The RESULTING mode+schedule are validated together, so switching to long-running without a stored or supplied cron is refused rather than accepted into an agent the scheduler would skip forever. A switch INTO long-running counts against the per-org cap and can be a 409. | [optional] 
 **Instructions** | Pointer to **string** | Instructions replaces the system prompt whole, up to 32 KiB. There is no append: a prompt is one text, and sending \&quot;\&quot; clears it. | [optional] 
 **Model** | Pointer to **string** | Model re-points the agent at another model, checked against the gateway&#39;s served catalogue exactly as create checks it. Empty STRING is refused — say nothing to keep the current one. Past runs keep the model that served them. | [optional] 
@@ -32,6 +34,31 @@ will change when the set of required properties is changed
 NewUpdateAgentInWithDefaults instantiates a new UpdateAgentIn object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAvatar
+
+`func (o *UpdateAgentIn) GetAvatar() string`
+
+GetAvatar returns the Avatar field if non-nil, zero value otherwise.
+
+### GetAvatarOk
+
+`func (o *UpdateAgentIn) GetAvatarOk() (*string, bool)`
+
+GetAvatarOk returns a tuple with the Avatar field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvatar
+
+`func (o *UpdateAgentIn) SetAvatar(v string)`
+
+SetAvatar sets Avatar field to given value.
+
+### HasAvatar
+
+`func (o *UpdateAgentIn) HasAvatar() bool`
+
+HasAvatar returns a boolean if a field has been set.
 
 ### GetComputeRef
 
@@ -82,6 +109,31 @@ SetDescription sets Description field to given value.
 `func (o *UpdateAgentIn) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetEmoji
+
+`func (o *UpdateAgentIn) GetEmoji() string`
+
+GetEmoji returns the Emoji field if non-nil, zero value otherwise.
+
+### GetEmojiOk
+
+`func (o *UpdateAgentIn) GetEmojiOk() (*string, bool)`
+
+GetEmojiOk returns a tuple with the Emoji field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmoji
+
+`func (o *UpdateAgentIn) SetEmoji(v string)`
+
+SetEmoji sets Emoji field to given value.
+
+### HasEmoji
+
+`func (o *UpdateAgentIn) HasEmoji() bool`
+
+HasEmoji returns a boolean if a field has been set.
 
 ### GetExecutionMode
 

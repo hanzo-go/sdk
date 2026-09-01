@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Bindings** | Pointer to **[]string** | Bindings REPLACES what the room is about, wholly. It is a replace and not a merge because a caller that cannot remove a binding would have no way to correct a wrong one, and an empty list sent explicitly is how a room is unbound. Absent (null) leaves the existing list alone. | [optional] 
 **Id** | Pointer to **string** | ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. | [optional] 
 **Life** | Pointer to **string** | Life sets the lifecycle intent: \&quot;standing\&quot; or \&quot;bound\&quot;. Any other value is refused rather than stored, so a reader never has to interpret a third one. Empty leaves the current intent unchanged. | [optional] 
-**Workspace** | Pointer to **string** | Workspace names the workspace holding the room. It is required, because a room id is unique only within one and searching every workspace for a matching id would make the write&#39;s target depend on iteration order. | [optional] 
+**Space** | Pointer to **string** | Space names the space holding the room. It is required, because a room id is unique only within one and searching every space for a matching id would make the write&#39;s target depend on iteration order. | [optional] 
 
 ## Methods
 
@@ -103,30 +103,30 @@ SetLife sets Life field to given value.
 
 HasLife returns a boolean if a field has been set.
 
-### GetWorkspace
+### GetSpace
 
-`func (o *TeamRoomBind) GetWorkspace() string`
+`func (o *TeamRoomBind) GetSpace() string`
 
-GetWorkspace returns the Workspace field if non-nil, zero value otherwise.
+GetSpace returns the Space field if non-nil, zero value otherwise.
 
-### GetWorkspaceOk
+### GetSpaceOk
 
-`func (o *TeamRoomBind) GetWorkspaceOk() (*string, bool)`
+`func (o *TeamRoomBind) GetSpaceOk() (*string, bool)`
 
-GetWorkspaceOk returns a tuple with the Workspace field if it's non-nil, zero value otherwise
+GetSpaceOk returns a tuple with the Space field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetWorkspace
+### SetSpace
 
-`func (o *TeamRoomBind) SetWorkspace(v string)`
+`func (o *TeamRoomBind) SetSpace(v string)`
 
-SetWorkspace sets Workspace field to given value.
+SetSpace sets Space field to given value.
 
-### HasWorkspace
+### HasSpace
 
-`func (o *TeamRoomBind) HasWorkspace() bool`
+`func (o *TeamRoomBind) HasSpace() bool`
 
-HasWorkspace returns a boolean if a field has been set.
+HasSpace returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

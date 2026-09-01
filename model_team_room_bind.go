@@ -25,8 +25,8 @@ type TeamRoomBind struct {
 	Id *string `json:"id,omitempty"`
 	// Life sets the lifecycle intent: \"standing\" or \"bound\". Any other value is refused rather than stored, so a reader never has to interpret a third one. Empty leaves the current intent unchanged.
 	Life *string `json:"life,omitempty"`
-	// Workspace names the workspace holding the room. It is required, because a room id is unique only within one and searching every workspace for a matching id would make the write's target depend on iteration order.
-	Workspace *string `json:"workspace,omitempty"`
+	// Space names the space holding the room. It is required, because a room id is unique only within one and searching every space for a matching id would make the write's target depend on iteration order.
+	Space *string `json:"space,omitempty"`
 }
 
 // NewTeamRoomBind instantiates a new TeamRoomBind object
@@ -142,36 +142,36 @@ func (o *TeamRoomBind) SetLife(v string) {
 	o.Life = &v
 }
 
-// GetWorkspace returns the Workspace field value if set, zero value otherwise.
-func (o *TeamRoomBind) GetWorkspace() string {
-	if o == nil || IsNil(o.Workspace) {
+// GetSpace returns the Space field value if set, zero value otherwise.
+func (o *TeamRoomBind) GetSpace() string {
+	if o == nil || IsNil(o.Space) {
 		var ret string
 		return ret
 	}
-	return *o.Workspace
+	return *o.Space
 }
 
-// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
+// GetSpaceOk returns a tuple with the Space field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TeamRoomBind) GetWorkspaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Workspace) {
+func (o *TeamRoomBind) GetSpaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Space) {
 		return nil, false
 	}
-	return o.Workspace, true
+	return o.Space, true
 }
 
-// HasWorkspace returns a boolean if a field has been set.
-func (o *TeamRoomBind) HasWorkspace() bool {
-	if o != nil && !IsNil(o.Workspace) {
+// HasSpace returns a boolean if a field has been set.
+func (o *TeamRoomBind) HasSpace() bool {
+	if o != nil && !IsNil(o.Space) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
-func (o *TeamRoomBind) SetWorkspace(v string) {
-	o.Workspace = &v
+// SetSpace gets a reference to the given string and assigns it to the Space field.
+func (o *TeamRoomBind) SetSpace(v string) {
+	o.Space = &v
 }
 
 func (o TeamRoomBind) MarshalJSON() ([]byte, error) {
@@ -193,8 +193,8 @@ func (o TeamRoomBind) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Life) {
 		toSerialize["life"] = o.Life
 	}
-	if !IsNil(o.Workspace) {
-		toSerialize["workspace"] = o.Workspace
+	if !IsNil(o.Space) {
+		toSerialize["space"] = o.Space
 	}
 	return toSerialize, nil
 }

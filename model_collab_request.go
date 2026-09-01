@@ -19,7 +19,7 @@ var _ MappedNullable = &CollabRequest{}
 
 // CollabRequest struct for CollabRequest
 type CollabRequest struct {
-	// DocumentID addresses the document field, as \"<workspaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
+	// DocumentID addresses the document field, as \"<spaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
 	DocumentId *string `json:"documentId,omitempty"`
 	// Method is the verb: createContent, updateContent or getContent.
 	Method *string `json:"method,omitempty"`

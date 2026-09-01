@@ -19,7 +19,7 @@ var _ MappedNullable = &TeamRooms{}
 
 // TeamRooms struct for TeamRooms
 type TeamRooms struct {
-	// Rooms is every room of every workspace the caller's org owns, each with the work facet it carries.
+	// Rooms is every room of every space the caller's org owns, each with the work facet it carries.
 	Rooms []TeamRoom `json:"rooms,omitempty"`
 }
 

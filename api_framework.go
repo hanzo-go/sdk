@@ -40,7 +40,7 @@ Removes one document, after its on_trash hooks agree. A
 SUBMITTED document cannot be deleted — cancel it first. Answers 204.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param doctype DocType is the document's DocType, from the path.
+	@param doctype DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
 	@param name Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
 	@return FrameworkAPIDeleteFrameworkByDoctypeByNameRequest
 */
@@ -137,7 +137,7 @@ definition and its data go together — a document with no schema can be neither
 validated nor read back — so there is no undo. Manager-only. Answers 204.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name Name is the DocType's name, from the path. A name containing a space (\"Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
+	@param name Name is the DocType's ADDRESS — \"module.name\", e.g. \"kb.page\". A name containing a space (\"erp.Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
 	@return FrameworkAPIDeleteFrameworkDoctypesByNameRequest
 */
 func (a *FrameworkAPIService) DeleteFrameworkDoctypesByName(ctx context.Context, name string) FrameworkAPIDeleteFrameworkDoctypesByNameRequest {
@@ -163,103 +163,6 @@ func (a *FrameworkAPIService) DeleteFrameworkDoctypesByNameExecute(r FrameworkAP
 
 	localVarPath := localBasePath + "/v1/framework/doctypes/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type FrameworkAPIDeleteFrameworkRolesByUserByRoleRequest struct {
-	ctx        context.Context
-	ApiService *FrameworkAPIService
-	user       string
-	role       string
-}
-
-func (r FrameworkAPIDeleteFrameworkRolesByUserByRoleRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteFrameworkRolesByUserByRoleExecute(r)
-}
-
-/*
-DeleteFrameworkRolesByUserByRole Removes one (user, role) grant in the caller's org.
-
-Removes one (user, role) grant in the caller's org. Manager-only.
-Answers 204; a grant that does not exist is not found.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param user User is the assignee whose grant is being revoked, from the path.
-	@param role Role is the role to revoke, from the path. A role name containing a space (\"System Manager\") arrives percent-encoded and is decoded before it is matched against the stored assignment.
-	@return FrameworkAPIDeleteFrameworkRolesByUserByRoleRequest
-*/
-func (a *FrameworkAPIService) DeleteFrameworkRolesByUserByRole(ctx context.Context, user string, role string) FrameworkAPIDeleteFrameworkRolesByUserByRoleRequest {
-	return FrameworkAPIDeleteFrameworkRolesByUserByRoleRequest{
-		ApiService: a,
-		ctx:        ctx,
-		user:       user,
-		role:       role,
-	}
-}
-
-// Execute executes the request
-func (a *FrameworkAPIService) DeleteFrameworkRolesByUserByRoleExecute(r FrameworkAPIDeleteFrameworkRolesByUserByRoleRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.DeleteFrameworkRolesByUserByRole")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/framework/roles/{user}/{role}"
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterValueToString(r.user, "user")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"role"+"}", url.PathEscape(parameterValueToString(r.role, "role")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -358,7 +261,7 @@ against its schema: a filter, sort or field name the DocType does not declare
 is refused rather than reaching the store.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param doctype DocType is the DocType to list, from the path.
+	@param doctype DocType is the DocType to list, by ADDRESS — \"module.name\", from the path.
 	@return FrameworkAPIGetFrameworkByDoctypeRequest
 */
 func (a *FrameworkAPIService) GetFrameworkByDoctype(ctx context.Context, doctype string) FrameworkAPIGetFrameworkByDoctypeRequest {
@@ -475,7 +378,7 @@ GetFrameworkByDoctypeByName Returns one document by name, with Password fields r
 Returns one document by name, with Password fields redacted.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param doctype DocType is the document's DocType, from the path.
+	@param doctype DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
 	@param name Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
 	@return FrameworkAPIGetFrameworkByDoctypeByNameRequest
 */
@@ -685,7 +588,7 @@ permissions and lifecycle flags. Scoped to the caller's org, so another
 tenant's DocType of the same name is simply not found.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name Name is the DocType's name, from the path. A name containing a space (\"Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
+	@param name Name is the DocType's ADDRESS — \"module.name\", e.g. \"kb.page\". A name containing a space (\"erp.Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
 	@return FrameworkAPIGetFrameworkDoctypesByNameRequest
 */
 func (a *FrameworkAPIService) GetFrameworkDoctypesByName(ctx context.Context, name string) FrameworkAPIGetFrameworkDoctypesByNameRequest {
@@ -981,108 +884,6 @@ func (a *FrameworkAPIService) GetFrameworkModulesByModuleExecute(r FrameworkAPIG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type FrameworkAPIGetFrameworkRolesRequest struct {
-	ctx        context.Context
-	ApiService *FrameworkAPIService
-}
-
-func (r FrameworkAPIGetFrameworkRolesRequest) Execute() (*RoleList, *http.Response, error) {
-	return r.ApiService.GetFrameworkRolesExecute(r)
-}
-
-/*
-GetFrameworkRoles Returns every (user, role) assignment in the caller's org.
-
-Returns every (user, role) assignment in the caller's org. Roles are
-what DocType permissions are written against, so this is the grant table the
-permission calculus resolves a member's rights from.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FrameworkAPIGetFrameworkRolesRequest
-*/
-func (a *FrameworkAPIService) GetFrameworkRoles(ctx context.Context) FrameworkAPIGetFrameworkRolesRequest {
-	return FrameworkAPIGetFrameworkRolesRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return RoleList
-func (a *FrameworkAPIService) GetFrameworkRolesExecute(r FrameworkAPIGetFrameworkRolesRequest) (*RoleList, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *RoleList
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.GetFrameworkRoles")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/framework/roles"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type FrameworkAPIGetFrameworkSummaryRequest struct {
 	ctx        context.Context
 	ApiService *FrameworkAPIService
@@ -1303,7 +1104,7 @@ its on_cancel hooks agree. Cancelling is terminal — a cancelled document
 cannot be re-submitted — but it CAN then be deleted.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param doctype DocType is the document's DocType, from the path.
+	@param doctype DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
 	@param name Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
 	@return FrameworkAPIPostFrameworkByDoctypeByNameCancelRequest
 */
@@ -1414,7 +1215,7 @@ deletes are refused until it is cancelled. Only a submittable DocType has this
 lifecycle; any other docstatus is an illegal transition.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param doctype DocType is the document's DocType, from the path.
+	@param doctype DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
 	@param name Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
 	@return FrameworkAPIPostFrameworkByDoctypeByNameSubmitRequest
 */
@@ -1690,119 +1491,6 @@ func (a *FrameworkAPIService) PostFrameworkModulesByModuleInstallExecute(r Frame
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type FrameworkAPIPostFrameworkRolesRequest struct {
-	ctx            context.Context
-	ApiService     *FrameworkAPIService
-	roleAssignment *RoleAssignment
-}
-
-func (r FrameworkAPIPostFrameworkRolesRequest) RoleAssignment(roleAssignment RoleAssignment) FrameworkAPIPostFrameworkRolesRequest {
-	r.roleAssignment = &roleAssignment
-	return r
-}
-
-func (r FrameworkAPIPostFrameworkRolesRequest) Execute() (*RoleAssignment, *http.Response, error) {
-	return r.ApiService.PostFrameworkRolesExecute(r)
-}
-
-/*
-PostFrameworkRoles Grants one user one role in the caller's org — how a member gains rights on a DocType, since permissions name roles and never users.
-
-Grants one user one role in the caller's org — how a member gains
-rights on a DocType, since permissions name roles and never users.
-Manager-only. Answers 201.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return FrameworkAPIPostFrameworkRolesRequest
-*/
-func (a *FrameworkAPIService) PostFrameworkRoles(ctx context.Context) FrameworkAPIPostFrameworkRolesRequest {
-	return FrameworkAPIPostFrameworkRolesRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return RoleAssignment
-func (a *FrameworkAPIService) PostFrameworkRolesExecute(r FrameworkAPIPostFrameworkRolesRequest) (*RoleAssignment, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *RoleAssignment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.PostFrameworkRoles")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/framework/roles"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.roleAssignment == nil {
-		return localVarReturnValue, nil, reportError("roleAssignment is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.roleAssignment
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

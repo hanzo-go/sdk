@@ -1431,7 +1431,7 @@ func (r AgentsAPIGetAgentsSessionsRequest) Project(project string) AgentsAPIGetA
 	return r
 }
 
-// Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it.
+// Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it.
 func (r AgentsAPIGetAgentsSessionsRequest) Room(room string) AgentsAPIGetAgentsSessionsRequest {
 	r.room = &room
 	return r
@@ -2922,6 +2922,96 @@ func (a *AgentsAPIService) PostAgentsChatExecute(r AgentsAPIPostAgentsChatReques
 	}
 
 	localVarPath := localBasePath + "/v1/agents/chat"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentsAPIPostAgentsChatConversationsRequest struct {
+	ctx        context.Context
+	ApiService *AgentsAPIService
+}
+
+func (r AgentsAPIPostAgentsChatConversationsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAgentsChatConversationsExecute(r)
+}
+
+/*
+PostAgentsChatConversations Record turns in a conversation
+
+Writes turns to the caller's thread store without running a completion, and answers the `conversationId` they were written under. An absent `conversationId` opens a new thread; supplying one appends to it.
+
+This is for a client that streams its own turn through /v1/chat/completions and still wants the conversation in its history — the round records what IT answers, and is otherwise the only writer. It takes the same store, the same per-org isolation and the same notion of a thread: what is recorded here reads back through the two GETs beside it and the round can continue it by id. A validated principal with a non-empty org is required; 403 without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AgentsAPIPostAgentsChatConversationsRequest
+*/
+func (a *AgentsAPIService) PostAgentsChatConversations(ctx context.Context) AgentsAPIPostAgentsChatConversationsRequest {
+	return AgentsAPIPostAgentsChatConversationsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AgentsAPIService) PostAgentsChatConversationsExecute(r AgentsAPIPostAgentsChatConversationsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentsAPIService.PostAgentsChatConversations")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agents/chat/conversations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

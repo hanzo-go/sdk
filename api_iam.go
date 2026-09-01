@@ -491,11 +491,11 @@ func (r IamAPICreateSessionRequest) Execute() (*IamSession, *http.Response, erro
 }
 
 /*
-CreateSession Records a sign-in.
+CreateSession Records a sign-in and answers with the cookie id it minted.
 
-Records a sign-in. Signing in again from another browser adds to the
-session rather than replacing it, so one person can be signed in from a laptop
-and a phone at once.
+Records a sign-in and answers with the cookie id it minted. Signing in
+again from another browser adds to the session rather than replacing it, so one
+person can be signed in from a laptop and a phone at once.
 
 Ask for an exclusive sign-in and the opposite holds: the new sign-in is the only
 one left and every other browser is signed out. That is the setting to use when
@@ -1749,6 +1749,111 @@ func (a *IamAPIService) DeleteIamServiceAccountsByNameExecute(r IamAPIDeleteIamS
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type IamAPIDeleteIamTeamsByNameRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+	name       string
+}
+
+func (r IamAPIDeleteIamTeamsByNameRequest) Execute() (*IamTeamsDeleteOutput, *http.Response, error) {
+	return r.ApiService.DeleteIamTeamsByNameExecute(r)
+}
+
+/*
+DeleteIamTeamsByName Removes a team.
+
+Removes a team. Everyone in it loses the access it carried; their
+accounts, and any other team they are in, are untouched.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return IamAPIDeleteIamTeamsByNameRequest
+*/
+func (a *IamAPIService) DeleteIamTeamsByName(ctx context.Context, name string) IamAPIDeleteIamTeamsByNameRequest {
+	return IamAPIDeleteIamTeamsByNameRequest{
+		ApiService: a,
+		ctx:        ctx,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamTeamsDeleteOutput
+func (a *IamAPIService) DeleteIamTeamsByNameExecute(r IamAPIDeleteIamTeamsByNameRequest) (*IamTeamsDeleteOutput, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamTeamsDeleteOutput
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.DeleteIamTeamsByName")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/teams/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type IamAPIDeleteIamUsersByOwnerByNameRequest struct {
@@ -3983,10 +4088,14 @@ func (r IamAPIGetIamKeysRequest) Execute() (*IamListResponse, *http.Response, er
 }
 
 /*
-GetIamKeys Returns your organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
+GetIamKeys Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
 
-Returns your organization's API keys, newest first — what each is called,
+Returns an organization's API keys, newest first — what each is called,
 what it may reach, and its publishable half. Secret halves are never listed.
+
+Which organization comes from your credentials, not from the request: you read
+your own and no one else's. The capability that admits a confidential client to
+this collection does not itself name a tenant, so the tenant is decided here.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIGetIamKeysRequest
@@ -4491,7 +4600,7 @@ person can act in, or who can act in one organization.
 
 Both are org-scoped: a non-SuperAdmin may ask about ITS OWN org's roster, or
 about a user whose home org is its own, and nothing else. The bound comes from
-the verified credential via authz.Scope, so a request parameter can never
+the verified credential via principal.Scope, so a request parameter can never
 widen it — a membership row names who may act and spend in an org, so a
 cross-tenant read is a customer roster leak.
 
@@ -6712,6 +6821,214 @@ func (a *IamAPIService) GetIamServiceAccountsExecute(r IamAPIGetIamServiceAccoun
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type IamAPIGetIamTeamsRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+}
+
+func (r IamAPIGetIamTeamsRequest) Execute() (*IamTeamsListOutput, *http.Response, error) {
+	return r.ApiService.GetIamTeamsExecute(r)
+}
+
+/*
+GetIamTeams Returns your organization's teams, newest first — each a named set of people that roles and permissions are granted to.
+
+Returns your organization's teams, newest first — each a named set of
+people that roles and permissions are granted to.
+
+You see your own organization's teams and no one else's; which organization
+that is comes from your credentials, not from the request.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIGetIamTeamsRequest
+*/
+func (a *IamAPIService) GetIamTeams(ctx context.Context) IamAPIGetIamTeamsRequest {
+	return IamAPIGetIamTeamsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamTeamsListOutput
+func (a *IamAPIService) GetIamTeamsExecute(r IamAPIGetIamTeamsRequest) (*IamTeamsListOutput, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamTeamsListOutput
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamTeams")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/teams"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IamAPIGetIamTeamsByNameRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+	name       string
+}
+
+func (r IamAPIGetIamTeamsByNameRequest) Execute() (*IamTeam, *http.Response, error) {
+	return r.ApiService.GetIamTeamsByNameExecute(r)
+}
+
+/*
+GetIamTeamsByName Returns one team: who is in it.
+
+Returns one team: who is in it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return IamAPIGetIamTeamsByNameRequest
+*/
+func (a *IamAPIService) GetIamTeamsByName(ctx context.Context, name string) IamAPIGetIamTeamsByNameRequest {
+	return IamAPIGetIamTeamsByNameRequest{
+		ApiService: a,
+		ctx:        ctx,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamTeam
+func (a *IamAPIService) GetIamTeamsByNameExecute(r IamAPIGetIamTeamsByNameRequest) (*IamTeam, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamTeam
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamTeamsByName")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/teams/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type IamAPIGetIamUsersRequest struct {
 	ctx        context.Context
 	ApiService *IamAPIService
@@ -6747,11 +7064,15 @@ func (r IamAPIGetIamUsersRequest) Execute() (*IamUsersListOutput, *http.Response
 }
 
 /*
-GetIamUsers Returns a page of the people in your organization, with the total so you can page through the rest.
+GetIamUsers Returns a page of the people in an organization, with the total so you can page through the rest.
 
-Returns a page of the people in your organization, with the total so you
+Returns a page of the people in an organization, with the total so you
 can page through the rest. Passwords, API secrets and MFA material are stripped
 from every entry.
+
+Which organization comes from your credentials, not from the request: you read
+your own and no one else's, and a credential whose scope spans tenants reads
+the tenant it names — or, naming none, every one of them.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIGetIamUsersRequest
@@ -6784,11 +7105,10 @@ func (a *IamAPIService) GetIamUsersExecute(r IamAPIGetIamUsersRequest) (*IamUser
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.owner == nil {
-		return localVarReturnValue, nil, reportError("owner is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "owner", r.owner, "form", "")
+	if r.owner != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "owner", r.owner, "form", "")
+	}
 	if r.email != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "email", r.email, "form", "")
 	}
@@ -8694,11 +9014,16 @@ func (r IamAPIListSessionsRequest) Execute() (*IamListSessionsOut, *http.Respons
 }
 
 /*
-ListSessions Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+ListSessions Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
 
-Returns who is currently signed in to your organization, newest first, and
+Returns who is currently signed in to an organization, newest first, and
 can be narrowed to one person or one application. It is what you read before
 signing someone out.
+
+Which organization comes from your credentials, not from the request: you read
+your own and no one else's. A session row names a live account and the
+applications it is signed in to, so the tenant is decided here rather than
+taken from the query.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIListSessionsRequest
@@ -8731,11 +9056,10 @@ func (a *IamAPIService) ListSessionsExecute(r IamAPIListSessionsRequest) (*IamLi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.owner == nil {
-		return localVarReturnValue, nil, reportError("owner is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "owner", r.owner, "form", "")
+	if r.owner != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "owner", r.owner, "form", "")
+	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	}
@@ -12780,6 +13104,120 @@ func (a *IamAPIService) PostIamSignupExecute(r IamAPIPostIamSignupRequest) (*htt
 	return localVarHTTPResponse, nil
 }
 
+type IamAPIPostIamTeamsRequest struct {
+	ctx           context.Context
+	ApiService    *IamAPIService
+	iamTeamsInput *IamTeamsInput
+}
+
+func (r IamAPIPostIamTeamsRequest) IamTeamsInput(iamTeamsInput IamTeamsInput) IamAPIPostIamTeamsRequest {
+	r.iamTeamsInput = &iamTeamsInput
+	return r
+}
+
+func (r IamAPIPostIamTeamsRequest) Execute() (*IamTeam, *http.Response, error) {
+	return r.ApiService.PostIamTeamsExecute(r)
+}
+
+/*
+PostIamTeams Makes a team — a named set of people that roles and permissions grant to.
+
+Makes a team — a named set of people that roles and permissions grant
+to. Granting to a team rather than to each person keeps access correct as
+people come and go: add someone and they inherit what the team can do. A name
+already used in your organization is refused.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIPostIamTeamsRequest
+*/
+func (a *IamAPIService) PostIamTeams(ctx context.Context) IamAPIPostIamTeamsRequest {
+	return IamAPIPostIamTeamsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamTeam
+func (a *IamAPIService) PostIamTeamsExecute(r IamAPIPostIamTeamsRequest) (*IamTeam, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamTeam
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PostIamTeams")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/teams"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iamTeamsInput == nil {
+		return localVarReturnValue, nil, reportError("iamTeamsInput is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.iamTeamsInput
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type IamAPIPostIamTokensIssueRequest struct {
 	ctx        context.Context
 	ApiService *IamAPIService
@@ -15159,6 +15597,123 @@ func (a *IamAPIService) PutIamScimV2UsersByOwnerByNameExecute(r IamAPIPutIamScim
 	return localVarHTTPResponse, nil
 }
 
+type IamAPIPutIamTeamsByNameRequest struct {
+	ctx           context.Context
+	ApiService    *IamAPIService
+	name          string
+	iamTeamsInput *IamTeamsInput
+}
+
+func (r IamAPIPutIamTeamsByNameRequest) IamTeamsInput(iamTeamsInput IamTeamsInput) IamAPIPutIamTeamsByNameRequest {
+	r.iamTeamsInput = &iamTeamsInput
+	return r
+}
+
+func (r IamAPIPutIamTeamsByNameRequest) Execute() (*IamTeam, *http.Response, error) {
+	return r.ApiService.PutIamTeamsByNameExecute(r)
+}
+
+/*
+PutIamTeamsByName Changes who is in a team.
+
+Changes who is in a team. Access changes for
+everyone in it as soon as the write lands. The name and the created stamp do
+not change.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
+	@return IamAPIPutIamTeamsByNameRequest
+*/
+func (a *IamAPIService) PutIamTeamsByName(ctx context.Context, name string) IamAPIPutIamTeamsByNameRequest {
+	return IamAPIPutIamTeamsByNameRequest{
+		ApiService: a,
+		ctx:        ctx,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamTeam
+func (a *IamAPIService) PutIamTeamsByNameExecute(r IamAPIPutIamTeamsByNameRequest) (*IamTeam, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamTeam
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PutIamTeamsByName")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/teams/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iamTeamsInput == nil {
+		return localVarReturnValue, nil, reportError("iamTeamsInput is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.iamTeamsInput
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type IamAPIPutIamUsersByOwnerByNameRequest struct {
 	ctx            context.Context
 	ApiService     *IamAPIService
@@ -15528,6 +16083,130 @@ func (a *IamAPIService) SetOrganizationAvatarExecute(r IamAPISetOrganizationAvat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type IamAPISetOrganizationProfileRequest struct {
+	ctx                context.Context
+	ApiService         *IamAPIService
+	iamSetProfileInput *IamSetProfileInput
+}
+
+func (r IamAPISetOrganizationProfileRequest) IamSetProfileInput(iamSetProfileInput IamSetProfileInput) IamAPISetOrganizationProfileRequest {
+	r.iamSetProfileInput = &iamSetProfileInput
+	return r
+}
+
+func (r IamAPISetOrganizationProfileRequest) Execute() (*IamOrganization, *http.Response, error) {
+	return r.ApiService.SetOrganizationProfileExecute(r)
+}
+
+/*
+SetOrganizationProfile Changes how an organization reads: its display name, its website and its favicon.
+
+Changes how an organization reads: its display name, its website
+and its favicon.
+
+IT EXISTS FOR THE REASON SetAvatar DOES, and the reason is worth stating
+because the obvious alternative is a trap. Update REPLACES the whole record,
+so a caller that wants to change one field has to send every other field
+back — and a record read back first arrives MASKED, so the read half of that
+read-modify-write hands you "***" for the master password and the salt, and
+the write half stores it. Renaming an organization through Update therefore
+costs it its credential settings; sending only the new name costs it
+everything else. Neither is a rename.
+
+So this writes the fields it names and touches nothing else. A nil pointer is
+not sent and not changed; an empty string is sent and clears the field.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPISetOrganizationProfileRequest
+*/
+func (a *IamAPIService) SetOrganizationProfile(ctx context.Context) IamAPISetOrganizationProfileRequest {
+	return IamAPISetOrganizationProfileRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamOrganization
+func (a *IamAPIService) SetOrganizationProfileExecute(r IamAPISetOrganizationProfileRequest) (*IamOrganization, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamOrganization
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.SetOrganizationProfile")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/organizations/profile"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iamSetProfileInput == nil {
+		return localVarReturnValue, nil, reportError("iamSetProfileInput is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.iamSetProfileInput
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type IamAPIUpdateOrganizationRequest struct {
 	ctx                        context.Context
 	ApiService                 *IamAPIService
@@ -15792,11 +16471,11 @@ func (r IamAPIUpdateSessionRequest) Execute() (*IamSession, *http.Response, erro
 }
 
 /*
-UpdateSession Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+UpdateSession Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
 
-Replaces the set of browsers a session covers — signing out the ones you
-leave off while the session itself stays live. A session that does not exist is
-reported as missing rather than created.
+Names the browsers a session keeps — signing out the ones you leave off
+while the session itself stays live. A session that does not exist is reported
+as missing rather than created.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param owner

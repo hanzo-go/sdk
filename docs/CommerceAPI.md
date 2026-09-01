@@ -79,7 +79,6 @@ Method | HTTP request | Description
 [**GetCommerceWatchlistByWatchlistid**](CommerceAPI.md#GetCommerceWatchlistByWatchlistid) | **Get** /v1/commerce/watchlist/{watchlistid} | Fetch one watchlist
 [**GetCommerceWebhook**](CommerceAPI.md#GetCommerceWebhook) | **Get** /v1/commerce/webhook/ | List your org&#39;s webhooks, as a page
 [**GetCommerceWebhookByWebhookid**](CommerceAPI.md#GetCommerceWebhookByWebhookid) | **Get** /v1/commerce/webhook/{webhookid} | Fetch one webhook
-[**GetPayment**](CommerceAPI.md#GetPayment) | **Get** /v1/commerce/payments/{id} | Read one settled payment by its id
 [**OpenCart**](CommerceAPI.md#OpenCart) | **Post** /v1/commerce/cart | Open a cart for a shopper to fill
 [**PatchCommerceCollectionByCollectionid**](CommerceAPI.md#PatchCommerceCollectionByCollectionid) | **Patch** /v1/commerce/collection/{collectionid} | Change part of a collection
 [**PatchCommerceDisclosureByDisclosureid**](CommerceAPI.md#PatchCommerceDisclosureByDisclosureid) | **Patch** /v1/commerce/disclosure/{disclosureid} | Change part of a disclosure
@@ -184,7 +183,6 @@ Method | HTTP request | Description
 [**PutCommerceWatchlistByWatchlistid**](CommerceAPI.md#PutCommerceWatchlistByWatchlistid) | **Put** /v1/commerce/watchlist/{watchlistid} | Replace a watchlist outright
 [**PutCommerceWebhookByWebhookid**](CommerceAPI.md#PutCommerceWebhookByWebhookid) | **Put** /v1/commerce/webhook/{webhookid} | Replace a webhook outright
 [**SetCartItem**](CommerceAPI.md#SetCartItem) | **Post** /v1/commerce/cart/{id}/item | Set one item&#39;s quantity in a cart; zero removes it
-[**TakePayment**](CommerceAPI.md#TakePayment) | **Post** /v1/commerce/payments | Take a card payment and credit the org&#39;s balance
 
 
 
@@ -5045,76 +5043,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetPayment
-
-> PaymentRecord GetPayment(ctx, id).Execute()
-
-Read one settled payment by its id
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the ledger transaction id a payment returned.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CommerceAPI.GetPayment(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetPayment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetPayment`: PaymentRecord
-	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.GetPayment`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the ledger transaction id a payment returned. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetPaymentRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**PaymentRecord**](PaymentRecord.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11973,72 +11901,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Cart**](Cart.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## TakePayment
-
-> PaymentOut TakePayment(ctx).PaymentIn(paymentIn).Execute()
-
-Take a card payment and credit the org's balance
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	paymentIn := *openapiclient.NewPaymentIn() // PaymentIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CommerceAPI.TakePayment(context.Background()).PaymentIn(paymentIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.TakePayment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `TakePayment`: PaymentOut
-	fmt.Fprintf(os.Stdout, "Response from `CommerceAPI.TakePayment`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiTakePaymentRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **paymentIn** | [**PaymentIn**](PaymentIn.md) |  | 
-
-### Return type
-
-[**PaymentOut**](PaymentOut.md)
 
 ### Authorization
 

@@ -83,7 +83,6 @@ Method | HTTP request | Description
 [**GetAiMessages**](AiAPI.md#GetAiMessages) | **Get** /v1/ai/messages | List messages
 [**GetAiMessagesByOwnerByName**](AiAPI.md#GetAiMessagesByOwnerByName) | **Get** /v1/ai/messages/{owner}/{name} | Retrieve a message
 [**GetAiMessagesByOwnerByNameAnswer**](AiAPI.md#GetAiMessagesByOwnerByNameAnswer) | **Get** /v1/ai/messages/{owner}/{name}/answer | Answer (message)
-[**GetAiMessagesGlobal**](AiAPI.md#GetAiMessagesGlobal) | **Get** /v1/ai/messages/global | List messages across tenants
 [**GetAiNodes**](AiAPI.md#GetAiNodes) | **Get** /v1/ai/nodes | List nodes
 [**GetAiNodesByOwnerByName**](AiAPI.md#GetAiNodesByOwnerByName) | **Get** /v1/ai/nodes/{owner}/{name} | Retrieve a node
 [**GetAiNodesByOwnerByNameTunnel**](AiAPI.md#GetAiNodesByOwnerByNameTunnel) | **Get** /v1/ai/nodes/{owner}/{name}/tunnel | Tunnel (node)
@@ -5506,67 +5505,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Envelope**](Envelope.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetAiMessagesGlobal
-
-> GetAiMessages200Response GetAiMessagesGlobal(ctx).Execute()
-
-List messages across tenants
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.GetAiMessagesGlobal(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.GetAiMessagesGlobal``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetAiMessagesGlobal`: GetAiMessages200Response
-	fmt.Fprintf(os.Stdout, "Response from `AiAPI.GetAiMessagesGlobal`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAiMessagesGlobalRequest struct via the builder pattern
-
-
-### Return type
-
-[**GetAiMessages200Response**](GetAiMessages200Response.md)
 
 ### Authorization
 

@@ -22,7 +22,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -30,24 +29,14 @@ import (
 )
 
 func main() {
-	resp, err := hanzoai.NewClient("").AiAPI.GetModels(context.Background()).Execute()
+	catalogue, resp, err := hanzoai.NewClient("").AiAPI.GetModels(context.Background()).Execute()
 	if err != nil {
 		log.Fatalf("models: %v", err)
 	}
 	defer resp.Body.Close()
 
-	var catalogue struct {
-		Data []struct {
-			ID      string `json:"id"`
-			OwnedBy string `json:"owned_by"`
-		} `json:"data"`
-	}
-	if err := json.NewDecoder(resp.Body).Decode(&catalogue); err != nil {
-		log.Fatalf("decode: %v", err)
-	}
-
 	fmt.Printf("%s  %d model(s)\n", resp.Status, len(catalogue.Data))
 	for _, m := range catalogue.Data[:min(len(catalogue.Data), 8)] {
-		fmt.Printf("  %-28s %s\n", m.ID, m.OwnedBy)
+		fmt.Printf("  %-28s %s\n", m.GetId(), m.GetOwnedBy())
 	}
 }

@@ -228,7 +228,7 @@ import (
 )
 
 func main() {
-	doctype := "SocialPost" // string | DocType is the content type to act on, from the path.
+	doctype := "marketing.SocialPost" // string | DocType is the content type to act on, from the path.
 	name := "spring-teaser" // string | Name is the document to act on, from the path.
 	transitionIn := *openapiclient.NewTransitionIn() // TransitionIn | 
 

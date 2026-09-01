@@ -192,7 +192,7 @@ func main() {
 	status := "status_example" // string | Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
 	kind := "kind_example" // string | Kind keeps one shape: issue, pr, epic. (optional)
 	repo := "repo_example" // string | Repo keeps issues bound to one git repository. (optional)
-	room := "room_example" // string | Room keeps issues bound to one collaboration room, spelled \"<workspace>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
+	room := "room_example" // string | Room keeps issues bound to one collaboration room, spelled \"<space>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
 	source := "source_example" // string | Source keeps one origin: team, git, crm, helpdesk, cms, agent. \"git\" is how you ask for the mirrored GitHub issues specifically. (optional)
 	assignee := "assignee_example" // string | Assignee keeps issues held by one person. Pass \"me\" for yourself. (optional)
 	limit := int32(56) // int32 | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
  **status** | **string** | Status keeps one board column: backlog, todo, in_progress, done, canceled. | 
  **kind** | **string** | Kind keeps one shape: issue, pr, epic. | 
  **repo** | **string** | Repo keeps issues bound to one git repository. | 
- **room** | **string** | Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. | 
+ **room** | **string** | Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. | 
  **source** | **string** | Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. | 
  **assignee** | **string** | Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. | 
  **limit** | **int32** | Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. | 
@@ -555,7 +555,7 @@ import (
 )
 
 func main() {
-	room := "room_example" // string | Room is the room, spelled \"<workspace>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+	room := "room_example" // string | Room is the room, spelled \"<space>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -575,7 +575,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**room** | **string** | Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. | 
+**room** | **string** | Room is the room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. | 
 
 ### Other Parameters
 

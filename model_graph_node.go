@@ -27,7 +27,7 @@ type GraphNode struct {
 	Project *string `json:"project,omitempty"`
 	// display label
 	Title *string `json:"title,omitempty"`
-	// kb-page | kb-memory | kb-source | kb-connector | unresolved
+	// kb.page | kb.memory | kb.source | kb.connector | unresolved
 	Type *string `json:"type,omitempty"`
 }
 

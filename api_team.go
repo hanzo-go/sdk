@@ -132,30 +132,30 @@ func (a *TeamAPIService) DeleteTeamAccountCookieExecute(r TeamAPIDeleteTeamAccou
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type TeamAPIDeleteTeamFilesByWorkspaceByFilenameRequest struct {
+type TeamAPIDeleteTeamFilesBySpaceByFilenameRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
-	workspace  string
+	space      string
 	filename   string
 	file       *string
 }
 
 // File is the blob id, and wins over the path segment when both are present.
-func (r TeamAPIDeleteTeamFilesByWorkspaceByFilenameRequest) File(file string) TeamAPIDeleteTeamFilesByWorkspaceByFilenameRequest {
+func (r TeamAPIDeleteTeamFilesBySpaceByFilenameRequest) File(file string) TeamAPIDeleteTeamFilesBySpaceByFilenameRequest {
 	r.file = &file
 	return r
 }
 
-func (r TeamAPIDeleteTeamFilesByWorkspaceByFilenameRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteTeamFilesByWorkspaceByFilenameExecute(r)
+func (r TeamAPIDeleteTeamFilesBySpaceByFilenameRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteTeamFilesBySpaceByFilenameExecute(r)
 }
 
 /*
-DeleteTeamFilesByWorkspaceByFilename Removes one blob from a workspace's file store.
+DeleteTeamFilesBySpaceByFilename Removes one blob from a space's file store.
 
-Removes one blob from a workspace's file store. The caller must
-hold a verified session AND be a member of the workspace; anything else — an
-unknown workspace, another tenant's workspace, a workspace the caller is not
+Removes one blob from a space's file store. The caller must
+hold a verified session AND be a member of the space; anything else — an
+unknown space, another tenant's space, a space the caller is not
 in — answers the same 404, so a probe learns nothing about what exists.
 
 It is IDEMPOTENT: deleting a present or an absent blob both answer 204, so a
@@ -165,34 +165,34 @@ storage backend that is unavailable fails closed with 502 rather than lying
 about success.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param workspace Workspace is the workspace uuid the blob belongs to, from the path.
+	@param space Space is the space uuid the blob belongs to, from the path.
 	@param filename Filename is the last path segment, which the front sets to the blob id when it sends no explicit `file`.
-	@return TeamAPIDeleteTeamFilesByWorkspaceByFilenameRequest
+	@return TeamAPIDeleteTeamFilesBySpaceByFilenameRequest
 */
-func (a *TeamAPIService) DeleteTeamFilesByWorkspaceByFilename(ctx context.Context, workspace string, filename string) TeamAPIDeleteTeamFilesByWorkspaceByFilenameRequest {
-	return TeamAPIDeleteTeamFilesByWorkspaceByFilenameRequest{
+func (a *TeamAPIService) DeleteTeamFilesBySpaceByFilename(ctx context.Context, space string, filename string) TeamAPIDeleteTeamFilesBySpaceByFilenameRequest {
+	return TeamAPIDeleteTeamFilesBySpaceByFilenameRequest{
 		ApiService: a,
 		ctx:        ctx,
-		workspace:  workspace,
+		space:      space,
 		filename:   filename,
 	}
 }
 
 // Execute executes the request
-func (a *TeamAPIService) DeleteTeamFilesByWorkspaceByFilenameExecute(r TeamAPIDeleteTeamFilesByWorkspaceByFilenameRequest) (*http.Response, error) {
+func (a *TeamAPIService) DeleteTeamFilesBySpaceByFilenameExecute(r TeamAPIDeleteTeamFilesBySpaceByFilenameRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamFilesByWorkspaceByFilename")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamFilesBySpaceByFilename")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/team/files/{workspace}/{filename}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath := localBasePath + "/v1/team/files/{space}/{filename}"
+	localVarPath = strings.Replace(localVarPath, "{"+"space"+"}", url.PathEscape(parameterValueToString(r.space, "space")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"filename"+"}", url.PathEscape(parameterValueToString(r.filename, "filename")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -360,7 +360,7 @@ COMPLETES the OAuth hop: hanzo.id redirects the browser here with ?code and ?sta
 
 THE STATE IS CHECKED FIRST, before the code is even looked at: the flow cookie is read and cleared one-shot, and a callback whose ?state does not equal the nonce it held is bounced with error=state_mismatch and NEVER exchanged. That is what makes a forged or replayed callback inert. Only then is the code exchanged server-side — team is a confidential client with a client_secret, so there is no PKCE and the code never passes through the browser's JS.
 
-The tenant is derived from the IAM access token VERIFIED RS256 against the JWKS, the same trust anchor the identity boundary uses; a token whose owner claim is empty fails closed with no login at all. Every org that token proves gets a workspace ensured, so a member of two orgs is a counted seat in both. The IAM access token is also parked in an HttpOnly cookie for the same-origin agents proxy — page JS never reads it.
+The tenant is derived from the IAM access token VERIFIED RS256 against the JWKS, the same trust anchor the identity boundary uses; a token whose owner claim is empty fails closed with no login at all. Every org that token proves gets a space ensured, so a member of two orgs is a counted seat in both. The IAM access token is also parked in an HttpOnly cookie for the same-origin agents proxy — page JS never reads it.
 
 EVERY failure is a redirect, not a status: a denied consent, a missing code, a failed exchange, an unreadable userinfo, an unverifiable org and a token-mint failure each bounce to the login page with an ?error code naming the step.
 
@@ -766,10 +766,10 @@ func (r TeamAPIGetTeamBotsRequest) Execute() (*BotRoster, *http.Response, error)
 }
 
 /*
-GetTeamBots Returns the caller org's bot members — the org's agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+GetTeamBots Returns the caller org's bot members — the org's agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
 
 Returns the caller org's bot members — the org's agents projected as
-the workspace Employees they become, each with the member account uuid and
+the space Employees they become, each with the member account uuid and
 Person reference the roster addresses it by. An agents subsystem that is not
 mounted answers an empty list, never an error.
 
@@ -875,9 +875,9 @@ Upgrades to the hocuspocus WebSocket the Team editor syncs its Y.js documents ov
 
 BOTH LANES SHARE ONE ROOT. The client derives them from one configured URL — this socket at its root, the markup-snapshot RPC one segment in — so pointing the editor at this service is one value, and the two lanes cannot drift apart.
 
-AUTH IS IN-BAND, PER DOCUMENT, NOT ON THE UPGRADE. The handshake gates only on browser Origin (403 outside the team surfaces; no Origin at all is admitted, which is what a non-browser sends), and then the first frame for a document must be an Auth message carrying the same session or workspace token every other team route verifies — a browser WebSocket cannot set an Authorization header, which is why the token rides inside the protocol. Anything else on an unauthenticated document is answered with one permission denial and nothing further.
+AUTH IS IN-BAND, PER DOCUMENT, NOT ON THE UPGRADE. The handshake gates only on browser Origin (403 outside the team surfaces; no Origin at all is admitted, which is what a non-browser sends), and then the first frame for a document must be an Auth message carrying the same session or space token every other team route verifies — a browser WebSocket cannot set an Authorization header, which is why the token rides inside the protocol. Anything else on an unauthenticated document is answered with one permission denial and nothing further.
 
-Every document is authorized on its own: the document's workspace must be the token's workspace when the token pins one, and the caller must be a member of it. A mismatch, an unknown workspace and a non-member deny alike with "document not found". Rooms are keyed by org and workspace and the persisted log's key embeds both, so a foreign document id can neither join a room nor read a blob.
+Every document is authorized on its own: the document's space must be the token's space when the token pins one, and the caller must be a member of it. A mismatch, an unknown space and a non-member deny alike with "document not found". Rooms are keyed by org and space and the persisted log's key embeds both, so a foreign document id can neither join a room nor read a blob.
 
 The server pings every twenty seconds and drops a socket silent for sixty, so a backgrounded tab — whose JS timers are throttled but whose network stack still auto-pongs — stays connected instead of dying into a reconnect loop.
 
@@ -955,38 +955,38 @@ func (a *TeamAPIService) GetTeamCollaboratorExecute(r TeamAPIGetTeamCollaborator
 	return localVarHTTPResponse, nil
 }
 
-type TeamAPIGetTeamFilesByWorkspaceByFilenameRequest struct {
+type TeamAPIGetTeamFilesBySpaceByFilenameRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
-	workspace  string
+	space      string
 	filename   string
 }
 
-func (r TeamAPIGetTeamFilesByWorkspaceByFilenameRequest) Execute() (*os.File, *http.Response, error) {
-	return r.ApiService.GetTeamFilesByWorkspaceByFilenameExecute(r)
+func (r TeamAPIGetTeamFilesBySpaceByFilenameRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.GetTeamFilesBySpaceByFilenameExecute(r)
 }
 
 /*
-GetTeamFilesByWorkspaceByFilename Download a workspace file
+GetTeamFilesBySpaceByFilename Download a space file
 
-Streams one blob's raw BYTES back — this is the read side of the workspace file store, not a JSON envelope around it.
+Streams one blob's raw BYTES back — this is the read side of the space file store, not a JSON envelope around it.
 
 THE BLOB IS NAMED BY THE `file` QUERY PARAMETER, NOT BY :filename. The path segment is only the name a browser saves the download under; a request without ?file= is a 400 no matter what the path says.
 
 The Content-Type is derived from the STORED BYTES, never from the name: only png, jpeg, gif and webp, recognized by their magic bytes, are served inline under their true type, and everything else is served inert as application/octet-stream with an attachment disposition. Every response carries nosniff, so a file uploaded under an .svg or .html name cannot be talked into executing in a viewer's origin. Blobs are immutable, so a hit caches privately for a year.
 
-Same gate as the upload: verified token, membership of the workspace. A genuine miss, another tenant's workspace, a workspace the caller is not in, and a blob id belonging to a different workspace are ONE answer — 404 — because the physical key is org- and workspace-scoped and a foreign id is simply a key that does not exist. An unavailable backend is a 502, never an empty 200.
+Same gate as the upload: verified token, membership of the space. A genuine miss, another tenant's space, a space the caller is not in, and a blob id belonging to a different space are ONE answer — 404 — because the physical key is org- and space-scoped and a foreign id is simply a key that does not exist. An unavailable backend is a 502, never an empty 200.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param workspace
+	@param space
 	@param filename
-	@return TeamAPIGetTeamFilesByWorkspaceByFilenameRequest
+	@return TeamAPIGetTeamFilesBySpaceByFilenameRequest
 */
-func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilename(ctx context.Context, workspace string, filename string) TeamAPIGetTeamFilesByWorkspaceByFilenameRequest {
-	return TeamAPIGetTeamFilesByWorkspaceByFilenameRequest{
+func (a *TeamAPIService) GetTeamFilesBySpaceByFilename(ctx context.Context, space string, filename string) TeamAPIGetTeamFilesBySpaceByFilenameRequest {
+	return TeamAPIGetTeamFilesBySpaceByFilenameRequest{
 		ApiService: a,
 		ctx:        ctx,
-		workspace:  workspace,
+		space:      space,
 		filename:   filename,
 	}
 }
@@ -994,7 +994,7 @@ func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilename(ctx context.Context, 
 // Execute executes the request
 //
 //	@return *os.File
-func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilenameExecute(r TeamAPIGetTeamFilesByWorkspaceByFilenameRequest) (*os.File, *http.Response, error) {
+func (a *TeamAPIService) GetTeamFilesBySpaceByFilenameExecute(r TeamAPIGetTeamFilesBySpaceByFilenameRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1002,13 +1002,13 @@ func (a *TeamAPIService) GetTeamFilesByWorkspaceByFilenameExecute(r TeamAPIGetTe
 		localVarReturnValue *os.File
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamFilesByWorkspaceByFilename")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamFilesBySpaceByFilename")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/team/files/{workspace}/{filename}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath := localBasePath + "/v1/team/files/{space}/{filename}"
+	localVarPath = strings.Replace(localVarPath, "{"+"space"+"}", url.PathEscape(parameterValueToString(r.space, "space")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"filename"+"}", url.PathEscape(parameterValueToString(r.filename, "filename")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1079,9 +1079,9 @@ func (r TeamAPIGetTeamRoomsRequest) Execute() (*TeamRooms, *http.Response, error
 }
 
 /*
-GetTeamRooms Returns every room of the caller's org, across the workspaces it owns, with the work facet each carries.
+GetTeamRooms Returns every room of the caller's org, across the spaces it owns, with the work facet each carries.
 
-Returns every room of the caller's org, across the workspaces
+Returns every room of the caller's org, across the spaces
 it owns, with the work facet each carries.
 
 It reads the SAME Chunter documents the transactor serves, so a room opened
@@ -1175,6 +1175,124 @@ func (a *TeamAPIService) GetTeamRoomsExecute(r TeamAPIGetTeamRoomsRequest) (*Tea
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type TeamAPIGetTeamRoomsByIdMessagesRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order.
+func (r TeamAPIGetTeamRoomsByIdMessagesRequest) Space(space string) TeamAPIGetTeamRoomsByIdMessagesRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIGetTeamRoomsByIdMessagesRequest) Execute() (*TeamMessages, *http.Response, error) {
+	return r.ApiService.GetTeamRoomsByIdMessagesExecute(r)
+}
+
+/*
+GetTeamRoomsByIdMessages Returns the tail of one room's conversation, oldest first.
+
+Returns the tail of one room's conversation, oldest first.
+
+It reads the SAME Chunter documents the transactor serves, so a message typed
+in the Team client is here with no sync. A room the caller's org does not own
+answers 404 rather than 403, so a probe learns nothing about what exists.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the room, from the path. The URL is the authority.
+	@return TeamAPIGetTeamRoomsByIdMessagesRequest
+*/
+func (a *TeamAPIService) GetTeamRoomsByIdMessages(ctx context.Context, id string) TeamAPIGetTeamRoomsByIdMessagesRequest {
+	return TeamAPIGetTeamRoomsByIdMessagesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamMessages
+func (a *TeamAPIService) GetTeamRoomsByIdMessagesExecute(r TeamAPIGetTeamRoomsByIdMessagesRequest) (*TeamMessages, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamMessages
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamRoomsByIdMessages")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/rooms/{id}/messages"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type TeamAPIGetTeamTransactorByTokenRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
@@ -1186,15 +1304,15 @@ func (r TeamAPIGetTeamTransactorByTokenRequest) Execute() (*http.Response, error
 }
 
 /*
-GetTeamTransactorByToken Open the workspace data-plane socket
+GetTeamTransactorByToken Open the space data-plane socket
 
-Upgrades to the WebSocket the Team client runs an entire workspace over: every frame is a ZAP envelope wrapping one JSON-RPC message — findAll/findOne reads against the workspace's documents, tx writes that broadcast to the other live sessions, hello negotiating JSON rather than msgpack. The response is a protocol upgrade, so there is no body to read.
+Upgrades to the WebSocket the Team client runs an entire space over: every frame is a ZAP envelope wrapping one JSON-RPC message — findAll/findOne reads against the space's documents, tx writes that broadcast to the other live sessions, hello negotiating JSON rather than msgpack. The response is a protocol upgrade, so there is no body to read.
 
-THE PATH SEGMENT IS THE CREDENTIAL. It is the workspace token selectWorkspace minted — bearer-equivalent, and sitting in a URL that proxies and access logs record, which is exactly why it expires in twelve hours and is re-minted on demand rather than being long-lived like the session token. It is decoded and verified (signature and expiry) BEFORE the upgrade, so a bad one is a 401 and never a socket that is accepted and then dropped, and it must carry both an account and a workspace claim. Nothing ambient authorizes this socket: a WebSocket is exempt from CORS, so a cookie-borne credential would make the Origin check the only access control on the whole data plane.
+THE PATH SEGMENT IS THE CREDENTIAL. It is the space token selectWorkspace minted — bearer-equivalent, and sitting in a URL that proxies and access logs record, which is exactly why it expires in twelve hours and is re-minted on demand rather than being long-lived like the session token. It is decoded and verified (signature and expiry) BEFORE the upgrade, so a bad one is a 401 and never a socket that is accepted and then dropped, and it must carry both an account and a space claim. Nothing ambient authorizes this socket: a WebSocket is exempt from CORS, so a cookie-borne credential would make the Origin check the only access control on the whole data plane.
 
-The tenant is the token's SIGNED org claim and it keys every store path, so no header can name another workspace's data. The upgrade ALSO refuses a browser Origin outside the team surfaces with 403 — otherwise any page could open an authenticated socket with a token it lured out of a logged-in browser — while a request with no Origin at all is admitted, because that is what a non-browser client sends.
+The tenant is the token's SIGNED org claim and it keys every store path, so no header can name another space's data. The upgrade ALSO refuses a browser Origin outside the team surfaces with 403 — otherwise any page could open an authenticated socket with a token it lured out of a logged-in browser — while a request with no Origin at all is admitted, because that is what a non-browser client sends.
 
-On connect the workspace's system spaces are seeded once and the roster is reconciled every time, so the org's human members and its bots are present as workspace people without a separate sync call.
+On connect the space's system spaces are seeded once and the roster is reconciled every time, so the org's human members and its bots are present as space people without a separate sync call.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param token
@@ -1279,7 +1397,7 @@ type TeamAPIGetTeamTransactorStatisticsRequest struct {
 	token      *string
 }
 
-// Token is the workspace token minted by selectWorkspace.
+// Token is the space token minted by selectWorkspace.
 func (r TeamAPIGetTeamTransactorStatisticsRequest) Token(token string) TeamAPIGetTeamTransactorStatisticsRequest {
 	r.token = &token
 	return r
@@ -1290,14 +1408,14 @@ func (r TeamAPIGetTeamTransactorStatisticsRequest) Execute() (*StatsOut, *http.R
 }
 
 /*
-GetTeamTransactorStatistics Statistics returns the transactor's live sessions for the workspace the caller's credential names — the endpoint the front's workspace switcher and server panel poll on the transactor base.
+GetTeamTransactorStatistics Statistics returns the transactor's live sessions for the space the caller's credential names — the endpoint the front's space switcher and server panel poll on the transactor base.
 
-Statistics returns the transactor's live sessions for the workspace the caller's
-credential names — the endpoint the front's workspace switcher and server panel
+Statistics returns the transactor's live sessions for the space the caller's
+credential names — the endpoint the front's space switcher and server panel
 poll on the transactor base. `token` carries the same two lanes the socket's path
-segment does: a workspace UUID names the workspace and is authorized against the
-membership rows, an HS256 workspace token names it in its signed claims.
-activeSessions carries ONLY that one workspace, never another tenant's sessions.
+segment does: a space UUID names the space and is authorized against the
+membership rows, an HS256 space token names it in its signed claims.
+activeSessions carries ONLY that one space, never another tenant's sessions.
 An unverifiable credential, or one the caller is no member under, is 401.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1399,15 +1517,15 @@ func (r TeamAPIPostTeamAccountRequest) Execute() (*http.Response, error) {
 }
 
 /*
-PostTeamAccount Read the caller's account and switch workspace
+PostTeamAccount Read the caller's account and switch space
 
-The account control plane the Team client speaks: one POST carries a `method` verb and its `params`, and answers {"result": …}. The verbs are the session's own reads and the workspace switch — getLoginInfoByToken, getUserWorkspaces, selectWorkspace, getWorkspaceInfo, getMemberships, getPerson, getSocialIds, getRegionInfo, isReadOnlyGuest — plus sendInvite, which adds a member to a workspace and is refused for a caller who is not its owner or admin.
+The account control plane the Team client speaks: one POST carries a `method` verb and its `params`, and answers {"result": …}. The verbs are the session's own reads and the space switch — getLoginInfoByToken, getUserWorkspaces, selectWorkspace, getWorkspaceInfo, getMemberships, getPerson, getSocialIds, getRegionInfo, isReadOnlyGuest — plus sendInvite, which adds a member to a space and is refused for a caller who is not its owner or admin.
 
 A REFUSAL IS HTTP 200 carrying {"error": {severity, code, params}} — the platform Status the client translates — not a 4xx. An unreadable body, an unauthorized session and an unknown verb all arrive that way, so a caller that reads only the status code reads every failure here as a success.
 
 NO CREDENTIAL IS EVER HANDLED HERE. login, signUp, the OTP verbs, password change and reset, join and the guest-token exchange each answer Unauthorized with "sign in at hanzo.id" — a stated policy, not an unknown method, so the refusal is a fact a test can pin. Sessions come from the OAuth pair under /account/auth.
 
-Auth is the team session token: Authorization: Bearer, else the HttpOnly account-token cookie. The tenant is that token's SIGNED org claim, never a header, and selectWorkspace resolves only among the orgs the token proves membership of. It also demands an explicit workspaceUrl — it never falls back to a first workspace, and a slug that resolves in two of the caller's orgs answers Ambiguous rather than picking one.
+Auth is the team session token: Authorization: Bearer, else the HttpOnly account-token cookie. The tenant is that token's SIGNED org claim, never a header, and selectWorkspace resolves only among the orgs the token proves membership of. It also demands an explicit workspaceUrl — it never falls back to a first space, and a slug that resolves in two of the caller's orgs answers Ambiguous rather than picking one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TeamAPIPostTeamAccountRequest
@@ -1493,11 +1611,11 @@ func (r TeamAPIPostTeamBotsSyncRequest) Execute() (*BotSync, *http.Response, err
 }
 
 /*
-PostTeamBotsSync SyncBots re-projects the caller org's agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
+PostTeamBotsSync SyncBots re-projects the caller org's agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
 
-SyncBots re-projects the caller org's agents as workspace members into EVERY
-workspace of the org, and removes the ones whose agent is gone. It is
-idempotent, and admin only: mutating a workspace's roster requires the
+SyncBots re-projects the caller org's agents as space members into EVERY
+space of the org, and removes the ones whose agent is gone. It is
+idempotent, and admin only: mutating a space's roster requires the
 gateway-minted admin flag, which a client can never forge. It answers how many
 roster entries the reconcile touched.
 
@@ -1617,14 +1735,14 @@ editor — which replays that log — and not only in snapshot reads.
 updateContent never touches that log: peers may be live-editing the document,
 and their edits are not this call's to overwrite.
 
-Every call is scoped to the caller's VERIFIED session or workspace token: the
-documentId's workspace must be the token's workspace when the token names one,
-and the caller must be a member of it. An unknown workspace, another tenant's
-workspace and a workspace the caller is not in all answer the same 404, so a
+Every call is scoped to the caller's VERIFIED session or space token: the
+documentId's space must be the token's space when the token names one,
+and the caller must be a member of it. An unknown space, another tenant's
+space and a space the caller is not in all answer the same 404, so a
 probe learns nothing about what exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param documentId DocumentID addresses the document field, as \"<workspaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
+	@param documentId DocumentID addresses the document field, as \"<spaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
 	@return TeamAPIPostTeamCollaboratorRpcByDocumentidRequest
 */
 func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentid(ctx context.Context, documentId string) TeamAPIPostTeamCollaboratorRpcByDocumentidRequest {
@@ -1717,47 +1835,47 @@ func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentidExecute(r TeamAPIPos
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type TeamAPIPostTeamFilesByWorkspaceRequest struct {
+type TeamAPIPostTeamFilesBySpaceRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
-	workspace  string
+	space      string
 	body       *os.File
 }
 
-func (r TeamAPIPostTeamFilesByWorkspaceRequest) Body(body *os.File) TeamAPIPostTeamFilesByWorkspaceRequest {
+func (r TeamAPIPostTeamFilesBySpaceRequest) Body(body *os.File) TeamAPIPostTeamFilesBySpaceRequest {
 	r.body = body
 	return r
 }
 
-func (r TeamAPIPostTeamFilesByWorkspaceRequest) Execute() (*os.File, *http.Response, error) {
-	return r.ApiService.PostTeamFilesByWorkspaceExecute(r)
+func (r TeamAPIPostTeamFilesBySpaceRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.PostTeamFilesBySpaceExecute(r)
 }
 
 /*
-PostTeamFilesByWorkspace Upload a file into a workspace
+PostTeamFilesBySpace Upload a file into a space
 
-Stores one file in a workspace's blob store and answers the blob id it is addressable by, as plain text — the front discards that body, it is there for a caller driving this by hand.
+Stores one file in a space's blob store and answers the blob id it is addressable by, as plain text — the front discards that body, it is there for a caller driving this by hand.
 
 The body is a multipart form with a `file` part, and THAT PART'S FILENAME IS THE BLOB ID: the client mints it (a uuid v4) and the server stores under it, so a part whose filename is not a uuid is refused rather than assigned one. A file over 100 MiB is 413 and an empty one is 400.
 
-The caller must hold a verified session or workspace token AND be a member of the workspace; an unknown workspace, another tenant's workspace and a workspace the caller is not in all answer the same 404, so a probe learns nothing about what exists. The stored key embeds the verified org and the workspace, so an upload cannot land in another tenant's box whatever id it names. A storage backend that is unavailable fails closed with 502 rather than reporting a write it never made.
+The caller must hold a verified session or space token AND be a member of the space; an unknown space, another tenant's space and a space the caller is not in all answer the same 404, so a probe learns nothing about what exists. The stored key embeds the verified org and the space, so an upload cannot land in another tenant's box whatever id it names. A storage backend that is unavailable fails closed with 502 rather than reporting a write it never made.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param workspace
-	@return TeamAPIPostTeamFilesByWorkspaceRequest
+	@param space
+	@return TeamAPIPostTeamFilesBySpaceRequest
 */
-func (a *TeamAPIService) PostTeamFilesByWorkspace(ctx context.Context, workspace string) TeamAPIPostTeamFilesByWorkspaceRequest {
-	return TeamAPIPostTeamFilesByWorkspaceRequest{
+func (a *TeamAPIService) PostTeamFilesBySpace(ctx context.Context, space string) TeamAPIPostTeamFilesBySpaceRequest {
+	return TeamAPIPostTeamFilesBySpaceRequest{
 		ApiService: a,
 		ctx:        ctx,
-		workspace:  workspace,
+		space:      space,
 	}
 }
 
 // Execute executes the request
 //
 //	@return *os.File
-func (a *TeamAPIService) PostTeamFilesByWorkspaceExecute(r TeamAPIPostTeamFilesByWorkspaceRequest) (*os.File, *http.Response, error) {
+func (a *TeamAPIService) PostTeamFilesBySpaceExecute(r TeamAPIPostTeamFilesBySpaceRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1765,13 +1883,13 @@ func (a *TeamAPIService) PostTeamFilesByWorkspaceExecute(r TeamAPIPostTeamFilesB
 		localVarReturnValue *os.File
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamFilesByWorkspace")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamFilesBySpace")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/team/files/{workspace}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath := localBasePath + "/v1/team/files/{space}"
+	localVarPath = strings.Replace(localVarPath, "{"+"space"+"}", url.PathEscape(parameterValueToString(r.space, "space")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1796,6 +1914,248 @@ func (a *TeamAPIService) PostTeamFilesByWorkspaceExecute(r TeamAPIPostTeamFilesB
 	}
 	// body params
 	localVarPostBody = r.body
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamRoomsRequest struct {
+	ctx         context.Context
+	ApiService  *TeamAPIService
+	teamRoomNew *TeamRoomNew
+}
+
+func (r TeamAPIPostTeamRoomsRequest) TeamRoomNew(teamRoomNew TeamRoomNew) TeamAPIPostTeamRoomsRequest {
+	r.teamRoomNew = &teamRoomNew
+	return r
+}
+
+func (r TeamAPIPostTeamRoomsRequest) Execute() (*TeamRoom, *http.Response, error) {
+	return r.ApiService.PostTeamRoomsExecute(r)
+}
+
+/*
+PostTeamRooms Opens a named room and answers it as the store now holds it.
+
+Opens a named room and answers it as the store now holds it.
+
+It writes through the SAME applyTx path the Team client uses, so a room opened
+here is broadcast to every live client of the space and appears in an open
+sidebar without a reload — the same property listRooms rests on, read from the
+write side.
+
+TWO TRANSACTIONS, NOT ONE, when the request states a facet. The document and
+its mixin are separate writes in this model (bindRoom writes only the second),
+and composing them here rather than inventing a combined tx keeps one write
+path for each. A create that lands and a facet that does not is visible as a
+room with default intent, which is the honest partial state.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIPostTeamRoomsRequest
+*/
+func (a *TeamAPIService) PostTeamRooms(ctx context.Context) TeamAPIPostTeamRoomsRequest {
+	return TeamAPIPostTeamRoomsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamRoom
+func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*TeamRoom, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamRoom
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamRooms")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/rooms"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamRoomNew == nil {
+		return localVarReturnValue, nil, reportError("teamRoomNew is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamRoomNew
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamRoomsByIdMessagesRequest struct {
+	ctx              context.Context
+	ApiService       *TeamAPIService
+	id               string
+	teamMessageWrite *TeamMessageWrite
+}
+
+func (r TeamAPIPostTeamRoomsByIdMessagesRequest) TeamMessageWrite(teamMessageWrite TeamMessageWrite) TeamAPIPostTeamRoomsByIdMessagesRequest {
+	r.teamMessageWrite = &teamMessageWrite
+	return r
+}
+
+func (r TeamAPIPostTeamRoomsByIdMessagesRequest) Execute() (*TeamMessage, *http.Response, error) {
+	return r.ApiService.PostTeamRoomsByIdMessagesExecute(r)
+}
+
+/*
+PostTeamRoomsByIdMessages Says one thing in a room, as the caller.
+
+Says one thing in a room, as the caller.
+
+The write goes through the SAME applyTx path the Team client's own messages
+take and is broadcast to every connected client of the space, so a message
+sent here appears live in an open room rather than on the next reload. It
+answers the message as the store now HOLDS it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the room to say it in, from the path.
+	@return TeamAPIPostTeamRoomsByIdMessagesRequest
+*/
+func (a *TeamAPIService) PostTeamRoomsByIdMessages(ctx context.Context, id string) TeamAPIPostTeamRoomsByIdMessagesRequest {
+	return TeamAPIPostTeamRoomsByIdMessagesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamMessage
+func (a *TeamAPIService) PostTeamRoomsByIdMessagesExecute(r TeamAPIPostTeamRoomsByIdMessagesRequest) (*TeamMessage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamMessage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamRoomsByIdMessages")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/rooms/{id}/messages"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamMessageWrite == nil {
+		return localVarReturnValue, nil, reportError("teamMessageWrite is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamMessageWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1961,7 +2321,7 @@ about. It answers the room as it now stands.
 
 The write is a platform MIXIN on the room document, applied through the
 SAME applyTx path the Team client's own writes take and broadcast to every
-connected client — so a room bound here updates live in an open workspace
+connected client — so a room bound here updates live in an open space
 rather than on the next reload.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

@@ -46,6 +46,10 @@ Method | HTTP request | Description
 [**PostIntegrationsGithubReposImport**](IntegrationsAPI.md#PostIntegrationsGithubReposImport) | **Post** /v1/integrations/github/repos/import | Imports the selected (or all) granted repos into git.hanzo.ai.
 [**PostIntegrationsGithubSearch**](IntegrationsAPI.md#PostIntegrationsGithubSearch) | **Post** /v1/integrations/github/search | Finds repositories on GitHub.
 [**PostIntegrationsGithubWebhook**](IntegrationsAPI.md#PostIntegrationsGithubWebhook) | **Post** /v1/integrations/github/webhook | GitHub App webhook
+[**PostIntegrationsLinearClaim**](IntegrationsAPI.md#PostIntegrationsLinearClaim) | **Post** /v1/integrations/linear/claim | Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
+[**PostIntegrationsLinearComments**](IntegrationsAPI.md#PostIntegrationsLinearComments) | **Post** /v1/integrations/linear/comments | Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
+[**PostIntegrationsLinearIssuesBackfill**](IntegrationsAPI.md#PostIntegrationsLinearIssuesBackfill) | **Post** /v1/integrations/linear/issues/backfill | Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
+[**PostIntegrationsLinearWebhook**](IntegrationsAPI.md#PostIntegrationsLinearWebhook) | **Post** /v1/integrations/linear/webhook | Linear webhook
 [**PostIntegrationsOpenrouterWebhook**](IntegrationsAPI.md#PostIntegrationsOpenrouterWebhook) | **Post** /v1/integrations/openrouter/webhook | Receive OpenRouter Broadcast traces as usage rows
 [**PostIntegrationsSlackCommands**](IntegrationsAPI.md#PostIntegrationsSlackCommands) | **Post** /v1/integrations/slack/commands | Slack slash command webhook
 [**PostIntegrationsSlackEvents**](IntegrationsAPI.md#PostIntegrationsSlackEvents) | **Post** /v1/integrations/slack/events | Slack Events API webhook
@@ -2736,6 +2740,263 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostIntegrationsGithubWebhookRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIntegrationsLinearClaim
+
+> LinearClaimOut PostIntegrationsLinearClaim(ctx).LinearClaimIn(linearClaimIn).Execute()
+
+Binds the caller's Linear organization to the org and seals the webhook secret.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	linearClaimIn := *openapiclient.NewLinearClaimIn() // LinearClaimIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.PostIntegrationsLinearClaim(context.Background()).LinearClaimIn(linearClaimIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostIntegrationsLinearClaim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIntegrationsLinearClaim`: LinearClaimOut
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.PostIntegrationsLinearClaim`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIntegrationsLinearClaimRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **linearClaimIn** | [**LinearClaimIn**](LinearClaimIn.md) |  | 
+
+### Return type
+
+[**LinearClaimOut**](LinearClaimOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIntegrationsLinearComments
+
+> LinearCommentOut PostIntegrationsLinearComments(ctx).LinearCommentIn(linearCommentIn).Execute()
+
+Posts a comment on a Linear issue with the caller's own key, so it carries their name.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	linearCommentIn := *openapiclient.NewLinearCommentIn() // LinearCommentIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.PostIntegrationsLinearComments(context.Background()).LinearCommentIn(linearCommentIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostIntegrationsLinearComments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIntegrationsLinearComments`: LinearCommentOut
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.PostIntegrationsLinearComments`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIntegrationsLinearCommentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **linearCommentIn** | [**LinearCommentIn**](LinearCommentIn.md) |  | 
+
+### Return type
+
+[**LinearCommentOut**](LinearCommentOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIntegrationsLinearIssuesBackfill
+
+> LinearBackfillResult PostIntegrationsLinearIssuesBackfill(ctx).LinearBackfillIn(linearBackfillIn).Execute()
+
+Seeds the native todo with the EXISTING Linear issues the caller's key can see (default state=open); the webhook keeps them live thereafter.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	linearBackfillIn := *openapiclient.NewLinearBackfillIn() // LinearBackfillIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.PostIntegrationsLinearIssuesBackfill(context.Background()).LinearBackfillIn(linearBackfillIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostIntegrationsLinearIssuesBackfill``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIntegrationsLinearIssuesBackfill`: LinearBackfillResult
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.PostIntegrationsLinearIssuesBackfill`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIntegrationsLinearIssuesBackfillRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **linearBackfillIn** | [**LinearBackfillIn**](LinearBackfillIn.md) |  | 
+
+### Return type
+
+[**LinearBackfillResult**](LinearBackfillResult.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIntegrationsLinearWebhook
+
+> PostIntegrationsLinearWebhook(ctx).Execute()
+
+Linear webhook
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationsAPI.PostIntegrationsLinearWebhook(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.PostIntegrationsLinearWebhook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIntegrationsLinearWebhookRequest struct via the builder pattern
 
 
 ### Return type

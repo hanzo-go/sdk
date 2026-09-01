@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccessKey** | Pointer to **string** | API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material. AccessSecretHash MUST persist (orm stores via JSON; a json:\&quot;-\&quot; field is never saved), so it carries a real json tag and the handler&#39;s redact() strips it (and AccessSecret + the token fields) before responding. | [optional] 
+**AccessKey** | Pointer to **string** | API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material, so Mask blanks them and the handler&#39;s redact() strips them before responding. They carry real json tags because a field orm never saves is a field that silently vanishes.  A presented secret is resolved through Key.AccessSecretDigest and nowhere else, so no credential is ISSUED into these columns: they hold what older rows left behind, and every writer that touches them clears them. | [optional] 
 **AccessSecret** | Pointer to **string** |  | [optional] 
 **AccessSecretHash** | Pointer to **string** |  | [optional] 
 **AccessToken** | Pointer to **string** |  | [optional] 
@@ -73,7 +73,6 @@ Name | Type | Description | Notes
 **Github** | Pointer to **string** | Linked federated-identity subjects, one column per connector (v1 parity). | [optional] 
 **Gitlab** | Pointer to **string** |  | [optional] 
 **Google** | Pointer to **string** |  | [optional] 
-**Groups** | Pointer to **[]string** |  | [optional] 
 **Hash** | Pointer to **string** |  | [optional] 
 **Heroku** | Pointer to **string** |  | [optional] 
 **Homepage** | Pointer to **string** |  | [optional] 
@@ -142,7 +141,6 @@ Name | Type | Description | Notes
 **Patreon** | Pointer to **string** |  | [optional] 
 **Paypal** | Pointer to **string** |  | [optional] 
 **PermanentAvatar** | Pointer to **string** |  | [optional] 
-**Permissions** | Pointer to [**[]IamPermission**](IamPermission.md) |  | [optional] 
 **Phone** | Pointer to **string** |  | [optional] 
 **PreHash** | Pointer to **string** |  | [optional] 
 **PreferredMfaType** | Pointer to **string** |  | [optional] 
@@ -154,7 +152,6 @@ Name | Type | Description | Notes
 **Region** | Pointer to **string** |  | [optional] 
 **RegisterSource** | Pointer to **string** |  | [optional] 
 **RegisterType** | Pointer to **string** |  | [optional] 
-**Roles** | Pointer to [**[]IamRole**](IamRole.md) | Authorization attachments. Roles and Permissions are computed on read from the authz store and carried here for API parity with v1. | [optional] 
 **Salesforce** | Pointer to **string** |  | [optional] 
 **Score** | Pointer to **int32** |  | [optional] 
 **Shopify** | Pointer to **string** |  | [optional] 
@@ -1936,31 +1933,6 @@ SetGoogle sets Google field to given value.
 
 HasGoogle returns a boolean if a field has been set.
 
-### GetGroups
-
-`func (o *IamUser) GetGroups() []string`
-
-GetGroups returns the Groups field if non-nil, zero value otherwise.
-
-### GetGroupsOk
-
-`func (o *IamUser) GetGroupsOk() (*[]string, bool)`
-
-GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGroups
-
-`func (o *IamUser) SetGroups(v []string)`
-
-SetGroups sets Groups field to given value.
-
-### HasGroups
-
-`func (o *IamUser) HasGroups() bool`
-
-HasGroups returns a boolean if a field has been set.
-
 ### GetHash
 
 `func (o *IamUser) GetHash() string`
@@ -3661,31 +3633,6 @@ SetPermanentAvatar sets PermanentAvatar field to given value.
 
 HasPermanentAvatar returns a boolean if a field has been set.
 
-### GetPermissions
-
-`func (o *IamUser) GetPermissions() []IamPermission`
-
-GetPermissions returns the Permissions field if non-nil, zero value otherwise.
-
-### GetPermissionsOk
-
-`func (o *IamUser) GetPermissionsOk() (*[]IamPermission, bool)`
-
-GetPermissionsOk returns a tuple with the Permissions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPermissions
-
-`func (o *IamUser) SetPermissions(v []IamPermission)`
-
-SetPermissions sets Permissions field to given value.
-
-### HasPermissions
-
-`func (o *IamUser) HasPermissions() bool`
-
-HasPermissions returns a boolean if a field has been set.
-
 ### GetPhone
 
 `func (o *IamUser) GetPhone() string`
@@ -3960,31 +3907,6 @@ SetRegisterType sets RegisterType field to given value.
 `func (o *IamUser) HasRegisterType() bool`
 
 HasRegisterType returns a boolean if a field has been set.
-
-### GetRoles
-
-`func (o *IamUser) GetRoles() []IamRole`
-
-GetRoles returns the Roles field if non-nil, zero value otherwise.
-
-### GetRolesOk
-
-`func (o *IamUser) GetRolesOk() (*[]IamRole, bool)`
-
-GetRolesOk returns a tuple with the Roles field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoles
-
-`func (o *IamUser) SetRoles(v []IamRole)`
-
-SetRoles sets Roles field to given value.
-
-### HasRoles
-
-`func (o *IamUser) HasRoles() bool`
-
-HasRoles returns a boolean if a field has been set.
 
 ### GetSalesforce
 

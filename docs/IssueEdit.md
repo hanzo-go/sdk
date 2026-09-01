@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Assignee** | Pointer to **string** | Assignee hands the work to somebody — a person or an agent, by the name they are known by on the forge. \&quot;\&quot; TAKES IT OFF whoever holds it, which is why this is a pointer: absent leaves the holder alone.  It is the other half of &#x60;claim&#x60;, which that handler already named: a claim takes work for the CALLER and refuses to name anyone else, because giving work away is a different act with different authority. This is that act, and until it existed a board could only be worked by whoever clicked first — an agent could never be given anything. | [optional] 
 **Description** | Pointer to **string** | Description rewrites the body. | [optional] 
 **Key** | Pointer to **string** | Key is the board — the repository name, from the path. | [optional] 
 **Num** | Pointer to **int32** | Num is the issue number on that repository, from the path. | [optional] 
@@ -29,6 +30,31 @@ will change when the set of required properties is changed
 NewIssueEditWithDefaults instantiates a new IssueEdit object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAssignee
+
+`func (o *IssueEdit) GetAssignee() string`
+
+GetAssignee returns the Assignee field if non-nil, zero value otherwise.
+
+### GetAssigneeOk
+
+`func (o *IssueEdit) GetAssigneeOk() (*string, bool)`
+
+GetAssigneeOk returns a tuple with the Assignee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssignee
+
+`func (o *IssueEdit) SetAssignee(v string)`
+
+SetAssignee sets Assignee field to given value.
+
+### HasAssignee
+
+`func (o *IssueEdit) HasAssignee() bool`
+
+HasAssignee returns a boolean if a field has been set.
 
 ### GetDescription
 

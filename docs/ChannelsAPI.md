@@ -5,11 +5,13 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetChannels**](ChannelsAPI.md#GetChannels) | **Get** /v1/channels | Reports every chat channel this org can send through, and whether it can send through it right now.
+[**GetChannelsAgent**](ChannelsAPI.md#GetChannelsAgent) | **Get** /v1/channels/agent | Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
 [**GetChannelsAllowlist**](ChannelsAPI.md#GetChannelsAllowlist) | **Get** /v1/channels/allowlist | Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
 [**GetChannelsInbox**](ChannelsAPI.md#GetChannelsInbox) | **Get** /v1/channels/inbox | Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
 [**GetChannelsPairing**](ChannelsAPI.md#GetChannelsPairing) | **Get** /v1/channels/pairing | Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
 [**PostChannelsByChannelSend**](ChannelsAPI.md#PostChannelsByChannelSend) | **Post** /v1/channels/{channel}/send | Send a message from your org&#39;s bot to one chat room
 [**PostChannelsPairingApprove**](ChannelsAPI.md#PostChannelsPairingApprove) | **Post** /v1/channels/pairing/approve | Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
+[**PutChannelsAgent**](ChannelsAPI.md#PutChannelsAgent) | **Put** /v1/channels/agent | Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
 [**PutChannelsAllowlist**](ChannelsAPI.md#PutChannelsAllowlist) | **Put** /v1/channels/allowlist | Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
 
 
@@ -75,6 +77,72 @@ Other parameters are passed through a pointer to a apiGetChannelsRequest struct 
 [[Back to README]](../README.md)
 
 
+## GetChannelsAgent
+
+> ChannelAgents GetChannelsAgent(ctx).Channel(channel).Execute()
+
+Returns which agent answers the caller org's channel: the default and every room bound to another agent.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	channel := "channel_example" // string | Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelsAPI.GetChannelsAgent(context.Background()).Channel(channel).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.GetChannelsAgent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetChannelsAgent`: ChannelAgents
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.GetChannelsAgent`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetChannelsAgentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **channel** | **string** | Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. | 
+
+### Return type
+
+[**ChannelAgents**](ChannelAgents.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetChannelsAllowlist
 
 > AllowlistView GetChannelsAllowlist(ctx).Channel(channel).Execute()
@@ -96,7 +164,7 @@ import (
 )
 
 func main() {
-	channel := "slack" // string | Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+	channel := "slack" // string | Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -121,7 +189,7 @@ Other parameters are passed through a pointer to a apiGetChannelsAllowlistReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **channel** | **string** | Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. | 
+ **channel** | **string** | Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. | 
 
 ### Return type
 
@@ -389,6 +457,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PairingApproved**](PairingApproved.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutChannelsAgent
+
+> ChannelAgents PutChannelsAgent(ctx).ChannelAgentsPut(channelAgentsPut).Execute()
+
+Binds agents to the caller org's channel and answers the bindings as GET would.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	channelAgentsPut := *openapiclient.NewChannelAgentsPut() // ChannelAgentsPut | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelsAPI.PutChannelsAgent(context.Background()).ChannelAgentsPut(channelAgentsPut).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.PutChannelsAgent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutChannelsAgent`: ChannelAgents
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.PutChannelsAgent`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutChannelsAgentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **channelAgentsPut** | [**ChannelAgentsPut**](ChannelAgentsPut.md) |  | 
+
+### Return type
+
+[**ChannelAgents**](ChannelAgents.md)
 
 ### Authorization
 

@@ -19,7 +19,7 @@ var _ MappedNullable = &SearchIn{}
 
 // SearchIn struct for SearchIn
 type SearchIn struct {
-	// DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb-page, kb-memory, kb-source). An empty or foreign list reads all of them.
+	// DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb.page, kb.memory, kb.source). An empty or foreign list reads all of them.
 	Doctypes []string `json:"doctypes,omitempty"`
 	// Limit bounds the hits returned. Default 10, maximum 50.
 	Limit *int32 `json:"limit,omitempty"`

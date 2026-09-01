@@ -344,7 +344,7 @@ func (r TodoAPIGetTodoIssuesRequest) Repo(repo string) TodoAPIGetTodoIssuesReque
 	return r
 }
 
-// Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
+// Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
 func (r TodoAPIGetTodoIssuesRequest) Room(room string) TodoAPIGetTodoIssuesRequest {
 	r.room = &room
 	return r
@@ -1038,7 +1038,7 @@ Tenancy is the validated principal's org and nothing else, so a caller cannot
 read another tenant's channel by naming its room.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param room Room is the room, spelled \"<workspace>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+	@param room Room is the room, spelled \"<space>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
 	@return TodoAPIGetTodoRoomsByRoomRequest
 */
 func (a *TodoAPIService) GetTodoRoomsByRoom(ctx context.Context, room string) TodoAPIGetTodoRoomsByRoomRequest {

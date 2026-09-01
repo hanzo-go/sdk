@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ActiveSessions** | Pointer to [**map[string][]StatsUser**](array.md) | ActiveSessions maps a workspace uuid to its connected sessions. It carries only the token&#39;s OWN workspace, and is empty for a token that names none. | [optional] 
+**ActiveSessions** | Pointer to [**map[string][]StatsUser**](array.md) | ActiveSessions maps a space uuid to its connected sessions. It carries only the token&#39;s OWN space, and is empty for a token that names none. | [optional] 
 
 ## Methods
 

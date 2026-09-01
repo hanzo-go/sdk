@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**AddToken**](IamAPI.md#AddToken) | **Post** /v1/iam/tokens | Records an access token — the credential an application or integration presents on a caller&#39;s behalf.
 [**AddWebauthnCredential**](IamAPI.md#AddWebauthnCredential) | **Post** /v1/iam/webauthn-credentials | Registers a passkey or security key for a person, so they can sign in with their device instead of a password.
 [**CreateOrganization**](IamAPI.md#CreateOrganization) | **Post** /v1/iam/organizations | Makes a new organization — the account your users, applications, roles, projects and workspaces are all named inside.
-[**CreateSession**](IamAPI.md#CreateSession) | **Post** /v1/iam/sessions | Records a sign-in.
+[**CreateSession**](IamAPI.md#CreateSession) | **Post** /v1/iam/sessions | Records a sign-in and answers with the cookie id it minted.
 [**DeleteIamApplicationsByOwnerByName**](IamAPI.md#DeleteIamApplicationsByOwnerByName) | **Delete** /v1/iam/applications/{owner}/{name} | Removes an application.
 [**DeleteIamAuditLogsByOwnerByName**](IamAPI.md#DeleteIamAuditLogsByOwnerByName) | **Delete** /v1/iam/audit-logs/{owner}/{name} | Removes an audit entry.
 [**DeleteIamCertsByOwnerByName**](IamAPI.md#DeleteIamCertsByOwnerByName) | **Delete** /v1/iam/certs/{owner}/{name} | Removes a signing certificate.
@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**DeleteIamRolesByOwnerByName**](IamAPI.md#DeleteIamRolesByOwnerByName) | **Delete** /v1/iam/roles/{owner}/{name} | Removes a role.
 [**DeleteIamScimV2UsersByOwnerByName**](IamAPI.md#DeleteIamScimV2UsersByOwnerByName) | **Delete** /v1/iam/scim/v2/Users/{owner}/{name} | Deprovisions a person — how removing someone in your identity provider removes their access here.
 [**DeleteIamServiceAccountsByName**](IamAPI.md#DeleteIamServiceAccountsByName) | **Delete** /v1/iam/service-accounts/{name} | Serves DELETE /v1/iam/service-accounts/:name.
+[**DeleteIamTeamsByName**](IamAPI.md#DeleteIamTeamsByName) | **Delete** /v1/iam/teams/{name} | Removes a team.
 [**DeleteIamUsersByOwnerByName**](IamAPI.md#DeleteIamUsersByOwnerByName) | **Delete** /v1/iam/users/{owner}/{name} | Removes a person from your organization.
 [**DeleteIamUsersByOwnerByNameKeys**](IamAPI.md#DeleteIamUsersByOwnerByNameKeys) | **Delete** /v1/iam/users/{owner}/{name}/keys | Clears the target user&#39;s key of the requested TYPE (immediate revoke).
 [**DeleteIamWorkspacesByOwnerByName**](IamAPI.md#DeleteIamWorkspacesByOwnerByName) | **Delete** /v1/iam/workspaces/{owner}/{name} | Removes a workspace.
@@ -40,7 +41,7 @@ Method | HTTP request | Description
 [**GetIamConsent**](IamAPI.md#GetIamConsent) | **Get** /v1/iam/consent | Returns the calling person&#39;s own privacy and communication choices.
 [**GetIamInvitations**](IamAPI.md#GetIamInvitations) | **Get** /v1/iam/invitations | Returns your organization&#39;s invitations, newest first — who has been asked to join, on what terms, and how many seats each invitation still has left.
 [**GetIamInvitationsByOwnerByName**](IamAPI.md#GetIamInvitationsByOwnerByName) | **Get** /v1/iam/invitations/{owner}/{name} | Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
-[**GetIamKeys**](IamAPI.md#GetIamKeys) | **Get** /v1/iam/keys | Returns your organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+[**GetIamKeys**](IamAPI.md#GetIamKeys) | **Get** /v1/iam/keys | Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
 [**GetIamKeysByOwnerByName**](IamAPI.md#GetIamKeysByOwnerByName) | **Get** /v1/iam/keys/{owner}/{name} | Returns one API key: what it is called, what it may reach, and when it was issued.
 [**GetIamKeysOrg**](IamAPI.md#GetIamKeysOrg) | **Get** /v1/iam/keys/org | Resolve a PUBLISHABLE key to the organization that owns it
 [**GetIamKeysPrincipal**](IamAPI.md#GetIamKeysPrincipal) | **Get** /v1/iam/keys/principal | Resolve a SECRET key to the principal it authenticates
@@ -66,7 +67,9 @@ Method | HTTP request | Description
 [**GetIamScimV2Users**](IamAPI.md#GetIamScimV2Users) | **Get** /v1/iam/scim/v2/Users | Returns the people in your organization to your identity provider, in the standard SCIM shape, so an IdP can reconcile its directory against ours.
 [**GetIamScimV2UsersByOwnerByName**](IamAPI.md#GetIamScimV2UsersByOwnerByName) | **Get** /v1/iam/scim/v2/Users/{owner}/{name} | Returns one person in the standard SCIM shape.
 [**GetIamServiceAccounts**](IamAPI.md#GetIamServiceAccounts) | **Get** /v1/iam/service-accounts | Returns your organization&#39;s service accounts — what each is called and when it was created.
-[**GetIamUsers**](IamAPI.md#GetIamUsers) | **Get** /v1/iam/users | Returns a page of the people in your organization, with the total so you can page through the rest.
+[**GetIamTeams**](IamAPI.md#GetIamTeams) | **Get** /v1/iam/teams | Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
+[**GetIamTeamsByName**](IamAPI.md#GetIamTeamsByName) | **Get** /v1/iam/teams/{name} | Returns one team: who is in it.
+[**GetIamUsers**](IamAPI.md#GetIamUsers) | **Get** /v1/iam/users | Returns a page of the people in an organization, with the total so you can page through the rest.
 [**GetIamUsersByOwnerByName**](IamAPI.md#GetIamUsersByOwnerByName) | **Get** /v1/iam/users/{owner}/{name} | Returns one person in your organization, addressed by their username or by their email address.
 [**GetIamWeb3Nonce**](IamAPI.md#GetIamWeb3Nonce) | **Get** /v1/iam/web3/nonce | Starts a wallet sign-in: it returns a one-time challenge for the wallet to sign.
 [**GetIamWebauthnSigninBegin**](IamAPI.md#GetIamWebauthnSigninBegin) | **Get** /v1/iam/webauthn/signin/begin | Starts a passkey sign-in: it returns the challenge the person&#39;s authenticator signs.
@@ -84,7 +87,7 @@ Method | HTTP request | Description
 [**GetWebauthnCredential**](IamAPI.md#GetWebauthnCredential) | **Get** /v1/iam/webauthn-credentials/{owner}/{name} | Returns one passkey or security key: whose it is, what device it lives on, and when it was registered.
 [**ListOrganizations**](IamAPI.md#ListOrganizations) | **Get** /v1/iam/organizations | Returns the organizations you can act in, the ones you belong to first and the rest after, newest first, narrowed by an optional query against the name or the display name.
 [**ListProviders**](IamAPI.md#ListProviders) | **Get** /v1/iam/providers | Returns your organization&#39;s providers, newest first — the identity providers your people sign in with, and the senders and connectors your applications go through.
-[**ListSessions**](IamAPI.md#ListSessions) | **Get** /v1/iam/sessions | Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+[**ListSessions**](IamAPI.md#ListSessions) | **Get** /v1/iam/sessions | Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
 [**ListTokens**](IamAPI.md#ListTokens) | **Get** /v1/iam/tokens | Returns the access tokens issued in your organization, newest first, and can be narrowed to one organization.
 [**ListWebauthnCredentials**](IamAPI.md#ListWebauthnCredentials) | **Get** /v1/iam/webauthn-credentials | Returns the passkeys and security keys registered to one person, newest first — which device each lives on and when it was registered.
 [**PatchIamScimV2UsersByOwnerByName**](IamAPI.md#PatchIamScimV2UsersByOwnerByName) | **Patch** /v1/iam/scim/v2/Users/{owner}/{name} | Applies a partial change from your identity provider — one attribute moved, not the whole record resent.
@@ -123,6 +126,7 @@ Method | HTTP request | Description
 [**PostIamServiceAccountsByNameKeys**](IamAPI.md#PostIamServiceAccountsByNameKeys) | **Post** /v1/iam/service-accounts/{name}/keys | Serves POST /v1/iam/service-accounts/:name/keys: mint a fresh key, invalidating the prior one, and return the new raw secret exactly once.
 [**PostIamSignin**](IamAPI.md#PostIamSignin) | **Post** /v1/iam/signin | Completes a sign-in: it exchanges the one-time code your application was handed at the end of the login flow for a live session, and returns the signed-in account.
 [**PostIamSignup**](IamAPI.md#PostIamSignup) | **Post** /v1/iam/signup | Creates an account from the sign-up form and applies the application&#39;s own sign-up rules — whether self-service registration is open at all, and which fields it requires.
+[**PostIamTeams**](IamAPI.md#PostIamTeams) | **Post** /v1/iam/teams | Makes a team — a named set of people that roles and permissions grant to.
 [**PostIamTokensIssue**](IamAPI.md#PostIamTokensIssue) | **Post** /v1/iam/tokens/issue | Mints an access token for the &#x60;?id&#x3D;&lt;owner&gt;/&lt;name&gt;&#x60; target user (optional &#x60;?aud&#x3D;&#x60; resource, RFC 8707), issued by the authenticated + allow-listed confidential client.
 [**PostIamUnlink**](IamAPI.md#PostIamUnlink) | **Post** /v1/iam/unlink | Disconnects one sign-in identity from an account, so that provider can no longer be used to sign in as that person.
 [**PostIamUsers**](IamAPI.md#PostIamUsers) | **Post** /v1/iam/users | Adds a person to your organization.
@@ -144,12 +148,14 @@ Method | HTTP request | Description
 [**PutIamProjectsByOwnerByName**](IamAPI.md#PutIamProjectsByOwnerByName) | **Put** /v1/iam/projects/{owner}/{name} | Changes a project&#39;s settings.
 [**PutIamRolesByOwnerByName**](IamAPI.md#PutIamRolesByOwnerByName) | **Put** /v1/iam/roles/{owner}/{name} | Changes who is in a role, or which roles it includes.
 [**PutIamScimV2UsersByOwnerByName**](IamAPI.md#PutIamScimV2UsersByOwnerByName) | **Put** /v1/iam/scim/v2/Users/{owner}/{name} | Overwrites a person&#39;s SCIM attributes with what your identity provider sends — how a change made there lands here.
+[**PutIamTeamsByName**](IamAPI.md#PutIamTeamsByName) | **Put** /v1/iam/teams/{name} | Changes who is in a team.
 [**PutIamUsersByOwnerByName**](IamAPI.md#PutIamUsersByOwnerByName) | **Put** /v1/iam/users/{owner}/{name} | Changes a person&#39;s profile, their roles, or the credentials they sign in with.
 [**PutIamWorkspacesByOwnerByName**](IamAPI.md#PutIamWorkspacesByOwnerByName) | **Put** /v1/iam/workspaces/{owner}/{name} | Changes a workspace&#39;s settings.
 [**SetOrganizationAvatar**](IamAPI.md#SetOrganizationAvatar) | **Post** /v1/iam/organizations/avatar | Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji.
+[**SetOrganizationProfile**](IamAPI.md#SetOrganizationProfile) | **Post** /v1/iam/organizations/profile | Changes how an organization reads: its display name, its website and its favicon.
 [**UpdateOrganization**](IamAPI.md#UpdateOrganization) | **Put** /v1/iam/organizations/{owner}/{name} | Changes an organization&#39;s display, its defaults and the sign-in rules everyone in it inherits.
 [**UpdateProvider**](IamAPI.md#UpdateProvider) | **Put** /v1/iam/providers/{owner}/{name} | Changes a provider&#39;s settings or rotates the credentials it holds.
-[**UpdateSession**](IamAPI.md#UpdateSession) | **Put** /v1/iam/sessions/{owner}/{name}/{application} | Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+[**UpdateSession**](IamAPI.md#UpdateSession) | **Put** /v1/iam/sessions/{owner}/{name}/{application} | Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
 [**UpdateToken**](IamAPI.md#UpdateToken) | **Put** /v1/iam/tokens/{owner}/{name} | Changes an access token&#39;s scope or expiry.
 [**UpdateWebauthnCredential**](IamAPI.md#UpdateWebauthnCredential) | **Put** /v1/iam/webauthn-credentials/{owner}/{name} | Renames a registered passkey or security key, so a person can tell their devices apart.
 [**UpsertApplication**](IamAPI.md#UpsertApplication) | **Post** /v1/iam/admin/applications/upsert | Creates an application or updates it in place, so a deployment can declare the applications it needs and run the same declaration on every environment and on every redeploy.
@@ -425,7 +431,7 @@ Name | Type | Description  | Notes
 
 > IamSession CreateSession(ctx).IamCreateSessionIn(iamCreateSessionIn).Execute()
 
-Records a sign-in.
+Records a sign-in and answers with the cookie id it minted.
 
 
 
@@ -1263,6 +1269,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteIamTeamsByName
+
+> IamTeamsDeleteOutput DeleteIamTeamsByName(ctx, name).Execute()
+
+Removes a team.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	name := "name_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.DeleteIamTeamsByName(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.DeleteIamTeamsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteIamTeamsByName`: IamTeamsDeleteOutput
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.DeleteIamTeamsByName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteIamTeamsByNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**IamTeamsDeleteOutput**](IamTeamsDeleteOutput.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2666,7 +2742,7 @@ Name | Type | Description  | Notes
 
 > IamListResponse GetIamKeys(ctx).Owner(owner).Execute()
 
-Returns your organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
+Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
 
 
 
@@ -4340,11 +4416,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetIamUsers
+## GetIamTeams
 
-> IamUsersListOutput GetIamUsers(ctx).Owner(owner).Email(email).Limit(limit).Offset(offset).Execute()
+> IamTeamsListOutput GetIamTeams(ctx).Execute()
 
-Returns a page of the people in your organization, with the total so you can page through the rest.
+Returns your organization's teams, newest first — each a named set of people that roles and permissions are granted to.
 
 
 
@@ -4361,7 +4437,138 @@ import (
 )
 
 func main() {
-	owner := "owner_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.GetIamTeams(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamTeams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIamTeams`: IamTeamsListOutput
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.GetIamTeams`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIamTeamsRequest struct via the builder pattern
+
+
+### Return type
+
+[**IamTeamsListOutput**](IamTeamsListOutput.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIamTeamsByName
+
+> IamTeam GetIamTeamsByName(ctx, name).Execute()
+
+Returns one team: who is in it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	name := "name_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.GetIamTeamsByName(context.Background(), name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamTeamsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIamTeamsByName`: IamTeam
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.GetIamTeamsByName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIamTeamsByNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**IamTeam**](IamTeam.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIamUsers
+
+> IamUsersListOutput GetIamUsers(ctx).Owner(owner).Email(email).Limit(limit).Offset(offset).Execute()
+
+Returns a page of the people in an organization, with the total so you can page through the rest.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	owner := "owner_example" // string |  (optional)
 	email := "email_example" // string | Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague's identity. (optional)
 	limit := int32(56) // int32 |  (optional)
 	offset := int32(56) // int32 |  (optional)
@@ -5549,7 +5756,7 @@ Name | Type | Description  | Notes
 
 > IamListSessionsOut ListSessions(ctx).Owner(owner).Name(name).Application(application).Execute()
 
-Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
 
 
 
@@ -5566,7 +5773,7 @@ import (
 )
 
 func main() {
-	owner := "owner_example" // string | 
+	owner := "owner_example" // string |  (optional)
 	name := "name_example" // string |  (optional)
 	application := "application_example" // string |  (optional)
 
@@ -7972,6 +8179,72 @@ Other parameters are passed through a pointer to a apiPostIamSignupRequest struc
 [[Back to README]](../README.md)
 
 
+## PostIamTeams
+
+> IamTeam PostIamTeams(ctx).IamTeamsInput(iamTeamsInput).Execute()
+
+Makes a team — a named set of people that roles and permissions grant to.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	iamTeamsInput := *openapiclient.NewIamTeamsInput() // IamTeamsInput | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PostIamTeams(context.Background()).IamTeamsInput(iamTeamsInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamTeams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIamTeams`: IamTeam
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PostIamTeams`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamTeamsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamTeamsInput** | [**IamTeamsInput**](IamTeamsInput.md) |  | 
+
+### Return type
+
+[**IamTeam**](IamTeam.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostIamTokensIssue
 
 > PostIamTokensIssue(ctx).Execute()
@@ -9399,6 +9672,78 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PutIamTeamsByName
+
+> IamTeam PutIamTeamsByName(ctx, name).IamTeamsInput(iamTeamsInput).Execute()
+
+Changes who is in a team.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	name := "name_example" // string | Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
+	iamTeamsInput := *openapiclient.NewIamTeamsInput() // IamTeamsInput | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PutIamTeamsByName(context.Background(), name).IamTeamsInput(iamTeamsInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamTeamsByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutIamTeamsByName`: IamTeam
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PutIamTeamsByName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutIamTeamsByNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **iamTeamsInput** | [**IamTeamsInput**](IamTeamsInput.md) |  | 
+
+### Return type
+
+[**IamTeam**](IamTeam.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PutIamUsersByOwnerByName
 
 > IamUser PutIamUsersByOwnerByName(ctx, owner, name).IamUpdateInput(iamUpdateInput).Execute()
@@ -9615,6 +9960,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## SetOrganizationProfile
+
+> IamOrganization SetOrganizationProfile(ctx).IamSetProfileInput(iamSetProfileInput).Execute()
+
+Changes how an organization reads: its display name, its website and its favicon.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	iamSetProfileInput := *openapiclient.NewIamSetProfileInput() // IamSetProfileInput | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.SetOrganizationProfile(context.Background()).IamSetProfileInput(iamSetProfileInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.SetOrganizationProfile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SetOrganizationProfile`: IamOrganization
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.SetOrganizationProfile`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetOrganizationProfileRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamSetProfileInput** | [**IamSetProfileInput**](IamSetProfileInput.md) |  | 
+
+### Return type
+
+[**IamOrganization**](IamOrganization.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UpdateOrganization
 
 > IamOrganization UpdateOrganization(ctx, owner, name).IamUpdateOrganizationInput(iamUpdateOrganizationInput).Execute()
@@ -9769,7 +10180,7 @@ Name | Type | Description  | Notes
 
 > IamSession UpdateSession(ctx, owner, name, application).IamUpdateSessionIn(iamUpdateSessionIn).Execute()
 
-Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
 
 
 

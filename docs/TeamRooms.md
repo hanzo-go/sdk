@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Rooms** | Pointer to [**[]TeamRoom**](TeamRoom.md) | Rooms is every room of every workspace the caller&#39;s org owns, each with the work facet it carries. | [optional] 
+**Rooms** | Pointer to [**[]TeamRoom**](TeamRoom.md) | Rooms is every room of every space the caller&#39;s org owns, each with the work facet it carries. | [optional] 
 
 ## Methods
 

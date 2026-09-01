@@ -90,6 +90,8 @@ type APIClient struct {
 
 	ChannelsAPI *ChannelsAPIService
 
+	CiAPI *CiAPIService
+
 	CloudflareAPI *CloudflareAPIService
 
 	CodeAPI *CodeAPIService
@@ -176,6 +178,8 @@ type APIClient struct {
 
 	LspAPI *LspAPIService
 
+	MarketAPI *MarketAPIService
+
 	MarketingAPI *MarketingAPIService
 
 	MarketplaceAPI *MarketplaceAPIService
@@ -239,6 +243,8 @@ type APIClient struct {
 	ShareAPI *ShareAPIService
 
 	SocialAPI *SocialAPIService
+
+	SpaceAPI *SpaceAPIService
 
 	StandingAPI *StandingAPIService
 
@@ -320,6 +326,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CaptableAPI = (*CaptableAPIService)(&c.common)
 	c.CatalogAPI = (*CatalogAPIService)(&c.common)
 	c.ChannelsAPI = (*ChannelsAPIService)(&c.common)
+	c.CiAPI = (*CiAPIService)(&c.common)
 	c.CloudflareAPI = (*CloudflareAPIService)(&c.common)
 	c.CodeAPI = (*CodeAPIService)(&c.common)
 	c.CommerceAPI = (*CommerceAPIService)(&c.common)
@@ -363,6 +370,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.LicensingAPI = (*LicensingAPIService)(&c.common)
 	c.LinkAPI = (*LinkAPIService)(&c.common)
 	c.LspAPI = (*LspAPIService)(&c.common)
+	c.MarketAPI = (*MarketAPIService)(&c.common)
 	c.MarketingAPI = (*MarketingAPIService)(&c.common)
 	c.MarketplaceAPI = (*MarketplaceAPIService)(&c.common)
 	c.MeetAPI = (*MeetAPIService)(&c.common)
@@ -395,6 +403,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.SettingsAPI = (*SettingsAPIService)(&c.common)
 	c.ShareAPI = (*ShareAPIService)(&c.common)
 	c.SocialAPI = (*SocialAPIService)(&c.common)
+	c.SpaceAPI = (*SpaceAPIService)(&c.common)
 	c.StandingAPI = (*StandingAPIService)(&c.common)
 	c.SyncAPI = (*SyncAPIService)(&c.common)
 	c.TasksAPI = (*TasksAPIService)(&c.common)

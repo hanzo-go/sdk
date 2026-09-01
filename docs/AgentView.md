@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Avatar** | Pointer to **string** | Avatar is an image the agent is drawn as — a link to one, or the bytes inline as a data URL, up to 96 KiB. Emoji is the one glyph a caller picked when they had no image. At most one is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is. Both are iam/pkg/schema&#39;s Mark, so a face means the same thing on an agent as it does on a person or an org. Avatar is the agent&#39;s picture: an image URL, or the image itself inline as a data URL up to 96 KiB. Empty when the agent has no image. | [optional] 
 **ComputeRef** | Pointer to **string** | ComputeRef is the visor machine this bot is bound to, opaque here: this package stores and echoes it, and the binding&#39;s lifecycle belongs elsewhere. Empty means unbound, which is what every one-shot agent is. | [optional] 
 **CreatedAt** | Pointer to **string** | CreatedAt is when the agent was defined, RFC 3339 in UTC to the second. | [optional] 
 **Description** | Pointer to **string** | Description is the one line another agent reads when deciding whether to call this one: the tool catalogue publishes it as the description of &#x60;agent_&lt;name&gt;&#x60;, falling back to \&quot;agent &lt;name&gt;\&quot; when it is empty. It is not part of the prompt — Instructions is — so writing the behaviour here reaches the caller and not the model. | [optional] 
+**Emoji** | Pointer to **string** | Emoji is the single glyph a caller picked when they had no image. At most one of avatar and emoji is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is. | [optional] 
 **ExecutionMode** | Pointer to **string** | ExecutionMode is one-shot or long-running, and it decides who may start this agent. one-shot runs only when something POSTs to it; long-running is additionally invoked by the scheduler on Schedule, once a minute against the cron. An org&#39;s long-running agents are capped, so a switch INTO it can be refused with 409. | [optional] 
 **Id** | Pointer to **string** | ID is the agent&#39;s stable handle, minted here as \&quot;agent_\&quot; + 32 hex characters of crypto/rand. A caller cannot choose it, and it never changes — unlike Name, which is the other way to address the same agent. | [optional] 
 **Model** | Pointer to **string** | Model is the Zen model this agent runs on, and it is always OUR name for it: writes normalize through cloud.ZenModel and the read normalizes again, so an upstream family name never leaves here even from a row written before that rule existed. A create that named none took the deployment&#39;s configured default, so this is where a caller learns which model it actually got. | [optional] 
@@ -36,6 +38,31 @@ will change when the set of required properties is changed
 NewAgentViewWithDefaults instantiates a new AgentView object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAvatar
+
+`func (o *AgentView) GetAvatar() string`
+
+GetAvatar returns the Avatar field if non-nil, zero value otherwise.
+
+### GetAvatarOk
+
+`func (o *AgentView) GetAvatarOk() (*string, bool)`
+
+GetAvatarOk returns a tuple with the Avatar field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvatar
+
+`func (o *AgentView) SetAvatar(v string)`
+
+SetAvatar sets Avatar field to given value.
+
+### HasAvatar
+
+`func (o *AgentView) HasAvatar() bool`
+
+HasAvatar returns a boolean if a field has been set.
 
 ### GetComputeRef
 
@@ -111,6 +138,31 @@ SetDescription sets Description field to given value.
 `func (o *AgentView) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetEmoji
+
+`func (o *AgentView) GetEmoji() string`
+
+GetEmoji returns the Emoji field if non-nil, zero value otherwise.
+
+### GetEmojiOk
+
+`func (o *AgentView) GetEmojiOk() (*string, bool)`
+
+GetEmojiOk returns a tuple with the Emoji field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmoji
+
+`func (o *AgentView) SetEmoji(v string)`
+
+SetEmoji sets Emoji field to given value.
+
+### HasEmoji
+
+`func (o *AgentView) HasEmoji() bool`
+
+HasEmoji returns a boolean if a field has been set.
 
 ### GetExecutionMode
 

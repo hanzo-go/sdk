@@ -19,12 +19,16 @@ var _ MappedNullable = &AgentView{}
 
 // AgentView struct for AgentView
 type AgentView struct {
+	// Avatar is an image the agent is drawn as — a link to one, or the bytes inline as a data URL, up to 96 KiB. Emoji is the one glyph a caller picked when they had no image. At most one is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is. Both are iam/pkg/schema's Mark, so a face means the same thing on an agent as it does on a person or an org. Avatar is the agent's picture: an image URL, or the image itself inline as a data URL up to 96 KiB. Empty when the agent has no image.
+	Avatar *string `json:"avatar,omitempty"`
 	// ComputeRef is the visor machine this bot is bound to, opaque here: this package stores and echoes it, and the binding's lifecycle belongs elsewhere. Empty means unbound, which is what every one-shot agent is.
 	ComputeRef *string `json:"computeRef,omitempty"`
 	// CreatedAt is when the agent was defined, RFC 3339 in UTC to the second.
 	CreatedAt *string `json:"createdAt,omitempty"`
 	// Description is the one line another agent reads when deciding whether to call this one: the tool catalogue publishes it as the description of `agent_<name>`, falling back to \"agent <name>\" when it is empty. It is not part of the prompt — Instructions is — so writing the behaviour here reaches the caller and not the model.
 	Description *string `json:"description,omitempty"`
+	// Emoji is the single glyph a caller picked when they had no image. At most one of avatar and emoji is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is.
+	Emoji *string `json:"emoji,omitempty"`
 	// ExecutionMode is one-shot or long-running, and it decides who may start this agent. one-shot runs only when something POSTs to it; long-running is additionally invoked by the scheduler on Schedule, once a minute against the cron. An org's long-running agents are capped, so a switch INTO it can be refused with 409.
 	ExecutionMode *string `json:"executionMode,omitempty"`
 	// ID is the agent's stable handle, minted here as \"agent_\" + 32 hex characters of crypto/rand. A caller cannot choose it, and it never changes — unlike Name, which is the other way to address the same agent.
@@ -62,6 +66,38 @@ func NewAgentView() *AgentView {
 func NewAgentViewWithDefaults() *AgentView {
 	this := AgentView{}
 	return &this
+}
+
+// GetAvatar returns the Avatar field value if set, zero value otherwise.
+func (o *AgentView) GetAvatar() string {
+	if o == nil || IsNil(o.Avatar) {
+		var ret string
+		return ret
+	}
+	return *o.Avatar
+}
+
+// GetAvatarOk returns a tuple with the Avatar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentView) GetAvatarOk() (*string, bool) {
+	if o == nil || IsNil(o.Avatar) {
+		return nil, false
+	}
+	return o.Avatar, true
+}
+
+// HasAvatar returns a boolean if a field has been set.
+func (o *AgentView) HasAvatar() bool {
+	if o != nil && !IsNil(o.Avatar) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatar gets a reference to the given string and assigns it to the Avatar field.
+func (o *AgentView) SetAvatar(v string) {
+	o.Avatar = &v
 }
 
 // GetComputeRef returns the ComputeRef field value if set, zero value otherwise.
@@ -158,6 +194,38 @@ func (o *AgentView) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *AgentView) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetEmoji returns the Emoji field value if set, zero value otherwise.
+func (o *AgentView) GetEmoji() string {
+	if o == nil || IsNil(o.Emoji) {
+		var ret string
+		return ret
+	}
+	return *o.Emoji
+}
+
+// GetEmojiOk returns a tuple with the Emoji field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentView) GetEmojiOk() (*string, bool) {
+	if o == nil || IsNil(o.Emoji) {
+		return nil, false
+	}
+	return o.Emoji, true
+}
+
+// HasEmoji returns a boolean if a field has been set.
+func (o *AgentView) HasEmoji() bool {
+	if o != nil && !IsNil(o.Emoji) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmoji gets a reference to the given string and assigns it to the Emoji field.
+func (o *AgentView) SetEmoji(v string) {
+	o.Emoji = &v
 }
 
 // GetExecutionMode returns the ExecutionMode field value if set, zero value otherwise.
@@ -490,6 +558,9 @@ func (o AgentView) MarshalJSON() ([]byte, error) {
 
 func (o AgentView) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Avatar) {
+		toSerialize["avatar"] = o.Avatar
+	}
 	if !IsNil(o.ComputeRef) {
 		toSerialize["computeRef"] = o.ComputeRef
 	}
@@ -498,6 +569,9 @@ func (o AgentView) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Emoji) {
+		toSerialize["emoji"] = o.Emoji
 	}
 	if !IsNil(o.ExecutionMode) {
 		toSerialize["executionMode"] = o.ExecutionMode

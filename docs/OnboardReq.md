@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Name is the organization&#39;s display name. Ignored when personal is true, which derives the name from the caller&#39;s own username instead. | [optional] 
-**Personal** | Pointer to **bool** | Personal asks for the caller&#39;s own workspace: the name is derived from their username and the slug auto-suffixes to stay unique. Meaningless — and refused — for a caller who already has an organization. | [optional] 
+**Personal** | Pointer to **bool** | Personal asks for the caller&#39;s own space: the name is derived from their username and the slug auto-suffixes to stay unique. Meaningless — and refused — for a caller who already has an organization. | [optional] 
 
 ## Methods
 

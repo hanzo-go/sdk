@@ -2427,6 +2427,114 @@ func (a *BillingAPIService) GetBillingPortalMethodsExecute(r BillingAPIGetBillin
 	return localVarHTTPResponse, nil
 }
 
+type BillingAPIGetBillingRechargeRequest struct {
+	ctx        context.Context
+	ApiService *BillingAPIService
+}
+
+func (r BillingAPIGetBillingRechargeRequest) Execute() (*AutoRecharge, *http.Response, error) {
+	return r.ApiService.GetBillingRechargeExecute(r)
+}
+
+/*
+GetBillingRecharge Reads the caller's auto-reload rule: top the balance up by `amountCents` whenever it falls below `thresholdCents`, charging the card on file off-session.
+
+Reads the caller's auto-reload rule: top the balance up by `amountCents`
+whenever it falls below `thresholdCents`, charging the card on file
+off-session. It is the same setting every prepaid AI account calls auto-reload.
+
+An org that has never set one reads as disabled with zeroes rather than as an
+error — "no rule" answers the question — and `stored` is how a caller tells
+never-configured from deliberately-off.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BillingAPIGetBillingRechargeRequest
+*/
+func (a *BillingAPIService) GetBillingRecharge(ctx context.Context) BillingAPIGetBillingRechargeRequest {
+	return BillingAPIGetBillingRechargeRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoRecharge
+func (a *BillingAPIService) GetBillingRechargeExecute(r BillingAPIGetBillingRechargeRequest) (*AutoRecharge, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoRecharge
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingRecharge")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/billing/recharge"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type BillingAPIGetBillingSettingsRequest struct {
 	ctx        context.Context
 	ApiService *BillingAPIService
@@ -2837,6 +2945,125 @@ func (a *BillingAPIService) GetBillingTransactionsExecute(r BillingAPIGetBilling
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BillingAPIGetBillingTransactionsByIdRequest struct {
+	ctx        context.Context
+	ApiService *BillingAPIService
+	id         string
+}
+
+func (r BillingAPIGetBillingTransactionsByIdRequest) Execute() (*Transaction, *http.Response, error) {
+	return r.ApiService.GetBillingTransactionsByIdExecute(r)
+}
+
+/*
+GetBillingTransactionsById Reads one ledger entry by its id.
+
+Reads one ledger entry by its id.
+
+It is the MEMBER of the collection beside it rather than a second way to ask —
+the same rows GET /v1/billing/transactions lists, addressed one at a time. A
+top-up receipt is read here, because a receipt IS a ledger entry: the id this
+takes is the `transactionId` a top-up hands back.
+
+The read is narrower than the list: commerce's core loads the row and refuses
+anything that is not a deposit, so a row that exists but is not a top-up
+answers 404. That asymmetry is stated rather than closed, because widening a
+money read to make two shapes match is not a change worth making for symmetry.
+
+The books are the caller's own and cannot be named, so a guessed id misses
+rather than reaching another tenant's ledger.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return BillingAPIGetBillingTransactionsByIdRequest
+*/
+func (a *BillingAPIService) GetBillingTransactionsById(ctx context.Context, id string) BillingAPIGetBillingTransactionsByIdRequest {
+	return BillingAPIGetBillingTransactionsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return Transaction
+func (a *BillingAPIService) GetBillingTransactionsByIdExecute(r BillingAPIGetBillingTransactionsByIdRequest) (*Transaction, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Transaction
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.GetBillingTransactionsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/billing/transactions/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -4641,6 +4868,128 @@ func (a *BillingAPIService) PostBillingTopupTokenExecute(r BillingAPIPostBilling
 	}
 	// body params
 	localVarPostBody = r.topupIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type BillingAPIPutBillingRechargeRequest struct {
+	ctx              context.Context
+	ApiService       *BillingAPIService
+	autoRechargeEdit *AutoRechargeEdit
+}
+
+func (r BillingAPIPutBillingRechargeRequest) AutoRechargeEdit(autoRechargeEdit AutoRechargeEdit) BillingAPIPutBillingRechargeRequest {
+	r.autoRechargeEdit = &autoRechargeEdit
+	return r
+}
+
+func (r BillingAPIPutBillingRechargeRequest) Execute() (*AutoRecharge, *http.Response, error) {
+	return r.ApiService.PutBillingRechargeExecute(r)
+}
+
+/*
+PutBillingRecharge Sets the caller's auto-reload rule, and answers with the rule as stored.
+
+Sets the caller's auto-reload rule, and answers with the rule as stored.
+
+ENABLING REQUIRES A CARD ON FILE (400), because the sweep charges off-session:
+a rule naming no chargeable method is a promise the schedule cannot keep. A
+non-positive amount and a negative threshold are refused the same way, each
+naming the field that was wrong.
+
+The rule is the caller's OWN. The org comes from the validated principal and
+the body names none, so there is no field a write could be steered through onto
+another tenant's schedule.
+
+A named handler, not a closure, so zipdoc can lift this prose into the registry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return BillingAPIPutBillingRechargeRequest
+*/
+func (a *BillingAPIService) PutBillingRecharge(ctx context.Context) BillingAPIPutBillingRechargeRequest {
+	return BillingAPIPutBillingRechargeRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoRecharge
+func (a *BillingAPIService) PutBillingRechargeExecute(r BillingAPIPutBillingRechargeRequest) (*AutoRecharge, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoRecharge
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAPIService.PutBillingRecharge")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/billing/recharge"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.autoRechargeEdit == nil {
+		return localVarReturnValue, nil, reportError("autoRechargeEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.autoRechargeEdit
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Doctypes** | Pointer to **[]string** | DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb-page, kb-memory, kb-source). An empty or foreign list reads all of them. | [optional] 
+**Doctypes** | Pointer to **[]string** | DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb.page, kb.memory, kb.source). An empty or foreign list reads all of them. | [optional] 
 **Limit** | Pointer to **int32** | Limit bounds the hits returned. Default 10, maximum 50. | [optional] 
 **Project** | Pointer to **string** | Project narrows retrieval to one project scope. | [optional] 
 **Query** | Pointer to **string** | Query is the natural-language question. Required. | [optional] 

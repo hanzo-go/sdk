@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Brief** | Pointer to **string** | the brief/goal driving copy generation | [optional] 
 **Channels** | Pointer to **string** | target channels (SocialPost) | [optional] 
 **Design** | Pointer to **string** | studio design slug (asset source) | [optional] 
-**Doctype** | Pointer to **string** | Campaign | SocialPost | Asset | [optional] 
+**Doctype** | Pointer to **string** | marketing.Campaign | marketing.SocialPost | marketing.Asset | [optional] 
 **Kind** | Pointer to **string** | asset kind: ecom|product|lifestyle|hover|hero | [optional] 
 **Model** | Pointer to **string** | optional zen model override (copy) | [optional] 
 **Product** | Pointer to **string** | commerce product handle (copy context) | [optional] 

@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Avatar** | Pointer to **string** |  | [optional] 
 **ComputeRef** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
+**Emoji** | Pointer to **string** |  | [optional] 
 **ExecutionMode** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Instructions** | Pointer to **string** | Instructions is the agent&#39;s system prompt, verbatim, up to 32 KiB. It is the one field the list read withholds, because it is the agent&#39;s whole behaviour and a page of them would be a page of prompts. | [optional] 
@@ -38,6 +40,31 @@ will change when the set of required properties is changed
 NewAgentDetailWithDefaults instantiates a new AgentDetail object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAvatar
+
+`func (o *AgentDetail) GetAvatar() string`
+
+GetAvatar returns the Avatar field if non-nil, zero value otherwise.
+
+### GetAvatarOk
+
+`func (o *AgentDetail) GetAvatarOk() (*string, bool)`
+
+GetAvatarOk returns a tuple with the Avatar field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvatar
+
+`func (o *AgentDetail) SetAvatar(v string)`
+
+SetAvatar sets Avatar field to given value.
+
+### HasAvatar
+
+`func (o *AgentDetail) HasAvatar() bool`
+
+HasAvatar returns a boolean if a field has been set.
 
 ### GetComputeRef
 
@@ -113,6 +140,31 @@ SetDescription sets Description field to given value.
 `func (o *AgentDetail) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetEmoji
+
+`func (o *AgentDetail) GetEmoji() string`
+
+GetEmoji returns the Emoji field if non-nil, zero value otherwise.
+
+### GetEmojiOk
+
+`func (o *AgentDetail) GetEmojiOk() (*string, bool)`
+
+GetEmojiOk returns a tuple with the Emoji field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmoji
+
+`func (o *AgentDetail) SetEmoji(v string)`
+
+SetEmoji sets Emoji field to given value.
+
+### HasEmoji
+
+`func (o *AgentDetail) HasEmoji() bool`
+
+HasEmoji returns a boolean if a field has been set.
 
 ### GetExecutionMode
 

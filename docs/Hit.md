@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Doctype** | Pointer to **string** | DocType is which kind of knowledge matched: kb-page (a wiki page), kb-memory (a unit of agent memory) or kb-source (a document a connector ingested). Those three are the whole indexed set, and searchIn.DocTypes filters on them. | [optional] 
+**Doctype** | Pointer to **string** | DocType is which kind of knowledge matched, by address: kb.page (a wiki page), kb.memory (a unit of agent memory) or kb.source (a document a connector ingested). Those three are the whole indexed set, and searchIn.DocTypes filters on them. | [optional] 
 **Name** | Pointer to **string** | Name is the document&#39;s name in the framework store — the id to read or open it with. Unique per (org, doctype), so it identifies the document with DocType and not alone. | [optional] 
 **Project** | Pointer to **string** | Project is the project scope the document was saved under. Absent for a document saved with none, which is also why a project-scoped query cannot reach it. | [optional] 
 **Provider** | Pointer to **string** | Provider is the connector that ingested the document — github, slack, google or notion. Absent for a page or memory written in the product, which came from no connector. | [optional] 

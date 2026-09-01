@@ -19,9 +19,11 @@ var _ MappedNullable = &AgentDetail{}
 
 // AgentDetail struct for AgentDetail
 type AgentDetail struct {
+	Avatar        *string `json:"avatar,omitempty"`
 	ComputeRef    *string `json:"computeRef,omitempty"`
 	CreatedAt     *string `json:"createdAt,omitempty"`
 	Description   *string `json:"description,omitempty"`
+	Emoji         *string `json:"emoji,omitempty"`
 	ExecutionMode *string `json:"executionMode,omitempty"`
 	Id            *string `json:"id,omitempty"`
 	// Instructions is the agent's system prompt, verbatim, up to 32 KiB. It is the one field the list read withholds, because it is the agent's whole behaviour and a page of them would be a page of prompts.
@@ -53,6 +55,38 @@ func NewAgentDetail() *AgentDetail {
 func NewAgentDetailWithDefaults() *AgentDetail {
 	this := AgentDetail{}
 	return &this
+}
+
+// GetAvatar returns the Avatar field value if set, zero value otherwise.
+func (o *AgentDetail) GetAvatar() string {
+	if o == nil || IsNil(o.Avatar) {
+		var ret string
+		return ret
+	}
+	return *o.Avatar
+}
+
+// GetAvatarOk returns a tuple with the Avatar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentDetail) GetAvatarOk() (*string, bool) {
+	if o == nil || IsNil(o.Avatar) {
+		return nil, false
+	}
+	return o.Avatar, true
+}
+
+// HasAvatar returns a boolean if a field has been set.
+func (o *AgentDetail) HasAvatar() bool {
+	if o != nil && !IsNil(o.Avatar) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatar gets a reference to the given string and assigns it to the Avatar field.
+func (o *AgentDetail) SetAvatar(v string) {
+	o.Avatar = &v
 }
 
 // GetComputeRef returns the ComputeRef field value if set, zero value otherwise.
@@ -149,6 +183,38 @@ func (o *AgentDetail) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *AgentDetail) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetEmoji returns the Emoji field value if set, zero value otherwise.
+func (o *AgentDetail) GetEmoji() string {
+	if o == nil || IsNil(o.Emoji) {
+		var ret string
+		return ret
+	}
+	return *o.Emoji
+}
+
+// GetEmojiOk returns a tuple with the Emoji field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentDetail) GetEmojiOk() (*string, bool) {
+	if o == nil || IsNil(o.Emoji) {
+		return nil, false
+	}
+	return o.Emoji, true
+}
+
+// HasEmoji returns a boolean if a field has been set.
+func (o *AgentDetail) HasEmoji() bool {
+	if o != nil && !IsNil(o.Emoji) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmoji gets a reference to the given string and assigns it to the Emoji field.
+func (o *AgentDetail) SetEmoji(v string) {
+	o.Emoji = &v
 }
 
 // GetExecutionMode returns the ExecutionMode field value if set, zero value otherwise.
@@ -545,6 +611,9 @@ func (o AgentDetail) MarshalJSON() ([]byte, error) {
 
 func (o AgentDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Avatar) {
+		toSerialize["avatar"] = o.Avatar
+	}
 	if !IsNil(o.ComputeRef) {
 		toSerialize["computeRef"] = o.ComputeRef
 	}
@@ -553,6 +622,9 @@ func (o AgentDetail) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Emoji) {
+		toSerialize["emoji"] = o.Emoji
 	}
 	if !IsNil(o.ExecutionMode) {
 		toSerialize["executionMode"] = o.ExecutionMode

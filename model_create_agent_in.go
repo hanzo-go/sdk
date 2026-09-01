@@ -19,10 +19,14 @@ var _ MappedNullable = &CreateAgentIn{}
 
 // CreateAgentIn struct for CreateAgentIn
 type CreateAgentIn struct {
+	// Avatar and Emoji are how the agent APPEARS. An image wins when both are given — it is the thing somebody made — and both empty leaves the agent drawn as its initial. Validated by iam/pkg/schema, the same rule a person's avatar passes, so the 96 KiB bound and the accepted URL forms are stated once for every subject that has a face.
+	Avatar *string `json:"avatar,omitempty"`
 	// ComputeRef optionally binds this bot to a visor machine. Opaque here, bounded at 256 characters, and not resolved — this package stores the reference and the binding's lifecycle belongs elsewhere.
 	ComputeRef *string `json:"computeRef,omitempty"`
 	// Description is the one line published as the description of the `agent_<name>` tool, which is how another agent decides whether to call this one. Optional, and worth writing for exactly that reason.
 	Description *string `json:"description,omitempty"`
+	// Emoji is the single glyph shown when there is no image. An image WINS when both are given — it is the thing somebody made — and both empty leaves the agent drawn as its initial.
+	Emoji *string `json:"emoji,omitempty"`
 	// ExecutionMode is one-shot or long-running. Empty takes one-shot, which runs only when something POSTs to it. long-running additionally requires Schedule, and counts against a per-org cap that answers 409 when it is full.
 	ExecutionMode *string `json:"executionMode,omitempty"`
 	// Instructions is the system prompt, up to 32 KiB, stored verbatim. This is what the model reads; Description is what other CALLERS read.
@@ -54,6 +58,38 @@ func NewCreateAgentIn() *CreateAgentIn {
 func NewCreateAgentInWithDefaults() *CreateAgentIn {
 	this := CreateAgentIn{}
 	return &this
+}
+
+// GetAvatar returns the Avatar field value if set, zero value otherwise.
+func (o *CreateAgentIn) GetAvatar() string {
+	if o == nil || IsNil(o.Avatar) {
+		var ret string
+		return ret
+	}
+	return *o.Avatar
+}
+
+// GetAvatarOk returns a tuple with the Avatar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateAgentIn) GetAvatarOk() (*string, bool) {
+	if o == nil || IsNil(o.Avatar) {
+		return nil, false
+	}
+	return o.Avatar, true
+}
+
+// HasAvatar returns a boolean if a field has been set.
+func (o *CreateAgentIn) HasAvatar() bool {
+	if o != nil && !IsNil(o.Avatar) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatar gets a reference to the given string and assigns it to the Avatar field.
+func (o *CreateAgentIn) SetAvatar(v string) {
+	o.Avatar = &v
 }
 
 // GetComputeRef returns the ComputeRef field value if set, zero value otherwise.
@@ -118,6 +154,38 @@ func (o *CreateAgentIn) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *CreateAgentIn) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetEmoji returns the Emoji field value if set, zero value otherwise.
+func (o *CreateAgentIn) GetEmoji() string {
+	if o == nil || IsNil(o.Emoji) {
+		var ret string
+		return ret
+	}
+	return *o.Emoji
+}
+
+// GetEmojiOk returns a tuple with the Emoji field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateAgentIn) GetEmojiOk() (*string, bool) {
+	if o == nil || IsNil(o.Emoji) {
+		return nil, false
+	}
+	return o.Emoji, true
+}
+
+// HasEmoji returns a boolean if a field has been set.
+func (o *CreateAgentIn) HasEmoji() bool {
+	if o != nil && !IsNil(o.Emoji) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmoji gets a reference to the given string and assigns it to the Emoji field.
+func (o *CreateAgentIn) SetEmoji(v string) {
+	o.Emoji = &v
 }
 
 // GetExecutionMode returns the ExecutionMode field value if set, zero value otherwise.
@@ -354,11 +422,17 @@ func (o CreateAgentIn) MarshalJSON() ([]byte, error) {
 
 func (o CreateAgentIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Avatar) {
+		toSerialize["avatar"] = o.Avatar
+	}
 	if !IsNil(o.ComputeRef) {
 		toSerialize["computeRef"] = o.ComputeRef
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Emoji) {
+		toSerialize["emoji"] = o.Emoji
 	}
 	if !IsNil(o.ExecutionMode) {
 		toSerialize["executionMode"] = o.ExecutionMode

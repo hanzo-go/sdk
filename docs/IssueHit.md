@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Priority** | Pointer to **string** | Priority is urgent, high, medium, low or none. Never empty — an unset priority is the value \&quot;none\&quot;. | [optional] 
 **Project** | Pointer to **string** | Project is the board key the issue is on. It and Number are the issue&#39;s address in every other route on this surface, which is why a hit carries it. | [optional] 
 **Repo** | Pointer to **string** | Repo is the git repository the issue is bound to, empty when it is not repo-bound. | [optional] 
-**Room** | Pointer to **string** | Room is the collaboration room the issue belongs to, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read. | [optional] 
+**Room** | Pointer to **string** | Room is the collaboration room the issue belongs to, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read. | [optional] 
 **Source** | Pointer to **string** | Source is which surface opened it: team, git, crm, helpdesk, cms or agent. \&quot;git\&quot; is how the mirrored forge and GitHub rows are spelled. | [optional] 
 **Status** | Pointer to **string** | Status is the board column: backlog, todo, in_progress, done or canceled. Claiming moves backlog and todo to in_progress and leaves the other three where they are. | [optional] 
 **Title** | Pointer to **string** | Title is the issue&#39;s one-line summary — what the q filter matched, along with the description. | [optional] 

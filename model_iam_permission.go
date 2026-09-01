@@ -32,7 +32,6 @@ type IamPermission struct {
 	DisplayName *string  `json:"displayName,omitempty"`
 	Domains     []string `json:"domains,omitempty"`
 	Effect      *string  `json:"effect,omitempty"`
-	Groups      []string `json:"groups,omitempty"`
 	Id          *string  `json:"id,omitempty"`
 	IsEnabled   *bool    `json:"isEnabled,omitempty"`
 	// Authorization model, targets, and decision. AuthzModel carries the v1 `model` column (the named authz model); it is not the Go identifier `Model` because that name is taken by the embedded orm.Model[Permission] mixin. The HTTP contract is unchanged — json:\"model\".
@@ -46,6 +45,7 @@ type IamPermission struct {
 	State        *string  `json:"state,omitempty"`
 	// Submission / approval workflow.
 	Submitter *string    `json:"submitter,omitempty"`
+	Teams     []string   `json:"teams,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	// Subjects the grant is evaluated for.
 	Users []string `json:"users,omitempty"`
@@ -420,38 +420,6 @@ func (o *IamPermission) SetEffect(v string) {
 	o.Effect = &v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
-func (o *IamPermission) GetGroups() []string {
-	if o == nil || IsNil(o.Groups) {
-		var ret []string
-		return ret
-	}
-	return o.Groups
-}
-
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamPermission) GetGroupsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Groups) {
-		return nil, false
-	}
-	return o.Groups, true
-}
-
-// HasGroups returns a boolean if a field has been set.
-func (o *IamPermission) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []string and assigns it to the Groups field.
-func (o *IamPermission) SetGroups(v []string) {
-	o.Groups = v
-}
-
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *IamPermission) GetId() string {
 	if o == nil || IsNil(o.Id) {
@@ -772,6 +740,38 @@ func (o *IamPermission) SetSubmitter(v string) {
 	o.Submitter = &v
 }
 
+// GetTeams returns the Teams field value if set, zero value otherwise.
+func (o *IamPermission) GetTeams() []string {
+	if o == nil || IsNil(o.Teams) {
+		var ret []string
+		return ret
+	}
+	return o.Teams
+}
+
+// GetTeamsOk returns a tuple with the Teams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamPermission) GetTeamsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Teams) {
+		return nil, false
+	}
+	return o.Teams, true
+}
+
+// HasTeams returns a boolean if a field has been set.
+func (o *IamPermission) HasTeams() bool {
+	if o != nil && !IsNil(o.Teams) {
+		return true
+	}
+
+	return false
+}
+
+// SetTeams gets a reference to the given []string and assigns it to the Teams field.
+func (o *IamPermission) SetTeams(v []string) {
+	o.Teams = v
+}
+
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *IamPermission) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
@@ -879,9 +879,6 @@ func (o IamPermission) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Effect) {
 		toSerialize["effect"] = o.Effect
 	}
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -911,6 +908,9 @@ func (o IamPermission) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Submitter) {
 		toSerialize["submitter"] = o.Submitter
+	}
+	if !IsNil(o.Teams) {
+		toSerialize["teams"] = o.Teams
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt

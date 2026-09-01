@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DocumentId** | Pointer to **string** | DocumentID addresses the document field, as \&quot;&lt;workspaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. | [optional] 
+**DocumentId** | Pointer to **string** | DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. | [optional] 
 **Method** | Pointer to **string** | Method is the verb: createContent, updateContent or getContent. | [optional] 
 **Payload** | Pointer to [**CollabPayload**](CollabPayload.md) | Payload is the verb&#39;s argument. | [optional] 
 

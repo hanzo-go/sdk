@@ -129,13 +129,124 @@ func (a *ChannelsAPIService) GetChannelsExecute(r ChannelsAPIGetChannelsRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ChannelsAPIGetChannelsAgentRequest struct {
+	ctx        context.Context
+	ApiService *ChannelsAPIService
+	channel    *string
+}
+
+// Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
+func (r ChannelsAPIGetChannelsAgentRequest) Channel(channel string) ChannelsAPIGetChannelsAgentRequest {
+	r.channel = &channel
+	return r
+}
+
+func (r ChannelsAPIGetChannelsAgentRequest) Execute() (*ChannelAgents, *http.Response, error) {
+	return r.ApiService.GetChannelsAgentExecute(r)
+}
+
+/*
+GetChannelsAgent Returns which agent answers the caller org's channel: the default and every room bound to another agent.
+
+Returns which agent answers the caller org's channel: the default and
+every room bound to another agent.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ChannelsAPIGetChannelsAgentRequest
+*/
+func (a *ChannelsAPIService) GetChannelsAgent(ctx context.Context) ChannelsAPIGetChannelsAgentRequest {
+	return ChannelsAPIGetChannelsAgentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ChannelAgents
+func (a *ChannelsAPIService) GetChannelsAgentExecute(r ChannelsAPIGetChannelsAgentRequest) (*ChannelAgents, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ChannelAgents
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelsAPIService.GetChannelsAgent")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/channels/agent"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.channel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "channel", r.channel, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ChannelsAPIGetChannelsAllowlistRequest struct {
 	ctx        context.Context
 	ApiService *ChannelsAPIService
 	channel    *string
 }
 
-// Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
+// Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
 func (r ChannelsAPIGetChannelsAllowlistRequest) Channel(channel string) ChannelsAPIGetChannelsAllowlistRequest {
 	r.channel = &channel
 	return r
@@ -484,7 +595,7 @@ func (r ChannelsAPIPostChannelsByChannelSendRequest) Execute() (*http.Response, 
 /*
 PostChannelsByChannelSend Send a message from your org's bot to one chat room
 
-Delivers text, attachments and actions to one room on a connected chat transport — discord, slack, teams, telegram or whatsapp — and answers that transport's own receipt, the `messageId` it assigned and the Unix second it landed. An unknown channel is a 404.
+Delivers text, attachments and actions to one room on a connected chat transport — discord, github, linear, slack, teams, telegram or whatsapp — and answers that transport's own receipt, the `messageId` it assigned and the Unix second it landed. An unknown channel is a 404.
 
 The body is the envelope's NARROW outbound projection: `room`, `text`, `attachments`, `actions`, `replyTo` and `idempotency`, and nothing else. Identity is not a field — the channel is the path segment and the sender is the caller's validated org — so a body carrying `sender`, `account` or `channel` is refused with 400 rather than having it silently dropped. `room.id` is required, and so is something to say: text, or at least one attachment.
 
@@ -648,6 +759,119 @@ func (a *ChannelsAPIService) PostChannelsPairingApproveExecute(r ChannelsAPIPost
 	}
 	// body params
 	localVarPostBody = r.approvePairingIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ChannelsAPIPutChannelsAgentRequest struct {
+	ctx              context.Context
+	ApiService       *ChannelsAPIService
+	channelAgentsPut *ChannelAgentsPut
+}
+
+func (r ChannelsAPIPutChannelsAgentRequest) ChannelAgentsPut(channelAgentsPut ChannelAgentsPut) ChannelsAPIPutChannelsAgentRequest {
+	r.channelAgentsPut = &channelAgentsPut
+	return r
+}
+
+func (r ChannelsAPIPutChannelsAgentRequest) Execute() (*ChannelAgents, *http.Response, error) {
+	return r.ApiService.PutChannelsAgentExecute(r)
+}
+
+/*
+PutChannelsAgent Binds agents to the caller org's channel and answers the bindings as GET would.
+
+Binds agents to the caller org's channel and answers the bindings as
+GET would. It requires ORG ADMIN. The agent is named by its ref — the name an
+org gave it at POST /v1/agents, or a built-in such as dev, des or vi.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ChannelsAPIPutChannelsAgentRequest
+*/
+func (a *ChannelsAPIService) PutChannelsAgent(ctx context.Context) ChannelsAPIPutChannelsAgentRequest {
+	return ChannelsAPIPutChannelsAgentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ChannelAgents
+func (a *ChannelsAPIService) PutChannelsAgentExecute(r ChannelsAPIPutChannelsAgentRequest) (*ChannelAgents, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ChannelAgents
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelsAPIService.PutChannelsAgent")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/channels/agent"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.channelAgentsPut == nil {
+		return localVarReturnValue, nil, reportError("channelAgentsPut is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.channelAgentsPut
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

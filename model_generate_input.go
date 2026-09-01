@@ -25,7 +25,7 @@ type GenerateInput struct {
 	Channels *string `json:"channels,omitempty"`
 	// studio design slug (asset source)
 	Design *string `json:"design,omitempty"`
-	// Campaign | SocialPost | Asset
+	// marketing.Campaign | marketing.SocialPost | marketing.Asset
 	Doctype *string `json:"doctype,omitempty"`
 	// asset kind: ecom|product|lifestyle|hover|hero
 	Kind *string `json:"kind,omitempty"`

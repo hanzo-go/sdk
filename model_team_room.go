@@ -25,20 +25,20 @@ type TeamRoom struct {
 	Bindings []string `json:"bindings,omitempty"`
 	// Direct reports that this is a room between people rather than a named room. It is derived from the document's class, so it cannot disagree with what the client will render.
 	Direct *bool `json:"direct,omitempty"`
-	// ID is the room document's own id, and the value the bind op addresses. It is unique within a workspace, not across the org.
+	// ID is the room document's own id, and the value the bind op addresses. It is unique within a space, not across the org.
 	Id *string `json:"id,omitempty"`
 	// Life is the room's lifecycle INTENT — \"standing\" or \"bound\" (HIP-0523 §2). Absent on the document it reads \"standing\": a room nobody classified is one that persists.
 	Life *string `json:"life,omitempty"`
-	// Members are the account uuids in the room, agents included: an agent projects as a workspace member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in.
+	// Members are the account uuids in the room, agents included: an agent projects as a space member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in.
 	Members []string `json:"members,omitempty"`
 	// Name is what a person sees in a sidebar. A direct message carries none, so this is empty for one — the members are its name.
 	Name *string `json:"name,omitempty"`
 	// Private reports that the room is restricted to its members.
 	Private *bool `json:"private,omitempty"`
+	// Space is the space uuid holding this room. It is part of the room's address: two spaces of one org may each hold a room with the same name, and only the pair identifies one.
+	Space *string `json:"space,omitempty"`
 	// Topic is the room's own one-line subject, as the Team client sets it.
 	Topic *string `json:"topic,omitempty"`
-	// Workspace is the workspace uuid holding this room. It is part of the room's address: two workspaces of one org may each hold a room with the same name, and only the pair identifies one.
-	Workspace *string `json:"workspace,omitempty"`
 }
 
 // NewTeamRoom instantiates a new TeamRoom object
@@ -314,6 +314,38 @@ func (o *TeamRoom) SetPrivate(v bool) {
 	o.Private = &v
 }
 
+// GetSpace returns the Space field value if set, zero value otherwise.
+func (o *TeamRoom) GetSpace() string {
+	if o == nil || IsNil(o.Space) {
+		var ret string
+		return ret
+	}
+	return *o.Space
+}
+
+// GetSpaceOk returns a tuple with the Space field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TeamRoom) GetSpaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Space) {
+		return nil, false
+	}
+	return o.Space, true
+}
+
+// HasSpace returns a boolean if a field has been set.
+func (o *TeamRoom) HasSpace() bool {
+	if o != nil && !IsNil(o.Space) {
+		return true
+	}
+
+	return false
+}
+
+// SetSpace gets a reference to the given string and assigns it to the Space field.
+func (o *TeamRoom) SetSpace(v string) {
+	o.Space = &v
+}
+
 // GetTopic returns the Topic field value if set, zero value otherwise.
 func (o *TeamRoom) GetTopic() string {
 	if o == nil || IsNil(o.Topic) {
@@ -344,38 +376,6 @@ func (o *TeamRoom) HasTopic() bool {
 // SetTopic gets a reference to the given string and assigns it to the Topic field.
 func (o *TeamRoom) SetTopic(v string) {
 	o.Topic = &v
-}
-
-// GetWorkspace returns the Workspace field value if set, zero value otherwise.
-func (o *TeamRoom) GetWorkspace() string {
-	if o == nil || IsNil(o.Workspace) {
-		var ret string
-		return ret
-	}
-	return *o.Workspace
-}
-
-// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TeamRoom) GetWorkspaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Workspace) {
-		return nil, false
-	}
-	return o.Workspace, true
-}
-
-// HasWorkspace returns a boolean if a field has been set.
-func (o *TeamRoom) HasWorkspace() bool {
-	if o != nil && !IsNil(o.Workspace) {
-		return true
-	}
-
-	return false
-}
-
-// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
-func (o *TeamRoom) SetWorkspace(v string) {
-	o.Workspace = &v
 }
 
 func (o TeamRoom) MarshalJSON() ([]byte, error) {
@@ -412,11 +412,11 @@ func (o TeamRoom) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Private) {
 		toSerialize["private"] = o.Private
 	}
+	if !IsNil(o.Space) {
+		toSerialize["space"] = o.Space
+	}
 	if !IsNil(o.Topic) {
 		toSerialize["topic"] = o.Topic
-	}
-	if !IsNil(o.Workspace) {
-		toSerialize["workspace"] = o.Workspace
 	}
 	return toSerialize, nil
 }
